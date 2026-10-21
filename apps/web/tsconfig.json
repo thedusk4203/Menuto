@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "types": [
       "vite/client"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [
     "src",

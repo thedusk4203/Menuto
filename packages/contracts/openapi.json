@@ -28,6 +28,12 @@
             "type": "string"
           }
         },
+        "required": [
+          "service",
+          "status",
+          "stage",
+          "planner_ready"
+        ],
         "title": "HealthResponse",
         "type": "object"
       }

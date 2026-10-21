@@ -16,7 +16,7 @@ Implementation có thể bổ sung chi tiết chưa khóa. Thay đổi mâu thu�
 
 ## Chạy tại máy
 
-Yêu cầu Python 3.13.14 (uv có thể cài), uv 0.11.28, Node 24.x và npm. Dependencies được khóa trong uv.lock/package-lock.json.
+Yêu cầu Python 3.13.14 (uv có thể cài), uv 0.11.28, Node 24.x và npm. Dependencies được khóa trong uv.lock và một package-lock.json tại root cho npm workspace.
 
 ```powershell
 uv sync --locked
@@ -29,8 +29,10 @@ uv run uvicorn app.main:app --reload
 Ở terminal khác, từ root:
 
 ```powershell
-npm --prefix apps/web ci
-npm --prefix apps/web run dev
+npm ci
+npm run contracts:check
+npm run test:client
+npm run dev --workspace @menuto/web
 ```
 
 Web: http://127.0.0.1:5173. API docs: http://127.0.0.1:8000/docs. Web chỉ có trang foundation gọi health API; health không kiểm chứng DB/planner readiness.
@@ -44,6 +46,7 @@ apps/backend/tests/        Health/API tests
 apps/backend/workers/      Đường mở rộng, chưa có worker
 apps/web/                  React/TypeScript/Vite foundation
 packages/contracts/        OpenAPI snapshot từ FastAPI
+packages/api-client/       Generated TypeScript contracts và standalone runtime validator
 benchmark/                 CP-SAT micro-model, reference độc lập, verifier, fixtures, runner
 data/                      Seeds/imports, chưa có dữ liệu thật
 docs/                      Spec, invariants, ADR, glossary, architecture, backlog
@@ -56,7 +59,9 @@ Không dùng adapter trong benchmark như Planner V4 production. Không có poli
 
 ## Kiểm tra trước khi commit
 
-Theo [CONTRIBUTING](CONTRIBUTING.md). CI chạy Python tests/lint, kiểm tra OpenAPI/fixtures, benchmark và frontend build; JSON runtime là artifact, không phải dữ liệu production.
+Theo [CONTRIBUTING](CONTRIBUTING.md). CI chạy Python tests/lint, import boundaries, OpenAPI/fixtures, benchmark, generated client drift/typecheck/tests và frontend build; JSON runtime là artifact, không phải dữ liệu production.
+
+Main được bảo vệ bằng PR, check python/web của GitHub Actions và cấm force-push/xóa nhánh (kể cả admin). Cấu hình mong muốn được lưu trong .github/branch-protection.main.json.
 
 Graphify là công cụ phát triển tùy chọn, không phải runtime của sản phẩm. Chỉ ba output công khai của graph được quản lý trên Git; interpreter, cache và sidecars tại máy bị bỏ qua. Graph là bản đồ tài liệu/code, không chứng minh feature đã hoàn thành.
 

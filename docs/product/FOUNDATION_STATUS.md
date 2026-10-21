@@ -3,7 +3,9 @@
 ## Có trong scaffold
 
 - 14 namespace domain, FastAPI process-liveness endpoint, React/TypeScript health shell và OpenAPI snapshot.
-- Benchmark runner, CP-SAT micro-model, exhaustive reference độc lập, số học kiểm chứng, 18 fixtures synthetic có thể tái sinh và tests.
+- Benchmark runner, CP-SAT micro-model, exhaustive reference độc lập, số học kiểm chứng, 22 fixtures synthetic có thể tái sinh và tests.
+- Generated TypeScript client + standalone runtime validation từ cùng OpenAPI, client contract tests và import-boundary checker có negative tests.
+- Main protection đã bật với PR, required python/web checks, no force-push/delete và enforce admins.
 - Toolchain lock, CI checks và issue MTR-001..014. Đây là CI configuration; kết quả chạy thực được báo theo từng commit, không mặc định luôn xanh.
 - Graphify phân tích AST + nội dung tài liệu để tạo bản đồ quan hệ, không thay validator hay test.
 

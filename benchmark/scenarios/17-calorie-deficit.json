@@ -1,18 +1,20 @@
 {
-  "schema_version": "synthetic-v1",
+  "schema_version": "synthetic-v2",
   "id": "calorie-deficit",
   "provenance": "synthetic-from-spec-v1.2",
   "horizon_days": 1,
   "tags": [
     "1-day",
     "2-meals",
-    "maintain",
+    "calorie-deficit",
     "small-catalog",
-    "fresh-price",
-    "no-inventory",
+    "candidate-count-4",
     "no-budget",
-    "calorie-deficit"
+    "no-inventory",
+    "fresh-price",
+    "pack-step-5"
   ],
+  "goal_preset": "calorie-deficit",
   "slots": [
     {
       "id": "s0",
@@ -101,5 +103,6 @@
   "budget_mode": "NONE",
   "budget_minor": null,
   "stress_prices": {},
-  "expected_status": "OPTIMAL"
+  "expected_status": "OPTIMAL",
+  "stress_policy": null
 }

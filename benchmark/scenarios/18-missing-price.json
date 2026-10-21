@@ -1,5 +1,5 @@
 {
-  "schema_version": "synthetic-v1",
+  "schema_version": "synthetic-v2",
   "id": "missing-price",
   "provenance": "synthetic-from-spec-v1.2",
   "horizon_days": 1,
@@ -8,11 +8,13 @@
     "2-meals",
     "maintain",
     "small-catalog",
-    "fresh-price",
-    "no-inventory",
+    "candidate-count-4",
     "no-budget",
-    "missing-price"
+    "no-inventory",
+    "missing-price",
+    "pack-step-5"
   ],
+  "goal_preset": "maintain",
   "slots": [
     {
       "id": "s0",
@@ -101,5 +103,6 @@
   "budget_mode": "NONE",
   "budget_minor": null,
   "stress_prices": {},
-  "expected_status": "DATA_INSUFFICIENT"
+  "expected_status": "DATA_INSUFFICIENT",
+  "stress_policy": null
 }

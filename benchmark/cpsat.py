@@ -2,15 +2,33 @@
 
 from ortools.sat.python import cp_model
 
-from benchmark.schema import Scenario, SolveConfig, SolveResult, data_problem
+from benchmark.schema import Scenario, SolveConfig, SolveResult
+
+
+def purchasable(product) -> bool:
+    """Solver-only evidence decision; reference and auditor must not call this."""
+    return product.price_minor is not None and product.price_state in {"fresh", "fallback"}
 
 
 class SyntheticCpSatAdapter:
-    version = "synthetic-cpsat-v1"
+    version = "synthetic-cpsat-v2"
 
     def solve(self, scenario: Scenario, config: SolveConfig) -> SolveResult:
-        if problem := data_problem(scenario):
-            return SolveResult(status="DATA_INSUFFICIENT", reason=problem)
+        products = {p.ingredient_id: p for p in scenario.products}
+        permitted = [
+            c
+            for c in scenario.candidates
+            if not set(c.ingredients).intersection(scenario.excluded_ingredients)
+        ]
+        relevant = {key for c in permitted for key, value in c.ingredients.items() if value}
+        unknown_mapping = {
+            c.id
+            for c in permitted
+            if any(quantity and key not in products for key, quantity in c.ingredients.items())
+        }
+        missing_evidence = bool(unknown_mapping) or any(
+            key in relevant and not purchasable(product) for key, product in products.items()
+        )
         model = cp_model.CpModel()
         choices = {c.id: model.new_bool_var(c.id) for c in scenario.candidates}
         for slot in scenario.slots:
@@ -18,7 +36,7 @@ class SyntheticCpSatAdapter:
                 choices[c.id] for c in scenario.candidates if c.slot_id == slot.id
             )
         for c in scenario.candidates:
-            if set(c.ingredients) & set(scenario.excluded_ingredients):
+            if c.id in unknown_mapping or set(c.ingredients) & set(scenario.excluded_ingredients):
                 model.add(choices[c.id] == 0)
         penalties = []
         for day in range(scenario.horizon_days):
@@ -53,6 +71,8 @@ class SyntheticCpSatAdapter:
             ingredient = product.ingredient_id
             maximum = sum(c.ingredients.get(ingredient, 0) for c in scenario.candidates)
             pack_bound = (maximum + product.pack_units - 1) // product.pack_units
+            if not purchasable(product):
+                pack_bound = 0
             packages[ingredient] = model.new_int_var(0, pack_bound, f"packs_{ingredient}")
             purchased_use = []
             for slot in scenario.slots:
@@ -70,10 +90,13 @@ class SyntheticCpSatAdapter:
                 model.add(stock + bought == demand)
                 purchased_use.append(bought)
             model.add(sum(purchased_use) <= packages[ingredient] * product.pack_units)
-        cost = sum(packages[p.ingredient_id] * p.price_minor for p in scenario.products)
+        cost = sum(packages[p.ingredient_id] * (p.price_minor or 0) for p in scenario.products)
         if scenario.budget_mode == "SPEND_LIMIT":
             model.add(cost <= scenario.budget_minor)
-            for prices in scenario.stress_prices.values():
+            for name in scenario.stress_policy.required_scenarios:
+                if name == "BASE":
+                    continue
+                prices = scenario.stress_prices[name]
                 model.add(
                     sum(packages[key] * price for key, price in prices.items())
                     <= scenario.budget_minor
@@ -103,11 +126,15 @@ class SyntheticCpSatAdapter:
                 },
                 objective=[solver.value(nutrition_loss), solver.value(cost)],
                 phases_completed=phases,
+                reason="OPTIMAL_WITHIN_TRUSTED_EVIDENCE" if missing_evidence else None,
             )
 
         status = solver.solve(model)
         if status == cp_model.INFEASIBLE:
-            return SolveResult(status="PROVEN_INFEASIBLE")
+            return SolveResult(
+                status="DATA_INSUFFICIENT" if missing_evidence else "PROVEN_INFEASIBLE",
+                reason="NO_TRUSTED_SOLUTION_WITH_INCOMPLETE_DATA" if missing_evidence else None,
+            )
         if status == cp_model.UNKNOWN:
             return SolveResult(status="UNKNOWN_TIME_LIMIT", reason="NO_INCUMBENT_BEFORE_LIMIT")
         if status == cp_model.MODEL_INVALID:

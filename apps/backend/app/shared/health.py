@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict
 
 
 class HealthResponse(BaseModel):
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(frozen=True, json_schema_serialization_defaults_required=True)
     service: Literal["menuto"] = "menuto"
     status: Literal["ok"] = "ok"
     stage: Literal["foundation"] = "foundation"

@@ -1,0 +1,19 @@
+{
+  "name": "menuto-workspace",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "workspaces": [
+    "apps/web",
+    "packages/api-client"
+  ],
+  "scripts": {
+    "contracts:generate": "npm run generate --workspace @menuto/api-client",
+    "contracts:check": "npm run generate --workspace @menuto/api-client -- --check",
+    "test:client": "npm run test --workspace @menuto/api-client",
+    "typecheck:client": "npm run typecheck --workspace @menuto/api-client",
+    "build:web": "npm run build --workspace @menuto/web"
+  }
+}

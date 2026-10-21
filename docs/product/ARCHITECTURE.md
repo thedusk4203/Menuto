@@ -23,7 +23,7 @@ Web React/TypeScript gọi HTTP API FastAPI. OpenAPI được sinh và kiểm tr
 | preferences | Declared and behavioral preferences |
 | assistant | Bounded intent parsing and explanation |
 
-Các namespace chưa export model/schema nghiệp vụ. Giao tiếp liên domain, transaction và dependency enforcement sẽ bổ sung cùng implementation; không coi sự tồn tại của thư mục là đã có module hoàn chỉnh.
+Các namespace chưa export model/schema nghiệp vụ. Luật import đã được enforce bằng tools/check_import_boundaries.py và architecture tests; transaction/giao tiếp nghiệp vụ vẫn bổ sung cùng implementation; không coi sự tồn tại của thư mục là đã có module hoàn chỉnh.
 
 ## Benchmark nằm ngoài trusted production path
 
@@ -43,3 +43,12 @@ Frontend scaffold chỉ có trang trạng thái và health request thật. Khi p
 - Recipe flexibility do authored rules, solver chỉ chọn grounded candidates.
 - Policy axes độc lập; không tái tạo PlanningMode.
 - Numeric constants, launch thresholds và execution lifecycle chưa khóa cần quyết định/evidence riêng.
+
+
+## Import policy được kiểm tra tự động
+
+Cross-context imports chỉ được đi qua namespace contracts hoặc public và theo allowlist trong tools/check_import_boundaries.py. Các hướng chính: recipes/retail → catalog; inventory → households/catalog/retail; policy → households/nutrition/preferences; planning → các domain nguồn; shopping/execution → planning và các domain execution liên quan. Không có cạnh recipes → planning hoặc retail → shopping.
+
+Assistant có thể gọi planning.public/contracts, không import repository/model nội bộ của planning. Shared không import domain; toàn bộ backend không import synthetic benchmark. Relative imports được resolve; context mới và dynamic import/eval/exec trong domain phải được review thay vì âm thầm bypass.
+
+Đây là static import enforcement, không phải sandbox bảo mật hoặc bằng chứng mọi SQL/runtime side effect được phân tách. Public facades và contracts phải giữ trách nhiệm domain; một tên thư mục public không tự chứng minh interface tốt.
