@@ -1,0 +1,10 @@
+:root { font-family: system-ui, sans-serif; color: #19342e; background: #f6f7f2; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 880px; margin: 0 auto; padding: clamp(24px, 7vw, 72px) 24px; }
+.brand { font-size: 1.3rem; font-weight: 700; color: #205c42; }
+h1 { font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.15; max-width: 750px; }
+p { line-height: 1.7; }
+section { margin-top: 36px; padding: 24px; border: 1px solid #c9d6cb; border-radius: 12px; background: white; }
+h2 { margin-top: 0; font-size: 1.2rem; }
+.note { font-size: .9rem; color: #4b6258; }

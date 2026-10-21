@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.ps1 text eol=crlf
+docs/MENUTO_DEVELOPMENT_SPEC_V1_2.md -text
+docs/ARCHITECTURE_INVARIANTS.md -text
+docs/adr/*.md -text

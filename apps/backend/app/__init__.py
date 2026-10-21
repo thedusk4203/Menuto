@@ -1,0 +1,1 @@
+"""Menuto modular monolith foundation."""

@@ -1,0 +1,119 @@
+{
+  "schema_version": "synthetic-v1",
+  "id": "three-meals",
+  "provenance": "synthetic-from-spec-v1.2",
+  "horizon_days": 1,
+  "tags": [
+    "1-day",
+    "3-meals",
+    "maintain",
+    "small-catalog",
+    "fresh-price",
+    "no-inventory",
+    "no-budget"
+  ],
+  "slots": [
+    {
+      "id": "s0",
+      "day": 0
+    },
+    {
+      "id": "s1",
+      "day": 0
+    },
+    {
+      "id": "s2",
+      "day": 0
+    }
+  ],
+  "candidates": [
+    {
+      "id": "s0_c0",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s0_c1",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 3
+      },
+      "nutrients": {
+        "calories": 450,
+        "protein": 20
+      }
+    },
+    {
+      "id": "s1_c0",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s1_c1",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 3
+      },
+      "nutrients": {
+        "calories": 450,
+        "protein": 20
+      }
+    },
+    {
+      "id": "s2_c0",
+      "slot_id": "s2",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    }
+  ],
+  "products": [
+    {
+      "ingredient_id": "food",
+      "pack_units": 5,
+      "price_minor": 300,
+      "price_state": "fresh",
+      "valid_for_full_horizon": true
+    }
+  ],
+  "bands": [
+    {
+      "nutrient": "calories",
+      "hard_min": 1200,
+      "hard_max": 1800,
+      "comfort_min": 1350,
+      "comfort_max": 1500,
+      "normalization_unit": 1500
+    },
+    {
+      "nutrient": "protein",
+      "hard_min": 60,
+      "hard_max": 105,
+      "comfort_min": 66,
+      "comfort_max": 81,
+      "normalization_unit": 75
+    }
+  ],
+  "lots": [],
+  "excluded_ingredients": [],
+  "budget_mode": "NONE",
+  "budget_minor": null,
+  "stress_prices": {},
+  "expected_status": "OPTIMAL"
+}

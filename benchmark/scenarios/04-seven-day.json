@@ -1,0 +1,434 @@
+{
+  "schema_version": "synthetic-v1",
+  "id": "seven-day",
+  "provenance": "synthetic-from-spec-v1.2",
+  "horizon_days": 7,
+  "tags": [
+    "7-day",
+    "3-meals",
+    "maintain",
+    "small-catalog",
+    "fresh-price",
+    "no-inventory",
+    "no-budget",
+    "large-catalog"
+  ],
+  "slots": [
+    {
+      "id": "s0",
+      "day": 0
+    },
+    {
+      "id": "s1",
+      "day": 0
+    },
+    {
+      "id": "s2",
+      "day": 0
+    },
+    {
+      "id": "s3",
+      "day": 1
+    },
+    {
+      "id": "s4",
+      "day": 1
+    },
+    {
+      "id": "s5",
+      "day": 1
+    },
+    {
+      "id": "s6",
+      "day": 2
+    },
+    {
+      "id": "s7",
+      "day": 2
+    },
+    {
+      "id": "s8",
+      "day": 2
+    },
+    {
+      "id": "s9",
+      "day": 3
+    },
+    {
+      "id": "s10",
+      "day": 3
+    },
+    {
+      "id": "s11",
+      "day": 3
+    },
+    {
+      "id": "s12",
+      "day": 4
+    },
+    {
+      "id": "s13",
+      "day": 4
+    },
+    {
+      "id": "s14",
+      "day": 4
+    },
+    {
+      "id": "s15",
+      "day": 5
+    },
+    {
+      "id": "s16",
+      "day": 5
+    },
+    {
+      "id": "s17",
+      "day": 5
+    },
+    {
+      "id": "s18",
+      "day": 6
+    },
+    {
+      "id": "s19",
+      "day": 6
+    },
+    {
+      "id": "s20",
+      "day": 6
+    }
+  ],
+  "candidates": [
+    {
+      "id": "s0_c0",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s0_c1",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 3
+      },
+      "nutrients": {
+        "calories": 450,
+        "protein": 20
+      }
+    },
+    {
+      "id": "s0_c2",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 5
+      },
+      "nutrients": {
+        "calories": 550,
+        "protein": 30
+      }
+    },
+    {
+      "id": "s0_c3",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 6
+      },
+      "nutrients": {
+        "calories": 600,
+        "protein": 35
+      }
+    },
+    {
+      "id": "s1_c0",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s1_c1",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 3
+      },
+      "nutrients": {
+        "calories": 450,
+        "protein": 20
+      }
+    },
+    {
+      "id": "s1_c2",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 5
+      },
+      "nutrients": {
+        "calories": 550,
+        "protein": 30
+      }
+    },
+    {
+      "id": "s1_c3",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 6
+      },
+      "nutrients": {
+        "calories": 600,
+        "protein": 35
+      }
+    },
+    {
+      "id": "s2_c0",
+      "slot_id": "s2",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s3_c0",
+      "slot_id": "s3",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s4_c0",
+      "slot_id": "s4",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s5_c0",
+      "slot_id": "s5",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s6_c0",
+      "slot_id": "s6",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s7_c0",
+      "slot_id": "s7",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s8_c0",
+      "slot_id": "s8",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s9_c0",
+      "slot_id": "s9",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s10_c0",
+      "slot_id": "s10",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s11_c0",
+      "slot_id": "s11",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s12_c0",
+      "slot_id": "s12",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s13_c0",
+      "slot_id": "s13",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s14_c0",
+      "slot_id": "s14",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s15_c0",
+      "slot_id": "s15",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s16_c0",
+      "slot_id": "s16",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s17_c0",
+      "slot_id": "s17",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s18_c0",
+      "slot_id": "s18",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s19_c0",
+      "slot_id": "s19",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s20_c0",
+      "slot_id": "s20",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    }
+  ],
+  "products": [
+    {
+      "ingredient_id": "food",
+      "pack_units": 5,
+      "price_minor": 300,
+      "price_state": "fresh",
+      "valid_for_full_horizon": true
+    }
+  ],
+  "bands": [
+    {
+      "nutrient": "calories",
+      "hard_min": 1200,
+      "hard_max": 1800,
+      "comfort_min": 1350,
+      "comfort_max": 1500,
+      "normalization_unit": 1500
+    },
+    {
+      "nutrient": "protein",
+      "hard_min": 60,
+      "hard_max": 105,
+      "comfort_min": 66,
+      "comfort_max": 81,
+      "normalization_unit": 75
+    }
+  ],
+  "lots": [],
+  "excluded_ingredients": [],
+  "budget_mode": "NONE",
+  "budget_minor": null,
+  "stress_prices": {},
+  "expected_status": "OPTIMAL"
+}

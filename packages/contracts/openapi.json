@@ -1,0 +1,65 @@
+{
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "properties": {
+          "planner_ready": {
+            "const": false,
+            "default": false,
+            "title": "Planner Ready",
+            "type": "boolean"
+          },
+          "service": {
+            "const": "menuto",
+            "default": "menuto",
+            "title": "Service",
+            "type": "string"
+          },
+          "stage": {
+            "const": "foundation",
+            "default": "foundation",
+            "title": "Stage",
+            "type": "string"
+          },
+          "status": {
+            "const": "ok",
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "title": "HealthResponse",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "Menuto",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "description": "Process liveness only; does not certify database or planner readiness.",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "operations"
+        ]
+      }
+    }
+  }
+}

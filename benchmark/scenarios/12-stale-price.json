@@ -1,0 +1,105 @@
+{
+  "schema_version": "synthetic-v1",
+  "id": "stale-price",
+  "provenance": "synthetic-from-spec-v1.2",
+  "horizon_days": 1,
+  "tags": [
+    "1-day",
+    "2-meals",
+    "maintain",
+    "small-catalog",
+    "fresh-price",
+    "no-inventory",
+    "no-budget",
+    "stale-price"
+  ],
+  "slots": [
+    {
+      "id": "s0",
+      "day": 0
+    },
+    {
+      "id": "s1",
+      "day": 0
+    }
+  ],
+  "candidates": [
+    {
+      "id": "s0_c0",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s0_c1",
+      "slot_id": "s0",
+      "ingredients": {
+        "food": 3
+      },
+      "nutrients": {
+        "calories": 450,
+        "protein": 20
+      }
+    },
+    {
+      "id": "s1_c0",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 4
+      },
+      "nutrients": {
+        "calories": 500,
+        "protein": 25
+      }
+    },
+    {
+      "id": "s1_c1",
+      "slot_id": "s1",
+      "ingredients": {
+        "food": 3
+      },
+      "nutrients": {
+        "calories": 450,
+        "protein": 20
+      }
+    }
+  ],
+  "products": [
+    {
+      "ingredient_id": "food",
+      "pack_units": 5,
+      "price_minor": 300,
+      "price_state": "stale",
+      "valid_for_full_horizon": true
+    }
+  ],
+  "bands": [
+    {
+      "nutrient": "calories",
+      "hard_min": 800,
+      "hard_max": 1200,
+      "comfort_min": 900,
+      "comfort_max": 1000,
+      "normalization_unit": 1000
+    },
+    {
+      "nutrient": "protein",
+      "hard_min": 40,
+      "hard_max": 70,
+      "comfort_min": 44,
+      "comfort_max": 54,
+      "normalization_unit": 50
+    }
+  ],
+  "lots": [],
+  "excluded_ingredients": [],
+  "budget_mode": "NONE",
+  "budget_minor": null,
+  "stress_prices": {},
+  "expected_status": "DATA_INSUFFICIENT"
+}

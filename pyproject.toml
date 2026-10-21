@@ -1,0 +1,39 @@
+[project]
+name = "menuto"
+version = "0.1.0"
+description = "Menuto V1.2 foundation and synthetic planner benchmark harness"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "fastapi==0.156.4",
+  "pydantic==2.14.1",
+  "uvicorn==0.54.0",
+  "ortools==9.15.6755",
+  "sqlalchemy==2.1.5",
+  "alembic==1.20.0",
+  "psycopg[binary]==3.3.6",
+]
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "httpx==0.28.1", "ruff==0.17.1"]
+
+[project.scripts]
+menuto-benchmark = "benchmark.runner:main"
+
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["apps/backend/app", "benchmark"]
+
+[tool.pytest.ini_options]
+testpaths = ["apps/backend/tests", "benchmark/tests"]
+addopts = ["--strict-markers", "-q"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+exclude = ["graphify-out"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

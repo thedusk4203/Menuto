@@ -1,0 +1,41 @@
+name: Foundation checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.11.28"
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run ruff check .
+      - run: uv run pytest
+      - run: uv run python tools/export_openapi.py --check
+      - run: uv run python tools/generate_synthetic_fixtures.py --check
+      - run: uv run menuto-benchmark --output benchmark/results/ci.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-benchmark
+          path: benchmark/results/ci.json
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+      - run: npm run build
