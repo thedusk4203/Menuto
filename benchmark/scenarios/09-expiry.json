@@ -1,5 +1,5 @@
 {
-  "schema_version": "synthetic-v1",
+  "schema_version": "synthetic-v2",
   "id": "expiry-cannot-fund-later",
   "provenance": "synthetic-from-spec-v1.2",
   "horizon_days": 3,
@@ -7,12 +7,17 @@
     "3-day",
     "2-meals",
     "maintain",
-    "small-catalog",
+    "medium-catalog",
+    "candidate-count-8",
+    "spend-limit",
+    "budget-cap-0",
+    "has-inventory",
+    "expiring-inventory",
     "fresh-price",
-    "no-inventory",
-    "no-budget",
-    "expiring-inventory"
+    "pack-step-5",
+    "base-only-policy"
   ],
+  "goal_preset": "maintain",
   "slots": [
     {
       "id": "s0",
@@ -168,5 +173,12 @@
   "budget_mode": "SPEND_LIMIT",
   "budget_minor": 0,
   "stress_prices": {},
-  "expected_status": "PROVEN_INFEASIBLE"
+  "expected_status": "PROVEN_INFEASIBLE",
+  "stress_policy": {
+    "version": "synthetic-fixed-pack-v1",
+    "required_scenarios": [
+      "BASE"
+    ],
+    "base_only_justification": "Synthetic fixed-pack exact-price case; no adverse quantity or availability exposure is modeled in this case."
+  }
 }

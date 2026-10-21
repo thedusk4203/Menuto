@@ -4,8 +4,8 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-Quantity = Annotated[int, Field(ge=0, le=1_000_000)]
-Positive = Annotated[int, Field(gt=0, le=1_000_000)]
+Quantity = Annotated[int, Field(ge=0, le=1_000_000, strict=True)]
+Positive = Annotated[int, Field(gt=0, le=1_000_000, strict=True)]
 Identifier = Annotated[str, Field(pattern=r"^[a-zA-Z0-9_-]{1,64}$")]
 
 
@@ -55,12 +55,30 @@ class Band(Record):
         return self
 
 
+class StressScenarioPolicy(Record):
+    version: Identifier
+    required_scenarios: list[Identifier] = Field(min_length=1)
+    base_only_justification: str | None = None
+
+    @model_validator(mode="after")
+    def explicit_required_set(self):
+        names = self.required_scenarios
+        if len(names) != len(set(names)) or "BASE" not in names:
+            raise ValueError("stress policy needs unique scenarios including BASE")
+        if names == ["BASE"] and not (
+            self.base_only_justification and self.base_only_justification.strip()
+        ):
+            raise ValueError("BASE-only policy requires an explicit justification")
+        return self
+
+
 class Scenario(Record):
-    schema_version: Literal["synthetic-v1"] = "synthetic-v1"
+    schema_version: Literal["synthetic-v2"] = "synthetic-v2"
     id: Identifier
     provenance: Literal["synthetic-from-spec-v1.2"] = "synthetic-from-spec-v1.2"
     horizon_days: Annotated[int, Field(ge=1, le=7)]
     tags: list[str]
+    goal_preset: Literal["maintain", "high-protein", "calorie-deficit"] = "maintain"
     slots: list[Slot] = Field(min_length=1, max_length=21)
     products: list[Product] = Field(min_length=1, max_length=8)
     candidates: list[Candidate] = Field(min_length=1, max_length=84)
@@ -70,6 +88,7 @@ class Scenario(Record):
     budget_mode: Literal["NONE", "TARGET", "SPEND_LIMIT"] = "NONE"
     budget_minor: Quantity | None = None
     stress_prices: dict[Identifier, dict[Identifier, Quantity]] = Field(default_factory=dict)
+    stress_policy: StressScenarioPolicy | None = None
     expected_status: Literal["OPTIMAL", "PROVEN_INFEASIBLE", "DATA_INSUFFICIENT"]
 
     @model_validator(mode="after")
@@ -95,6 +114,20 @@ class Scenario(Record):
             raise ValueError("NONE has no budget amount")
         if self.budget_mode != "NONE" and self.budget_minor is None:
             raise ValueError("budget contract needs an amount")
+        if "BASE" in self.stress_prices:
+            raise ValueError("BASE is derived from product prices, not a competing override")
+        if self.budget_mode == "SPEND_LIMIT":
+            if self.stress_policy is None:
+                raise ValueError("SPEND_LIMIT requires an explicit stress policy")
+            missing = (
+                set(self.stress_policy.required_scenarios) - {"BASE"} - self.stress_prices.keys()
+            )
+            if missing:
+                raise ValueError(f"missing required stress coefficients: {sorted(missing)}")
+        elif self.stress_policy is not None or self.stress_prices:
+            raise ValueError(
+                "stress policy/scenarios only apply to SPEND_LIMIT in this micro-model"
+            )
         if any(set(prices) != ingredients for prices in self.stress_prices.values()):
             raise ValueError("stress prices must cover every product")
         if any(not {b.nutrient for b in self.bands} <= c.nutrients.keys() for c in self.candidates):
@@ -123,15 +156,3 @@ class SolveResult(Record):
     objective: list[int] | None = None
     reason: str | None = None
     phases_completed: int = 0
-
-
-def data_problem(scenario: Scenario) -> str | None:
-    """Conservative fixture gate, not production eligibility/retail policy."""
-    known = {p.ingredient_id for p in scenario.products}
-    if any(not c.ingredients.keys() <= known for c in scenario.candidates):
-        return "MISSING_PRODUCT_MAPPING"
-    if any(
-        p.price_minor is None or p.price_state in {"missing", "stale"} for p in scenario.products
-    ):
-        return "UNUSABLE_PRICE_EVIDENCE"
-    return None

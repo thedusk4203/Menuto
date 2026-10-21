@@ -1,5 +1,5 @@
 {
-  "schema_version": "synthetic-v1",
+  "schema_version": "synthetic-v2",
   "id": "three-meals",
   "provenance": "synthetic-from-spec-v1.2",
   "horizon_days": 1,
@@ -7,11 +7,14 @@
     "1-day",
     "3-meals",
     "maintain",
-    "small-catalog",
-    "fresh-price",
+    "medium-catalog",
+    "candidate-count-5",
+    "no-budget",
     "no-inventory",
-    "no-budget"
+    "fresh-price",
+    "pack-step-5"
   ],
+  "goal_preset": "maintain",
   "slots": [
     {
       "id": "s0",
@@ -115,5 +118,6 @@
   "budget_mode": "NONE",
   "budget_minor": null,
   "stress_prices": {},
-  "expected_status": "OPTIMAL"
+  "expected_status": "OPTIMAL",
+  "stress_policy": null
 }

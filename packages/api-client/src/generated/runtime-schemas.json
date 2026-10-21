@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:menuto:api-schemas",
+  "$defs": {
+    "HealthResponse": {
+      "properties": {
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "service": {
+          "const": "menuto",
+          "default": "menuto",
+          "title": "Service",
+          "type": "string"
+        },
+        "stage": {
+          "const": "foundation",
+          "default": "foundation",
+          "title": "Stage",
+          "type": "string"
+        },
+        "status": {
+          "const": "ok",
+          "default": "ok",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "service",
+        "status",
+        "stage",
+        "planner_ready"
+      ],
+      "title": "HealthResponse",
+      "type": "object"
+    }
+  }
+}

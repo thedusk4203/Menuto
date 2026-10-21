@@ -3,12 +3,10 @@
 import itertools
 import math
 
-from benchmark.schema import Scenario, SolveResult, data_problem
+from benchmark.schema import Scenario, SolveResult
 
 
 def solve_reference(scenario: Scenario, max_combinations: int) -> tuple[SolveResult | None, str]:
-    if problem := data_problem(scenario):
-        return SolveResult(status="DATA_INSUFFICIENT", reason=problem), "DATA_GATE"
     options = [
         [
             c
@@ -23,6 +21,18 @@ def solve_reference(scenario: Scenario, max_combinations: int) -> tuple[SolveRes
         return None, "COMBINATION_LIMIT"
     best = None
     products = {p.ingredient_id: p for p in scenario.products}
+    # Conservative uncertainty classification is independently expressed here.
+    incomplete = False
+    for candidates in options:
+        for candidate in candidates:
+            for ingredient, quantity in candidate.ingredients.items():
+                if quantity <= 0:
+                    continue
+                product = products.get(ingredient)
+                if product is None or product.price_minor is None:
+                    incomplete = True
+                elif product.price_state != "fresh" and product.price_state != "fallback":
+                    incomplete = True
     for assignment in itertools.product(*options):
         loss = 0
         valid = True
@@ -41,6 +51,13 @@ def solve_reference(scenario: Scenario, max_combinations: int) -> tuple[SolveRes
                     // band.normalization_unit
                 )
         if not valid:
+            continue
+        if any(
+            quantity and ingredient not in products
+            for candidate in assignment
+            for ingredient, quantity in candidate.ingredients.items()
+        ):
+            incomplete = True
             continue
         stock = {lot.id: lot.units for lot in scenario.lots}
         use = {lot.id: {} for lot in scenario.lots}
@@ -68,11 +85,20 @@ def solve_reference(scenario: Scenario, max_combinations: int) -> tuple[SolveRes
             // products[ingredient].pack_units
             for ingredient, quantity in needs.items()
         }
-        cost = sum(packs[key] * product.price_minor for key, product in products.items())
+        # This decision is deliberately implemented independently of cpsat.purchasable.
+        if any(
+            packs[key] > 0
+            and (product.price_minor is None or product.price_state not in ("fresh", "fallback"))
+            for key, product in products.items()
+        ):
+            incomplete = True
+            continue
+        cost = sum(packs[key] * (product.price_minor or 0) for key, product in products.items())
         if scenario.budget_mode == "SPEND_LIMIT":
             scenario_costs = [cost] + [
                 sum(packs[key] * prices[key] for key in products)
-                for prices in scenario.stress_prices.values()
+                for name, prices in scenario.stress_prices.items()
+                if name in scenario.stress_policy.required_scenarios
             ]
             if max(scenario_costs) > scenario.budget_minor:
                 continue
@@ -86,4 +112,9 @@ def solve_reference(scenario: Scenario, max_combinations: int) -> tuple[SolveRes
                 objective=objective,
                 phases_completed=2,
             )
-    return best or SolveResult(status="PROVEN_INFEASIBLE"), "EXHAUSTIVE_CERTIFIED"
+    if best is not None:
+        return best, "EXHAUSTIVE_TRUSTED_EVIDENCE"
+    return SolveResult(
+        status="DATA_INSUFFICIENT" if incomplete else "PROVEN_INFEASIBLE",
+        reason="NO_TRUSTED_SOLUTION_WITH_INCOMPLETE_DATA" if incomplete else None,
+    ), "EXHAUSTIVE_CERTIFIED"

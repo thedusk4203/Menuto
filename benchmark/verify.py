@@ -1,5 +1,6 @@
 """Independent arithmetic audit of a returned micro-model solution; not Validator V2."""
 
+from benchmark.audit.independent_data_check import audit_solution_data
 from benchmark.schema import Scenario, SolveResult
 
 
@@ -28,6 +29,9 @@ def verify(scenario: Scenario, result: SolveResult) -> list[str]:
     for count in result.packages.values():
         if type(count) is not int or count < 0:
             return errors + ["INVALID_PACKAGE_COUNT"]
+    data_errors = audit_solution_data(scenario, result)
+    if data_errors:
+        return errors + data_errors
     used = {slot: dict.fromkeys(products, 0) for slot in slots}
     for lot_id, allocations in result.lot_use.items():
         lot = lots.get(lot_id)
@@ -66,10 +70,13 @@ def verify(scenario: Scenario, result: SolveResult) -> list[str]:
             elif amount > band.comfort_max:
                 distance = amount - band.comfort_max
             loss += (distance * 10_000) // band.normalization_unit
-    cost = sum(result.packages[key] * p.price_minor for key, p in products.items())
+    cost = sum(result.packages[key] * (p.price_minor or 0) for key, p in products.items())
     if scenario.budget_mode == "SPEND_LIMIT":
         costs = [cost]
-        for prices in scenario.stress_prices.values():
+        for name in scenario.stress_policy.required_scenarios:
+            if name == "BASE":
+                continue
+            prices = scenario.stress_prices[name]
             costs.append(sum(result.packages[key] * prices[key] for key in products))
         if any(value > scenario.budget_minor for value in costs):
             errors.append("SPEND_LIMIT_VIOLATION")

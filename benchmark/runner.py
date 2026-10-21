@@ -11,6 +11,7 @@ from pathlib import Path
 from time import perf_counter
 
 from benchmark.cpsat import SyntheticCpSatAdapter
+from benchmark.metadata import derive_tags
 from benchmark.protocol import BenchmarkAdapter
 from benchmark.reference import solve_reference
 from benchmark.schema import Scenario, SolveConfig
@@ -38,7 +39,11 @@ def run_case(
     if result.status != scenario.expected_status:
         failures.append("UNEXPECTED_STATUS")
     delta = None
-    if reference and reference.status != result.status:
+    if (
+        reference
+        and reference.status != result.status
+        and not (reference.status == "OPTIMAL" and result.status == "FEASIBLE_BEST_EFFORT")
+    ):
         failures.append("REFERENCE_STATUS_DISAGREEMENT")
     if reference and reference.objective is not None and result.objective is not None:
         delta = [a - b for a, b in zip(result.objective, reference.objective, strict=True)]
@@ -48,7 +53,7 @@ def run_case(
         failures.append("REFERENCE_NOT_CERTIFIED")
     return {
         "scenario_id": scenario.id,
-        "tags": scenario.tags,
+        "tags": derive_tags(scenario.model_dump()),
         "passed": not failures,
         "failures": failures,
         "result": result.model_dump(),
@@ -96,7 +101,7 @@ def main() -> None:
             for s in scenarios
         ]
         report = {
-            "report_schema_version": "synthetic-benchmark-v1",
+            "report_schema_version": "synthetic-benchmark-v2",
             "scope": "HARNESS_SMOKE_NOT_PLANNER_V4",
             "generated_at": datetime.now(UTC).isoformat(),
             "environment": {

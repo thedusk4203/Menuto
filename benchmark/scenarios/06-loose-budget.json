@@ -1,5 +1,5 @@
 {
-  "schema_version": "synthetic-v1",
+  "schema_version": "synthetic-v2",
   "id": "strict-loose",
   "provenance": "synthetic-from-spec-v1.2",
   "horizon_days": 1,
@@ -8,11 +8,15 @@
     "2-meals",
     "maintain",
     "small-catalog",
-    "fresh-price",
+    "candidate-count-4",
+    "spend-limit",
+    "budget-cap-10000",
     "no-inventory",
-    "no-budget",
-    "loose-budget"
+    "fresh-price",
+    "pack-step-5",
+    "base-only-policy"
   ],
+  "goal_preset": "maintain",
   "slots": [
     {
       "id": "s0",
@@ -101,5 +105,12 @@
   "budget_mode": "SPEND_LIMIT",
   "budget_minor": 10000,
   "stress_prices": {},
-  "expected_status": "OPTIMAL"
+  "expected_status": "OPTIMAL",
+  "stress_policy": {
+    "version": "synthetic-fixed-pack-v1",
+    "required_scenarios": [
+      "BASE"
+    ],
+    "base_only_justification": "Synthetic fixed-pack exact-price case; no adverse quantity or availability exposure is modeled in this case."
+  }
 }

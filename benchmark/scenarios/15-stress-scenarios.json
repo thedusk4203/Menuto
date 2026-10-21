@@ -1,5 +1,5 @@
 {
-  "schema_version": "synthetic-v1",
+  "schema_version": "synthetic-v2",
   "id": "stress-exceeds-spend-limit",
   "provenance": "synthetic-from-spec-v1.2",
   "horizon_days": 1,
@@ -8,11 +8,15 @@
     "2-meals",
     "maintain",
     "small-catalog",
-    "fresh-price",
+    "candidate-count-4",
+    "spend-limit",
+    "budget-cap-1000",
     "no-inventory",
-    "no-budget",
+    "fresh-price",
+    "pack-step-5",
     "budget-stress"
   ],
+  "goal_preset": "maintain",
   "slots": [
     {
       "id": "s0",
@@ -111,5 +115,15 @@
       "food": 650
     }
   },
-  "expected_status": "PROVEN_INFEASIBLE"
+  "expected_status": "PROVEN_INFEASIBLE",
+  "stress_policy": {
+    "version": "synthetic-fixed-pack-v1",
+    "required_scenarios": [
+      "BASE",
+      "ADVERSE_WEIGHT",
+      "BACKUP",
+      "CATEGORY_STRESS"
+    ],
+    "base_only_justification": null
+  }
 }
