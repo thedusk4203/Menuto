@@ -14,7 +14,7 @@ Không đưa PlanningMode vào hợp đồng mới. Business contracts được 
 
 Units/basis, money, provenance và household/catalog/member source contracts đã có implementation. Planner request/output, validation subject/report và mutation fixtures dùng các version `m0-draft.2`; chưa đủ để solve/validate/activate plan. Python validators kiểm thêm quan hệ giữa fields; JSON Schema không biểu diễn hết các guard này. Chưa sinh TypeScript client cho domain drafts.
 
-Bundle hiện có ID `urn:menuto:domain:foundation:6`. Retail facts dùng **retail-v2** (breaking wire change): quote chỉ có `reference_price_pair`, CALIBRATED_REFERENCE = reference + calibration; không nhận calibration cho observation. Option không nhận promotion/single-source booleans; snapshot derive coverage. ProductVersion yêu cầu canonical_ingredient_id; Retailer status là fact riêng. `RetailSourcedAPAssetDraft` chuyển sang `inventory-retail-origin.m1-draft.2`, vẫn không phải physical ledger hoặc validator-ready asset. Callers phải nâng version tường minh, không alias payload v1. [Domain review M1.1](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md).
+Bundle hiện có ID `urn:menuto:domain:foundation:7`. Retail facts dùng **retail-v2** (breaking wire change): quote chỉ có `reference_price_pair`, CALIBRATED_REFERENCE = reference + calibration; không nhận calibration cho observation. Option không nhận promotion/single-source booleans; snapshot derive coverage. ProductVersion yêu cầu canonical_ingredient_id; Retailer status là fact riêng. `RetailSourcedAPAssetDraft` chuyển sang `inventory-retail-origin.m1-draft.2`, vẫn không phải physical ledger hoặc validator-ready asset. Callers phải nâng version tường minh, không alias payload v1. [Domain review M1.1](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md).
 
 Recipe facts dùng **recipe-v1**: immutable authored snapshot, contextual rules, serving tiers,
 scaling/adjustment policies và preparation transformations EP_RAW_G→COOKED_G.
@@ -26,3 +26,11 @@ Correction 0006 giữ nguyên wire shape recipe-v1 nhưng siết semantic valida
 substitution nhắm COUNT; COUNT chưa thay thế vẫn giữ item_ref. Transformation được chọn
 đúng resolved ingredient path, là net yield trong Recipe context. VariantReason vẫn chỉ
 là draft explanation của caller, chưa phải evidence downstream đã xác minh.
+
+
+M1.3 bundle ID `urn:menuto:domain:foundation:7` thêm inventory-v1 confirmed physical facts
+và command contracts; không đổi recipe-v1/retail-v2 wire shapes. PhysicalInventorySnapshot
+và BatchFlowLinkDraft vẫn DRAFT/activation_ready=False hoặc execution_ready=False. Legacy
+RetailSourcedAPAssetDraft giữ nguyên là draft, không được dùng như physical acquisition.
+Actual acquisition dùng AcquireInventoryCommand có explicit evidence; retail origin map FK
+không tự là purchase fact. Snapshot giữ full immutable mapping primitives khi có nguồn AP.

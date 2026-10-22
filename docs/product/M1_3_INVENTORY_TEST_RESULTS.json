@@ -1,0 +1,58 @@
+{
+  "baseline_commit": "05382b6425a072433e38db99a1de101b577804a0",
+  "implementation_commit": "TO_BE_RECORDED_AFTER_COMMIT",
+  "migration": "0007",
+  "domain_tables": 38,
+  "added_tables": [
+    "inventory_lots",
+    "inventory_lot_balances",
+    "inventory_movements",
+    "inventory_reservations",
+    "inventory_reservation_releases"
+  ],
+  "local": {
+    "total_python_tests": 688,
+    "postgresql_real_tests": 313,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": "99.544",
+    "new_inventory_unit_tests": 49,
+    "new_inventory_postgres_tests": 54,
+    "existing_tests": 585,
+    "benchmark": "22/22",
+    "client_tests": 10,
+    "ruff": "PASS",
+    "architecture": "30 INV / 11 ADR / 50 tasks PASS",
+    "import_boundaries": "16 contexts PASS",
+    "alembic_drift": "PASS",
+    "openapi_domain_exports": "PASS",
+    "client_typecheck": "PASS",
+    "web_build": "PASS"
+  },
+  "frozen_migration_sha256": {
+    "0001_household_member_safety_and_measured_.py": "7608a9ee137ad475b129660d4cb80d6e3c41584ebe072472373b3c130fa8723a",
+    "0002_correct_foundation_boundaries.py": "d7220e3d91168322f1b887d4847a4675784abb59016a090cfcbe07cd7e9e9f01",
+    "0003_retail_procurement_foundation.py": "68ff8eb8e9b391eea8a53e4c5c2d687dae05969293d7d70b26eb2558d5efb535",
+    "0004_correct_retail_semantics.py": "d6fcbcfdb7d00f31085ec491ff12c87e86d4dae6781a5a6b0cdb7f92d766211b",
+    "0005_recipe_preparation_foundation.py": "116b95e973198e573faa13f619d74d85fc5a0f07e77355fe4e04d3d830763275",
+    "0006_culinary_binding_count_policy.py": "36990424652be8a019c3db4f0604ff0f2f8e6f91b6397e3b690cc7b5215b6890"
+  },
+  "migration_checks": [
+    "0006/0007 empty roundtrip twice",
+    "populated foundation without ledger lossless roundtrip twice",
+    "populated ledger downgrade rejected, revision/history preserved",
+    "complete base/head/base/head fixture"
+  ],
+  "concurrency": [
+    "two consumes: one succeeds, one23514",
+    "two reserves: one succeeds, one23514",
+    "concurrent acquire retry creates one lot",
+    "stale REPEATABLE READ writer40001"
+  ],
+  "ci": {
+    "status": "PENDING"
+  },
+  "freeze_status": "AWAITING_USER_REVIEW",
+  "next_milestone_started": false
+}

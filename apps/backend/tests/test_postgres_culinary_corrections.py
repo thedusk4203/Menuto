@@ -126,6 +126,7 @@ def test_0006_roundtrip_preserves_facts_and_original_seal_functions(legacy_datab
         }
     for _ in range(2):
         migrate(engine, config, "0006")
+        migrate(engine, config, "head")
         with engine.connect() as connection:
             config.attributes["connection"] = connection
             command.check(config)

@@ -1,6 +1,6 @@
 # Backend foundation
 
-FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003` → `0004` → `0005` → `0006`, hiện có 33 bảng: 8 bảng Foundation, 15 bảng Retail và 10 bảng Recipe/Preparation. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [correction evidence M1.2](../../docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md) để phân biệt phần đã triển khai và schema đích.
+FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003` → `0004` → `0005` → `0006` → `0007`, hiện có 38 bảng: 8 bảng Foundation, 15 bảng Retail, 10 bảng Recipe/Preparation và 5 bảng Inventory. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [correction evidence M1.2](../../docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md) để phân biệt phần đã triển khai và schema đích.
 
 Từ root repository:
 
@@ -49,3 +49,28 @@ không thực hiện generation, household safety hoặc Independent Validator.
 rule dạng này; cần xử lý/archival tường minh, không rewrite facts bất biến. Downgrade
 0006 chỉ gỡ guard, không mất dữ liệu; protection của 0005 giữ nguyên. Binder chọn net
 transformation đúng ingredient path; raw base không bị ép transform bởi alternate path.
+
+
+## M1.3 physical inventory
+
+0007 thêm 5 bảng (38 tổng). `InventoryService` ở `modules/inventory/public.py` nhận frozen
+inventory-v1 commands; caller sở hữu transaction/commit. Important: rollback transaction
+khi command lỗi; retry toàn transaction khi SQLSTATE 40001/deadlock, giữ nguyên idempotency
+key và payload. Acquire cần caller-stable lot_id, explicit evidence và household editor.
+Idempotency scope là household × source_system × key **trong từng family** movement,
+reservation hoặc release; fingerprint phân biệt concrete command. External source identity
+cũng unique trong từng family/household/provider. Không dùng key mới khi retry.
+
+Snapshot khóa shared household fence; mọi DB inventory writer lấy exclusive fence trước lot
+balance lock/update. Serializes writes per household (trade-off V1); balances dùng revision
+để stale RR writers không tính trên snapshot cũ. Physical truth là immutable history, không
+cache. Commands không nhận calculated quantity: caller phải quantize explicit trước storage.
+Read snapshot là effective-time cutoff trong recorded facts, không future projection.
+
+Reservations active tới explicit full release. Release + consume có thể cùng transaction,
+nhưng phải giữ nondecreasing occurred_at/phase. Expiry không xóa vật chất hoặc auto-release
+intent; `position.allocatable` bằng zero nếu unusable. Confidence trên lot là initial observation,
+không phải confidence inference sau thời gian. CONFIRMED không là probability.
+
+[M1.3 review](../../docs/product/M1_3_INVENTORY_DOMAIN_REVIEW.md),
+[evidence](../../docs/product/M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md).

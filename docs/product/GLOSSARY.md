@@ -218,3 +218,26 @@ Nguồn gồm source_system nội bộ, external_record_id và source_version gi
 
 **MaterialAssetFact (draft)**:
 Union phân biệt RAW_INGREDIENT (inventory_lot_id + ingredient_id, lượng AP/EP raw/count) và PREPARED_FOOD (prepared_food_lot_id + cooking_batch_id + recipe_version_id, lượng SERVING gắn serving_definition_ref). Đây là đầu vào nguồn draft, chưa phải conservation/replay validator.
+
+
+**Physical InventoryLot**:
+Một tài sản vật chất đã được xác nhận của household. Lot sống, component chín và món đã nấu
+có danh tính riêng; dự kiến mua và giả định vận hành không phải stock.
+
+**InventoryMovement**:
+Bằng chứng bất biến về vật chất vào/ra lot hoặc xác nhận hết hạn. Sửa sai giữ sự kiện cũ và
+thêm sự kiện bù; thời gian trôi qua không chứng minh đã tiêu thụ.
+
+**InventoryReservation / release**:
+Ý định giữ một phần vật chất cho mục đích cụ thể và bằng chứng thôi giữ phần đó.
+Giữ chỗ không tiêu thụ hoặc làm biến mất vật chất.
+
+**Physical remaining / allocatable**:
+Physical remaining là lượng vật chất còn được ghi nhận, kể cả phần đã hết hạn.
+Allocatable là phần còn sử dụng được sau khi trừ giữ chỗ; lot không còn usable có allocatable bằng không.
+
+**Ledger sequence**:
+Số thứ tự xác định giữa các sự kiện cùng thời điểm và cùng phase vật chất; không lấy thứ tự từ UUID.
+
+**Observation confidence**:
+Mức chắc chắn của quan sát số lượng, tách biệt lifecycle và nguồn xác nhận của sự kiện vật chất.
