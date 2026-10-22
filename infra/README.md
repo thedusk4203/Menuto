@@ -1,5 +1,5 @@
 # Infrastructure boundary
 
-V1 dùng PostgreSQL và Alembic làm migration runner duy nhất. Chưa có schema/migration hoặc tài nguyên cloud được tạo. MTR-003, MTR-009 và MTR-014 sẽ bổ sung schema thật. Không dựng database demo rồi coi đó là dữ liệu production.
+V1 dùng PostgreSQL và Alembic làm migration runner duy nhất. Migration `0001` đã có schema đầu tiên cho household/member/catalog, được kiểm trên PostgreSQL 18.4 riêng. Chưa provision database ứng dụng hoặc tài nguyên cloud. Xem [hướng dẫn database/tests](../apps/backend/README.md) và [blueprint M0/M1](../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md).
 
 Queue/worker, object storage, deployment và secrets của môi trường vận hành chỉ thêm khi cần theo đặc tả. Chưa có dịch vụ AI, retailer adapter hoặc dữ liệu thật.

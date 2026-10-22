@@ -8,6 +8,22 @@ permissions:
 jobs:
   python:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18.4
+        env:
+          POSTGRES_USER: menuto_test
+          POSTGRES_PASSWORD: menuto_test_only
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U menuto_test -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      MENUTO_TEST_POSTGRES_URL: postgresql+psycopg://menuto_test:menuto_test_only@127.0.0.1:5432/postgres
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v7
@@ -16,9 +32,11 @@ jobs:
           enable-cache: true
       - run: uv sync --locked
       - run: uv run ruff check .
+      - run: uv run python tools/check_architecture_baseline.py
       - run: uv run python tools/check_import_boundaries.py
       - run: uv run pytest
       - run: uv run python tools/export_openapi.py --check
+      - run: uv run python tools/export_domain_contracts.py --check
       - run: uv run python tools/generate_synthetic_fixtures.py --check
       - run: uv run menuto-benchmark --output benchmark/results/ci.json
       - uses: actions/upload-artifact@v4

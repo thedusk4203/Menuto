@@ -1,54 +1,75 @@
-# Scaffold kiến trúc V1.2
+# Foundation kiến trúc V1.3
 
-Nguồn chuẩn: §8, §9, §16 của đặc tả; ADR-001..008 giữ nguyên. Repo hiện là modular monolith foundation; chưa có service nghiệp vụ hay DB được provision.
+Nguồn chuẩn: spec V1.3 §8, §9, §16.4, §18–19; ADR-001..011; INV-001..030. Kiến trúc đã chốt, implementation closed loop chưa có.
 
-## Ranh giới
+## Closed loop
 
-Web React/TypeScript gọi HTTP API FastAPI. OpenAPI được sinh và kiểm tra từ API thật. `shared` chỉ giữ primitive kỹ thuật, không chuyển business policy vào một shared god module.
+```mermaid
+flowchart LR
+  Policy --> Planner
+  Planner --> Validator[Independent Validator]
+  Validator -->|PRECOMMIT pass| Execution[ActivePlan / Execution]
+  Execution --> Learning[Attribution-Routed Learning]
+  Learning -->|soft observations| Planner
+```
 
-| Namespace backend | Trách nhiệm định hướng |
+Validator kiểm correctness, không chứng minh optimality và không repair. POSTFACT tạo diagnostics sau khi ghi nhận reality. Root member safety, primitive recomputation và chronological replay có đường kiểm chứng độc lập với solver.
+
+## Context và ownership
+
+Spec §9 liệt kê 14 business contexts gốc; §16.4 bổ sung validation và learning thành 16 namespace. Hai namespace mới là ranh giới triển khai rõ ràng, không tự nhận rằng đã có service.
+
+| Namespace | Trách nhiệm |
 | --- | --- |
-| identity | Identity and consent |
-| households | Household ownership and membership |
-| nutrition | Member nutrition policies |
-| catalog | Canonical ingredient and nutrition facts |
-| recipes | Authored and versioned culinary variants |
-| retail | Retail evidence and procurement |
-| inventory | Household inventory ledger |
-| policy | Orthogonal resolved plan policies |
-| planning | Planner orchestration and immutable snapshots |
-| cooking | Batch production and allocations |
-| shopping | Shopping requirements and purchases |
-| execution | Meal execution and consumption |
-| preferences | Declared and behavioral preferences |
-| assistant | Bounded intent parsing and explanation |
+| identity | Account, consent, actor identity |
+| households | Household ownership/membership; member biology/safety tách tài nguyên chung |
+| nutrition | Member nutrition policies và root goal contracts |
+| catalog | Ingredient, facts, units/basis/provenance |
+| recipes | Authored RecipeVersion/variant rules |
+| retail | Evidence, ProcurementClass, planning quotes/calibration |
+| inventory | Raw/prepared household assets, movements, reservations |
+| policy | Orthogonal user defaults/overrides → resolved policy snapshots |
+| planning | Planner orchestration, stable ActivePlan intent và immutable revisions |
+| cooking | Batch composition, production, allocation và execution transformation |
+| shopping | Planned requirements vs quantitative confirmed fulfillment |
+| execution | Evidence, operational assumptions, correction/repair và horizon bridge |
+| validation | Immutable-subject root/arithmetic/temporal verification, side-effect-free |
+| learning | Evidence classification, attribution, learned observations/exposure |
+| preferences | Declared/member-owned preferences và profile contracts |
+| assistant | Intent parsing và explanation ngoài trusted truth |
 
-Các namespace chưa export model/schema nghiệp vụ. Luật import đã được enforce bằng tools/check_import_boundaries.py và architecture tests; transaction/giao tiếp nghiệp vụ vẫn bổ sung cùng implementation; không coi sự tồn tại của thư mục là đã có module hoàn chỉnh.
+## State và lifecycle contracts — chưa triển khai
 
-## Benchmark nằm ngoài trusted production path
+```mermaid
+flowchart TD
+  Evidence[Confirmed purchase / execution evidence] --> Confirmed[ConfirmedState]
+  Confirmed --> Operational[OperationalState]
+  Assumed[Reversible AUTOPILOT_ASSUMED] --> Operational
+  Operational --> Reconcile[Resolve / reconcile snapshot]
+  Reconcile --> Planning[PlanningState]
+  Raw[Raw InventoryLot] -->|CookingBatchExecution| Prepared[PreparedFoodLot]
+  Prepared -->|Meal consumption| Consumed[Consumed]
+  Active[Stable ActivePlan plan_id] --> Revisions[Immutable PlanRevision snapshots]
+```
 
-`benchmark.protocol.BenchmarkAdapter` là điểm nối runner/adapters. Hiện có SyntheticCpSatAdapter và exhaustive reference độc lập. Cả hai dùng neutral scenario format, không phải production PlanRequest.
+PlanRevisionHistory mô tả recommendation đổi thế nào; ExecutionLedger mô tả reality. Future intent được sửa atomically sau PRECOMMIT; materialized past không bị ghi đè. COOKED != CONSUMED; planned purchase chưa phải owned inventory. Mũi tên trong sơ đồ là data/lifecycle contract, không phải xác nhận code đã chạy.
 
-Verifier kiểm tra micro-model bằng số học riêng, không import optimizer. Nó chưa chốt kiến trúc Independent Validator V2 đang mở ở §24.3. Backend không import hoặc expose synthetic solve endpoint.
+## Năm seam handoff
 
-## Dữ liệu và toolchain
+1. CulinaryAdjustment đổi composition per serving; serving count chỉ đổi qua explicit tier/revision.
+2. Revision SPEND_LIMIT = actual sunk spend + required stress spend của phần chưa fulfilled; không stress lại món đã mua hoặc quên overspend.
+3. HorizonBridgeResolver chronologically project commitments tới T_start để nhận opening assets + provisional exposure, tránh đếm raw/prepared hai lần.
+4. Shared meal hard safety kiểm từng participant trước utility; direct feedback chỉ cập nhật member có actor/explicit attribution.
+5. Accepted relaxation/forced repair mang FORCED_CONFLICT_RESOLUTION; không trở thành voluntary taste/context preference.
 
-Python 3.13.14 và OR-Tools 9.15.6755 đã được kiểm thử cùng toolchain lock. PostgreSQL/SQLAlchemy/Alembic là hướng persistence; chưa có schema/migration nên không chạy create_all khi startup. Queue/worker là optional path sau đo latency.
+## Import policy được CI kiểm
 
-Frontend scaffold chỉ có trang trạng thái và health request thật. Khi phát triển UI nghiệp vụ cần query cache, schema validation, accessibility và progressive disclosure theo đặc tả.
+Cross-context imports chỉ qua contracts/public và allowlist trong tools/check_import_boundaries.py. Shared không import domain; backend không import synthetic benchmark.
 
-## Điều cần giữ khi mở rộng
+Validation và learning chỉ đọc cross-context contracts, không gọi mutation/solver facades. Validation không import OR-Tools. Một domain contracts namespace cũng không được import domain internals/public để làm đường vòng; contracts chia sẻ facts, không chia sẻ enforcement. Planning/execution có thể gọi validation.public khi orchestrator được triển khai. Learning giữ observations, preferences giữ explicit/member-owned contracts.
 
-- Household ownership tách actor; tracked physiology tách shared resources.
-- Recipe flexibility do authored rules, solver chỉ chọn grounded candidates.
-- Policy axes độc lập; không tái tạo PlanningMode.
-- Numeric constants, launch thresholds và execution lifecycle chưa khóa cần quyết định/evidence riêng.
+Đây là static import enforcement; vẫn cần review transitive dependencies, runtime/SQL side effects và test correctness. Không biến shared thành business-policy god module.
 
+## Toolchain và benchmark
 
-## Import policy được kiểm tra tự động
-
-Cross-context imports chỉ được đi qua namespace contracts hoặc public và theo allowlist trong tools/check_import_boundaries.py. Các hướng chính: recipes/retail → catalog; inventory → households/catalog/retail; policy → households/nutrition/preferences; planning → các domain nguồn; shopping/execution → planning và các domain execution liên quan. Không có cạnh recipes → planning hoặc retail → shopping.
-
-Assistant có thể gọi planning.public/contracts, không import repository/model nội bộ của planning. Shared không import domain; toàn bộ backend không import synthetic benchmark. Relative imports được resolve; context mới và dynamic import/eval/exec trong domain phải được review thay vì âm thầm bypass.
-
-Đây là static import enforcement, không phải sandbox bảo mật hoặc bằng chứng mọi SQL/runtime side effect được phân tách. Public facades và contracts phải giữ trách nhiệm domain; một tên thư mục public không tự chứng minh interface tốt.
+FastAPI/React và lockfiles được giữ. PostgreSQL/SQLAlchemy/Alembic có migration đầu tiên cho 9 bảng household/member/catalog; chưa provision database ứng dụng. [Blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_M1.md) ghi rõ contracts/units đã triển khai và các handoff còn draft. Backend không expose synthetic solve endpoint. BenchmarkVerifier chỉ là arithmetic verifier cho micro-model; không phải ValidationOrchestrator, RootContractValidator hoặc full chronological replay theo ADR-010.

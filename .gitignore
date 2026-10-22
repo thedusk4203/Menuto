@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
+.local/
 .coverage
 htmlcov/
 node_modules/
@@ -24,3 +25,10 @@ dist/
 
 # Restored legacy reference; never stage it with Menuto.
 /smart-menu/
+
+# User-supplied originals; docs/ is the sole tracked architecture baseline.
+/MENUTO_DEVELOPMENT_SPEC_V1_3.md
+/ARCHITECTURE_INVARIANTS.md
+/adr/
+# Local Windows navigation shortcuts.
+*.lnk

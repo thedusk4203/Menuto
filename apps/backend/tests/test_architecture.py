@@ -104,3 +104,74 @@ def test_unknown_new_context_cannot_silently_bypass_policy(tmp_path):
     (tmp_path / "modules/new_domain").mkdir(parents=True)
     (tmp_path / "modules/new_domain/__init__.py").write_text("", encoding="utf-8")
     assert any("UNREGISTERED_CONTEXT" in issue for issue in CHECKER["check_tree"](tmp_path))
+
+
+@pytest.mark.parametrize(
+    ("module", "source", "expected"),
+    [
+        (
+            "app.modules.validation.service",
+            "from app.modules.planning.optimizer import solve",
+            "FACT_READER_IMPORTS_IMPLEMENTATION",
+        ),
+        (
+            "app.modules.validation.service",
+            "from app.modules.planning.public import PlannerFacade",
+            "FACT_READER_IMPORTS_IMPLEMENTATION",
+        ),
+        (
+            "app.modules.validation.replay",
+            "from ..planning.candidates import CandidateGenerator",
+            "FACT_READER_IMPORTS_IMPLEMENTATION",
+        ),
+        (
+            "app.modules.validation.service",
+            "from ortools.sat.python import cp_model",
+            "VALIDATION_OR_CONTRACT_IMPORTS_SOLVER",
+        ),
+        (
+            "app.modules.planning.contracts.snapshot",
+            "from ..optimizer import solve",
+            "CONTRACT_IMPORTS_IMPLEMENTATION",
+        ),
+        (
+            "app.modules.policy.contracts",
+            "from .public import resolve_policy",
+            "CONTRACT_IMPORTS_IMPLEMENTATION",
+        ),
+        (
+            "app.modules.planning.contracts",
+            "from ortools.sat.python import cp_model",
+            "VALIDATION_OR_CONTRACT_IMPORTS_SOLVER",
+        ),
+        (
+            "app.modules.learning.router",
+            "from app.modules.execution.public import mutate",
+            "FACT_READER_IMPORTS_IMPLEMENTATION",
+        ),
+        (
+            "app.modules.learning.router",
+            "from app.modules.planning.objectives import score",
+            "FACT_READER_IMPORTS_IMPLEMENTATION",
+        ),
+    ],
+)
+def test_v13_independence_cannot_use_solver_facade_or_contract_backdoor(module, source, expected):
+    assert any(expected in error for error in check_source(source, module))
+
+
+@pytest.mark.parametrize(
+    ("module", "source"),
+    [
+        ("app.modules.validation.service", "from app.modules.planning.contracts import Snapshot"),
+        ("app.modules.validation.service", "from ..households.contracts import MemberSafety"),
+        ("app.modules.validation.replay", "from .facts import PrimitiveFacts"),
+        ("app.modules.validation.service", "from app.shared.units import Quantity"),
+        ("app.modules.learning.router", "from app.modules.execution.contracts import Event"),
+        ("app.modules.planning.service", "from app.modules.validation.public import validate"),
+        ("app.modules.execution.service", "from app.modules.learning.public import route_signal"),
+        ("app.modules.planning.contracts.snapshot", "from .facts import PrimitiveFact"),
+    ],
+)
+def test_v13_independent_contracts_and_orchestration_imports_are_allowed(module, source):
+    assert check_source(source, module) == []
