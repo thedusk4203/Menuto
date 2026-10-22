@@ -22,7 +22,7 @@ from app.domain.units import CalculatedQuantity, Money, Provenance, Quantity, Yi
 
 
 class RetailContract(Contract):
-    contract_version: Literal["retail-v1"] = "retail-v1"
+    contract_version: Literal["retail-v2"] = "retail-v2"
 
 
 class Granularity(StrEnum):
@@ -50,7 +50,20 @@ class RetailerFact(RetailContract):
     name: Label
     country: Annotated[str, Field(pattern=r"^[A-Z]{2}$")]
     currency: Annotated[str, Field(pattern=r"^[A-Z]{3}$")]
+
+
+class RetailerStatusProvenance(Provenance):
+    """LEGACY_STATE identifies migrated state; it does not invent a reviewed source."""
+
+    kind: Literal["USER", "REVIEWED_REFERENCE", "RETAIL_OBSERVATION", "RECEIPT", "LEGACY_STATE"]
+
+
+class RetailerStatusFact(RetailContract):
+    id: UUID
+    retailer_id: UUID
     status: Literal["ACTIVE", "INACTIVE"]
+    effective_at: AwareTime
+    provenance: RetailerStatusProvenance
 
 
 class StoreRegionFact(RetailContract):
@@ -69,6 +82,7 @@ class RetailProductFact(RetailContract):
     name: Label
     brand: Label | None = None
     category: Identifier
+    canonical_ingredient_id: UUID
     provenance: Provenance
 
 
@@ -247,7 +261,7 @@ class ReferencePriceEntryFact(RetailContract):
 
 
 class RetailPriceCalibrationFact(RetailContract):
-    """Externally authored category index; confidence is ordinal, never probability."""
+    """Adjusts reference baselines only; never multiplies retailer observations."""
 
     id: UUID
     retailer_id: UUID
@@ -279,6 +293,19 @@ class ProcurementClassMemberFact(RetailContract):
     provenance: Provenance
 
 
+class ReferencePricePair(RetailContract):
+    """Money for a reference AP quantity, NEVER a package/purchase cost.
+
+    Future planners need a separate ProcurementCostEvaluator and explicit money
+    quantization policy. In particular 60,000/1000g is not the cost of a 500g pack.
+    """
+
+    price_basis: Literal["REFERENCE_WEIGHT_RATE"] = "REFERENCE_WEIGHT_RATE"
+    basis: Literal["AP_G"] = "AP_G"
+    money_for_reference_quantity: Money
+    priced_ap_g: PositiveDecimal
+
+
 class PlanningPriceQuoteDraft(RetailContract):
     id: UUID
     status: Literal["DRAFT"] = "DRAFT"
@@ -289,9 +316,8 @@ class PlanningPriceQuoteDraft(RetailContract):
     store_region_id: UUID
     region_code: Identifier
     product_category: Identifier
-    evidence_kind: Literal["RETAIL_OBSERVED", "CALIBRATED", "REFERENCE_BASELINE"]
-    price: Money
-    priced_ap_g: PositiveDecimal
+    evidence_kind: Literal["RETAIL_OBSERVED", "CALIBRATED_REFERENCE", "REFERENCE_BASELINE"]
+    reference_price_pair: ReferencePricePair
     as_of: AwareTime
     policy_version: Identifier
     observation: PriceObservationFact | None = None
@@ -306,7 +332,7 @@ class PlanningPriceQuoteDraft(RetailContract):
             raise ValueError("Package and mapping must belong to the same product")
         expected_shape = {
             "RETAIL_OBSERVED": (True, False, False),
-            "CALIBRATED": (True, True, False),
+            "CALIBRATED_REFERENCE": (False, True, True),
             "REFERENCE_BASELINE": (False, False, True),
         }
         if (
@@ -359,7 +385,10 @@ class PlanningPriceQuoteDraft(RetailContract):
             ) or self.as_of < cal.provenance.observed_at:
                 raise ValueError("Calibration context/time mismatch")
             base_price = calibrated_money(base_price, cal.factor)
-        if self.price != base_price or self.priced_ap_g != base_qty:
+        if (
+            self.reference_price_pair.money_for_reference_quantity != base_price
+            or self.reference_price_pair.priced_ap_g != base_qty
+        ):
             raise ValueError("Quote must preserve/recompute its source price and quantity")
         return self
 
@@ -384,11 +413,39 @@ class PlanningProcurementOptionDraft(RetailContract):
     rank: Annotated[int, Field(strict=True, ge=0, le=2_147_483_647)]
     quote: PlanningPriceQuoteDraft
     package_size_brittleness: EvidenceQuality
-    depends_on_single_source: bool
-    depends_on_promotion: bool
+    brittleness_policy_version: Identifier
     substitution_group: Identifier
     rationale: Label
     provenance: Provenance
+
+    @property
+    def depends_on_promotion(self) -> bool:
+        observation = self.quote.observation
+        return observation is not None and observation.is_promotion
+
+
+class SourceCoverageDraft(RetailContract):
+    """Structural counts of non-UNAVAILABLE direct evidence, not probabilities.
+
+    Multiple references/target stores do not manufacture independent retail evidence.
+    Single-source remains true if retailer OR provider OR purchasing-path coverage <2.
+    """
+
+    candidate_path_count: Annotated[int, Field(strict=True, ge=0)]
+    observed_path_count: Annotated[int, Field(strict=True, ge=0)]
+    observed_retailer_count: Annotated[int, Field(strict=True, ge=0)]
+    observation_provider_count: Annotated[int, Field(strict=True, ge=0)]
+
+    @property
+    def depends_on_single_source(self) -> bool:
+        return (
+            min(
+                self.observed_path_count,
+                self.observed_retailer_count,
+                self.observation_provider_count,
+            )
+            < 2
+        )
 
 
 class ProcurementSnapshotDraft(RetailContract):
@@ -438,10 +495,26 @@ class ProcurementSnapshotDraft(RetailContract):
             member = next(m for m in self.members if m.mapping.id == quote.mapping.id)
             if member.mapping != quote.mapping:
                 raise ValueError("Mapping facts cannot conflict under the same identity")
-        currencies = {option.quote.price.currency for option in self.options}
+        currencies = {
+            option.quote.reference_price_pair.money_for_reference_quantity.currency
+            for option in self.options
+        }
         if len(currencies) != 1:
             raise ValueError("Procurement options require a common currency")
         return self
+
+    @property
+    def source_coverage(self) -> SourceCoverageDraft:
+        candidates = [o.quote for o in self.options if o.quote.availability != "UNAVAILABLE"]
+        observed = [q for q in candidates if q.observation is not None]
+        return SourceCoverageDraft(
+            candidate_path_count=len(candidates),
+            observed_path_count=len(observed),
+            observed_retailer_count=len({q.retailer_id for q in observed}),
+            observation_provider_count=len(
+                {q.observation.provenance.source_system for q in observed}
+            ),
+        )
 
 
 class PriceEvidenceAssessmentDraft(RetailContract):

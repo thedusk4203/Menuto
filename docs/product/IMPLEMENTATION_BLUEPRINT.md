@@ -11,7 +11,7 @@
 | Neutral benchmark format + mutation fixture format freeze | Một phần | synthetic-v2 regression giữ nguyên; mutation fixtures đầy đủ còn thiếu MTR-002/026 |
 | CI chặn validation → planner/solver internals | Có static rule + negative tests | Bao gồm public-facade/relative-import và contracts đường vòng; chưa chứng minh runtime isolation |
 | Selective Smart Menu reuse strategy | Đã giữ | Spec §22; không fork schema/code/lịch sử hoặc coi nguồn tham khảo là đã port |
-| M1.1 Retail/Procurement foundation | Local và GitHub CI PASS cho implementation ed11639 | [Evidence](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md), [draft PR #55](https://github.com/thedusk4203/Menuto/pull/55); 0003/21 domain tables, mapping AP→EP, granularity/evidence/quote/procurement draft; không chứng nhận toàn bộ M0/M1 |
+| M1.1 Retail/Procurement foundation | Corrected semantics 0004 đạt local + CI, draft PR #56 chờ review | [Correction evidence](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md); 23 domain tables, reference calibration, derived fragility, status history/canonical ingredient; planning contracts vẫn draft, không chứng nhận toàn bộ M0/M1 |
 
 ## Thứ tự chuẩn bị đề xuất
 

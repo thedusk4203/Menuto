@@ -130,12 +130,12 @@ Chi tiết thay đổi tương thích, precision và cách migration dừng an t
 
 [Domain review A–G](M1_1_RETAIL_DOMAIN_REVIEW.md) cụ thể hóa V1.3/ADR-006; không thiết kế lại Foundation. [Evidence thực chạy](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md) ghi kết quả local và trạng thái CI riêng.
 
-- Thêm migration `0003` và 13 bảng Retail, đưa tổng domain tables lên 21. Không sửa 0001/0002; downgrade khóa tất cả bảng M1.1 và fail closed nếu có dữ liệu. Revision giữ DDL/trigger SQL riêng.
+- 0003 thêm 13 bảng Retail; 0004 sửa semantic và thêm status history/legacy audit, tổng domain tables 23. Không sửa 0001–0003. Upgrade 0004 dừng nếu quote CALIBRATED cũ hoặc product chưa có đúng một ingredient; downgrade khóa bảng và fail closed khi có Retail data. [Correction evidence](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md).
 - Mapping versioned Product→Ingredient sở hữu edible yield AP_G→EP_RAW_G; review/basis/provenance được kiểm ở contracts và PostgreSQL. `ProductIngredientConversionFact` giữ primitive facts; inventory origin handoff riêng mang nhãn draft, không có ledger.
 - Package fixed/catch/loose có trường và semantics tách biệt. Chỉ hỗ trợ AP mass; không ngầm đổi count/ml/package thành gram. RetailNumeric giữ miền StoredQuantity nhưng SQL không được tự ép scale/làm tròn.
-- PriceObservation append-only khác PlanningPriceQuote. Origins RETAIL_OBSERVED/CALIBRATED/REFERENCE_BASELINE có FK nguồn, không có reference availability giả. Calibration có retailer × store/region × category/evidence metadata; chưa học/shrink hệ số.
-- ProcurementClass accepted mappings, primary/backup options, substitution groups, package/source/promo primitives đã có. Không có optimizer scoring; toàn bộ planning handoffs DRAFT. Primary hoàn chỉnh được kiểm ở collection boundary; DB cho phép class draft đang xây dở.
-- Kết quả local: 368 Python tests, gồm 138 PostgreSQL; migration/drift/import checks pass. Client/web và 22 benchmark scenarios pass. Remote CI của implementation `ed11639` đã PASS cả Python/PostgreSQL 18.4 và web: [run #14](https://github.com/thedusk4203/Menuto/actions/runs/39744442973), [draft PR #55](https://github.com/thedusk4203/Menuto/pull/55).
+- PriceObservation append-only khác PlanningPriceQuote. Origins RETAIL_OBSERVED/REFERENCE_BASELINE/CALIBRATED_REFERENCE có FK nguồn; calibration chỉ nhân reference và không tạo stock evidence. Quote expose reference_price_pair, SQL dùng reference_amount_minor/reference_ap_g; không phải purchase cost. Chưa có hierarchy/shrink estimator hoặc ProcurementCostEvaluator.
+- ProcurementClass accepted mappings, primary/backup và substitution groups đã có; promotion derive từ observation, single-source derive từ snapshot coverage, brittleness có policy version/provenance. RetailerStatusFact thay state mà không đổi retailer ID. ProductVersion khóa một canonical ingredient. Không có optimizer scoring; planning handoffs vẫn DRAFT.
+- Kết quả 0003 lịch sử: 368 Python tests/138 PostgreSQL và CI PASS của [PR #55](https://github.com/thedusk4203/Menuto/pull/55), đã merge. Kết quả corrected implementation ở [evidence 0004](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md); CI xanh cũ không thay semantic review.
 - Tiếp theo có thể review M1.2 Recipe/Preparation. Cooking yield, RecipeVersion persistence, inventory/ActivePlan/execution, Independent Validator và AI chưa được triển khai trong M1.1.
 
 ## Tài liệu kỹ thuật đối chiếu

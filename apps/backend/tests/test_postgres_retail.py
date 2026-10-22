@@ -35,6 +35,7 @@ def seed(db, granularity="FIXED_PACK"):
     repo = RetailEvidenceRepository(db)
     for key in (
         "retailer",
+        "retailer_status",
         "region",
         "product",
         "package",
@@ -299,26 +300,25 @@ def test_external_source_identity_provider_namespace(db):
 
 def test_calibrated_and_reference_derivations_roundtrip(db):
     f, repo = seed(db)
-    for origin in ("CALIBRATED", "REFERENCE_BASELINE"):
+    for origin in ("CALIBRATED_REFERENCE", "REFERENCE_BASELINE"):
         inputs = (
-            {"observation": f["observation"], "calibration": f["calibration"]}
-            if origin == "CALIBRATED"
+            {"reference": f["reference"], "calibration": f["calibration"]}
+            if origin == "CALIBRATED_REFERENCE"
             else {"reference": f["reference"]}
         )
         quote = derive_price_quote(**f["quote_inputs"], **inputs)
         repo.add(quote)
         assert repo.get(c.PlanningPriceQuoteDraft, quote.id) == quote
         assert quote.evidence_kind == origin
-        if origin == "REFERENCE_BASELINE":
-            assert quote.availability == "UNKNOWN"
-            assert row(db, "planning_price_quotes", quote.id)["observation_id"] is None
+        assert quote.availability == "UNKNOWN"
+        assert row(db, "planning_price_quotes", quote.id)["observation_id"] is None
 
 
 @pytest.mark.parametrize(
     "fields",
     [
-        {"amount_minor": 50_001},
-        {"priced_ap_g": Decimal(499)},
+        {"reference_amount_minor": 50_001},
+        {"reference_ap_g": Decimal(499)},
         {"evidence_kind": "CALIBRATED"},
         {"evidence_kind": "REFERENCE_BASELINE"},
         {"observation_id": None},
@@ -339,7 +339,7 @@ def test_reference_cannot_masquerade_or_cross_ingredient_region_currency(db):
     repo.add(baseline)
     for override, code in [
         ({"currency": "USD"}, "23514"),
-        ({"amount_minor": 1}, "23514"),
+        ({"reference_amount_minor": 1}, "23514"),
         ({"observation_id": f["observation"].id}, "23514"),
         ({"region_code": "OTHER"}, "23514"),
     ]:
@@ -362,7 +362,11 @@ def test_calibration_context_and_fractional_minor_units_cannot_be_faked(db):
     )
     repo.add(cal)
     fields = duplicate_fields(db, "planning_price_quotes") | {
-        "evidence_kind": "CALIBRATED",
+        "evidence_kind": "CALIBRATED_REFERENCE",
+        "observation_id": None,
+        "reference_entry_id": f["reference"].id,
+        "reference_ap_g": Decimal(1000),
+        "reference_amount_minor": 60_000,
         "calibration_id": cal.id,
     }
     rejected_sql(db, "planning_price_quotes", fields)
@@ -382,7 +386,7 @@ def test_calibration_context_and_fractional_minor_units_cannot_be_faked(db):
         | {
             "id": uuid4(),
             "calibration_id": other.id,
-            "amount_minor": 55_000,
+            "reference_amount_minor": 66_000,
         },
         code="23503",
     )
@@ -470,9 +474,10 @@ TABLES = (
     "planning_price_quotes",
     "planning_procurement_options",
 )
+NEW_TABLES = ("retailer_status_facts", "retail_legacy_option_assessments")
 
 
-@pytest.mark.parametrize("table", TABLES)
+@pytest.mark.parametrize("table", (*TABLES, "retailer_status_facts"))
 @pytest.mark.parametrize("mutation", ["UPDATE", "DELETE", "TRUNCATE"])
 def test_all_retail_facts_append_only_even_via_direct_sql(db, table, mutation):
     seed(db)
@@ -506,10 +511,12 @@ def test_m11_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
     migrate(engine, config, "0002")
     before = set(inspect(engine).get_table_names())
     migrate(engine, config, "0003")
-    assert set(inspect(engine).get_table_names()) - before == set(TABLES)
+    migrate(engine, config, "0004")
+    assert set(inspect(engine).get_table_names()) - before == set((*TABLES, *NEW_TABLES))
     migrate(engine, config, "0002", down=True)
     assert set(inspect(engine).get_table_names()) == before
     migrate(engine, config, "0003")
+    migrate(engine, config, "0004")
     with engine.connect() as connection:
         config.attributes["connection"] = connection
         command.check(config)
@@ -525,10 +532,10 @@ def test_m11_downgrade_fails_closed_and_preserves_data(legacy_database, full_cha
         else:
             RetailEvidenceRepository(session).add(chain()["retailer"])
         session.commit()
-    with pytest.raises(IntegrityError, match="M1.1 downgrade would lose"):
+    with pytest.raises(IntegrityError, match="0004 downgrade cannot preserve"):
         migrate(engine, config, "0002", down=True)
     with engine.connect() as connection:
-        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0003"
+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0004"
         assert connection.scalar(text("SELECT count(*) FROM retailers")) == 1
         if full_chain:
             assert connection.scalar(text("SELECT count(*) FROM ingredient_product_maps")) == 1

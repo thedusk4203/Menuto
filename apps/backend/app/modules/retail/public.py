@@ -9,6 +9,7 @@ from app.modules.retail.contracts import (
     PlanningPriceQuoteDraft,
     PriceObservationFact,
     ReferencePriceEntryFact,
+    ReferencePricePair,
     RetailPriceCalibrationFact,
     calibrated_money,
 )
@@ -31,11 +32,11 @@ def derive_price_quote(
 ) -> PlanningPriceQuoteDraft:
     """Caller explicitly selects evidence/policy; nothing silently falls back.
 
-    M1.1 supports passthrough or an externally supplied category calibration. A
+    Category calibration applies only to reference baselines. A
     production multi-source freshness/outlier eligibility policy remains unimplemented.
     """
-    if (observation is None) == (reference is None) or (reference and calibration):
-        raise ValueError("Choose an observation (optionally calibrated) OR explicit reference")
+    if (observation is None) == (reference is None) or (observation and calibration):
+        raise ValueError("Choose direct observation OR reference (optionally calibrated)")
     source = observation if observation is not None else reference
     price = calibrated_money(source.price, calibration.factor) if calibration else source.price
     return PlanningPriceQuoteDraft(
@@ -50,12 +51,14 @@ def derive_price_quote(
         as_of=as_of,
         policy_version=policy_version,
         evidence_kind=(
-            "CALIBRATED"
+            "CALIBRATED_REFERENCE"
             if calibration
             else ("RETAIL_OBSERVED" if observation else "REFERENCE_BASELINE")
         ),
-        price=price,
-        priced_ap_g=source.priced_ap_g,
+        reference_price_pair=ReferencePricePair(
+            money_for_reference_quantity=price,
+            priced_ap_g=source.priced_ap_g,
+        ),
         observation=observation,
         calibration=calibration,
         reference=reference,

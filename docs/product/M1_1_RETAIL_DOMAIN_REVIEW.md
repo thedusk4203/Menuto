@@ -1,14 +1,15 @@
 # M1.1 — Retail / Procurement domain review
 
-Ngày: 2026-10-22. Phần A–G đã được trình bày trước khi thay code; tài liệu này ghi lại quyết định đã triển khai. Nguồn chuẩn: [V1.3 §12](../MENUTO_DEVELOPMENT_SPEC_V1_3.md), [ADR-006](../adr/ADR-006-retail-procurement-abstraction.md), [ADR-010](../adr/ADR-010-independent-validator.md), [blueprint](IMPLEMENTATION_BLUEPRINT_M0_M1.md). Không thay canonical Foundation, ADR hoặc invariant.
+Ngày: 2026-10-22. Bản cập nhật sau architecture review sửa semantics qua migration **0004**, giữ nguyên 0001–0003. Nguồn chuẩn: [V1.3 §12](../MENUTO_DEVELOPMENT_SPEC_V1_3.md), [ADR-006](../adr/ADR-006-retail-procurement-abstraction.md), [ADR-010](../adr/ADR-010-independent-validator.md), [blueprint](IMPLEMENTATION_BLUEPRINT_M0_M1.md). Việc dùng RetailPriceCalibration cho observations ở 0003 trái canonical reference fallback; bản này thay thế quyết định đó, không sửa ADR/invariants.
 
 ## A. Entities và bảng
 
 | Bảng | Ý nghĩa và quan hệ chính |
 | --- | --- |
-| retailers | Retailer identity, country/currency/status |
+| retailers | Retailer identity ổn định, country/currency; không giữ status |
+| retailer_status_facts | ACTIVE/INACTIVE append-only, effective_at và provenance; tra theo thời điểm |
 | store_regions | Một store hoặc region scope; thuộc retailer, có region_code và scope_code |
-| retail_products | Phiên bản SKU của retailer, category/brand và source provenance |
+| retail_products | Phiên bản SKU, category/brand/provenance và một canonical_ingredient_id |
 | retail_packages | Phiên bản purchase behavior của product; AP gram trong M1.1 |
 | ingredient_product_maps | Phiên bản Product→Ingredient, edible yield, AP_G→EP_RAW_G, review/confidence/provenance |
 | price_observations | RetailOffer là observation có thời điểm, không tạo bảng offer mutable song song |
@@ -19,14 +20,17 @@ Ngày: 2026-10-22. Phần A–G đã được trình bày trước khi thay code
 | retail_price_calibrations | Retailer × store/region × category; factor, evidence_count, ordinal confidence, method/source version |
 | planning_price_quotes | Derived draft với FK về mapping/package/class và nguồn giá; không phải observation |
 | planning_procurement_options | Rank 0 primary, rank >0 backup, quote, substitution_group và fragility assessment primitives |
+| retail_legacy_option_assessments | Audit hai cờ nhập tay của 0003; đóng với INSERT/UPDATE/DELETE/TRUNCATE sau migration, không dùng để derive fragility |
 
-M1.1 thêm 13 bảng vào 8 bảng Foundation: **21 bảng domain**, ngoài `alembic_version`. Không dùng JSONB, không có RecipeVersion/cooking/physical inventory/ActivePlan tables.
+0003 thêm 13 bảng; 0004 thêm status history và audit archive: **23 bảng domain**, ngoài `alembic_version`. Không dùng JSONB, không có RecipeVersion/cooking/physical inventory/ActivePlan tables.
 
 ## B. Ownership và lịch sử
 
 - Catalog sở hữu Ingredient; Retail chỉ tham chiếu bằng FK.
 - Retail sở hữu các facts/catalog mua hàng dùng chung. Không gắn household giả vào retailer/product/quote. Household sẽ sở hữu tài sản/giao dịch thực tế ở slice riêng.
 - Product là identity phiên bản SKU trong retailer. Package và mapping có identity/version riêng, không suy chuyển đổi từ SKU name hoặc package label.
+- Một ProductVersion có đúng một canonical ingredient, khóa bằng composite FK của mapping. Nhiều phiên bản yield/review vẫn được giữ cho cùng ingredient; composite product/decomposition để sau.
+- Retailer có identity ổn định. Trạng thái được append vào RetailerStatusFact; latest effective_at ≤ as_of xác định trạng thái, không có fact thì unknown. Unique retailer/effective_at chặn lịch sử hòa thời điểm. Status chưa tự là production eligibility gate hoặc stock evidence.
 - Toàn bộ rows M1.1 append-only; PostgreSQL chặn UPDATE, DELETE và TRUNCATE. Sửa source/review/calibration bằng identity/version mới, không sửa nguồn đã được quote tham chiếu.
 - Các cột context lặp lại phục vụ composite FK, không phải hai nguồn truth độc lập: retailer/store/product/package, class/ingredient/granularity và mapping/product/ingredient đều được ràng buộc.
 - Repository không commit, không tự tạo nested source. Khi nhận snapshot lồng nhau, repository đối chiếu primitive facts với identity bất biến đã lưu. Caller sở hữu transaction.
@@ -40,12 +44,12 @@ M1.1 thêm 13 bảng vào 8 bảng Foundation: **21 bảng domain**, ngoài `ale
 | Origin | Nguồn bắt buộc | Availability |
 | --- | --- | --- |
 | RETAIL_OBSERVED | observation | Đọc evidence ở observation, kể cả CONFIRMED vẫn chỉ tại observed_at |
-| CALIBRATED | observation + calibration đúng retailer/store-region/category | Vẫn đọc observation, calibration không nâng availability |
+| CALIBRATED_REFERENCE | reference entry + calibration đúng retailer/store-region/category | UNKNOWN |
 | REFERENCE_BASELINE | reference entry + book | UNKNOWN; không tạo retail observation giả |
 
 `derive_price_quote` chỉ nhận lựa chọn nguồn tường minh và policy_version. Không tự fallback, không tự chọn giá thấp nhất, không tự chứng nhận freshness/eligibility. DB trigger kiểm lại source money/currency/reference quantity/time; composite FK kiểm ownership/context. Quote không có cột availability riêng để drift khỏi source.
 
-Calibration là factor do nguồn bên ngoài cung cấp, không phải thuật toán học trong slice này. Phép nhân exact phải ra integer minor units; nếu có phần lẻ thì reject, không tự làm tròn hoặc gắn probability/P90. Reference AP price là proxy fallback trên basis AP_G đã khai báo, không phải nutrition price EP hoặc giá cửa hàng thật. Chưa có calibrated-reference/shrinkage resolver; không ngầm dùng observation calibration cho reference.
+Calibration chỉ nhân reference baseline; observation + calibration bị từ chối ở factory, contract và SQL. Ví dụ 60.000 VND/1.000g reference × 1,1 → 66.000 VND/1.000g calibrated reference; 50.000 VND observation giữ nguyên. Phép nhân exact phải ra integer minor units, phần lẻ bị reject; không gắn probability/P90. Reference AP price vẫn là proxy fallback, không phải nutrition price EP hay giá/availability cửa hàng thật. Chưa có hierarchy/shrinkage estimator; factor vẫn phải có evidence/method/version.
 
 ## D. AP→EP
 
@@ -69,7 +73,7 @@ Cooking yield EP_RAW_G→COOKED_G tiếp tục thuộc Recipe/Preparation cho M1
 | CATCH_WEIGHT | low <= expected <= high, low < high; không có fixed/min/step | Số package nguyên dương; expected/bounds không phải exact checkout weight |
 | LOOSE_SCALE | minimum_ap_g >0, step_ap_g >0; không có fixed/catch fields | AP weight = minimum + k × step, k nguyên không âm; không có package count |
 
-Price là integer minor units cho `priced_ap_g` của evidence. Với catch/loose đây là giá cho trọng lượng tham chiếu, không phải tổng tiền checkout. Quote luôn giữ reference quantity và PackageFact. Class khóa granularity; mỗi option giữ package version riêng nên primary/backup khác cỡ pack vẫn thể hiện được.
+Raw evidence giữ Money/`priced_ap_g`. Quote mới chỉ expose `reference_price_pair` gồm `money_for_reference_quantity`, `priced_ap_g`, basis AP_G và price_basis REFERENCE_WEIGHT_RATE; không còn `.price` hay `.priced_ap_g` ở root quote. SQL quote dùng `reference_amount_minor`/`reference_ap_g`, không còn `amount_minor` dễ bị lấy làm purchase cost. Cặp 60.000/1.000g gắn package 500g không có nghĩa pack giá 60.000. ProcurementCostEvaluator và explicit money quantization policy phải có trước Planner; slice này chưa tính purchase costs. Class khóa granularity; mỗi option giữ package version riêng.
 
 Chưa có purchase persistence nên discrete package_count và loose requested quantity nằm trong typed PurchaseIntent, kiểm bằng PackageFact.validate_purchase. DB bảo vệ package facts, bounds/basis và observation price semantics; không tạo bảng shopping chỉ để lưu intent trong slice này.
 
@@ -85,13 +89,15 @@ RetailNumeric sử dụng NUMERIC không ép scale, kèm CHECK `value = trunc(va
 
 Collection contract/repository yêu cầu đúng một primary, ranks/quotes/purchase paths khác nhau, accepted reviewed mappings, granularity và currency thống nhất. DB cho phép draft class chưa đủ option để xây dần; nó chưa activation-ready. Unique rank và trigger serialized theo class chặn clone quote của cùng product/package/store thành backup giả.
 
+Promotion dependence là property từ quote.observation.is_promotion, không nhận input và không persist cờ trùng source. Single-source dependence ở snapshot.source_coverage: đếm candidate paths, direct observed paths/retailers/providers chưa UNAVAILABLE; true khi một trong ba coverage trực tiếp nhỏ hơn hai. Reference/calibrated reference không tăng direct counts. Đây là structural coverage, không chứng minh statistical independence hay xác suất. Package brittleness vẫn là assessed value, phải có brittleness_policy_version và option provenance.
+
 ## G. Các quyết định giữ draft/configurable
 
 - Không có numeric freshness thresholds, outlier policy, fragility weights, default calibration factors hoặc sample thresholds.
-- Chưa có multi-source evidence normalization/eligibility, hierarchy/shrinkage hoặc reference calibration resolver. PriceEvidenceAssessmentDraft là input hình thức cho policy tương lai, chưa có evaluation engine/persistence riêng.
+- Chưa có multi-source observation normalization/eligibility, hierarchy/shrinkage estimator hoặc ProcurementCostEvaluator. Reference calibration derivation đã có; không tái sử dụng nó để normalize observations. PriceEvidenceAssessmentDraft chưa có evaluation engine/persistence riêng.
 - M1.1 chỉ mass AP_G. COUNT/ml cần primitive conversion evidence và contract riêng trước khi hỗ trợ; không có package→gram conversion magic.
 - Accepted products được liệt kê tường minh qua mapping. Chưa có product-family taxonomy/resolver.
 - Không có retailer ingestion/scraper/live availability, shopping/checkout workflow, physical ledger, recipe persistence, planner, validator, AI hoặc final scoring.
 - M1.2 được phép phát triển Recipe/Preparation theo canonical ownership; contract draft ở đây không cấp quyền activation hoặc chứng nhận toàn bộ M0/M1.
 
-Không phát hiện contradiction cần superseding ADR. Các lựa chọn trên cụ thể hóa ADR-006 và giữ nguyên INV-001..030.
+0004 sửa contradiction của implementation với ADR-006; không cần superseding ADR vì canonical decision không đổi. Contracts chuyển sang retail-v2, inventory origin draft.2 và domain bundle 4. Quote CALIBRATED cũ và products chưa có đúng một ingredient làm upgrade fail closed. Direct/reference source facts không bị xóa; option flags cũ được archive, status cũ mang provenance LEGACY_STATE thay vì giả nguồn reviewed.

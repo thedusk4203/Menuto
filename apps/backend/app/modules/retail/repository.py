@@ -2,15 +2,18 @@
 
 from uuid import UUID
 
+from pydantic import TypeAdapter
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.domain.contracts import AwareTime
 from app.domain.units import Money, Provenance
 from app.modules.retail import contracts as c
 from app.modules.retail import models as m
 
 FACT_MODELS = {
     c.RetailerFact: m.Retailer,
+    c.RetailerStatusFact: m.RetailerStatusFact,
     c.StoreRegionFact: m.StoreRegion,
     c.RetailProductFact: m.RetailProduct,
     c.PackageFact: m.RetailPackage,
@@ -43,6 +46,10 @@ class RetailEvidenceRepository:
             )
         if isinstance(fact, c.PlanningProcurementOptionDraft):
             references.append(fact.quote)
+        if isinstance(fact, c.IngredientProductMapFact):
+            product = self.get(c.RetailProductFact, fact.retail_product_id)
+            if product.canonical_ingredient_id != fact.ingredient_id:
+                raise ValueError("Product version has exactly one canonical procurement ingredient")
         for reference in references:
             if reference is not None and self.get(type(reference), reference.id) != reference:
                 raise ValueError("Nested evidence disagrees with its persisted immutable identity")
@@ -68,6 +75,13 @@ class RetailEvidenceRepository:
                 ingredient_id=fact.mapping.ingredient_id,
             )
         if isinstance(fact, c.PlanningPriceQuoteDraft):
+            pair = fields.pop("reference_price_pair")
+            fields.update(
+                reference_amount_minor=pair["money_for_reference_quantity"]["amount_minor"],
+                currency=pair["money_for_reference_quantity"]["currency"],
+                reference_ap_g=pair["priced_ap_g"],
+                price_basis=pair["price_basis"],
+            )
             for key in ("package", "observation", "calibration", "reference"):
                 fields.pop(key)
             fields.update(
@@ -110,7 +124,10 @@ class RetailEvidenceRepository:
                 )
             }
             provenance["kind"] = provenance.pop("source_kind")
-            fields["provenance"] = Provenance(**provenance)
+            provenance_type = (
+                c.RetailerStatusProvenance if contract_type == c.RetailerStatusFact else Provenance
+            )
+            fields["provenance"] = provenance_type(**provenance)
         if "amount_minor" in fields:
             fields["price"] = Money(
                 amount_minor=fields.pop("amount_minor"),
@@ -125,6 +142,14 @@ class RetailEvidenceRepository:
         if contract_type == c.ProcurementClassMemberFact:
             fields.pop("id")
         if contract_type == c.PlanningPriceQuoteDraft:
+            fields["reference_price_pair"] = c.ReferencePricePair(
+                money_for_reference_quantity=Money(
+                    amount_minor=fields.pop("reference_amount_minor"),
+                    currency=fields.pop("currency"),
+                ),
+                priced_ap_g=fields.pop("reference_ap_g"),
+                price_basis=fields.pop("price_basis"),
+            )
             fields["package"] = self.get(c.PackageFact, fields.pop("package_id"))
             fields.pop("granularity")
             for key, field, target in (
@@ -138,6 +163,22 @@ class RetailEvidenceRepository:
             fields["quote"] = self.get(c.PlanningPriceQuoteDraft, fields.pop("quote_id"))
             fields.pop("procurement_class_id")
         return contract_type.model_validate(fields)
+
+    def retailer_status_at(
+        self, retailer_id: UUID, as_of: AwareTime
+    ) -> c.RetailerStatusFact | None:
+        """No fact means unknown status. Scheduled facts do not change earlier views."""
+        timestamp = TypeAdapter(AwareTime).validate_python(as_of)
+        row = self.session.scalar(
+            select(m.RetailerStatusFact)
+            .where(
+                m.RetailerStatusFact.retailer_id == retailer_id,
+                m.RetailerStatusFact.effective_at <= timestamp,
+            )
+            .order_by(m.RetailerStatusFact.effective_at.desc())
+            .limit(1)
+        )
+        return self._fact(c.RetailerStatusFact, row) if row is not None else None
 
     def procurement_snapshot(self, class_id: UUID) -> c.ProcurementSnapshotDraft:
         cls = self.get(c.ProcurementClassFact, class_id)

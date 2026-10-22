@@ -1,5 +1,7 @@
 # M1.1 — Retail / Procurement evidence
 
+> **Historical evidence cho implementation 0003 (`ed11639`, PR #55 đã merge).** CI xanh dưới đây không chứng minh canonical calibration semantics đúng. Architecture review sau merge phát hiện P0; thiết kế hiện hành và bằng chứng sửa bằng 0004 nằm ở [M1.1 Corrections Evidence](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md) và [domain review cập nhật](M1_1_RETAIL_DOMAIN_REVIEW.md). Không dùng mô tả CALIBRATED observation hoặc wire retail-v1 dưới đây như contract hiện hành.
+
 Ngày kiểm chứng: **2026-10-22**, timezone Asia/Saigon. Kết quả: **slice foundation M1.1 đạt kiểm chứng local và GitHub CI**; planning/procurement handoffs vẫn DRAFT. Không tuyên bố M0/M1 hoặc production planning hoàn tất. [Domain review và quyết định A–G](M1_1_RETAIL_DOMAIN_REVIEW.md).
 
 ## Những gì đã triển khai

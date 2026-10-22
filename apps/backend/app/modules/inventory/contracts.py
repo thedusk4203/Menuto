@@ -15,8 +15,8 @@ class RetailSourcedAPAssetDraft(RawIngredientAssetFact):
     not an accepted retail acquisition handoff. This contract grants no physical stock.
     """
 
-    contract_version: Literal["inventory-retail-origin.m1-draft.1"] = (
-        "inventory-retail-origin.m1-draft.1"
+    contract_version: Literal["inventory-retail-origin.m1-draft.2"] = (
+        "inventory-retail-origin.m1-draft.2"
     )
     validation_ready: Literal[False] = False
     retail_mapping: IngredientProductMapFact
