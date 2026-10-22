@@ -188,4 +188,25 @@ hạn đã ghi rõ. Chưa bắt đầu M1.3.
   Khi lot hết hạn, intent còn audit được nhưng allocatable=0; không tự biến thành consumption.
 - Cooked dish có serving identity riêng; chưa có batch execution/conservation engine.
 - Planning/validator snapshot và batch link DRAFT; không activation/execution readiness.
-- Không bắt đầu M1.4; M1.3 chờ review freeze.
+- M1.3 đã user APPROVED/FROZEN ngày 2026-10-23 tại `fef629965dd7401e27c98b5a0c523998a27017c4`:
+  head0007, 38 bảng, 688 Python / 313 PostgreSQL-real tests, benchmark22/22, postmerge CI SUCCESS.
+
+
+## F — Plan/revision foundation: architecture review trước implementation
+
+Canonical work item: **MTR-016 — ActivePlan + PlanRevision schema**; planned batch và
+validation handoff là seams của MTR-023/MTR-025. Không tự đổi tên F thành M1.4.
+[Review A–J và counterexamples](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md).
+
+- Stable plan_id; full immutable relational revision graph + change metadata; Current
+  Working Graph là head view, không duplicate mutable child truth.
+- Draft proposals khác operational PlanRevision. Baseline0 chỉ được tạo khi activation
+  thực sự qua PRECOMMIT; root active_revision_no absent trước activation.
+- Materialized production/purchase/execution thuộc Household và không bị revision xóa.
+- Orchestration phối hợp contexts qua public/contracts; inventory fence → plan lock → lot
+  balance locks, expected revision/hash và idempotency result trước stale-head check.
+- Reservation thay đổi bằng full release/reacquire atomically theo M1.3, không physical movement.
+- Chưa có independent PRECOMMIT capability/full resolved subject: operational activation
+  fail-closed. Architecture review không giả boolean PASS hoặc mở activation endpoint.
+- Đây là review-only; chưa có0008/tables/contracts/services mới hoặc runtime tests cho F.
+  Không claim MTR-016 hoàn tất hoặc tự freeze. READY FOR ARCHITECTURE/FREEZE REVIEW.

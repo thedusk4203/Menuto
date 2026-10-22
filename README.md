@@ -82,4 +82,6 @@ Graphify là công cụ phát triển tùy chọn. Chỉ ba output công khai đ
 M1.1/M1.2 đã freeze tại 05382b6. M1.3 thêm physical inventory foundation ở migration
 0007, tổng 38 bảng. [Review](docs/product/M1_3_INVENTORY_DOMAIN_REVIEW.md) và
 [evidence](docs/product/M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md) ghi chính xác scope;
-không có full execution/Planner/Inventory UX. M1.3 chờ review freeze.
+không có full execution/Planner/Inventory UX. M1.3 đã **FROZEN** tại `fef6299` (0001–0007, 38 bảng).
+Slice tiếp theo giữ tên canonical **F — Plan/revision foundation (MTR-016)**;
+[architecture review](docs/product/PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md) chưa phải implementation hoặc activation-ready.

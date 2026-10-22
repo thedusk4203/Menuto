@@ -241,3 +241,27 @@ Số thứ tự xác định giữa các sự kiện cùng thời điểm và c�
 
 **Observation confidence**:
 Mức chắc chắn của quan sát số lượng, tách biệt lifecycle và nguồn xác nhận của sự kiện vật chất.
+
+
+**Current Working Graph**:
+Khuyến nghị hiện hành của một plan, được xác định bởi head đang chọn. Thay head qua một
+revision được chấp nhận làm đổi future intent; lịch sử revision và physical facts không đổi.
+
+**PlanProposalDraft**:
+Đề xuất intent chưa được activation/revision gate chấp nhận. Lịch sử đề xuất không phải
+PlanRevision0; proposal không chứng minh feasibility hoặc tạo confirmed reality.
+
+**ShoppingRequirement**:
+Nhu cầu mua có lượng và basis rõ theo một phiên bản intent. Không tự là bằng chứng đã mua.
+
+**PurchaseFulfillment**:
+Bằng chứng mua thực tế với actual quantity và actual price, có thể đáp ứng một phần nhu cầu.
+Thay khuyến nghị về sau không xóa purchase hoặc tài sản household đã nhận.
+
+**PlannedCookingBatch**:
+Ý định sản xuất với recipe version, composition và planned servings rõ. Khác batch thực sự
+đã nấu và khác prepared food đã thuộc household.
+
+**Materialization boundary**:
+Ranh giới một phần intent đã có confirmed execution/physical evidence. Nó giữ liên kết với
+khuyến nghị nguồn mà không biến thời gian trôi qua thành bằng chứng thực thi.
