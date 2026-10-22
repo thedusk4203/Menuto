@@ -73,4 +73,18 @@ dùng COOKED_G. Retail mapping giữ FK exact immutable evidence; không sở h�
 Service acquire/consume/discard/reconcile/reserve/release/snapshot và expiry foundation
 đã có; không có HTTP business endpoints/UX, fulfillment/import, CookingBatch execution,
 ActivePlan, projections, replan hoặc Independent Validator đầy đủ. Handoff snapshot và
-batch flow vẫn DRAFT. M1.3 chờ review freeze; không suy thành full M0/M1 hoàn tất.
+batch flow vẫn DRAFT. M1.3 đã **APPROVED/FROZEN** ngày 2026-10-23 tại
+`fef629965dd7401e27c98b5a0c523998a27017c4`, migrations0001–0007, 38 bảng;
+688 Python / 313 PostgreSQL-real tests, benchmark22/22 và postmerge CI SUCCESS.
+Không suy thành full M0/M1 hoặc execution readiness.
+
+
+## Tiếp theo: F — Plan/revision foundation (MTR-016)
+
+[Review A–J](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md) ghi ownership, immutable full
+revision graph, mutable head view, reservation/fulfillment/batch seams và adversarial traces.
+Repo chưa đặt số M1.4 cho slice này; giữ tên F và business identifier MTR-016.
+Hiện chỉ có architecture review; chưa có schema/contracts/services/migration0008.
+Operational activation/revision bị chặn tới khi có real PRECOMMIT gate và full subject;
+draft authoring không được gọi là ActivePlan operational hoặc PlanRevision0.
+Trạng thái review: **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa FROZEN.

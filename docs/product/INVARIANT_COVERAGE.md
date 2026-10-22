@@ -40,3 +40,10 @@ Bằng chứng micro-model: benchmark/tests/test_harness.py và test_foundation_
 [Evidence M1.1 lịch sử](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md) ghi 68 unit/contracts và 106 real-PostgreSQL tests ở 0003. INV-003/011/013 giữ ranh giới ownership/intents, chưa thay trạng thái physical lifecycle. Implementation `ed11639` đã pass [GitHub CI #14](https://github.com/thedusk4203/Menuto/actions/runs/39744442973); PR #55 đã merge. Bằng chứng này không bao phủ corrected semantics 0004.
 
 **Corrections 0004:** [evidence hiện hành](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md) thay thế semantic freeze của 0003 cho INV-007/008/009/018. Calibration chỉ reference; availability UNKNOWN; promotion/source coverage derive; ProductVersion có một canonical ingredient. Status history giữ retailer identity; quote pair không là purchase cost. Mức PARTIAL_FOUNDATION không đổi. PR #55 nêu trên đã merge; CI lịch sử không chứng nhận corrected implementation.
+
+
+Review F — Plan/revision foundation: [mapping A–J và adversarial matrix](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md).
+Đây là design evidence; không nâng runtime coverage, không chứng nhận PRECOMMIT/POSTFACT,
+ActivePlan activation, reservation revision transaction hoặc Independent Validator đã tồn tại.
+M1.3 ledger đã user FROZEN tại fef629965dd7401e27c98b5a0c523998a27017c4; các mức PARTIAL
+và gaps ngoài phạm vi physical foundation vẫn giữ nguyên.

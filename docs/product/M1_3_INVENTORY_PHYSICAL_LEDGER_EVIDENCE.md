@@ -1,6 +1,8 @@
 # M1.3 Inventory Physical Ledger — evidence
 
-Status: IMPLEMENTED, awaiting user review/freeze. M1.1/M1.2 remain FROZEN at
+Status: **APPROVED/FROZEN** by user on 2026-10-23.
+Canonical freeze commit: `fef629965dd7401e27c98b5a0c523998a27017c4` (PR #59),
+migrations0001–0007, **38 domain tables**. M1.1/M1.2 remain FROZEN at
 `05382b6425a072433e38db99a1de101b577804a0`.
 
 Implementation commit (complete code/tests): `6fafe913c3da33eba572fbaa477f1f82b4e84f96`.
@@ -112,4 +114,7 @@ diagnostic ingestion, full Independent Validator, batch execution/production, nu
 OperationalState/PlanningState builders, HorizonBridgeResolver, planned stock, scheduled
 reservation windows/partial fulfillment, storage transfer/cost basis, confidence history,
 receipt/barcode production import, replan/optimizer/AI/behavior learning and inventory UX.
-No M1.4 work. M1.3 requires user review before FROZEN.
+M1.3 is FROZEN within the scope/limitations above; no redesign or execution-readiness claim.
+Postmerge freeze-point [CI SUCCESS](https://github.com/thedusk4203/Menuto/actions/runs/39817008268)
+was reverified on 2026-10-23 for exact commit fef629965dd7401e27c98b5a0c523998a27017c4.
+Review of the next canonical slice F is separate from this frozen implementation.

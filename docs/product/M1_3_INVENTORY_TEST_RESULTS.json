@@ -38,7 +38,8 @@
     "0003_retail_procurement_foundation.py": "68ff8eb8e9b391eea8a53e4c5c2d687dae05969293d7d70b26eb2558d5efb535",
     "0004_correct_retail_semantics.py": "d6fcbcfdb7d00f31085ec491ff12c87e86d4dae6781a5a6b0cdb7f92d766211b",
     "0005_recipe_preparation_foundation.py": "116b95e973198e573faa13f619d74d85fc5a0f07e77355fe4e04d3d830763275",
-    "0006_culinary_binding_count_policy.py": "36990424652be8a019c3db4f0604ff0f2f8e6f91b6397e3b690cc7b5215b6890"
+    "0006_culinary_binding_count_policy.py": "36990424652be8a019c3db4f0604ff0f2f8e6f91b6397e3b690cc7b5215b6890",
+    "0007_inventory_physical_ledger.py": "f97fee30650a77cd58e54087676b8394d67b75832794845a688d1019ffacb13c"
   },
   "migration_checks": [
     "0006/0007 empty roundtrip twice",
@@ -67,6 +68,20 @@
     "postgresql_version": "18.4",
     "benchmark": "22/22"
   },
-  "freeze_status": "AWAITING_USER_REVIEW",
-  "next_milestone_started": false
+  "freeze_status": "APPROVED_FROZEN",
+  "next_milestone_started": false,
+  "freeze_commit": "fef629965dd7401e27c98b5a0c523998a27017c4",
+  "freeze_approved_on": "2026-10-23",
+  "freeze_approval_source": "Explicit user: Freeze M1.3; canonical freeze point and scope reaffirmed",
+  "postmerge_ci": {
+    "status": "SUCCESS",
+    "run_id": 39817008268,
+    "url": "https://github.com/thedusk4203/Menuto/actions/runs/39817008268",
+    "tested_head": "fef629965dd7401e27c98b5a0c523998a27017c4",
+    "python_job": 119958008708,
+    "web_job": 119958007848,
+    "total_python_tests": 688,
+    "python_seconds": "32.65",
+    "reverified_on": "2026-10-23"
+  }
 }

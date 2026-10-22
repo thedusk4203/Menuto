@@ -22,3 +22,10 @@
 4. Review entry criteria trước khi build policy/solver/consumer workflows.
 
 Numeric examples trong spec/debate không tự trở thành production defaults. Không chốt schema DB, thresholds hoặc thuật toán qua tài liệu khung này.
+
+
+M1.3 đã APPROVED/FROZEN tại `fef629965dd7401e27c98b5a0c523998a27017c4`
+(head0007, 38 bảng). [Evidence](M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md).
+Review tiếp theo giữ tên canonical **F — Plan/revision foundation / MTR-016**:
+[review A–J](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md). Chưa có operational activation;
+PRECOMMIT capability/source resolution vẫn là dependency bắt buộc. Không đổi numbering.

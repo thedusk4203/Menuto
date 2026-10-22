@@ -58,3 +58,15 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-050](https://github.com/thedusk4203/Menuto/issues/51) | P2 | Recipe import | Reviewable RecipeVersion draft; no auto-trust facts. | OPEN — chưa chứng nhận |
 
 Dependencies/contracts chi tiết cần freeze trong [Milestone 0/1 blueprint](IMPLEMENTATION_BLUEPRINT.md); thứ tự mã không phải DAG đã khóa. MTR-001/002 có foundation evidence, chưa đạt toàn bộ production criteria. Units, execution, independent validation và learning không được coi hoàn thành qua namespace.
+
+
+## Review evidence sau baseline
+
+M1.3 đã user APPROVED/FROZEN tại `fef629965dd7401e27c98b5a0c523998a27017c4`
+(head0007, 38 bảng). [Evidence](M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md).
+MTR-015 bao gồm policy/workflow rộng hơn ledger foundation; freeze slice không tự đóng
+GitHub issue hoặc tuyên bố toàn bộ acceptance criteria đã xong.
+
+Slice tiếp theo: **F — Plan/revision foundation / MTR-016**, theo blueprint.
+[Review A–J](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md) là review-only, chưa có migration,
+services hoặc execution/validation gate. MTR-016/023/025 không được auto-close bởi tài liệu.
