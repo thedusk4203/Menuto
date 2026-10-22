@@ -30,6 +30,50 @@
       "title": "BudgetContract",
       "type": "object"
     },
+    "CalculatedQuantity": {
+      "additionalProperties": false,
+      "description": "Bounded exact working value (72 digits/36 decimal places), not a DB row.",
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Amount"
+        },
+        "basis": {
+          "$ref": "#/$defs/MeasurementBasis"
+        },
+        "item_ref": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Item Ref"
+        }
+      },
+      "required": [
+        "basis",
+        "amount"
+      ],
+      "title": "CalculatedQuantity",
+      "type": "object"
+    },
     "CanonicalMemberSafety": {
       "additionalProperties": false,
       "properties": {
@@ -190,53 +234,6 @@
         "name"
       ],
       "title": "IngredientCreate",
-      "type": "object"
-    },
-    "MaterialFact": {
-      "additionalProperties": false,
-      "properties": {
-        "available_from": {
-          "format": "date-time",
-          "title": "Available From",
-          "type": "string"
-        },
-        "fact_id": {
-          "format": "uuid",
-          "title": "Fact Id",
-          "type": "string"
-        },
-        "household_id": {
-          "format": "uuid",
-          "title": "Household Id",
-          "type": "string"
-        },
-        "ingredient_id": {
-          "format": "uuid",
-          "title": "Ingredient Id",
-          "type": "string"
-        },
-        "provenance": {
-          "$ref": "#/$defs/Provenance"
-        },
-        "quantity": {
-          "$ref": "#/$defs/Quantity"
-        },
-        "usable_until": {
-          "format": "date-time",
-          "title": "Usable Until",
-          "type": "string"
-        }
-      },
-      "required": [
-        "fact_id",
-        "household_id",
-        "ingredient_id",
-        "quantity",
-        "available_from",
-        "usable_until",
-        "provenance"
-      ],
-      "title": "MaterialFact",
       "type": "object"
     },
     "MealParticipants": {
@@ -500,8 +497,8 @@
           "type": "string"
         },
         "fixture_version": {
-          "const": "validator-mutation.m0-draft.1",
-          "default": "validator-mutation.m0-draft.1",
+          "const": "validator-mutation.m0-draft.2",
+          "default": "validator-mutation.m0-draft.2",
           "title": "Fixture Version",
           "type": "string"
         },
@@ -730,8 +727,8 @@
           "type": "boolean"
         },
         "contract_version": {
-          "const": "planner-output.m0-draft.1",
-          "default": "planner-output.m0-draft.1",
+          "const": "planner-output.m0-draft.2",
+          "default": "planner-output.m0-draft.2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -815,8 +812,8 @@
           "$ref": "#/$defs/BudgetContract"
         },
         "contract_version": {
-          "const": "planner-request.m0-draft.1",
-          "default": "planner-request.m0-draft.1",
+          "const": "planner-request.m0-draft.2",
+          "default": "planner-request.m0-draft.2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -934,9 +931,101 @@
       "title": "PlannerRequestDraft",
       "type": "object"
     },
+    "PreparedFoodAssetFact": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_kind": {
+          "const": "PREPARED_FOOD",
+          "title": "Asset Kind",
+          "type": "string"
+        },
+        "available_from": {
+          "format": "date-time",
+          "title": "Available From",
+          "type": "string"
+        },
+        "cooking_batch_id": {
+          "format": "uuid",
+          "title": "Cooking Batch Id",
+          "type": "string"
+        },
+        "fact_id": {
+          "format": "uuid",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "prepared_food_lot_id": {
+          "format": "uuid",
+          "title": "Prepared Food Lot Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "serving_definition_ref": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Serving Definition Ref",
+          "type": "string"
+        },
+        "usable_until": {
+          "format": "date-time",
+          "title": "Usable Until",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_id",
+        "household_id",
+        "quantity",
+        "available_from",
+        "usable_until",
+        "provenance",
+        "asset_kind",
+        "prepared_food_lot_id",
+        "cooking_batch_id",
+        "recipe_version_id",
+        "serving_definition_ref"
+      ],
+      "title": "PreparedFoodAssetFact",
+      "type": "object"
+    },
     "Provenance": {
       "additionalProperties": false,
       "properties": {
+        "content_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "external_record_id": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "External Record Id",
+          "type": "string"
+        },
         "kind": {
           "$ref": "#/$defs/EvidenceKind"
         },
@@ -945,24 +1034,39 @@
           "title": "Observed At",
           "type": "string"
         },
-        "source_ref": {
+        "source_system": {
           "maxLength": 100,
           "minLength": 1,
           "pattern": "^[A-Za-z0-9_.:-]+$",
-          "title": "Source Ref",
+          "title": "Source System",
           "type": "string"
         },
+        "source_uri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Uri"
+        },
         "source_version": {
-          "maxLength": 100,
+          "maxLength": 200,
           "minLength": 1,
-          "pattern": "^[A-Za-z0-9_.:-]+$",
           "title": "Source Version",
           "type": "string"
         }
       },
       "required": [
         "kind",
-        "source_ref",
+        "source_system",
+        "external_record_id",
         "source_version",
         "observed_at"
       ],
@@ -971,6 +1075,7 @@
     },
     "Quantity": {
       "additionalProperties": false,
+      "description": "Stored/source quantity, restricted to NUMERIC(18,6); no implicit rounding.",
       "properties": {
         "amount": {
           "anyOf": [
@@ -1006,10 +1111,148 @@
         }
       },
       "required": [
-        "amount",
-        "basis"
+        "basis",
+        "amount"
       ],
       "title": "Quantity",
+      "type": "object"
+    },
+    "QuantizationPolicy": {
+      "additionalProperties": false,
+      "description": "Caller chooses direction at an explicit storage seam, never a hidden default.",
+      "properties": {
+        "decimal_places": {
+          "const": 6,
+          "default": 6,
+          "title": "Decimal Places",
+          "type": "integer"
+        },
+        "rounding": {
+          "enum": [
+            "FLOOR",
+            "CEILING",
+            "HALF_EVEN"
+          ],
+          "title": "Rounding",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "rounding"
+      ],
+      "title": "QuantizationPolicy",
+      "type": "object"
+    },
+    "QuantizationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "original_amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "max_digits": 72,
+          "title": "Original Amount"
+        },
+        "policy": {
+          "$ref": "#/$defs/QuantizationPolicy"
+        },
+        "residual": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "max_digits": 72,
+          "title": "Residual"
+        },
+        "stored": {
+          "$ref": "#/$defs/Quantity"
+        }
+      },
+      "required": [
+        "original_amount",
+        "stored",
+        "residual",
+        "policy"
+      ],
+      "title": "QuantizationResult",
+      "type": "object"
+    },
+    "RawIngredientAssetFact": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_kind": {
+          "const": "RAW_INGREDIENT",
+          "title": "Asset Kind",
+          "type": "string"
+        },
+        "available_from": {
+          "format": "date-time",
+          "title": "Available From",
+          "type": "string"
+        },
+        "fact_id": {
+          "format": "uuid",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "inventory_lot_id": {
+          "format": "uuid",
+          "title": "Inventory Lot Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "usable_until": {
+          "format": "date-time",
+          "title": "Usable Until",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_id",
+        "household_id",
+        "quantity",
+        "available_from",
+        "usable_until",
+        "provenance",
+        "asset_kind",
+        "inventory_lot_id",
+        "ingredient_id"
+      ],
+      "title": "RawIngredientAssetFact",
       "type": "object"
     },
     "SourceVersion": {
@@ -1108,8 +1351,8 @@
           "type": "boolean"
         },
         "contract_version": {
-          "const": "validation-report.m0-draft.1",
-          "default": "validation-report.m0-draft.1",
+          "const": "validation-report.m0-draft.2",
+          "default": "validation-report.m0-draft.2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1167,8 +1410,8 @@
           "type": "array"
         },
         "contract_version": {
-          "const": "validation-subject.m0-draft.1",
-          "default": "validation-subject.m0-draft.1",
+          "const": "validation-subject.m0-draft.2",
+          "default": "validation-subject.m0-draft.2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1200,7 +1443,21 @@
         },
         "opening_assets": {
           "items": {
-            "$ref": "#/$defs/MaterialFact"
+            "discriminator": {
+              "mapping": {
+                "PREPARED_FOOD": "#/$defs/PreparedFoodAssetFact",
+                "RAW_INGREDIENT": "#/$defs/RawIngredientAssetFact"
+              },
+              "propertyName": "asset_kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/RawIngredientAssetFact"
+              },
+              {
+                "$ref": "#/$defs/PreparedFoodAssetFact"
+              }
+            ]
           },
           "title": "Opening Assets",
           "type": "array"
@@ -1306,7 +1563,7 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:1",
+  "$id": "urn:menuto:domain:foundation:2",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"

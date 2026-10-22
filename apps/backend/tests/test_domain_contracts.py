@@ -9,11 +9,12 @@ from app.domain.snapshots import (
     BudgetContract,
     CanonicalMemberSafety,
     Horizon,
-    MaterialFact,
     MealSlotInput,
     ParticipantInput,
     PlannerOutputDraft,
     PlannerRequestDraft,
+    PreparedFoodAssetFact,
+    RawIngredientAssetFact,
     SourceVersion,
     ValidationSubjectDraft,
     snapshot_hash,
@@ -29,7 +30,11 @@ NOW = datetime(2026, 10, 22, tzinfo=UTC)
 @pytest.fixture
 def provenance():
     return Provenance(
-        kind="REVIEWED_REFERENCE", source_ref="synthetic-test", source_version="1", observed_at=NOW
+        kind="REVIEWED_REFERENCE",
+        source_system="synthetic",
+        external_record_id="synthetic-test",
+        source_version="1",
+        observed_at=NOW,
     )
 
 
@@ -85,8 +90,8 @@ def test_separate_edible_and_cooking_yields(provenance):
         kind="COOKING_YIELD", context_ref="recipe-prep-v1", factor="2.5", provenance=provenance
     )
     raw = edible.apply(Quantity(amount=100, basis="AP_G"))
-    assert raw == Quantity(amount=80, basis="EP_RAW_G")
-    assert cooking.apply(raw) == Quantity(amount=200, basis="COOKED_G")
+    assert raw.amount == 80 and raw.basis == "EP_RAW_G"
+    assert cooking.apply(raw).amount == 200 and cooking.apply(raw).basis == "COOKED_G"
     with pytest.raises(ValueError, match="requires"):
         cooking.apply(Quantity(amount=100, basis="AP_G"))
     with pytest.raises(ValueError, match="requires"):
@@ -101,8 +106,9 @@ def test_yield_does_not_silently_round_to_storage_precision(provenance):
     conversion = YieldConversion(
         kind="EDIBLE_YIELD", context_ref="map", factor="0.333333", provenance=provenance
     )
-    with pytest.raises(ValidationError):
-        conversion.apply(Quantity(amount="0.000001", basis="AP_G"))
+    assert conversion.apply(Quantity(amount="0.000001", basis="AP_G")).amount == Decimal(
+        "0.000000333333"
+    )
 
 
 def test_money_uses_integer_minor_units_and_explicit_currency():
@@ -244,7 +250,9 @@ def test_draft_subject_requires_canonical_participant_safety_and_matching_assets
                 "canonical_members": [{**safety.model_dump(), "member_id": uuid4()}],
             }
         )
-    foreign_asset = MaterialFact(
+    foreign_asset = RawIngredientAssetFact(
+        asset_kind="RAW_INGREDIENT",
+        inventory_lot_id=uuid4(),
         fact_id=uuid4(),
         household_id=uuid4(),
         ingredient_id=uuid4(),
@@ -283,3 +291,102 @@ def test_neutral_fact_reader_cannot_import_database_or_domain_implementation(mod
     root = Path(__file__).resolve().parents[3]
     checker = runpy.run_path(str(root / "tools/check_import_boundaries.py"))
     assert checker["check_source"](source, module)
+
+
+def test_provenance_accepts_opaque_provider_identity_and_separate_uri():
+    evidence = Provenance(
+        kind="RETAIL_OBSERVATION",
+        source_system="synthetic-store",
+        external_record_id="catalog/rau củ/offer?id=abc 123",
+        source_version="feed/2026-10-22 rev 2",
+        source_uri="https://retail.example.invalid/products/123?region=hcm",
+        content_hash="a" * 64,
+        observed_at=NOW,
+    )
+    assert evidence.external_record_id == "catalog/rau củ/offer?id=abc 123"
+    assert evidence.source_system == "synthetic-store"
+    assert Provenance.model_validate_json(evidence.model_dump_json()) == evidence
+
+
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        {"external_record_id": " "},
+        {"external_record_id": "opaque\nrecord"},
+        {"source_system": "https://wrong-identity.invalid"},
+        {"source_version": " "},
+        {"source_uri": "ftp://invalid.example.invalid/file"},
+        {"source_uri": "https://user:password@example.invalid/path"},
+        {"content_hash": "bad-hash"},
+        {"source_ref": "legacy-must-migrate"},
+    ],
+)
+def test_provenance_does_not_silently_accept_bad_or_legacy_identity(provenance, overrides):
+    with pytest.raises(ValidationError):
+        Provenance.model_validate({**provenance.model_dump(), **overrides})
+
+
+def test_subject_preserves_typed_raw_and_prepared_opening_assets(plan_request, provenance):
+    safety = CanonicalMemberSafety(
+        member_id=plan_request.tracked_member_id,
+        source_version="1",
+        allergen_codes=(),
+        diet_rule_codes=(),
+        excluded_ingredient_ids=(),
+    )
+    common = dict(
+        household_id=plan_request.household_id,
+        available_from=NOW,
+        usable_until=NOW + timedelta(days=2),
+        provenance=provenance,
+    )
+    raw = RawIngredientAssetFact(
+        **common,
+        fact_id=uuid4(),
+        asset_kind="RAW_INGREDIENT",
+        inventory_lot_id=uuid4(),
+        ingredient_id=uuid4(),
+        quantity=Quantity(amount=100, basis="EP_RAW_G"),
+    )
+    prepared = PreparedFoodAssetFact(
+        **common,
+        fact_id=uuid4(),
+        asset_kind="PREPARED_FOOD",
+        prepared_food_lot_id=uuid4(),
+        cooking_batch_id=uuid4(),
+        recipe_version_id=uuid4(),
+        serving_definition_ref="batch-v1-serving",
+        quantity=Quantity(amount=2, basis="SERVING", item_ref="batch-v1-serving"),
+    )
+    subject = ValidationSubjectDraft(
+        household_id=plan_request.household_id,
+        request=plan_request,
+        canonical_members=(safety,),
+        opening_assets=(raw, prepared),
+    )
+    restored = ValidationSubjectDraft.model_validate_json(subject.model_dump_json())
+    assert restored.opening_assets == (raw, prepared)
+    assert isinstance(restored.opening_assets[0], RawIngredientAssetFact)
+    assert isinstance(restored.opening_assets[1], PreparedFoodAssetFact)
+    assert restored.validation_ready is False
+    assert "HORIZON_BRIDGE" in restored.missing_contracts
+    duplicate = raw.model_dump()
+    duplicate["fact_id"] = uuid4()
+    with pytest.raises(ValidationError, match="Duplicate physical"):
+        ValidationSubjectDraft.model_validate(
+            {**subject.model_dump(), "opening_assets": [raw, duplicate]}
+        )
+    for bad_asset in [
+        {**raw.model_dump(), "asset_kind": "PREPARED_FOOD"},
+        {**raw.model_dump(), "quantity": prepared.quantity.model_dump()},
+        {**prepared.model_dump(), "serving_definition_ref": "other-serving"},
+        {**prepared.model_dump(), "ingredient_id": uuid4()},
+    ]:
+        with pytest.raises(ValidationError):
+            ValidationSubjectDraft.model_validate(
+                {**subject.model_dump(), "opening_assets": [bad_asset]}
+            )
+    old = subject.model_dump()
+    old["contract_version"] = "validation-subject.m0-draft.1"
+    with pytest.raises(ValidationError):
+        ValidationSubjectDraft.model_validate(old)

@@ -29,10 +29,16 @@ def exact_decimal(value: object) -> Decimal:
     return Decimal((sign if digits else 0, tuple(digits or [0]), exponent if digits else 0))
 
 
-ExactDecimal = Annotated[
+PersistedDecimal = Annotated[
     Decimal, BeforeValidator(exact_decimal), Field(max_digits=18, decimal_places=6)
 ]
-NonNegativeDecimal = Annotated[ExactDecimal, Field(ge=0)]
+# Persistence remains NUMERIC(18,6). Calculation never inherits that storage scale.
+ExactDecimal = PersistedDecimal  # Existing wire/source quantities keep their storage contract.
+CalculationDecimal = Annotated[
+    Decimal, BeforeValidator(exact_decimal), Field(max_digits=72, decimal_places=36)
+]
+NonNegativeCalculationDecimal = Annotated[CalculationDecimal, Field(ge=0)]
+NonNegativeDecimal = Annotated[PersistedDecimal, Field(ge=0)]
 PositiveDecimal = Annotated[ExactDecimal, Field(gt=0)]
 Identifier = Annotated[str, Field(min_length=1, max_length=100, pattern=r"^[A-Za-z0-9_.:-]+$")]
 Label = Annotated[str, Field(min_length=1, max_length=200, pattern=r"\S")]

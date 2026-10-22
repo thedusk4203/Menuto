@@ -8,11 +8,21 @@ from app.domain.snapshots import (
     MutationFixtureDraft,
     PlannerOutputDraft,
     PlannerRequestDraft,
+    PreparedFoodAssetFact,
+    RawIngredientAssetFact,
     ValidationReportDraft,
     ValidationSubjectDraft,
     WriteCommand,
 )
-from app.domain.units import Money, Quantity, YieldConversion
+from app.domain.units import (
+    CalculatedQuantity,
+    Money,
+    Provenance,
+    Quantity,
+    QuantizationPolicy,
+    QuantizationResult,
+    YieldConversion,
+)
 from app.modules.catalog.contracts import IngredientCreate, NutritionFact
 from app.modules.households.contracts import HouseholdCreate, HouseholdCreated, MealParticipants
 from app.modules.nutrition.contracts import MemberNutritionProfileWrite, MemberSafetyConstraint
@@ -20,6 +30,12 @@ from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
     Quantity,
+    CalculatedQuantity,
+    QuantizationPolicy,
+    QuantizationResult,
+    Provenance,
+    RawIngredientAssetFact,
+    PreparedFoodAssetFact,
     Money,
     YieldConversion,
     IngredientCreate,
@@ -44,7 +60,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:1"
+    schema["$id"] = "urn:menuto:domain:foundation:2"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "

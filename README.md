@@ -12,7 +12,7 @@ Menuto giúp cá nhân/hộ gia đình tối ưu kế hoạch ăn và mua sắm 
 - [Glossary](docs/product/GLOSSARY.md), [kiến trúc](docs/product/ARCHITECTURE.md), [trạng thái/bằng chứng](docs/product/FOUNDATION_STATUS.md).
 - [Backlog V1.3 MTR-001 → MTR-050](docs/product/BACKLOG.md).
 - [Chuyển mã V1.2 → V1.3](docs/product/BASELINE_MIGRATION_V1_3.md), [entry checklist Milestone 0/1](docs/product/IMPLEMENTATION_BLUEPRINT.md).
-- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): đã có units/Pydantic contracts và migration đầu tiên cho 9 bảng; các handoff planner/validation vẫn là draft. [Hướng dẫn database/tests](apps/backend/README.md).
+- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): đã có units/Pydantic contracts và migration đến `0002` cho 8 bảng; các handoff planner/validation vẫn là draft. [Hướng dẫn database/tests](apps/backend/README.md).
 
 V1.3 là baseline duy nhất đang hiệu lực. V1.2 chỉ còn trong lịch sử Git; mã invariant/backlog cũ không được diễn giải theo nghĩa V1.3. Các bản gốc người dùng đặt tại root được giữ ở máy và bỏ qua trong Git; `docs/` là bản chuẩn được quản lý.
 
@@ -49,7 +49,7 @@ Web: http://127.0.0.1:5173. API docs: http://127.0.0.1:8000/docs. Health chỉ k
 apps/backend/app/modules/   16 namespace theo V1.3 §16.4, gồm validation và learning
 apps/backend/app/domain/    Neutral units/provenance và draft handoff contracts
 apps/backend/app/persistence/ SQLAlchemy metadata/engine, chưa provision DB ứng dụng
-apps/backend/migrations/    Alembic 0001 cho 9 bảng nền tảng
+apps/backend/migrations/    Alembic 0001 → 0002, hiện có 8 bảng nền tảng
 apps/backend/app/shared/    Technical primitives và health contract
 apps/backend/tests/        Health, architecture/import và baseline consistency tests
 apps/backend/workers/      Chưa có worker

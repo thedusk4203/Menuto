@@ -9,7 +9,7 @@ from uuid import uuid4
 import pytest
 from alembic import command
 from alembic.config import Config
-from app.modules.catalog.models import Ingredient, NutritionFact, UnitConversion
+from app.modules.catalog.models import Ingredient, NutritionFact
 from app.modules.households.contracts import HouseholdCreate
 from app.modules.households.models import Household, HouseholdMember, Membership
 from app.modules.households.public import create_default_household
@@ -96,7 +96,7 @@ def test_atomic_default_household_and_member(db):
     assert household.created_by_user_id == user.id
     member = db.get(HouseholdMember, result.member_id)
     assert member.household_id == household.id
-    assert member.user_id == user.id
+    assert "user_id" not in inspect(HouseholdMember).columns
     membership = db.scalar(select(Membership).where(Membership.household_id == household.id))
     assert (membership.role, membership.user_id, membership.member_id) == (
         "OWNER",
@@ -166,7 +166,8 @@ def nutrition_record(db, **overrides):
         carbohydrate_g=Decimal(5),
         status="REVIEWED",
         source_kind="REVIEWED_REFERENCE",
-        source_ref="synthetic-only",
+        source_system="synthetic",
+        external_record_id="synthetic-only",
         source_version="1",
         observed_at=datetime.now(UTC),
     )
@@ -190,9 +191,8 @@ def test_nutrition_decimal_and_timezone_roundtrip(db):
         {"basis": "SERVING"},
         {"reference_amount": Decimal(0)},
         {"energy_kcal": Decimal(-1)},
-        {"energy_kcal": Decimal("NaN")},
         {"source_kind": "AUTOPILOT_ASSUMED"},
-        {"source_ref": " "},
+        {"external_record_id": " "},
     ],
 )
 def test_inv018_catalog_constraints_cannot_be_bypassed_by_direct_orm(db, fields):
@@ -203,34 +203,9 @@ def test_inv018_catalog_constraints_cannot_be_bypassed_by_direct_orm(db, fields)
     assert error.value.orig.sqlstate == "23514"
 
 
-def test_conversion_context_and_yield_chain_constraints(db):
-    ingredient = Ingredient(name="Synthetic conversion ingredient")
-    db.add(ingredient)
-    db.flush()
-    fields = dict(
-        ingredient_id=ingredient.id,
-        kind="EDIBLE_YIELD",
-        context_ref="product-map-v1",
-        source_basis="AP_G",
-        target_basis="EP_RAW_G",
-        factor=Decimal("0.8"),
-        source_kind="REVIEWED_REFERENCE",
-        source_ref="synthetic",
-        source_version="1",
-        observed_at=datetime.now(UTC),
-    )
-    for changed in (
-        {"factor": Decimal("1.1")},
-        {"target_basis": "COOKED_G"},
-        {"context_ref": ""},
-        {"source_ref": ""},
-        {"factor": Decimal("NaN")},
-    ):
-        with pytest.raises(IntegrityError), db.begin_nested():
-            db.add(UnitConversion(**{**fields, **changed}))
-            db.flush()
-    db.add(UnitConversion(**fields))
-    db.flush()
+def test_catalog_does_not_own_retail_or_recipe_yield_persistence(postgres_engine):
+    assert "unit_conversions" not in inspect(postgres_engine).get_table_names()
+    assert "unit_conversions" not in Base.metadata.tables
 
 
 @pytest.mark.parametrize("mutation", ["UPDATE", "DELETE"])
@@ -268,3 +243,117 @@ def test_stale_profile_write_is_rejected_across_sessions(postgres_engine):
         b.body_mass_kg = Decimal(62)
         with pytest.raises(StaleDataError):
             second.commit()
+
+
+def test_raw_sql_nonfinite_nutrition_is_still_rejected_by_database(db):
+    fact = nutrition_record(db, energy_kcal=Decimal("NaN"))
+    fields = {key: value for key, value in fact.__dict__.items() if key != "_sa_instance_state"}
+    fields["id"] = uuid4()
+    columns = ", ".join(fields)
+    values = ", ".join(":" + key for key in fields)
+    with pytest.raises(IntegrityError) as error, db.begin_nested():
+        db.execute(text(f"INSERT INTO nutrition_facts ({columns}) VALUES ({values})"), fields)
+    assert error.value.orig.sqlstate == "23514"
+
+
+def test_exclusions_use_ingredient_identity_not_display_code(db):
+    user, result = seed_household(db)
+    first = Ingredient(name="Synthetic tomato")
+    second = Ingredient(name="Synthetic other")
+    db.add_all([first, second])
+    db.flush()
+    common = dict(
+        household_id=result.household_id,
+        member_id=result.member_id,
+        created_by_user_id=user.id,
+        kind="EXCLUDED_INGREDIENT",
+    )
+    db.add(MemberSafetyConstraint(**common, ingredient_id=first.id, code="tomato"))
+    db.flush()
+    with pytest.raises(IntegrityError) as error, db.begin_nested():
+        db.add(MemberSafetyConstraint(**common, ingredient_id=first.id, code="no-tomato"))
+        db.flush()
+    assert error.value.orig.sqlstate == "23505"
+    assert error.value.orig.diag.constraint_name == "uq_member_safety_excluded_ingredient"
+    db.add(MemberSafetyConstraint(**common, ingredient_id=second.id, code="tomato"))
+    db.flush()
+
+
+@pytest.mark.parametrize("kind", ["ALLERGEN", "DIET_RULE"])
+def test_named_safety_codes_are_unique_within_member_and_kind(db, kind):
+    user, result = seed_household(db)
+    fields = dict(
+        household_id=result.household_id,
+        member_id=result.member_id,
+        created_by_user_id=user.id,
+        kind=kind,
+        code="canonical-code",
+    )
+    db.add(MemberSafetyConstraint(**fields))
+    db.flush()
+    with pytest.raises(IntegrityError) as error, db.begin_nested():
+        db.add(MemberSafetyConstraint(**fields))
+        db.flush()
+    assert error.value.orig.sqlstate == "23505"
+    assert error.value.orig.diag.constraint_name == "uq_member_safety_code"
+
+
+def test_account_person_mapping_has_only_membership_as_truth(db):
+    _, result = seed_household(db)
+    other = User(display_name="Synthetic Bob")
+    db.add(other)
+    db.flush()
+    with pytest.raises(IntegrityError) as error, db.begin_nested():
+        db.add(
+            Membership(
+                household_id=result.household_id,
+                user_id=other.id,
+                member_id=result.member_id,
+                role="VIEWER",
+            )
+        )
+        db.flush()
+    assert error.value.orig.sqlstate == "23505"
+    assert "user_id" not in {
+        c["name"] for c in inspect(db.connection()).get_columns("household_members")
+    }
+    # An account may participate without claiming to represent a biological member.
+    db.add(Membership(household_id=result.household_id, user_id=other.id, role="VIEWER"))
+    db.flush()
+
+
+def test_provider_identity_and_long_locators_roundtrip_without_collision(db):
+    fact = nutrition_record(
+        db,
+        external_record_id="provider/path/" + "x" * 120,
+        source_version="feed/2026-10-22 rev 2",
+        source_uri="https://retail.example.invalid/item?region=hcm",
+        content_hash="a" * 64,
+    )
+    db.add(fact)
+    db.flush()
+    fields = {
+        key: value
+        for key, value in fact.__dict__.items()
+        if key not in {"_sa_instance_state", "id", "created_at"}
+    }
+    db.add(NutritionFact(**{**fields, "source_system": "other-provider"}))
+    db.flush()
+    with pytest.raises(IntegrityError) as error, db.begin_nested():
+        db.add(NutritionFact(**fields))
+        db.flush()
+    assert error.value.orig.sqlstate == "23505"
+    db.expire(fact)
+    assert fact.external_record_id.endswith("x" * 120)
+    assert fact.source_uri.startswith("https://retail.example.invalid/")
+    assert fact.content_hash == "a" * 64
+
+
+def test_orm_does_not_round_high_precision_bind_behind_policy(db):
+    from sqlalchemy.exc import StatementError
+
+    fact = nutrition_record(db, reference_amount=Decimal("108.215184200427"))
+    with pytest.raises(StatementError) as error, db.begin_nested():
+        db.add(fact)
+        db.flush()
+    assert "decimal_max_places" in str(error.value.orig)

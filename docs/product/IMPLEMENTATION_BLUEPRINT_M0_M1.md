@@ -12,7 +12,7 @@ Blueprint bao phủ thứ tự triển khai M0/M1. Đợt đầu triển khai n�
 | --- | --- | --- |
 | Database | PostgreSQL 18, SQLAlchemy 2, Alembic; không `create_all` ở startup | Upgrade/downgrade/upgrade trên database kiểm thử riêng; autogenerate drift check |
 | Identity | UUID do ứng dụng tạo; actor user tách owner household | FK và negative tests cho tham chiếu chéo household |
-| Số học | Decimal hữu hạn, không chấp nhận float ở primitive domain; PostgreSQL NUMERIC | Roundtrip, precision boundary, NaN/Infinity/float rejection |
+| Số học | Calculation Decimal 72/36 tách storage NUMERIC(18,6); explicit versioned quantization + signed residual; không chấp nhận float | Roundtrip, precision boundary, NaN/Infinity/float rejection |
 | Material | `AP_G`, `EP_RAW_G`, `COOKED_G`, `SERVING`, `COUNT` | Không cộng/so sánh khác basis hoặc khác discrete item |
 | Conversion | AP→EP bằng edible yield thuộc product mapping; EP→cooked bằng cooking yield có provenance riêng | Conversion tests có nguồn, không implicit conversion |
 | Money | Số nguyên minor units + currency ISO code; VND exponent 0 trong application currency policy | Không cộng khác currency, không suy money từ gram |
@@ -62,11 +62,11 @@ Reservation không trừ physical quantity. Purchase chưa confirmed không tạ
 
 | Context | Bảng/schema đích | Ràng buộc quan trọng |
 | --- | --- | --- |
-| identity / households | users, households, household_members, memberships | Member không bắt buộc login; owner membership tách tracked nutrition role |
+| identity / households | users, households, household_members, memberships | Membership là nơi duy nhất ánh xạ account→member; member không bắt buộc login; owner membership tách tracked nutrition role |
 | nutrition / preferences | member_nutrition_profiles, member_safety_constraints, member_behavior_profiles | Member ownership; không lưu scalar adherence/taste chung |
-| catalog | ingredients, nutrition_facts, unit_conversions | Basis/provenance/reference amount rõ; reviewed data không tự là clinical policy |
-| recipes | recipes, recipe_versions, recipe_ingredients, variant_rules | Published version bất biến; authored envelope có version; recipe fork không sửa lịch sử |
-| retail | retailers, store_regions, retail_products, packages, offers, price_observations, ingredient_product_maps, procurement_classes, planning_price_quotes, reference_price_books, retail_price_calibrations | Fixed/catch/loose khác nhau; yield tách price; fallback provenance rõ |
+| catalog | ingredients, nutrition_facts | Basis/provenance/reference amount rõ; reviewed data không tự là clinical policy |
+| recipes | recipes, recipe_versions, recipe_ingredients, variant_rules, preparation_transformations | Cooking yield thuộc Recipe/Preparation; published version bất biến; authored envelope có version; recipe fork không sửa lịch sử |
+| retail | retailers, store_regions, retail_products, packages, offers, price_observations, ingredient_product_maps, procurement_classes, planning_price_quotes, reference_price_books, retail_price_calibrations | Fixed/catch/loose khác nhau; edible yield thuộc Product→Ingredient map, tách price; fallback provenance rõ |
 | inventory | inventory_lots, inventory_movements, inventory_reservations, inventory_policies | Positive physical quantity; projection riêng; version counter; audit append-only |
 | planning | active_plans, plan_revision_snapshots, meal_slots, meal_participants | Tracked member cùng household; snapshot/hash + expected revision; không rewrite materialized past |
 | cooking / execution | cooking_batches, batch_allocations, cooking_batch_executions, prepared_food_lots, execution_events | Raw/prepared conservation tách; COOKED != CONSUMED; reversal graph |
@@ -76,11 +76,11 @@ Schema dùng typed columns cho identity, ownership, quantity, basis, lifecycle, 
 
 ## Contracts cần khóa
 
-1. `Quantity`, `Money`, `Provenance`, explicit yield/conversion: không ngầm suy basis.
+1. `Quantity`/`StoredQuantity`, `CalculatedQuantity`, `QuantizationPolicy`, `Money`, `Provenance`, explicit yield/conversion: không ngầm suy basis; không quantize sau từng phép nhân. Nguồn có source_system, opaque external_record_id/version và tùy chọn URL/hash.
 2. Household/member/participant contracts: input IDs + factor + role; canonical member safety đọc từ source, không nhận planner summary làm truth.
 3. Nutrition fact: ingredient + reference amount/basis + kcal/protein/fat/carbohydrate + provenance.
 4. Planner request/output draft: household/tracked member, half-open horizon, policy axes, budget, source versions/fingerprints, revision lock, structured outcome. Draft không phải solve endpoint.
-5. `ValidationSubjectSnapshot` draft: canonical member safety, primitive facts, authored recipe bindings, inventory opening assets, chronological events, policy/scenario versions, revision identity và hash. Không coi draft subset là validator-ready.
+5. `ValidationSubjectSnapshot` draft: canonical member safety, primitive facts, authored recipe bindings, typed raw/prepared opening assets, chronological events, policy/scenario versions, revision identity và hash. Không coi draft subset là validator-ready.
 6. Execution commands/events: actor + evidence class + effective/recorded time + idempotency key + expected version + causal parent/reversal IDs. Confirmed và assumed là hai loại riêng.
 7. `PRECOMMIT` report/commit guard: zero ERROR/FATAL, cùng subject hash và revision; `POSTFACT` là diagnostics.
 
@@ -92,7 +92,7 @@ Contract schema snapshot được export riêng trong `packages/contracts/domain
 | --- | --- | --- |
 | A — Canonical baseline | Links V1.3, ADR registry, units/glossary, blueprint, dependency rules | Không song song hai canonical baselines; không auto-close issue V1.2 |
 | B — Units/contracts | Exact values, basis/provenance, household/catalog contracts, planner/validation draft | Positive/negative tests, schema export drift check |
-| C — Persistence đầu tiên | Identity/household/member safety/catalog, Alembic 0001; atomic default household/member bootstrap | PostgreSQL real integration: ownership, numeric constraints, rollback/reapply, stale writes |
+| C — Persistence đầu tiên | Identity/household/member safety/catalog, Alembic 0001 → 0002; atomic default household/member bootstrap | PostgreSQL real integration: ownership, numeric constraints, rollback/reapply, stale writes |
 | D — Data catalog tiếp theo | Recipe versions, retail evidence/procurement/quotes/calibration | Source provenance, granularity constraints, AP→EP chain, reviewed authored envelope |
 | E — Physical lifecycle | Lots/movements/reservations, quantitative fulfillment, cooking/prepared models | Conservation, chronological causality, idempotency/concurrency, assumption quarantine |
 | F — Plan/revision foundation | Stable ActivePlan + immutable revisions + participants + execution draft | Atomic validation gate, locked past, immutable history, horizon bridge input contract |
@@ -118,11 +118,13 @@ Auth/consent, clinical nutrition policies, real retailer ingestion, inventory bu
 
 [Bảng kiểm chứng thực chạy](M0_M1_FOUNDATION_EVIDENCE.md) ghi môi trường, kết quả và giới hạn của đợt này.
 
-- Đã triển khai `app/domain` với exact Decimal, measurement basis, money, evidence, explicit edible/cooking yields; household/participant/catalog/member source contracts. Planner request/output và validation subject/report mang version `m0-draft.1`, không thể cấp quyền activation. Mutation format cũng là draft vì chưa có production validator.
-- Alembic `0001` tạo **9 bảng**: users, households, household_members, memberships, member_nutrition_profiles, member_safety_constraints, ingredients, nutrition_facts, unit_conversions. Diagram và bảng schema đích phía trên bao gồm cả phần tiếp theo, không phải danh sách bảng đã có.
-- Composite FK chặn member links chéo household; profile có ORM version counter. Nutrition facts và conversion evidence append-only bằng PostgreSQL trigger. Đây không phải authorization; SQL bulk update profile cần CAS ở use case sau.
+- Đã triển khai `app/domain` với exact Decimal, measurement basis, money, evidence, explicit edible/cooking yields; household/participant/catalog/member source contracts. Planner request/output và validation subject/report mang version `m0-draft.2`, không thể cấp quyền activation. Mutation format cũng là draft vì chưa có production validator.
+- Alembic `0001` được giữ nguyên trong lịch sử. `0002` gỡ bảng generic yield sau preflight, bỏ mapping user trùng lặp trên member, chuẩn hóa safety identity và provenance. Hiện có **8 bảng**: users, households, household_members, memberships, member_nutrition_profiles, member_safety_constraints, ingredients, nutrition_facts. Diagram và bảng schema đích phía trên bao gồm cả phần tiếp theo, không phải danh sách bảng đã có.
+- Composite FK chặn member links chéo household; profile có ORM version counter. Nutrition facts append-only bằng PostgreSQL trigger. Yield persistence sẽ thuộc Retail/Recipe, chưa tạo owner tables giả. Đây không phải authorization; SQL bulk update profile cần CAS ở use case sau.
 - Chưa triển khai retail/recipes/inventory/ActivePlan/execution persistence. Behavior profile và đầy đủ nutrition goal/physiology schema vẫn ở lát sau. Bản `ValidationSubjectDraft` liệt kê rõ phần còn thiếu, chưa phải `ValidationSubjectSnapshot` đủ để kiểm một plan.
 - OpenAPI tiếp tục chỉ có health endpoint. `domain.schema.json` phục vụ review/code generation sau này; Python validators vẫn là nơi kiểm các quan hệ giữa fields mà JSON Schema không biểu diễn hết.
+
+Chi tiết thay đổi tương thích, precision và cách migration dừng an toàn nằm trong [Foundation Corrections](FOUNDATION_CORRECTIONS.md).
 
 ## Tài liệu kỹ thuật đối chiếu
 

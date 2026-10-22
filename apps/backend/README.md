@@ -1,6 +1,6 @@
 # Backend foundation
 
-FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` cho 9 bảng identity/household/member source/catalog. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) để phân biệt phần đã triển khai và schema đích.
+FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002`, hiện có 8 bảng identity/household/member source/catalog. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) để phân biệt phần đã triển khai và schema đích.
 
 Từ root repository:
 
@@ -32,4 +32,4 @@ $env:MENUTO_TEST_POSTGRES_URL = 'postgresql+psycopg://TEST_USER:TEST_PASSWORD@12
 uv run pytest
 ```
 
-Bootstrap household là service nội bộ nhận user đã tồn tại và không tự commit. Profile concurrency dùng ORM version counter; authorization, idempotent command execution và bulk-SQL CAS chưa có business service trong đợt này. Catalog source facts/conversions append-only; correction tạo source version mới.
+Bootstrap household là service nội bộ nhận user đã tồn tại và không tự commit. Profile concurrency dùng ORM version counter; authorization, idempotent command execution và bulk-SQL CAS chưa có business service trong đợt này. Nutrition source facts append-only; correction tạo source version mới. Bảng yield chung đã được gỡ; edible yield thuộc Retail Product→Ingredient mapping, cooking yield thuộc Recipe/Preparation ở các lát sau. Xem [sáu sửa đổi foundation](../../docs/product/FOUNDATION_CORRECTIONS.md).

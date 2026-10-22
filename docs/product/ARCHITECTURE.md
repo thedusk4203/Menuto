@@ -72,4 +72,4 @@ Validation và learning chỉ đọc cross-context contracts, không gọi mutat
 
 ## Toolchain và benchmark
 
-FastAPI/React và lockfiles được giữ. PostgreSQL/SQLAlchemy/Alembic có migration đầu tiên cho 9 bảng household/member/catalog; chưa provision database ứng dụng. [Blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_M1.md) ghi rõ contracts/units đã triển khai và các handoff còn draft. Backend không expose synthetic solve endpoint. BenchmarkVerifier chỉ là arithmetic verifier cho micro-model; không phải ValidationOrchestrator, RootContractValidator hoặc full chronological replay theo ADR-010.
+FastAPI/React và lockfiles được giữ. PostgreSQL/SQLAlchemy/Alembic có migration `0001` → `0002`, hiện có 8 bảng household/member/catalog; chưa provision database ứng dụng. [Blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_M1.md) ghi rõ contracts/units đã triển khai và các handoff còn draft. Backend không expose synthetic solve endpoint. BenchmarkVerifier chỉ là arithmetic verifier cho micro-model; không phải ValidationOrchestrator, RootContractValidator hoặc full chronological replay theo ADR-010.
