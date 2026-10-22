@@ -27,4 +27,9 @@ No `P90`, probability or guaranteed-checkout claim is made until a model has bee
 - Receipt-vs-plan data becomes a calibration asset for future stochastic/quantile models.
 
 ## Invariants
-INV-008, INV-009, INV-010, INV-011, INV-012.
+
+INV-007, INV-008, INV-009, INV-010.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. Mid-week revision cost for every required scenario is ConfirmedActualSpend(t) + StressScenarioSpend_s(RemainingUnfulfilled(t)). Fulfilled purchases are sunk facts, never re-stressed or omitted (spec §8.4 seam 2).

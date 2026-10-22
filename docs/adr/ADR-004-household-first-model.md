@@ -21,4 +21,9 @@ A user-centric schema would force later migrations for shared inventory/shopping
 - Plan ownership is household-scoped; actor/audit user IDs remain separate.
 
 ## Invariants
-INV-003, INV-004, INV-007.
+
+INV-003, INV-004, INV-006, INV-026.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. Attendance != batch production remains a domain rule in spec §9.4; it no longer has the old INV-007 identifier.

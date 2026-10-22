@@ -26,9 +26,44 @@ ALLOWED = {
         "policy",
         "cooking",
         "preferences",
+        "validation",
+        "learning",
     },
     "shopping": {"households", "retail", "inventory", "planning"},
-    "execution": {"households", "planning", "cooking", "inventory", "shopping"},
+    "execution": {
+        "households",
+        "planning",
+        "cooking",
+        "inventory",
+        "shopping",
+        "validation",
+        "learning",
+    },
+    "validation": {
+        "households",
+        "nutrition",
+        "catalog",
+        "recipes",
+        "retail",
+        "inventory",
+        "policy",
+        "planning",
+        "cooking",
+        "shopping",
+        "execution",
+        "preferences",
+    },
+    "learning": {
+        "households",
+        "catalog",
+        "recipes",
+        "retail",
+        "preferences",
+        "planning",
+        "cooking",
+        "shopping",
+        "execution",
+    },
     "assistant": {
         "households",
         "catalog",
@@ -40,16 +75,23 @@ ALLOWED = {
     },
 }
 PUBLIC_SURFACES = {"contracts", "public"}
+# V1.3 ADR-010/011: immutable facts may cross these seams; runtime facades may not.
+CONTRACT_ONLY_CONTEXTS = {"validation", "learning"}
 
 
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
     parts = module.split(".")
     context = parts[2] if len(parts) > 2 and parts[:2] == ["app", "modules"] else None
+    contract = len(parts) > 3 and parts[3] == "contracts"
     shared = module == "app.shared" or module.startswith("app.shared.")
     errors = []
 
     def audit(target, line):
+        if (context == "validation" or contract) and (
+            target == "ortools" or target.startswith("ortools.")
+        ):
+            errors.append(f"{line}: VALIDATION_OR_CONTRACT_IMPORTS_SOLVER: {target}")
         if target == "benchmark" or target.startswith("benchmark."):
             errors.append(f"{line}: BACKEND_IMPORTS_SYNTHETIC_BENCHMARK: {target}")
         if context and (target == "importlib" or target.startswith("importlib.")):
@@ -69,12 +111,18 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
         if context not in ALLOWED or destination not in ALLOWED:
             errors.append(f"{line}: UNREGISTERED_CONTEXT: {target}")
             return
+        tail = target.split(".")[3:]
+        if contract and (not tail or tail[0] != "contracts"):
+            errors.append(f"{line}: CONTRACT_IMPORTS_IMPLEMENTATION: {target}")
+            return
         if destination == context:
             return
         if destination not in ALLOWED[context]:
             errors.append(f"{line}: FORBIDDEN_DIRECTION: {context} -> {destination}")
             return
-        tail = target.split(".")[3:]
+        if context in CONTRACT_ONLY_CONTEXTS and (not tail or tail[0] != "contracts"):
+            errors.append(f"{line}: FACT_READER_IMPORTS_IMPLEMENTATION: {target}")
+            return
         if not tail or tail[0] not in PUBLIC_SURFACES:
             errors.append(f"{line}: CROSS_CONTEXT_INTERNAL_IMPORT: {target}")
 
@@ -132,8 +180,8 @@ def main():
         print("\n".join(failures))
         raise SystemExit(1)
     print(
-        "Import boundaries passed: 14 registered contexts, public cross-context surfaces, "
-        "shared/domain separation, no backend benchmark dependency."
+        f"Import boundaries passed: {len(ALLOWED)} registered contexts, public/contract surfaces, "
+        "independent validation/learning, no backend benchmark dependency."
     )
 
 

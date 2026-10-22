@@ -23,4 +23,9 @@ Nutrients may use `RANGE`, `MINIMUM`, `MAXIMUM` or `TARGET` semantics. Protein i
 - Numerical defaults remain versioned policy data and require evidence/benchmark review.
 
 ## Invariants
-INV-001, INV-011.
+
+INV-001, INV-009, INV-020.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. The accepted decision is retained; closed-loop contracts are defined by ADR-009..011 and spec §8.4.

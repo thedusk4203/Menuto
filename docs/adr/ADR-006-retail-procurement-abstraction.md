@@ -30,4 +30,9 @@ Shopping output resolves a `ShoppingRequirement` to primary + backup offers. Exa
 - Actual receipt data can later calibrate price/risk models.
 
 ## Invariants
-INV-008, INV-009, INV-010, INV-011.
+
+INV-007, INV-008, INV-009.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. The accepted decision is retained; closed-loop contracts are defined by ADR-009..011 and spec §8.4.

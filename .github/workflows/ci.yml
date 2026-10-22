@@ -16,6 +16,7 @@ jobs:
           enable-cache: true
       - run: uv sync --locked
       - run: uv run ruff check .
+      - run: uv run python tools/check_architecture_baseline.py
       - run: uv run python tools/check_import_boundaries.py
       - run: uv run pytest
       - run: uv run python tools/export_openapi.py --check

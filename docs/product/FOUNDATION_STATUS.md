@@ -1,33 +1,25 @@
-# Trạng thái foundation và bằng chứng
+# Trạng thái foundation V1.3 và bằng chứng
 
-## Có trong scaffold
+## Đã có
 
-- 14 namespace domain, FastAPI process-liveness endpoint, React/TypeScript health shell và OpenAPI snapshot.
-- Benchmark runner, CP-SAT micro-model, exhaustive reference độc lập, số học kiểm chứng, 22 fixtures synthetic có thể tái sinh và tests.
-- Generated TypeScript client + standalone runtime validation từ cùng OpenAPI, client contract tests và import-boundary checker có negative tests.
-- Main protection đã bật với PR, required python/web checks, no force-push/delete và enforce admins.
-- Toolchain lock, CI checks và issue MTR-001..014. Đây là CI configuration; kết quả chạy thực được báo theo từng commit, không mặc định luôn xanh.
-- Graphify phân tích AST + nội dung tài liệu để tạo bản đồ quan hệ, không thay validator hay test.
+- Canonical V1.3 spec, 30 invariants, 11 accepted ADR; bảng chuyển mã cũ/mới.
+- 16 namespace theo §16.4; validation và learning hiện chỉ có namespace/ranh giới.
+- Health API, web shell, OpenAPI và generated TypeScript client + runtime validation.
+- 22 synthetic-v2 fixtures, CP-SAT micro-model, exhaustive reference, independent arithmetic/evidence verifier và fault-injection tests.
+- Static dependency checks cho contract/public surfaces, validator independence; baseline consistency checks.
+- Toolchain lock, CI và main protection. CI configuration không mặc định chứng minh mọi commit đều xanh.
+- Backlog canonical MTR-001..050; mã MTR không đồng nghĩa số issue GitHub. Xem BACKLOG.md.
 
-## Mapping invariant → công việc còn lại
+## Bằng chứng theo invariant
 
-| Invariant | Bằng chứng hiện tại / còn thiếu |
-| --- | --- |
-| INV-001 | Chưa có NutritionPolicyEngine; MTR-005/007 phải kiểm chứng preference không giảm guardrails |
-| INV-002 | Chưa có BudgetPressure; MTR-008 phải tách system pressure khỏi user preference |
-| INV-003 | Namespace households/nutrition; chưa có ownership/authorization schema/test |
-| INV-004 | Micro-model test loại ingredient bị exclude; chưa có participant hard-constraint resolution |
-| INV-005 | Fixtures candidate cố định; chưa có authored RecipeVersion/VariantRule production |
-| INV-006 | CP-SAT micro-model chỉ chọn candidate có sẵn; không tạo biến thể món mới |
-| INV-007 | Cooking namespace có sẵn; chưa có demand/batch/allocation model |
-| INV-008 | Synthetic gate phân biệt fresh/stale/fallback; chưa có retail evidence pipeline |
-| INV-009 | Chưa có ProcurementFragility/Stage 1 structural economics production |
-| INV-010 | Micro-model kiểm tra budget/stress coefficients; chưa có budget outcome UX hoặc receipt guarantee |
-| INV-011 | Không có probabilistic model hoặc P90 claim; calibration thực chưa triển khai |
-| INV-012 | Tests phân biệt timeout/vô nghiệm; chưa có advisor/acceptance/activation lifecycle production |
+[INVARIANT_COVERAGE.md](INVARIANT_COVERAGE.md) ghi đủ INV-001..030, phân biệt micro-model evidence với production tests còn thiếu. Baseline checker chỉ xác minh cấu trúc/link/numbering, không chứng minh thực thi cả 30 quy tắc.
 
 ## Chưa hoàn thành
 
-MTR-001 có glossary nhưng chưa mirror toàn bộ invariants trong business tests. MTR-002 có foundation harness nhưng chưa có adapter Planner V4, large-pool reference hoặc numeric launch gates; do đó cả hai issue vẫn mở. MTR-003..014 chỉ có module boundary và acceptance criteria.
+MTR-001 có glossary/mapping nhưng chưa đủ business tests. MTR-002 có harness/regressions nhưng chưa có production mutation corpus, V4 adapter/large-pool reference hoặc numeric launch gates. MTR-003..050 chưa được coi hoàn tất qua việc tạo tài liệu/namespace/issue.
 
-Chưa có auth, persistence/schema/migration, NutritionPolicyEngine, PlanPolicyResolver, retailer thật, inventory ledger, Planner V4, user workflow hoặc release readiness.
+Chưa có units/basis contracts đã freeze, auth, persistence/migrations, NutritionPolicyEngine, PlanPolicyResolver, retail thật, inventory ledger, ActivePlan revision engine, production Independent Validator, learning router hoặc consumer closed loop. [Entry checklist](IMPLEMENTATION_BLUEPRINT.md) chưa hoàn thành; không gọi baseline update là đạt Milestone 0/1.
+
+## Quyết định còn mở
+
+Theo §24.3: ReferenceFeasibleCost; numeric nutrition/launch defaults; retail terms; exploration/cooldown; assumption-debt thresholds; receipt-calibrated probability model; chi tiết database/contracts của blueprint. Ba subsystem Execution/Validation/Learning đã chốt kiến trúc, không còn liệt kê là architecture open decisions.

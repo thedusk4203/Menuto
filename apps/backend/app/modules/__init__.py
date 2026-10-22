@@ -1,1 +1,1 @@
-"""Domain namespaces from V1.2 §9. No business implementations yet."""
+"""Domain namespaces from V1.3 §9. No business implementations yet."""

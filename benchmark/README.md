@@ -1,6 +1,6 @@
 # Benchmark harness — synthetic foundation
 
-MTR-002, đặc tả V1.2 §10.12, §18. Đây là harness chạy thật cho micro-model, **không phải Planner V4**. Fixtures tổng hợp mới từ tình huống trong đặc tả; chưa port fixtures Smart Menu. Thư mục tham khảo Smart Menu đã được bổ sung lại tại máy nhưng không tự đưa vào Git hoặc coi là fixture đã port.
+MTR-002, đặc tả V1.3 §10.12, §18. Đây là harness chạy thật cho micro-model, **không phải Planner V4**. Fixtures tổng hợp mới từ tình huống trong đặc tả; chưa port fixtures Smart Menu. Thư mục tham khảo Smart Menu đã được bổ sung lại tại máy nhưng không tự đưa vào Git hoặc coi là fixture đã port.
 
 ```powershell
 uv sync --locked
@@ -27,7 +27,7 @@ Mọi con số về nutrition, giá, package và scenario stress chỉ là hằn
 ## Giới hạn và mở rộng
 
 - Mỗi ingredient có một sản phẩm; mọi hàng mua sẵn từ đầu và bảo quản được cả horizon; đơn vị nguyên synthetic, không phải gram hoặc tiền thật.
-- Không có participant physiology, NutritionPolicyEngine, ProcurementClass đầy đủ, calibration, cooking batch, waste objective, Stage 2 utility, quantity refinement hoặc Validator V2.
+- Không có participant physiology, NutritionPolicyEngine, ProcurementClass đầy đủ, calibration, cooking batch, waste objective, Stage 2 utility, quantity refinement hoặc Independent Validator theo ADR-010.
 - Reference dùng cùng candidate pool và vét cạn; chưa có reference pool lớn hơn hoặc quality-gap gate production.
 - `BenchmarkAdapter` là điểm gắn adapter V4 sau này; không dùng adapter synthetic trong backend.
 - Ngưỡng runtime/quality gap phát hành và policy constants vẫn mở theo §24.3. Gate exact equality hiện chỉ kiểm tra những bài toán nhỏ biết optimum.
@@ -45,3 +45,7 @@ TARGET trong micro-model chỉ kiểm tra khác biệt với hard cap; chưa có
 CP-SAT, exhaustive reference và independent_data_check có ba cách kiểm tra evidence riêng. Reference/auditor không gọi solver eligibility helper. Mutation test cố tình làm solver chấp nhận giá stale và xác nhận reference cùng auditor phát hiện sai. Neutral shapes vẫn dùng chung schema; độc lập không có nghĩa toàn bộ parsing/type definitions được viết lại.
 
 Schema/report version đổi thành synthetic-v2 / synthetic-benchmark-v2. Fixture input v1 phải tái sinh hoặc migrate rõ, không silently nhận thiếu stress policy.
+
+## Baseline V1.3
+
+22 fixture inputs giữ provenance `synthetic-from-spec-v1.2`; không relabel lịch sử hoặc coi là coverage cho execution/learning V1.3. Xem [scenario matrix](V1_3_SCENARIO_MATRIX.md) cho coverage/gaps của §18.8 và năm seams. synthetic-v2 format không đổi trong lần căn chỉnh baseline này.

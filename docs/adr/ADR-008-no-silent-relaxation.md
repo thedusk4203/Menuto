@@ -20,4 +20,9 @@ Optimizer timeout, weak prechecks or “almost feasible” alternatives must not
 - API/telemetry must preserve original constraint, proposed change, verification result and acceptance event.
 
 ## Invariants
-INV-012. Also reinforces product principle `No silent relaxation`.
+
+INV-010, INV-029.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. Accepted forced alternatives carry FORCED_CONFLICT_RESOLUTION and are quarantined from voluntary taste/context learning unless a separate direct preference signal is supplied (spec §8.4 seam 5; ADR-011).
