@@ -7,7 +7,7 @@ Canonical work item remains MTR-016; no milestone renumbering.
 
 Architecture-first baseline: main `e8eea4190623a989739f5dbb91f20bfbc9e546b3`, PR #60.
 Frozen M1.3: `fef629965dd7401e27c98b5a0c523998a27017c4`.
-Implementation commit: PENDING_COMMIT. PR/CI: PENDING_REMOTE.
+Implementation commit: de669c63601522f00860fe4f4389860dbd90aefc. PR/CI: awaiting remote verification; recorded below when available.
 [A–J review and implementation addendum](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md)
 records decisions before implementation; no frozen architecture was reopened.
 
