@@ -1,6 +1,6 @@
 # M1.2 Recipe / Preparation Foundation — evidence
 
-Implementation commit: `RECORDED_AFTER_COMMIT` (recorded in the evidence-only follow-up).
+Implementation commit: `bc0524bf5e18e4d3eb778acbc4156965b37dd9cd` (recorded in the evidence-only follow-up).
 Local checks PASS. CI is PENDING publication; the slice is not claimed merged/CI-approved here.
 Machine-readable results: [M1_2_RECIPE_TEST_RESULTS.json](M1_2_RECIPE_TEST_RESULTS.json).
 

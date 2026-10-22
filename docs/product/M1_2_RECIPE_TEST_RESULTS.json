@@ -1,7 +1,7 @@
 {
   "slice": "M1.2 Recipe / Preparation Foundation",
   "baseline_commit": "f49e9b1ef7427de012c16da31efd6f581f42a0ec",
-  "implementation_commit": "RECORDED_AFTER_COMMIT",
+  "implementation_commit": "bc0524bf5e18e4d3eb778acbc4156965b37dd9cd",
   "local": {
     "python_tests": 559,
     "postgres_real_tests": 246,
