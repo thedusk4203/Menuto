@@ -3,7 +3,8 @@
 Status: IMPLEMENTED, awaiting user review/freeze. M1.1/M1.2 remain FROZEN at
 `05382b6425a072433e38db99a1de101b577804a0`.
 
-Implementation commit: recorded after implementation checks below; no self-referential SHA claim.
+Implementation commit (complete code/tests): `6fafe913c3da33eba572fbaa477f1f82b4e84f96`.
+Subsequent evidence-only commits record this exact implementation, without a self-referential SHA claim.
 CI: pending PR run; not yet claimed successful.
 
 ## Delivered boundary
@@ -51,7 +52,8 @@ intent remains auditable until explicit release; no silent release or consumptio
 ## Verification
 
 Final complete regression: **688 passed**, **313 real PostgreSQL tests**, **0 skipped/errors/failures**,
-99.59 seconds. One pre-existing Starlette/httpx deprecation warning. All 585 baseline tests
+99.59 seconds. PostgreSQL **18.4** verified directly; test cluster STOPPED after checks.
+One pre-existing Starlette/httpx deprecation warning. All 585 baseline tests
 remain covered; 49 new inventory unit tests and 54 inventory PostgreSQL tests.
 [Machine-readable results and frozen migration hashes](M1_3_INVENTORY_TEST_RESULTS.json).
 

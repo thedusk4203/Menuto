@@ -1,6 +1,6 @@
 {
   "baseline_commit": "05382b6425a072433e38db99a1de101b577804a0",
-  "implementation_commit": "TO_BE_RECORDED_AFTER_COMMIT",
+  "implementation_commit": "6fafe913c3da33eba572fbaa477f1f82b4e84f96",
   "migration": "0007",
   "domain_tables": 38,
   "added_tables": [
@@ -28,7 +28,9 @@
     "alembic_drift": "PASS",
     "openapi_domain_exports": "PASS",
     "client_typecheck": "PASS",
-    "web_build": "PASS"
+    "web_build": "PASS",
+    "postgresql_server_version": "18.4",
+    "postgresql_test_cluster_after_checks": "STOPPED"
   },
   "frozen_migration_sha256": {
     "0001_household_member_safety_and_measured_.py": "7608a9ee137ad475b129660d4cb80d6e3c41584ebe072472373b3c130fa8723a",
