@@ -24,7 +24,7 @@ Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh
 | INV-018 | PARTIAL_FOUNDATION | MTR-003, MTR-014, MTR-025 | Exact units/provenance; M1.1 AP→EP mapping giữ nguyên; M1.2 contextual EP_RAW→COOKED factors/version/provenance; M1.3 explicit asset basis, immutable mapping FK + primitive ledger replay; full validation chain chưa có |
 | INV-019 | PARTIAL_FOUNDATION | MTR-015, MTR-026 | M1.3 exact event order, nonnegative/reservation/expiry SQL + snapshot replay và competing writer tests; chưa batch flow validator |
 | INV-020 | NOT_IMPLEMENTED | MTR-006, MTR-026 | Chưa có root-contract guards bỏ qua planner summaries |
-| INV-021 | NOT_IMPLEMENTED | MTR-025, MTR-026 | Chưa có PRECOMMIT/POSTFACT gate/hash lock |
+| INV-021 | PARTIAL_FOUNDATION | MTR-025, MTR-026 | F sealed graph hash + guarded receipt/frontier/CAS seam; production authority absent, publish fail-closed; chưa full PRECOMMIT/POSTFACT independent validation |
 | INV-022 | NOT_IMPLEMENTED | MTR-039, MTR-041 | Chưa có passive evidence quarantine/provisional exposure |
 | INV-023 | NOT_IMPLEMENTED | MTR-039 | Chưa có attribution retail/context ≠ taste |
 | INV-024 | NOT_IMPLEMENTED | MTR-039, MTR-040 | Chưa có cooked→context/exposure routing |
@@ -43,7 +43,11 @@ Bằng chứng micro-model: benchmark/tests/test_harness.py và test_foundation_
 
 
 Review F — Plan/revision foundation: [mapping A–J và adversarial matrix](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md).
-Đây là design evidence; không nâng runtime coverage, không chứng nhận PRECOMMIT/POSTFACT,
-ActivePlan activation, reservation revision transaction hoặc Independent Validator đã tồn tại.
+[Evidence F](PLAN_REVISION_FOUNDATION_EVIDENCE.md) bổ sung runtime foundation tests cho stable
+plan identity, immutable graph/history, scope/cutline/materialization pins, CAS, idempotency,
+atomic reservation replacement và no physical rewrite. INV-003/004/006/011/012/017/019 vẫn
+PARTIAL; INV-021 chỉ partial guard seam. Tests thành công dùng synthetic authority fixture,
+không chứng nhận production activation hoặc Independent Validator. INV-030 chưa implemented:
+HorizonCommitmentsDraft chỉ handoff, chưa bridge resolution/exposure accounting.
 M1.3 ledger đã user FROZEN tại fef629965dd7401e27c98b5a0c523998a27017c4; các mức PARTIAL
 và gaps ngoài phạm vi physical foundation vẫn giữ nguyên.

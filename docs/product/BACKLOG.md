@@ -68,5 +68,7 @@ MTR-015 bao gồm policy/workflow rộng hơn ledger foundation; freeze slice kh
 GitHub issue hoặc tuyên bố toàn bộ acceptance criteria đã xong.
 
 Slice tiếp theo: **F — Plan/revision foundation / MTR-016**, theo blueprint.
-[Review A–J](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md) là review-only, chưa có migration,
-services hoặc execution/validation gate. MTR-016/023/025 không được auto-close bởi tài liệu.
+[Review A–J](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md) và [evidence F](PLAN_REVISION_FOUNDATION_EVIDENCE.md)
+ghi foundation implementation `0008`: sealed proposals, revision/head và atomic reservations.
+Production activation fail-closed; full execution/validation chưa có. MTR-016/023/025 vẫn
+OPEN, không auto-close hoặc tự FROZEN bởi việc merge foundation.

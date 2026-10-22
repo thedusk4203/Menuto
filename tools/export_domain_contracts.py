@@ -24,6 +24,7 @@ from app.domain.units import (
     YieldConversion,
 )
 from app.modules.catalog.contracts import IngredientCreate, NutritionFact
+from app.modules.cooking.contracts import PlannedBatchAllocationIntent, PlannedCookingBatchIntent
 from app.modules.households.contracts import HouseholdCreate, HouseholdCreated, MealParticipants
 from app.modules.inventory.contracts import (
     AcquireInventoryCommand,
@@ -44,6 +45,19 @@ from app.modules.inventory.contracts import (
     RetailSourcedAPAssetDraft,
 )
 from app.modules.nutrition.contracts import MemberNutritionProfileWrite, MemberSafetyConstraint
+from app.modules.planning.contracts import (
+    ActivePlanSnapshot,
+    CreatePlanWorkspaceCommand,
+    HorizonCommitmentsDraft,
+    MealIntent,
+    PlanIntentGraph,
+    PlanProposalSnapshot,
+    PlanRevisionSnapshot,
+    PlanWorkspaceDraft,
+    ProposePlanCommand,
+    PublishPlanRevisionCommand,
+    ReservationIntent,
+)
 from app.modules.recipes.contracts import (
     GroundedRecipeVariantDraft,
     PreparationTransformationFact,
@@ -80,9 +94,28 @@ from app.modules.retail.contracts import (
     SourceCoverageDraft,
     StoreRegionFact,
 )
+from app.modules.shopping.contracts import (
+    ObservedAcquisitionCoverageDraft,
+    ShoppingRequirementIntent,
+)
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    PlanIntentGraph,
+    MealIntent,
+    ReservationIntent,
+    PlanWorkspaceDraft,
+    ProposePlanCommand,
+    PlanProposalSnapshot,
+    PublishPlanRevisionCommand,
+    PlanRevisionSnapshot,
+    HorizonCommitmentsDraft,
+    CreatePlanWorkspaceCommand,
+    ActivePlanSnapshot,
+    ShoppingRequirementIntent,
+    ObservedAcquisitionCoverageDraft,
+    PlannedCookingBatchIntent,
+    PlannedBatchAllocationIntent,
     AcquireInventoryCommand,
     BatchFlowLinkDraft,
     ConsumeInventoryCommand,
@@ -162,13 +195,16 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:7"
+    schema["$id"] = "urn:menuto:domain:foundation:8"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "
         "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
         "Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. "
         "V1 substitutions are mass-only; preparation yield is net and path-specific. "
+        "Plan intent-v1 graphs/proposals and guarded revision seams; "
+        "PRECOMMIT authority not installed. "
+        "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "
         "Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. "
         "Cross-field semantic guards run in Python, not JSON Schema alone."

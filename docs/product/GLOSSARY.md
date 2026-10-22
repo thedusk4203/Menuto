@@ -265,3 +265,17 @@ Thay khuyến nghị về sau không xóa purchase hoặc tài sản household �
 **Materialization boundary**:
 Ranh giới một phần intent đã có confirmed execution/physical evidence. Nó giữ liên kết với
 khuyến nghị nguồn mà không biến thời gian trôi qua thành bằng chứng thực thi.
+
+
+**Proposal generation**:
+Thứ tự các đề xuất intent đã lưu, kể cả đề xuất chưa được chấp nhận. Khác số revision
+vận hành đã được chấp nhận.
+_Avoid_: Draft revision0
+
+**Observed acquisition coverage (draft)**:
+Lượng nhu cầu có thể đối chiếu với acquisition đã được xác nhận, cùng ingredient và
+measurement identity. Chưa chứng minh giá mua thực tế hoặc toàn bộ PurchaseFulfillment.
+
+**Accepted revision head**:
+Phiên bản khuyến nghị được chấp nhận hiện hành của cùng một plan. Đổi head không đổi
+quyền sở hữu hay lịch sử vật chất của household.

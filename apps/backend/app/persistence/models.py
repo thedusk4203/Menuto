@@ -1,6 +1,7 @@
 """Explicit registration at the composition root; cross-context models use database FKs."""
 
 from app.modules.catalog.models import Ingredient, NutritionFact
+from app.modules.cooking.models import PlannedBatchAllocation, PlannedCookingBatch
 from app.modules.households.models import Household, HouseholdMember, Membership
 from app.modules.identity.models import User
 from app.modules.inventory.models import (
@@ -11,6 +12,18 @@ from app.modules.inventory.models import (
     InventoryReservationRelease,
 )
 from app.modules.nutrition.models import MemberNutritionProfile, MemberSafetyConstraint
+from app.modules.planning.models import (
+    PlanMaterializationLink,
+    PlanMealIntent,
+    PlanMealParticipant,
+    PlanProposal,
+    PlanProposalSeal,
+    PlanReservationIntent,
+    PlanRevision,
+    PlanRevisionReservation,
+    PlanValidationAuthorization,
+    PlanWorkspace,
+)
 from app.modules.recipes.models import (
     PreparationTransformation,
     Recipe,
@@ -40,11 +53,28 @@ from app.modules.retail.models import (
     RetailProduct,
     StoreRegion,
 )
+from app.modules.shopping.models import ShoppingRequirementIntent
 from app.shared.db import Base
 
 __all__ = [
-    "InventoryLot", "InventoryLotBalance", "InventoryMovement",
-    "InventoryReservation", "InventoryReservationRelease",
+    "PlanWorkspace",
+    "PlanProposal",
+    "PlanProposalSeal",
+    "PlanMealIntent",
+    "PlanMealParticipant",
+    "PlanReservationIntent",
+    "PlanValidationAuthorization",
+    "PlanRevision",
+    "PlanRevisionReservation",
+    "PlanMaterializationLink",
+    "PlannedCookingBatch",
+    "PlannedBatchAllocation",
+    "ShoppingRequirementIntent",
+    "InventoryLot",
+    "InventoryLotBalance",
+    "InventoryMovement",
+    "InventoryReservation",
+    "InventoryReservationRelease",
     "PreparationTransformation",
     "Recipe",
     "RecipeCombinationMember",

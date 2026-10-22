@@ -192,7 +192,7 @@ hạn đã ghi rõ. Chưa bắt đầu M1.3.
   head0007, 38 bảng, 688 Python / 313 PostgreSQL-real tests, benchmark22/22, postmerge CI SUCCESS.
 
 
-## F — Plan/revision foundation: architecture review trước implementation
+## F — Plan/revision foundation: implementation có activation guard
 
 Canonical work item: **MTR-016 — ActivePlan + PlanRevision schema**; planned batch và
 validation handoff là seams của MTR-023/MTR-025. Không tự đổi tên F thành M1.4.
@@ -208,5 +208,10 @@ validation handoff là seams của MTR-023/MTR-025. Không tự đổi tên F th
 - Reservation thay đổi bằng full release/reacquire atomically theo M1.3, không physical movement.
 - Chưa có independent PRECOMMIT capability/full resolved subject: operational activation
   fail-closed. Architecture review không giả boolean PASS hoặc mở activation endpoint.
-- Đây là review-only; chưa có0008/tables/contracts/services mới hoặc runtime tests cho F.
+- `0008` thêm 13 bảng (51 tổng), contracts và service/public boundaries; full relational
+  immutable proposals, revision/head và reservation transaction được kiểm PostgreSQL thật.
+- [Evidence implementation](PLAN_REVISION_FOUNDATION_EVIDENCE.md): successful publish tests
+  dùng synthetic authorization trong isolated DB-owner fixture; không có production bypass.
+- Default RecipeVersion/tier binding; substitutions, actual PurchaseFulfillment/price, full
+  execution, production authority và full resolved validation subject vẫn deferred.
   Không claim MTR-016 hoàn tất hoặc tự freeze. READY FOR ARCHITECTURE/FREEZE REVIEW.

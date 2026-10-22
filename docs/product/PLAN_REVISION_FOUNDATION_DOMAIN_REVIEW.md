@@ -1,7 +1,9 @@
 # F — Plan/revision foundation: domain architecture review
 
 Date: 2026-10-23 (Asia/Saigon). Status: **READY FOR ARCHITECTURE/FREEZE REVIEW**.
-This is a design review, not runtime implementation or a frozen new milestone.
+A–J records the architecture-first review. The implementation addendum and
+[implementation evidence](PLAN_REVISION_FOUNDATION_EVIDENCE.md) record subsequent foundation work.
+This slice is not frozen and operational activation remains fail-closed.
 
 ## Canonical naming, baseline and evidence inspected
 
@@ -24,7 +26,7 @@ actual InventoryService/contracts and Recipe binding contracts. The supplied pat
 `docs/product/ARCHITECTURE_INVARIANTS.md` does not exist; the canonical file is
 `docs/ARCHITECTURE_INVARIANTS.md`. No duplicate baseline is created.
 
-Current planning/shopping/cooking/execution namespaces have no business implementation.
+At the architecture-review baseline, planning/shopping/cooking/execution namespaces had no business implementation.
 GroundedRecipeVariantDraft and PhysicalInventorySnapshot explicitly cannot authorize activation.
 
 ## Dependency findings and implementation boundary
@@ -43,7 +45,8 @@ A later implementation may first implement explicitly DRAFT authoring/proposal p
 and structural checks. It must not publish an operational ActivePlan, reserve inventory
 automatically for each draft, or label draft proposal history PlanRevision0. Missing full
 validation must remain visible; it cannot be silently waived to make F appear complete.
-This review does not implement migrations, services, contracts, execution or a validator.
+The architecture-review stage introduced no implementation; the addendum below records
+subsequent foundation implementation without waiving this production gate.
 
 ## A. Aggregate ownership and mutation
 
@@ -442,6 +445,40 @@ All published0001–0007 were byte-compared to the M1.3 freeze commit. No schema
 Pydantic contract, application service or existing test was changed by this review.
 
 Runtime counts688/313 and benchmark22/22 above describe the verified M1.3 baseline;
-there are **zero new Python/PostgreSQL runtime tests** for F in this review. The fifteen
-counterexamples are manual design traces; they are not reported as passing transaction tests.
+there were **zero new Python/PostgreSQL runtime tests** at the architecture-review stage.
+The fifteen counterexamples there were manual design traces. Subsequent runtime tests and
+exact counts are recorded separately in the implementation evidence.
 PR/final delivery records CI regression results on the review commit separately.
+
+## Implementation addendum — 2026-10-23, F foundation
+
+Review A–J remains the design baseline; no contradiction requires changing frozen M1.3.
+Implementation proceeds with stable workspaces, sealed immutable full intent proposals,
+accepted revision/head transaction machinery and typed physical/reservation links.
+Draft proposal generation is independent of active revision numbering.
+
+The PRECOMMIT authorization receipt table has a fail-closed insertion guard: authority is
+NOT installed, and production application code exposes no mint/bypass function. Publishing
+requires an authentic stored receipt matching graph, parent, inventory frontier and boundary
+version. Future validator/security work must install a real issuer before activation is usable.
+PostgreSQL tests may seed synthetic receipts using test-database-owner DDL fixtures only;
+these are explicit trust-boundary fixtures, not evidence of full independent validation.
+There is no test_mode switch, caller PASS boolean or production permit issuer.
+
+First implementation supports default authored RecipeVersion/portion-tier batch composition
+by immutable source FKs; runtime substitutions/micro-adjustment bindings stay deferred.
+planned_servings must equal the authored tier; allocations have explicit servings and do
+not change production. No cooking execution or produced_servings are fabricated.
+Shopping stores typed quantitative requirements; actual purchase price/fulfillment domain
+remains future work. A separate confirmed inventory acquisition link can expose partial
+material coverage without masquerading as full PurchaseFulfillment or actual spend proof.
+
+Full graphs remain relational. Canonical hash version1 uses sorted UTF-8 JSON keys,
+UUID-sorted node collections, exact decimal strings, and UTC microsecond timestamps;
+storage-only proposal/revision IDs are excluded from content hash. Source identity,
+household, horizon and tracked member are included. No JSONB graph persistence is used.
+
+Next revision and inventory effects will be tested atomically with real PostgreSQL,
+including stale-head CAS, retries, partial failure rollback and materialization pins.
+All operational success tests using synthetic authorization must be labeled accordingly.
+F remains not frozen and cannot claim production activation readiness.
