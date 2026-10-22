@@ -1,6 +1,6 @@
 # Backend foundation
 
-FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003`, hiện có 21 bảng: 8 bảng Foundation và 13 bảng M1.1 Retail/Procurement. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [evidence M1.1](../../docs/product/M1_1_RETAIL_PROCUREMENT_EVIDENCE.md) để phân biệt phần đã triển khai và schema đích.
+FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003` → `0004`, hiện có 23 bảng: 8 bảng Foundation, 13 bảng Retail ban đầu, 2 bảng status history/legacy assessment audit. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [evidence corrections](../../docs/product/M1_1_RETAIL_CORRECTIONS_EVIDENCE.md) để phân biệt phần đã triển khai và schema đích.
 
 Từ root repository:
 
@@ -34,4 +34,4 @@ uv run pytest
 
 Bootstrap household là service nội bộ nhận user đã tồn tại và không tự commit. Profile concurrency dùng ORM version counter; authorization, idempotent command execution và bulk-SQL CAS chưa có business service trong đợt này. Nutrition source facts append-only; correction tạo source version mới. Bảng yield chung đã được gỡ; M1.1 đã lưu edible yield ở Retail Product→Ingredient mapping, còn cooking yield thuộc Recipe/Preparation ở M1.2. Xem [sáu sửa đổi foundation](../../docs/product/FOUNDATION_CORRECTIONS.md).
 
-Retail repository trả frozen contracts và không tự commit. Tất cả 13 bảng Retail append-only; downgrade `0003` dừng nếu có dữ liệu. Quote/snapshot chỉ DRAFT; `derive_price_quote` chưa có production eligibility/freshness/scoring policy. `RetailSourcedAPAssetDraft` chỉ là contract giữ mapping origin cho Inventory sau này, không tạo lot. Không có retailer scraper hoặc API nghiệp vụ Retail trong slice này. [Domain review A–G](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md) mô tả schema và các giới hạn.
+Retail repository trả frozen `retail-v2` contracts và không tự commit. Tất cả facts Retail append-only; retailer status nằm ở history riêng. `0004` từ chối legacy CALIBRATED quotes và product có canonical ingredient mơ hồ; downgrade từ chối khi có Retail data. Quote chỉ expose reference_price_pair, chưa phải purchase cost. Calibration chỉ áp reference; promotion/coverage được derive. Quote/snapshot vẫn DRAFT, chưa có production eligibility/freshness/scoring policy hoặc ProcurementCostEvaluator. `RetailSourcedAPAssetDraft` draft.2 giữ mapping origin, không tạo lot. [Domain review A–G](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md) mô tả đầy đủ.

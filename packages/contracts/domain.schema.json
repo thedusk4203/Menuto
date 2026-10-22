@@ -272,8 +272,8 @@
           "$ref": "#/$defs/EvidenceQuality"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -778,8 +778,8 @@
           "type": "string"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1261,15 +1261,15 @@
           "default": null
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
         "evidence_kind": {
           "enum": [
             "RETAIL_OBSERVED",
-            "CALIBRATED",
+            "CALIBRATED_REFERENCE",
             "REFERENCE_BASELINE"
           ],
           "title": "Evidence Kind",
@@ -1304,23 +1304,6 @@
           "title": "Policy Version",
           "type": "string"
         },
-        "price": {
-          "$ref": "#/$defs/Money"
-        },
-        "priced_ap_g": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            }
-          ],
-          "decimal_places": 6,
-          "gt": 0,
-          "max_digits": 18,
-          "title": "Priced Ap G"
-        },
         "procurement_class_id": {
           "format": "uuid",
           "title": "Procurement Class Id",
@@ -1343,6 +1326,9 @@
             }
           ],
           "default": null
+        },
+        "reference_price_pair": {
+          "$ref": "#/$defs/ReferencePricePair"
         },
         "region_code": {
           "maxLength": 100,
@@ -1378,8 +1364,7 @@
         "region_code",
         "product_category",
         "evidence_kind",
-        "price",
-        "priced_ap_g",
+        "reference_price_pair",
         "as_of",
         "policy_version"
       ],
@@ -1389,19 +1374,18 @@
     "PlanningProcurementOptionDraft": {
       "additionalProperties": false,
       "properties": {
-        "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
-          "title": "Contract Version",
+        "brittleness_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Brittleness Policy Version",
           "type": "string"
         },
-        "depends_on_promotion": {
-          "title": "Depends On Promotion",
-          "type": "boolean"
-        },
-        "depends_on_single_source": {
-          "title": "Depends On Single Source",
-          "type": "boolean"
+        "contract_version": {
+          "const": "retail-v2",
+          "default": "retail-v2",
+          "title": "Contract Version",
+          "type": "string"
         },
         "id": {
           "format": "uuid",
@@ -1443,8 +1427,7 @@
         "rank",
         "quote",
         "package_size_brittleness",
-        "depends_on_single_source",
-        "depends_on_promotion",
+        "brittleness_policy_version",
         "substitution_group",
         "rationale",
         "provenance"
@@ -1530,8 +1513,8 @@
       "description": "Optional policy input, not a computed risk score or probability.",
       "properties": {
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1589,8 +1572,8 @@
           "$ref": "#/$defs/Availability"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1674,8 +1657,8 @@
           "type": "string"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1724,8 +1707,8 @@
       "additionalProperties": false,
       "properties": {
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1771,8 +1754,8 @@
       "description": "No scoring/activation claims. rank 0 is primary; positive ranks are backups.",
       "properties": {
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1824,8 +1807,8 @@
           "title": "Ap"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -1940,8 +1923,8 @@
           "title": "Ap G"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2164,8 +2147,8 @@
           "type": "string"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2218,8 +2201,8 @@
           "$ref": "#/$defs/EvidenceQuality"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2262,9 +2245,56 @@
       "title": "ReferencePriceEntryFact",
       "type": "object"
     },
+    "ReferencePricePair": {
+      "additionalProperties": false,
+      "description": "Money for a reference AP quantity, NEVER a package/purchase cost.\n\nFuture planners need a separate ProcurementCostEvaluator and explicit money\nquantization policy. In particular 60,000/1000g is not the cost of a 500g pack.",
+      "properties": {
+        "basis": {
+          "const": "AP_G",
+          "default": "AP_G",
+          "title": "Basis",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "retail-v2",
+          "default": "retail-v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "money_for_reference_quantity": {
+          "$ref": "#/$defs/Money"
+        },
+        "price_basis": {
+          "const": "REFERENCE_WEIGHT_RATE",
+          "default": "REFERENCE_WEIGHT_RATE",
+          "title": "Price Basis",
+          "type": "string"
+        },
+        "priced_ap_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Priced Ap G"
+        }
+      },
+      "required": [
+        "money_for_reference_quantity",
+        "priced_ap_g"
+      ],
+      "title": "ReferencePricePair",
+      "type": "object"
+    },
     "RetailPriceCalibrationFact": {
       "additionalProperties": false,
-      "description": "Externally authored category index; confidence is ordinal, never probability.",
+      "description": "Adjusts reference baselines only; never multiplies retailer observations.",
       "properties": {
         "category": {
           "maxLength": 100,
@@ -2277,8 +2307,8 @@
           "$ref": "#/$defs/EvidenceQuality"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2368,6 +2398,11 @@
           "default": null,
           "title": "Brand"
         },
+        "canonical_ingredient_id": {
+          "format": "uuid",
+          "title": "Canonical Ingredient Id",
+          "type": "string"
+        },
         "category": {
           "maxLength": 100,
           "minLength": 1,
@@ -2376,8 +2411,8 @@
           "type": "string"
         },
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2423,6 +2458,7 @@
         "version",
         "name",
         "category",
+        "canonical_ingredient_id",
         "provenance"
       ],
       "title": "RetailProductFact",
@@ -2443,8 +2479,8 @@
           "type": "string"
         },
         "contract_version": {
-          "const": "inventory-retail-origin.m1-draft.1",
-          "default": "inventory-retail-origin.m1-draft.1",
+          "const": "inventory-retail-origin.m1-draft.2",
+          "default": "inventory-retail-origin.m1-draft.2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2508,8 +2544,8 @@
       "additionalProperties": false,
       "properties": {
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2534,6 +2570,43 @@
           "pattern": "\\S",
           "title": "Name",
           "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "country",
+        "currency"
+      ],
+      "title": "RetailerFact",
+      "type": "object"
+    },
+    "RetailerStatusFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "retail-v2",
+          "default": "retail-v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "effective_at": {
+          "format": "date-time",
+          "title": "Effective At",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/RetailerStatusProvenance"
+        },
+        "retailer_id": {
+          "format": "uuid",
+          "title": "Retailer Id",
+          "type": "string"
         },
         "status": {
           "enum": [
@@ -2546,12 +2619,130 @@
       },
       "required": [
         "id",
-        "name",
-        "country",
-        "currency",
-        "status"
+        "retailer_id",
+        "status",
+        "effective_at",
+        "provenance"
       ],
-      "title": "RetailerFact",
+      "title": "RetailerStatusFact",
+      "type": "object"
+    },
+    "RetailerStatusProvenance": {
+      "additionalProperties": false,
+      "description": "LEGACY_STATE identifies migrated state; it does not invent a reviewed source.",
+      "properties": {
+        "content_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "external_record_id": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "External Record Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "USER",
+            "REVIEWED_REFERENCE",
+            "RETAIL_OBSERVATION",
+            "RECEIPT",
+            "LEGACY_STATE"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "source_uri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Uri"
+        },
+        "source_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "source_system",
+        "external_record_id",
+        "source_version",
+        "observed_at"
+      ],
+      "title": "RetailerStatusProvenance",
+      "type": "object"
+    },
+    "SourceCoverageDraft": {
+      "additionalProperties": false,
+      "description": "Structural counts of non-UNAVAILABLE direct evidence, not probabilities.\n\nMultiple references/target stores do not manufacture independent retail evidence.\nSingle-source remains true if retailer OR provider OR purchasing-path coverage <2.",
+      "properties": {
+        "candidate_path_count": {
+          "minimum": 0,
+          "title": "Candidate Path Count",
+          "type": "integer"
+        },
+        "contract_version": {
+          "const": "retail-v2",
+          "default": "retail-v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "observation_provider_count": {
+          "minimum": 0,
+          "title": "Observation Provider Count",
+          "type": "integer"
+        },
+        "observed_path_count": {
+          "minimum": 0,
+          "title": "Observed Path Count",
+          "type": "integer"
+        },
+        "observed_retailer_count": {
+          "minimum": 0,
+          "title": "Observed Retailer Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "candidate_path_count",
+        "observed_path_count",
+        "observed_retailer_count",
+        "observation_provider_count"
+      ],
+      "title": "SourceCoverageDraft",
       "type": "object"
     },
     "SourceVersion": {
@@ -2589,8 +2780,8 @@
       "additionalProperties": false,
       "properties": {
         "contract_version": {
-          "const": "retail-v1",
-          "default": "retail-v1",
+          "const": "retail-v2",
+          "default": "retail-v2",
           "title": "Contract Version",
           "type": "string"
         },
@@ -2914,8 +3105,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:3",
+  "$id": "urn:menuto:domain:foundation:4",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v1; procurement/price handoffs remain DRAFT. No activation-ready inventory or planning handoff is provided. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. No activation-ready inventory or planning handoff is provided. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

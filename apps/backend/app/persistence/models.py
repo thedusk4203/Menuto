@@ -6,6 +6,7 @@ from app.modules.identity.models import User
 from app.modules.nutrition.models import MemberNutritionProfile, MemberSafetyConstraint
 from app.modules.retail.models import (
     IngredientProductMap,
+    LegacyOptionAssessment,
     PlanningPriceQuote,
     PlanningProcurementOption,
     PriceObservation,
@@ -14,6 +15,7 @@ from app.modules.retail.models import (
     ReferencePriceBook,
     ReferencePriceEntry,
     Retailer,
+    RetailerStatusFact,
     RetailPackage,
     RetailPriceCalibration,
     RetailProduct,
@@ -32,6 +34,7 @@ __all__ = [
     "NutritionFact",
     "User",
     "IngredientProductMap",
+    "LegacyOptionAssessment",
     "PlanningPriceQuote",
     "PlanningProcurementOption",
     "PriceObservation",
@@ -40,6 +43,7 @@ __all__ = [
     "ReferencePriceBook",
     "ReferencePriceEntry",
     "Retailer",
+    "RetailerStatusFact",
     "RetailPackage",
     "RetailPriceCalibration",
     "RetailProduct",

@@ -229,21 +229,22 @@ def test_quote_is_not_raw_observation_and_reference_never_claims_availability():
 def test_calibration_is_category_scoped_and_preserves_both_sources():
     f = chain()
     quote = derive_price_quote(
-        **f["quote_inputs"], observation=f["observation"], calibration=f["calibration"]
+        **f["quote_inputs"], reference=f["reference"], calibration=f["calibration"]
     )
-    assert quote.evidence_kind == "CALIBRATED"
-    assert quote.price.amount_minor == 55_000
-    assert quote.observation == f["observation"] and quote.calibration == f["calibration"]
+    assert quote.evidence_kind == "CALIBRATED_REFERENCE"
+    assert quote.reference_price_pair.money_for_reference_quantity.amount_minor == 66_000
+    assert quote.reference == f["reference"] and quote.calibration == f["calibration"]
+    assert quote.observation is None and quote.availability == "UNKNOWN"
     with pytest.raises(ValueError):
         derive_price_quote(
             **f["quote_inputs"],
-            observation=f["observation"],
+            reference=f["reference"],
             calibration=changed(f["calibration"], category="another-category"),
         )
     with pytest.raises(ValueError, match="fractional minor"):
         derive_price_quote(
             **f["quote_inputs"],
-            observation=f["observation"],
+            reference=f["reference"],
             calibration=changed(f["calibration"], factor="1.000001"),
         )
 
@@ -258,7 +259,16 @@ def test_calibration_is_category_scoped_and_preserves_both_sources():
 def test_quote_rejects_forged_price(field, value):
     quote = chain()["quote"]
     with pytest.raises(ValidationError):
-        changed(quote, price=Money(**(quote.price.model_dump() | {field: value})))
+        pair = quote.reference_price_pair
+        changed(
+            quote,
+            reference_price_pair=changed(
+                pair,
+                money_for_reference_quantity=Money(
+                    **(pair.money_for_reference_quantity.model_dump() | {field: value}),
+                ),
+            ),
+        )
 
 
 @pytest.mark.parametrize("mutation", ["package", "mapping", "time", "origin", "quantity"])
@@ -269,7 +279,12 @@ def test_quote_cannot_lose_context_or_derivation(mutation):
         "mapping": {"mapping": changed(f["mapping"], status="DRAFT", reviewed_at=None)},
         "time": {"as_of": NOW - timedelta(seconds=1)},
         "origin": {"evidence_kind": "REFERENCE_BASELINE"},
-        "quantity": {"priced_ap_g": "499"},
+        "quantity": {
+            "reference_price_pair": changed(
+                f["quote"].reference_price_pair,
+                priced_ap_g="499",
+            )
+        },
     }[mutation]
     with pytest.raises(ValidationError):
         changed(f["quote"], **fields)

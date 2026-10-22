@@ -14,6 +14,8 @@ from app.modules.retail.contracts import (
     ReferencePriceBookFact,
     ReferencePriceEntryFact,
     RetailerFact,
+    RetailerStatusFact,
+    RetailerStatusProvenance,
     RetailPriceCalibrationFact,
     RetailProductFact,
     StoreRegionFact,
@@ -44,7 +46,6 @@ def chain(granularity="FIXED_PACK"):
         name="Synthetic retailer",
         country="VN",
         currency="VND",
-        status="ACTIVE",
     )
     region = StoreRegionFact(
         id=uuid4(),
@@ -60,6 +61,7 @@ def chain(granularity="FIXED_PACK"):
         version="1",
         name="Synthetic chicken",
         category="poultry",
+        canonical_ingredient_id=uuid4(),
         provenance=provenance(),
     )
     package = PackageFact(
@@ -77,7 +79,7 @@ def chain(granularity="FIXED_PACK"):
     mapping = IngredientProductMapFact(
         id=uuid4(),
         retail_product_id=product.id,
-        ingredient_id=uuid4(),
+        ingredient_id=product.canonical_ingredient_id,
         version="1",
         edible_yield="0.876543",
         status="REVIEWED",
@@ -130,8 +132,7 @@ def chain(granularity="FIXED_PACK"):
         rank=0,
         quote=quote,
         package_size_brittleness="UNKNOWN",
-        depends_on_single_source=True,
-        depends_on_promotion=False,
+        brittleness_policy_version="synthetic-assessment.1",
         substitution_group="chicken",
         rationale="Synthetic primary",
         provenance=provenance(),
@@ -165,6 +166,13 @@ def chain(granularity="FIXED_PACK"):
     )
     return dict(
         retailer=retailer,
+        retailer_status=RetailerStatusFact(
+            id=uuid4(),
+            retailer_id=retailer.id,
+            status="ACTIVE",
+            effective_at=NOW,
+            provenance=RetailerStatusProvenance(**provenance().model_dump()),
+        ),
         region=region,
         product=product,
         package=package,

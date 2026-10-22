@@ -35,7 +35,7 @@ Lượng thực phẩm được nấu một lần và phân bổ cho các nhu c�
 Danh tính nguyên liệu chuẩn hóa.
 
 **RetailProduct**:
-Sản phẩm bán lẻ cụ thể, không đồng nghĩa ingredient.
+Phiên bản sản phẩm bán lẻ cụ thể. V1 gắn mỗi phiên bản với một canonical ingredient cho procurement; composite/mixed products chưa được hỗ trợ.
 
 **Package / Offer / PriceObservation**:
 Quy cách bán, đề nghị bán và bằng chứng giá/availability ở thời điểm quan sát.
@@ -44,7 +44,7 @@ Quy cách bán, đề nghị bán và bằng chứng giá/availability ở thờ
 Nhóm cách mua tương đương hợp lý, có granularity và bằng chứng thay thế.
 
 **PlanningPriceQuote**:
-Giá dùng lập kế hoạch đã xử lý evidence/policy, không phải checkout guarantee.
+Cặp tiền và lượng AP tham chiếu dùng lập kế hoạch, có nguồn và policy rõ; chưa phải chi phí mua package hoặc checkout guarantee.
 
 **AP → EP**:
 Chuyển lượng mua về sang phần nguyên liệu sống sử dụng được qua edible yield thuộc Product→Ingredient mapping của Retail.
@@ -59,7 +59,13 @@ Cách mua một phiên bản product: pack cố định, pack có cân nặng bi
 Nguồn giá proxy có phiên bản, dùng fallback khi thiếu evidence phù hợp. Reference baseline không phải giá hoặc bằng chứng còn hàng của retailer.
 
 **RetailPriceCalibration**:
-Bằng chứng điều chỉnh giá theo retailer, store/region và category, có phương pháp và phiên bản riêng. Mức tin cậy dạng LOW/MEDIUM/HIGH không tự là xác suất.
+Bằng chứng điều chỉnh reference baseline theo retailer, store/region và category khi thiếu direct retail evidence. Không nhân hệ số này vào giá retailer đã quan sát; mức tin cậy dạng LOW/MEDIUM/HIGH không tự là xác suất.
+
+**RetailerStatusFact**:
+Bằng chứng trạng thái ACTIVE/INACTIVE của cùng một retailer tại thời điểm hiệu lực; thay trạng thái không tạo retailer identity mới.
+
+**Source coverage**:
+Số đường mua, retailer và provider được thể hiện bởi direct observations chưa UNAVAILABLE. Nhiều giá reference không tự tạo thêm evidence rằng retailer có hàng.
 
 **Primary / Backup procurement option**:
 Đường mua được ưu tiên và những đường mua thay thế trong procurement class. Quote lại cùng product/package/store không tạo thêm backup coverage.

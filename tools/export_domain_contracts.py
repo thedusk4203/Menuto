@@ -41,9 +41,12 @@ from app.modules.retail.contracts import (
     PurchaseIntent,
     ReferencePriceBookFact,
     ReferencePriceEntryFact,
+    ReferencePricePair,
     RetailerFact,
+    RetailerStatusFact,
     RetailPriceCalibrationFact,
     RetailProductFact,
+    SourceCoverageDraft,
     StoreRegionFact,
 )
 from pydantic.json_schema import models_json_schema
@@ -72,6 +75,9 @@ CONTRACTS = (
     MemberNutritionProfileWrite,
     MemberSafetyConstraint,
     RetailerFact,
+    RetailerStatusFact,
+    ReferencePricePair,
+    SourceCoverageDraft,
     StoreRegionFact,
     RetailProductFact,
     PackageFact,
@@ -98,11 +104,11 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:3"
+    schema["$id"] = "urn:menuto:domain:foundation:4"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "
-        "Retail facts use retail-v1; procurement/price handoffs remain DRAFT. "
+        "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
         "No activation-ready inventory or planning handoff is provided. "
         "Cross-field semantic guards run in Python, not JSON Schema alone."
     )

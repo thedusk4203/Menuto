@@ -1,6 +1,6 @@
 """Retail owns purchase evidence and product-specific edible yield (ADR-006).
 
-All rows are append-only in migration 0003. Corrections use new identities/versions.
+All rows remain append-only. Stable retailer identity has separate status facts (0004).
 Foreign keys are relational context bindings, never cross-context Python ORM imports.
 """
 
@@ -18,6 +18,7 @@ from sqlalchemy import (
     Numeric,
     String,
     UniqueConstraint,
+    func,
 )
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import TypeDecorator
@@ -67,8 +68,10 @@ def identifier(column):
     return CheckConstraint(f"{column} ~ '^[A-Za-z0-9_.:-]+$'", name=column)
 
 
-def provenance_constraints(*, kind=None):
+def provenance_constraints(*, kind=None, legacy_state=False):
     allowed = "('USER','REVIEWED_REFERENCE','RETAIL_OBSERVATION','RECEIPT')"
+    if legacy_state:
+        allowed = "('USER','REVIEWED_REFERENCE','RETAIL_OBSERVATION','RECEIPT','LEGACY_STATE')"
     return (
         CheckConstraint(
             f"source_kind = '{kind}'" if kind else f"source_kind IN {allowed}",
@@ -95,11 +98,11 @@ def provenance_constraints(*, kind=None):
     )
 
 
-def money_constraints():
+def money_constraints(amount="amount_minor", quantity="priced_ap_g"):
     return (
-        CheckConstraint("amount_minor >= 0", name="money_nonnegative"),
+        CheckConstraint(f"{amount} >= 0", name="money_nonnegative"),
         CheckConstraint("currency ~ '^[A-Z]{3}$'", name="currency"),
-        positive("priced_ap_g"),
+        positive(quantity),
     )
 
 
@@ -109,13 +112,24 @@ class Retailer(IdentityMixin, Base):
         CheckConstraint("length(trim(name)) > 0", name="name"),
         CheckConstraint("country ~ '^[A-Z]{2}$'", name="country"),
         CheckConstraint("currency ~ '^[A-Z]{3}$'", name="currency"),
-        CheckConstraint("status IN ('ACTIVE','INACTIVE')", name="status"),
         UniqueConstraint("id", "currency"),
     )
     name: Mapped[str] = mapped_column(String(200))
     country: Mapped[str] = mapped_column(String(2))
     currency: Mapped[str] = mapped_column(String(3))
+
+
+class RetailerStatusFact(IdentityMixin, ProvenanceMixin, Base):
+    __tablename__ = "retailer_status_facts"
+    __table_args__ = (
+        *provenance_constraints(legacy_state=True),
+        UniqueConstraint("retailer_id", "effective_at"),
+        CheckConstraint("status IN ('ACTIVE','INACTIVE')", name="status"),
+        CheckConstraint("isfinite(effective_at)", name="effective_at_finite"),
+    )
+    retailer_id: Mapped[UUID] = mapped_column(ForeignKey("retailers.id", ondelete="RESTRICT"))
     status: Mapped[str] = mapped_column(String(20))
+    effective_at: Mapped[datetime]
 
 
 class StoreRegion(IdentityMixin, Base):
@@ -141,6 +155,7 @@ class RetailProduct(IdentityMixin, ProvenanceMixin, Base):
         UniqueConstraint("retailer_id", "sku", "version"),
         UniqueConstraint("id", "retailer_id"),
         UniqueConstraint("id", "category"),
+        UniqueConstraint("id", "canonical_ingredient_id"),
         identifier("sku"),
         identifier("version"),
         identifier("category"),
@@ -153,6 +168,9 @@ class RetailProduct(IdentityMixin, ProvenanceMixin, Base):
     name: Mapped[str] = mapped_column(String(200))
     brand: Mapped[str | None] = mapped_column(String(200))
     category: Mapped[str] = mapped_column(String(100))
+    canonical_ingredient_id: Mapped[UUID] = mapped_column(
+        ForeignKey("ingredients.id", ondelete="RESTRICT")
+    )
 
 
 class RetailPackage(IdentityMixin, ProvenanceMixin, Base):
@@ -210,6 +228,11 @@ class IngredientProductMap(IdentityMixin, ProvenanceMixin, Base):
         *provenance_constraints(),
         UniqueConstraint("retail_product_id", "ingredient_id", "version"),
         UniqueConstraint("id", "retail_product_id", "ingredient_id"),
+        fk(
+            ["retail_product_id", "ingredient_id"],
+            "retail_products",
+            ["id", "canonical_ingredient_id"],
+        ),
         identifier("version"),
         CheckConstraint("source_basis='AP_G' AND target_basis='EP_RAW_G'", name="basis_chain"),
         positive("edible_yield"),
@@ -369,7 +392,8 @@ class RetailPriceCalibration(IdentityMixin, ProvenanceMixin, Base):
 class PlanningPriceQuote(IdentityMixin, Base):
     __tablename__ = "planning_price_quotes"
     __table_args__ = (
-        *money_constraints(),
+        *money_constraints("reference_amount_minor", "reference_ap_g"),
+        CheckConstraint("price_basis='REFERENCE_WEIGHT_RATE'", name="price_basis"),
         UniqueConstraint("id", "procurement_class_id"),
         fk(
             ["procurement_class_id", "ingredient_id", "granularity"],
@@ -415,8 +439,8 @@ class PlanningPriceQuote(IdentityMixin, Base):
         CheckConstraint(
             "(evidence_kind='RETAIL_OBSERVED' AND observation_id IS NOT NULL "
             "AND calibration_id IS NULL AND reference_entry_id IS NULL) OR "
-            "(evidence_kind='CALIBRATED' AND observation_id IS NOT NULL "
-            "AND calibration_id IS NOT NULL AND reference_entry_id IS NULL) OR "
+            "(evidence_kind='CALIBRATED_REFERENCE' AND observation_id IS NULL "
+            "AND calibration_id IS NOT NULL AND reference_entry_id IS NOT NULL) OR "
             "(evidence_kind='REFERENCE_BASELINE' AND observation_id IS NULL "
             "AND calibration_id IS NULL AND reference_entry_id IS NOT NULL)",
             name="exclusive_origin",
@@ -439,9 +463,10 @@ class PlanningPriceQuote(IdentityMixin, Base):
     reference_entry_id: Mapped[UUID | None] = mapped_column(
         ForeignKey("reference_price_entries.id", ondelete="RESTRICT")
     )
-    amount_minor: Mapped[int] = mapped_column(BigInteger)
+    reference_amount_minor: Mapped[int] = mapped_column(BigInteger)
     currency: Mapped[str] = mapped_column(String(3))
-    priced_ap_g: Mapped[Decimal] = mapped_column(RetailNumeric())
+    reference_ap_g: Mapped[Decimal] = mapped_column(RetailNumeric())
+    price_basis: Mapped[str] = mapped_column(String(30))
     as_of: Mapped[datetime]
     policy_version: Mapped[str] = mapped_column(String(100))
 
@@ -459,6 +484,7 @@ class PlanningProcurementOption(IdentityMixin, ProvenanceMixin, Base):
         ),
         CheckConstraint("rank >= 0", name="rank"),
         quality("package_size_brittleness"),
+        identifier("brittleness_policy_version"),
         identifier("substitution_group"),
         CheckConstraint("length(trim(rationale)) > 0", name="rationale"),
     )
@@ -466,7 +492,19 @@ class PlanningProcurementOption(IdentityMixin, ProvenanceMixin, Base):
     quote_id: Mapped[UUID]
     rank: Mapped[int]
     package_size_brittleness: Mapped[str] = mapped_column(String(20))
-    depends_on_single_source: Mapped[bool]
-    depends_on_promotion: Mapped[bool]
+    brittleness_policy_version: Mapped[str] = mapped_column(String(100))
     substitution_group: Mapped[str] = mapped_column(String(100))
     rationale: Mapped[str] = mapped_column(String(200))
+
+
+class LegacyOptionAssessment(Base):
+    """Historical 0003 assertions retained for audit, never used as derived evidence."""
+
+    __tablename__ = "retail_legacy_option_assessments"
+    option_id: Mapped[UUID] = mapped_column(
+        ForeignKey("planning_procurement_options.id", ondelete="RESTRICT"),
+        primary_key=True,
+    )
+    legacy_depends_on_single_source: Mapped[bool]
+    legacy_depends_on_promotion: Mapped[bool]
+    captured_at: Mapped[datetime] = mapped_column(server_default=func.now())
