@@ -2,7 +2,7 @@
   "scope": "M1.1_CANONICAL_SEMANTIC_CORRECTIONS_0004",
   "date": "2026-10-22",
   "timezone": "Asia/Saigon",
-  "status": "LOCAL_VERIFIED_CI_BLOCKED_PENDING_PUBLICATION_APPROVAL",
+  "status": "LOCAL_AND_GITHUB_CI_VERIFIED",
   "base_commit": "7fe02d5b5fcc8580775ace56ecb095aff573e08b",
   "branch": "thedusk4203/m1-1-retail-canonical-fixes",
   "environment": {
@@ -56,11 +56,26 @@
     "web_build": "PASS"
   },
   "github_ci": {
-    "status": "BLOCKED_PENDING_USER_AUTHORIZATION",
+    "status": "SUCCESS",
     "implementation_commit": "748ae81c6dd4a2b2a391e0b5f93bae325cbb0a3d",
+    "tested_head_sha": "2873c5230dd6fcd8a2efdcabd280f86828d3ad1a",
     "repository": "thedusk4203/Menuto",
     "branch": "thedusk4203/m1-1-retail-canonical-fixes",
-    "reason": "Automatic approval review rejected push of new correction branch/payload; previous approval covered original M1.1 publication."
+    "pr": 56,
+    "run_id": 39763499529,
+    "run_number": 17,
+    "url": "https://github.com/thedusk4203/Menuto/actions/runs/39763499529",
+    "checkout": "pull_request_merge_ref",
+    "python_job_id": 119773185994,
+    "web_job_id": 119773185639,
+    "python_job": "success",
+    "web_job": "success",
+    "python_tests_passed": 398,
+    "python_tests_skipped": 0,
+    "python_test_seconds": "15.22",
+    "python_warnings": 3,
+    "postgresql": "18.4",
+    "benchmark_scenarios_passed": 22
   },
   "released_migrations_unchanged_sha256": {
     "apps/backend/migrations/versions/0001_household_member_safety_and_measured_.py": "7608a9ee137ad475b129660d4cb80d6e3c41584ebe072472373b3c130fa8723a",

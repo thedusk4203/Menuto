@@ -56,7 +56,14 @@ Tests mới kiểm riêng canonical example và regression: reject observation c
 
 ## CI và phần chưa implement
 
-**Remote CI correction: chưa chạy; chờ user authorization cho payload/nhánh mới.** Implementation local commit `748ae81c6dd4a2b2a391e0b5f93bae325cbb0a3d`, nhánh `thedusk4203/m1-1-retail-canonical-fixes`, đích `thedusk4203/Menuto`. Automatic approval review từ chối push vì correction là payload/branch khác với PR #55 đã được cho phép trước đó. Không công bố qua công cụ khác để vượt từ chối. Cần user cho phép push và mở draft PR để có CI riêng. CI xanh của PR #55 chỉ là lịch sử của implementation cũ; không merge hoặc gọi freeze chỉ dựa trên green cũ.
+**Remote CI correction: PASS** — [Foundation checks #17](https://github.com/thedusk4203/Menuto/actions/runs/39763499529), [draft PR #56](https://github.com/thedusk4203/Menuto/pull/56), tested head `2873c5230dd6fcd8a2efdcabd280f86828d3ad1a` (implementation `748ae81c6dd4a2b2a391e0b5f93bae325cbb0a3d`). Nhánh `thedusk4203/m1-1-retail-canonical-fixes`, base main `7fe02d5`. Actions kiểm tra merge ref của PR; đây là CI riêng cho corrected semantics, không dùng CI cũ của PR #55 để suy ra kết quả.
+
+| Remote job | Evidence thực đọc từ job steps/log |
+| --- | --- |
+| Python / Ubuntu / PostgreSQL 18.4 | PASS: locked install, Ruff, baseline/import checks, **398 passed, 0 skipped, 15.22s**, domain/OpenAPI/fixture drift checks, benchmark **22/22**, artifact upload |
+| Web / Ubuntu / Node 24 | PASS: npm ci, contracts generation check, client typecheck/tests và web build |
+
+Pytest CI có 3 dependency deprecation warnings, không có failure; không đổi dependency ngoài scope. Commit cập nhật evidence chỉ sửa tài liệu, không đổi implementation/migration/tests; CI của HEAD cuối được kiểm tra riêng ở PR.
 
 Chưa có ProcurementCostEvaluator/rounding policy cho purchase cost, observation normalization/eligibility, hierarchy/shrinkage estimator, fragility optimizer score, mixed-product decomposition, retailer ingestion hoặc activation-ready planning. Retailer status history chưa là production eligibility policy. Không freeze freshness/calibration constants.
 
