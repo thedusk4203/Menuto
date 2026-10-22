@@ -8,7 +8,8 @@ Canonical slice remains F / MTR-016. No CookingBatchExecution or next milestone 
 Reviewed baseline: PR61 / merge `85945b1a288f7ae227dd662e8a348fc6e6d2b79d`.
 Its 791 Python / 385 PostgreSQL-real tests and green postmerge CI are historical
 foundation evidence, not proof of the two newly reported counterexamples.
-Correction implementation commit and remote CI: recorded after verification.
+Implementation commit: `869ea0efda33e59b44ce3fca413047d9754496e9`.
+Remote PR/CI recorded below after verification.
 
 No redesign of stable plan identity, revision/seal history, authorization or Inventory.
 Published migrations0001–0008 stay unchanged. Forward migration **0009** adds exactly one
