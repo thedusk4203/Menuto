@@ -88,6 +88,7 @@ class PlanWorkspace(Base):
 class PlanProposal(Base):
     __tablename__ = "plan_proposals"
     __table_args__ = (
+        ck("graph_version IN ('plan-intent.v1','plan-intent.v2')", "graph_version"),
         UniqueConstraint("id", "household_id", "plan_id"),
         UniqueConstraint("plan_id", "proposal_no"),
         UniqueConstraint("plan_id", "source_system", "idempotency_key"),
@@ -128,6 +129,7 @@ class PlanProposal(Base):
     idempotency_key: Mapped[str] = mapped_column(String(100))
     command_fingerprint: Mapped[str] = mapped_column(String(64))
     reason: Mapped[str] = mapped_column(String(200))
+    graph_version: Mapped[str] = mapped_column(String(30), server_default="plan-intent.v1")
     created_at: Mapped[datetime] = mapped_column(server_default=func.clock_timestamp())
     authored_transaction: Mapped[str] = mapped_column(String(100), server_default="")
 

@@ -23,6 +23,23 @@ class ShoppingRequirementIntent(Contract):
         return self
 
 
+class ShoppingDemandContributionIntent(Contract):
+    node_id: UUID
+    requirement_node_id: UUID
+    meal_node_id: UUID | None = None
+    batch_node_id: UUID | None = None
+    quantity: Quantity
+    status: Literal["PLANNED", "RETIRED"] = "PLANNED"
+
+    @model_validator(mode="after")
+    def target(self):
+        if (self.meal_node_id is None) == (self.batch_node_id is None):
+            raise ValueError("Contribution requires exactly one meal or batch target")
+        if self.quantity.amount <= 0 or self.quantity.basis == "SERVING":
+            raise ValueError("Contribution requires positive ingredient material")
+        return self
+
+
 class ObservedAcquisitionCoverageDraft(Contract):
     contract_version: Literal["shopping-acquisition-coverage.v1-draft"] = (
         "shopping-acquisition-coverage.v1-draft"

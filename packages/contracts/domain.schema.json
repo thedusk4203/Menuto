@@ -2396,8 +2396,11 @@
           "type": "array"
         },
         "contract_version": {
-          "const": "plan-intent.v1",
-          "default": "plan-intent.v1",
+          "default": "plan-intent.v2",
+          "enum": [
+            "plan-intent.v1",
+            "plan-intent.v2"
+          ],
           "title": "Contract Version",
           "type": "string"
         },
@@ -2436,6 +2439,14 @@
             "$ref": "#/$defs/ShoppingRequirementIntent"
           },
           "title": "Shopping",
+          "type": "array"
+        },
+        "shopping_contributions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ShoppingDemandContributionIntent"
+          },
+          "title": "Shopping Contributions",
           "type": "array"
         },
         "tracked_member_id": {
@@ -5705,6 +5716,66 @@
       "title": "ScalingPolicy",
       "type": "object"
     },
+    "ShoppingDemandContributionIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "batch_node_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Batch Node Id"
+        },
+        "meal_node_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Meal Node Id"
+        },
+        "node_id": {
+          "format": "uuid",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "requirement_node_id": {
+          "format": "uuid",
+          "title": "Requirement Node Id",
+          "type": "string"
+        },
+        "status": {
+          "default": "PLANNED",
+          "enum": [
+            "PLANNED",
+            "RETIRED"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node_id",
+        "requirement_node_id",
+        "quantity"
+      ],
+      "title": "ShoppingDemandContributionIntent",
+      "type": "object"
+    },
     "ShoppingRequirementIntent": {
       "additionalProperties": false,
       "properties": {
@@ -6193,8 +6264,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:8",
+  "$id": "urn:menuto:domain:foundation:9",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent-v1 graphs/proposals and guarded revision seams; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1 legacy/v2 contribution graphs, guarded scope/cut-line revision seams; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

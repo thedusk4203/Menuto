@@ -72,3 +72,10 @@ Slice tiếp theo: **F — Plan/revision foundation / MTR-016**, theo blueprint.
 ghi foundation implementation `0008`: sealed proposals, revision/head và atomic reservations.
 Production activation fail-closed; full execution/validation chưa có. MTR-016/023/025 vẫn
 OPEN, không auto-close hoặc tự FROZEN bởi việc merge foundation.
+
+
+Correction MTR-016 `0009`: [scope/cut-line evidence](PLAN_REVISION_SEMANTIC_CORRECTIONS.md).
+Thêm typed quantitative shopping contributions, enforce SINGLE_MEAL dependency closure
+và freeze advice theo scheduled_at/planned_at/need_by. Schema hiện0009, **52 bảng**;
+0001–0008 giữ nguyên. Legacy v1 giữ hash, graph v2 explicit; PRECOMMIT vẫn fail-closed.
+Trạng thái **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa tự FROZEN hoặc đóng MTR-016.

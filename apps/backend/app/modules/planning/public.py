@@ -117,6 +117,7 @@ class PlanStore:
                 idempotency_key=command.idempotency_key,
                 command_fingerprint=fingerprint,
                 reason=command.reason,
+                graph_version=g.contract_version,
             )
         )
         context = dict(
@@ -134,6 +135,12 @@ class PlanStore:
                         **context, meal_node_id=meal.node_id, **p.model_dump()
                     )
                 )
+
+    def store_reservation_intents(self, command):
+        g = command.graph
+        context = dict(
+            proposal_id=command.proposal_id, household_id=g.household_id, plan_id=g.plan_id
+        )
         for r in g.reservations:
             fields = r.model_dump(exclude={"quantity"})
             fields.update(

@@ -279,3 +279,12 @@ measurement identity. Chưa chứng minh giá mua thực tế hoặc toàn bộ 
 **Accepted revision head**:
 Phiên bản khuyến nghị được chấp nhận hiện hành của cùng một plan. Đổi head không đổi
 quyền sở hữu hay lịch sử vật chất của household.
+
+
+**ShoppingDemandContribution**:
+Phần nhu cầu định lượng đóng góp vào một ShoppingRequirement, thuộc về đúng một meal
+hoặc planned batch. Các phần đang có hiệu lực giữ đúng tổng lượng và measurement identity.
+
+**Advice temporal anchor**:
+Thời điểm advice dự kiến diễn ra: giờ meal, giờ planned batch hoặc hạn shopping. Khác
+thời điểm có bằng chứng xác nhận vật chất đã được mua, nấu hoặc tiêu thụ.

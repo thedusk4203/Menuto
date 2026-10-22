@@ -87,3 +87,7 @@ Slice tiếp theo giữ tên canonical **F — Plan/revision foundation (MTR-016
 [architecture review](docs/product/PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md) và
 [evidence foundation 0008](docs/product/PLAN_REVISION_FOUNDATION_EVIDENCE.md): 13 bảng mới,
 tổng 51 bảng; operational activation vẫn fail-closed, chưa FROZEN.
+
+
+[Plan/revision correction0009](docs/product/PLAN_REVISION_SEMANTIC_CORRECTIONS.md) bổ sung
+shopping contribution ownership và historical advice guards; tổng52 bảng. Chưa FROZEN.

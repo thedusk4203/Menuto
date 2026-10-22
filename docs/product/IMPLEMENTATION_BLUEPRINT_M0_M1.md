@@ -215,3 +215,10 @@ validation handoff là seams của MTR-023/MTR-025. Không tự đổi tên F th
 - Default RecipeVersion/tier binding; substitutions, actual PurchaseFulfillment/price, full
   execution, production authority và full resolved validation subject vẫn deferred.
   Không claim MTR-016 hoàn tất hoặc tự freeze. READY FOR ARCHITECTURE/FREEZE REVIEW.
+
+
+Correction MTR-016 `0009`: [scope/cut-line evidence](PLAN_REVISION_SEMANTIC_CORRECTIONS.md).
+Thêm typed quantitative shopping contributions, enforce SINGLE_MEAL dependency closure
+và freeze advice theo scheduled_at/planned_at/need_by. Schema hiện0009, **52 bảng**;
+0001–0008 giữ nguyên. Legacy v1 giữ hash, graph v2 explicit; PRECOMMIT vẫn fail-closed.
+Trạng thái **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa tự FROZEN hoặc đóng MTR-016.

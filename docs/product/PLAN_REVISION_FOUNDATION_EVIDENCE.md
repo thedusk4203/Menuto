@@ -151,3 +151,11 @@ Deferred explicitly:
 
 No production activation readiness, full execution readiness, full M0/M1 completion or
 freeze is claimed. Stop at **READY FOR ARCHITECTURE/FREEZE REVIEW**.
+
+
+## Subsequent semantic correction
+
+This file records the original0008 implementation and its verified791/385 test counts.
+[Correction0009 evidence](PLAN_REVISION_SEMANTIC_CORRECTIONS.md) supersedes its scope/cut-line
+enforcement claims. It adds contribution ownership and own temporal anchors without
+redesigning the stable revision/reservation transaction or installing production authority.

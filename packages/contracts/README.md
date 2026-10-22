@@ -14,7 +14,7 @@ Không đưa PlanningMode vào hợp đồng mới. Business contracts được 
 
 Units/basis, money, provenance và household/catalog/member source contracts đã có implementation. Planner request/output, validation subject/report và mutation fixtures dùng các version `m0-draft.2`; chưa đủ để solve/validate/activate plan. Python validators kiểm thêm quan hệ giữa fields; JSON Schema không biểu diễn hết các guard này. Chưa sinh TypeScript client cho domain drafts.
 
-Bundle hiện có ID `urn:menuto:domain:foundation:8`. Retail facts dùng **retail-v2** (breaking wire change): quote chỉ có `reference_price_pair`, CALIBRATED_REFERENCE = reference + calibration; không nhận calibration cho observation. Option không nhận promotion/single-source booleans; snapshot derive coverage. ProductVersion yêu cầu canonical_ingredient_id; Retailer status là fact riêng. `RetailSourcedAPAssetDraft` chuyển sang `inventory-retail-origin.m1-draft.2`, vẫn không phải physical ledger hoặc validator-ready asset. Callers phải nâng version tường minh, không alias payload v1. [Domain review M1.1](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md).
+Bundle hiện có ID `urn:menuto:domain:foundation:9`. Retail facts dùng **retail-v2** (breaking wire change): quote chỉ có `reference_price_pair`, CALIBRATED_REFERENCE = reference + calibration; không nhận calibration cho observation. Option không nhận promotion/single-source booleans; snapshot derive coverage. ProductVersion yêu cầu canonical_ingredient_id; Retailer status là fact riêng. `RetailSourcedAPAssetDraft` chuyển sang `inventory-retail-origin.m1-draft.2`, vẫn không phải physical ledger hoặc validator-ready asset. Callers phải nâng version tường minh, không alias payload v1. [Domain review M1.1](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md).
 
 Recipe facts dùng **recipe-v1**: immutable authored snapshot, contextual rules, serving tiers,
 scaling/adjustment policies và preparation transformations EP_RAW_G→COOKED_G.
@@ -41,3 +41,10 @@ shopping/batch/allocation/reservation intents và command contracts. ActivePlanS
 đọc được sau accepted revision; proposals không activation-ready. Production PRECOMMIT
 authority chưa installed nên publish fail-closed. HorizonCommitmentsDraft chưa phải
 HorizonBridgeResolver hoặc ValidationSubjectSnapshot. Không thêm HTTP business API.
+
+
+Correction0009 adds plan-intent.v2 with typed ShoppingDemandContributionIntent. Root
+commands/snapshots still use their v1 envelopes; the embedded graph version is explicit.
+Legacy plan-intent.v1 reads preserve graph and command fingerprints: new empty fields are
+excluded from v1 canonical payload. V1 cannot carry contributions. Unattributed legacy
+demand is not guessed into ownership and cannot be edited under SINGLE_MEAL.

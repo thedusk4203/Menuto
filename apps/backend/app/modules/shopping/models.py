@@ -64,4 +64,33 @@ class ShoppingRequirementIntent(NodeColumns, Base):
     status: Mapped[str] = mapped_column(String(20))
 
 
-TABLES = ("shopping_requirement_intents",)
+class ShoppingDemandContribution(NodeColumns, Base):
+    __tablename__ = "shopping_demand_contributions"
+    __table_args__ = (
+        proposal_fk(),
+        fk(
+            ["proposal_id", "requirement_node_id"],
+            "shopping_requirement_intents",
+            ["proposal_id", "node_id"],
+        ),
+        fk(["proposal_id", "meal_node_id"], "plan_meal_intents", ["proposal_id", "node_id"]),
+        fk(["proposal_id", "batch_node_id"], "planned_cooking_batches", ["proposal_id", "node_id"]),
+        ck("(meal_node_id IS NULL) <> (batch_node_id IS NULL)", "target"),
+        ck("status IN ('PLANNED','RETIRED')", "status"),
+        ck("amount>0 AND amount<1000000000000 AND amount=trunc(amount,6)", "amount"),
+        ck(
+            "(basis='COUNT' AND item_ref IS NOT NULL AND item_ref ~ '^[A-Za-z0-9_.:-]+$') OR "
+            "(basis IN ('AP_G','EP_RAW_G','COOKED_G') AND item_ref IS NULL)",
+            "basis",
+        ),
+    )
+    requirement_node_id: Mapped[UUID]
+    meal_node_id: Mapped[UUID | None]
+    batch_node_id: Mapped[UUID | None]
+    amount: Mapped[Decimal] = mapped_column(IntentNumeric())
+    basis: Mapped[str] = mapped_column(String(20))
+    item_ref: Mapped[str | None] = mapped_column(String(100))
+    status: Mapped[str] = mapped_column(String(20))
+
+
+TABLES = ("shopping_requirement_intents", "shopping_demand_contributions")
