@@ -53,7 +53,7 @@ from app.modules.retail.models import (
     RetailProduct,
     StoreRegion,
 )
-from app.modules.shopping.models import ShoppingRequirementIntent
+from app.modules.shopping.models import ShoppingDemandContribution, ShoppingRequirementIntent
 from app.shared.db import Base
 
 __all__ = [
@@ -70,6 +70,7 @@ __all__ = [
     "PlannedCookingBatch",
     "PlannedBatchAllocation",
     "ShoppingRequirementIntent",
+    "ShoppingDemandContribution",
     "InventoryLot",
     "InventoryLotBalance",
     "InventoryMovement",

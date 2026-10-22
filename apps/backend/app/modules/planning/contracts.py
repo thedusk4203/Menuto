@@ -14,7 +14,10 @@ from app.domain.contracts import AwareTime, Contract, Identifier, Label, Positiv
 from app.domain.snapshots import Horizon
 from app.domain.units import Quantity
 from app.modules.cooking.contracts import PlannedBatchAllocationIntent, PlannedCookingBatchIntent
-from app.modules.shopping.contracts import ShoppingRequirementIntent
+from app.modules.shopping.contracts import (
+    ShoppingDemandContributionIntent,
+    ShoppingRequirementIntent,
+)
 
 
 class RevisionScope(StrEnum):
@@ -67,7 +70,7 @@ def canonical_value(value):
 
 
 class PlanIntentGraph(Contract):
-    contract_version: Literal["plan-intent.v1"] = "plan-intent.v1"
+    contract_version: Literal["plan-intent.v1", "plan-intent.v2"] = "plan-intent.v2"
     household_id: UUID
     plan_id: UUID
     tracked_member_id: UUID
@@ -76,12 +79,22 @@ class PlanIntentGraph(Contract):
     batches: tuple[PlannedCookingBatchIntent, ...] = ()
     allocations: tuple[PlannedBatchAllocationIntent, ...] = ()
     shopping: tuple[ShoppingRequirementIntent, ...] = ()
+    shopping_contributions: tuple[ShoppingDemandContributionIntent, ...] = ()
     reservations: tuple[ReservationIntent, ...] = ()
 
     def content(self):
         fields = self.model_dump()
-        for key in ("meals", "batches", "allocations", "shopping", "reservations"):
+        for key in (
+            "meals",
+            "batches",
+            "allocations",
+            "shopping",
+            "reservations",
+            "shopping_contributions",
+        ):
             fields[key] = sorted(fields[key], key=lambda row: str(row["node_id"]))
+        if self.contract_version == "plan-intent.v1":
+            fields.pop("shopping_contributions")
         for meal in fields["meals"]:
             meal["participants"] = sorted(
                 meal["participants"], key=lambda row: str(row["member_id"])
@@ -103,6 +116,7 @@ class PlanIntentGraph(Contract):
             self.allocations,
             self.shopping,
             self.reservations,
+            self.shopping_contributions,
         ):
             if len({v.node_id for v in values}) != len(values):
                 raise ValueError("Duplicate stable node identity")
@@ -151,6 +165,33 @@ class PlanIntentGraph(Contract):
                 raise ValueError("Reservation target must be current planned intent")
         if any(s.need_by > self.horizon.end for s in self.shopping):
             raise ValueError("Shopping beyond horizon")
+        if self.contract_version == "plan-intent.v1" and self.shopping_contributions:
+            raise ValueError("Legacy v1 cannot carry contribution facts")
+        requirements = {s.node_id: s for s in self.shopping}
+        contribution_totals = {}
+        with localcontext() as ctx:
+            ctx.prec = 160
+            for c in self.shopping_contributions:
+                s = requirements.get(c.requirement_node_id)
+                target = (
+                    meals.get(c.meal_node_id) if c.meal_node_id else batches.get(c.batch_node_id)
+                )
+                if s is None or target is None:
+                    raise ValueError("Contribution crosses requirement/target graph identity")
+                if (c.quantity.basis, c.quantity.item_ref) != (
+                    s.quantity.basis,
+                    s.quantity.item_ref,
+                ):
+                    raise ValueError("Contribution measurement identity disagrees with demand")
+                contribution_totals.setdefault(s.node_id, Decimal(0))
+                if c.status == "PLANNED":
+                    if s.status != "PLANNED" or target.status != "PLANNED":
+                        raise ValueError("Active contribution requires active demand and target")
+                    contribution_totals[s.node_id] += c.quantity.amount
+        for key, total in contribution_totals.items():
+            s = requirements[key]
+            if total != (s.quantity.amount if s.status == "PLANNED" else Decimal(0)):
+                raise ValueError("Contribution quantities must conserve exact demand")
         return self
 
 

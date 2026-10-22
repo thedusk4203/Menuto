@@ -517,12 +517,12 @@ def test_migration_roundtrip_lossless_foundation_and_populated_guard(legacy_data
             seed_household(session)
             session.commit()
     for _ in range(2):
-        migrate(engine, config, "0008")
+        migrate(engine, config, "head")
         with engine.connect() as connection:
             config.attributes["connection"] = connection
             alembic_command.check(config)
         migrate(engine, config, "0007", down=True)
-    migrate(engine, config, "0008")
+    migrate(engine, config, "head")
     with Session(engine) as session:
         service, actor, g = setup(session)
         p, _ = propose(service, actor, g)
@@ -531,7 +531,7 @@ def test_migration_roundtrip_lossless_foundation_and_populated_guard(legacy_data
         migrate(engine, config, "0007", down=True)
     with Session(engine) as session:
         assert PlanStore(session).proposal(g.household_id, g.plan_id, p.id) == p
-        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0008"
+        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0009"
 
 
 def fully_populated(db):

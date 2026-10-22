@@ -59,7 +59,7 @@ subsequent foundation implementation without waiving this production gate.
 | MealSlot identity | Planning; exact plan and household | Stable node identity; never reused for a different historical node |
 | MealIntent version / participants | Exact proposal/revision + MealSlot | Immutable content; effective current view changes with root pointer |
 | ShoppingRequirement identity/version | Shopping context, plan-owned demand | Immutable revision content; future intent may be superseded/retired |
-| PlannedCookingBatch identity/version | Cooking context, plan-owned production intent | Immutable authored binding/composition/serving target per revision |
+| PlannedCookingBatch identity/version | Cooking context, plan-owned production intent | Target: exact grounded binding/composition. Implemented MTR-016 foundation: immutable default RecipeVersion + authored tier/serving target only |
 | PlannedBatchAllocation | Cooking context, plan-owned batch-to-meal demand | Immutable revision content; future allocation can change independently of cooked production |
 | PlanReservationBinding | Planning intent linkage, household + plan + target | Append-only link to exact M1.3 reservation and target intent version; later release remains Inventory-owned |
 | PurchaseFulfillment | Shopping, household-owned confirmed fact | Append-only actual quantity + actual Money + provenance; not part of mutable plan graph |
@@ -202,10 +202,17 @@ side effects occur before a validated activation/revision capability exists.
 
 ## F. Planned batch and future physical execution
 
-PlannedCookingBatch holds explicit RecipeVersion + authored binding fingerprint, selected
+**Target architecture, not current capability:** PlannedCookingBatch will hold explicit
+RecipeVersion + authored binding fingerprint, selected
 rules/tier, planned_servings, resolved planned ingredients with basis/requirement identity,
 planned production time and optional future asset/storage policy references. Recipe owns
 EP_RAW→COOKED; Retail still owns AP→EP. No global preparation or yield table is introduced.
+
+**Implemented MTR-016 foundation:** default immutable RecipeVersion + authored tier,
+planned_servings and planned_at only. Selected variants, binding fingerprint and resolved
+planned ingredients remain deferred. Exact grounded binding is a prerequisite before
+CookingBatchExecution; RecipeVersion+tier alone cannot authorize raw consumption when
+authored variants exist.
 
 PlannedBatchAllocation maps batch-version to meal-version with defined serving quantity;
 planned total allocated servings cannot exceed planned production. Excess planned production
@@ -482,3 +489,41 @@ Next revision and inventory effects will be tested atomically with real PostgreS
 including stale-head CAS, retries, partial failure rollback and materialization pins.
 All operational success tests using synthetic authorization must be labeled accordingly.
 F remains not frozen and cannot claim production activation readiness.
+
+
+## Semantic correction design — 0009 (before implementation)
+
+The review of PR61 found two enforcement gaps, not a contradiction in frozen inventory
+or stable plan/revision architecture. This correction keeps 0001–0008 unchanged.
+
+ShoppingDemandContribution is a versioned quantitative part of one requirement, targeting
+exactly one meal or planned batch in the same proposal/household/plan. Active contributions
+must sum exactly to their requirement quantity, with identical basis/item_ref. Retired
+facts remain in full graphs. Unattributed demand remains readable for compatibility;
+SINGLE_MEAL cannot edit an unattributed requirement or retroactively assign its ownership.
+Broader scopes may manage such demand explicitly. This is not PurchaseFulfillment.
+
+SINGLE_MEAL first identifies exactly one meal in the culinary change closure. Every
+changed reservation and contribution is then checked against both old and new targets;
+a batch target expands to all active dependent meals on either side. Shared/orphan batch
+changes cannot claim a local scope. Shopping amount-only changes may preserve unchanged
+contributions for other meals, but ingredient/basis/time/status changes affect every
+contribution and therefore require the corresponding wider scope. New, retired and
+retargeted contribution rows all participate. Full contribution totals are checked in
+Pydantic and independently by the database at sealing/publication.
+
+Advice freezes by its own anchor: meal.scheduled_at, batch.planned_at, shopping.need_by.
+An accepted graph cannot alter an earlier anchored node, its associated contribution or
+allocation facts, or introduce a new backdated node after the cut line. Materialization
+pinning is independent and stays in force regardless of time. Reservation intents inherit
+their meal/batch target anchor. Explicit Inventory release remains a separate operation.
+
+Wire graph v2 includes contributions; persisted v1 retains its exact original graph/hash.
+A proposal graph-version column defaults existing records to v1 without rewriting facts.
+Legacy unattributed graphs are not guessed into contributions. Downgrade fails closed
+if v2/provenance would be lost. No production authorization mint/bypass is introduced.
+
+Exact grounded binding/composition is TARGET ARCHITECTURE, not implemented capability.
+Before CookingBatchExecution, resolve/snapshot selected authored rules, exact quantities,
+bases and fingerprint. Execution must not consume inventory using RecipeVersion+tier
+alone when authored variants exist. That work remains deferred from this correction.

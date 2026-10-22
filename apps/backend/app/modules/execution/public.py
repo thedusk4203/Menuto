@@ -17,9 +17,12 @@ from app.modules.shopping.public import store_shopping_intents
 
 
 def fingerprint(command):
+    payload = command.model_dump()
+    if payload.get("graph", {}).get("contract_version") == "plan-intent.v1":
+        payload["graph"].pop("shopping_contributions", None)
     return sha256(
         json.dumps(
-            c.canonical_value(command.model_dump()),
+            c.canonical_value(payload),
             sort_keys=True,
             ensure_ascii=False,
             separators=(",", ":"),
@@ -109,7 +112,13 @@ class PlanRevisionService:
                 batches=command.graph.batches,
                 allocations=command.graph.allocations,
             )
-            store_shopping_intents(self.session, **context, requirements=command.graph.shopping)
+            self.store.store_reservation_intents(command)
+            store_shopping_intents(
+                self.session,
+                **context,
+                requirements=command.graph.shopping,
+                contributions=command.graph.shopping_contributions,
+            )
             self.store.seal(command.proposal_id)
             result = self.store.proposal(
                 command.graph.household_id, command.graph.plan_id, command.proposal_id

@@ -96,6 +96,7 @@ from app.modules.retail.contracts import (
 )
 from app.modules.shopping.contracts import (
     ObservedAcquisitionCoverageDraft,
+    ShoppingDemandContributionIntent,
     ShoppingRequirementIntent,
 )
 from pydantic.json_schema import models_json_schema
@@ -113,6 +114,7 @@ CONTRACTS = (
     CreatePlanWorkspaceCommand,
     ActivePlanSnapshot,
     ShoppingRequirementIntent,
+    ShoppingDemandContributionIntent,
     ObservedAcquisitionCoverageDraft,
     PlannedCookingBatchIntent,
     PlannedBatchAllocationIntent,
@@ -195,14 +197,14 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:8"
+    schema["$id"] = "urn:menuto:domain:foundation:9"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "
         "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
         "Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. "
         "V1 substitutions are mass-only; preparation yield is net and path-specific. "
-        "Plan intent-v1 graphs/proposals and guarded revision seams; "
+        "Plan intent v1 legacy/v2 contribution graphs, guarded scope/cut-line revision seams; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

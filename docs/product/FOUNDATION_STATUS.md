@@ -90,3 +90,10 @@ immutable accepted revisions, atomic head/reservation orchestration và physical
 Operational activation/revision bị chặn tới khi có real PRECOMMIT gate và full subject;
 draft authoring không được gọi là ActivePlan operational hoặc PlanRevision0.
 Trạng thái review: **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa FROZEN.
+
+
+Correction MTR-016 `0009`: [scope/cut-line evidence](PLAN_REVISION_SEMANTIC_CORRECTIONS.md).
+Thêm typed quantitative shopping contributions, enforce SINGLE_MEAL dependency closure
+và freeze advice theo scheduled_at/planned_at/need_by. Schema hiện0009, **52 bảng**;
+0001–0008 giữ nguyên. Legacy v1 giữ hash, graph v2 explicit; PRECOMMIT vẫn fail-closed.
+Trạng thái **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa tự FROZEN hoặc đóng MTR-016.

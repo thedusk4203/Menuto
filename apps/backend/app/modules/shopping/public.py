@@ -9,22 +9,28 @@ from app.domain.units import Quantity
 from app.modules.inventory.contracts import PhysicalInventorySnapshot
 from app.modules.planning.contracts import PlanProposalSnapshot
 from app.modules.shopping.contracts import ObservedAcquisitionCoverageDraft
-from app.modules.shopping.models import ShoppingRequirementIntent
+from app.modules.shopping.models import ShoppingDemandContribution, ShoppingRequirementIntent
 
 
-def store_shopping_intents(session, *, proposal_id, household_id, plan_id, requirements):
-    for value in requirements:
-        fields = value.model_dump(exclude={"quantity"})
-        fields.update(
-            amount=value.quantity.amount,
-            basis=value.quantity.basis,
-            item_ref=value.quantity.item_ref,
-        )
-        session.execute(
-            insert(ShoppingRequirementIntent.__table__).values(
-                **fields, proposal_id=proposal_id, household_id=household_id, plan_id=plan_id
+def store_shopping_intents(
+    session, *, proposal_id, household_id, plan_id, requirements, contributions=()
+):
+    for model, values in (
+        (ShoppingRequirementIntent, requirements),
+        (ShoppingDemandContribution, contributions),
+    ):
+        for value in values:
+            fields = value.model_dump(exclude={"quantity"})
+            fields.update(
+                amount=value.quantity.amount,
+                basis=value.quantity.basis,
+                item_ref=value.quantity.item_ref,
             )
-        )
+            session.execute(
+                insert(model.__table__).values(
+                    **fields, proposal_id=proposal_id, household_id=household_id, plan_id=plan_id
+                )
+            )
 
 
 def observed_acquisition_coverage(
