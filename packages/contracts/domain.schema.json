@@ -1,5 +1,15 @@
 {
   "$defs": {
+    "Availability": {
+      "enum": [
+        "CONFIRMED",
+        "LIKELY",
+        "UNKNOWN",
+        "UNAVAILABLE"
+      ],
+      "title": "Availability",
+      "type": "string"
+    },
     "BudgetContract": {
       "additionalProperties": false,
       "properties": {
@@ -138,6 +148,25 @@
       "title": "EvidenceKind",
       "type": "string"
     },
+    "EvidenceQuality": {
+      "enum": [
+        "UNKNOWN",
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ],
+      "title": "EvidenceQuality",
+      "type": "string"
+    },
+    "Granularity": {
+      "enum": [
+        "FIXED_PACK",
+        "CATCH_WEIGHT",
+        "LOOSE_SCALE"
+      ],
+      "title": "Granularity",
+      "type": "string"
+    },
     "Horizon": {
       "additionalProperties": false,
       "properties": {
@@ -234,6 +263,106 @@
         "name"
       ],
       "title": "IngredientCreate",
+      "type": "object"
+    },
+    "IngredientProductMapFact": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/EvidenceQuality"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "edible_yield": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "le": 1,
+          "max_digits": 18,
+          "title": "Edible Yield"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "retail_product_id": {
+          "format": "uuid",
+          "title": "Retail Product Id",
+          "type": "string"
+        },
+        "reviewed_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewed At"
+        },
+        "source_basis": {
+          "const": "AP_G",
+          "default": "AP_G",
+          "title": "Source Basis",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "DRAFT",
+            "REVIEWED",
+            "REJECTED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "target_basis": {
+          "const": "EP_RAW_G",
+          "default": "EP_RAW_G",
+          "title": "Target Basis",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "retail_product_id",
+        "ingredient_id",
+        "version",
+        "edible_yield",
+        "status",
+        "confidence",
+        "provenance"
+      ],
+      "title": "IngredientProductMapFact",
       "type": "object"
     },
     "MealParticipants": {
@@ -639,6 +768,187 @@
       "title": "NutritionValues",
       "type": "object"
     },
+    "PackageFact": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "const": "AP_G",
+          "default": "AP_G",
+          "title": "Basis",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_ap_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Ap G"
+        },
+        "fixed_ap_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fixed Ap G"
+        },
+        "granularity": {
+          "$ref": "#/$defs/Granularity"
+        },
+        "high_ap_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "High Ap G"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "low_ap_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Low Ap G"
+        },
+        "minimum_ap_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Ap G"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "retail_product_id": {
+          "format": "uuid",
+          "title": "Retail Product Id",
+          "type": "string"
+        },
+        "step_ap_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Ap G"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "retail_product_id",
+        "version",
+        "granularity",
+        "provenance"
+      ],
+      "title": "PackageFact",
+      "type": "object"
+    },
     "Participant": {
       "additionalProperties": false,
       "properties": {
@@ -931,6 +1241,217 @@
       "title": "PlannerRequestDraft",
       "type": "object"
     },
+    "PlanningPriceQuoteDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "calibration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RetailPriceCalibrationFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence_kind": {
+          "enum": [
+            "RETAIL_OBSERVED",
+            "CALIBRATED",
+            "REFERENCE_BASELINE"
+          ],
+          "title": "Evidence Kind",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "mapping": {
+          "$ref": "#/$defs/IngredientProductMapFact"
+        },
+        "observation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PriceObservationFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "package": {
+          "$ref": "#/$defs/PackageFact"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/$defs/Money"
+        },
+        "priced_ap_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Priced Ap G"
+        },
+        "procurement_class_id": {
+          "format": "uuid",
+          "title": "Procurement Class Id",
+          "type": "string"
+        },
+        "product_category": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Product Category",
+          "type": "string"
+        },
+        "reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReferencePriceEntryFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "region_code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Region Code",
+          "type": "string"
+        },
+        "retailer_id": {
+          "format": "uuid",
+          "title": "Retailer Id",
+          "type": "string"
+        },
+        "status": {
+          "const": "DRAFT",
+          "default": "DRAFT",
+          "title": "Status",
+          "type": "string"
+        },
+        "store_region_id": {
+          "format": "uuid",
+          "title": "Store Region Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "procurement_class_id",
+        "mapping",
+        "package",
+        "retailer_id",
+        "store_region_id",
+        "region_code",
+        "product_category",
+        "evidence_kind",
+        "price",
+        "priced_ap_g",
+        "as_of",
+        "policy_version"
+      ],
+      "title": "PlanningPriceQuoteDraft",
+      "type": "object"
+    },
+    "PlanningProcurementOptionDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "depends_on_promotion": {
+          "title": "Depends On Promotion",
+          "type": "boolean"
+        },
+        "depends_on_single_source": {
+          "title": "Depends On Single Source",
+          "type": "boolean"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "package_size_brittleness": {
+          "$ref": "#/$defs/EvidenceQuality"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "quote": {
+          "$ref": "#/$defs/PlanningPriceQuoteDraft"
+        },
+        "rank": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "rationale": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "substitution_group": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Substitution Group",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "rank",
+        "quote",
+        "package_size_brittleness",
+        "depends_on_single_source",
+        "depends_on_promotion",
+        "substitution_group",
+        "rationale",
+        "provenance"
+      ],
+      "title": "PlanningProcurementOptionDraft",
+      "type": "object"
+    },
     "PreparedFoodAssetFact": {
       "additionalProperties": false,
       "properties": {
@@ -1004,6 +1525,325 @@
       "title": "PreparedFoodAssetFact",
       "type": "object"
     },
+    "PriceEvidenceAssessmentDraft": {
+      "additionalProperties": false,
+      "description": "Optional policy input, not a computed risk score or probability.",
+      "properties": {
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "$ref": "#/$defs/EvidenceQuality"
+        },
+        "dispersion_minor": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "ge": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dispersion Minor"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "sample_count": {
+          "minimum": 0,
+          "title": "Sample Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sample_count",
+        "dispersion_minor",
+        "coverage",
+        "policy_version"
+      ],
+      "title": "PriceEvidenceAssessmentDraft",
+      "type": "object"
+    },
+    "PriceObservationFact": {
+      "additionalProperties": false,
+      "description": "RetailOffer is a time-bound observation, including CONFIRMED availability.",
+      "properties": {
+        "availability": {
+          "$ref": "#/$defs/Availability"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "is_promotion": {
+          "title": "Is Promotion",
+          "type": "boolean"
+        },
+        "package_id": {
+          "format": "uuid",
+          "title": "Package Id",
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/$defs/Money"
+        },
+        "priced_ap_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Priced Ap G"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "retail_product_id": {
+          "format": "uuid",
+          "title": "Retail Product Id",
+          "type": "string"
+        },
+        "retailer_id": {
+          "format": "uuid",
+          "title": "Retailer Id",
+          "type": "string"
+        },
+        "source_quality": {
+          "$ref": "#/$defs/EvidenceQuality"
+        },
+        "store_region_id": {
+          "format": "uuid",
+          "title": "Store Region Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "retailer_id",
+        "store_region_id",
+        "retail_product_id",
+        "package_id",
+        "price",
+        "priced_ap_g",
+        "availability",
+        "is_promotion",
+        "source_quality",
+        "provenance"
+      ],
+      "title": "PriceObservationFact",
+      "type": "object"
+    },
+    "ProcurementClassFact": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "granularity": {
+          "$ref": "#/$defs/Granularity"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "status": {
+          "const": "DRAFT",
+          "default": "DRAFT",
+          "title": "Status",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "version",
+        "ingredient_id",
+        "granularity",
+        "provenance"
+      ],
+      "title": "ProcurementClassFact",
+      "type": "object"
+    },
+    "ProcurementClassMemberFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "equivalence": {
+          "enum": [
+            "EXACT_PRODUCT",
+            "REVIEWED_EQUIVALENT"
+          ],
+          "title": "Equivalence",
+          "type": "string"
+        },
+        "mapping": {
+          "$ref": "#/$defs/IngredientProductMapFact"
+        },
+        "procurement_class_id": {
+          "format": "uuid",
+          "title": "Procurement Class Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "rationale": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "procurement_class_id",
+        "mapping",
+        "equivalence",
+        "rationale",
+        "provenance"
+      ],
+      "title": "ProcurementClassMemberFact",
+      "type": "object"
+    },
+    "ProcurementSnapshotDraft": {
+      "additionalProperties": false,
+      "description": "No scoring/activation claims. rank 0 is primary; positive ranks are backups.",
+      "properties": {
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/ProcurementClassMemberFact"
+          },
+          "title": "Members",
+          "type": "array"
+        },
+        "options": {
+          "items": {
+            "$ref": "#/$defs/PlanningProcurementOptionDraft"
+          },
+          "title": "Options",
+          "type": "array"
+        },
+        "procurement_class": {
+          "$ref": "#/$defs/ProcurementClassFact"
+        },
+        "status": {
+          "const": "DRAFT",
+          "default": "DRAFT",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "procurement_class",
+        "members",
+        "options"
+      ],
+      "title": "ProcurementSnapshotDraft",
+      "type": "object"
+    },
+    "ProductIngredientConversionFact": {
+      "additionalProperties": false,
+      "description": "Future AP inventory handoff MUST retain this mapping, not only ingredient_id.\n\nNot an InventoryLot or validator-ready asset. No persistence/physical ledger here.",
+      "properties": {
+        "ap": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "$ref": "#/$defs/CalculatedQuantity"
+            }
+          ],
+          "title": "Ap"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "ep_raw": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "mapping": {
+          "$ref": "#/$defs/IngredientProductMapFact"
+        }
+      },
+      "required": [
+        "mapping",
+        "ap",
+        "ep_raw"
+      ],
+      "title": "ProductIngredientConversionFact",
+      "type": "object"
+    },
     "Provenance": {
       "additionalProperties": false,
       "properties": {
@@ -1071,6 +1911,64 @@
         "observed_at"
       ],
       "title": "Provenance",
+      "type": "object"
+    },
+    "PurchaseIntent": {
+      "additionalProperties": false,
+      "description": "A request, never an actual catch-weight checkout quantity.",
+      "properties": {
+        "ap_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ap G"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "package_count": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Package Count"
+        },
+        "package_id": {
+          "format": "uuid",
+          "title": "Package Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "package_id"
+      ],
+      "title": "PurchaseIntent",
       "type": "object"
     },
     "Quantity": {
@@ -1255,6 +2153,407 @@
       "title": "RawIngredientAssetFact",
       "type": "object"
     },
+    "ReferencePriceBookFact": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "region_code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Region Code",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "version",
+        "region_code",
+        "provenance"
+      ],
+      "title": "ReferencePriceBookFact",
+      "type": "object"
+    },
+    "ReferencePriceEntryFact": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "const": "AP_G",
+          "default": "AP_G",
+          "title": "Basis",
+          "type": "string"
+        },
+        "book": {
+          "$ref": "#/$defs/ReferencePriceBookFact"
+        },
+        "confidence": {
+          "$ref": "#/$defs/EvidenceQuality"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/$defs/Money"
+        },
+        "priced_ap_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Priced Ap G"
+        }
+      },
+      "required": [
+        "id",
+        "book",
+        "ingredient_id",
+        "price",
+        "priced_ap_g",
+        "confidence"
+      ],
+      "title": "ReferencePriceEntryFact",
+      "type": "object"
+    },
+    "RetailPriceCalibrationFact": {
+      "additionalProperties": false,
+      "description": "Externally authored category index; confidence is ordinal, never probability.",
+      "properties": {
+        "category": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Category",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/EvidenceQuality"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence_count": {
+          "exclusiveMinimum": 0,
+          "maximum": 2147483647,
+          "title": "Evidence Count",
+          "type": "integer"
+        },
+        "factor": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Factor"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "method_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Method Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "retailer_id": {
+          "format": "uuid",
+          "title": "Retailer Id",
+          "type": "string"
+        },
+        "store_region_id": {
+          "format": "uuid",
+          "title": "Store Region Id",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "retailer_id",
+        "store_region_id",
+        "category",
+        "version",
+        "factor",
+        "evidence_count",
+        "confidence",
+        "method_version",
+        "provenance"
+      ],
+      "title": "RetailPriceCalibrationFact",
+      "type": "object"
+    },
+    "RetailProductFact": {
+      "additionalProperties": false,
+      "properties": {
+        "brand": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Brand"
+        },
+        "category": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Category",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "retailer_id": {
+          "format": "uuid",
+          "title": "Retailer Id",
+          "type": "string"
+        },
+        "sku": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Sku",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "retailer_id",
+        "sku",
+        "version",
+        "name",
+        "category",
+        "provenance"
+      ],
+      "title": "RetailProductFact",
+      "type": "object"
+    },
+    "RetailSourcedAPAssetDraft": {
+      "additionalProperties": false,
+      "description": "Inventory owns this future handoff. AP source evidence must not be discarded.\n\nThe old neutral m0 RawIngredientAssetFact is still an incomplete validator draft,\nnot an accepted retail acquisition handoff. This contract grants no physical stock.",
+      "properties": {
+        "asset_kind": {
+          "const": "RAW_INGREDIENT",
+          "title": "Asset Kind",
+          "type": "string"
+        },
+        "available_from": {
+          "format": "date-time",
+          "title": "Available From",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-retail-origin.m1-draft.1",
+          "default": "inventory-retail-origin.m1-draft.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fact_id": {
+          "format": "uuid",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "inventory_lot_id": {
+          "format": "uuid",
+          "title": "Inventory Lot Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "retail_mapping": {
+          "$ref": "#/$defs/IngredientProductMapFact"
+        },
+        "usable_until": {
+          "format": "date-time",
+          "title": "Usable Until",
+          "type": "string"
+        },
+        "validation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Validation Ready",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "fact_id",
+        "household_id",
+        "quantity",
+        "available_from",
+        "usable_until",
+        "provenance",
+        "asset_kind",
+        "inventory_lot_id",
+        "ingredient_id",
+        "retail_mapping"
+      ],
+      "title": "RetailSourcedAPAssetDraft",
+      "type": "object"
+    },
+    "RetailerFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "country": {
+          "pattern": "^[A-Z]{2}$",
+          "title": "Country",
+          "type": "string"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "INACTIVE"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "country",
+        "currency",
+        "status"
+      ],
+      "title": "RetailerFact",
+      "type": "object"
+    },
     "SourceVersion": {
       "additionalProperties": false,
       "properties": {
@@ -1284,6 +2583,58 @@
         "fingerprint"
       ],
       "title": "SourceVersion",
+      "type": "object"
+    },
+    "StoreRegionFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "retail-v1",
+          "default": "retail-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "region_code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Region Code",
+          "type": "string"
+        },
+        "retailer_id": {
+          "format": "uuid",
+          "title": "Retailer Id",
+          "type": "string"
+        },
+        "scope_code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Code",
+          "type": "string"
+        },
+        "scope_kind": {
+          "enum": [
+            "STORE",
+            "REGION"
+          ],
+          "title": "Scope Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "retailer_id",
+        "region_code",
+        "scope_kind",
+        "scope_code"
+      ],
+      "title": "StoreRegionFact",
       "type": "object"
     },
     "ValidationFinding": {
@@ -1563,8 +2914,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:2",
+  "$id": "urn:menuto:domain:foundation:3",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v1; procurement/price handoffs remain DRAFT. No activation-ready inventory or planning handoff is provided. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

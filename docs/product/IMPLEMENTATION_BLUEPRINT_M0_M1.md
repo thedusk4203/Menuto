@@ -119,12 +119,24 @@ Auth/consent, clinical nutrition policies, real retailer ingestion, inventory bu
 [Bảng kiểm chứng thực chạy](M0_M1_FOUNDATION_EVIDENCE.md) ghi môi trường, kết quả và giới hạn của đợt này.
 
 - Đã triển khai `app/domain` với exact Decimal, measurement basis, money, evidence, explicit edible/cooking yields; household/participant/catalog/member source contracts. Planner request/output và validation subject/report mang version `m0-draft.2`, không thể cấp quyền activation. Mutation format cũng là draft vì chưa có production validator.
-- Alembic `0001` được giữ nguyên trong lịch sử. `0002` gỡ bảng generic yield sau preflight, bỏ mapping user trùng lặp trên member, chuẩn hóa safety identity và provenance. Hiện có **8 bảng**: users, households, household_members, memberships, member_nutrition_profiles, member_safety_constraints, ingredients, nutrition_facts. Diagram và bảng schema đích phía trên bao gồm cả phần tiếp theo, không phải danh sách bảng đã có.
+- Alembic `0001` được giữ nguyên trong lịch sử. `0002` gỡ bảng generic yield sau preflight, bỏ mapping user trùng lặp trên member, chuẩn hóa safety identity và provenance. Đợt Foundation đầu có **8 bảng**: users, households, household_members, memberships, member_nutrition_profiles, member_safety_constraints, ingredients, nutrition_facts. Diagram và bảng schema đích phía trên bao gồm cả phần tiếp theo, không phải danh sách bảng đã có.
 - Composite FK chặn member links chéo household; profile có ORM version counter. Nutrition facts append-only bằng PostgreSQL trigger. Yield persistence sẽ thuộc Retail/Recipe, chưa tạo owner tables giả. Đây không phải authorization; SQL bulk update profile cần CAS ở use case sau.
-- Chưa triển khai retail/recipes/inventory/ActivePlan/execution persistence. Behavior profile và đầy đủ nutrition goal/physiology schema vẫn ở lát sau. Bản `ValidationSubjectDraft` liệt kê rõ phần còn thiếu, chưa phải `ValidationSubjectSnapshot` đủ để kiểm một plan.
+- Trong đợt Foundation đầu chưa có retail/recipes/inventory/ActivePlan/execution persistence. Retail đã được bổ sung riêng ở M1.1 bên dưới. Behavior profile và đầy đủ nutrition goal/physiology schema vẫn ở lát sau. Bản `ValidationSubjectDraft` liệt kê rõ phần còn thiếu, chưa phải `ValidationSubjectSnapshot` đủ để kiểm một plan.
 - OpenAPI tiếp tục chỉ có health endpoint. `domain.schema.json` phục vụ review/code generation sau này; Python validators vẫn là nơi kiểm các quan hệ giữa fields mà JSON Schema không biểu diễn hết.
 
 Chi tiết thay đổi tương thích, precision và cách migration dừng an toàn nằm trong [Foundation Corrections](FOUNDATION_CORRECTIONS.md).
+
+## M1.1 — Retail / Procurement Foundation
+
+[Domain review A–G](M1_1_RETAIL_DOMAIN_REVIEW.md) cụ thể hóa V1.3/ADR-006; không thiết kế lại Foundation. [Evidence thực chạy](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md) ghi kết quả local và trạng thái CI riêng.
+
+- Thêm migration `0003` và 13 bảng Retail, đưa tổng domain tables lên 21. Không sửa 0001/0002; downgrade khóa tất cả bảng M1.1 và fail closed nếu có dữ liệu. Revision giữ DDL/trigger SQL riêng.
+- Mapping versioned Product→Ingredient sở hữu edible yield AP_G→EP_RAW_G; review/basis/provenance được kiểm ở contracts và PostgreSQL. `ProductIngredientConversionFact` giữ primitive facts; inventory origin handoff riêng mang nhãn draft, không có ledger.
+- Package fixed/catch/loose có trường và semantics tách biệt. Chỉ hỗ trợ AP mass; không ngầm đổi count/ml/package thành gram. RetailNumeric giữ miền StoredQuantity nhưng SQL không được tự ép scale/làm tròn.
+- PriceObservation append-only khác PlanningPriceQuote. Origins RETAIL_OBSERVED/CALIBRATED/REFERENCE_BASELINE có FK nguồn, không có reference availability giả. Calibration có retailer × store/region × category/evidence metadata; chưa học/shrink hệ số.
+- ProcurementClass accepted mappings, primary/backup options, substitution groups, package/source/promo primitives đã có. Không có optimizer scoring; toàn bộ planning handoffs DRAFT. Primary hoàn chỉnh được kiểm ở collection boundary; DB cho phép class draft đang xây dở.
+- Kết quả local: 368 Python tests, gồm 138 PostgreSQL; migration/drift/import checks pass. Client/web và 22 benchmark scenarios pass. Remote CI chưa chạy vì automatic approval review chặn push, cần user cho phép công bố nhánh/PR.
+- Tiếp theo có thể review M1.2 Recipe/Preparation. Cooking yield, RecipeVersion persistence, inventory/ActivePlan/execution, Independent Validator và AI chưa được triển khai trong M1.1.
 
 ## Tài liệu kỹ thuật đối chiếu
 

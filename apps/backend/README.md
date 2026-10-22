@@ -1,6 +1,6 @@
 # Backend foundation
 
-FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002`, hiện có 8 bảng identity/household/member source/catalog. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) để phân biệt phần đã triển khai và schema đích.
+FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003`, hiện có 21 bảng: 8 bảng Foundation và 13 bảng M1.1 Retail/Procurement. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [evidence M1.1](../../docs/product/M1_1_RETAIL_PROCUREMENT_EVIDENCE.md) để phân biệt phần đã triển khai và schema đích.
 
 Từ root repository:
 
@@ -32,4 +32,6 @@ $env:MENUTO_TEST_POSTGRES_URL = 'postgresql+psycopg://TEST_USER:TEST_PASSWORD@12
 uv run pytest
 ```
 
-Bootstrap household là service nội bộ nhận user đã tồn tại và không tự commit. Profile concurrency dùng ORM version counter; authorization, idempotent command execution và bulk-SQL CAS chưa có business service trong đợt này. Nutrition source facts append-only; correction tạo source version mới. Bảng yield chung đã được gỡ; edible yield thuộc Retail Product→Ingredient mapping, cooking yield thuộc Recipe/Preparation ở các lát sau. Xem [sáu sửa đổi foundation](../../docs/product/FOUNDATION_CORRECTIONS.md).
+Bootstrap household là service nội bộ nhận user đã tồn tại và không tự commit. Profile concurrency dùng ORM version counter; authorization, idempotent command execution và bulk-SQL CAS chưa có business service trong đợt này. Nutrition source facts append-only; correction tạo source version mới. Bảng yield chung đã được gỡ; M1.1 đã lưu edible yield ở Retail Product→Ingredient mapping, còn cooking yield thuộc Recipe/Preparation ở M1.2. Xem [sáu sửa đổi foundation](../../docs/product/FOUNDATION_CORRECTIONS.md).
+
+Retail repository trả frozen contracts và không tự commit. Tất cả 13 bảng Retail append-only; downgrade `0003` dừng nếu có dữ liệu. Quote/snapshot chỉ DRAFT; `derive_price_quote` chưa có production eligibility/freshness/scoring policy. `RetailSourcedAPAssetDraft` chỉ là contract giữ mapping origin cho Inventory sau này, không tạo lot. Không có retailer scraper hoặc API nghiệp vụ Retail trong slice này. [Domain review A–G](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md) mô tả schema và các giới hạn.

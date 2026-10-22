@@ -18,9 +18,15 @@
 
 MTR-001 có glossary/mapping nhưng chưa đủ business tests. MTR-002 có harness/regressions nhưng chưa có production mutation corpus, V4 adapter/large-pool reference hoặc numeric launch gates. MTR-003..050 chưa được coi hoàn tất qua việc tạo tài liệu/namespace/issue.
 
-Đã có units/basis/provenance, household/catalog/member source contracts và migration đến `0002` cho 8 bảng; xem [Implementation Blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_M1.md). PostgreSQL tests kiểm migration trên schema rỗng và dữ liệu legacy, rollback khi mâu thuẫn, ownership, finite numeric constraints, append-only catalog facts và stale profile writes. [Sáu sửa đổi foundation](FOUNDATION_CORRECTIONS.md) tách calculation/storage, chuẩn hóa account/member và provenance, mở draft assets raw/prepared. Planner/validation/mutation handoffs vẫn là draft, chưa đủ input để validate plan.
+Đợt Foundation đầu có units/basis/provenance, household/catalog/member source contracts và migration đến `0002` cho 8 bảng; xem [Implementation Blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_M1.md). PostgreSQL tests kiểm migration trên schema rỗng và dữ liệu legacy, rollback khi mâu thuẫn, ownership, finite numeric constraints, append-only catalog facts và stale profile writes. [Sáu sửa đổi foundation](FOUNDATION_CORRECTIONS.md) tách calculation/storage, chuẩn hóa account/member và provenance, mở draft assets raw/prepared. Planner/validation/mutation handoffs vẫn là draft, chưa đủ input để validate plan.
 
 Chưa có auth, NutritionPolicyEngine, PlanPolicyResolver, retail thật, inventory ledger, ActivePlan revision engine, production Independent Validator, learning router hoặc consumer closed loop. Entry checklist chưa hoàn thành toàn bộ; không gọi phần nền tảng đầu tiên là đạt cả Milestone 0/1.
+
+## M1.1 Retail / Procurement Foundation
+
+Đã triển khai local: 13 bảng Retail mới qua migration `0003`, tổng **21 bảng domain**. Mapping Product→Ingredient sở hữu edible yield và review/provenance; fixed/catch/loose có semantics riêng; raw observation tách derived quote; reference fallback rõ nguồn. Cooking yield chưa triển khai ở Retail. Các quote/class/option/snapshot vẫn **DRAFT**, chưa activation-ready. Inventory chỉ thêm handoff draft giữ mapping, chưa có persistence/workflow.
+
+[Evidence M1.1](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md): **368 Python tests pass, gồm 138 PostgreSQL thật**, import/baseline/schema checks pass, 22/22 benchmark smoke, 10 client tests và web build pass. **GitHub CI của thay đổi này chưa chạy**: automatic approval review chặn push, đang chờ user cho phép công bố nhánh; không xem local pass là remote CI pass. [Domain review A–G](M1_1_RETAIL_DOMAIN_REVIEW.md) ghi quyết định và giới hạn. Có thể bắt đầu review M1.2 Recipe/Preparation; chưa tự triển khai M1.2 hoặc M1.3.
 
 ## Quyết định còn mở
 

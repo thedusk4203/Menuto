@@ -11,6 +11,7 @@
 | Neutral benchmark format + mutation fixture format freeze | Một phần | synthetic-v2 regression giữ nguyên; mutation fixtures đầy đủ còn thiếu MTR-002/026 |
 | CI chặn validation → planner/solver internals | Có static rule + negative tests | Bao gồm public-facade/relative-import và contracts đường vòng; chưa chứng minh runtime isolation |
 | Selective Smart Menu reuse strategy | Đã giữ | Spec §22; không fork schema/code/lịch sử hoặc coi nguồn tham khảo là đã port |
+| M1.1 Retail/Procurement foundation | Local checks đạt; remote CI chưa chạy | [Evidence](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md); 0003/21 domain tables, mapping AP→EP, granularity/evidence/quote/procurement draft; không chứng nhận toàn bộ M0/M1 |
 
 ## Thứ tự chuẩn bị đề xuất
 
