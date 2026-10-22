@@ -122,3 +122,13 @@ Ruff, architecture/import boundaries, exports/fixtures and Alembic metadata drif
 Benchmark22/22, client10/10 + typecheck/generated contracts, web build pass. Published
 0001–0008 have no Git diff against the reviewed baseline. Migration0009 is frozen DDL/SQL.
 Remote PR/CI and exact implementation commit are recorded after verification.
+
+
+## Remote verification
+
+[PR62](https://github.com/thedusk4203/Menuto/pull/62), evidence head
+`7c47a31dee19faed4f21aa669af48c852ede991c`: **python + web SUCCESS** on
+[CI run34](https://github.com/thedusk4203/Menuto/actions/runs/39838627343).
+Remote logs confirm860 tests and22/22 benchmark; PostgreSQL service18.4 is real.
+The subsequent evidence-only commit is checked again before merge. Postmerge CI is
+verified and reported in the final delivery, not predicted in this historical record.
