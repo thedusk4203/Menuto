@@ -17,9 +17,7 @@ def create_default_household(
     )
     session.add(household)
     session.flush()
-    member = HouseholdMember(
-        household_id=household.id, name=request.member_name, user_id=actor_user_id
-    )
+    member = HouseholdMember(household_id=household.id, name=request.member_name)
     session.add(member)
     session.flush()
     session.add(

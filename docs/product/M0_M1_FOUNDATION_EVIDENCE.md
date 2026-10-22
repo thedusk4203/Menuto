@@ -2,15 +2,15 @@
 
 Ngày kiểm: 2026-10-22. Môi trường: Windows, Python 3.13.14, PostgreSQL 18.4, SQLAlchemy 2.1.5, Pydantic 2.14.1, Alembic 1.20.0.
 
-Phạm vi được thực hiện: [blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_M1.md), neutral units/provenance/contracts, draft planner/validation handoffs, migration đầu tiên và household bootstrap nội bộ. Không phải completion report cho toàn bộ Milestone 0/1.
+Phạm vi được thực hiện: [blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_M1.md), neutral units/provenance/contracts, draft planner/validation handoffs, migrations 0001/0002 và household bootstrap nội bộ, gồm [sáu sửa đổi sau review](FOUNDATION_CORRECTIONS.md). Không phải completion report cho toàn bộ Milestone 0/1.
 
 | Kiểm tra thực chạy | Kết quả |
 | --- | --- |
-| Python suite với `MENUTO_TEST_POSTGRES_URL` | 162 passed; 1 Starlette/httpx deprecation warning có từ dependency hiện tại |
-| Real PostgreSQL tests trong suite | 18 passed; mỗi run tự tạo và xóa database ngẫu nhiên riêng |
-| Migration | Upgrade → metadata drift check → downgrade → upgrade thành công trên PostgreSQL thật |
+| Python suite với `MENUTO_TEST_POSTGRES_URL` | 194 passed; 1 Starlette/httpx deprecation warning có từ dependency hiện tại |
+| Real PostgreSQL tests trong suite | 32 passed (24 integrity + 8 data-bearing migration); mỗi run tự tạo và xóa database ngẫu nhiên riêng |
+| Migration | Schema rỗng up → metadata drift check → down → up; dữ liệu 0001 hợp lệ roundtrip; 0002 từ chối ambiguous mapping, populated legacy yields, duplicate exclusions và lossy provenance/safety downgrade |
 | Household integrity | Composite FK từ chối membership/profile/safety member thuộc household khác, gồm kiểm SQLSTATE foreign-key violation |
-| Numeric/basis/provenance | Primitive tests từ chối float, NaN/Infinity, negative quantity, excess precision, mixed bases/currencies; PostgreSQL CHECK chặn invalid basis/nonfinite nutrients |
+| Numeric/basis/provenance | Exact yield chain với calculation 72/36; explicit versioned quantization/residual; ORM bind chặn scale >6; PostgreSQL CHECK chặn invalid basis/nonfinite nutrients; typed raw/prepared draft + provider provenance roundtrip |
 | Persistence semantics | Caller rollback hoàn tác bootstrap; source fact SQL UPDATE/DELETE bị chặn; hai session profile stale write gây StaleDataError |
 | Synthetic benchmark | 22/22 scenarios passed; giữ nguyên micro-model/fixture provenance |
 | Python lint + import/baseline checks | Passed; 16 contexts, canonical docs 30 invariants/11 ADR/50 task links |
@@ -25,3 +25,5 @@ GitHub Actions được cấu hình thêm PostgreSQL service và domain-schema d
 Chưa kiểm chứng/triển khai: authorization/consent, idempotent business command executor, inventory/reservation transactions, recipe/retail persistence, ActivePlan/revisions/execution, primitive recomputation/chronological validation, planner/learning hoặc consumer workflow. Hash ở draft không tự là activation gate; draft output/report buộc quyền activation bằng false.
 
 Graphify hiện lưu snapshot baseline V1.3 trước phần units/persistence mới; không dùng graph đó làm bằng chứng mọi contract/schema M0/M1 đã được lập bản đồ.
+
+Lần đo 162 Python/18 PostgreSQL tests trước review là bằng chứng lịch sử tại PR #53; bảng trên được cập nhật sau sáu sửa đổi. Hiện schema có 8 bảng và domain drafts m0-draft.2 / bundle foundation:2; không có endpoint nghiệp vụ mới.

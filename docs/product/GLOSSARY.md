@@ -11,7 +11,7 @@ Chủ sở hữu tài nguyên chung như inventory, ngân sách, kế hoạch v�
 Người ăn, có thông tin sinh lý, dị ứng/diet và sở thích riêng.
 
 **Membership**:
-Quan hệ người dùng với household và quyền tham gia.
+Quan hệ người dùng với household và quyền tham gia. Trong foundation, đây là nơi duy nhất lưu liên kết `user_id` → `member_id` (tùy chọn); HouseholdMember không chứa user_id.
 
 **Tracked member**:
 Member duy nhất được V1 bảo đảm mục tiêu dinh dưỡng cá nhân.
@@ -47,10 +47,10 @@ Nhóm cách mua tương đương hợp lý, có granularity và bằng chứng t
 Giá dùng lập kế hoạch đã xử lý evidence/policy, không phải checkout guarantee.
 
 **AP → EP**:
-Chuyển lượng mua về sang phần nguyên liệu sống sử dụng được qua edible yield.
+Chuyển lượng mua về sang phần nguyên liệu sống sử dụng được qua edible yield thuộc Product→Ingredient mapping của Retail.
 
 **Cooking yield**:
-Thay đổi lượng do phương pháp/quá trình nấu; khác edible yield.
+Thay đổi lượng do phương pháp/quá trình nấu, thuộc Recipe/Preparation; khác edible yield.
 
 **Recipe / RecipeVersion**:
 Công thức và phiên bản nội dung có thể truy vết.
@@ -159,3 +159,20 @@ Phân loại DIRECT, CONTEXTUAL, INFERRED hoặc PASSIVE để diễn giải m�
 
 **FORCED_CONFLICT_RESOLUTION**:
 Ngữ cảnh chọn phương án do ràng buộc ép buộc; bị cách ly khỏi voluntary taste/context learning nếu không có direct preference signal riêng.
+
+## Primitives đã triển khai và draft handoffs
+
+**CalculatedQuantity / CalculationDecimal**:
+Lượng dùng trong phép tính chính xác, giới hạn kỹ thuật 72 chữ số/36 chữ số thập phân; không mang scale của database vào chuỗi yield.
+
+**Quantity / StoredQuantity / PersistedDecimal**:
+Lượng nguồn/lưu trữ NUMERIC(18,6). Hai tên Quantity và StoredQuantity cùng một contract. Giá trị vượt giới hạn bị từ chối, không tự làm tròn.
+
+**QuantizationPolicy / QuantizationResult**:
+Chính sách có version do caller chọn rõ FLOOR, CEILING hoặc HALF_EVEN tại ranh giới lưu trữ. Kết quả giữ original_amount, stored và residual có dấu (= original − stored); đây chưa phải chính sách bảo toàn inventory hay nutrition tolerance.
+
+**Provenance**:
+Nguồn gồm source_system nội bộ, external_record_id và source_version giữ định danh bên ngoài dạng opaque, observed_at có timezone, tùy chọn source_uri HTTP(S) không credentials và content_hash SHA-256. Không ép locator bên ngoài theo regex Identifier nội bộ.
+
+**MaterialAssetFact (draft)**:
+Union phân biệt RAW_INGREDIENT (inventory_lot_id + ingredient_id, lượng AP/EP raw/count) và PREPARED_FOOD (prepared_food_lot_id + cooking_batch_id + recipe_version_id, lượng SERVING gắn serving_definition_ref). Đây là đầu vào nguồn draft, chưa phải conservation/replay validator.

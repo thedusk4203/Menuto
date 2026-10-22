@@ -73,7 +73,7 @@ class MealSlotInput(Contract):
 
 
 class PlannerRequestDraft(Contract):
-    contract_version: Literal["planner-request.m0-draft.1"] = "planner-request.m0-draft.1"
+    contract_version: Literal["planner-request.m0-draft.2"] = "planner-request.m0-draft.2"
     household_id: UUID
     actor_user_id: UUID
     tracked_member_id: UUID
@@ -112,7 +112,7 @@ class PlannerRequestDraft(Contract):
 
 
 class PlannerOutputDraft(Contract):
-    contract_version: Literal["planner-output.m0-draft.1"] = "planner-output.m0-draft.1"
+    contract_version: Literal["planner-output.m0-draft.2"] = "planner-output.m0-draft.2"
     run_id: UUID
     request_hash: Sha256
     status: Literal[
@@ -132,10 +132,9 @@ class CanonicalMemberSafety(Contract):
     excluded_ingredient_ids: tuple[UUID, ...]
 
 
-class MaterialFact(Contract):
+class MaterialAssetFactBase(Contract):
     fact_id: UUID
     household_id: UUID
-    ingredient_id: UUID
     quantity: Quantity
     available_from: AwareTime
     usable_until: AwareTime
@@ -148,13 +147,46 @@ class MaterialFact(Contract):
         return self
 
 
+class RawIngredientAssetFact(MaterialAssetFactBase):
+    asset_kind: Literal["RAW_INGREDIENT"]
+    inventory_lot_id: UUID
+    ingredient_id: UUID
+
+    @model_validator(mode="after")
+    def raw_basis(self):
+        if self.quantity.basis.value not in {"AP_G", "EP_RAW_G", "COUNT"}:
+            raise ValueError("Raw ingredient asset cannot use cooked mass or serving basis")
+        return self
+
+
+class PreparedFoodAssetFact(MaterialAssetFactBase):
+    asset_kind: Literal["PREPARED_FOOD"]
+    prepared_food_lot_id: UUID
+    cooking_batch_id: UUID
+    recipe_version_id: UUID
+    serving_definition_ref: Identifier
+
+    @model_validator(mode="after")
+    def prepared_servings(self):
+        if self.quantity.basis.value != "SERVING":
+            raise ValueError("PreparedFoodLot must use explicit servings")
+        if self.quantity.item_ref != self.serving_definition_ref:
+            raise ValueError("Prepared food serving definition does not match its quantity")
+        return self
+
+
+MaterialAssetFact = Annotated[
+    RawIngredientAssetFact | PreparedFoodAssetFact, Field(discriminator="asset_kind")
+]
+
+
 class ValidationSubjectDraft(Contract):
-    contract_version: Literal["validation-subject.m0-draft.1"] = "validation-subject.m0-draft.1"
+    contract_version: Literal["validation-subject.m0-draft.2"] = "validation-subject.m0-draft.2"
     validation_ready: Literal[False] = False
     household_id: UUID
     request: PlannerRequestDraft
     canonical_members: tuple[CanonicalMemberSafety, ...] = Field(min_length=1)
-    opening_assets: tuple[MaterialFact, ...]
+    opening_assets: tuple[MaterialAssetFact, ...]
     # Full root goal, ingredient allocations, authored envelopes, chronological events,
     # scenario quote primitives and horizon bridge are required before ready v1 can exist.
     missing_contracts: tuple[
@@ -190,6 +222,17 @@ class ValidationSubjectDraft(Contract):
             raise ValueError("Asset from a different household")
         if len({a.fact_id for a in self.opening_assets}) != len(self.opening_assets):
             raise ValueError("Duplicate opening asset")
+        identities = [
+            (
+                a.asset_kind,
+                a.inventory_lot_id
+                if isinstance(a, RawIngredientAssetFact)
+                else a.prepared_food_lot_id,
+            )
+            for a in self.opening_assets
+        ]
+        if len(identities) != len(set(identities)):
+            raise ValueError("Duplicate physical opening asset")
         return self
 
 
@@ -202,7 +245,7 @@ class ValidationFinding(Contract):
 
 
 class ValidationReportDraft(Contract):
-    contract_version: Literal["validation-report.m0-draft.1"] = "validation-report.m0-draft.1"
+    contract_version: Literal["validation-report.m0-draft.2"] = "validation-report.m0-draft.2"
     mode: Literal["PRECOMMIT_VALIDATION", "POSTFACT_VALIDATION"]
     subject_hash: Sha256
     expected_revision: Version | None
@@ -213,7 +256,7 @@ class ValidationReportDraft(Contract):
 class MutationFixtureDraft(Contract):
     """Frozen fixture description, not evidence of a running independent validator."""
 
-    fixture_version: Literal["validator-mutation.m0-draft.1"] = "validator-mutation.m0-draft.1"
+    fixture_version: Literal["validator-mutation.m0-draft.2"] = "validator-mutation.m0-draft.2"
     base_subject_ref: Identifier
     mutation: Literal[
         "FORBIDDEN_INGREDIENT",

@@ -3,7 +3,15 @@
 from decimal import Decimal
 from uuid import UUID
 
-from sqlalchemy import CheckConstraint, ForeignKey, ForeignKeyConstraint, String, UniqueConstraint
+from sqlalchemy import (
+    CheckConstraint,
+    ForeignKey,
+    ForeignKeyConstraint,
+    Index,
+    String,
+    UniqueConstraint,
+    text,
+)
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.shared.db import Base, IdentityMixin
@@ -40,7 +48,23 @@ class MemberNutritionProfile(IdentityMixin, Base):
 class MemberSafetyConstraint(IdentityMixin, Base):
     __tablename__ = "member_safety_constraints"
     __table_args__ = (
-        UniqueConstraint("household_id", "member_id", "kind", "code"),
+        Index(
+            "uq_member_safety_code",
+            "household_id",
+            "member_id",
+            "kind",
+            "code",
+            unique=True,
+            postgresql_where=text("kind IN ('ALLERGEN','DIET_RULE')"),
+        ),
+        Index(
+            "uq_member_safety_excluded_ingredient",
+            "household_id",
+            "member_id",
+            "ingredient_id",
+            unique=True,
+            postgresql_where=text("kind = 'EXCLUDED_INGREDIENT'"),
+        ),
         ForeignKeyConstraint(
             ["household_id", "member_id"],
             ["household_members.household_id", "household_members.id"],

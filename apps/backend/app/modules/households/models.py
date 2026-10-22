@@ -20,8 +20,7 @@ class HouseholdMember(IdentityMixin, Base):
     __table_args__ = (UniqueConstraint("household_id", "id"),)
     household_id: Mapped[UUID] = mapped_column(ForeignKey("households.id", ondelete="RESTRICT"))
     name: Mapped[str] = mapped_column(String(200))
-    # A shared diner need not have an account. Binding to an actor is explicit.
-    user_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
+    # Membership is the sole account-to-person mapping; shared diners need no account.
 
 
 class Membership(IdentityMixin, Base):
