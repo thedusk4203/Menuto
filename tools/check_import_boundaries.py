@@ -25,6 +25,7 @@ ALLOWED = {
         "inventory",
         "policy",
         "cooking",
+        "shopping",
         "preferences",
         "validation",
         "learning",
@@ -124,6 +125,14 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             errors.append(f"{line}: UNREGISTERED_CONTEXT: {target}")
             return
         tail = target.split(".")[3:]
+        if context == "planning" and destination == "shopping" and (
+            not tail or tail[0] != "contracts"
+        ):
+            errors.append(f"{line}: PLAN_SHOPPING_CONTRACTS_ONLY: {target}")
+            return
+        if contract and context in {"shopping", "cooking"} and destination == "planning":
+            errors.append(f"{line}: PLAN_CONTRACT_CYCLE: {target}")
+            return
         if contract and (not tail or tail[0] != "contracts"):
             errors.append(f"{line}: CONTRACT_IMPORTS_IMPLEMENTATION: {target}")
             return

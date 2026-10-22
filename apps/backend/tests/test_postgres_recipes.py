@@ -277,7 +277,13 @@ def test_empty_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
     migrate(engine, config, "0005")
     migrate(engine, config, "head")
     with engine.connect() as conn:
-        assert set(inspect(conn).get_table_names()) == old | set(m.TABLES) | {
+        from app.modules.cooking.models import TABLES as cooking_tables
+        from app.modules.planning.models import TABLES as plan_tables
+        from app.modules.shopping.models import TABLES as shopping_tables
+
+        assert set(inspect(conn).get_table_names()) == old | set(m.TABLES) | set(plan_tables) | set(
+            cooking_tables
+        ) | set(shopping_tables) | {
             "inventory_lots",
             "inventory_lot_balances",
             "inventory_movements",

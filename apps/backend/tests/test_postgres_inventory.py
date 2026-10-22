@@ -439,6 +439,7 @@ def test_0006_0007_lossless_roundtrip_and_drift(legacy_database, foundation_data
             session.commit()
     for _ in range(2):
         migrate(engine, config, "0007")
+        migrate(engine, config, "head")
         with engine.connect() as connection:
             config.attributes["connection"] = connection
             alembic_command.check(config)

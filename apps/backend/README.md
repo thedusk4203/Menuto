@@ -74,3 +74,16 @@ không phải confidence inference sau thời gian. CONFIRMED không là probabi
 
 [M1.3 review](../../docs/product/M1_3_INVENTORY_DOMAIN_REVIEW.md),
 [evidence](../../docs/product/M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md).
+
+
+F / MTR-016 có PlanRevisionService trong execution/public (orchestration), PlanStore trong
+planning/public và context-local shopping/cooking writers. Caller owns transaction.
+create_workspace → propose tạo sealed immutable intent, không stock/reservation effects.
+publish đòi stored PRECOMMIT authorization; production issuer chưa installed, không có
+mint/bypass API. Successful transaction tests seed synthetic receipts bằng isolated
+test DB-owner fixture. Không dùng fixture này để mở production activation.
+
+Household inventory fence → plan row lock → inventory commands giữ lock order M1.3;
+expected_generation và expected_revision kiểm cả authoring và acceptance. Idempotent
+retry trả đúng immutable prior result; changed body cùng key bị reject. Khi 40001/deadlock,
+retry toàn outer transaction. current_plan đọc exact head, horizon_handoff vẫn DRAFT.
