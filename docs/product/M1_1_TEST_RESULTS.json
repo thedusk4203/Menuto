@@ -1,5 +1,5 @@
 {
-  "scope": "M1.1_RETAIL_PROCUREMENT_FOUNDATION_LOCAL_ONLY",
+  "scope": "M1.1_RETAIL_PROCUREMENT_FOUNDATION_LOCAL_AND_GITHUB_CI",
   "date": "2026-10-22",
   "timezone": "Asia/Saigon",
   "python": "3.13.14",
@@ -50,11 +50,30 @@
     "npm run test:client:10",
     "npm run build:web"
   ],
-  "github_ci": "BLOCKED_PENDING_USER_AUTHORIZATION_TO_PUSH_AND_CREATE_DRAFT_PR",
+  "github_ci": {
+    "status": "SUCCESS",
+    "repository": "thedusk4203/Menuto",
+    "pr": 55,
+    "url": "https://github.com/thedusk4203/Menuto/actions/runs/39744442973",
+    "run_id": 39744442973,
+    "run_number": 14,
+    "implementation_head_sha": "ed1163971e69d357224cb38f553a0029220ed2c7",
+    "checkout": "pull_request_merge_ref",
+    "python_job_id": 119709326528,
+    "web_job_id": 119709326237,
+    "python_tests_passed": 368,
+    "python_tests_skipped": 0,
+    "python_test_seconds": "13.34",
+    "python_warnings": 3,
+    "postgresql": "18.4",
+    "python_job": "success",
+    "web_job": "success",
+    "benchmark_scenarios_passed": 22
+  },
   "publication_target": {
     "repository": "thedusk4203/Menuto",
     "branch": "thedusk4203/m1-1-retail-procurement-foundation",
-    "approval_review": "Push rejected as sensitive source/document egress without explicit authorization"
+    "authorization": "USER_APPROVED_PUSH_AND_DRAFT_PR"
   },
   "invariant_scope": [
     "INV-007",

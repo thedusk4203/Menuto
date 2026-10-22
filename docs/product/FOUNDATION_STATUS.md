@@ -24,9 +24,9 @@ Chưa có auth, NutritionPolicyEngine, PlanPolicyResolver, retail thật, invent
 
 ## M1.1 Retail / Procurement Foundation
 
-Đã triển khai local: 13 bảng Retail mới qua migration `0003`, tổng **21 bảng domain**. Mapping Product→Ingredient sở hữu edible yield và review/provenance; fixed/catch/loose có semantics riêng; raw observation tách derived quote; reference fallback rõ nguồn. Cooking yield chưa triển khai ở Retail. Các quote/class/option/snapshot vẫn **DRAFT**, chưa activation-ready. Inventory chỉ thêm handoff draft giữ mapping, chưa có persistence/workflow.
+Đã triển khai và kiểm chứng local/CI: 13 bảng Retail mới qua migration `0003`, tổng **21 bảng domain**. Mapping Product→Ingredient sở hữu edible yield và review/provenance; fixed/catch/loose có semantics riêng; raw observation tách derived quote; reference fallback rõ nguồn. Cooking yield chưa triển khai ở Retail. Các quote/class/option/snapshot vẫn **DRAFT**, chưa activation-ready. Inventory chỉ thêm handoff draft giữ mapping, chưa có persistence/workflow.
 
-[Evidence M1.1](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md): **368 Python tests pass, gồm 138 PostgreSQL thật**, import/baseline/schema checks pass, 22/22 benchmark smoke, 10 client tests và web build pass. **GitHub CI của thay đổi này chưa chạy**: automatic approval review chặn push, đang chờ user cho phép công bố nhánh; không xem local pass là remote CI pass. [Domain review A–G](M1_1_RETAIL_DOMAIN_REVIEW.md) ghi quyết định và giới hạn. Có thể bắt đầu review M1.2 Recipe/Preparation; chưa tự triển khai M1.2 hoặc M1.3.
+[Evidence M1.1](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md): **368 Python tests pass, gồm 138 PostgreSQL thật**, import/baseline/schema checks pass, 22/22 benchmark smoke, 10 client tests và web build pass. **GitHub CI PASS** cho implementation `ed11639`: [Foundation checks #14](https://github.com/thedusk4203/Menuto/actions/runs/39744442973), cả Python/PostgreSQL 18.4 và web; [PR #55](https://github.com/thedusk4203/Menuto/pull/55) vẫn draft. [Domain review A–G](M1_1_RETAIL_DOMAIN_REVIEW.md) ghi quyết định và giới hạn. Có thể bắt đầu review M1.2 Recipe/Preparation; chưa tự triển khai M1.2 hoặc M1.3.
 
 ## Quyết định còn mở
 

@@ -1,6 +1,6 @@
 # M1.1 — Retail / Procurement evidence
 
-Ngày kiểm chứng: **2026-10-22**, timezone Asia/Saigon. Kết quả: **slice foundation M1.1 đạt kiểm chứng local**; planning/procurement handoffs vẫn DRAFT. Không tuyên bố M0/M1 hoặc production planning hoàn tất. [Domain review và quyết định A–G](M1_1_RETAIL_DOMAIN_REVIEW.md).
+Ngày kiểm chứng: **2026-10-22**, timezone Asia/Saigon. Kết quả: **slice foundation M1.1 đạt kiểm chứng local và GitHub CI**; planning/procurement handoffs vẫn DRAFT. Không tuyên bố M0/M1 hoặc production planning hoàn tất. [Domain review và quyết định A–G](M1_1_RETAIL_DOMAIN_REVIEW.md).
 
 ## Những gì đã triển khai
 
@@ -85,9 +85,14 @@ JUnit local: `.local/m11-final-tests.xml` (ignored build evidence). Tóm tắt k
 
 ## CI và giới hạn bằng chứng
 
-**GitHub CI cho thay đổi này: chưa chạy; chờ quyền công bố nhánh.** GitHub CLI ngoài sandbox đã xác nhận có đăng nhập và quyền repository, nhưng automatic approval review từ chối lệnh push vì mã nguồn/tài liệu là sensitive egress và chưa có user authorization rõ cho payload/đích đến. Không thực hiện push qua công cụ khác để vượt qua từ chối. Nhánh dự kiến `thedusk4203/m1-1-retail-procurement-foundation` tại `thedusk4203/Menuto`; cần user cho phép push và mở draft PR trước khi chạy remote CI.
+**GitHub CI: PASS** trên implementation commit `ed1163971e69d357224cb38f553a0029220ed2c7`, qua [draft PR #55](https://github.com/thedusk4203/Menuto/pull/55), workflow [Foundation checks #14](https://github.com/thedusk4203/Menuto/actions/runs/39744442973). Nhánh: `thedusk4203/m1-1-retail-procurement-foundation`; base `main`. GitHub Actions kiểm tra merge ref của PR; không suy CI của commit khác thành evidence cho M1.1.
 
-Workflow hiện có chạy toàn bộ pytest với PostgreSQL service 18.4 và các checks nêu trên; các bước chức năng tương ứng đã pass local. Không dùng trạng thái CI của commit cũ để chứng nhận thay đổi hiện tại. CI Linux vẫn cần chạy sau khi đưa thay đổi lên PR.
+| CI job | Kết quả thực tế |
+| --- | --- |
+| Python, Ubuntu + PostgreSQL 18.4 | **PASS**: locked dependencies, Ruff, baseline/import boundaries, **368 passed** (13.34s, 3 deprecation warnings), OpenAPI/domain schema checks, 22 fixtures, benchmark **22/22**, artifact upload |
+| Web, Ubuntu + Node 24 | **PASS**: npm ci, generated contracts check, client typecheck/tests và web build |
+
+Đã đọc job steps và Python log để xác minh test summary và PostgreSQL 18.4 thực chạy. Ba warnings trong pytest đến từ Starlette/httpx và Python dependency deprecation; không có failure hoặc test skip. Commit cập nhật evidence sau implementation không đổi domain/models/migration/tests; trạng thái CI của head cuối được kiểm tra riêng trên PR.
 
 Không có real retailer prices, live integration, calibrated launch constants, auth, production eligibility/scoring, shopping basket optimization, physical inventory, RecipeVersion/Preparation persistence, ActivePlan/Execution, Independent Validator hoặc AI. Không sinh CP-SAT model mới. Không claim P90/probability, checkout certainty hoặc production activation readiness.
 
@@ -95,4 +100,4 @@ Không có real retailer prices, live integration, calibrated launch constants, 
 
 INV-007/008/009 nay có Retail foundation evidence; INV-017/018 có mapping/price primitive chain, provenance và SQL constraints. Đây vẫn là **PARTIAL_FOUNDATION**, không phải full invariant certification. INV-003/011/013 giữ ranh giới ownership/intents, chưa có physical lifecycle. Xem [INVARIANT_COVERAGE.md](INVARIANT_COVERAGE.md).
 
-**Đủ nền tảng kỹ thuật để review và bắt đầu M1.2 Recipe/Preparation.** Điều kiện phát hành/merge M1.1 còn lại là CI trên commit/PR thực. M1.2 phải giữ cooking yield thuộc Recipe/Preparation và không sửa mapping Retail. Slice này dừng ở M1.1; không tự triển khai M1.2/M1.3.
+**Đủ nền tảng kỹ thuật để review và bắt đầu M1.2 Recipe/Preparation; gate CI của implementation M1.1 đã đạt.** PR vẫn là draft, chưa merge. M1.2 phải giữ cooking yield thuộc Recipe/Preparation và không sửa mapping Retail. Slice này dừng ở M1.1; không tự triển khai M1.2/M1.3.

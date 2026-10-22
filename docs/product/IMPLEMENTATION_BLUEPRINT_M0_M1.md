@@ -135,7 +135,7 @@ Chi tiết thay đổi tương thích, precision và cách migration dừng an t
 - Package fixed/catch/loose có trường và semantics tách biệt. Chỉ hỗ trợ AP mass; không ngầm đổi count/ml/package thành gram. RetailNumeric giữ miền StoredQuantity nhưng SQL không được tự ép scale/làm tròn.
 - PriceObservation append-only khác PlanningPriceQuote. Origins RETAIL_OBSERVED/CALIBRATED/REFERENCE_BASELINE có FK nguồn, không có reference availability giả. Calibration có retailer × store/region × category/evidence metadata; chưa học/shrink hệ số.
 - ProcurementClass accepted mappings, primary/backup options, substitution groups, package/source/promo primitives đã có. Không có optimizer scoring; toàn bộ planning handoffs DRAFT. Primary hoàn chỉnh được kiểm ở collection boundary; DB cho phép class draft đang xây dở.
-- Kết quả local: 368 Python tests, gồm 138 PostgreSQL; migration/drift/import checks pass. Client/web và 22 benchmark scenarios pass. Remote CI chưa chạy vì automatic approval review chặn push, cần user cho phép công bố nhánh/PR.
+- Kết quả local: 368 Python tests, gồm 138 PostgreSQL; migration/drift/import checks pass. Client/web và 22 benchmark scenarios pass. Remote CI của implementation `ed11639` đã PASS cả Python/PostgreSQL 18.4 và web: [run #14](https://github.com/thedusk4203/Menuto/actions/runs/39744442973), [draft PR #55](https://github.com/thedusk4203/Menuto/pull/55).
 - Tiếp theo có thể review M1.2 Recipe/Preparation. Cooking yield, RecipeVersion persistence, inventory/ActivePlan/execution, Independent Validator và AI chưa được triển khai trong M1.1.
 
 ## Tài liệu kỹ thuật đối chiếu
