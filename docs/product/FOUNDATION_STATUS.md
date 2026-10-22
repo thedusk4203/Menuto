@@ -46,14 +46,31 @@ Không có generator, Planner V4, ledger, CookingBatch execution hoặc full Val
 
 [Review A–H](M1_2_RECIPE_DOMAIN_REVIEW.md) và
 [evidence kiểm thử/CI](M1_2_RECIPE_PREPARATION_EVIDENCE.md) ghi phạm vi và kết quả thực chạy.
-Không suy từ slice này thành toàn bộ M0/M1 hoàn tất. M1.3 chưa triển khai.
+Không suy từ slice này thành toàn bộ M0/M1 hoàn tất. Tại thời điểm M1.2, M1.3 chưa triển khai; trạng thái M1.3 cập nhật bên dưới.
 
 Review PR #57 yêu cầu hai correction trước freeze: path-specific transformation selection
 và cấm COUNT-targeted substitutions. `0006` bổ sung seal policy guard, không đổi 33 bảng,
 seal/version functions hoặc `0005`. [Correction evidence](M1_2_CULINARY_BINDING_CORRECTIONS.md)
 là nguồn nghiệm thu mới; 559 tests/CI của 0005 vẫn là evidence lịch sử, không tự chứng minh
-hai counterexamples đã được sửa. Chưa có verdict FROZEN từ user cho M1.2.
+hai counterexamples đã được sửa. User đã APPROVED TO FREEZE M1.2 tại commit `05382b6425a072433e38db99a1de101b577804a0` (0001–0006, 33 bảng).
 
 ## Quyết định còn mở
 
 Theo §24.3: ReferenceFeasibleCost; numeric nutrition/launch defaults; retail terms; exploration/cooldown; assumption-debt thresholds; receipt-calibrated probability model; chi tiết database/contracts của blueprint. Ba subsystem Execution/Validation/Learning đã chốt kiến trúc, không còn liệt kê là architecture open decisions.
+
+
+## M1.3 Inventory Physical Ledger Foundation
+
+Migration 0007 thêm **5 bảng**, tổng **38 bảng domain**. M1.1/M1.2 giữ nguyên boundary;
+0001–0006 không đổi. [Review A–J](M1_3_INVENTORY_DOMAIN_REVIEW.md) và
+[evidence thực chạy](M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md) là phạm vi nghiệm thu.
+
+Physical lots/movements có household ownership, explicit evidence/basis, append-only
+corrections, DB-controlled balance và chronological ordering. Reservations/releases là
+intent riêng, không movement. Prepared dish dùng contextual servings; prepared component
+dùng COOKED_G. Retail mapping giữ FK exact immutable evidence; không sở hữu yield.
+
+Service acquire/consume/discard/reconcile/reserve/release/snapshot và expiry foundation
+đã có; không có HTTP business endpoints/UX, fulfillment/import, CookingBatch execution,
+ActivePlan, projections, replan hoặc Independent Validator đầy đủ. Handoff snapshot và
+batch flow vẫn DRAFT. M1.3 chờ review freeze; không suy thành full M0/M1 hoàn tất.

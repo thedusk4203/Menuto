@@ -1,5 +1,124 @@
 {
   "$defs": {
+    "AcquireInventoryCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_type": {
+          "$ref": "#/$defs/AssetType"
+        },
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ingredient Id"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "observation_confidence": {
+          "$ref": "#/$defs/ObservationConfidence",
+          "default": "CONFIRMED"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "retail_mapping_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retail Mapping Id"
+        },
+        "serving_definition": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Serving Definition"
+        },
+        "usable_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Usable Until"
+        }
+      },
+      "required": [
+        "household_id",
+        "idempotency_key",
+        "occurred_at",
+        "evidence",
+        "reason",
+        "lot_id",
+        "asset_type",
+        "quantity"
+      ],
+      "title": "AcquireInventoryCommand",
+      "type": "object"
+    },
     "AdjustmentKind": {
       "enum": [
         "NONE",
@@ -8,6 +127,15 @@
         "DISCRETE"
       ],
       "title": "AdjustmentKind",
+      "type": "string"
+    },
+    "AssetType": {
+      "enum": [
+        "RAW_INGREDIENT",
+        "PREPARED_COMPONENT",
+        "COOKED_DISH"
+      ],
+      "title": "AssetType",
       "type": "string"
     },
     "Availability": {
@@ -19,6 +147,90 @@
       ],
       "title": "Availability",
       "type": "string"
+    },
+    "BatchFlowLinkDraft": {
+      "additionalProperties": false,
+      "description": "Future orchestration seam only: not permission to create a physical batch.",
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "execution_ready": {
+          "const": false,
+          "default": false,
+          "title": "Execution Ready",
+          "type": "boolean"
+        },
+        "grounded_variant_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Grounded Variant Fingerprint",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "input_lot_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Input Lot Ids",
+          "type": "array"
+        },
+        "input_movement_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Input Movement Ids",
+          "type": "array"
+        },
+        "output_lot_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Output Lot Ids",
+          "type": "array"
+        },
+        "output_movement_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Output Movement Ids",
+          "type": "array"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "status": {
+          "const": "DRAFT",
+          "default": "DRAFT",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "input_lot_ids",
+        "output_lot_ids",
+        "recipe_version_id",
+        "grounded_variant_fingerprint",
+        "input_movement_ids",
+        "output_movement_ids"
+      ],
+      "title": "BatchFlowLinkDraft",
+      "type": "object"
     },
     "BudgetContract": {
       "additionalProperties": false,
@@ -148,6 +360,120 @@
       "title": "CanonicalMemberSafety",
       "type": "object"
     },
+    "ConsumeInventoryCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "idempotency_key",
+        "occurred_at",
+        "evidence",
+        "reason",
+        "lot_id",
+        "quantity"
+      ],
+      "title": "ConsumeInventoryCommand",
+      "type": "object"
+    },
+    "DiscardInventoryCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "idempotency_key",
+        "occurred_at",
+        "evidence",
+        "reason",
+        "lot_id",
+        "quantity"
+      ],
+      "title": "DiscardInventoryCommand",
+      "type": "object"
+    },
     "EvidenceKind": {
       "enum": [
         "USER",
@@ -167,6 +493,59 @@
       ],
       "title": "EvidenceQuality",
       "type": "string"
+    },
+    "ExpireInventoryCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "idempotency_key",
+        "occurred_at",
+        "evidence",
+        "reason",
+        "lot_id"
+      ],
+      "title": "ExpireInventoryCommand",
+      "type": "object"
     },
     "Granularity": {
       "enum": [
@@ -475,6 +854,443 @@
       "title": "IngredientProductMapFact",
       "type": "object"
     },
+    "InventoryLot": {
+      "additionalProperties": false,
+      "properties": {
+        "acquired_at": {
+          "format": "date-time",
+          "title": "Acquired At",
+          "type": "string"
+        },
+        "acquired_quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "asset_type": {
+          "$ref": "#/$defs/AssetType"
+        },
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ingredient Id"
+        },
+        "observation_confidence": {
+          "$ref": "#/$defs/ObservationConfidence"
+        },
+        "retail_mapping": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IngredientProductMapFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "serving_definition": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Serving Definition"
+        },
+        "usable_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Usable Until"
+        }
+      },
+      "required": [
+        "id",
+        "household_id",
+        "asset_type",
+        "ingredient_id",
+        "acquired_quantity",
+        "acquired_at",
+        "created_at",
+        "usable_until",
+        "observation_confidence",
+        "serving_definition"
+      ],
+      "title": "InventoryLot",
+      "type": "object"
+    },
+    "InventoryMovement": {
+      "additionalProperties": false,
+      "properties": {
+        "command_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Fingerprint",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "correction_of": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correction Of"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ledger_sequence": {
+          "exclusiveMinimum": 0,
+          "title": "Ledger Sequence",
+          "type": "integer"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "movement_type": {
+          "$ref": "#/$defs/MovementType"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "phase": {
+          "maximum": 60,
+          "minimum": 10,
+          "title": "Phase",
+          "type": "integer"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "household_id",
+        "lot_id",
+        "occurred_at",
+        "recorded_at",
+        "ledger_sequence",
+        "phase",
+        "idempotency_key",
+        "command_fingerprint",
+        "evidence",
+        "reason",
+        "movement_type",
+        "quantity"
+      ],
+      "title": "InventoryMovement",
+      "type": "object"
+    },
+    "InventoryPosition": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "lifecycle_state": {
+          "$ref": "#/$defs/Lifecycle"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "remaining": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reserved": {
+          "$ref": "#/$defs/Quantity"
+        }
+      },
+      "required": [
+        "lot_id",
+        "remaining",
+        "reserved",
+        "lifecycle_state"
+      ],
+      "title": "InventoryPosition",
+      "type": "object"
+    },
+    "InventoryReservation": {
+      "additionalProperties": false,
+      "properties": {
+        "command_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Fingerprint",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ledger_sequence": {
+          "exclusiveMinimum": 0,
+          "title": "Ledger Sequence",
+          "type": "integer"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "phase": {
+          "maximum": 60,
+          "minimum": 10,
+          "title": "Phase",
+          "type": "integer"
+        },
+        "purpose": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Purpose",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "household_id",
+        "lot_id",
+        "occurred_at",
+        "recorded_at",
+        "ledger_sequence",
+        "phase",
+        "idempotency_key",
+        "command_fingerprint",
+        "evidence",
+        "reason",
+        "quantity",
+        "purpose"
+      ],
+      "title": "InventoryReservation",
+      "type": "object"
+    },
+    "InventoryReservationRelease": {
+      "additionalProperties": false,
+      "properties": {
+        "command_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Fingerprint",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ledger_sequence": {
+          "exclusiveMinimum": 0,
+          "title": "Ledger Sequence",
+          "type": "integer"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "phase": {
+          "maximum": 60,
+          "minimum": 10,
+          "title": "Phase",
+          "type": "integer"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "reservation_id": {
+          "format": "uuid",
+          "title": "Reservation Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "household_id",
+        "lot_id",
+        "occurred_at",
+        "recorded_at",
+        "ledger_sequence",
+        "phase",
+        "idempotency_key",
+        "command_fingerprint",
+        "evidence",
+        "reason",
+        "reservation_id"
+      ],
+      "title": "InventoryReservationRelease",
+      "type": "object"
+    },
+    "Lifecycle": {
+      "enum": [
+        "ACTIVE",
+        "DEPLETED",
+        "EXPIRED",
+        "DISCARDED"
+      ],
+      "title": "Lifecycle",
+      "type": "string"
+    },
     "MealParticipants": {
       "additionalProperties": false,
       "properties": {
@@ -709,6 +1525,18 @@
       "title": "Money",
       "type": "object"
     },
+    "MovementType": {
+      "enum": [
+        "ACQUIRE",
+        "CONSUME",
+        "DISCARD",
+        "RECONCILE_INCREASE",
+        "RECONCILE_DECREASE",
+        "EXPIRE"
+      ],
+      "title": "MovementType",
+      "type": "string"
+    },
     "MutationFixtureDraft": {
       "additionalProperties": false,
       "description": "Frozen fixture description, not evidence of a running independent validator.",
@@ -877,6 +1705,15 @@
       ],
       "title": "NutritionValues",
       "type": "object"
+    },
+    "ObservationConfidence": {
+      "enum": [
+        "CONFIRMED",
+        "STALE",
+        "UNKNOWN"
+      ],
+      "title": "ObservationConfidence",
+      "type": "string"
     },
     "PackageFact": {
       "additionalProperties": false,
@@ -1135,6 +1972,147 @@
         "nutrition_role"
       ],
       "title": "ParticipantInput",
+      "type": "object"
+    },
+    "PhysicalEvidence": {
+      "additionalProperties": false,
+      "description": "Source of explicit confirmation; never an inference or availability quote.",
+      "properties": {
+        "confirmation": {
+          "const": "EXPLICIT",
+          "default": "EXPLICIT",
+          "title": "Confirmation",
+          "type": "string"
+        },
+        "confirmed_by_user_id": {
+          "format": "uuid",
+          "title": "Confirmed By User Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "external_record_id": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "External Record Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "USER",
+            "RECEIPT",
+            "BARCODE",
+            "EXECUTION"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "source_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "source_system",
+        "external_record_id",
+        "source_version",
+        "confirmed_by_user_id"
+      ],
+      "title": "PhysicalEvidence",
+      "type": "object"
+    },
+    "PhysicalInventorySnapshot": {
+      "additionalProperties": false,
+      "description": "Confirmed facts only; not an activation-ready PlanningState/ValidationSubject.",
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "lots": {
+          "items": {
+            "$ref": "#/$defs/InventoryLot"
+          },
+          "title": "Lots",
+          "type": "array"
+        },
+        "movements": {
+          "items": {
+            "$ref": "#/$defs/InventoryMovement"
+          },
+          "title": "Movements",
+          "type": "array"
+        },
+        "positions": {
+          "items": {
+            "$ref": "#/$defs/InventoryPosition"
+          },
+          "title": "Positions",
+          "type": "array"
+        },
+        "releases": {
+          "items": {
+            "$ref": "#/$defs/InventoryReservationRelease"
+          },
+          "title": "Releases",
+          "type": "array"
+        },
+        "reservations": {
+          "items": {
+            "$ref": "#/$defs/InventoryReservation"
+          },
+          "title": "Reservations",
+          "type": "array"
+        },
+        "status": {
+          "const": "DRAFT",
+          "default": "DRAFT",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "as_of",
+        "lots",
+        "movements",
+        "reservations",
+        "releases",
+        "positions"
+      ],
+      "title": "PhysicalInventorySnapshot",
       "type": "object"
     },
     "PlannerOutputDraft": {
@@ -2893,6 +3871,85 @@
       "title": "RecipeVersionSnapshot",
       "type": "object"
     },
+    "ReconcileInventoryCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "correction_of": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correction Of"
+        },
+        "direction": {
+          "enum": [
+            "INCREASE",
+            "DECREASE"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "idempotency_key",
+        "occurred_at",
+        "evidence",
+        "reason",
+        "lot_id",
+        "quantity",
+        "direction"
+      ],
+      "title": "ReconcileInventoryCommand",
+      "type": "object"
+    },
     "ReferencePriceBookFact": {
       "additionalProperties": false,
       "properties": {
@@ -3047,6 +4104,136 @@
         "priced_ap_g"
       ],
       "title": "ReferencePricePair",
+      "type": "object"
+    },
+    "ReleaseReservationCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "reservation_id": {
+          "format": "uuid",
+          "title": "Reservation Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "idempotency_key",
+        "occurred_at",
+        "evidence",
+        "reason",
+        "lot_id",
+        "reservation_id"
+      ],
+      "title": "ReleaseReservationCommand",
+      "type": "object"
+    },
+    "ReserveInventoryCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "inventory-v1",
+          "default": "inventory-v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PhysicalEvidence"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "purpose": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Purpose",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "reservation_id": {
+          "format": "uuid",
+          "title": "Reservation Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "idempotency_key",
+        "occurred_at",
+        "evidence",
+        "reason",
+        "lot_id",
+        "quantity",
+        "reservation_id",
+        "purpose"
+      ],
+      "title": "ReserveInventoryCommand",
       "type": "object"
     },
     "ResolvedRecipeIngredient": {
@@ -4051,8 +5238,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:6",
+  "$id": "urn:menuto:domain:foundation:7",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. No activation-ready inventory or planning handoff is provided. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

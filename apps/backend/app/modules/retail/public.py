@@ -63,3 +63,10 @@ def derive_price_quote(
         calibration=calibration,
         reference=reference,
     )
+
+
+def read_inventory_mapping(session, mapping_id: UUID) -> IngredientProductMapFact:
+    """Read-only physical-origin seam; confirms neither purchase nor physical stock."""
+    from app.modules.retail.repository import RetailEvidenceRepository
+
+    return RetailEvidenceRepository(session).get(IngredientProductMapFact, mapping_id)

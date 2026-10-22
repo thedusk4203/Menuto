@@ -25,7 +25,24 @@ from app.domain.units import (
 )
 from app.modules.catalog.contracts import IngredientCreate, NutritionFact
 from app.modules.households.contracts import HouseholdCreate, HouseholdCreated, MealParticipants
-from app.modules.inventory.contracts import RetailSourcedAPAssetDraft
+from app.modules.inventory.contracts import (
+    AcquireInventoryCommand,
+    BatchFlowLinkDraft,
+    ConsumeInventoryCommand,
+    DiscardInventoryCommand,
+    ExpireInventoryCommand,
+    InventoryLot,
+    InventoryMovement,
+    InventoryPosition,
+    InventoryReservation,
+    InventoryReservationRelease,
+    PhysicalEvidence,
+    PhysicalInventorySnapshot,
+    ReconcileInventoryCommand,
+    ReleaseReservationCommand,
+    ReserveInventoryCommand,
+    RetailSourcedAPAssetDraft,
+)
 from app.modules.nutrition.contracts import MemberNutritionProfileWrite, MemberSafetyConstraint
 from app.modules.recipes.contracts import (
     GroundedRecipeVariantDraft,
@@ -66,6 +83,21 @@ from app.modules.retail.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    AcquireInventoryCommand,
+    BatchFlowLinkDraft,
+    ConsumeInventoryCommand,
+    DiscardInventoryCommand,
+    ExpireInventoryCommand,
+    InventoryLot,
+    InventoryMovement,
+    InventoryPosition,
+    InventoryReservation,
+    InventoryReservationRelease,
+    PhysicalEvidence,
+    PhysicalInventorySnapshot,
+    ReconcileInventoryCommand,
+    ReleaseReservationCommand,
+    ReserveInventoryCommand,
     RecipeFact,
     RecipeVersionSnapshot,
     RecipeIngredientFact,
@@ -130,14 +162,15 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:6"
+    schema["$id"] = "urn:menuto:domain:foundation:7"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "
         "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
         "Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. "
         "V1 substitutions are mass-only; preparation yield is net and path-specific. "
-        "No activation-ready inventory or planning handoff is provided. "
+        "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "
+        "Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. "
         "Cross-field semantic guards run in Python, not JSON Schema alone."
     )
     return json.dumps(schema, indent=2, sort_keys=True, ensure_ascii=False) + "\n"

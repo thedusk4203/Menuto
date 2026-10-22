@@ -277,7 +277,13 @@ def test_empty_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
     migrate(engine, config, "0005")
     migrate(engine, config, "head")
     with engine.connect() as conn:
-        assert set(inspect(conn).get_table_names()) == old | set(m.TABLES)
+        assert set(inspect(conn).get_table_names()) == old | set(m.TABLES) | {
+            "inventory_lots",
+            "inventory_lot_balances",
+            "inventory_movements",
+            "inventory_reservations",
+            "inventory_reservation_releases",
+        }
         config.attributes["connection"] = conn
         command.check(config)
     migrate(engine, config, "0004", down=True)

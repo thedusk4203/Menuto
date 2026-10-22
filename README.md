@@ -12,7 +12,7 @@ Menuto giúp cá nhân/hộ gia đình tối ưu kế hoạch ăn và mua sắm 
 - [Glossary](docs/product/GLOSSARY.md), [kiến trúc](docs/product/ARCHITECTURE.md), [trạng thái/bằng chứng](docs/product/FOUNDATION_STATUS.md).
 - [Backlog V1.3 MTR-001 → MTR-050](docs/product/BACKLOG.md).
 - [Chuyển mã V1.2 → V1.3](docs/product/BASELINE_MIGRATION_V1_3.md), [entry checklist Milestone 0/1](docs/product/IMPLEMENTATION_BLUEPRINT.md).
-- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): migration đến `0006`, tổng 33 bảng; M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và net cooking yield theo ingredient path. Handoff planning/validation/grounded culinary input vẫn draft. [Correction evidence M1.2](docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md), [hướng dẫn database/tests](apps/backend/README.md).
+- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): migration đến `0007`, tổng 38 bảng; M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và net cooking yield theo ingredient path. Handoff planning/validation/grounded culinary input vẫn draft. [Correction evidence M1.2](docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md), [hướng dẫn database/tests](apps/backend/README.md).
 
 V1.3 là baseline duy nhất đang hiệu lực. V1.2 chỉ còn trong lịch sử Git; mã invariant/backlog cũ không được diễn giải theo nghĩa V1.3. Các bản gốc người dùng đặt tại root được giữ ở máy và bỏ qua trong Git; `docs/` là bản chuẩn được quản lý.
 
@@ -77,3 +77,9 @@ Theo [CONTRIBUTING](CONTRIBUTING.md). CI kiểm baseline docs, import boundaries
 22 fixtures hiện tại có provenance synthetic-from-spec-v1.2 và được giữ nguyên để bảo toàn regression evidence; không đổi nhãn thành coverage V1.3. [Ma trận benchmark V1.3](benchmark/V1_3_SCENARIO_MATRIX.md) ghi rõ phần còn thiếu. Không dùng synthetic adapter như Planner V4 production.
 
 Graphify là công cụ phát triển tùy chọn. Chỉ ba output công khai được track; cache/interpreter/manifest giữ local. Smart Menu là reference tại máy, không đưa code/lịch sử cũ vào Menuto.
+
+
+M1.1/M1.2 đã freeze tại 05382b6. M1.3 thêm physical inventory foundation ở migration
+0007, tổng 38 bảng. [Review](docs/product/M1_3_INVENTORY_DOMAIN_REVIEW.md) và
+[evidence](docs/product/M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md) ghi chính xác scope;
+không có full execution/Planner/Inventory UX. M1.3 chờ review freeze.

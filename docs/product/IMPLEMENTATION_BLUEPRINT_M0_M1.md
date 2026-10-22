@@ -173,3 +173,19 @@ hạn đã ghi rõ. Chưa bắt đầu M1.3.
 - [PostgreSQL constraints](https://www.postgresql.org/docs/18/ddl-constraints.html): dùng FK/unique cho quan hệ giữa rows/tables, CHECK cho từng row.
 - [SQLAlchemy version counter](https://docs.sqlalchemy.org/en/21/orm/versioning.html): version counter áp dụng ở ORM flush, không thay thế authorization hoặc bảo vệ bulk SQL.
 - [Pydantic model immutability](https://docs.pydantic.dev/latest/concepts/models/#faux-immutability): frozen không tự làm dict/list bên trong bất biến; snapshot dùng typed children và tuple.
+
+
+## M1.3 — Inventory Physical Ledger Foundation
+
+- Baseline M1.2 đã FROZEN tại 05382b6425a072433e38db99a1de101b577804a0.
+- [Review A–J](M1_3_INVENTORY_DOMAIN_REVIEW.md), [evidence](M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md).
+- 0007 thêm lots/balances/movements/reservations/releases; tổng 38 bảng. Không sửa 0001–0006.
+- Physical confirmation và allocation intent tách riêng; balance được trigger bảo vệ,
+  writers cập nhật row lock/revision, household advisory fence bảo vệ coherent snapshots.
+- Chỉ nối lịch sử chronological; future/backdated material insertion bị reject. Reconciliation
+  append correction; no-negative-stock ở cả competing READ COMMITTED và stale REPEATABLE READ.
+- Reservation V1 giữ tới explicit release; không scheduled windows/partial fulfillment.
+  Khi lot hết hạn, intent còn audit được nhưng allocatable=0; không tự biến thành consumption.
+- Cooked dish có serving identity riêng; chưa có batch execution/conservation engine.
+- Planning/validator snapshot và batch link DRAFT; không activation/execution readiness.
+- Không bắt đầu M1.4; M1.3 chờ review freeze.
