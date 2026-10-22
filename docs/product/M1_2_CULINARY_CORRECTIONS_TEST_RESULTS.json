@@ -1,0 +1,70 @@
+{
+  "slice": "M1.2 Culinary Binding Corrections",
+  "baseline_commit": "2db3ccd163cffe2366105b6e13ae3ab90fb08b01",
+  "implementation_commit": "RECORDED_AFTER_COMMIT",
+  "local": {
+    "python_tests": 585,
+    "postgres_real_tests": 259,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "elapsed_seconds": "83.164",
+    "postgres": "18.4",
+    "junit": ".local/0006-tests.xml",
+    "groups": {
+      "apps.backend.tests.test_architecture": 48,
+      "apps.backend.tests.test_baseline": 3,
+      "apps.backend.tests.test_culinary_binding_corrections": 13,
+      "apps.backend.tests.test_domain_contracts": 42,
+      "apps.backend.tests.test_foundation_migration": 8,
+      "apps.backend.tests.test_health": 3,
+      "apps.backend.tests.test_postgres_culinary_corrections": 13,
+      "apps.backend.tests.test_postgres_foundation": 24,
+      "apps.backend.tests.test_postgres_recipes": 89,
+      "apps.backend.tests.test_postgres_retail": 109,
+      "apps.backend.tests.test_postgres_retail_corrections": 16,
+      "apps.backend.tests.test_precision_corrections": 8,
+      "apps.backend.tests.test_recipe_contracts": 62,
+      "apps.backend.tests.test_retail_contracts": 68,
+      "apps.backend.tests.test_retail_semantic_corrections": 11,
+      "benchmark.tests.test_foundation_regressions": 38,
+      "benchmark.tests.test_harness": 30
+    },
+    "warnings": 1,
+    "warning": "Preexisting Starlette/httpx deprecation",
+    "architecture": "PASS: 30 INV/11 ADR/50 tasks; 16 import contexts",
+    "ruff": "PASS",
+    "openapi_domain_export": "PASS",
+    "synthetic_fixtures": "22/22",
+    "benchmark": "22/22",
+    "client_tests": 10,
+    "client_generation": "PASS",
+    "client_typecheck": "PASS",
+    "web_build": "PASS"
+  },
+  "migration": {
+    "revision": "0006",
+    "legacy_count_upgrade": "FAIL CLOSED; rows/provenance and revision 0005 preserved",
+    "empty_and_populated_roundtrip": "0005→0006→0005→0006 PASS",
+    "old_seal_functions": "All four definitions unchanged",
+    "original_populated_loss_prevention": "0005 downgrade fails closed; failed full downgrade rolls back 0006 guard too",
+    "metadata_drift": "PASS"
+  },
+  "published_migration_sha256": {
+    "0001_household_member_safety_and_measured_.py": "7608a9ee137ad475b129660d4cb80d6e3c41584ebe072472373b3c130fa8723a",
+    "0002_correct_foundation_boundaries.py": "d7220e3d91168322f1b887d4847a4675784abb59016a090cfcbe07cd7e9e9f01",
+    "0003_retail_procurement_foundation.py": "68ff8eb8e9b391eea8a53e4c5c2d687dae05969293d7d70b26eb2558d5efb535",
+    "0004_correct_retail_semantics.py": "d6fcbcfdb7d00f31085ec491ff12c87e86d4dae6781a5a6b0cdb7f92d766211b",
+    "0005_recipe_preparation_foundation.py": "116b95e973198e573faa13f619d74d85fc5a0f07e77355fe4e04d3d830763275"
+  },
+  "ci": {
+    "status": "PENDING"
+  },
+  "freeze_verdict": "User re-review pending; not FROZEN",
+  "not_implemented": [
+    "M1.3",
+    "Replacement COUNT identity/conversion",
+    "Evidence-backed VariantReason ownership",
+    "Multi-step preparation workflow"
+  ]
+}

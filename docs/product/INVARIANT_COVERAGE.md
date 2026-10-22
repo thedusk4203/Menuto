@@ -8,7 +8,7 @@ Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh
 | INV-002 | NOT_IMPLEMENTED | MTR-008, MTR-009 | Chưa có BudgetPressure hoặc intent resolver |
 | INV-003 | PARTIAL_FOUNDATION | MTR-004 | Household/member schema + composite FK/PostgreSQL tests; authorization và các shared assets còn thiếu |
 | INV-004 | PARTIAL_FOUNDATION | MTR-005, MTR-026 | Participant identity/portion và canonical safety draft tests; shared-meal hard-safety enforcement chưa có |
-| INV-005 | PARTIAL_FOUNDATION | MTR-018, MTR-019 | M1.2 immutable version/rule/combo/tier schema, exact culinary binding draft và SQL seal guards; chưa production VariantGenerator |
+| INV-005 | PARTIAL_FOUNDATION | MTR-018, MTR-019 | M1.2 immutable version/rule/combo/tier, mass-only substitution (0006 COUNT guard), path-specific culinary binding; chưa production VariantGenerator |
 | INV-006 | PARTIAL_FOUNDATION | MTR-019, MTR-023, MTR-030 | M1.2 authored tiers/adjustment envelopes, structural limit và serving-count preservation tests; chưa production solver/adjustment pass/batch execution |
 | INV-007 | PARTIAL_FOUNDATION | MTR-010, MTR-012 | M1.1 raw observation/derived quote tách bảng; provenance/origin/availability và SQL guards; chưa production eligibility/live integration |
 | INV-008 | PARTIAL_FOUNDATION | MTR-011, MTR-022 | M1.1 class/member/primary/backup/package/substitution/source/promo primitives; chống backup giả; chưa fragility scoring/economic optimizer |

@@ -1,6 +1,6 @@
 # Backend foundation
 
-FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003` → `0004` → `0005`, hiện có 33 bảng: 8 bảng Foundation, 15 bảng Retail và 10 bảng Recipe/Preparation. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [evidence M1.2](../../docs/product/M1_2_RECIPE_PREPARATION_EVIDENCE.md) để phân biệt phần đã triển khai và schema đích.
+FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003` → `0004` → `0005` → `0006`, hiện có 33 bảng: 8 bảng Foundation, 15 bảng Retail và 10 bảng Recipe/Preparation. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [correction evidence M1.2](../../docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md) để phân biệt phần đã triển khai và schema đích.
 
 Từ root repository:
 
@@ -44,3 +44,8 @@ preparation context. Culinary binder chỉ chọn authored tier/rules và delta 
 không thực hiện generation, household safety hoặc Independent Validator.
 [Review M1.2](../../docs/product/M1_2_RECIPE_DOMAIN_REVIEW.md) và
 [evidence](../../docs/product/M1_2_RECIPE_PREPARATION_EVIDENCE.md).
+
+`0006` cấm COUNT-targeted substitutions tại seal và từ chối upgrade nếu dữ liệu 0005 có
+rule dạng này; cần xử lý/archival tường minh, không rewrite facts bất biến. Downgrade
+0006 chỉ gỡ guard, không mất dữ liệu; protection của 0005 giữ nguyên. Binder chọn net
+transformation đúng ingredient path; raw base không bị ép transform bởi alternate path.

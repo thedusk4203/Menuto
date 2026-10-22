@@ -48,6 +48,12 @@ Không có generator, Planner V4, ledger, CookingBatch execution hoặc full Val
 [evidence kiểm thử/CI](M1_2_RECIPE_PREPARATION_EVIDENCE.md) ghi phạm vi và kết quả thực chạy.
 Không suy từ slice này thành toàn bộ M0/M1 hoàn tất. M1.3 chưa triển khai.
 
+Review PR #57 yêu cầu hai correction trước freeze: path-specific transformation selection
+và cấm COUNT-targeted substitutions. `0006` bổ sung seal policy guard, không đổi 33 bảng,
+seal/version functions hoặc `0005`. [Correction evidence](M1_2_CULINARY_BINDING_CORRECTIONS.md)
+là nguồn nghiệm thu mới; 559 tests/CI của 0005 vẫn là evidence lịch sử, không tự chứng minh
+hai counterexamples đã được sửa. Chưa có verdict FROZEN từ user cho M1.2.
+
 ## Quyết định còn mở
 
 Theo §24.3: ReferenceFeasibleCost; numeric nutrition/launch defaults; retail terms; exploration/cooldown; assumption-debt thresholds; receipt-calibrated probability model; chi tiết database/contracts của blueprint. Ba subsystem Execution/Validation/Learning đã chốt kiến trúc, không còn liệt kê là architecture open decisions.

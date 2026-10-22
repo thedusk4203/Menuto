@@ -162,6 +162,12 @@ M1.1 đã được user **APPROVED TO FREEZE** tại corrected main `f49e9b1`.
 - M1.3 Inventory Physical Ledger cần review riêng. Không tự tạo inventory, reservations,
   batch execution, ActivePlan, Planner hoặc AI workflow trong slice này.
 
+M1.2 correction: [decisions/evidence](M1_2_CULINARY_BINDING_CORRECTIONS.md) siết substitution
+V1 về mass-only, sửa transformation selection theo resolved path. `0006` thêm policy guard
+tại seal và fail closed khi legacy COUNT substitutions tồn tại. Không thay schema/seal
+architecture hoặc `0005`; net transformation và caller-authored draft reason vẫn có giới
+hạn đã ghi rõ. Chưa bắt đầu M1.3.
+
 ## Tài liệu kỹ thuật đối chiếu
 
 - [PostgreSQL constraints](https://www.postgresql.org/docs/18/ddl-constraints.html): dùng FK/unique cho quan hệ giữa rows/tables, CHECK cho từng row.

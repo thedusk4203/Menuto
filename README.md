@@ -12,7 +12,7 @@ Menuto giúp cá nhân/hộ gia đình tối ưu kế hoạch ăn và mua sắm 
 - [Glossary](docs/product/GLOSSARY.md), [kiến trúc](docs/product/ARCHITECTURE.md), [trạng thái/bằng chứng](docs/product/FOUNDATION_STATUS.md).
 - [Backlog V1.3 MTR-001 → MTR-050](docs/product/BACKLOG.md).
 - [Chuyển mã V1.2 → V1.3](docs/product/BASELINE_MIGRATION_V1_3.md), [entry checklist Milestone 0/1](docs/product/IMPLEMENTATION_BLUEPRINT.md).
-- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): migration đến `0005`, tổng 33 bảng; M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và contextual cooking yield. Handoff planning/validation/grounded culinary input vẫn draft. [Evidence M1.2](docs/product/M1_2_RECIPE_PREPARATION_EVIDENCE.md), [hướng dẫn database/tests](apps/backend/README.md).
+- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): migration đến `0006`, tổng 33 bảng; M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và net cooking yield theo ingredient path. Handoff planning/validation/grounded culinary input vẫn draft. [Correction evidence M1.2](docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md), [hướng dẫn database/tests](apps/backend/README.md).
 
 V1.3 là baseline duy nhất đang hiệu lực. V1.2 chỉ còn trong lịch sử Git; mã invariant/backlog cũ không được diễn giải theo nghĩa V1.3. Các bản gốc người dùng đặt tại root được giữ ở máy và bỏ qua trong Git; `docs/` là bản chuẩn được quản lý.
 

@@ -1,5 +1,9 @@
 # M1.2 Recipe / Preparation Foundation — evidence
 
+> Historical evidence for 0005/PR #57. Review subsequently identified two culinary
+> binding gaps; this is not a freeze approval. Current correction decisions/results:
+> [M1_2_CULINARY_BINDING_CORRECTIONS.md](M1_2_CULINARY_BINDING_CORRECTIONS.md).
+
 Implementation commit: `bc0524bf5e18e4d3eb778acbc4156965b37dd9cd` (recorded in the evidence-only follow-up).
 Local checks and remote CI **PASS**. [PR #57](https://github.com/thedusk4203/Menuto/pull/57) is the publication artifact; the CI evidence below records its tested head before merge.
 Machine-readable results: [M1_2_RECIPE_TEST_RESULTS.json](M1_2_RECIPE_TEST_RESULTS.json).
