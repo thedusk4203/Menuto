@@ -7,7 +7,7 @@ Canonical work item remains MTR-016; no milestone renumbering.
 
 Architecture-first baseline: main `e8eea4190623a989739f5dbb91f20bfbc9e546b3`, PR #60.
 Frozen M1.3: `fef629965dd7401e27c98b5a0c523998a27017c4`.
-Implementation commit: de669c63601522f00860fe4f4389860dbd90aefc. PR/CI: awaiting remote verification; recorded below when available.
+Implementation commit: de669c63601522f00860fe4f4389860dbd90aefc. PR: [#61](https://github.com/thedusk4203/Menuto/pull/61).
 [A–J review and implementation addendum](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md)
 records decisions before implementation; no frozen architecture was reopened.
 
@@ -103,7 +103,11 @@ Other actual local checks:
 - Generated API contracts unchanged; client typecheck and **10 client tests pass**.
 - Web TypeScript check and production Vite build pass.
 
-Remote CI and exact commits are recorded below after verification.
+Remote CI **SUCCESS**: [run #31](https://github.com/thedusk4203/Menuto/actions/runs/39832249955)
+on evidence head `0d08cba8d4deecff019aba69cb20560a586bbb97`: python and web pass,
+including real PostgreSQL18.4, full regression, migration/schema checks and benchmark.
+The subsequent evidence-only commit is checked again before merge. Postmerge run status
+is reported in the delivery; this file does not predict a future result.
 
 ## Files and contract surfaces
 
