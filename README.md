@@ -47,6 +47,9 @@ Web: http://127.0.0.1:5173. API docs: http://127.0.0.1:8000/docs. Health chỉ k
 
 ```text
 apps/backend/app/modules/   16 namespace theo V1.3 §16.4, gồm validation và learning
+apps/backend/app/domain/    Neutral units/provenance và draft handoff contracts
+apps/backend/app/persistence/ SQLAlchemy metadata/engine, chưa provision DB ứng dụng
+apps/backend/migrations/    Alembic 0001 cho 9 bảng nền tảng
 apps/backend/app/shared/    Technical primitives và health contract
 apps/backend/tests/        Health, architecture/import và baseline consistency tests
 apps/backend/workers/      Chưa có worker

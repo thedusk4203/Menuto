@@ -20,6 +20,8 @@ Phạm vi được thực hiện: [blueprint M0/M1](IMPLEMENTATION_BLUEPRINT_M0_
 
 API test và PostgreSQL cần loopback; sandbox tại máy chặn socket nên lần chạy trong sandbox bị chờ. Kết quả thành công phía trên là lần chạy ngoài sandbox trên cùng source. Không thay runtime logic để né lỗi môi trường.
 
-GitHub Actions được cấu hình thêm PostgreSQL service và domain-schema drift check. Chưa có bằng chứng remote CI đã chạy các thay đổi của đợt này. Dữ liệu test là synthetic, không có household/health/retailer thật. Không provision database ứng dụng hoặc triển khai endpoint nghiệp vụ.
+GitHub Actions được cấu hình thêm PostgreSQL service và domain-schema drift check. Trạng thái remote CI được đối chiếu theo commit/PR; bảng trên là bằng chứng chạy tại máy. Dữ liệu test là synthetic, không có household/health/retailer thật. Không provision database ứng dụng hoặc triển khai endpoint nghiệp vụ.
 
 Chưa kiểm chứng/triển khai: authorization/consent, idempotent business command executor, inventory/reservation transactions, recipe/retail persistence, ActivePlan/revisions/execution, primitive recomputation/chronological validation, planner/learning hoặc consumer workflow. Hash ở draft không tự là activation gate; draft output/report buộc quyền activation bằng false.
+
+Graphify hiện lưu snapshot baseline V1.3 trước phần units/persistence mới; không dùng graph đó làm bằng chứng mọi contract/schema M0/M1 đã được lập bản đồ.
