@@ -1,7 +1,7 @@
 # M1.2 Recipe / Preparation Foundation — evidence
 
 Implementation commit: `bc0524bf5e18e4d3eb778acbc4156965b37dd9cd` (recorded in the evidence-only follow-up).
-Local checks PASS. CI is PENDING publication; the slice is not claimed merged/CI-approved here.
+Local checks and remote CI **PASS**. [PR #57](https://github.com/thedusk4203/Menuto/pull/57) is the publication artifact; the CI evidence below records its tested head before merge.
 Machine-readable results: [M1_2_RECIPE_TEST_RESULTS.json](M1_2_RECIPE_TEST_RESULTS.json).
 
 Architecture: [review A–H](M1_2_RECIPE_DOMAIN_REVIEW.md); canonical ADR-005/009/010,
@@ -114,3 +114,18 @@ Recommendation: after CI PASS, the schema/primitive dependency is sufficient to 
 the separate M1.3 Inventory Physical Ledger architecture review. That review must keep
 Retail AP origin/mapping evidence and Recipe preparation/serving identity distinct;
 this does not authorize or implement M1.3 within this slice.
+
+## Remote CI actually verified
+
+[Foundation checks run #20](https://github.com/thedusk4203/Menuto/actions/runs/39769183024),
+tested head `be8b1d75836da1b2f1a95a15d55cbe403100473f`, completed **success**.
+Python job `119792109938` and web job `119792110340` both **success**.
+Python logs: **559 passed**, 3 dependency deprecation warnings, **22.06 seconds**;
+PostgreSQL **18.4** service startup verified in logs. No skipped tests: the 246
+PostgreSQL-marked tests execute against the configured service. Benchmark **22/22**.
+Ruff, baseline/import boundaries, OpenAPI/domain exports, synthetic fixture drift,
+client generation/typecheck/10 client tests and web production build all passed.
+
+This evidence-only follow-up records that tested head; its own final-head CI must
+also pass before merge. Merge authorization follows the user's standing instruction
+for this repository. M1.3 is not started.

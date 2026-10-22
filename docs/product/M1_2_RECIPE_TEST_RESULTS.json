@@ -53,8 +53,24 @@
     "legacy_roundtrips": "0001/0002/0003/0004 legacy suites PASS"
   },
   "ci": {
-    "status": "PENDING",
-    "reason": "Not yet pushed at evidence creation"
+    "status": "PASS",
+    "run_id": 39769183024,
+    "run_number": 20,
+    "url": "https://github.com/thedusk4203/Menuto/actions/runs/39769183024",
+    "tested_head": "be8b1d75836da1b2f1a95a15d55cbe403100473f",
+    "python_job": 119792109938,
+    "web_job": 119792110340,
+    "python_tests": 559,
+    "postgres_real_tests": 246,
+    "skipped": 0,
+    "python_elapsed_seconds": "22.06",
+    "warnings": 3,
+    "benchmark": "22/22",
+    "jobs": {
+      "python": "success",
+      "web": "success"
+    },
+    "postgres": "18.4 verified in job logs"
   },
   "draft": [
     "GroundedRecipeVariantDraft: DRAFT, activation_ready=False",
