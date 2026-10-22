@@ -132,6 +132,8 @@ class RecipePortionTierFact(RecipeContract):
 
 
 class RecipeVariantRuleFact(RecipeContract):
+    """V1 mass-only substitution; replacement COUNT identity/conversion is deferred."""
+
     id: UUID
     recipe_version_id: UUID
     key: Identifier
@@ -152,6 +154,8 @@ class RecipeRuleCombinationFact(RecipeContract):
 
 
 class PreparationTransformationFact(RecipeContract):
+    """Net EP_RAW→COOKED yield under Recipe context, not multi-step preparation."""
+
     id: UUID
     recipe_version_id: UUID
     requirement_id: UUID
@@ -228,6 +232,10 @@ class RecipeVersionSnapshot(RecipeContract):
             if item is None or item.ingredient_id == rule.replacement_ingredient_id:
                 raise ValueError(
                     "Substitution requires an authored slot and a different ingredient"
+                )
+            if item.quantity.basis == MeasurementBasis.COUNT:
+                raise ValueError(
+                    "V1 COUNT substitution requires deferred replacement count identity"
                 )
         for combo in self.approved_combinations:
             unique(combo.rule_ids, "combination member")
@@ -426,9 +434,14 @@ def resolve_culinary_binding(snapshot, tier_id, selected_rule_ids, deltas):
                     ),
                 )
             )
-            available = [t for t in snapshot.transformations if t.requirement_id == item.id]
-            matching = [t for t in available if t.ingredient_id == ingredient]
-            if available and not matching:
+            path_transformations = {
+                t.ingredient_id: t for t in snapshot.transformations if t.requirement_id == item.id
+            }
+            matching = path_transformations.get(ingredient)
+            # An alternate cooked path cannot impose a transform on the raw base path.
+            # A cooked base still requires its replacement's own authored yield evidence.
+            if item.ingredient_id in path_transformations and matching is None:
                 raise ValueError("Substituted ingredient needs its authored cooking transformation")
-            transforms.extend(matching)
+            if matching is not None:
+                transforms.append(matching)
     return tuple(resolved), tuple(transforms), tiers[tier_id].servings

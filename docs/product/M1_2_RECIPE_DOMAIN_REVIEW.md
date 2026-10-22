@@ -18,7 +18,8 @@ Each version owns named required ingredient slots, ingredient FK, positive Store
 culinary role, scaling policy and adjustment envelope. V1 supports EP_RAW_G, COOKED_G,
 and contextual COUNT. AP_G and SERVING are not ingredient requirements. COUNT uses an
 explicit item definition and does not imply grams; all slots are required in this slice.
-Optional omission rules and count-to-mass conversion are deferred.
+Optional omission rules and count-to-mass conversion are deferred. Correction 0006 rejects
+all COUNT-targeted substitution rules; unchanged COUNT requirements retain their item_ref.
 
 ## C. Preparation transformations
 
@@ -29,11 +30,14 @@ different authored ingredient bindings, never an implicit chain. Selecting a sub
 raw slot requires its own transformation if the original slot has one. Method must match
 the Recipe identity. AP->EP remains exclusively M1.1 Product->Ingredient mapping;
 no retail mapping or generic persisted yield abstraction is copied here.
+Selection uses the resolved ingredient path: a replacement's transformation never forces
+the raw base path to transform. V1 records net Recipe-context yield, not multi-step prep.
 
 ## D. Authored substitution
 
 One contextual rule replaces one slot with an ingredient at an exact quantity factor,
-preserving its measurement basis/item definition. Rule identity, version and provenance
+preserving its mass basis (EP_RAW_G/COOKED_G). COUNT substitution is deferred until a rule
+can express replacement count identity/conversion. Rule identity, version and provenance
 are explicit. At most one structural rule may be selected unless the exact selected
 rule set is an authored approved combination. One selected rule per slot. Combinations
 are relational membership sets scoped to the same version; no global compatibility table.
@@ -73,6 +77,8 @@ It recomputes culinary binding/envelope/serving/yield consistency from primitive
 cached valid=true. DRAFT and activation_ready=False are mandatory: nutrition, household
 safety, retail/inventory resolution and independent precommit validation are missing.
 This contract is not a solver-ready DishCandidate and does not implement a generator.
+VariantReason is caller-supplied draft explanation, not verified inventory/price/nutrition
+evidence. Evidence-backed reason ownership belongs to the later grounding orchestrator.
 
 ## H. Tables, trade-offs and deferred scope
 

@@ -130,12 +130,13 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:5"
+    schema["$id"] = "urn:menuto:domain:foundation:6"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "
         "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
         "Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. "
+        "V1 substitutions are mass-only; preparation yield is net and path-specific. "
         "No activation-ready inventory or planning handoff is provided. "
         "Cross-field semantic guards run in Python, not JSON Schema alone."
     )
