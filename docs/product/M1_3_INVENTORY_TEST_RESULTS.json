@@ -53,7 +53,19 @@
     "stale REPEATABLE READ writer40001"
   ],
   "ci": {
-    "status": "PENDING"
+    "status": "SUCCESS",
+    "run_id": 39815450061,
+    "run_number": 26,
+    "url": "https://github.com/thedusk4203/Menuto/actions/runs/39815450061",
+    "tested_head": "93a24750841dbdf63357f4db41434240aff03a21",
+    "python_job": 119952719751,
+    "web_job": 119952720289,
+    "total_python_tests": 688,
+    "postgresql_real_tests": 313,
+    "python_seconds": "28.57",
+    "warnings": 3,
+    "postgresql_version": "18.4",
+    "benchmark": "22/22"
   },
   "freeze_status": "AWAITING_USER_REVIEW",
   "next_milestone_started": false

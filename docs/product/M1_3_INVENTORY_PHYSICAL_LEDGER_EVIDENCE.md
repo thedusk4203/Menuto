@@ -5,7 +5,13 @@ Status: IMPLEMENTED, awaiting user review/freeze. M1.1/M1.2 remain FROZEN at
 
 Implementation commit (complete code/tests): `6fafe913c3da33eba572fbaa477f1f82b4e84f96`.
 Subsequent evidence-only commits record this exact implementation, without a self-referential SHA claim.
-CI: pending PR run; not yet claimed successful.
+CI: **SUCCESS**, [Foundation checks #26](https://github.com/thedusk4203/Menuto/actions/runs/39815450061),
+exact tested head `93a24750841dbdf63357f4db41434240aff03a21` (implementation + local evidence).
+Python job `119952719751`, web job `119952720289`: all steps successful. Logs directly
+confirm **688 passed**, 3 warnings, 28.57 seconds, PostgreSQL **18.4**, benchmark **22/22**.
+This evidence-only update triggers a new final-head run; final head and postmerge results
+are recorded in PR #59/checks and delivery, without claiming an unrun SHA passed.
+[PR #59](https://github.com/thedusk4203/Menuto/pull/59).
 
 ## Delivered boundary
 
