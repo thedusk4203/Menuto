@@ -29,7 +29,7 @@ Scope: INV-005/017/018, no M1.3 or seal/version redesign.
 ## Verification
 
 Implementation commit: `9d1233f33f5f5ac7a4f6e5416d598f2e27afb638` (recorded in an evidence-only follow-up).
-Local gates PASS; remote CI pending publication. This is correction evidence, not user
+Local gates and remote CI PASS. This is correction evidence, not user
 freeze approval. [Machine-readable results](M1_2_CULINARY_CORRECTIONS_TEST_RESULTS.json).
 
 - Before correction, the new unit corpus reproduced 3 failures (raw default rejected,
@@ -74,3 +74,16 @@ Real PostgreSQL tests used isolated random test databases, not an application da
 The temporary test cluster was stopped after the run. No M1.3 work was started.
 INV-005/017/018 remain PARTIAL_FOUNDATION; correction adds counterexample coverage,
 not a production validator or complete grounding pipeline.
+
+
+## Remote CI verified
+
+[Foundation checks #23](https://github.com/thedusk4203/Menuto/actions/runs/39780039361),
+tested head `92c0f5da6d70bdda29473dec579b05ec31b70661`, completed **success**.
+Python job `119828655304` and web job `119828655021` both **success**. Logs confirm
+**585 passed**, 3 deprecation warnings, **22.99 seconds**, PostgreSQL **18.4** and
+**22/22 benchmark scenarios**. The 259 PostgreSQL tests execute with no skipped tests.
+All architecture/schema/client/web checks passed. [PR #58](https://github.com/thedusk4203/Menuto/pull/58)
+is the publication artifact. This evidence-only follow-up must also pass final-head CI
+before merge, under the user's standing push/merge instruction. M1.2 freeze remains a
+separate user review verdict; no M1.3 work is included.
