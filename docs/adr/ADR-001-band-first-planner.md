@@ -27,4 +27,9 @@ Planner V4 uses:
 - Free-form quantity mutation inside the global solver.
 
 ## Invariants
-INV-001, INV-006, INV-011, INV-012.
+
+INV-001, INV-006, INV-009, INV-010.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. Local quantity refinement preserves serving-count semantics and is precommit validated (spec §8.4 seam 1; ADR-010).

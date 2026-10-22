@@ -27,4 +27,9 @@ Package-fit uses three levels:
 - Recipe versions are snapshotted for reproducibility.
 
 ## Invariants
+
 INV-005, INV-006.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. Micro-adjustment changes composition per serving; only an explicit portion-tier/plan revision changes serving count (spec §8.4 seam 1).

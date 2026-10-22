@@ -23,4 +23,9 @@ Profile defaults and per-plan situational overrides are merged into a versioned 
 - Chips like “tuần này bận” override only relevant fields and do not rewrite profile defaults.
 
 ## Invariants
-INV-001, INV-002, INV-012.
+
+INV-001, INV-002, INV-010, INV-028.
+
+## V1.3 alignment — 2026-10-22
+
+Invariant references use the canonical V1.3 numbering; V1.2 numbering is superseded. The accepted decision is retained; closed-loop contracts are defined by ADR-009..011 and spec §8.4.

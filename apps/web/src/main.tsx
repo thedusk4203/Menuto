@@ -20,7 +20,7 @@ function App() {
   return <main>
     <p className="brand">Menuto</p>
     <h1>Nền tảng cho một tuần ăn uống dễ thực hiện.</h1>
-    <p>Project đang ở giai đoạn xây dựng nền theo đặc tả V1.2.</p>
+    <p>Project đang ở giai đoạn xây dựng nền theo đặc tả V1.3.</p>
     <section aria-labelledby="status-title">
       <h2 id="status-title">Trạng thái phát triển</h2>
       <p role="status">{connection}</p>

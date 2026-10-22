@@ -1,12 +1,12 @@
-# MENUTO - Tài liệu phát triển sản phẩm V1.2
+# MENUTO - Tài liệu phát triển sản phẩm V1.3
 
 **Product Strategy · Architecture · Planner V4 · Data Model · UX · Roadmap**
 
-> **Phiên bản:** V1.2 — Canonical Architecture Baseline
+> **Phiên bản:** V1.3 — Closed-Loop Canonical Architecture Baseline
 >
-> **Ngày cập nhật:** 21/10/2026
+> **Ngày cập nhật:** 22/10/2026
 >
-> **Mục tiêu của revision này:** đóng băng baseline kiến trúc đã được tranh luận và chốt qua các vòng Planner, Nutrition, Policy, Household, Recipe, Retail và Budget. V1.2 là canonical spec để triển khai; các abstraction cũ bị thay thế trực tiếp, không tồn tại song song.
+> **Mục tiêu của revision này:** đóng băng vòng kiến trúc khép kín `Policy → Planner → Validator → Execution → Learning → Planner`, tích hợp ADR-009/010/011, 5 seam handoff contracts và bộ 30 architecture invariants. V1.3 là canonical spec để bước vào Implementation Blueprint Milestone 0/1; các quyết định superseded không tồn tại song song.
 
 > **Định nghĩa sản phẩm**
 >
@@ -14,26 +14,22 @@
 
 Nguồn thiết kế: Smart Menu hiện tại + rà soát sản phẩm cạnh tranh + các vòng architecture debate về Planner, Nutrition Policy, Household và Recipe Model.
 
-> **Tệp Markdown chuẩn:** `docs/MENUTO_DEVELOPMENT_SPEC_V1_2.md`
+> **Tệp Markdown chuẩn:** `docs/MENUTO_DEVELOPMENT_SPEC_V1_3.md`
 
-## Revision highlights từ V1.0
+## Revision highlights từ V1.2
 
-1. Loại bỏ `PlanningMode`; thay bằng `PlanPolicyResolver` và các policy axis độc lập.
-2. Thay point-target nutrition bằng **Guideline/Goal/Comfort + Weekly Centering**.
-3. Thay nhiều phase lexicographic bằng **2-stage Band-First global solve + bounded local refinement**.
-4. Candidate generation trở thành **role-aware Pareto grounding**.
-5. Household là ownership boundary ngay từ V1; Solver V1 chỉ có một `TrackedMember` về individualized nutrition.
-6. `MealParticipants` là source of truth; `AttendanceScale` chỉ là derived coefficient; `ConsumptionDemand != BatchProduction`.
-7. Recipe dùng **authored flexibility → pre-solve grounded immutable candidates**; global solver không tự sáng tác món.
-8. Package-fit dùng **portion tiers → global solve → bounded CulinaryAdjustmentPass**.
-9. Inventory có policy, confidence và **One-tap Reconcile**.
-10. Relaxation Advisor dùng **conflict → elastic estimate → verification** và tuân thủ `No silent relaxation`.
-11. Retail được chuẩn hóa thành **Retail evidence → ProcurementClass → Planning Quote → concrete primary/backups**.
-12. `RetailProduct/SKU` không phải đơn vị tối ưu hóa mặc định; `FIXED_PACK`, `CATCH_WEIGHT`, `LOOSE_SCALE` được mô hình hóa riêng.
-13. Reference fallback dùng **RetailPriceCalibration theo retailer × region × category**, không dùng một store multiplier mù.
-14. `SPEND_LIMIT` được kiểm tra bằng **deterministic robust stress scenarios**, không giả lập P90 khi chưa có dữ liệu calibrated.
-15. Risk score không được trình bày như probability; checkout certainty không được hứa nếu Menuto không khóa giá/tồn kho.
-16. Bộ **8 ADR canonical + Architecture Invariants** được xuất bản cùng V1.2 và trở thành guardrail cho implementation.
+1. Khóa **ADR-009 Execution State Machine**: một `ActivePlan` có `plan_id` ổn định, immutable revision snapshots, future intent revisable và execution facts tách khỏi plan intent.
+2. Thêm ba state views: `ConfirmedState`, `OperationalState`, `PlanningState`; elapsed time chỉ được tạo reversible operational assumptions, không sửa confirmed reality.
+3. `CookingBatch` trở thành physical transformation `Raw Inventory → PreparedFoodLot`; leftovers là household assets, không chỉ là repeat marker.
+4. Khóa **ADR-010 Independent Validator** với ba lớp độc lập: semantic root-contract guards, arithmetic primitive recomputation và algorithmic chronological replay.
+5. Validator dùng `ValidationSubjectSnapshot`, measurement-basis provenance, global conservation + chronological causality; `PRECOMMIT` gating tách khỏi `POSTFACT` diagnostics.
+6. Khóa **ADR-011 Behavioral Learning**: attribution-routed multi-signal learning, member-owned preferences, `RecentExposureModel`, bounded exploration và không dùng scalar `recipe_score/adherence_score` làm truth.
+7. Passive/autopilot execution không tạo durable taste hoặc exposure learning; `USER_CONFIRMED_COOKED` chứng minh execution fit chứ không chứng minh taste affinity.
+8. Final seam audit khóa 5 handoff contracts: batch composition after micro-adjustment, sunk actual spend in mid-week revisions, cross-horizon inventory/exposure handoff, shared-meal utility attribution và forced-trade-off quarantine.
+9. `HorizonBridgeResolver` project state đến đầu horizon mới bằng chronological commitments thay vì cộng/trừ thủ công dễ double-count.
+10. `SPEND_LIMIT` revision validation dùng **actual sunk spend + future stress-tested spend**; uncertainty biến mất cho purchase đã fulfilled.
+11. Bộ invariant canonical được renumber thành **INV-001 → INV-030**. Numbering tạm trong V1.2/debate bị supersede; implementation chỉ dùng numbering V1.3.
+12. Roadmap/backlog/DoD được nâng để Milestone 0/1 bắt đầu từ domain contracts, units/measurement basis, execution/validation snapshots và benchmark harness.
 
 # Mục lục
 
@@ -184,53 +180,81 @@ Không định vị Menuto là chatbot. AI là lớp giao tiếp; sản phẩm c
 
 Canonical list được mirror tại `docs/ARCHITECTURE_INVARIANTS.md`.
 
-### INV-001 — Planning preference must never masquerade as physiology
+> **Renumbering note:** các số invariant tạm xuất hiện trong V1.2 và các transcript tranh luận bị supersede bởi numbering V1.3 dưới đây. Code, test và PR từ V1.3 trở đi chỉ tham chiếu `INV-001` → `INV-030` theo danh mục này.
 
-`CostPreference`, `KitchenEffort` hoặc “tuần này bận/tiết kiệm” không được ngầm thay đổi guideline/physiological constraints.
+### I. Policy, physiology & intent
 
-### INV-002 — Observed constraint must never masquerade as user preference
+**INV-001 — Planning preference must never masquerade as physiology.** Convenience hoặc thrift preference không được hạ physiological/guideline safety floors hay phá goal direction.
 
-`BudgetPressure` cao không đồng nghĩa user muốn rẻ nhất có thể. System pressure, explicit budget contract và subjective preference là ba dữ kiện độc lập.
+**INV-002 — Observed constraint must never masquerade as user preference.** `BudgetPressure`, `CostPreference` và explicit `BudgetConstraint` là ba dữ kiện độc lập.
 
-### INV-003 — Shared resource != shared physiology
+### II. Household & participant safety
 
-Inventory, shopping, kitchen, batch và plan thuộc Household; nutrition/allergy/diet/body/goal thuộc HouseholdMember.
+**INV-003 — Shared resource != shared physiology.** Inventory/shopping/batch/plan thuộc Household; biology, allergy, diet và preference thuộc HouseholdMember.
 
-### INV-004 — Aggregate demand must never erase individual safety constraints
+**INV-004 — Aggregate demand must never erase individual safety constraints.** Effective allowed set của shared meal phải giữ mọi hard constraint của từng `MealParticipant`; attendance aggregation không được xóa identity safety.
 
-Một aggregate attendance coefficient không được làm mất allergy/diet constraints của participants tạo ra coefficient đó.
+### III. Culinary & recipe grounding
 
-### INV-005 — Recipe flexibility must be authored, not inferred
+**INV-005 — Recipe flexibility must be authored, not inferred.** Substitution, portion tier và quantity envelope chỉ đến từ `RecipeVersion` rules được author/curate.
 
-Substitution, quantity envelope và compatibility phải được catalog author/curated rule cho phép; không tự suy từ cost/nutrition similarity.
+**INV-006 — Global optimization may choose among culinary possibilities; it may not create culinary possibilities.** Global CP-SAT chỉ chọn grounded immutable candidates; bounded micro-adjustment không được đổi recipe identity hoặc batch serving count nếu không có explicit portion-tier revision.
 
-### INV-006 — Global optimization may choose among culinary possibilities; it may not create culinary possibilities
+### IV. Retail, pricing & spend limits
 
-Global CP-SAT chỉ chọn grounded immutable candidates; không free-form substitute, mutate recipe ratio hoặc đổi cooking method.
+**INV-007 — Retail observations are evidence, not guarantees.** Point-in-time offers được compile thành planning evidence; transient SKU/promo không phải checkout promise.
 
-### INV-007 — Attendance != production
+**INV-008 — The planner optimizes procurement resilience, not merely observed price.** `ProcurementFragility` phải tham gia economic quality cùng spend/waste/carryover.
 
-Meal consumption demand và cooking batch production/allocation là hai khái niệm khác nhau.
+**INV-009 — A risk score is not a probability unless it has been calibrated as one.** Stress scenarios, confidence classes, exploration bonuses hoặc heuristic reserves không được gọi là P90/xác suất nếu chưa empirical calibration.
 
-### INV-008 — Retail observations are evidence, not guarantees
+**INV-010 — A hard user constraint may produce a relaxed alternative, but that alternative must never inherit the hard-feasible label without explicit user acceptance.**
 
-Offer/price/availability là observations có provenance và freshness, không phải lời hứa rằng cùng SKU sẽ còn tại `T_shop`.
+### V. Execution state machine & inventory truth
 
-### INV-009 — The planner optimizes procurement resilience, not merely observed price
+**INV-011 — Planned acquisition is not owned inventory.** Planned/unconfirmed shopping không được materialize thành physical `InventoryLot`.
 
-Một basket rẻ nhưng phụ thuộc promo/single-source SKU có thể kém hơn basket đắt hơn một chút nhưng robust.
+**INV-012 — Elapsed time is not evidence of consumption.** Time passage chỉ có thể tạo reversible `AUTOPILOT_ASSUMED` operational projection, không sửa `ConfirmedState`.
 
-### INV-010 — Mathematical budget feasibility must not be presented as checkout certainty
+**INV-013 — Inference may update a projection; only evidence may update confirmed reality.**
 
-`SPEND_LIMIT` là feasibility dưới procurement-risk policy của Menuto, không phải guarantee hóa đơn nếu chưa có locked cart/price/stock.
+**INV-014 — Execution drift should be repaired locally before globally.** Escalate qua local adjustment/substitution/reschedule trước remaining-week global replan.
 
-### INV-011 — A risk score is not a probability unless it has been calibrated as one
+### VI. Independent validation
 
-Không dùng heuristic reserve, score hoặc confidence để claim `P90`, `90%` hay xác suất tương tự khi chưa backtest/calibrate bằng actual outcomes.
+**INV-015 — Validation verifies correctness, not optimality.** Validator không ranking objective hoặc chứng minh plan tốt nhất.
 
-### INV-012 — A hard user constraint may produce a relaxed alternative, but the alternative must never inherit the hard-feasible label without explicit user acceptance
+**INV-016 — Policy definitions may be shared; correctness enforcement must be independently evaluated.**
 
-Relaxation Advisor có thể đề xuất phương án gần khả thi; phương án đó phải mang status riêng và chỉ trở thành active plan sau explicit acceptance.
+**INV-017 — Critical validation derives from resolved primitive facts, not planner-computed summaries.**
+
+**INV-018 — Primitive facts must carry explicit measurement basis and provenance before independent recomputation.** `AP`, `EP_RAW`, `COOKED_G`, `SERVING`, money và discrete units không được nhập nhằng.
+
+**INV-019 — Material feasibility must hold globally and at every causal point in time.** End-of-horizon conservation và chronological replay đều phải pass.
+
+**INV-020 — Root contract validation must not trust planner-resolved safety summaries.** Participant allergies/hard dietary contracts và root goal direction phải được kiểm từ canonical contracts.
+
+**INV-021 — Validation of intent is gating; validation of reality is diagnostic.** `PRECOMMIT` có thể reject proposed intent; `POSTFACT` ghi nhận reality rồi diagnostic. Validation observes; repair acts.
+
+### VII. Behavioral learning & preference integrity
+
+**INV-022 — Passive execution assumptions must not create durable behavioral learning.** `AUTOPILOT_ASSUMED` chỉ tạo reversible/provisional exposure trong operational horizon cho đến khi confirmed/reconciled.
+
+**INV-023 — Operational or retail friction must never penalize culinary taste affinity.** `NO_TIME`, `OUT_OF_STOCK`, `TOO_EXPENSIVE`, `NO_EQUIPMENT` route sang đúng domain khác.
+
+**INV-024 — Execution success must not masquerade as taste preference.** `USER_CONFIRMED_COOKED` cập nhật execution/context fit và confirmed exposure, không tự tăng taste affinity.
+
+**INV-025 — Unattributed rejection is weak evidence, not confirmed dislike.**
+
+**INV-026 — Shared meals may aggregate preferences; they must not erase member-level preference ownership.**
+
+**INV-027 — Behavioral dimensions remain separable until planner utility composition.** Không persist một scalar truth trộn taste/time/equipment/complexity/repeat/novelty.
+
+**INV-028 — Learned observations may influence soft ranking, but may not silently rewrite explicit user policy.** User-confirmed policy vẫn là contract.
+
+**INV-029 — Forced trade-offs are evidence of constraint resolution, not voluntary preference.** Choices từ Relaxation Advisor hoặc forced execution repair bị quarantine khỏi taste/context learning trừ khi user đưa direct preference signal riêng.
+
+**INV-030 — Future commitments must be honored when projecting inventory and exposure across planning horizons.** Reservations, scheduled transformations, carryovers và scheduled recent exposure trước `T_start` phải được handoff vào horizon mới.
 
 ## 5.3 Trusted boundary
 
@@ -491,7 +515,64 @@ Mỗi activated plan snapshot tối thiểu:
 - recipe_version + grounded bindings/quantities;
 - selected price/package observation IDs hoặc ReferencePriceBook version;
 - inventory lot snapshot/fingerprint;
-- solver statuses/tolerance/relaxations.
+- solver statuses/tolerance/relaxations;
+- active revision number + baseline revision hash when activated;
+- validation subject/report hashes for precommit gate;
+- horizon bridge snapshot when a future horizon overlaps an active plan.
+
+## 8.4 Closed-loop architecture and seam handoff contracts
+
+V1.3 coi Menuto là một closed loop thay vì pipeline chỉ dừng ở plan:
+
+```text
+Policy
+  ↓
+Planner V4
+  ↓
+Independent Validator
+  ↓
+ActivePlan / Execution
+  ↓
+Attribution-Routed Learning
+  └──────────────→ next Planner request
+```
+
+Năm seam dưới đây là canonical handoff contracts.
+
+### Seam 1 — CulinaryAdjustment ↔ CookingBatch ↔ Validator
+
+- `CulinaryAdjustmentPass` có thể thay đổi `batch_resolved_ingredients` trong authored envelope nhưng không tự thay `planned_servings`/`produced_servings`.
+- Ingredient adjustment thay **composition per serving**, không suy tuyến tính thành “4.36 servings”.
+- Allocation của ingredient `i` từ batch `b` cho meal dùng `k` servings được validator derive từ resolved batch composition và serving allocation.
+- Chỉ explicit portion-tier/plan revision mới được đổi serving count.
+
+### Seam 2 — Fulfilled purchase ↔ SPEND_LIMIT revision
+
+Khi mid-week revision xảy ra, uncertainty của purchase đã fulfilled sụp về sunk historical fact:
+
+```text
+RevisionCost_s(t)
+  = ConfirmedActualSpend(t)
+  + StressScenarioSpend_s(RemainingUnfulfilled(t))
+```
+
+Không stress-test lại giá của món đã mua; cũng không bỏ qua actual overspend đã xảy ra.
+
+### Seam 3 — Active horizon ↔ next-horizon planning
+
+`HorizonBridgeResolver` project `PlanningState(t_now)` qua tất cả future commitments đến `T_start` bằng chronological transformation. Output là `ProjectedOpeningAssets(T_start)` và `ProvisionalRecentExposure(T_start)`.
+
+Không implement opening stock bằng phép cộng/trừ rời rạc dễ double-count raw ingredients và future prepared carryover. Scheduled meals trước `T_start` được bridge như provisional exposure để tránh Sunday→Monday repetition dù chưa confirmed eaten.
+
+### Seam 4 — Shared meal ↔ member-owned behavior
+
+- Hard safety không nằm trong utility aggregation; nó được enforce cho từng participant trước.
+- `DIRECT DISLIKE/EXPLICIT_AVOID` tạo strong shared-meal penalty; `LOW_AFFINITY` chỉ là ordinary weighted utility; `UNKNOWN` dùng prior/neutral.
+- `FAVORITE`/`DISLIKE` mặc định update member tương ứng `actor_user_id` hoặc member user explicitly selected; không copy preference sang household members khác.
+
+### Seam 5 — Relaxation/repair ↔ learning
+
+Mọi accepted alternative từ `ConstraintRelaxationAdvisor` hoặc forced local repair mang `context = FORCED_CONFLICT_RESOLUTION`. Event này dùng cho trade-off analytics nhưng bị quarantine khỏi voluntary taste/context learning theo `INV-029`.
 
 # 9. Bounded contexts và domain model
 
@@ -1162,8 +1243,8 @@ Menuto chỉ được dùng language kiểu `P90/~90%` sau khi model đã đư�
 | storage_mode | room / fridge / freezer / same_day. |
 | cost_basis | Waste/carryover valuation. |
 | source | manual / purchase / carryover / receipt. |
-| status | projected / available / reserved / consumed / expired / discarded. |
-| confidence | CONFIRMED / PROJECTED / STALE / UNKNOWN. |
+| lifecycle_state | ACTIVE / DEPLETED / EXPIRED / DISCARDED; reservation is modeled separately. |
+| observation_confidence | CONFIRMED / STALE / UNKNOWN; projected quantities live in Operational/Planning projections, not as physical lots. |
 
 ## 13.2 InventoryPolicy
 
@@ -1215,10 +1296,118 @@ Long-life staple carryover có thể gần như neutral; 60g fresh meat gần h�
 
 - manual quick-add;
 - purchase-derived lots;
-- carryover-derived projected lots;
+- carryover-derived projections in `OperationalState`/`PlanningState` (không materialize thành physical lot cho tới khi evidence/reconcile xác nhận);
 - reconcile.
 
 V1.5+: barcode/receipt/photo chỉ là input accelerator, tất cả normalize về cùng ledger contract.
+
+## 13.7 Single ActivePlan + immutable revision history
+
+Sau activation, một tuần đang chạy giữ **một `plan_id` ổn định**. Current working graph được phép revise chỉ ở future/unexecuted nodes; lịch sử được đóng băng bằng `PlanRevisionSnapshot #0..N`.
+
+```text
+ActivePlan(plan_id stable)
+├── Current Working Graph        # future intent mutable by validated revision
+├── PlanRevision #0              # INITIAL_ACTIVATED_BASELINE immutable
+├── PlanRevision #1..N           # immutable diff/snapshot
+└── ExecutionLedger              # what actually happened
+```
+
+`PlanRevisionHistory != ExecutionLedger`: revision trả lời “Menuto đã thay đổi lời khuyên thế nào”; ledger trả lời “ngoài đời đã xảy ra gì”. Local Swap, remaining-week replan và intent-changing culinary adjustment đều tạo atomic plan revision với `revision_scope`; execution deviation sau khi nấu không tự động trở thành plan revision.
+
+Khi intent đã materialize thành physical fact (`PurchaseFulfillment → InventoryLot`, `CookingBatchExecution → PreparedFoodLot`), revision sau không được rewrite/xóa fact đó.
+
+## 13.8 ConfirmedState, OperationalState, PlanningState
+
+- `ConfirmedState`: chỉ evidence trực tiếp (`USER`, receipt/barcode, explicit correction, reconcile).
+- `OperationalState`: confirmed facts + reversible `AUTOPILOT_ASSUMED`; Today/Expiry/ExecutionImpactAnalyzer đọc view này.
+- `PlanningState`: state đã resolve/reconcile để feed optimizer; trước next plan có thể yêu cầu targeted reconcile nếu assumption debt cao.
+
+Operational assumption không được masquerade thành confirmed inventory hoặc durable behavioral memory.
+
+## 13.9 Inventory as material ledger + reservations
+
+`InventoryLot` không dùng mega-enum `projected/available/reserved/consumed` làm source of truth. Physical quantity được giữ bằng lots + movements; reservations là allocation intent riêng:
+
+```text
+InventoryLot
+├── acquired_qty
+├── remaining_qty
+├── usable_until
+└── provenance/confidence
+
+InventoryReservation
+├── lot_id
+├── target meal/batch
+└── qty
+```
+
+Reservation không làm thay đổi conservation quantity; rule `reserved(t) <= physical_available(t)` được validator kiểm riêng.
+
+Planned procurement chỉ là future inflow trong precommit replay; chỉ confirmed fulfillment mới tạo household `InventoryLot`.
+
+## 13.10 Shopping fulfillment is quantitative
+
+Không dùng `purchased=true/false` làm truth. `ShoppingRequirement(required_qty)` có một hoặc nhiều `PurchaseFulfillment(actual_qty, actual_price, product/procurement provenance)`; derived shortfall/overage quyết định repair/replan.
+
+Mid-week budget revision dùng sunk `actual_price` của fulfilled purchases + stress quotes cho remaining unfulfilled requirements.
+
+## 13.11 CookingBatch physical transformation and PreparedFoodLot
+
+Batch execution là transaction vật lý:
+
+```text
+Raw InventoryLot
+  ↓ consume resolved ingredients
+CookingBatchExecution
+  ↓ produce
+PreparedFoodLot(servings, usable_until)
+  ↓ allocate/consume/discard
+MealConsumption / leftover
+```
+
+Raw inventory dùng grams/units; prepared food V1 được track theo servings để giảm UX friction. `COOKED != CONSUMED`; production, allocation và consumption là events riêng.
+
+`CulinaryAdjustmentPass` giữ serving count trừ khi explicit portion-tier revision thay đổi nó; adjusted ingredient grams thay composition/nutrition per serving.
+
+## 13.12 Reversible optimistic autopilot
+
+Happy path cần zero-tap, nhưng assumption không được biến thành fact.
+
+Autopilot chỉ chạy qua gate:
+
+- plan/slot còn active và chưa bị revision invalidate;
+- meal là home meal;
+- required inputs available trong OperationalState;
+- không có unresolved shopping shortfall hoặc execution conflict.
+
+Allowed effects: provisional consume, provisional prepared lot, provisional leftover allocation, operational projection. Forbidden effects: purchase fulfillment, actual price, discard, allergy-sensitive substitution, hard-constraint relaxation acceptance, durable preference learning hoặc irreversible replan.
+
+Corrections dùng compensating entries (`AUTOPILOT_REVERSAL`) thay vì delete history. Provisional events có dependency chain; reverse parent cascade assumptions phụ thuộc, còn conflict với confirmed child tạo `EXECUTION_CONFLICT` cần reconcile.
+
+## 13.13 ExecutionImpactAnalyzer and local-first repair
+
+Mỗi drift event được đánh giá theo nutrition/inventory/expiry/shopping/batch impact và trả một trong:
+
+```text
+NONE
+LOCAL_REPAIR
+REPLAN_RECOMMENDED
+REPLAN_REQUIRED
+```
+
+Escalation mặc định: quantity adjustment → substitute → reschedule/leftover → local swap → remaining-week replan. `REPLAN_REQUIRED` nghĩa current remaining intent không còn safe/feasible; user vẫn cần xác nhận revision.
+
+## 13.14 HorizonBridgeResolver
+
+Khi tạo plan cho horizon mới trước khi active horizon kết thúc, resolver replay future commitments từ `t_now` đến `T_start` để tạo:
+
+- `ProjectedOpeningAssets(T_start)`;
+- remaining committed reservations transformed correctly;
+- scheduled prepared carryovers;
+- `ProvisionalRecentExposure` cho meals scheduled trước `T_start`.
+
+Resolver phải tránh double-count raw ingredients đã reserved cho batch và output prepared food của chính batch đó. Đây là implementation contract của `INV-030`.
 
 # 14. Recipe architecture, cooking batch và adherence
 
@@ -1376,30 +1565,35 @@ Catalog edit sau này không được làm thay đổi plan lịch sử.
 CookingBatch là production entity, không chỉ repeat dish marker.
 
 ```text
-CookingBatch
-├── recipe/grounded variant
-├── produced_quantity
+PlannedCookingBatch
+├── grounded recipe/variant
+├── planned_servings
+├── batch_resolved_ingredients
 ├── production_time
-└── BatchAllocation[] → meal consumption demands
+└── BatchAllocation[] → meal consumption demand
 ```
 
-`CookingEffort` khác `MealRepetition`: nấu một lần ăn hai bữa có thể desirable dù recipe xuất hiện hai lần.
+Khi thực thi, `CookingBatchExecution` materialize thành `PreparedFoodLot`. `CookingEffort` khác `MealRepetition`: nấu một lần ăn nhiều bữa có thể desirable dù cùng family xuất hiện lặp.
 
-## 14.10 Adherence score
+**Batch Density Adjustment Rule:** bounded micro-adjustment thay ingredient composition nhưng không tự đổi `planned_servings`/`produced_servings`. Nutrition cho allocated servings được derive từ batch composition sau adjustment. Explicit portion-tier revision mới được đổi serving count.
+
+## 14.10 Behavioral candidate vector, not persisted AdherenceScore
+
+V1.3 không persist một scalar `adherence_score` làm domain truth. Candidate giữ dimensions riêng:
 
 ```text
-adherence_score =
-  time_fit
-+ equipment_fit
-+ complexity_fit
-+ ingredient_count_fit
-+ batch_fit
-+ schedule_fit
-+ behavioral_acceptance
-- recent_rejection_penalty
+taste_fit
+time_fit
+equipment_fit
+complexity_fit
+ingredient_count_fit
+batch_fit
+schedule_fit
+repeat_penalty
+novelty_value
 ```
 
-V1 dùng heuristic/versioned policy. Learned ranking chỉ sau khi có đủ event volume + offline evaluation.
+Stage 2 compile vector này thành utility bằng versioned policy. Taste, context fit, repeat exposure và novelty được cung cấp bởi ADR-011 learning components; chúng không được collapse sớm thành một historical scalar khó giải thích.
 
 # 15. AI / Menuto Assistant
 
@@ -1467,7 +1661,9 @@ Không dùng loose dependency kiểu `ortools>=9`; optimizer/version phải repr
 - Structured reason/error codes.
 - Long solve có run_id/status khi async.
 - Optimistic concurrency cho inventory.
-- Activated plan immutable về critical snapshots; changes tạo revision/new run.
+- Activated week giữ stable `plan_id`; `PlanRevisionSnapshot` immutable, future working graph chỉ đổi qua validated atomic revision.
+- Execution facts/materialized household assets không bị rewrite bởi plan revision.
+- State-changing commands dùng optimistic concurrency/idempotency keys; precommit validation report phải match subject/revision hash.
 
 ## 16.4 Repository layout
 
@@ -1490,6 +1686,8 @@ menuto/
 │       │   │   ├── cooking/
 │       │   │   ├── shopping/
 │       │   │   ├── execution/
+│       │   │   ├── validation/
+│       │   │   ├── learning/
 │       │   │   ├── preferences/
 │       │   │   └── assistant/
 │       │   └── shared/
@@ -1521,161 +1719,321 @@ menuto/
 | Audit               | Admin/catalog/price changes auditable.                                                            |
 | Safety copy         | Nutrition planning is informational/wellness; escalate clinical needs to qualified professionals. |
 
-# 18. Testing, benchmark và observability
+# 18. Independent validation, testing, benchmark và observability
 
-## 18.1 Test pyramid
+## 18.1 Validator responsibility and independence boundary
 
-| **Layer**        | **Tests**                                                                     |
-|------------------|-------------------------------------------------------------------------------|
-| Domain unit      | Nutrition formulas, unit conversions, shelf-life, price/package math.         |
-| Planner model    | Small deterministic instances với known optimum/feasibility.                  |
-| Property-based   | No negative stock, budget never exceeded, excluded ingredient never selected. |
-| Integration      | Generate → validate → save → shopping → inventory reservation.                |
-| Golden scenarios | Curated 1/3/7-day real-world plans.                                           |
-| Benchmark        | V3/V4/reference pool comparison; quality + runtime regression.                |
-| Frontend         | Critical onboarding/generate/swap/shop/today flows.                           |
-| Data quality     | Missing nutrition/price/shelf-life/product-map thresholds.                    |
+`Independent Validator` là deterministic, side-effect-free semantic verifier. Nó kiểm correctness, không search/optimize/repair và không dùng LLM.
 
-## 18.2 Benchmark dimensions
+```text
+ValidationSubjectSnapshot
+  ↓
+Root Contract Guards
++ Primitive Fact Calculators
++ Chronological Replay
+  ↓
+Domain Validators
+  ↓
+ValidationReport(findings, derived_facts, trace, hashes)
+```
+
+Allowed shared dependencies: domain primitives, units, contracts, immutable policy/scenario snapshots. `validation` không import planner constraint builders, candidate generation, solver expressions hoặc objective helpers.
+
+## 18.2 Root Contract Guards
+
+Validator không viết lại full Policy Engine, nhưng kiểm root invariants từ canonical contracts:
+
+- participant identity + canonical member allergy/diet constraints;
+- goal direction/containment contract;
+- safety floor không bị resolver làm yếu hơn applicable guideline contract;
+- hard budget contract/relaxation status không bị relabel.
+
+Participant safety bypass planner-resolved exclusion summaries.
+
+## 18.3 Primitive recomputation
+
+Correctness-critical values được derive từ resolved primitive facts có explicit measurement basis/provenance:
+
+- nutrition từ resolved ingredient allocations + compatible nutrition basis;
+- AP→EP edible yield rồi cooking/prepared transformation riêng;
+- procurement cost từ package/procurement quantity × scenario quote, không prorate recipe grams tùy tiện;
+- recipe quantities so với authored envelopes;
+- household safety từ actual participants × grounded ingredient identities.
+
+Planner summaries có thể được cross-check sau recomputation để phát hiện `DERIVED_SUMMARY_MISMATCH`, nhưng không phải source of truth cho validation.
+
+## 18.4 Global conservation + chronological domain-event replay
+
+Hai checks đều bắt buộc:
+
+1. **Global conservation:** `Opening + Inflows - Outflows = Closing`.
+2. **Temporal causality replay:** imperative replay qua acquisition, reconcile/transfer, raw consumption, prepared production, meal consumption, expiry/discard với deterministic ordering/sequence.
+
+Replay kiểm `Stock(t) >= 0`, reservations không vượt physical stock, asset chưa được consume trước acquire, và event không dùng lot sau `usable_until`. Raw và prepared asset ledgers được replay riêng, batch event nối hai ledgers.
+
+## 18.5 PRECOMMIT vs POSTFACT
+
+- `PRECOMMIT_VALIDATION`: gate plan activation, local refinement, swap và revision; yêu cầu `0 FATAL`, `0 ERROR` và matching subject hash/revision lock.
+- `POSTFACT_VALIDATION`: diagnostic reality đã xảy ra; không reject lịch sử mà tạo findings/repair recommendations.
+
+Local `CulinaryAdjustmentPass` nếu fail revalidation thì tự discard refinement và fallback về globally validated plan.
+
+## 18.6 Core validators V1
+
+```text
+RootContractValidator
+HouseholdSafetyValidator
+RecipeGroundingValidator
+NutritionPrimitiveValidator
+ProcurementScenarioValidator
+MaterialYieldValidator
+ChronologicalInventoryValidator
+BatchFlowValidator
+RevisionBoundaryValidator
+AssumptionGraphValidator
+```
+
+Findings có structured `code`, `severity`, `source_domain`, `scope`, expected/actual và proof trace. Severity: `FATAL`, `ERROR`, `WARNING`, `INFO`.
+
+## 18.7 Test pyramid
+
+| Layer | Tests |
+|---|---|
+| Domain unit | Units/basis, nutrition formulas, yield, shelf-life, procurement/package math. |
+| Planner model | Small deterministic instances với known feasibility/optimum. |
+| Validator mutation corpus | Start từ valid fixture rồi cố tình inject allergen, AP→EP omission, short protein, budget breach, consume-before-buy, broken assumption dependency. |
+| Property-based | No negative stock, conservation, participant safety, locked past unchanged. |
+| Integration | Generate → validate → activate → shopping fulfillment → execution/revision → reconcile. |
+| Golden scenarios | Curated 1/3/7-day household plans incl. partial shopping, batch leftovers và cross-horizon bridge. |
+| Benchmark | Planner/reference comparison; quality + runtime + validation regression. |
+| Frontend | Onboarding/generate/swap/shop/today/undo/reconcile flows. |
+| Data quality | Missing basis/nutrition/price/shelf-life/product-map thresholds. |
+
+## 18.8 Benchmark dimensions
 
 - 1/3/7 days; 2 vs 3 meals/day.
-- Loose/tight/no budget.
-- No inventory vs rich inventory vs expiring inventory.
-- Small/medium/large recipe catalog.
+- Loose/tight/no budget; SPEND_LIMIT revision after partial actual spend.
+- No/rich/expiring inventory; planned vs confirmed vs assumed execution state.
+- Small/medium/large recipe catalog and grounded variant pressure.
 - High protein, maintain, calorie deficit presets.
-- Many exclusions/preferences.
-- Large package increments and short shelf-life.
-- Price data fresh vs stale/fallback.
+- Many exclusions/preferences; multi-participant shared meals.
+- Large package increments, catch-weight and short shelf-life.
+- Price data fresh/stale/fallback; procurement fragility.
+- Cross-week horizon generated before current horizon ends.
 
-## 18.3 Metrics per run
+## 18.9 Metrics per run
 
-| **Category** | **Metrics**                                                               |
-|--------------|---------------------------------------------------------------------------|
-| Solver       | status, solve_ms, phases completed, optimal/best-effort, candidate_count. |
-| Nutrition    | calorie_error_pct, protein_shortage_pct, macro deviations.                |
-| Budget       | purchase_cost, budget_utilization, actual-vs-planned later.               |
-| Inventory    | inventory_value_used, expiring_value_saved, ending stock.                 |
-| Waste        | expired_waste_value, awkward_carryover_value.                             |
-| Experience   | unique_dishes, repeats, cooking_minutes, shopping_days, unique_products.  |
-| Quality gap  | difference vs reference solve on comparable objective vector.             |
+| Category | Metrics |
+|---|---|
+| Solver | status, solve_ms, phases completed, optimal/best-effort, candidate_count. |
+| Validation | findings_by_severity/code, validation_ms, stale_report_retry, summary mismatch count. |
+| Nutrition | comfort violations, goal/safety violations, validator-recomputed totals. |
+| Budget | expected/scenario spend, actual_sunk_spend, remaining stress spend, budget status. |
+| Inventory | inventory_value_used, expiring_value_saved, negative/intermediate violations=0. |
+| Waste | expired_waste_value, awkward_carryover_value. |
+| Execution | assumed vs confirmed events, correction rate, assumption debt, local-repair/replan rate. |
+| Experience | unique dishes, repeats, cooking_minutes, shopping_days, exploration/exploit mix. |
+| Quality gap | difference vs reference solve on comparable objective vector. |
 
-## 18.4 Observability
+## 18.10 Observability
 
-- Planner run trace có request fingerprint nhưng tránh PII/raw sensitive detail trong logs.
-- Catalog data version + policy version + price snapshot IDs.
-- Reason codes cho infeasible/data insufficient/time limit.
-- Dashboard nội bộ theo fail rate, timeout rate, swap rate, plan quality distribution.
+- Planner/validator run trace dùng fingerprints, tránh PII/raw sensitive logs.
+- Catalog/policy/price/recipe/revision/validation subject hashes.
+- Reason codes cho infeasible/data insufficient/time limit/validation failure/execution conflict.
+- Dashboard fail/timeout/swap/replan/assumption correction/actual-vs-planned price.
 
-# 19. Metrics và feedback loop
+# 19. Metrics và Behavioral Learning Loop
 
 > **North Star Metric**
 >
 > Completed planned meals per active household per week.
 
-| **Metric**            | **Ý nghĩa**                                     |
-|-----------------------|-------------------------------------------------|
-| Plan acceptance rate  | Plan generate xong có được activate/save không. |
-| Swap rate             | Proxy cho candidate/preference quality.         |
-| Planned → cooked rate | Adherence thực tế.                              |
-| Budget deviation      | Planned vs actual spend.                        |
-| Inventory utilization | Giá trị/khối lượng đồ sẵn có được dùng.         |
-| Waste rate            | Discarded/expired inventory.                    |
-| Weekly retention      | Menuto có trở thành routine không.             |
-| Relaxation acceptance | Advisor có đưa lựa chọn hữu ích không.          |
+| Metric | Ý nghĩa |
+|---|---|
+| Plan acceptance rate | Plan generate xong có activate/save không. |
+| Swap rate + reason | Candidate quality vs context friction. |
+| Planned → confirmed cooked | Execution fit; không đồng nghĩa taste. |
+| Budget deviation | Planned/scenario vs actual spend. |
+| Inventory utilization | Physical assets được dùng trước expiry. |
+| Waste rate | Discarded/expired inventory. |
+| Weekly retention | Menuto trở thành routine không. |
+| Relaxation acceptance | Advisor usefulness, không phải preference label. |
+| Correction rate | Bao nhiêu autopilot assumptions bị user sửa. |
+| Exploration acceptance | Món under-explored được giữ/swapped/favorited ra sao. |
 
-## 19.1 Behavioral events
+## 19.1 Event semantics
+
+Các event phải mang reason/context/provenance đủ để attribution, ví dụ:
 
 ```text
 plan_generated
 plan_activated
-dish_shown
-dish_swapped
-dish_skipped
-dish_cooked
-recipe_favorited
-shopping_item_purchased
+plan_revised
+shopping_item_fulfilled
 actual_price_recorded
+user_confirmed_cooked
+autopilot_assumed
+meal_swapped(reason)
+meal_skipped(reason)
+meal_ate_out
+recipe_favorited
+explicit_dislike
 inventory_consumed
 inventory_discarded
+reconcile_confirmed
 relaxation_offered
-relaxation_accepted
+relaxation_accepted(context=FORCED_CONFLICT_RESOLUTION)
 ```
+
+## 19.2 EvidenceClassifier + SignalAttributionRouter
+
+Mỗi signal được classify `DIRECT | CONTEXTUAL | INFERRED | PASSIVE`, rồi route sang:
+
+```text
+TasteAffinity
+KitchenContextFit
+RecentExposureModel
+RetailCalibration
+NoLearn
+```
+
+`AUTOPILOT_ASSUMED` không tạo durable learning. `USER_CONFIRMED_COOKED` update execution/context fit + confirmed exposure nhưng TasteAffinity = 0. `NO_TIME`/`OUT_OF_STOCK`/`TOO_EXPENSIVE` không phạt taste. Unattributed rejection chỉ weak evidence.
+
+## 19.3 Member-owned hierarchical preference
+
+`MemberBehaviorProfile` thuộc `HouseholdMember` và có feature-level + direct recipe evidence:
+
+- IngredientAffinity;
+- ProteinAffinity;
+- CookingMethodAffinity;
+- FlavorProfileAffinity;
+- DirectRecipeAffinity;
+- EvidenceStrength `NONE | LOW | MEDIUM | HIGH`.
+
+Planner dùng shrunk affinity: khi evidence thấp thì gần onboarding/catalog prior; evidence trực tiếp tăng dần influence member-specific score. Favorite/rating có thể generalize yếu sang feature, nhưng direct recipe signal mạnh hơn generalization.
+
+## 19.4 RecentExposureModel / RepeatCooldown
+
+Exposure history xuyên weekly boundary và có multi-level fingerprints:
+
+```text
+recipe_id          strong repeat penalty
+variant_family_id  medium
+main_protein       light
+cooking_method     light
+flavor_profile     light
+```
+
+Confirmed/reconciled exposure có full weight theo policy; autopilot chỉ tạo reversible provisional exposure trong operational horizon. Decay/default cooldown được version/configure theo family/category và benchmark; không hard-code universal 7–14 ngày hay exponential curve vào ADR.
+
+## 19.5 Shared meal utility and actor-scoped learning
+
+Hard safety được resolve trước utility. Shared meal TasteFit/RepeatPenalty aggregate member-owned profiles; explicit avoid/direct dislike có strong veto-like soft penalty, low affinity chỉ weighted utility.
+
+Execution→Learning mặc định update actor/member được chỉ định, không copy preference sang mọi participant.
+
+## 19.6 Bounded exploration
+
+Role-aware shortlist bảo vệ configurable capacity cho ba nguồn:
+
+```text
+EXPLOIT
+STRUCTURAL_CHAMPION   # economics/inventory/nutrition/waste
+EXPLORE
+```
+
+Quota là versioned `ShortlistPortfolioPolicy`, không phải fixed 50/30/20 architecture constant. V1 dùng deterministic novelty/exposure/feature-fit score, không gọi là UCB/statistical confidence nếu không implement/calibrate đúng.
+
+## 19.7 Learned observation != explicit policy
+
+Repeated context behavior có thể tạo semantic observation (*“Bạn thường chọn món nhanh vào tối ngày thường”*) và soft ranking influence, nhưng không tự rewrite `KitchenEffort`/budget/nutrition policy. User có thể confirm/promote, invalidate hoặc reset learned rule; explicit correction phải ngăn engine re-infer y hệt mà không evidence mới.
+
+## 19.8 Forced trade-off quarantine
+
+Signals từ accepted Relaxation Advisor hoặc forced repair có `FORCED_CONFLICT_RESOLUTION`; chỉ dùng trade-off analytics, không update voluntary taste/context preference theo `INV-029`.
 
 # 20. Roadmap Public V1 → V1.5 → V2
 
-## 20.1 Milestone 0 — Architecture lock + benchmark foundation
+## 20.1 Milestone 0 — Canonical contracts + benchmark foundation
 
-- Repo sạch + coding/CI conventions.
-- Domain glossary và invariants V1.2.
-- Publish canonical ADR-001..ADR-008 + Architecture Invariants.
-- Smart Menu benchmark fixtures port sang neutral scenario format.
-- Pin Python/OR-Tools toolchain và reproducibility policy.
+- Publish V1.3 canonical spec, ADR-001..ADR-011 và INV-001..INV-030.
+- Domain glossary + ownership/lifecycle/state diagrams.
+- Unit/measurement-basis primitives (`AP_G`, `EP_RAW_G`, `COOKED_G`, `SERVING`, money/discrete units).
+- Neutral benchmark fixture format + mutation-test fixture format.
+- Pin Python/OR-Tools/toolchain and reproducibility policy.
+- Architecture dependency checks: validation cannot import planning/solver internals.
 
-## 20.2 Milestone 1 — Household/Data foundation
+## 20.2 Milestone 1 — Household/Data/Execution foundation
 
 - Identity + default household/member creation.
-- Member nutrition/diet/allergy profile schema.
+- Member nutrition/diet/allergy + behavior profile schema.
 - MealParticipants/meal schedule defaults.
-- Ingredient + nutrition catalog.
+- Ingredient/nutrition catalog with explicit measurement basis/provenance.
 - RecipeVersion + RecipeIngredient + VariantRule.
 - RetailProduct/Offer + ProcurementClass + PlanningPriceQuote + ReferencePriceBook + RetailPriceCalibration.
-- Household inventory lot/events/policy/reconcile.
+- Household inventory lots/movements/reservations/policy/reconcile.
+- Stable `ActivePlan` + `PlanRevisionSnapshot` + execution-event schema.
+- PreparedFoodLot + CookingBatchExecution data model.
 
-## 20.3 Milestone 2 — Policy engines
+## 20.3 Milestone 2 — Policy engines + snapshots
 
 - NutritionPolicyEngine 4-layer synthesis.
 - NutritionResolutionEstimator.
-- BudgetPolicy/CostPreference/BudgetPressure resolver + `SPEND_LIMIT` contract.
-- KitchenPolicy resolver + weekday/weekend availability.
-- ResolvedPlanPolicy version/snapshot tests.
+- Economic/Budget resolver + `SPEND_LIMIT` contract.
+- KitchenPolicy resolver + daily availability.
+- ResolvedPlanPolicy + StressScenario + ValidationSubject snapshot contracts.
+- Root contract invariant tests.
 
-## 20.4 Milestone 3 — Planner V4 global core
+## 20.4 Milestone 3 — Planner V4 global core + validator
 
 - Grounded Variant Generator.
-- Role-aware Pareto shortlist.
+- Role-aware Pareto/portfolio shortlist with bounded exploration hooks.
 - Conservative Feasibility V2.
-- Stage 1 Band + Structural Economics.
-- Package/procurement/inventory/batch model + deterministic budget stress scenarios.
-- Stage 2 Human Utility.
-- Independent validator.
-- Reference benchmark/quality-gap report.
+- Stage 1 Band + Structural Economics + deterministic spend stress scenarios.
+- Package/procurement/inventory/batch model.
+- Stage 2 Human Utility vector composition.
+- Independent Validator: primitive recomputation + conservation + chronological replay.
+- Reference benchmark/quality-gap/mutation corpus.
 
-## 20.5 Milestone 4 — Refinement + advisor
+## 20.5 Milestone 4 — Refinement + execution repair
 
-- CulinaryAdjustmentPass.
+- CulinaryAdjustmentPass + mandatory revalidation/fallback.
 - Constraint conflict/elastic/verification advisor.
-- Local Swap vs Re-optimize Remaining Week separated.
+- Local Swap / remaining-week replan as atomic plan revisions.
+- ExecutionImpactAnalyzer local-first escalation.
+- HorizonBridgeResolver for overlapping planning horizons.
 - Explainability facts/provenance.
 
-## 20.6 Milestone 5 — Consumer V1
+## 20.6 Milestone 5 — Consumer V1 closed loop
 
-- Onboarding without PlanningMode.
+- Onboarding without PlanningMode + cold-start feature priors.
 - Situational plan chips.
 - One-tap inventory reconcile.
 - Household meal participation defaults.
 - Result Quality Summary.
-- Shopping list/product packages.
-- Today mode + batch/leftover execution.
+- Shopping fulfillment actual qty/price + primary/backups.
+- Today mode + batch/leftover execution + exception-only autopilot correction UX.
+- Learned observations UI/reset/promotion to policy.
 - AI parse/explain bounded by deterministic facts.
 
 ## 20.7 Milestone 6 — Public readiness
 
-- Security/privacy/eligibility review.
-- Retail evidence/provenance, ProcurementClass, calibration and stress-scenario policy.
-- Data-quality coverage matrix.
-- Performance/load/timeout behavior.
+- Security/privacy/wellness eligibility review.
+- Retail provenance/calibration/stress-scenario QA.
+- Data/catalog coverage matrix.
+- Planner + validator + execution performance/load tests.
 - Accessibility/responsive QA.
 - Backup/restore/migration rollback.
-- Launch feature flags/rollback.
+- Launch feature flags/rollback + operational dashboards.
 
 ## 20.8 V1.5
 
-- Barcode/receipt-assisted inventory.
-- Better per-day schedule context.
-- Household-lite sharing/collaboration.
+- Barcode/receipt-assisted inventory and richer actual-cost calibration.
+- Better per-day schedule/context inference with user-confirmable learned rules.
+- Household-lite collaboration.
 - More retailer adapters.
-- Leftover execution refinement.
-- Behavioral preference ranking.
+- Leftover/execution UX refinement.
+- Better deterministic learning/portfolio tuning.
 - Limited/bounded recipe import drafts.
 
 ## 20.9 V2
@@ -1685,53 +2043,63 @@ relaxation_accepted
 - Native mobile if retention supports it.
 - Camera inventory assistant.
 - Long-horizon carryover planning.
-- Robust nutrition optimization only when uncertainty metadata is sufficient.
-- Learned ranking/personalization after offline evaluation maturity.
+- Robust/stochastic nutrition or checkout models only when uncertainty metadata and empirical calibration are sufficient.
+- More advanced personalization after offline evaluation maturity.
 
 # 21. Backlog triển khai ưu tiên
 
 | ID | Priority | Epic / Issue | Acceptance criteria tóm tắt |
 |---|---|---|---|
-| MTR-001 | P0 | Domain glossary + invariants | Canonical V1.2 distinctions/invariants mirrored in tests/docs. |
-| MTR-002 | P0 | Benchmark harness | Scenario matrix + objective vector + runtime/status + reference config. |
-| MTR-003 | P0 | Household-first schema | Default household/member; household-owned resources; actor fields. |
-| MTR-004 | P0 | MealParticipants model | Participant IDs + portion factors + hard constraint resolution + derived scale. |
-| MTR-005 | P0 | NutritionPolicyEngine | Guideline/goal/comfort/weekly policy; no BMR-as-safety shortcut. |
-| MTR-006 | P0 | NutritionResolutionEstimator | Catalog/portion granularity reporting; no silent unbounded widening. |
-| MTR-007 | P0 | PlanPolicyResolver | NutritionPrecision, CostPreference, KitchenEffort, BudgetContract compiled independently. |
-| MTR-008 | P0 | Budget baseline/pressure | ReferenceFeasibleCost pressure distinct from preference/contract. |
-| MTR-009 | P0 | Retail evidence schema | RetailProduct/Offer/provenance/source-quality/availability evidence. |
-| MTR-010 | P0 | ProcurementClass builder | FIXED_PACK/CATCH_WEIGHT/LOOSE_SCALE + coverage/fragility metadata. |
-| MTR-011 | P0 | PlanningPriceQuote + calibration | RetailPriceCalibration retailer×region×category with confidence/shrinkage. |
-| MTR-012 | P0 | SPEND_LIMIT stress scenarios | BASE/ADVERSE_WEIGHT/BACKUP/CATEGORY_STRESS snapshot + linear constraints. |
-| MTR-013 | P0 | AP→EP mapping | Edible yield at Product→Ingredient; cooking yield in recipe layer. |
-| MTR-014 | P0 | Inventory ledger + policy | Household lots/events/policy/confidence/reconcile. |
-| MTR-015 | P0 | Recipe version/variant schema | Contextual substitution + quantity/scaling/adjustment policies. |
-| MTR-016 | P0 | Grounded Variant Generator | Demand-driven variants; immutable nutrition/cost/yield; reason/fingerprint. |
-| MTR-017 | P0 | Role-aware Pareto shortlist | No cheapest starvation; per-role scoring; reference-gap test. |
-| MTR-018 | P0 | Feasibility V2 | Inventory/procurement/participant aware; data insufficiency != infeasible. |
-| MTR-019 | P0 | Stage 1 global optimizer | Comfort violation + structural economics + fragility + package/inventory/batch. |
-| MTR-020 | P0 | CookingBatch model | Production/allocation separate from attendance/meal demand. |
-| MTR-021 | P0 | Stage 2 human utility | Economic tolerance + adherence/diversity/schedule/center drift. |
-| MTR-022 | P0 | Independent validator | Separate validation path for nutrition/budget scenarios/inventory/batch/recipe snapshots. |
-| MTR-023 | P0 | Planner API v1 | Versioned policy/source/scenario snapshots + structured statuses/reasons. |
-| MTR-024 | P0 | Consumer onboarding | No PlanningMode; life questions; budget contract wording; household defaults. |
-| MTR-025 | P0 | Plan Quality Summary | Nutrition zone, budget status, provenance, inventory, waste, batch, fragility. |
-| MTR-026 | P1 | CulinaryAdjustmentPass | Freeze meal structure; bounded quantity refinement; revalidate. |
-| MTR-027 | P1 | Relaxation Advisor | Conflict → elastic estimate → verified proposals; no silent hard relaxation. |
-| MTR-028 | P1 | Local Swap | Freeze unaffected meals; recompute procurement/nutrition/scenarios/validator. |
-| MTR-029 | P1 | Re-optimize remaining week | Freeze executed/past state; use current inventory/purchases. |
-| MTR-030 | P1 | Shopping requirement resolver | Primary + backups + price/provenance + accepted procurement class. |
-| MTR-031 | P1 | Today mode | Participants, batch/leftover guidance, prep/expiry, execution actions. |
-| MTR-032 | P1 | Inventory reconcile UI | Confirm/edit stale/projected inventory in seconds. |
-| MTR-033 | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. |
-| MTR-034 | P1 | AI intent/explanation | Structured intent + verified metrics only. |
-| MTR-035 | P1 | Telemetry/feedback | plan/swap/cook/purchase/waste/reconcile/actual-price events with privacy review. |
-| MTR-036 | P1 | Catalog coverage matrix | Role/protein/style/quick/high-protein coverage + planner-ready completeness. |
-| MTR-037 | P1 | Receipt-vs-plan calibration dataset | Store planned quote/scenario outcomes vs actual checkout for later risk calibration. |
-| MTR-038 | P2 | Barcode/receipt import | Reviewable mapping to InventoryLot/PurchaseEvent/RECEIPT_ACTUAL. |
-| MTR-039 | P2 | Household-lite collaboration | Shared household UI/permissions, no individualized solver yet. |
-| MTR-040 | P2 | Recipe import | Reviewable RecipeVersion draft; no auto-trust facts. |
+| MTR-001 | P0 | Domain glossary + invariants | V1.3 canonical distinctions + INV-001..030 mirrored in docs/tests; renumber migration note present. |
+| MTR-002 | P0 | Benchmark + mutation harness | Scenario matrix, objective vector, runtime/status, reference config + deliberately corrupted validator fixtures. |
+| MTR-003 | P0 | Units & measurement basis | AP/EP/raw/cooked/serving/money/discrete contracts; incompatible bases rejected. |
+| MTR-004 | P0 | Household-first schema | Default household/member; household-owned resources; actor fields. |
+| MTR-005 | P0 | MealParticipants model | Participant IDs + portion factors + canonical hard-constraint resolution + derived attendance scale. |
+| MTR-006 | P0 | NutritionPolicyEngine | Guideline/goal/comfort/weekly policy; root contracts versioned. |
+| MTR-007 | P0 | NutritionResolutionEstimator | Catalog/portion resolution reporting; no silent unbounded widening. |
+| MTR-008 | P0 | PlanPolicyResolver | NutritionPrecision, CostPreference, KitchenEffort, BudgetContract compiled independently. |
+| MTR-009 | P0 | Budget baseline/pressure | ReferenceFeasibleCost pressure distinct from preference/contract. |
+| MTR-010 | P0 | Retail evidence schema | RetailProduct/Offer/provenance/source-quality/availability evidence. |
+| MTR-011 | P0 | ProcurementClass builder | FIXED_PACK/CATCH_WEIGHT/LOOSE_SCALE + coverage/fragility metadata. |
+| MTR-012 | P0 | PlanningPriceQuote + calibration | Retailer×region×category calibration with confidence/shrinkage. |
+| MTR-013 | P0 | SPEND_LIMIT stress scenarios | BASE/ADVERSE_WEIGHT/BACKUP/CATEGORY_STRESS snapshot + revision sunk-spend semantics. |
+| MTR-014 | P0 | AP→EP + cooking-yield chain | Product AP→EP explicit; cooking yield/prepared output separate. |
+| MTR-015 | P0 | Inventory physical ledger | Household lots/movements/reservations/policy/reconcile; planned acquisition never physical stock. |
+| MTR-016 | P0 | ActivePlan + PlanRevision schema | Stable plan_id, immutable revision snapshots/diffs, locked materialized past, optimistic revision locking. |
+| MTR-017 | P0 | Execution state projections | Confirmed/Operational/Planning views + provisional assumption provenance. |
+| MTR-018 | P0 | Recipe version/variant schema | Contextual substitution + quantity/scaling/adjustment policies. |
+| MTR-019 | P0 | Grounded Variant Generator | Demand-driven immutable candidates; reason/fingerprint; explicit bases. |
+| MTR-020 | P0 | Role-aware portfolio shortlist | Pareto + EXPLOIT/STRUCTURAL_CHAMPION/EXPLORE capacity; no cheapest starvation. |
+| MTR-021 | P0 | Feasibility V2 | Inventory/procurement/participant aware; data insufficiency != infeasible. |
+| MTR-022 | P0 | Stage 1 global optimizer | Comfort violation + structural economics + fragility + package/inventory/batch. |
+| MTR-023 | P0 | CookingBatch/PreparedFood model | Planned production/allocation + execution transformation + leftovers; serving-count seam rule. |
+| MTR-024 | P0 | Stage 2 human utility | Separable behavioral vector compiled by versioned utility policy. |
+| MTR-025 | P0 | ValidationSubjectSnapshot | Immutable facts/policy/scenario/revision hash; no mid-validation DB drift. |
+| MTR-026 | P0 | Independent validator suite | Root safety, primitive nutrition/cost/yield, conservation, chronological replay, batch/revision/assumption checks. |
+| MTR-027 | P0 | Planner API v1 | Versioned policy/source/scenario/validation snapshots + structured statuses/reasons. |
+| MTR-028 | P0 | Consumer onboarding | Life questions; budget wording; household defaults; cold-start feature priors. |
+| MTR-029 | P0 | Plan Quality Summary | Nutrition zone, spend status, provenance, inventory, waste, batch, fragility. |
+| MTR-030 | P1 | CulinaryAdjustmentPass | Freeze structure; bounded quantity refinement; preserve serving count unless explicit tier; revalidate/fallback. |
+| MTR-031 | P1 | Relaxation Advisor | Conflict → elastic estimate → verified proposals; forced-context quarantine. |
+| MTR-032 | P1 | Local Swap revision | Proposed graph built/validated before atomic commit; preserve physical facts. |
+| MTR-033 | P1 | Remaining-week replan | Freeze executed/materialized past; use current actual/operational/planning state correctly. |
+| MTR-034 | P1 | Shopping fulfillment resolver | Partial actual qty/price, sunk spend, primary/backups, household inventory materialization. |
+| MTR-035 | P1 | Today/execution mode | Batch/leftover guidance, skip/eat-out/swap, non-blocking assumption correction. |
+| MTR-036 | P1 | Assumption graph + compensation | Dependency chains, compensating reversals, execution conflicts, assumption-debt tracking. |
+| MTR-037 | P1 | ExecutionImpactAnalyzer | NONE/LOCAL_REPAIR/REPLAN_RECOMMENDED/REPLAN_REQUIRED with local-first escalation. |
+| MTR-038 | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. |
+| MTR-039 | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. |
+| MTR-040 | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. |
+| MTR-041 | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. |
+| MTR-042 | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. |
+| MTR-043 | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. |
+| MTR-044 | P1 | AI intent/explanation | Structured intent + verified metrics only. |
+| MTR-045 | P1 | Telemetry/feedback | Execution/learning/relaxation events with attribution reason/context and privacy review. |
+| MTR-046 | P1 | Catalog coverage matrix | Role/protein/style/quick/high-protein coverage + planner-ready completeness. |
+| MTR-047 | P1 | Receipt-vs-plan calibration dataset | Planned quotes/scenarios vs actual checkout, with retailer/category/context. |
+| MTR-048 | P2 | Barcode/receipt import | Reviewable mapping to fulfillment/inventory/actual-price. |
+| MTR-049 | P2 | Household-lite collaboration | Shared household UI/permissions, no individualized solver yet. |
+| MTR-050 | P2 | Recipe import | Reviewable RecipeVersion draft; no auto-trust facts. |
 
 # 22. Smart Menu → Menuto reuse/migration matrix
 
@@ -1794,7 +2162,7 @@ Recipe count là kết quả của coverage, không phải mục tiêu độc l�
 ## 23.4 Consumer launch gate
 
 - Onboarding/generate/shop/today responsive + accessible.
-- Inventory reconcile nhanh, rõ projected vs confirmed.
+- Inventory reconcile nhanh, rõ Confirmed vs Operational assumption; no blocking confirmation for every meal.
 - Result không hiển thị fake precision (ví dụ 1,987 kcal như exact truth nếu policy/data không justify).
 - Retail offer vs calibrated reference vs baseline provenance dễ phân biệt; không fake checkout certainty.
 - Unsupported health/clinical request trả bounded message, không tự tính therapeutic plan.
@@ -1804,51 +2172,67 @@ Recipe count là kết quả của coverage, không phải mục tiêu độc l�
 - No critical/high security findings mở.
 - Backup/restore + migration rollback đã test.
 
+## 23.5 Milestone 0/1 implementation entry criteria
+
+Implementation blueprint chỉ bắt đầu khi:
+
+- `MENUTO_DEVELOPMENT_SPEC_V1_3.md`, ADR-001..011 và INV-001..030 cùng commit/version;
+- canonical units/measurement-basis enum/contracts được freeze;
+- ownership/lifecycle diagram cho Household, ActivePlan, InventoryLot, PreparedFoodLot, ProcurementClass có testable semantics;
+- ValidationSubjectSnapshot và Planner request/output contracts có draft schema;
+- benchmark + mutation fixture format được freeze;
+- architectural dependency CI rule chặn `validation → planning/solver internals`;
+- migration strategy từ Smart Menu được coi là selective reuse, không schema fork trực tiếp.
+
 # 24. ADR registry, risks và open decisions
 
-## 24.1 Canonical ADRs published with V1.2
+## 24.1 Canonical ADRs published with V1.3
 
 | ADR | Status | Canonical decision |
 |---|---|---|
-| ADR-001 Band-First Planner | ACCEPTED | Stage 0 hard feasibility; Stage 1 comfort/structural economics; Stage 2 human utility; bounded local refinement. |
-| ADR-002 Nutrition Policy Engine | ACCEPTED | Guideline → Goal → Resolution/Temporal → NutritionPrecision; no universal point-target/BMR safety shortcut. |
+| ADR-001 Band-First Planner | ACCEPTED | Stage 0 hard safety; Stage 1 comfort/structural economics; Stage 2 human utility; bounded local refinement. |
+| ADR-002 Nutrition Policy Engine | ACCEPTED | Guideline → Goal → Resolution/Temporal → NutritionPrecision; no universal point-target/BMR shortcut. |
 | ADR-003 Plan Policy Resolution | ACCEPTED | No canonical PlanningMode; orthogonal nutrition/cost/kitchen policy + explicit budget contract. |
-| ADR-004 Household-First Model | ACCEPTED | Household owns shared resources; member owns physiology; one TrackedMember in V1; participants source-of-truth. |
-| ADR-005 Grounded Recipe Variants | ACCEPTED | Authored flexibility → grounded immutable candidates; local adjustment only after global selection. |
-| ADR-006 Retail Procurement Abstraction | ACCEPTED | Retail evidence → ProcurementClass → PlanningQuote → concrete primary/backups; SKU-direct is not default. |
-| ADR-007 SPEND_LIMIT Robustness | ACCEPTED | Deterministic stress scenarios; no uncalibrated P90; relaxed alternatives require explicit acceptance. |
-| ADR-008 No Silent Relaxation | ACCEPTED | Hard constraint relaxations are separately labeled, verified and user-accepted before activation. |
+| ADR-004 Household-First Model | ACCEPTED | Household owns shared resources; member owns physiology; one TrackedMember V1; participants source-of-truth. |
+| ADR-005 Grounded Recipe Variants | ACCEPTED | Authored flexibility → grounded immutable candidates; local adjustment after global selection. |
+| ADR-006 Retail Procurement Abstraction | ACCEPTED | Retail evidence → ProcurementClass → PlanningQuote → concrete primary/backups; SKU-direct not default. |
+| ADR-007 SPEND_LIMIT Robustness | ACCEPTED | Deterministic stress scenarios; no uncalibrated P90; actual sunk spend collapses uncertainty after fulfillment. |
+| ADR-008 No Silent Relaxation | ACCEPTED | Hard relaxations separately labeled, verified and user-accepted before activation. |
+| ADR-009 Execution State Machine | ACCEPTED | Single ActivePlan graph, immutable revisions, three state views, reversible operational assumptions, prepared-food lifecycle. |
+| ADR-010 Independent Validator | ACCEPTED | Root contract guards + primitive recomputation + global conservation + chronological replay; precommit gating/postfact diagnostics. |
+| ADR-011 Behavioral Learning Loop | ACCEPTED | Attribution-routed member-owned multi-signal learning, recent exposure, bounded exploration, no passive/forced preference contamination. |
 
-Published files live under `docs/adr/`. The implementation must reference the ADR ID in PRs that alter a canonical decision.
+Implementation PRs thay canonical decision phải reference ADR; intentional invariant violation requires superseding ADR.
 
 ## 24.2 Core risks
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| Retail data stale/unavailable | Very high | Provenance, ProcurementClass, calibration, reference fallback, stress scenarios, explicit UX. |
-| False checkout certainty | Very high | `SPEND_LIMIT` semantics + invariant INV-010/011; no probability claim before calibration. |
-| Solver model growth | High | Grounded candidate caps, Pareto shortlist, 2-stage solve, local refinement, benchmark. |
-| Recipe variant explosion | High | Demand-driven grounding, one structural substitution/variant V1, compatibility rules. |
-| “Mathematically optimal, culinarily weird” | Very high | Authored flexibility + culinary validator + immutable candidates. |
-| Inventory diverges from kitchen reality | High | Confidence state + one-tap reconcile + execution events. |
-| Household aggregation hides allergy | Critical | Participants source-of-truth + member hard constraint resolution. |
-| Nutrition overclaims precision | High | Band-based UI, eligibility boundary, provenance, no fake medical certainty. |
-| Budget inference overrides user intent | Medium-high | Separate Pressure/Preference/Contract. |
-| V1 grows into multi-member macro solver | High | Explicit non-goal + schema prepared for V2. |
-| Build too much before PMF | High | V1 gates, non-goals, milestone sequencing. |
+| Retail data stale/unavailable | Very high | Provenance, ProcurementClass, calibration, reference fallback, stress scenarios. |
+| False checkout certainty | Very high | SPEND_LIMIT semantics, deterministic stress, no probability claim before calibration. |
+| Solver/candidate growth | High | Demand-driven grounding, role portfolio shortlist, local refinement, benchmark. |
+| Culinarily weird math | Very high | Authored flexibility, grounded candidates, validator, serving-count seam rule. |
+| Inventory diverges from kitchen reality | High | Operational assumptions + exception-only correction + targeted reconcile/assumption debt. |
+| Assumption becomes false memory | High | Confirmed/Operational split, no durable learning from passive events, compensating reversals. |
+| Household aggregation hides allergy/preference owner | Critical/High | Root member safety validation + member-owned behavior + actor-scoped attribution. |
+| Validation shares planner bug | Critical | Root guards, primitive recomputation, imperative replay, module dependency boundary. |
+| Cross-horizon double-count | High | HorizonBridgeResolver chronological transformation + INV-030. |
+| Learning filter bubble | High | Separable dimensions, shrunk priors, bounded exploration, no autopilot endorsement. |
+| Numeric nutrition overclaim | High | Band/policy provenance, wellness eligibility, no fake precision. |
+| V1 grows into family macro solver/ML platform | High | Explicit boundaries + deterministic learning V1. |
 
-## 24.3 Open architecture questions after V1.2
+## 24.3 Remaining open decisions after V1.3
 
-The following are intentionally **not** locked by V1.2:
+Core architecture loop is closed. Các mục còn mở chủ yếu là implementation/calibration, không phải subsystem ownership:
 
-1. **Execution State Machine:** shopping partially completed, actual quantities/prices, skips/eat-out, expiry drift, projected→confirmed inventory and remaining-week adaptation.
-2. **Independent Validator V2 architecture:** how far validator extends beyond generated plan to local refinement, swaps, activated/executed plan and stress-scenario replay while staying implementation-independent.
-3. **Behavioral Learning:** causal event taxonomy, cold-start preference and anti-filter-bubble strategy.
-4. **ReferenceFeasibleCost implementation:** fast lower-bound model vs small reference optimization for BudgetPressure.
-5. **Numeric NutritionPolicy constants:** architecture locked; values require evidence/product safety review and benchmark.
-6. **Retail acquisition/legal terms:** specific retailer adapters, terms and ingestion method need separate review.
-7. **Benchmark launch thresholds:** runtime, reference-gap and stress coverage numeric gates remain to be set empirically.
-8. **Receipt-calibrated stochastic/quantile model:** only after sufficient actual checkout history; not a V1 assumption.
+1. `ReferenceFeasibleCost` implementation: analytical lower bound vs small reference optimization.
+2. Numeric NutritionPolicy defaults: require evidence/safety/product benchmark; examples trong debate không phải constants.
+3. Retail acquisition/legal/commercial terms for specific adapters.
+4. Benchmark launch thresholds: latency, quality gap, validation budget và catalog coverage numeric gates.
+5. Exact default shortlist exploration quotas/cooldown configurations; must be empirically tuned/versioned.
+6. AssumptionDebt thresholds and when targeted reconcile becomes mandatory.
+7. Receipt-calibrated stochastic/quantile model only after sufficient actual checkout history.
+8. Database/contract implementation choices to be locked in Milestone 0/1 blueprint.
 
 # 25. Nguồn tham chiếu và ghi chú nghiên cứu
 
@@ -1885,26 +2269,27 @@ External product claims are used only to frame positioning. They do not prove co
 
 Menuto có cơ hội rõ nhất nếu giữ độ sâu tối ưu của Smart Menu nhưng thay đổi cách sản phẩm được đóng gói: từ “meal planner có nhiều module” thành “decision system cho cả vòng đời ăn uống trong tuần”. Điều quan trọng nhất không phải thêm nhiều feature hơn đối thủ, mà là làm cho engine đáng tin cậy, dữ liệu gần thực tế, UX đơn giản, và feedback loop đo được việc user có thực sự làm theo plan hay không.
 
-## 25.4 Architecture debate consolidation notes (V1.2)
+## 25.4 Architecture debate consolidation notes (V1.3)
 
-Revision V1.2 hợp nhất các vòng phản biện sau:
+V1.3 giữ toàn bộ V1.2 decisions và bổ sung/khóa:
 
-- Objective architecture: point-target/epsilon → Band-First 2-stage hierarchy.
-- Nutrition band synthesis: safety/guideline, goal protection, resolution/temporal, user precision separated.
-- PlanningMode removal: orthogonal policy dimensions + situational overrides.
-- Household-first data ownership with single tracked nutrition member in V1.
-- MealParticipants source-of-truth and explicit attendance/production separation.
-- Recipe bounded templates, contextual substitutions and Pre-Solve Grounding.
-- Package-fit micro-adjustment moved to local refinement after global meal/package selection.
-- Inventory tracking policy + confidence + reconcile.
-- Relaxation advice requires verification before user-facing action.
+- Execution: stable ActivePlan working graph + immutable revisions; physical facts detach from later intent revisions.
+- Three state views and reversible optimistic autopilot with compensating entries/dependency graph.
+- PreparedFoodLot and raw→prepared physical transformation.
+- Validator: semantic/arithmetic/algorithmic independence; explicit basis; global conservation + chronological replay.
+- Learning: attribution routing, member-owned preference, no `cooked = liked`, no passive durable learning, recent exposure and bounded exploration.
+- Seam 1: micro-adjustment changes batch composition, not implicit serving count.
+- Seam 2: fulfilled purchase becomes sunk actual cost in revision budget checks.
+- Seam 3: chronological horizon bridge for inventory + exposure; avoid double-count.
+- Seam 4: participant utility aggregation with actor-scoped preference attribution.
+- Seam 5: forced conflict resolution quarantined from voluntary preference learning.
+- Canonical invariants renumbered to INV-001..INV-030; V1.2/debate numbering is superseded.
 
-Các numeric policy constants chưa được coi là “fact” chỉ vì xuất hiện trong debate examples. Chúng phải được chốt riêng bằng evidence, product eligibility scope và benchmark/safety review.
-
-
+Numeric examples from debate remain examples unless separately adopted by versioned policy/benchmark evidence.
 
 ---
 
-## V1.2 release baseline
+## V1.3 release baseline
 
-This document, `docs/ARCHITECTURE_INVARIANTS.md`, and ADR-001..ADR-008 form one canonical architecture baseline. If a future implementation intentionally violates an accepted ADR/invariant, the change requires a superseding ADR rather than an undocumented code deviation.
+This document, `docs/ARCHITECTURE_INVARIANTS.md`, and ADR-001..ADR-011 form one canonical architecture baseline. The closed-loop architecture is now considered ready for Milestone 0/1 Implementation Blueprint. Any future implementation that intentionally violates an accepted ADR/invariant requires a superseding ADR rather than undocumented code drift.
+
