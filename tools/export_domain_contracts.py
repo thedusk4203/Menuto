@@ -25,7 +25,27 @@ from app.domain.units import (
 )
 from app.modules.catalog.contracts import IngredientCreate, NutritionFact
 from app.modules.households.contracts import HouseholdCreate, HouseholdCreated, MealParticipants
+from app.modules.inventory.contracts import RetailSourcedAPAssetDraft
 from app.modules.nutrition.contracts import MemberNutritionProfileWrite, MemberSafetyConstraint
+from app.modules.retail.contracts import (
+    IngredientProductMapFact,
+    PackageFact,
+    PlanningPriceQuoteDraft,
+    PlanningProcurementOptionDraft,
+    PriceEvidenceAssessmentDraft,
+    PriceObservationFact,
+    ProcurementClassFact,
+    ProcurementClassMemberFact,
+    ProcurementSnapshotDraft,
+    ProductIngredientConversionFact,
+    PurchaseIntent,
+    ReferencePriceBookFact,
+    ReferencePriceEntryFact,
+    RetailerFact,
+    RetailPriceCalibrationFact,
+    RetailProductFact,
+    StoreRegionFact,
+)
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
@@ -51,6 +71,24 @@ CONTRACTS = (
     WriteCommand,
     MemberNutritionProfileWrite,
     MemberSafetyConstraint,
+    RetailerFact,
+    StoreRegionFact,
+    RetailProductFact,
+    PackageFact,
+    PurchaseIntent,
+    IngredientProductMapFact,
+    ProductIngredientConversionFact,
+    PriceObservationFact,
+    ReferencePriceBookFact,
+    ReferencePriceEntryFact,
+    RetailPriceCalibrationFact,
+    ProcurementClassFact,
+    ProcurementClassMemberFact,
+    PlanningPriceQuoteDraft,
+    PlanningProcurementOptionDraft,
+    ProcurementSnapshotDraft,
+    PriceEvidenceAssessmentDraft,
+    RetailSourcedAPAssetDraft,
 )
 
 
@@ -60,10 +98,12 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:2"
+    schema["$id"] = "urn:menuto:domain:foundation:3"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "
+        "Retail facts use retail-v1; procurement/price handoffs remain DRAFT. "
+        "No activation-ready inventory or planning handoff is provided. "
         "Cross-field semantic guards run in Python, not JSON Schema alone."
     )
     return json.dumps(schema, indent=2, sort_keys=True, ensure_ascii=False) + "\n"

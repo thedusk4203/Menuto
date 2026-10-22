@@ -1,1 +1,1 @@
-"""Retail evidence and procurement. Namespace only; implementation pending."""
+"""M1.1 retail evidence/procurement foundation; planning handoffs remain draft."""

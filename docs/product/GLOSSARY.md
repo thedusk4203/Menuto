@@ -49,6 +49,21 @@ Giá dùng lập kế hoạch đã xử lý evidence/policy, không phải check
 **AP → EP**:
 Chuyển lượng mua về sang phần nguyên liệu sống sử dụng được qua edible yield thuộc Product→Ingredient mapping của Retail.
 
+**IngredientProductMap**:
+Bằng chứng có phiên bản nối một retail product với ingredient và edible yield AP→EP cụ thể. Review và nguồn của mapping phải được giữ khi chuyển thành tài sản AP của household.
+
+**RetailPackage**:
+Cách mua một phiên bản product: pack cố định, pack có cân nặng biến thiên, hoặc hàng cân rời theo minimum/step. Package không tự là phép đổi count/ml sang gram.
+
+**ReferencePriceBook**:
+Nguồn giá proxy có phiên bản, dùng fallback khi thiếu evidence phù hợp. Reference baseline không phải giá hoặc bằng chứng còn hàng của retailer.
+
+**RetailPriceCalibration**:
+Bằng chứng điều chỉnh giá theo retailer, store/region và category, có phương pháp và phiên bản riêng. Mức tin cậy dạng LOW/MEDIUM/HIGH không tự là xác suất.
+
+**Primary / Backup procurement option**:
+Đường mua được ưu tiên và những đường mua thay thế trong procurement class. Quote lại cùng product/package/store không tạo thêm backup coverage.
+
 **Cooking yield**:
 Thay đổi lượng do phương pháp/quá trình nấu, thuộc Recipe/Preparation; khác edible yield.
 

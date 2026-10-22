@@ -1,0 +1,102 @@
+{
+  "scope": "M1.1_RETAIL_PROCUREMENT_FOUNDATION_LOCAL_AND_GITHUB_CI",
+  "date": "2026-10-22",
+  "timezone": "Asia/Saigon",
+  "python": "3.13.14",
+  "node": "24.17.0",
+  "postgresql": "18.4",
+  "packages": {
+    "sqlalchemy": "2.1.5",
+    "alembic": "1.20.0",
+    "pydantic": "2.14.1",
+    "psycopg": "3.3.6"
+  },
+  "pytest_command": ".venv/Scripts/python.exe -m pytest --basetemp=.local/pytest-m11-final --tb=short --junitxml=.local/m11-final-tests.xml",
+  "pytest": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "368",
+    "time": "16.986",
+    "timestamp": "2026-10-22T14:39:47.145540+07:00",
+    "hostname": "TheDusk"
+  },
+  "test_groups": {
+    "apps.backend.tests.test_architecture": 38,
+    "apps.backend.tests.test_baseline": 3,
+    "apps.backend.tests.test_domain_contracts": 42,
+    "apps.backend.tests.test_foundation_migration": 8,
+    "apps.backend.tests.test_health": 3,
+    "apps.backend.tests.test_postgres_foundation": 24,
+    "apps.backend.tests.test_postgres_retail": 106,
+    "apps.backend.tests.test_precision_corrections": 8,
+    "apps.backend.tests.test_retail_contracts": 68,
+    "benchmark.tests.test_foundation_regressions": 38,
+    "benchmark.tests.test_harness": 30
+  },
+  "postgresql_tests": 138,
+  "junit_sha256": "6fe5537c1c930b6b44cf023cf86bbf170af5e4c97d017cc13557622939185bbc",
+  "local_checks_passed": [
+    "ruff check .",
+    "check_architecture_baseline.py",
+    "check_import_boundaries.py",
+    "export_domain_contracts.py --check",
+    "export_openapi.py --check",
+    "generate_synthetic_fixtures.py --check:22",
+    "benchmark.runner:22/22",
+    "npm run contracts:check",
+    "npm run typecheck:client",
+    "npm run test:client:10",
+    "npm run build:web"
+  ],
+  "github_ci": {
+    "status": "SUCCESS",
+    "repository": "thedusk4203/Menuto",
+    "pr": 55,
+    "url": "https://github.com/thedusk4203/Menuto/actions/runs/39744442973",
+    "run_id": 39744442973,
+    "run_number": 14,
+    "implementation_head_sha": "ed1163971e69d357224cb38f553a0029220ed2c7",
+    "checkout": "pull_request_merge_ref",
+    "python_job_id": 119709326528,
+    "web_job_id": 119709326237,
+    "python_tests_passed": 368,
+    "python_tests_skipped": 0,
+    "python_test_seconds": "13.34",
+    "python_warnings": 3,
+    "postgresql": "18.4",
+    "python_job": "success",
+    "web_job": "success",
+    "benchmark_scenarios_passed": 22
+  },
+  "publication_target": {
+    "repository": "thedusk4203/Menuto",
+    "branch": "thedusk4203/m1-1-retail-procurement-foundation",
+    "authorization": "USER_APPROVED_PUSH_AND_DRAFT_PR"
+  },
+  "invariant_scope": [
+    "INV-007",
+    "INV-008",
+    "INV-009",
+    "INV-017",
+    "INV-018"
+  ],
+  "planning_readiness": "DRAFT_NOT_ACTIVATION_READY",
+  "implementation_sha256": {
+    "apps/backend/app/modules/inventory/contracts.py": "2a61ea37e8f0ce72a2ca411c82349c9892c4711ad1ba684e299fbe104a47eeda",
+    "apps/backend/app/modules/retail/__init__.py": "40b30d7ae04a3f166f6a693aa4b7eb8f09e3a9f34f024d28ae81c448fead986a",
+    "apps/backend/app/modules/retail/contracts.py": "d94f7a9fea0586f37d50582b6c47a9339baebd42e19af7adf30dff996ece2659",
+    "apps/backend/app/modules/retail/models.py": "ae8a78d0d9f99a22447646cfeefbba20ca2d76c546dec52515aafa7ee61295d1",
+    "apps/backend/app/modules/retail/public.py": "736710db0e1cb3dec898c4ccee13efb7a449781fe93dae29e5e31b079cd5b097",
+    "apps/backend/app/modules/retail/repository.py": "9d86b18b35ba085bf3f5bd70159d34f0bcdfe3dbbdfd36019c2c4073e9e5ba64",
+    "apps/backend/app/persistence/models.py": "529047f306e8e575a68c9292c53422f31abae49d6c18ab50aa208687266df6ff",
+    "apps/backend/migrations/versions/0003_retail_procurement_foundation.py": "110f8e110620583034798a96d2376183575892eece30f5ea80b33dde60490782",
+    "apps/backend/tests/retail_fixtures.py": "ea923aa3962f2b0f466116fc11fe1fd6585319403a16246516e786f6dab67bd1",
+    "apps/backend/tests/test_foundation_migration.py": "f92710298e8c66c7a2282907b1ac3374be791725730bfab5b70009fadd520847",
+    "apps/backend/tests/test_postgres_retail.py": "43c3d9601d5948ccd41cec2ed1816c01776ead0b881e9cb5a7ff69a7c362bab1",
+    "apps/backend/tests/test_retail_contracts.py": "d6d871c21e7e8dcaed281983de4012dcc949164bc542fedaf6b25df4f25ccb4a",
+    "packages/contracts/domain.schema.json": "ffaa0e25e1fa87c3ccddd67261b89516e356a2de29f56dd6d79c5fc721143952",
+    "tools/export_domain_contracts.py": "27cd09be4664512acd8050c7b48ee742680ad1d6941463afdeaafa98e4af2ff0"
+  }
+}
