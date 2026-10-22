@@ -85,6 +85,7 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     context = parts[2] if len(parts) > 2 and parts[:2] == ["app", "modules"] else None
     contract = len(parts) > 3 and parts[3] == "contracts"
     shared = module == "app.shared" or module.startswith("app.shared.")
+    neutral = module == "app.domain" or module.startswith("app.domain.")
     errors = []
 
     def audit(target, line):
@@ -92,6 +93,17 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             target == "ortools" or target.startswith("ortools.")
         ):
             errors.append(f"{line}: VALIDATION_OR_CONTRACT_IMPORTS_SOLVER: {target}")
+        if context == "validation":
+            if target.split(".")[0] in {"ortools", "sqlalchemy", "psycopg", "benchmark"} or (
+                target.startswith(("app.persistence", "app.shared.db"))
+            ):
+                errors.append(f"{line}: VALIDATION_INDEPENDENCE: {target}")
+            if target.startswith("app.modules.") and target.split(".")[2] != "validation":
+                tail = target.split(".")[3:]
+                if not tail or tail[0] != "contracts":
+                    errors.append(f"{line}: VALIDATION_CONTRACTS_ONLY: {target}")
+        if neutral and target.startswith(("app.modules", "app.persistence", "app.shared.db")):
+            errors.append(f"{line}: NEUTRAL_DOMAIN_IMPORTS_IMPLEMENTATION: {target}")
         if target == "benchmark" or target.startswith("benchmark."):
             errors.append(f"{line}: BACKEND_IMPORTS_SYNTHETIC_BENCHMARK: {target}")
         if context and (target == "importlib" or target.startswith("importlib.")):

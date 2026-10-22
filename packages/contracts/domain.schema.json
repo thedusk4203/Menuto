@@ -1,0 +1,1313 @@
+{
+  "$defs": {
+    "BudgetContract": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Money"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "constraint": {
+          "enum": [
+            "NONE",
+            "TARGET",
+            "SPEND_LIMIT"
+          ],
+          "title": "Constraint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "constraint"
+      ],
+      "title": "BudgetContract",
+      "type": "object"
+    },
+    "CanonicalMemberSafety": {
+      "additionalProperties": false,
+      "properties": {
+        "allergen_codes": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Allergen Codes",
+          "type": "array"
+        },
+        "diet_rule_codes": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Diet Rule Codes",
+          "type": "array"
+        },
+        "excluded_ingredient_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Excluded Ingredient Ids",
+          "type": "array"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "source_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "member_id",
+        "source_version",
+        "allergen_codes",
+        "diet_rule_codes",
+        "excluded_ingredient_ids"
+      ],
+      "title": "CanonicalMemberSafety",
+      "type": "object"
+    },
+    "EvidenceKind": {
+      "enum": [
+        "USER",
+        "REVIEWED_REFERENCE",
+        "RETAIL_OBSERVATION",
+        "RECEIPT"
+      ],
+      "title": "EvidenceKind",
+      "type": "string"
+    },
+    "Horizon": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Horizon",
+      "type": "object"
+    },
+    "HouseholdCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "member_name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Member Name",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "Asia/Ho_Chi_Minh",
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "member_name"
+      ],
+      "title": "HouseholdCreate",
+      "type": "object"
+    },
+    "HouseholdCreated": {
+      "additionalProperties": false,
+      "properties": {
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "owner_user_id": {
+          "format": "uuid",
+          "title": "Owner User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "owner_user_id"
+      ],
+      "title": "HouseholdCreated",
+      "type": "object"
+    },
+    "IngredientCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "IngredientCreate",
+      "type": "object"
+    },
+    "MaterialFact": {
+      "additionalProperties": false,
+      "properties": {
+        "available_from": {
+          "format": "date-time",
+          "title": "Available From",
+          "type": "string"
+        },
+        "fact_id": {
+          "format": "uuid",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "quantity": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "usable_until": {
+          "format": "date-time",
+          "title": "Usable Until",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_id",
+        "household_id",
+        "ingredient_id",
+        "quantity",
+        "available_from",
+        "usable_until",
+        "provenance"
+      ],
+      "title": "MaterialFact",
+      "type": "object"
+    },
+    "MealParticipants": {
+      "additionalProperties": false,
+      "properties": {
+        "participants": {
+          "items": {
+            "$ref": "#/$defs/Participant"
+          },
+          "minItems": 1,
+          "title": "Participants",
+          "type": "array"
+        }
+      },
+      "required": [
+        "participants"
+      ],
+      "title": "MealParticipants",
+      "type": "object"
+    },
+    "MealSlotInput": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "format": "date-time",
+          "title": "At",
+          "type": "string"
+        },
+        "meal_kind": {
+          "enum": [
+            "HOME",
+            "OUTSIDE",
+            "SKIP"
+          ],
+          "title": "Meal Kind",
+          "type": "string"
+        },
+        "participants": {
+          "items": {
+            "$ref": "#/$defs/ParticipantInput"
+          },
+          "minItems": 1,
+          "title": "Participants",
+          "type": "array"
+        },
+        "slot_id": {
+          "format": "uuid",
+          "title": "Slot Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "slot_id",
+        "at",
+        "participants",
+        "meal_kind"
+      ],
+      "title": "MealSlotInput",
+      "type": "object"
+    },
+    "MeasurementBasis": {
+      "enum": [
+        "AP_G",
+        "EP_RAW_G",
+        "COOKED_G",
+        "SERVING",
+        "COUNT"
+      ],
+      "title": "MeasurementBasis",
+      "type": "string"
+    },
+    "MemberNutritionProfileWrite": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "body_mass_kg": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Body Mass Kg"
+        },
+        "expected_version": {
+          "minimum": 0,
+          "title": "Expected Version",
+          "type": "integer"
+        },
+        "height_cm": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 6,
+              "gt": 0,
+              "max_digits": 18
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Height Cm"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 16,
+          "pattern": "^[A-Za-z0-9_-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "actor_user_id",
+        "idempotency_key",
+        "expected_version",
+        "member_id"
+      ],
+      "title": "MemberNutritionProfileWrite",
+      "type": "object"
+    },
+    "MemberSafetyConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ingredient Id"
+        },
+        "kind": {
+          "enum": [
+            "ALLERGEN",
+            "DIET_RULE",
+            "EXCLUDED_INGREDIENT"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "kind",
+        "code",
+        "actor_user_id"
+      ],
+      "title": "MemberSafetyConstraint",
+      "type": "object"
+    },
+    "Money": {
+      "additionalProperties": false,
+      "properties": {
+        "amount_minor": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Amount Minor",
+          "type": "integer"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount_minor",
+        "currency"
+      ],
+      "title": "Money",
+      "type": "object"
+    },
+    "MutationFixtureDraft": {
+      "additionalProperties": false,
+      "description": "Frozen fixture description, not evidence of a running independent validator.",
+      "properties": {
+        "base_subject_ref": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Base Subject Ref",
+          "type": "string"
+        },
+        "expected_code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Code",
+          "type": "string"
+        },
+        "expected_severity": {
+          "enum": [
+            "FATAL",
+            "ERROR"
+          ],
+          "title": "Expected Severity",
+          "type": "string"
+        },
+        "fixture_version": {
+          "const": "validator-mutation.m0-draft.1",
+          "default": "validator-mutation.m0-draft.1",
+          "title": "Fixture Version",
+          "type": "string"
+        },
+        "mutation": {
+          "enum": [
+            "FORBIDDEN_INGREDIENT",
+            "BASIS_MISMATCH",
+            "YIELD_OMISSION",
+            "CONSUME_BEFORE_BUY",
+            "EXPIRED_ASSET",
+            "SPEND_SCENARIO_BREACH",
+            "BROKEN_ASSUMPTION_PARENT",
+            "REWRITE_MATERIALIZED_PAST"
+          ],
+          "title": "Mutation",
+          "type": "string"
+        },
+        "target_ref": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Target Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "base_subject_ref",
+        "mutation",
+        "target_ref",
+        "expected_code",
+        "expected_severity"
+      ],
+      "title": "MutationFixtureDraft",
+      "type": "object"
+    },
+    "NutritionFact": {
+      "additionalProperties": false,
+      "properties": {
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "nutrients": {
+          "$ref": "#/$defs/NutritionValues"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "reference": {
+          "$ref": "#/$defs/Quantity"
+        },
+        "status": {
+          "enum": [
+            "DRAFT",
+            "REVIEWED"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ingredient_id",
+        "reference",
+        "nutrients",
+        "provenance",
+        "status"
+      ],
+      "title": "NutritionFact",
+      "type": "object"
+    },
+    "NutritionValues": {
+      "additionalProperties": false,
+      "properties": {
+        "carbohydrate_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "ge": 0,
+          "max_digits": 18,
+          "title": "Carbohydrate G"
+        },
+        "energy_kcal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "ge": 0,
+          "max_digits": 18,
+          "title": "Energy Kcal"
+        },
+        "fat_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "ge": 0,
+          "max_digits": 18,
+          "title": "Fat G"
+        },
+        "protein_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "ge": 0,
+          "max_digits": 18,
+          "title": "Protein G"
+        }
+      },
+      "required": [
+        "energy_kcal",
+        "protein_g",
+        "fat_g",
+        "carbohydrate_g"
+      ],
+      "title": "NutritionValues",
+      "type": "object"
+    },
+    "Participant": {
+      "additionalProperties": false,
+      "properties": {
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "nutrition_role": {
+          "enum": [
+            "TRACKED",
+            "SHARED"
+          ],
+          "title": "Nutrition Role",
+          "type": "string"
+        },
+        "portion_factor": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Portion Factor"
+        }
+      },
+      "required": [
+        "member_id",
+        "portion_factor",
+        "nutrition_role"
+      ],
+      "title": "Participant",
+      "type": "object"
+    },
+    "ParticipantInput": {
+      "additionalProperties": false,
+      "properties": {
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "nutrition_role": {
+          "enum": [
+            "TRACKED",
+            "SHARED"
+          ],
+          "title": "Nutrition Role",
+          "type": "string"
+        },
+        "portion_factor": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Portion Factor"
+        }
+      },
+      "required": [
+        "member_id",
+        "portion_factor",
+        "nutrition_role"
+      ],
+      "title": "ParticipantInput",
+      "type": "object"
+    },
+    "PlannerOutputDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "planner-output.m0-draft.1",
+          "default": "planner-output.m0-draft.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "request_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Request Hash",
+          "type": "string"
+        },
+        "run_id": {
+          "format": "uuid",
+          "title": "Run Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "OPTIMAL",
+            "FEASIBLE",
+            "INFEASIBLE",
+            "UNKNOWN_TIME_LIMIT",
+            "DATA_INSUFFICIENT",
+            "ERROR"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "subject_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subject Hash"
+        }
+      },
+      "required": [
+        "run_id",
+        "request_hash",
+        "status",
+        "reasons"
+      ],
+      "title": "PlannerOutputDraft",
+      "type": "object"
+    },
+    "PlannerRequestDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "baseline_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Hash"
+        },
+        "budget": {
+          "$ref": "#/$defs/BudgetContract"
+        },
+        "contract_version": {
+          "const": "planner-request.m0-draft.1",
+          "default": "planner-request.m0-draft.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "cost_preference": {
+          "enum": [
+            "LOW",
+            "NORMAL",
+            "HIGH"
+          ],
+          "title": "Cost Preference",
+          "type": "string"
+        },
+        "expected_revision": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Revision"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "kitchen_effort": {
+          "enum": [
+            "MINIMAL",
+            "NORMAL",
+            "FLEXIBLE"
+          ],
+          "title": "Kitchen Effort",
+          "type": "string"
+        },
+        "meals": {
+          "items": {
+            "$ref": "#/$defs/MealSlotInput"
+          },
+          "minItems": 1,
+          "title": "Meals",
+          "type": "array"
+        },
+        "nutrition_precision": {
+          "enum": [
+            "RELAXED",
+            "STANDARD",
+            "PRECISION"
+          ],
+          "title": "Nutrition Precision",
+          "type": "string"
+        },
+        "plan_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plan Id"
+        },
+        "planner_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Planner Version",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/SourceVersion"
+          },
+          "minItems": 1,
+          "title": "Sources",
+          "type": "array"
+        },
+        "tracked_member_id": {
+          "format": "uuid",
+          "title": "Tracked Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "actor_user_id",
+        "tracked_member_id",
+        "horizon",
+        "nutrition_precision",
+        "cost_preference",
+        "kitchen_effort",
+        "budget",
+        "meals",
+        "sources",
+        "planner_version",
+        "policy_version"
+      ],
+      "title": "PlannerRequestDraft",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "source_ref": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source Ref",
+          "type": "string"
+        },
+        "source_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "source_ref",
+        "source_version",
+        "observed_at"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Quantity": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "ge": 0,
+          "max_digits": 18,
+          "title": "Amount"
+        },
+        "basis": {
+          "$ref": "#/$defs/MeasurementBasis"
+        },
+        "item_ref": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Item Ref"
+        }
+      },
+      "required": [
+        "amount",
+        "basis"
+      ],
+      "title": "Quantity",
+      "type": "object"
+    },
+    "SourceVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "source": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "version",
+        "fingerprint"
+      ],
+      "title": "SourceVersion",
+      "type": "object"
+    },
+    "ValidationFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "proof_refs": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Proof Refs",
+          "type": "array"
+        },
+        "scope_ref": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Ref",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "FATAL",
+            "ERROR",
+            "WARNING",
+            "INFO"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source_domain": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source Domain",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "source_domain",
+        "scope_ref",
+        "proof_refs"
+      ],
+      "title": "ValidationFinding",
+      "type": "object"
+    },
+    "ValidationReportDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_authorized": {
+          "const": false,
+          "default": false,
+          "title": "Activation Authorized",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "validation-report.m0-draft.1",
+          "default": "validation-report.m0-draft.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Revision"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/ValidationFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "mode": {
+          "enum": [
+            "PRECOMMIT_VALIDATION",
+            "POSTFACT_VALIDATION"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "subject_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Subject Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode",
+        "subject_hash",
+        "expected_revision",
+        "findings"
+      ],
+      "title": "ValidationReportDraft",
+      "type": "object"
+    },
+    "ValidationSubjectDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_members": {
+          "items": {
+            "$ref": "#/$defs/CanonicalMemberSafety"
+          },
+          "minItems": 1,
+          "title": "Canonical Members",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "validation-subject.m0-draft.1",
+          "default": "validation-subject.m0-draft.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "missing_contracts": {
+          "default": [
+            "ROOT_GOAL_POLICY",
+            "GROUNDED_RECIPE_FACTS",
+            "CHRONOLOGICAL_EVENTS",
+            "SCENARIO_QUOTES",
+            "HORIZON_BRIDGE"
+          ],
+          "items": {
+            "enum": [
+              "ROOT_GOAL_POLICY",
+              "GROUNDED_RECIPE_FACTS",
+              "CHRONOLOGICAL_EVENTS",
+              "SCENARIO_QUOTES",
+              "HORIZON_BRIDGE"
+            ],
+            "type": "string"
+          },
+          "title": "Missing Contracts",
+          "type": "array"
+        },
+        "opening_assets": {
+          "items": {
+            "$ref": "#/$defs/MaterialFact"
+          },
+          "title": "Opening Assets",
+          "type": "array"
+        },
+        "request": {
+          "$ref": "#/$defs/PlannerRequestDraft"
+        },
+        "validation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Validation Ready",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "household_id",
+        "request",
+        "canonical_members",
+        "opening_assets"
+      ],
+      "title": "ValidationSubjectDraft",
+      "type": "object"
+    },
+    "WriteCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "expected_version": {
+          "minimum": 0,
+          "title": "Expected Version",
+          "type": "integer"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 16,
+          "pattern": "^[A-Za-z0-9_-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "actor_user_id",
+        "idempotency_key",
+        "expected_version"
+      ],
+      "title": "WriteCommand",
+      "type": "object"
+    },
+    "YieldConversion": {
+      "additionalProperties": false,
+      "description": "Yield evidence is contextual. Cooking yield may exceed 1 (e.g. cooked rice).",
+      "properties": {
+        "context_ref": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Context Ref",
+          "type": "string"
+        },
+        "factor": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Factor"
+        },
+        "kind": {
+          "enum": [
+            "EDIBLE_YIELD",
+            "COOKING_YIELD"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "required": [
+        "kind",
+        "context_ref",
+        "factor",
+        "provenance"
+      ],
+      "title": "YieldConversion",
+      "type": "object"
+    }
+  },
+  "$id": "urn:menuto:domain:foundation:1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
+}

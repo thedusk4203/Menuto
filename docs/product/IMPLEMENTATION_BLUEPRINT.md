@@ -1,13 +1,13 @@
 # Milestone 0/1 — entry checklist V1.3
 
-Đây là khung chuẩn bị theo §23.5, không phải blueprint đã được phê duyệt hoặc production schema. Baseline hiện chưa đạt toàn bộ entry criteria.
+Đây là checklist theo §23.5. [Blueprint M0/M1 và phần nền tảng đã triển khai](IMPLEMENTATION_BLUEPRINT_M0_M1.md) là tài liệu chi tiết; checklist chưa đạt toàn bộ tiêu chí cho các workflow ở milestones sau.
 
 | Điều kiện | Trạng thái | Công việc / bằng chứng cần có |
 | --- | --- | --- |
 | V1.3 + 11 ADR + 30 invariants cùng phiên bản | Có trong repository | Baseline consistency check; original spec/invariants byte-exact |
-| Units/measurement-basis contracts freeze | Chưa có | MTR-003; explicit conversion + provenance, reject incompatible bases |
+| Units/measurement-basis contracts freeze | Đã có primitives + schema snapshot kiểm drift | MTR-003; explicit conversion/provenance; tests từ chối incompatible bases, float và số không hữu hạn |
 | Ownership/lifecycle/state diagrams | Draft tài liệu | ARCHITECTURE.md; cần gắn testable domain contracts MTR-004/015/016/017/023 |
-| ValidationSubjectSnapshot + planner request/output draft schemas | Chưa có | MTR-025/027; immutable facts, hashes, provenance/revision lock |
+| ValidationSubjectSnapshot + planner request/output draft schemas | Đã có `m0-draft.1`, chưa validation-ready | MTR-025/027; typed immutable source facts, hashes/revision lock; liệt kê rõ primitive contracts còn thiếu |
 | Neutral benchmark format + mutation fixture format freeze | Một phần | synthetic-v2 regression giữ nguyên; mutation fixtures đầy đủ còn thiếu MTR-002/026 |
 | CI chặn validation → planner/solver internals | Có static rule + negative tests | Bao gồm public-facade/relative-import và contracts đường vòng; chưa chứng minh runtime isolation |
 | Selective Smart Menu reuse strategy | Đã giữ | Spec §22; không fork schema/code/lịch sử hoặc coi nguồn tham khảo là đã port |

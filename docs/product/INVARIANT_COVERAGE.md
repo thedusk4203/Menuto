@@ -1,13 +1,13 @@
 # Invariant coverage — V1.3
 
-Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh giới/tài liệu; MICRO_MODEL_ONLY là bằng chứng cho mô hình tổng hợp; NOT_IMPLEMENTED là chưa có implementation tương ứng. Không dòng nào tuyên bố toàn bộ invariant đã được thực thi trong production.
+Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh giới/tài liệu; MICRO_MODEL_ONLY là bằng chứng cho mô hình tổng hợp; PARTIAL_FOUNDATION là đã có primitive/schema tests nhưng chưa đầy đủ workflow; NOT_IMPLEMENTED là chưa có implementation tương ứng. Không dòng nào tuyên bố toàn bộ invariant đã được thực thi trong production.
 
 | Invariant | Mức bằng chứng | Công việc | Bằng chứng hiện tại / gap |
 | --- | --- | --- | --- |
 | INV-001 | SCAFFOLD_ONLY | MTR-006, MTR-008 | Chưa có policy/physiology business tests |
 | INV-002 | NOT_IMPLEMENTED | MTR-008, MTR-009 | Chưa có BudgetPressure hoặc intent resolver |
-| INV-003 | SCAFFOLD_ONLY | MTR-004 | Namespace ownership; chưa có authorization/schema |
-| INV-004 | MICRO_MODEL_ONLY | MTR-005, MTR-026 | Exclusion test tổng hợp; chưa kiểm canonical member safety |
+| INV-003 | PARTIAL_FOUNDATION | MTR-004 | Household/member schema + composite FK/PostgreSQL tests; authorization và các shared assets còn thiếu |
+| INV-004 | PARTIAL_FOUNDATION | MTR-005, MTR-026 | Participant identity/portion và canonical safety draft tests; shared-meal hard-safety enforcement chưa có |
 | INV-005 | SCAFFOLD_ONLY | MTR-018, MTR-019 | Chưa có authored rule/grounding service |
 | INV-006 | MICRO_MODEL_ONLY | MTR-019, MTR-023, MTR-030 | Candidate quantities cố định; chưa có serving-count seam |
 | INV-007 | MICRO_MODEL_ONLY | MTR-010, MTR-012 | Evidence gate regression; chưa có retail pipeline |
@@ -21,7 +21,7 @@ Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh
 | INV-015 | MICRO_MODEL_ONLY | MTR-026 | Micro verifier kiểm arithmetic; chưa có production orchestrator |
 | INV-016 | SCAFFOLD_ONLY | MTR-026 | test_architecture.py chặn solver/facade/contract backdoor; chưa chứng minh full semantic independence |
 | INV-017 | MICRO_MODEL_ONLY | MTR-025, MTR-026 | Independent package/stock arithmetic; chưa có resolved primitive nutrition path |
-| INV-018 | NOT_IMPLEMENTED | MTR-003, MTR-014, MTR-025 | Chưa có explicit production basis/provenance contracts |
+| INV-018 | PARTIAL_FOUNDATION | MTR-003, MTR-014, MTR-025 | Exact units/basis/provenance + explicit yield tests/schema đã có; full validation primitive chain chưa có |
 | INV-019 | MICRO_MODEL_ONLY | MTR-015, MTR-026 | Expiry/overdraw kiểm trong micro-model; chưa có chronological acquisition/raw/prepared replay |
 | INV-020 | NOT_IMPLEMENTED | MTR-006, MTR-026 | Chưa có root-contract guards bỏ qua planner summaries |
 | INV-021 | NOT_IMPLEMENTED | MTR-025, MTR-026 | Chưa có PRECOMMIT/POSTFACT gate/hash lock |
