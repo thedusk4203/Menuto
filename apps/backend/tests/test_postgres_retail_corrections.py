@@ -152,7 +152,10 @@ def test_populated_upgrade_preserves_source_pair_status_and_legacy_flags(legacy_
         )
         assert not archive["legacy_depends_on_promotion"]
         assert not archive["legacy_depends_on_single_source"]
+    migrate(engine, config, "head")
     with engine.connect() as conn:
+        assert row(conn, "price_observations") == old_observation
+        assert row(conn, "ingredient_product_maps") == old_mapping
         config.attributes["connection"] = conn
         command.check(config)
 
@@ -182,6 +185,7 @@ def test_0004_empty_upgrade_downgrade_upgrade_and_metadata_check(legacy_database
     migrate(engine, config, "0003")
     for _ in range(2):
         migrate(engine, config, "0004")
+        migrate(engine, config, "head")  # Compare current metadata only at current head.
         with engine.connect() as conn:
             config.attributes["connection"] = conn
             command.check(config)

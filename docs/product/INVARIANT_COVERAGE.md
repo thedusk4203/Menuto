@@ -8,8 +8,8 @@ Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh
 | INV-002 | NOT_IMPLEMENTED | MTR-008, MTR-009 | Chưa có BudgetPressure hoặc intent resolver |
 | INV-003 | PARTIAL_FOUNDATION | MTR-004 | Household/member schema + composite FK/PostgreSQL tests; authorization và các shared assets còn thiếu |
 | INV-004 | PARTIAL_FOUNDATION | MTR-005, MTR-026 | Participant identity/portion và canonical safety draft tests; shared-meal hard-safety enforcement chưa có |
-| INV-005 | SCAFFOLD_ONLY | MTR-018, MTR-019 | Chưa có authored rule/grounding service |
-| INV-006 | MICRO_MODEL_ONLY | MTR-019, MTR-023, MTR-030 | Candidate quantities cố định; chưa có serving-count seam |
+| INV-005 | PARTIAL_FOUNDATION | MTR-018, MTR-019 | M1.2 immutable version/rule/combo/tier schema, exact culinary binding draft và SQL seal guards; chưa production VariantGenerator |
+| INV-006 | PARTIAL_FOUNDATION | MTR-019, MTR-023, MTR-030 | M1.2 authored tiers/adjustment envelopes, structural limit và serving-count preservation tests; chưa production solver/adjustment pass/batch execution |
 | INV-007 | PARTIAL_FOUNDATION | MTR-010, MTR-012 | M1.1 raw observation/derived quote tách bảng; provenance/origin/availability và SQL guards; chưa production eligibility/live integration |
 | INV-008 | PARTIAL_FOUNDATION | MTR-011, MTR-022 | M1.1 class/member/primary/backup/package/substitution/source/promo primitives; chống backup giả; chưa fragility scoring/economic optimizer |
 | INV-009 | PARTIAL_FOUNDATION | MTR-012, MTR-047 | M1.1 ordinal confidence, category calibration evidence và explicit reference origin; không probability/P90, chưa empirical calibration/backtest |
@@ -20,8 +20,8 @@ Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh
 | INV-014 | NOT_IMPLEMENTED | MTR-037 | Chưa có local-first repair escalation |
 | INV-015 | MICRO_MODEL_ONLY | MTR-026 | Micro verifier kiểm arithmetic; chưa có production orchestrator |
 | INV-016 | SCAFFOLD_ONLY | MTR-026 | test_architecture.py chặn solver/facade/contract backdoor; chưa chứng minh full semantic independence |
-| INV-017 | PARTIAL_FOUNDATION | MTR-025, MTR-026 | M1.1 mapping/package/source primitive chain và quote recomputation guards; micro-model arithmetic còn giữ; chưa production Independent Validator/nutrition path |
-| INV-018 | PARTIAL_FOUNDATION | MTR-003, MTR-014, MTR-025 | Exact units/provenance; M1.1 Product→Ingredient mapping version/review/basis, AP→EP precision và inventory-origin draft; full validation chain chưa có |
+| INV-017 | PARTIAL_FOUNDATION | MTR-025, MTR-026 | M1.1 mapping/quote primitives; M1.2 recomputable culinary quantity/tier/yield primitives + DB seal arithmetic; chưa production Independent Validator/nutrition path |
+| INV-018 | PARTIAL_FOUNDATION | MTR-003, MTR-014, MTR-025 | Exact units/provenance; M1.1 AP→EP mapping giữ nguyên; M1.2 contextual EP_RAW→COOKED factors/version/provenance và precision tests; full validation chain chưa có |
 | INV-019 | MICRO_MODEL_ONLY | MTR-015, MTR-026 | Expiry/overdraw kiểm trong micro-model; chưa có chronological acquisition/raw/prepared replay |
 | INV-020 | NOT_IMPLEMENTED | MTR-006, MTR-026 | Chưa có root-contract guards bỏ qua planner summaries |
 | INV-021 | NOT_IMPLEMENTED | MTR-025, MTR-026 | Chưa có PRECOMMIT/POSTFACT gate/hash lock |

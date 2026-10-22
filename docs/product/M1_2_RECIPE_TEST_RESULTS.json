@@ -1,0 +1,69 @@
+{
+  "slice": "M1.2 Recipe / Preparation Foundation",
+  "baseline_commit": "f49e9b1ef7427de012c16da31efd6f581f42a0ec",
+  "implementation_commit": "RECORDED_AFTER_COMMIT",
+  "local": {
+    "python_tests": 559,
+    "postgres_real_tests": 246,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": "105.319",
+    "postgres": "18.4",
+    "junit": ".local/m12-verified-tests.xml",
+    "groups": {
+      "apps.backend.tests.test_architecture": 48,
+      "apps.backend.tests.test_baseline": 3,
+      "apps.backend.tests.test_domain_contracts": 42,
+      "apps.backend.tests.test_foundation_migration": 8,
+      "apps.backend.tests.test_health": 3,
+      "apps.backend.tests.test_postgres_foundation": 24,
+      "apps.backend.tests.test_postgres_recipes": 89,
+      "apps.backend.tests.test_postgres_retail": 109,
+      "apps.backend.tests.test_postgres_retail_corrections": 16,
+      "apps.backend.tests.test_precision_corrections": 8,
+      "apps.backend.tests.test_recipe_contracts": 62,
+      "apps.backend.tests.test_retail_contracts": 68,
+      "apps.backend.tests.test_retail_semantic_corrections": 11,
+      "benchmark.tests.test_foundation_regressions": 38,
+      "benchmark.tests.test_harness": 30
+    },
+    "architecture": "PASS: 30 INV / 11 ADR / 50 linked tasks; 16 boundaries",
+    "ruff": "PASS",
+    "schema_exports": "PASS: OpenAPI + domain foundation:5",
+    "synthetic_fixtures": "22/22",
+    "synthetic_benchmark": "22/22",
+    "client_tests": 10,
+    "client_typecheck": "PASS",
+    "web_build": "PASS",
+    "generated_client": "PASS",
+    "warning": "Existing Starlette/httpx deprecation; no new warnings"
+  },
+  "published_migration_sha256": {
+    "0001_household_member_safety_and_measured_.py": "7608a9ee137ad475b129660d4cb80d6e3c41584ebe072472373b3c130fa8723a",
+    "0002_correct_foundation_boundaries.py": "d7220e3d91168322f1b887d4847a4675784abb59016a090cfcbe07cd7e9e9f01",
+    "0003_retail_procurement_foundation.py": "68ff8eb8e9b391eea8a53e4c5c2d687dae05969293d7d70b26eb2558d5efb535",
+    "0004_correct_retail_semantics.py": "d6fcbcfdb7d00f31085ec491ff12c87e86d4dae6781a5a6b0cdb7f92d766211b"
+  },
+  "migration": {
+    "revision": "0005",
+    "empty_roundtrip": "0004→0005→0004→0005 PASS",
+    "populated_downgrade": "FAIL CLOSED, snapshot preserved",
+    "metadata_drift": "PASS",
+    "legacy_roundtrips": "0001/0002/0003/0004 legacy suites PASS"
+  },
+  "ci": {
+    "status": "PENDING",
+    "reason": "Not yet pushed at evidence creation"
+  },
+  "draft": [
+    "GroundedRecipeVariantDraft: DRAFT, activation_ready=False",
+    "No nutrition/safety/retail/inventory downstream resolution"
+  ],
+  "invariant_coverage": [
+    "INV-005 PARTIAL_FOUNDATION",
+    "INV-006 PARTIAL_FOUNDATION",
+    "INV-017 PARTIAL_FOUNDATION",
+    "INV-018 PARTIAL_FOUNDATION"
+  ]
+}

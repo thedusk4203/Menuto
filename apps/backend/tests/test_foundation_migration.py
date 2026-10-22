@@ -226,7 +226,7 @@ def test_downgrade_refuses_to_discard_modern_provenance(legacy_database):
     with pytest.raises(IntegrityError, match="losslessly"):
         migrate(engine, config, "0001", down=True)
     with engine.connect() as connection:
-        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0004"
+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0005"
         assert connection.scalar(text("SELECT count(*) FROM nutrition_facts")) == 2
         assert (
             connection.scalar(
@@ -261,7 +261,7 @@ def test_downgrade_refuses_new_safety_identity_collision(legacy_database):
     with pytest.raises(IntegrityError, match="legacy unique code"):
         migrate(engine, config, "0001", down=True)
     with engine.connect() as connection:
-        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0004"
+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0005"
         assert connection.scalar(text("SELECT count(*) FROM member_safety_constraints")) == 2
         indexes = {
             item["name"] for item in inspect(connection).get_indexes("member_safety_constraints")

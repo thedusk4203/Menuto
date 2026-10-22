@@ -13,6 +13,39 @@ def test_actual_backend_respects_registered_boundaries():
 
 
 @pytest.mark.parametrize(
+    "target",
+    [
+        "retail.contracts",
+        "retail.models",
+        "inventory.contracts",
+        "inventory.models",
+        "planning.contracts",
+        "planning.optimizer",
+        "execution.contracts",
+        "validation.contracts",
+    ],
+)
+def test_recipe_core_cannot_reach_runtime_grounding_domains(target):
+    errors = check_source(f"import app.modules.{target}", "app.modules.recipes.contracts")
+    assert any(
+        "FORBIDDEN_DIRECTION" in error or "CONTRACT_IMPORTS_IMPLEMENTATION" in error
+        for error in errors
+    )
+
+
+def test_retail_cannot_depend_on_recipes():
+    assert check_source("import app.modules.recipes.contracts", "app.modules.retail.contracts")
+
+
+def test_recipe_may_use_catalog_contracts_and_neutral_primitives():
+    assert not check_source(
+        "from app.modules.catalog.contracts import IngredientCreate\n"
+        "from app.domain.units import Quantity, Provenance",
+        "app.modules.recipes.contracts",
+    )
+
+
+@pytest.mark.parametrize(
     ("module", "source", "expected"),
     [
         (

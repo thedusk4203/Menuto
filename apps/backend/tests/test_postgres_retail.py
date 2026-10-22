@@ -517,6 +517,8 @@ def test_m11_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
     assert set(inspect(engine).get_table_names()) == before
     migrate(engine, config, "0003")
     migrate(engine, config, "0004")
+    # Runtime metadata describes current head; the 0002↔0004 roundtrip above remains explicit.
+    migrate(engine, config, "head")
     with engine.connect() as connection:
         config.attributes["connection"] = connection
         command.check(config)
@@ -535,7 +537,7 @@ def test_m11_downgrade_fails_closed_and_preserves_data(legacy_database, full_cha
     with pytest.raises(IntegrityError, match="0004 downgrade cannot preserve"):
         migrate(engine, config, "0002", down=True)
     with engine.connect() as connection:
-        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0004"
+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0005"
         assert connection.scalar(text("SELECT count(*) FROM retailers")) == 1
         if full_chain:
             assert connection.scalar(text("SELECT count(*) FROM ingredient_product_maps")) == 1

@@ -73,11 +73,32 @@ Số đường mua, retailer và provider được thể hiện bởi direct obs
 **Cooking yield**:
 Thay đổi lượng do phương pháp/quá trình nấu, thuộc Recipe/Preparation; khác edible yield.
 
-**Recipe / RecipeVersion**:
-Công thức và phiên bản nội dung có thể truy vết.
+**Recipe**:
+Danh tính ổn định của một món và phương pháp nấu. Đổi phương pháp làm thay đổi món tạo Recipe khác.
+
+**RecipeVersion**:
+Phiên bản tác giả bất biến của Recipe, gồm quy trình, serving, nguyên liệu, phép biến đổi và các giới hạn linh hoạt. Sửa nội dung tạo phiên bản mới.
+
+**Recipe ingredient slot**:
+Vai trò nguyên liệu bắt buộc trong một phiên bản công thức, có identity, lượng và measurement basis rõ ràng.
+
+**Portion tier**:
+Quy mô sản xuất được tác giả khai báo với số serving và lượng nguyên liệu cụ thể. Số serving không được suy ra từ tổng gram.
+
+**Scaling policy**:
+Quy tắc thay đổi lượng nguyên liệu khi chọn quy mô sản xuất khác; có thể tuyến tính, dưới tuyến tính, cố định, rời rạc hoặc theo khẩu vị trong giới hạn đã khai báo.
+
+**Quantity adjustment envelope**:
+Giới hạn điều chỉnh nhỏ cho nguyên liệu sau khi chọn quy mô và substitution. Điều chỉnh này thay thành phần trên mỗi serving, không tự đổi serving count.
+
+**Authored substitution rule**:
+Quyền thay một ingredient slot trong đúng RecipeVersion bằng nguyên liệu và tỷ lệ đã khai báo. Không phải quan hệ thay thế toàn cục giữa các ingredient.
 
 **GroundedRecipeVariant**:
 Biến thể đã resolve từ authored rules với bindings/quantities/nutrition bất biến.
+
+**Culinary grounded input draft**:
+Bản gắn lựa chọn culinary vào RecipeVersion, tier và lượng cụ thể để tiếp tục resolve. Chưa phải GroundedRecipeVariant hoàn chỉnh khi thiếu nutrition, safety và retail/inventory resolution.
 
 **DishCandidate**:
 Lựa chọn đã chuẩn bị cho một vai trò/bữa trong planner.
