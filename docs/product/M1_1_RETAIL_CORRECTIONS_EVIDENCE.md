@@ -56,7 +56,7 @@ Tests mới kiểm riêng canonical example và regression: reject observation c
 
 ## CI và phần chưa implement
 
-**Remote CI correction: chưa chạy ở thời điểm ghi tài liệu.** CI xanh của PR #55 chỉ là lịch sử của implementation cũ. Correction cần kết quả riêng trên branch/PR mới; không merge hoặc gọi freeze chỉ dựa trên green cũ.
+**Remote CI correction: chưa chạy; chờ user authorization cho payload/nhánh mới.** Implementation local commit `748ae81c6dd4a2b2a391e0b5f93bae325cbb0a3d`, nhánh `thedusk4203/m1-1-retail-canonical-fixes`, đích `thedusk4203/Menuto`. Automatic approval review từ chối push vì correction là payload/branch khác với PR #55 đã được cho phép trước đó. Không công bố qua công cụ khác để vượt từ chối. Cần user cho phép push và mở draft PR để có CI riêng. CI xanh của PR #55 chỉ là lịch sử của implementation cũ; không merge hoặc gọi freeze chỉ dựa trên green cũ.
 
 Chưa có ProcurementCostEvaluator/rounding policy cho purchase cost, observation normalization/eligibility, hierarchy/shrinkage estimator, fragility optimizer score, mixed-product decomposition, retailer ingestion hoặc activation-ready planning. Retailer status history chưa là production eligibility policy. Không freeze freshness/calibration constants.
 

@@ -2,7 +2,7 @@
   "scope": "M1.1_CANONICAL_SEMANTIC_CORRECTIONS_0004",
   "date": "2026-10-22",
   "timezone": "Asia/Saigon",
-  "status": "LOCAL_VERIFIED",
+  "status": "LOCAL_VERIFIED_CI_BLOCKED_PENDING_PUBLICATION_APPROVAL",
   "base_commit": "7fe02d5b5fcc8580775ace56ecb095aff573e08b",
   "branch": "thedusk4203/m1-1-retail-canonical-fixes",
   "environment": {
@@ -55,7 +55,13 @@
     "client_tests": "10 passed",
     "web_build": "PASS"
   },
-  "github_ci": "NOT_RUN_FOR_CORRECTION",
+  "github_ci": {
+    "status": "BLOCKED_PENDING_USER_AUTHORIZATION",
+    "implementation_commit": "748ae81c6dd4a2b2a391e0b5f93bae325cbb0a3d",
+    "repository": "thedusk4203/Menuto",
+    "branch": "thedusk4203/m1-1-retail-canonical-fixes",
+    "reason": "Automatic approval review rejected push of new correction branch/payload; previous approval covered original M1.1 publication."
+  },
   "released_migrations_unchanged_sha256": {
     "apps/backend/migrations/versions/0001_household_member_safety_and_measured_.py": "7608a9ee137ad475b129660d4cb80d6e3c41584ebe072472373b3c130fa8723a",
     "apps/backend/migrations/versions/0002_correct_foundation_boundaries.py": "d7220e3d91168322f1b887d4847a4675784abb59016a090cfcbe07cd7e9e9f01",
