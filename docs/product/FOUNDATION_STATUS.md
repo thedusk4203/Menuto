@@ -24,11 +24,29 @@ Chưa có auth, NutritionPolicyEngine, PlanPolicyResolver, retail thật, invent
 
 ## M1.1 Retail / Procurement Foundation
 
-Schema hiện hành tới **0004**, tổng **23 bảng domain**. Mapping Product→Ingredient sở hữu edible yield; mỗi ProductVersion có một canonical ingredient và nhiều phiên bản mapping cho ingredient đó. Retailer giữ identity ổn định, status chuyển sang history append-only. Fixed/catch/loose vẫn tách riêng. Quote reference_price_pair chưa phải purchase cost; CALIBRATED_REFERENCE chỉ derive từ reference + calibration, availability UNKNOWN. Promotion và source coverage được derive từ evidence; toàn bộ planning handoffs vẫn DRAFT. Không có cooking yield, InventoryLot persistence hoặc workflow mới.
+Tại freeze M1.1, schema tới **0004**, tổng **23 bảng domain**. Mapping Product→Ingredient sở hữu edible yield; mỗi ProductVersion có một canonical ingredient và nhiều phiên bản mapping cho ingredient đó. Retailer giữ identity ổn định, status chuyển sang history append-only. Fixed/catch/loose vẫn tách riêng. Quote reference_price_pair chưa phải purchase cost; CALIBRATED_REFERENCE chỉ derive từ reference + calibration, availability UNKNOWN. Promotion và source coverage được derive từ evidence; toàn bộ planning handoffs vẫn DRAFT. M1.1 không có cooking yield, InventoryLot persistence hoặc workflow mới; cooking yield bổ sung riêng ở M1.2 bên dưới.
 
-[Evidence corrections 0004](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md) là nguồn nghiệm thu hiện hành. [Evidence 0003](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md) giữ kết quả lịch sử 368 tests/CI của PR #55 đã merge; chính các tests đó từng encode calibration sai nên không đủ làm freeze gate. Chỉ review freeze M1.1/M1.2 trên corrected semantics và CI của correction; chưa triển khai M1.2/M1.3.
+[Evidence corrections 0004](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md) là nguồn nghiệm thu hiện hành. [Evidence 0003](M1_1_RETAIL_PROCUREMENT_EVIDENCE.md) giữ kết quả lịch sử 368 tests/CI của PR #55 đã merge; chính các tests đó từng encode calibration sai nên không đủ làm freeze gate. M1.1 corrected semantics đã được user review và **APPROVED TO FREEZE** trước M1.2.
 
-Correction đã đạt **398 local tests (157 PostgreSQL thật)** và **GitHub CI PASS** riêng: [run #17](https://github.com/thedusk4203/Menuto/actions/runs/39763499529), Python/PostgreSQL 18.4 + web. [PR #56](https://github.com/thedusk4203/Menuto/pull/56) vẫn draft; correction chưa merge vào main.
+Correction đã đạt **398 local tests (157 PostgreSQL thật)** và **GitHub CI PASS** riêng: [run #17](https://github.com/thedusk4203/Menuto/actions/runs/39763499529), Python/PostgreSQL 18.4 + web. [PR #56](https://github.com/thedusk4203/Menuto/pull/56) đã merge tại `f49e9b1`; [CI sau merge](https://github.com/thedusk4203/Menuto/actions/runs/39764143827) pass cả Python và web.
+
+## M1.2 Recipe / Preparation Foundation
+
+Schema mới `0005` bổ sung 10 bảng, tổng 33 bảng domain. Recipe identity tách immutable
+RecipeVersion; aggregate có seal và ràng buộc giao dịch lắp ráp, chặn cả thêm child sau
+commit. Recipe giữ culinary truth, chỉ tham chiếu Ingredient, không có Retail SKU/quote
+hoặc household inventory. Cooking transformations có context/version/provenance và chỉ
+EP_RAW_G→COOKED_G; M1.1 AP→EP giữ nguyên.
+
+Năm scaling policies được kiểm trên các tier tác giả khai báo; adjustment envelope riêng
+không đổi serving count. Contextual substitution và exact approved combinations chuẩn bị
+giới hạn một structural substitution. `GroundedRecipeVariantDraft` là culinary input
+**DRAFT/activation_ready=False**, chưa có nutrition/safety/retail/inventory resolution.
+Không có generator, Planner V4, ledger, CookingBatch execution hoặc full Validator.
+
+[Review A–H](M1_2_RECIPE_DOMAIN_REVIEW.md) và
+[evidence kiểm thử/CI](M1_2_RECIPE_PREPARATION_EVIDENCE.md) ghi phạm vi và kết quả thực chạy.
+Không suy từ slice này thành toàn bộ M0/M1 hoàn tất. M1.3 chưa triển khai.
 
 ## Quyết định còn mở
 

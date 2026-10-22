@@ -27,6 +27,20 @@ from app.modules.catalog.contracts import IngredientCreate, NutritionFact
 from app.modules.households.contracts import HouseholdCreate, HouseholdCreated, MealParticipants
 from app.modules.inventory.contracts import RetailSourcedAPAssetDraft
 from app.modules.nutrition.contracts import MemberNutritionProfileWrite, MemberSafetyConstraint
+from app.modules.recipes.contracts import (
+    GroundedRecipeVariantDraft,
+    PreparationTransformationFact,
+    QuantityAdjustmentPolicy,
+    RecipeFact,
+    RecipeIngredientFact,
+    RecipePortionTierFact,
+    RecipeProvenance,
+    RecipeRuleCombinationFact,
+    RecipeVariantRuleFact,
+    RecipeVersionSnapshot,
+    ResolvedRecipeIngredient,
+    ScalingPolicy,
+)
 from app.modules.retail.contracts import (
     IngredientProductMapFact,
     PackageFact,
@@ -52,6 +66,18 @@ from app.modules.retail.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    RecipeFact,
+    RecipeVersionSnapshot,
+    RecipeIngredientFact,
+    RecipePortionTierFact,
+    RecipeVariantRuleFact,
+    RecipeRuleCombinationFact,
+    PreparationTransformationFact,
+    ScalingPolicy,
+    QuantityAdjustmentPolicy,
+    RecipeProvenance,
+    ResolvedRecipeIngredient,
+    GroundedRecipeVariantDraft,
     Quantity,
     CalculatedQuantity,
     QuantizationPolicy,
@@ -104,11 +130,12 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:4"
+    schema["$id"] = "urn:menuto:domain:foundation:5"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Planner, validation and mutation handoffs are m0 drafts. "
         "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
+        "Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. "
         "No activation-ready inventory or planning handoff is provided. "
         "Cross-field semantic guards run in Python, not JSON Schema alone."
     )

@@ -138,6 +138,30 @@ Chi tiết thay đổi tương thích, precision và cách migration dừng an t
 - Kết quả 0003 lịch sử: 368 Python tests/138 PostgreSQL và CI PASS của [PR #55](https://github.com/thedusk4203/Menuto/pull/55), đã merge. Kết quả corrected implementation ở [evidence 0004](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md); CI xanh cũ không thay semantic review.
 - Tiếp theo có thể review M1.2 Recipe/Preparation. Cooking yield, RecipeVersion persistence, inventory/ActivePlan/execution, Independent Validator và AI chưa được triển khai trong M1.1.
 
+## M1.2 — Recipe / Preparation Foundation
+
+M1.1 đã được user **APPROVED TO FREEZE** tại corrected main `f49e9b1`.
+[Review A–H trước code](M1_2_RECIPE_DOMAIN_REVIEW.md) và
+[evidence](M1_2_RECIPE_PREPARATION_EVIDENCE.md) giữ phạm vi riêng của slice.
+
+- Migration `0005_recipe_preparation_foundation.py`: 10 bảng Recipe, tổng domain 33;
+  không sửa 0001–0004. Frozen SQL/DDL, empty downgrade/upgrade được kiểm; populated
+  downgrade fail closed. Seal bắt buộc và DB-controlled assembly transaction bảo vệ
+  nội dung aggregate khỏi INSERT muộn, UPDATE/DELETE/TRUNCATE và stale transaction.
+- Recipe stable identity; version có instructions, serving definition/base count,
+  provenance và review. Ingredient slots có EP_RAW_G/COOKED_G/contextual COUNT;
+  không AP_G, không count→gram magic. Cooking yield thuộc preparation context,
+  không generic persisted conversion hoặc Retail edible yield copy.
+- Contextual rules + exact approved combination membership, tier quantities đầy đủ,
+  LINEAR/SUBLINEAR/FIXED/DISCRETE/TO_TASTE và NONE/SMALL/PORTIONABLE/DISCRETE adjustment.
+  V1 chỉ chọn authored production tiers, chưa continuous interpolation. +gram không
+  tự đổi servings. Substituted raw ingredient không tái dùng yield của ingredient cũ.
+- Frozen `recipe-v1` snapshots và culinary binding draft có explicit reason/fingerprint/
+  derivation evidence. Không có cached valid=true, nutrition totals hoặc solve-ready
+  DishCandidate; downstream resolution và Independent Validator vẫn chưa triển khai.
+- M1.3 Inventory Physical Ledger cần review riêng. Không tự tạo inventory, reservations,
+  batch execution, ActivePlan, Planner hoặc AI workflow trong slice này.
+
 ## Tài liệu kỹ thuật đối chiếu
 
 - [PostgreSQL constraints](https://www.postgresql.org/docs/18/ddl-constraints.html): dùng FK/unique cho quan hệ giữa rows/tables, CHECK cho từng row.

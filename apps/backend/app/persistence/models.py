@@ -4,6 +4,18 @@ from app.modules.catalog.models import Ingredient, NutritionFact
 from app.modules.households.models import Household, HouseholdMember, Membership
 from app.modules.identity.models import User
 from app.modules.nutrition.models import MemberNutritionProfile, MemberSafetyConstraint
+from app.modules.recipes.models import (
+    PreparationTransformation,
+    Recipe,
+    RecipeCombinationMember,
+    RecipeIngredient,
+    RecipePortionTier,
+    RecipeRuleCombination,
+    RecipeTierQuantity,
+    RecipeVariantRule,
+    RecipeVersion,
+    RecipeVersionSeal,
+)
 from app.modules.retail.models import (
     IngredientProductMap,
     LegacyOptionAssessment,
@@ -24,6 +36,16 @@ from app.modules.retail.models import (
 from app.shared.db import Base
 
 __all__ = [
+    "PreparationTransformation",
+    "Recipe",
+    "RecipeCombinationMember",
+    "RecipeIngredient",
+    "RecipePortionTier",
+    "RecipeRuleCombination",
+    "RecipeTierQuantity",
+    "RecipeVariantRule",
+    "RecipeVersion",
+    "RecipeVersionSeal",
     "Base",
     "Household",
     "HouseholdMember",

@@ -11,7 +11,8 @@
 | Neutral benchmark format + mutation fixture format freeze | Một phần | synthetic-v2 regression giữ nguyên; mutation fixtures đầy đủ còn thiếu MTR-002/026 |
 | CI chặn validation → planner/solver internals | Có static rule + negative tests | Bao gồm public-facade/relative-import và contracts đường vòng; chưa chứng minh runtime isolation |
 | Selective Smart Menu reuse strategy | Đã giữ | Spec §22; không fork schema/code/lịch sử hoặc coi nguồn tham khảo là đã port |
-| M1.1 Retail/Procurement foundation | Corrected semantics 0004 đạt local + CI, draft PR #56 chờ review | [Correction evidence](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md); 23 domain tables, reference calibration, derived fragility, status history/canonical ingredient; planning contracts vẫn draft, không chứng nhận toàn bộ M0/M1 |
+| M1.1 Retail/Procurement foundation | APPROVED TO FREEZE; PR #56 merged, post-merge CI pass | [Correction evidence](M1_1_RETAIL_CORRECTIONS_EVIDENCE.md); 23 domain tables ở 0004; M1.1 ownership/semantics giữ nguyên trong M1.2 |
+| M1.2 Recipe/Preparation foundation | Authored schema/contracts + tests; nghiệm thu theo evidence | [Review A–H](M1_2_RECIPE_DOMAIN_REVIEW.md), [evidence](M1_2_RECIPE_PREPARATION_EVIDENCE.md); 0005 thêm 10 bảng, culinary grounded input vẫn DRAFT; không triển khai M1.3 |
 
 ## Thứ tự chuẩn bị đề xuất
 
