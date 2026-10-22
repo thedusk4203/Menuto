@@ -28,7 +28,7 @@ Scope: INV-005/017/018, no M1.3 or seal/version redesign.
 
 ## Verification
 
-Implementation commit: `RECORDED_AFTER_COMMIT` (recorded in an evidence-only follow-up).
+Implementation commit: `9d1233f33f5f5ac7a4f6e5416d598f2e27afb638` (recorded in an evidence-only follow-up).
 Local gates PASS; remote CI pending publication. This is correction evidence, not user
 freeze approval. [Machine-readable results](M1_2_CULINARY_CORRECTIONS_TEST_RESULTS.json).
 

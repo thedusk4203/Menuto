@@ -1,7 +1,7 @@
 {
   "slice": "M1.2 Culinary Binding Corrections",
   "baseline_commit": "2db3ccd163cffe2366105b6e13ae3ab90fb08b01",
-  "implementation_commit": "RECORDED_AFTER_COMMIT",
+  "implementation_commit": "9d1233f33f5f5ac7a4f6e5416d598f2e27afb638",
   "local": {
     "python_tests": 585,
     "postgres_real_tests": 259,
