@@ -67,3 +67,12 @@ zero-IO independent enforcement, non-authorizing PRECOMMIT and immutable POSTFAC
 No invariant is certified fully production-enforced. Root nutrition/goal/safety classification,
 scenario/planned material/batch/revision/assumption/bridge coverage and real authority remain
 unimplemented; synthetic benchmark remains separate evidence, not this production suite.
+
+
+MTR-019A [review](MTR_019A_CULINARY_BINDING_REVIEW.md) / [evidence](MTR_019A_CULINARY_BINDING_EVIDENCE.md):
+INV-005/006 gain authoritative sealed authored choices and an independent grounding algorithm.
+INV-017/018 gain exact binding provenance/bases plus SQL independently checking recipe primitives.
+INV-015/016/021 gain pure companion checks, import/query traps and diagnostic/no-authority results.
+INV-011/013 remain protected: no physical stock created. Own-anchor/closure/materialization
+boundaries see binding-only changes. All remain PARTIAL_FOUNDATION; this does not certify
+full MTR-019/026, nutrition safety, material feasibility or Execution. Canonical invariant wording unchanged.

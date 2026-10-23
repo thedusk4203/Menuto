@@ -98,6 +98,8 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
         ):
             errors.append(f"{line}: VALIDATION_OR_CONTRACT_IMPORTS_SOLVER: {target}")
         if context == "validation":
+            if target.endswith((".resolve_culinary_binding", ".bind_culinary_draft")):
+                errors.append(f"{line}: VALIDATION_PRODUCER_ENFORCEMENT: {target}")
             if target.split(".")[0] in {
                 "ortools",
                 "sqlalchemy",

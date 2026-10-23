@@ -255,6 +255,374 @@
       "title": "BatchFlowLinkDraft",
       "type": "object"
     },
+    "BoundActivePlanSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "active-plan.v2-culinary",
+          "default": "active-plan.v2-culinary",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "revision": {
+          "$ref": "#/$defs/BoundPlanRevisionSnapshot"
+        },
+        "workspace": {
+          "$ref": "#/$defs/PlanWorkspaceDraft"
+        }
+      },
+      "required": [
+        "workspace",
+        "revision"
+      ],
+      "title": "BoundActivePlanSnapshot",
+      "type": "object"
+    },
+    "BoundCookingBatchIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "culinary_signature": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Culinary Signature",
+          "type": "string"
+        },
+        "node_id": {
+          "format": "uuid",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "planned_at": {
+          "format": "date-time",
+          "title": "Planned At",
+          "type": "string"
+        },
+        "planned_servings": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Planned Servings"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "status": {
+          "default": "PLANNED",
+          "enum": [
+            "PLANNED",
+            "RETIRED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "tier_id": {
+          "format": "uuid",
+          "title": "Tier Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node_id",
+        "recipe_version_id",
+        "tier_id",
+        "planned_servings",
+        "planned_at",
+        "culinary_signature"
+      ],
+      "title": "BoundCookingBatchIntent",
+      "type": "object"
+    },
+    "BoundPlanIntentGraph": {
+      "additionalProperties": false,
+      "properties": {
+        "allocations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PlannedBatchAllocationIntent"
+          },
+          "title": "Allocations",
+          "type": "array"
+        },
+        "batches": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/BoundCookingBatchIntent"
+          },
+          "title": "Batches",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "plan-intent.v3",
+          "default": "plan-intent.v3",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "culinary_bindings": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PlannedCulinaryBinding"
+          },
+          "title": "Culinary Bindings",
+          "type": "array"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "meals": {
+          "items": {
+            "$ref": "#/$defs/MealIntent"
+          },
+          "minItems": 1,
+          "title": "Meals",
+          "type": "array"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "reservations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ReservationIntent"
+          },
+          "title": "Reservations",
+          "type": "array"
+        },
+        "shopping": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ShoppingRequirementIntent"
+          },
+          "title": "Shopping",
+          "type": "array"
+        },
+        "shopping_contributions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ShoppingDemandContributionIntent"
+          },
+          "title": "Shopping Contributions",
+          "type": "array"
+        },
+        "tracked_member_id": {
+          "format": "uuid",
+          "title": "Tracked Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "plan_id",
+        "tracked_member_id",
+        "horizon",
+        "meals"
+      ],
+      "title": "BoundPlanIntentGraph",
+      "type": "object"
+    },
+    "BoundPlanProposalSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "plan-proposal.v2-culinary",
+          "default": "plan-proposal.v2-culinary",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "effective_from": {
+          "format": "date-time",
+          "title": "Effective From",
+          "type": "string"
+        },
+        "expected_revision": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Revision"
+        },
+        "graph": {
+          "$ref": "#/$defs/BoundPlanIntentGraph"
+        },
+        "graph_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Graph Hash",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "proposal_no": {
+          "title": "Proposal No",
+          "type": "integer"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/RevisionScope"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "status": {
+          "const": "IMMUTABLE_INTENT_PROPOSAL",
+          "default": "IMMUTABLE_INTENT_PROPOSAL",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "proposal_no",
+        "graph_hash",
+        "expected_revision",
+        "scope",
+        "effective_from",
+        "actor_user_id",
+        "source_system",
+        "idempotency_key",
+        "reason",
+        "created_at",
+        "graph"
+      ],
+      "title": "BoundPlanProposalSnapshot",
+      "type": "object"
+    },
+    "BoundPlanRevisionSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization_id": {
+          "format": "uuid",
+          "title": "Authorization Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "plan-revision.v2-culinary",
+          "default": "plan-revision.v2-culinary",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "parent_graph_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Graph Hash"
+        },
+        "parent_revision_no": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Revision No"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "proposal": {
+          "$ref": "#/$defs/BoundPlanProposalSnapshot"
+        },
+        "reason_kind": {
+          "enum": [
+            "INITIAL_ACTIVATED_BASELINE",
+            "PLAN_REVISION"
+          ],
+          "title": "Reason Kind",
+          "type": "string"
+        },
+        "revision_no": {
+          "title": "Revision No",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "household_id",
+        "plan_id",
+        "revision_no",
+        "parent_revision_no",
+        "parent_graph_hash",
+        "reason_kind",
+        "authorization_id",
+        "created_at",
+        "proposal"
+      ],
+      "title": "BoundPlanRevisionSnapshot",
+      "type": "object"
+    },
     "BudgetContract": {
       "additionalProperties": false,
       "properties": {
@@ -585,6 +953,104 @@
         "actor_user_id"
       ],
       "title": "CreatePlanWorkspaceCommand",
+      "type": "object"
+    },
+    "CulinaryRequirementBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "adjustment_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "max_digits": 18,
+          "title": "Adjustment Delta"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "requirement_id": {
+          "format": "uuid",
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "selected_rule_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Selected Rule Id"
+        },
+        "transformation_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Transformation Id"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "selected_rule_id",
+        "ingredient_id",
+        "quantity",
+        "adjustment_delta",
+        "transformation_id"
+      ],
+      "title": "CulinaryRequirementBinding",
+      "type": "object"
+    },
+    "CulinaryValidationInput": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "culinary-validation-input.v1",
+          "default": "culinary-validation-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "proposal": {
+          "$ref": "#/$defs/BoundPlanProposalSnapshot"
+        },
+        "recipes": {
+          "items": {
+            "$ref": "#/$defs/RecipeVersionSnapshot"
+          },
+          "title": "Recipes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "proposal",
+        "recipes"
+      ],
+      "title": "CulinaryValidationInput",
       "type": "object"
     },
     "DefaultBatchInputDerivation": {
@@ -3245,6 +3711,105 @@
       "title": "PlannedCookingBatchIntent",
       "type": "object"
     },
+    "PlannedCulinaryBinding": {
+      "additionalProperties": false,
+      "description": "Captured claims, independently checked at seal/validation; never cached valid=true.",
+      "properties": {
+        "approved_combination_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Approved Combination Id"
+        },
+        "batch_node_id": {
+          "format": "uuid",
+          "title": "Batch Node Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "planned-culinary-binding.v1",
+          "default": "planned-culinary-binding.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "planned_servings": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Planned Servings"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/RecipeProvenance"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "requirements": {
+          "items": {
+            "$ref": "#/$defs/CulinaryRequirementBinding"
+          },
+          "minItems": 1,
+          "title": "Requirements",
+          "type": "array"
+        },
+        "tier_id": {
+          "format": "uuid",
+          "title": "Tier Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "plan_id",
+        "proposal_id",
+        "batch_node_id",
+        "recipe_version_id",
+        "tier_id",
+        "planned_servings",
+        "approved_combination_id",
+        "requirements",
+        "provenance",
+        "fingerprint"
+      ],
+      "title": "PlannedCulinaryBinding",
+      "type": "object"
+    },
     "PlannerOutputDraft": {
       "additionalProperties": false,
       "properties": {
@@ -4139,6 +4704,90 @@
       "title": "ProductIngredientConversionFact",
       "type": "object"
     },
+    "ProposeBoundPlanCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "plan-propose.v2-culinary",
+          "default": "plan-propose.v2-culinary",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "effective_from": {
+          "format": "date-time",
+          "title": "Effective From",
+          "type": "string"
+        },
+        "expected_generation": {
+          "minimum": -1,
+          "title": "Expected Generation",
+          "type": "integer"
+        },
+        "expected_revision": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Revision"
+        },
+        "graph": {
+          "$ref": "#/$defs/BoundPlanIntentGraph"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/RevisionScope"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        }
+      },
+      "required": [
+        "proposal_id",
+        "expected_generation",
+        "scope",
+        "effective_from",
+        "actor_user_id",
+        "source_system",
+        "idempotency_key",
+        "reason",
+        "graph"
+      ],
+      "title": "ProposeBoundPlanCommand",
+      "type": "object"
+    },
     "ProposePlanCommand": {
       "additionalProperties": false,
       "properties": {
@@ -4725,6 +5374,55 @@
         "cooking_method"
       ],
       "title": "RecipeFact",
+      "type": "object"
+    },
+    "RecipeGroundingReport": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_authorized": {
+          "const": false,
+          "default": false,
+          "title": "Activation Authorized",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "recipe-grounding-report.v1",
+          "default": "recipe-grounding-report.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "culinary_checks_passed": {
+          "title": "Culinary Checks Passed",
+          "type": "boolean"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/app__modules__validation__contracts__ValidationFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "phase": {
+          "enum": [
+            "PRECOMMIT_VALIDATION",
+            "POSTFACT_VALIDATION"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "subject_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Subject Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "phase",
+        "subject_hash",
+        "culinary_checks_passed",
+        "findings"
+      ],
+      "title": "RecipeGroundingReport",
       "type": "object"
     },
     "RecipeIngredientFact": {
@@ -7114,8 +7812,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:10",
+  "$id": "urn:menuto:domain:foundation:11",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1 legacy/v2 contribution graphs, guarded scope/cut-line revision seams; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

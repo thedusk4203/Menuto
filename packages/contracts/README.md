@@ -14,7 +14,7 @@ Không đưa PlanningMode vào hợp đồng mới. Business contracts được 
 
 Units/basis, money, provenance và household/catalog/member source contracts đã có implementation. Planner request/output, validation subject/report và mutation fixtures dùng các version `m0-draft.2`; chưa đủ để solve/validate/activate plan. Python validators kiểm thêm quan hệ giữa fields; JSON Schema không biểu diễn hết các guard này. Chưa sinh TypeScript client cho domain drafts.
 
-Bundle hiện có ID `urn:menuto:domain:foundation:10`. Retail facts dùng **retail-v2** (breaking wire change): quote chỉ có `reference_price_pair`, CALIBRATED_REFERENCE = reference + calibration; không nhận calibration cho observation. Option không nhận promotion/single-source booleans; snapshot derive coverage. ProductVersion yêu cầu canonical_ingredient_id; Retailer status là fact riêng. `RetailSourcedAPAssetDraft` chuyển sang `inventory-retail-origin.m1-draft.2`, vẫn không phải physical ledger hoặc validator-ready asset. Callers phải nâng version tường minh, không alias payload v1. [Domain review M1.1](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md).
+Bundle hiện có ID `urn:menuto:domain:foundation:11`. Retail facts dùng **retail-v2** (breaking wire change): quote chỉ có `reference_price_pair`, CALIBRATED_REFERENCE = reference + calibration; không nhận calibration cho observation. Option không nhận promotion/single-source booleans; snapshot derive coverage. ProductVersion yêu cầu canonical_ingredient_id; Retailer status là fact riêng. `RetailSourcedAPAssetDraft` chuyển sang `inventory-retail-origin.m1-draft.2`, vẫn không phải physical ledger hoặc validator-ready asset. Callers phải nâng version tường minh, không alias payload v1. [Domain review M1.1](../../docs/product/M1_1_RETAIL_DOMAIN_REVIEW.md).
 
 Recipe facts dùng **recipe-v1**: immutable authored snapshot, contextual rules, serving tiers,
 scaling/adjustment policies và preparation transformations EP_RAW_G→COOKED_G.
@@ -54,4 +54,11 @@ Validation subject/report **v1-foundation** add immutable partial source/policy 
 structured independent findings/derivations. FOUNDATION_ONLY/validation_ready=False and
 activation_authorized=False are mandatory. PRECOMMIT has no successful-authority outcome;
 POSTFACT remains diagnostic. Full ten-validator suite/root policy/grounding/scenarios remain
-deferred. Bundle10 does not create migration0010: database stays0009/52 tables.
+deferred. At the frozen MTR-025 checkpoint, bundle10 used database0009/52 tables; see the MTR-019A update below for current0010/54.
+
+
+Bundle11 adds plan-intent.v3 and planned-culinary-binding.v1, with exact proposal/batch/requirement
+relationships. V1/v2 plan and frozen validation-subject.v1-foundation wire/hash semantics remain
+unchanged. New culinary-validation-input.v1 is a self-contained non-authorizing companion;
+recipe-grounding-report.v1 checks culinary correctness only. Database head0010 adds two binding
+tables (54 total); no execution, full VariantGenerator or production PRECOMMIT issuer.

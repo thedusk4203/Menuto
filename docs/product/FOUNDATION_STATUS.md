@@ -113,3 +113,13 @@ future source/validator handoff. Deferred: full clinical/root policy, grounding/
 planned material/batch/revision/assumption/bridge validation and production authority.
 Subject/report remain FOUNDATION_ONLY and non-authorizing; no migration/new tables. Domain
 bundle10 is independent of DB head0009. Full MTR-025/026 production acceptance is PARTIAL.
+
+
+## MTR-019A — Explicit culinary binding / independent grounding
+
+[Review A–J](MTR_019A_CULINARY_BINDING_REVIEW.md), [evidence and matrix](MTR_019A_CULINARY_BINDING_EVIDENCE.md).
+Migration0010 adds two proposal-owned relational binding tables (54 domain tables). Plan-intent.v3
+includes exact selected culinary facts and batch signature; v1/v2/frozen MTR-025 hashes stay unchanged.
+Independent RecipeGroundingValidator verifies primitive authored choices; companion input is
+culinary-validation-input.v1. No production authority, full MTR-019/026 completion or Execution.
+MTR-025 remains user FROZEN at219b556. MTR-019A is submitted for review, not self-FROZEN.

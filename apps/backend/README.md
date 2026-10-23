@@ -1,6 +1,6 @@
 # Backend foundation
 
-FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain và migration `0001` → `0002` → `0003` → `0004` → `0005` → `0006` → `0007`, hiện có 38 bảng: 8 bảng Foundation, 15 bảng Retail, 10 bảng Recipe/Preparation và 5 bảng Inventory. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [correction evidence M1.2](../../docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md) để phân biệt phần đã triển khai và schema đích.
+FastAPI modular monolith theo V1.3 §8, §9 và §16. Có 16 namespace domain, migration `0001` → `0010`, hiện có 54 bảng domain;0010 bổ sung hai bảng authoritative culinary intent. Xem [Implementation Blueprint M0/M1](../../docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md) và [correction evidence M1.2](../../docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md) để phân biệt phần đã triển khai và schema đích.
 
 Từ root repository:
 
@@ -87,3 +87,8 @@ Household inventory fence → plan row lock → inventory commands giữ lock or
 expected_generation và expected_revision kiểm cả authoring và acceptance. Idempotent
 retry trả đúng immutable prior result; changed body cùng key bị reject. Khi 40001/deadlock,
 retry toàn outer transaction. current_plan đọc exact head, horizon_handoff vẫn DRAFT.
+
+
+MTR-019A: planning owns sealed culinary bindings; independent validation consumes the
+read-only culinary-validation-input.v1 companion. [Review/evidence](../../docs/product/MTR_019A_CULINARY_BINDING_EVIDENCE.md).
+No production PRECOMMIT issuer or cooking/meal execution. Database head0010; old migrations unchanged.

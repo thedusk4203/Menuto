@@ -301,3 +301,14 @@ chưa giải được. Khác policy dinh dưỡng/goal do NutritionPolicyEngine 
 **POSTFACT diagnostic**:
 Kết quả giải thích lỗi hoặc mâu thuẫn của thực tế đã được ghi nhận. Không tự sửa/xóa lịch
 sử vật chất, không tự tạo plan revision hoặc repair.
+
+
+### Planned Culinary Binding
+
+Exact authored culinary choices for one planned cooking batch: selected ingredients, quantities,
+adjustments and preparation paths. It records what is intended, not what was cooked or consumed.
+
+### Culinary Semantic Signature
+
+Identity of unchanged culinary intent across proposal copies. A change of culinary facts changes
+this signature; merely recording the same intent in a new proposal does not.

@@ -62,13 +62,21 @@ from app.modules.nutrition.contracts import (
 )
 from app.modules.planning.contracts import (
     ActivePlanSnapshot,
+    BoundActivePlanSnapshot,
+    BoundCookingBatchIntent,
+    BoundPlanIntentGraph,
+    BoundPlanProposalSnapshot,
+    BoundPlanRevisionSnapshot,
     CreatePlanWorkspaceCommand,
+    CulinaryRequirementBinding,
     HorizonCommitmentsDraft,
     MealIntent,
     PlanIntentGraph,
+    PlannedCulinaryBinding,
     PlanProposalSnapshot,
     PlanRevisionSnapshot,
     PlanWorkspaceDraft,
+    ProposeBoundPlanCommand,
     ProposePlanCommand,
     PublishPlanRevisionCommand,
     ReservationIntent,
@@ -117,9 +125,11 @@ from app.modules.shopping.contracts import (
 )
 from app.modules.validation.contracts import (
     CalculatedNutrition,
+    CulinaryValidationInput,
     DefaultBatchInputDerivation,
     InventoryValidationFacts,
     MaterialBalanceDerivation,
+    RecipeGroundingReport,
     ValidationReport,
     ValidationSourceFrontier,
     ValidationSubjectSnapshot,
@@ -128,6 +138,16 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    PlannedCulinaryBinding,
+    CulinaryRequirementBinding,
+    BoundCookingBatchIntent,
+    BoundPlanIntentGraph,
+    ProposeBoundPlanCommand,
+    BoundPlanProposalSnapshot,
+    BoundPlanRevisionSnapshot,
+    BoundActivePlanSnapshot,
+    CulinaryValidationInput,
+    RecipeGroundingReport,
     ValidationSubjectSnapshot,
     ValidationReport,
     InventoryValidationFacts,
@@ -237,7 +257,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:10"
+    schema["$id"] = "urn:menuto:domain:foundation:11"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -246,7 +266,8 @@ def export() -> str:
         "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
         "Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. "
         "V1 substitutions are mass-only; preparation yield is net and path-specific. "
-        "Plan intent v1 legacy/v2 contribution graphs, guarded scope/cut-line revision seams; "
+        "Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; "
+        "independent grounding companion; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

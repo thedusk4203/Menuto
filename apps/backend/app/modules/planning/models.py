@@ -88,7 +88,10 @@ class PlanWorkspace(Base):
 class PlanProposal(Base):
     __tablename__ = "plan_proposals"
     __table_args__ = (
-        ck("graph_version IN ('plan-intent.v1','plan-intent.v2')", "graph_version"),
+        ck(
+            "graph_version IN ('plan-intent.v1','plan-intent.v2','plan-intent.v3')",
+            "graph_version",
+        ),
         UniqueConstraint("id", "household_id", "plan_id"),
         UniqueConstraint("plan_id", "proposal_no"),
         UniqueConstraint("plan_id", "source_system", "idempotency_key"),
@@ -366,3 +369,6 @@ TABLES = tuple(
         PlanMaterializationLink,
     )
 )
+
+# Proposal-owned culinary child tables are registered separately to avoid ORM coupling.
+TABLES += ("planned_culinary_bindings", "culinary_requirement_bindings")

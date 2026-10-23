@@ -196,7 +196,13 @@ def test_past_advice_not_consumption_and_no_rewrite(db):
 )
 @pytest.mark.parametrize("operation", ["UPDATE", "DELETE", "TRUNCATE"])
 def test_direct_sql_immutability(db, table, operation):
-    service, actor, g = fully_populated(db)
+    if table in {"planned_culinary_bindings", "culinary_requirement_bindings"}:
+        from test_postgres_culinary_bindings import bound, request
+
+        service, actor, g, _ = bound(db)
+        service.propose(request(service, actor, g))
+    else:
+        service, actor, g = fully_populated(db)
     # Statement TRUNCATE guards fire on empty tables too. Row guards need an existing row.
     if operation == "TRUNCATE":
         db.execute(text("SET CONSTRAINTS ALL IMMEDIATE"))
@@ -531,7 +537,7 @@ def test_migration_roundtrip_lossless_foundation_and_populated_guard(legacy_data
         migrate(engine, config, "0007", down=True)
     with Session(engine) as session:
         assert PlanStore(session).proposal(g.household_id, g.plan_id, p.id) == p
-        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0009"
+        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0010"
 
 
 def fully_populated(db):
