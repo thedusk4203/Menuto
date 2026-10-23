@@ -81,6 +81,7 @@ from app.modules.planning.contracts import (
     GroundingNutritionSelection,
     HorizonCommitmentsDraft,
     MealIntent,
+    ParetoShortlistDraft,
     PlanIntentGraph,
     PlannedCulinaryBinding,
     PlanProposalSnapshot,
@@ -90,6 +91,9 @@ from app.modules.planning.contracts import (
     ProposePlanCommand,
     PublishPlanRevisionCommand,
     ReservationIntent,
+    ShortlistDominanceWitness,
+    ShortlistInputFailure,
+    ShortlistPolicyDraft,
 )
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
 from app.modules.recipes.contracts import (
@@ -157,6 +161,10 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    ParetoShortlistDraft,
+    ShortlistDominanceWitness,
+    ShortlistInputFailure,
+    ShortlistPolicyDraft,
     CandidateGroundingRequest,
     CandidateGroundingResult,
     CandidateGroundingSources,
@@ -295,7 +303,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:13"
+    schema["$id"] = "urn:menuto:domain:foundation:14"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -308,6 +316,8 @@ def export() -> str:
         "independent grounding companion; "
         "culinary generation v1 expands authored demand only, no downstream grounding/ranking; "
         "candidate grounding v1 resolves supported primitives, not feasibility/authority; "
+        "Pareto shortlist v1-draft compares exact optional supply coverage only, "
+        "not full portfolio/ranking or global feasibility; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

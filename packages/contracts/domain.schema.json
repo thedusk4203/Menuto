@@ -3689,6 +3689,105 @@
       "title": "PackageFact",
       "type": "object"
     },
+    "ParetoShortlistDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/GroundedDishCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "pareto-shortlist.v1-draft",
+          "default": "pareto-shortlist.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dominance": {
+          "items": {
+            "$ref": "#/$defs/ShortlistDominanceWitness"
+          },
+          "title": "Dominance",
+          "type": "array"
+        },
+        "failures": {
+          "items": {
+            "$ref": "#/$defs/ShortlistInputFailure"
+          },
+          "title": "Failures",
+          "type": "array"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "frontier_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Frontier Count"
+        },
+        "input_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Input Fingerprint",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/ShortlistPolicyDraft"
+        },
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "EMPTY",
+            "GROUNDING_FAILED",
+            "INPUT_LIMIT_EXCEEDED",
+            "FRONTIER_LIMIT_EXCEEDED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unique_candidate_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unique Candidate Count"
+        }
+      },
+      "required": [
+        "status",
+        "policy",
+        "input_fingerprint",
+        "unique_candidate_count",
+        "frontier_count",
+        "candidates",
+        "dominance",
+        "failures",
+        "fingerprint"
+      ],
+      "title": "ParetoShortlistDraft",
+      "type": "object"
+    },
     "Participant": {
       "additionalProperties": false,
       "properties": {
@@ -7910,6 +8009,121 @@
       "title": "ShoppingRequirementIntent",
       "type": "object"
     },
+    "ShortlistDominanceWitness": {
+      "additionalProperties": false,
+      "properties": {
+        "partition_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Partition Fingerprint",
+          "type": "string"
+        },
+        "reason": {
+          "const": "STRICT_SUPPLY_PATH_SUPERSET",
+          "default": "STRICT_SUPPLY_PATH_SUPERSET",
+          "title": "Reason",
+          "type": "string"
+        },
+        "removed_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Removed Fingerprint",
+          "type": "string"
+        },
+        "retained_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Retained Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "removed_fingerprint",
+        "retained_fingerprint",
+        "partition_fingerprint"
+      ],
+      "title": "ShortlistDominanceWitness",
+      "type": "object"
+    },
+    "ShortlistInputFailure": {
+      "additionalProperties": false,
+      "properties": {
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/GroundingIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "request_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Request Fingerprint",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "INCOMPLETE",
+            "REJECTED"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_fingerprint",
+        "status",
+        "issues"
+      ],
+      "title": "ShortlistInputFailure",
+      "type": "object"
+    },
+    "ShortlistPolicyDraft": {
+      "additionalProperties": false,
+      "description": "Explicit resource budgets; no invented nutrition/cost/utility preferences.",
+      "properties": {
+        "contract_version": {
+          "const": "shortlist-policy.v1-draft",
+          "default": "shortlist-policy.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "max_frontier": {
+          "minimum": 1,
+          "title": "Max Frontier",
+          "type": "integer"
+        },
+        "max_inputs": {
+          "minimum": 1,
+          "title": "Max Inputs",
+          "type": "integer"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "relation": {
+          "const": "EXACT_SUPPLY_PATH_COVERAGE",
+          "default": "EXACT_SUPPLY_PATH_COVERAGE",
+          "title": "Relation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "max_inputs",
+        "max_frontier"
+      ],
+      "title": "ShortlistPolicyDraft",
+      "type": "object"
+    },
     "SourceCoverageDraft": {
       "additionalProperties": false,
       "description": "Structural counts of non-UNAVAILABLE direct evidence, not probabilities.\n\nMultiple references/target stores do not manufacture independent retail evidence.\nSingle-source remains true if retailer OR provider OR purchasing-path coverage <2.",
@@ -8863,8 +9077,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:13",
+  "$id": "urn:menuto:domain:foundation:14",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

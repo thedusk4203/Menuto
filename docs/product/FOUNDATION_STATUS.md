@@ -153,4 +153,18 @@ forbidden/forged choices REJECTED. Candidate activation remains False; no physic
 No migration/new tables;0010 /54 remains current. Frozen A/B/validator hashes/semantics unchanged.
 COUNT nutrition and allergen/diet classification unavailable; policy/scenarios/basket cost, global
 allocation/feasibility, MTR-020 and Execution deferred. MTR-019/026 remain PARTIAL.
-MTR-019C is **READY FOR ARCHITECTURE/FREEZE REVIEW**, not self-FROZEN.
+MTR-019C is user **FROZEN / APPROVED** at `ffaa009031d8def0e32a654266a871cced44d35e`.
+
+## MTR-020A — Conservative Pareto Shortlist Foundation
+
+[Dependency/architecture review](MTR_020A_PARETO_SHORTLIST_REVIEW.md),
+[verification evidence](MTR_020A_PARETO_SHORTLIST_EVIDENCE.md).
+Implemented: canonical capture-only ingress; pure exact coverage frontier; exact duplicate
+handling; dominance witnesses; explicit fail-closed resource limits. Different culinary,
+nutrition, inventory, member/cutoff and non-contained supply provenance choices survive.
+No synthetic cost/nutrition-fit/effort/preference scores. Serialized candidates/ready flags
+cannot establish canonical ingress. No source re-grounding/DB IO in shortlist core.
+No tables/migration;0010 /54 and frozen A/B/C semantics unchanged; domain bundle14 additive.
+Full MTR-019/020/026 remain PARTIAL. Role/utility portfolio, evidence-backed reasons, COUNT
+nutrition, classification, global feasibility, solver, Execution and PRECOMMIT remain deferred.
+MTR-020A is **READY FOR ARCHITECTURE/FREEZE REVIEW**, not FROZEN.

@@ -267,3 +267,15 @@ GroundedDishCandidate facts. Missing/unsupported facts fail closed; no invented 
 [Evidence](MTR_019C_CANDIDATE_GROUNDING_EVIDENCE.md). No migration;54 domain tables/head0010.
 Not MTR-020, solver, execution or PRECOMMIT authority. Full MTR-019/026 remain PARTIAL; submit
 MTR-019C for review only. Original A/B contracts/hashes remain frozen and compatible.
+
+## After user-frozen MTR-019C: MTR-020A
+
+MTR-019C user FROZEN atffaa009, head0010 /54 tables. [Dependency review](MTR_020A_PARETO_SHORTLIST_REVIEW.md)
+selects conservative supply-coverage Pareto foundation under canonical MTR-020. Remaining COUNT,
+classification, quality policy and evidence-backed reasons are not guessed into comparison metrics.
+Only otherwise identical candidate contexts can dominate by exact source/path set containment;
+all distinct alternatives remain. Canonical read-only grounding adapter precedes a pure core.
+No input/output wire flag/hash is authority. Explicit resource overflow exposes no arbitrary subset.
+[Evidence](MTR_020A_PARETO_SHORTLIST_EVIDENCE.md). No migration or persistence. This is not full
+MTR-020 role-aware portfolio, MTR-021 feasibility, optimization, execution or production validation.
+Submit for architecture/freeze review; do not self-freeze or start a following slice.

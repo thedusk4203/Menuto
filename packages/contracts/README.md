@@ -74,3 +74,9 @@ nutrition, preparation, procurement and inventory fact groups. PRIMITIVES_RESOLV
 shortlist-input completeness only; activation_ready=False. Unknown classifications/missing references
 fail closed. New objects do not widen frozen A/B or ValidationSubject contracts. All146 prior schema
 definitions remain unchanged; database head0010 /54 tables, no new migration.
+
+Bundle14 adds shortlist-policy.v1-draft, pareto-shortlist.v1-draft and input-failure/dominance
+witness contracts. Exact source/path coverage only: no scalar ranking, goal synthesis, checkout
+cost, global feasibility or full role-aware portfolio. activation_ready=False. Result/hash/ready
+flags cannot mint the process-local canonical capture pool. All158 prior definitions unchanged;
+database remains0010 /54 tables; no migration. Frozen MTR-019A/B/C wire contracts are unchanged.
