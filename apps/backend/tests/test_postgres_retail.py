@@ -537,7 +537,7 @@ def test_m11_downgrade_fails_closed_and_preserves_data(legacy_database, full_cha
     with pytest.raises(IntegrityError, match="0004 downgrade cannot preserve"):
         migrate(engine, config, "0002", down=True)
     with engine.connect() as connection:
-        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0011"
+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0012"
         assert connection.scalar(text("SELECT count(*) FROM retailers")) == 1
         if full_chain:
             assert connection.scalar(text("SELECT count(*) FROM ingredient_product_maps")) == 1

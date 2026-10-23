@@ -1,6 +1,7 @@
 # MTR-040A — Explicit Member Preference Foundation / design
 
-Status: **DESIGN APPROVED WITH REQUIRED CORRECTION; IMPLEMENTATION AUTHORIZED**.
+Status: **IMPLEMENTED WITH AUTHORSHIP CORRECTION; NOT FROZEN**.
+Current head: `0012` / 58 tables. [Authorship correction evidence](MTR_040A_AUTHORSHIP_CORRECTION_EVIDENCE.md).
 User correction before implementation: raw declarations must not contain caller-authored
 EvidenceStrength. That belongs to later MemberBehaviorProfile derivation. Reviewed implementation
 baseline: `75d76ad2b400095d7eedf949fdec15bb969b9b5d`. Frozen migrations0001–0010 unchanged.
@@ -88,10 +89,11 @@ are not authority. No anonymous HTTP endpoint or auth system is introduced by th
 
 Proposed V1 modes:
 
-1. SELF: authenticated Membership.member_id equals subject member. Read-only VIEWER cannot write.
-2. AUTHORIZED_REPRESENTATIVE: household OWNER/EDITOR explicitly records a declaration on behalf of
-   the named member. Persist this mode and actor; do not claim that the subject personally authored
-   it. This supports diners without accounts; it grants no bulk copying or inferred preference.
+1. SELF iff authenticated Membership.member_id equals the subject member.
+2. AUTHORIZED_REPRESENTATIVE iff that link differs from the subject; a NULL link is allowed.
+   Only OWNER/EDITOR may write either mode; VIEWER cannot write. Persist the explicit mode and
+   actor, rejecting a false caller-supplied mode instead of normalizing it. This supports diners
+   without accounts; it grants no bulk copying or inferred preference.
 
 Authorization reads/locks canonical membership for the command transaction (FOR SHARE, so concurrent
 role changes cannot slip through a cached check). Retain actor identity FK, source and authorization
@@ -217,7 +219,7 @@ DDL independent of mutable ORM metadata. Do not edit0001–0010 or existing fact
 up/down/up on empty schema; downgrade locks/checks all four new tables and fails closed if any
 preference/term/frontier/history exists. No data copy or learned-score backfill; vocabulary data
 must have explicit reviewed provenance. ORM drift/domain export/import tests advance additively.
-Current implementation schema is0011 /58 tables. Original design baseline was0010 /54.
+Initial implementation schema was0011 /58 tables; the authorship correction advances to0012 /58. Original design baseline was0010 /54.
 See [execution evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md) for actual checks and limits.
 
 Required implementation evidence:
@@ -269,7 +271,7 @@ full learned/hierarchical profile or a TasteFit producer.
 User approved the design with the required raw-EvidenceStrength removal. It was corrected before
 implementation. [Evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md) distinguishes actual
 unit/PostgreSQL/SQL/concurrency/migration checks from the acceptance plan. No frozen migration,
-A/B/C/020A wire/hash or independent validator behavior is changed. New database head0011,58 tables;
+A/B/C/020A wire/hash or independent validator behavior is changed. Database head0012,58 tables;
 full MTR-040 remains incomplete. Submit040A for architecture/freeze review, do not self-freeze.
 
 **READY FOR ARCHITECTURE/FREEZE REVIEW**

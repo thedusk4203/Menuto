@@ -86,6 +86,8 @@ class PreferenceService:
         )
         if write and authorship == "SELF" and linked != member_id:
             raise PermissionError("SELF actor differs from subject")
+        if write and authorship == "AUTHORIZED_REPRESENTATIVE" and linked == member_id:
+            raise PermissionError("AUTHORIZED_REPRESENTATIVE actor equals subject; use SELF")
         return role
 
     def write(self, command):
