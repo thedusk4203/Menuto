@@ -300,3 +300,14 @@ inference/profile strength, exposure, scalar TasteFit, Execution or solver. Subm
 advances to `0012` /58 tables, changing only application/SQL enforcement, not old declarations.
 SELF iff actor membership links to subject; representative iff distinct (NULL allowed); OWNER/EDITOR
 only, wrong caller label rejected. 0001–0011 immutable; MTR-040A NOT FROZEN, MTR-041 not started.
+
+
+## MTR-041A — recent exposure source foundation / proposal-preview subset
+
+User froze040A at06dc1dc (0012 /58). The [041A architecture review](MTR_041A_RECENT_EXPOSURE_DOMAIN_REVIEW.md)
+finds no confirmed-consumption/attribution source or production accepted-plan producer. Implement
+only read-only current-proposal previews, explicit member participation and stable recipe identity;
+Learning consumes captured immutable contracts, no DB/Execution runtime. Versioned explicit-window
+policy and overlap dedup are evidence primitives, not cooldown/novelty/utility. No durable history
+table or migration. [Evidence](MTR_041A_RECENT_EXPOSURE_EVIDENCE.md). Full041/040 incomplete;
+MTR-024/020B/021 remain blocked, Execution not started, PRECOMMIT fail-closed. Submit freeze review.

@@ -86,3 +86,9 @@ ingredient/recipe/feature targets with reviewed vocabulary. No raw EvidenceStren
 assertion_confidence, learned profile or TasteFit scalar. Snapshot covers explicit declarations
 only; frontier and complete history support replay, not production PRECOMMIT authority.
 Migration0011 adds four tables (58 total); old wire/hash definitions remain unchanged.
+
+
+Bundle16 adds recipe exposure proposal-preview v1 source/policy/request/fact/draft evidence
+contracts. Selected current proposals only; consumption history UNAVAILABLE. Empty preview is
+not never-exposed; no confirmed producer, cooldown/novelty score, attribution or authority.
+Schema remains0012 /58 tables, no migration. All172 prior definitions remain unchanged.

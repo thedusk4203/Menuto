@@ -354,3 +354,9 @@ Không đồng nghĩa với việc thành viên đã tuyên bố trung lập.
 **EvidenceStrength**:
 Mức bằng chứng của affinity trong MemberBehaviorProfile được suy ra theo policy/version và
 evidence provenance. Không phải trường do caller gắn lên raw explicit preference declaration.
+
+
+**Proposal Exposure Preview**:
+Dấu vết tạm theo từng thành viên và món ăn được đề xuất trong một meal intent; không chứng minh
+commitment đã được chấp nhận, món đã nấu hay thành viên đã ăn.
+_Avoid_: confirmed consumption, taste evidence

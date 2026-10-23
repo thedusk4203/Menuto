@@ -117,3 +117,13 @@ for INV-003/004/018/026 source provenance: SELF iff linked subject, representati
 roundtrip tests are recorded in [correction evidence](MTR_040A_AUTHORSHIP_CORRECTION_EVIDENCE.md).
 No invariant wording, frozen culinary/shortlist contract, raw EvidenceStrength or validation
 authority changes. MTR-040A is NOT FROZEN; MTR-041 remains not started.
+
+
+MTR-041A [review/evidence](MTR_041A_RECENT_EXPOSURE_EVIDENCE.md): selected-proposal preview only.
+INV-022 excludes passive assumptions and durable inferred history;023–025/028/029 prevent
+friction/cooking/rejection/forced-choice→taste mutation. INV-026 filters explicit participants
+without member fan-out;027 retains separate evidence, no scalar score. INV-030 supports stable
+meal/member/recipe dedup across explicit windows, not complete horizon/asset replay.013/018/021
+retain provisional provenance, no physical/confirmed truth or authority from previews. Source
+capture RO/RR/concurrency and pure-core boundaries have focused tests; no claim of full invariant
+certification.040A is user FROZEN; full041 remains PARTIAL; no migration/schema change.
