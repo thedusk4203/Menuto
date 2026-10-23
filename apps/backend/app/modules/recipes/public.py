@@ -1,4 +1,4 @@
-"""Explicit binding of authored culinary choices, not demand-driven candidate generation."""
+"""Authored Recipe sources, explicit binding and demand-driven culinary generation."""
 
 from uuid import UUID
 
@@ -12,6 +12,10 @@ from app.modules.recipes.contracts import (
     VariantReason,
     resolve_culinary_binding,
 )
+
+# Public producer surface; validation must not import it.
+from app.modules.recipes.generation import generate_variants as generate_variants
+from app.modules.recipes.generation import recipe_source_hash as recipe_source_hash
 from app.modules.recipes.repository import RecipeRepository
 
 

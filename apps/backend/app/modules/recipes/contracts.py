@@ -445,3 +445,119 @@ def resolve_culinary_binding(snapshot, tier_id, selected_rule_ids, deltas):
             if matching is not None:
                 transforms.append(matching)
     return tuple(resolved), tuple(transforms), tiers[tier_id].servings
+
+
+# Additive MTR-019B contracts. Frozen recipe-v1 contracts/encoders above are unchanged.
+class CulinaryGenerationTrigger(StrEnum):
+    DEFAULT = "DEFAULT"
+    AUTHORED_SELECTION = "AUTHORED_SELECTION"
+    INGREDIENT_TARGET = "INGREDIENT_TARGET"
+
+
+class CulinaryRuleSelection(Contract):
+    rule_ids: Annotated[tuple[UUID, ...], Field(min_length=1)]
+
+
+class CulinaryDemand(Contract):
+    """Caller hints, never evidence of nutrition, safety, price or physical ownership."""
+
+    serving_counts: tuple[PositiveDecimal, ...] = ()
+    ingredient_targets: tuple[UUID, ...] = ()
+    rule_selections: tuple[CulinaryRuleSelection, ...] = ()
+    excluded_ingredient_ids: tuple[UUID, ...] = ()
+
+
+class CulinaryGenerationLimits(Contract):
+    max_attempts: Annotated[int, Field(strict=True, gt=0)]
+    max_candidates: Annotated[int, Field(strict=True, gt=0)]
+
+
+class VariantGenerationRequest(Contract):
+    contract_version: Literal["culinary-generation-request.v1"] = "culinary-generation-request.v1"
+    recipe: RecipeVersionSnapshot
+    demand: CulinaryDemand
+    limits: CulinaryGenerationLimits
+
+    @model_validator(mode="after")
+    def reviewed_source(self):
+        if self.recipe.review_status != "REVIEWED":
+            raise ValueError("Generation requires reviewed authored recipe facts")
+        return self
+
+
+class CulinaryCandidateDraft(Contract):
+    """Culinary-only possibility; selecting it still requires independent validation."""
+
+    contract_version: Literal["culinary-candidate.v1"] = "culinary-candidate.v1"
+    status: Literal["DRAFT"] = "DRAFT"
+    activation_ready: Literal[False] = False
+    recipe_version_id: UUID
+    recipe_source_hash: Sha256
+    tier_id: UUID
+    serving_count: PositiveDecimal
+    selected_rule_ids: tuple[UUID, ...]
+    resolved_ingredients: Annotated[tuple[ResolvedRecipeIngredient, ...], Field(min_length=1)]
+    transformations: tuple[PreparationTransformationFact, ...]
+    provenance: RecipeProvenance
+    triggers: Annotated[tuple[CulinaryGenerationTrigger, ...], Field(min_length=1)]
+    fingerprint: Sha256
+
+    def expected_fingerprint(self):
+        import json
+
+        data = self.model_dump(mode="json", exclude={"fingerprint", "triggers"})
+        data["selected_rule_ids"] = sorted(data["selected_rule_ids"])
+        data["resolved_ingredients"] = sorted(
+            data["resolved_ingredients"], key=lambda r: r["requirement_id"]
+        )
+        data["transformations"] = sorted(data["transformations"], key=lambda t: t["id"])
+        return sha256(
+            json.dumps(data, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()
+        ).hexdigest()
+
+    @model_validator(mode="after")
+    def shape(self):
+        unique(self.selected_rule_ids, "candidate selected rule")
+        unique([r.requirement_id for r in self.resolved_ingredients], "candidate requirement")
+        unique([t.id for t in self.transformations], "candidate transformation")
+        unique(self.triggers, "generation trigger")
+        if any(r.adjustment_delta != 0 for r in self.resolved_ingredients):
+            raise ValueError("MTR-019B does not perform post-selection quantity refinement")
+        if self.provenance.kind == "IMPORTED_DRAFT":
+            raise ValueError("Imported drafts are not reviewed generation evidence")
+        if self.fingerprint != self.expected_fingerprint():
+            raise ValueError("Candidate fingerprint mismatch")
+        return self
+
+
+class CulinaryGenerationRejection(Contract):
+    code: Literal[
+        "INVALID_DEMAND",
+        "UNAUTHORIZED_SELECTION",
+        "EXCLUDED_INGREDIENT",
+        "UNRESOLVABLE_PATH",
+        "LIMIT_EXCEEDED",
+    ]
+    tier_id: UUID | None = None
+    rule_ids: tuple[UUID, ...] = ()
+    detail: Label
+
+
+class VariantGenerationResult(Contract):
+    contract_version: Literal["culinary-generation-result.v1"] = "culinary-generation-result.v1"
+    status: Literal["COMPLETE", "NO_CANDIDATES", "INVALID_DEMAND", "LIMIT_EXCEEDED"]
+    activation_ready: Literal[False] = False
+    request_hash: Sha256
+    recipe_source_hash: Sha256
+    candidates: tuple[CulinaryCandidateDraft, ...]
+    rejections: tuple[CulinaryGenerationRejection, ...]
+    attempts: Annotated[int, Field(strict=True, ge=0)]
+
+    @model_validator(mode="after")
+    def result_shape(self):
+        if (self.status == "COMPLETE") != bool(self.candidates):
+            raise ValueError("Only complete demand expansion may expose candidates")
+        unique([c.fingerprint for c in self.candidates], "candidate identity")
+        if any(c.recipe_source_hash != self.recipe_source_hash for c in self.candidates):
+            raise ValueError("Cross-source candidate")
+        return self

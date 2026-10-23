@@ -62,3 +62,9 @@ relationships. V1/v2 plan and frozen validation-subject.v1-foundation wire/hash 
 unchanged. New culinary-validation-input.v1 is a self-contained non-authorizing companion;
 recipe-grounding-report.v1 checks culinary correctness only. Database head0010 adds two binding
 tables (54 total); no execution, full VariantGenerator or production PRECOMMIT issuer.
+
+Bundle12 adds culinary-generation-request.v1, culinary-candidate.v1 and
+culinary-generation-result.v1. Pure authored demand expansion only: no nutrition/retail/inventory
+grounding, ranking or production authority. Limits are explicit; overflow exposes no candidates.
+Zero adjustment is intentional; MTR-030 refinement remains deferred. Plan binding/validation
+contracts are unchanged. Database stays0010 /54 tables; no new migration.

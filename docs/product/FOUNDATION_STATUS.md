@@ -122,4 +122,20 @@ Migration0010 adds two proposal-owned relational binding tables (54 domain table
 includes exact selected culinary facts and batch signature; v1/v2/frozen MTR-025 hashes stay unchanged.
 Independent RecipeGroundingValidator verifies primitive authored choices; companion input is
 culinary-validation-input.v1. No production authority, full MTR-019/026 completion or Execution.
-MTR-025 remains user FROZEN at219b556. MTR-019A is submitted for review, not self-FROZEN.
+MTR-025 remains user FROZEN at219b556. MTR-019A is user **FROZEN / APPROVED** at
+`4a6207ac52bc5ba0ce95de2df54c0c949f36066e`, migration0010 /54 domain tables.
+RecipeGroundingValidator is an accepted completed sub-capability of MTR-026;
+neither full MTR-019 nor full MTR-026 is complete.
+
+## MTR-019B — Demand-driven culinary candidate generation
+
+[Focused review](MTR_019B_VARIANT_GENERATOR_REVIEW.md),
+[evidence](MTR_019B_VARIANT_GENERATOR_EVIDENCE.md).
+Implemented: deterministic finite demand expansion from reviewed authored rules, exact tiers,
+approved structural combinations and explicit zero adjustments; canonical source/candidate
+identities, exclusion filters, fail-closed resource budgets and selected-binding handoff.
+Candidates remain culinary DRAFT, not fully grounded solver-facing DishCandidates.
+Frozen MTR-019A wire/hash/seal/validator semantics and migrations0001–0010 unchanged.
+No new persistence: schema remains0010 /54 tables. MTR-019B is submitted for review, not FROZEN.
+Deferred: downstream evidence-backed reasons, nutrition/retail/inventory grounding, shortlist,
+solver, MTR-030 refinement, Execution and production PRECOMMIT/TOCTOU authorization.

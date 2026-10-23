@@ -24,7 +24,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-016](https://github.com/thedusk4203/Menuto/issues/17) | P0 | ActivePlan + PlanRevision schema | Stable plan_id, immutable revision snapshots/diffs, locked materialized past, optimistic revision locking. | FROZEN foundation — user approved 2026-10-23 |
 | [MTR-017](https://github.com/thedusk4203/Menuto/issues/18) | P0 | Execution state projections | Confirmed/Operational/Planning views + provisional assumption provenance. | OPEN — chưa chứng nhận |
 | [MTR-018](https://github.com/thedusk4203/Menuto/issues/19) | P0 | Recipe version/variant schema | Contextual substitution + quantity/scaling/adjustment policies. | OPEN — chưa chứng nhận |
-| [MTR-019](https://github.com/thedusk4203/Menuto/issues/20) | P0 | Grounded Variant Generator | Demand-driven immutable candidates; reason/fingerprint; explicit bases. | OPEN — chưa chứng nhận |
+| [MTR-019](https://github.com/thedusk4203/Menuto/issues/20) | P0 | Grounded Variant Generator | Demand-driven immutable candidates; reason/fingerprint; explicit bases. | PARTIAL — MTR-019A FROZEN; MTR-019B submitted for review; full grounding deferred |
 | [MTR-020](https://github.com/thedusk4203/Menuto/issues/21) | P0 | Role-aware portfolio shortlist | Pareto + EXPLOIT/STRUCTURAL_CHAMPION/EXPLORE capacity; no cheapest starvation. | OPEN — chưa chứng nhận |
 | [MTR-021](https://github.com/thedusk4203/Menuto/issues/22) | P0 | Feasibility V2 | Inventory/procurement/participant aware; data insufficiency != infeasible. | OPEN — chưa chứng nhận |
 | [MTR-022](https://github.com/thedusk4203/Menuto/issues/23) | P0 | Stage 1 global optimizer | Comfort violation + structural economics + fragility + package/inventory/batch. | OPEN — chưa chứng nhận |
@@ -95,3 +95,12 @@ MTR-019 plus independent RecipeGroundingValidator under MTR-026. [Evidence](MTR_
 Durable sealed plan intent, forward0010, version3 graph/companion input; no demand-driven
 generator or production authorization. Both parent work items remain incomplete. Freeze approval
 of MTR-025 at219b556 concerns its foundation semantics; they remain untouched.
+
+## MTR-019A freeze / MTR-019B implementation scope
+
+MTR-019A user **FROZEN / APPROVED** at4a6207a,0010 /54 domain tables. Accepted
+RecipeGroundingValidator completes only that MTR-026 sub-capability; both parent MTRs remain open.
+[MTR-019B](MTR_019B_VARIANT_GENERATOR_REVIEW.md) adds deterministic demand-driven authored
+culinary candidates and handoff to frozen binding, with [evidence](MTR_019B_VARIANT_GENERATOR_EVIDENCE.md).
+No new migration, ranking, grounding downstream, Execution or PRECOMMIT authority.
+MTR-019B awaits architecture/freeze review; no automatic next milestone.

@@ -83,6 +83,11 @@ from app.modules.planning.contracts import (
 )
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
 from app.modules.recipes.contracts import (
+    CulinaryCandidateDraft,
+    CulinaryDemand,
+    CulinaryGenerationLimits,
+    CulinaryGenerationRejection,
+    CulinaryRuleSelection,
     GroundedRecipeVariantDraft,
     PreparationTransformationFact,
     QuantityAdjustmentPolicy,
@@ -95,6 +100,8 @@ from app.modules.recipes.contracts import (
     RecipeVersionSnapshot,
     ResolvedRecipeIngredient,
     ScalingPolicy,
+    VariantGenerationRequest,
+    VariantGenerationResult,
 )
 from app.modules.retail.contracts import (
     IngredientProductMapFact,
@@ -138,6 +145,13 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    VariantGenerationRequest,
+    VariantGenerationResult,
+    CulinaryCandidateDraft,
+    CulinaryDemand,
+    CulinaryGenerationLimits,
+    CulinaryRuleSelection,
+    CulinaryGenerationRejection,
     PlannedCulinaryBinding,
     CulinaryRequirementBinding,
     BoundCookingBatchIntent,
@@ -257,7 +271,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:11"
+    schema["$id"] = "urn:menuto:domain:foundation:12"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -268,6 +282,7 @@ def export() -> str:
         "V1 substitutions are mass-only; preparation yield is net and path-specific. "
         "Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; "
         "independent grounding companion; "
+        "culinary generation v1 expands authored demand only, no downstream grounding/ranking; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

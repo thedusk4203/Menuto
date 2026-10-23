@@ -243,3 +243,15 @@ full fingerprint and semantic batch signature to immutable proposal/revision his
 RecipeGroundingValidator consumes read-only captured companion primitives. Legacy plan/subject
 versions keep their own hashes. [Evidence](MTR_019A_CULINARY_BINDING_EVIDENCE.md). Production gate
 stays shut; policy/scenarios/material/batch/assumption/bridge prerequisites remain separate.
+
+## After frozen MTR-019A: MTR-019B
+
+User approved MTR-019A at `4a6207ac52bc5ba0ce95de2df54c0c949f36066e`,0010 /54 tables.
+RecipeGroundingValidator is accepted as a completed MTR-026 sub-capability; both parent
+MTR-019/MTR-026 remain incomplete. [MTR-019B review](MTR_019B_VARIANT_GENERATOR_REVIEW.md)
+adds pure Recipe-owned demand expansion with explicit limits and canonical candidate identity.
+Planning selects a candidate through a recomputing adapter into the frozen binding model;
+existing seal/capture/independent validation still apply. No migration or physical mutation.
+[Evidence](MTR_019B_VARIANT_GENERATOR_EVIDENCE.md) distinguishes culinary drafts from full
+grounding. No ranking/shortlist/solver, nutrition/procurement/inventory allocation, execution,
+post-selection refinement or production authority. Submit MTR-019B for architecture review only.

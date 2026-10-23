@@ -955,6 +955,245 @@
       "title": "CreatePlanWorkspaceCommand",
       "type": "object"
     },
+    "CulinaryCandidateDraft": {
+      "additionalProperties": false,
+      "description": "Culinary-only possibility; selecting it still requires independent validation.",
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "culinary-candidate.v1",
+          "default": "culinary-candidate.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/RecipeProvenance"
+        },
+        "recipe_source_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Recipe Source Hash",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "resolved_ingredients": {
+          "items": {
+            "$ref": "#/$defs/ResolvedRecipeIngredient"
+          },
+          "minItems": 1,
+          "title": "Resolved Ingredients",
+          "type": "array"
+        },
+        "selected_rule_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Selected Rule Ids",
+          "type": "array"
+        },
+        "serving_count": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 6,
+          "gt": 0,
+          "max_digits": 18,
+          "title": "Serving Count"
+        },
+        "status": {
+          "const": "DRAFT",
+          "default": "DRAFT",
+          "title": "Status",
+          "type": "string"
+        },
+        "tier_id": {
+          "format": "uuid",
+          "title": "Tier Id",
+          "type": "string"
+        },
+        "transformations": {
+          "items": {
+            "$ref": "#/$defs/PreparationTransformationFact"
+          },
+          "title": "Transformations",
+          "type": "array"
+        },
+        "triggers": {
+          "items": {
+            "$ref": "#/$defs/CulinaryGenerationTrigger"
+          },
+          "minItems": 1,
+          "title": "Triggers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "recipe_version_id",
+        "recipe_source_hash",
+        "tier_id",
+        "serving_count",
+        "selected_rule_ids",
+        "resolved_ingredients",
+        "transformations",
+        "provenance",
+        "triggers",
+        "fingerprint"
+      ],
+      "title": "CulinaryCandidateDraft",
+      "type": "object"
+    },
+    "CulinaryDemand": {
+      "additionalProperties": false,
+      "description": "Caller hints, never evidence of nutrition, safety, price or physical ownership.",
+      "properties": {
+        "excluded_ingredient_ids": {
+          "default": [],
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Excluded Ingredient Ids",
+          "type": "array"
+        },
+        "ingredient_targets": {
+          "default": [],
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Ingredient Targets",
+          "type": "array"
+        },
+        "rule_selections": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CulinaryRuleSelection"
+          },
+          "title": "Rule Selections",
+          "type": "array"
+        },
+        "serving_counts": {
+          "default": [],
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "decimal_places": 6,
+            "gt": 0,
+            "max_digits": 18
+          },
+          "title": "Serving Counts",
+          "type": "array"
+        }
+      },
+      "title": "CulinaryDemand",
+      "type": "object"
+    },
+    "CulinaryGenerationLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "max_attempts": {
+          "exclusiveMinimum": 0,
+          "title": "Max Attempts",
+          "type": "integer"
+        },
+        "max_candidates": {
+          "exclusiveMinimum": 0,
+          "title": "Max Candidates",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_attempts",
+        "max_candidates"
+      ],
+      "title": "CulinaryGenerationLimits",
+      "type": "object"
+    },
+    "CulinaryGenerationRejection": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "INVALID_DEMAND",
+            "UNAUTHORIZED_SELECTION",
+            "EXCLUDED_INGREDIENT",
+            "UNRESOLVABLE_PATH",
+            "LIMIT_EXCEEDED"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Detail",
+          "type": "string"
+        },
+        "rule_ids": {
+          "default": [],
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        },
+        "tier_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tier Id"
+        }
+      },
+      "required": [
+        "code",
+        "detail"
+      ],
+      "title": "CulinaryGenerationRejection",
+      "type": "object"
+    },
+    "CulinaryGenerationTrigger": {
+      "enum": [
+        "DEFAULT",
+        "AUTHORED_SELECTION",
+        "INGREDIENT_TARGET"
+      ],
+      "title": "CulinaryGenerationTrigger",
+      "type": "string"
+    },
     "CulinaryRequirementBinding": {
       "additionalProperties": false,
       "properties": {
@@ -1018,6 +1257,25 @@
         "transformation_id"
       ],
       "title": "CulinaryRequirementBinding",
+      "type": "object"
+    },
+    "CulinaryRuleSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "rule_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Rule Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "rule_ids"
+      ],
+      "title": "CulinaryRuleSelection",
       "type": "object"
     },
     "CulinaryValidationInput": {
@@ -7568,6 +7826,99 @@
       "title": "ValidationSubjectSnapshot",
       "type": "object"
     },
+    "VariantGenerationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "culinary-generation-request.v1",
+          "default": "culinary-generation-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "demand": {
+          "$ref": "#/$defs/CulinaryDemand"
+        },
+        "limits": {
+          "$ref": "#/$defs/CulinaryGenerationLimits"
+        },
+        "recipe": {
+          "$ref": "#/$defs/RecipeVersionSnapshot"
+        }
+      },
+      "required": [
+        "recipe",
+        "demand",
+        "limits"
+      ],
+      "title": "VariantGenerationRequest",
+      "type": "object"
+    },
+    "VariantGenerationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "attempts": {
+          "minimum": 0,
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/CulinaryCandidateDraft"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "culinary-generation-result.v1",
+          "default": "culinary-generation-result.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "recipe_source_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Recipe Source Hash",
+          "type": "string"
+        },
+        "rejections": {
+          "items": {
+            "$ref": "#/$defs/CulinaryGenerationRejection"
+          },
+          "title": "Rejections",
+          "type": "array"
+        },
+        "request_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Request Hash",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "NO_CANDIDATES",
+            "INVALID_DEMAND",
+            "LIMIT_EXCEEDED"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "request_hash",
+        "recipe_source_hash",
+        "candidates",
+        "rejections",
+        "attempts"
+      ],
+      "title": "VariantGenerationResult",
+      "type": "object"
+    },
     "VariantReason": {
       "enum": [
         "DEFAULT",
@@ -7812,8 +8163,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:11",
+  "$id": "urn:menuto:domain:foundation:12",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }
