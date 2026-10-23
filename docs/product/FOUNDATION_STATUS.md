@@ -194,3 +194,18 @@ MTR-040A remains **NOT FROZEN** after review of PR #71 (`f451d7f`).
 member equals subject; representative iff different (including NULL); OWNER/EDITOR only.
 Wrong modes reject, never normalize. No historical row/hash rewrite or new table; current schema
 `0012` / **58 tables**, migrations0001–0011 unchanged. No MTR-041 work started.
+
+
+## User freeze040A and MTR-041A preview-source subset
+
+User **FROZEN / APPROVED MTR-040A** at `06dc1dcbf38d474b90f7bfb74f04651e884285e4`
+(0012 /58 tables). Earlier NOT FROZEN entries above are historical review stages. Full040
+remains incomplete; no declaration/schema semantics change in041A.
+
+[MTR-041A review](MTR_041A_RECENT_EXPOSURE_DOMAIN_REVIEW.md) selects current sealed proposal
+previews only. [Evidence](MTR_041A_RECENT_EXPOSURE_EVIDENCE.md) distinguishes capture/replay from
+durable confirmed exposure: no such producer exists. Recipe-level per-member facts stay
+PROVISIONAL/PROPOSAL_PREVIEW; consumption history UNAVAILABLE, empty is not never-exposed.
+No migration/new tables:0012 /58. No cooldown/novelty/taste scores, learning router, assumption
+graph, HorizonBridgeResolver, MTR-020B/021, Execution or PRECOMMIT authorization. Full041 remains
+PARTIAL and cannot yet supply complete production portfolio novelty/exposure. Not self-FROZEN.

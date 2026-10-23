@@ -1850,6 +1850,191 @@
       "title": "ExplicitMemberPreferenceSnapshot",
       "type": "object"
     },
+    "ExposureAllocationSupport": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_node_id": {
+          "format": "uuid",
+          "title": "Allocation Node Id",
+          "type": "string"
+        },
+        "batch_node_id": {
+          "format": "uuid",
+          "title": "Batch Node Id",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "allocation_node_id",
+        "batch_node_id",
+        "recipe_version_id"
+      ],
+      "title": "ExposureAllocationSupport",
+      "type": "object"
+    },
+    "ExposurePreviewPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "exposure-preview-policy.v1",
+          "default": "exposure-preview-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint_kind": {
+          "const": "RECIPE_ID",
+          "default": "RECIPE_ID",
+          "title": "Fingerprint Kind",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "window": {
+          "$ref": "#/$defs/Horizon"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "window"
+      ],
+      "title": "ExposurePreviewPolicy",
+      "type": "object"
+    },
+    "ExposurePreviewRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "exposure-preview-request.v1",
+          "default": "exposure-preview-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "plan_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Plan Ids",
+          "type": "array"
+        },
+        "policy": {
+          "$ref": "#/$defs/ExposurePreviewPolicy"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "plan_ids",
+        "policy"
+      ],
+      "title": "ExposurePreviewRequest",
+      "type": "object"
+    },
+    "ExposurePreviewSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "captured_at": {
+          "format": "date-time",
+          "title": "Captured At",
+          "type": "string"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "exposure-preview-source.v1",
+          "default": "exposure-preview-source.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "SELECTED_PLAN_PROPOSAL_PREVIEWS_ONLY",
+          "default": "SELECTED_PLAN_PROPOSAL_PREVIEWS_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/HouseholdMemberIdentity"
+          },
+          "title": "Members",
+          "type": "array"
+        },
+        "policy": {
+          "$ref": "#/$defs/ExposurePreviewPolicy"
+        },
+        "recipes": {
+          "items": {
+            "$ref": "#/$defs/RecipeExposureIdentity"
+          },
+          "title": "Recipes",
+          "type": "array"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ProposalExposureSource"
+          },
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "captured_at",
+        "policy",
+        "members",
+        "sources",
+        "recipes"
+      ],
+      "title": "ExposurePreviewSnapshot",
+      "type": "object"
+    },
     "FeaturePreferenceTarget": {
       "additionalProperties": false,
       "properties": {
@@ -6142,6 +6327,45 @@
       "title": "ProductIngredientConversionFact",
       "type": "object"
     },
+    "ProposalExposureSource": {
+      "additionalProperties": false,
+      "properties": {
+        "proposal": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "plan-proposal.v1": "#/$defs/PlanProposalSnapshot",
+                  "plan-proposal.v2-culinary": "#/$defs/BoundPlanProposalSnapshot"
+                },
+                "propertyName": "contract_version"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/PlanProposalSnapshot"
+                },
+                {
+                  "$ref": "#/$defs/BoundPlanProposalSnapshot"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Proposal"
+        },
+        "workspace": {
+          "$ref": "#/$defs/PlanWorkspaceDraft"
+        }
+      },
+      "required": [
+        "workspace",
+        "proposal"
+      ],
+      "title": "ProposalExposureSource",
+      "type": "object"
+    },
     "ProposeBoundPlanCommand": {
       "additionalProperties": false,
       "properties": {
@@ -6777,6 +7001,157 @@
       "title": "RawIngredientAssetFact",
       "type": "object"
     },
+    "RecipeExposureIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "provenance": {
+          "$ref": "#/$defs/RecipeProvenance"
+        },
+        "recipe_id": {
+          "format": "uuid",
+          "title": "Recipe Id",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "review_status": {
+          "enum": [
+            "DRAFT",
+            "REVIEWED"
+          ],
+          "title": "Review Status",
+          "type": "string"
+        },
+        "version": {
+          "exclusiveMinimum": 0,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "recipe_version_id",
+        "recipe_id",
+        "version",
+        "review_status",
+        "provenance"
+      ],
+      "title": "RecipeExposureIdentity",
+      "type": "object"
+    },
+    "RecipeExposurePreviewDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "recipe-exposure-preview.v1-draft",
+          "default": "recipe-exposure-preview.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/RecipeExposurePreviewFact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/ExposurePreviewSnapshot"
+        }
+      },
+      "required": [
+        "snapshot",
+        "facts"
+      ],
+      "title": "RecipeExposurePreviewDraft",
+      "type": "object"
+    },
+    "RecipeExposurePreviewFact": {
+      "additionalProperties": false,
+      "properties": {
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "meal_node_id": {
+          "format": "uuid",
+          "title": "Meal Node Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "proposal_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Proposal Hash",
+          "type": "string"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "recipe_id": {
+          "format": "uuid",
+          "title": "Recipe Id",
+          "type": "string"
+        },
+        "scheduled_at": {
+          "format": "date-time",
+          "title": "Scheduled At",
+          "type": "string"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "status": {
+          "const": "PROVISIONAL",
+          "default": "PROVISIONAL",
+          "title": "Status",
+          "type": "string"
+        },
+        "support": {
+          "items": {
+            "$ref": "#/$defs/ExposureAllocationSupport"
+          },
+          "minItems": 1,
+          "title": "Support",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "plan_id",
+        "proposal_id",
+        "proposal_hash",
+        "meal_node_id",
+        "recipe_id",
+        "scheduled_at",
+        "support"
+      ],
+      "title": "RecipeExposurePreviewFact",
+      "type": "object"
+    },
     "RecipeFact": {
       "additionalProperties": false,
       "properties": {
@@ -7076,6 +7451,65 @@
         "observed_at"
       ],
       "title": "RecipeProvenance",
+      "type": "object"
+    },
+    "RecipeRepeatEvidenceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NOT_EVIDENCE_OF_NEVER_EXPOSED",
+          "default": "NOT_EVIDENCE_OF_NEVER_EXPOSED",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "recipe-repeat-evidence.v1-draft",
+          "default": "recipe-repeat-evidence.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "SELECTED_PLAN_PROPOSAL_PREVIEWS_ONLY",
+          "default": "SELECTED_PLAN_PROPOSAL_PREVIEWS_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/RecipeExposurePreviewFact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "recipe_id": {
+          "format": "uuid",
+          "title": "Recipe Id",
+          "type": "string"
+        },
+        "source_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_hash",
+        "recipe_id",
+        "facts"
+      ],
+      "title": "RecipeRepeatEvidenceDraft",
       "type": "object"
     },
     "RecipeRuleCombinationFact": {
@@ -9854,8 +10288,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:15",
+  "$id": "urn:menuto:domain:foundation:16",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

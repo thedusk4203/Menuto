@@ -57,3 +57,15 @@ def lock_household_actor(session, household_id, actor_user_id, *, write=False):
     if row is None or (write and row.role not in {"OWNER", "EDITOR"}):
         raise PermissionError("Household actor access denied")
     return row.member_id, row.role
+
+
+def read_household_actor(session, household_id, actor_user_id):
+    """Read-only capture access; permission is coherent with the caller's source snapshot."""
+    row = session.execute(
+        select(Membership.member_id, Membership.role).where(
+            Membership.household_id == household_id, Membership.user_id == actor_user_id
+        )
+    ).one_or_none()
+    if row is None:
+        raise PermissionError("Household actor access denied")
+    return row.member_id, row.role

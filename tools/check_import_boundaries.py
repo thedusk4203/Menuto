@@ -95,10 +95,14 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     def audit(target, line):
         shortlist_imports = {
             "app.modules.planning.shortlist": {
-                "json", "dataclasses", "hashlib", "app.modules.planning.contracts",
+                "json",
+                "dataclasses",
+                "hashlib",
+                "app.modules.planning.contracts",
             },
             "app.modules.planning.shortlist_capture": {
-                "app.modules.planning.contracts", "app.modules.planning.grounding_capture",
+                "app.modules.planning.contracts",
+                "app.modules.planning.grounding_capture",
                 "app.modules.planning.shortlist",
             },
         }
@@ -126,6 +130,21 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             target == "ortools" or target.startswith("ortools.")
         ):
             errors.append(f"{line}: VALIDATION_OR_CONTRACT_IMPORTS_SOLVER: {target}")
+        if module in {"app.modules.learning.contracts", "app.modules.learning.public"} and (
+            target.split(".")[0]
+            in {
+                "sqlalchemy",
+                "psycopg",
+                "sqlite3",
+                "ortools",
+                "socket",
+                "subprocess",
+                "httpx",
+                "requests",
+            }
+            or target.startswith(("app.persistence", "app.shared.db"))
+        ):
+            errors.append(f"{line}: EXPOSURE_CORE_INDEPENDENCE: {target}")
         if context == "validation":
             if target.endswith((".resolve_culinary_binding", ".bind_culinary_draft")):
                 errors.append(f"{line}: VALIDATION_PRODUCER_ENFORCEMENT: {target}")

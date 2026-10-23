@@ -28,6 +28,22 @@ class PlanStore:
     def clock(self):
         return self.session.scalar(text("SELECT clock_timestamp()"))
 
+    def latest_proposal_source(self, household_id, plan_id):
+        """Immutable current proposal plus explicit workspace frontier; not an active commitment."""
+        workspace = self.workspace(household_id, plan_id)
+        if workspace.latest_proposal_no == -1:
+            return workspace, None
+        proposal_id = self.session.scalar(
+            select(m.PlanProposal.id).where(
+                m.PlanProposal.household_id == household_id,
+                m.PlanProposal.plan_id == plan_id,
+                m.PlanProposal.proposal_no == workspace.latest_proposal_no,
+            )
+        )
+        if proposal_id is None:
+            raise LookupError("Missing latest proposal source")
+        return workspace, self.proposal(household_id, plan_id, proposal_id)
+
     def inventory_frontier(self, household_id):
         return self.session.scalar(
             text("SELECT menuto_plan_inventory_frontier(:h)"), {"h": household_id}
@@ -346,3 +362,10 @@ class PlanStore:
                         **fields,
                     )
                 )
+
+
+def capture_exposure_preview(session, request, *, actor_user_id):
+    """Read-only orchestration; Learning consumes only the returned captured contracts."""
+    from app.modules.planning.exposure_capture import capture_exposure_preview_sources
+
+    return capture_exposure_preview_sources(session, request, actor_user_id=actor_user_id)
