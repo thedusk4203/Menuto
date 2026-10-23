@@ -3,7 +3,8 @@
 Reviewed/frozen dependency baseline: `ffaa009031d8def0e32a654266a871cced44d35e`.
 MTR-019A/B/C remain user FROZEN. Full MTR-019/020/026 remain PARTIAL.
 [Architecture decision before implementation](MTR_020A_PARETO_SHORTLIST_REVIEW.md).
-Implementation commit and CI evidence are recorded below after verification.
+Implementation commit: `007b664d6f721446abc8458177d9adc505767f35`.
+PR: [#68](https://github.com/thedusk4203/Menuto/pull/68).
 
 ## Implemented claim
 
@@ -70,7 +71,11 @@ One existing Starlette/httpx deprecation warning remains. Intermediate checks ca
 evidence-file link while documentation was being assembled and a sandbox temp-directory permission
 error in a focused run. The file now exists, focused checks pass with a workspace basetemp, and
 the final complete real-PG run above has no failures/errors/skips. No old test was weakened/deleted.
-PR/code commit/CI links are recorded after the remote workflow finishes below.
+Remote code-checkpoint workflow: [Foundation checks39949846216](https://github.com/thedusk4203/Menuto/actions/runs/39949846216).
+Code checkpoint `007b664d6f721446abc8458177d9adc505767f35`: **python SUCCESS, web SUCCESS**.
+Every CI step passed, including real PostgreSQL regression, migration/drift/import/export checks,
+synthetic benchmark and client/build. This evidence-only follow-up preserves the implementation;
+its final PR-head CI and postmerge push CI are checked before reporting delivery.
 Local artifacts are ignored `.local/shortlist-full.xml`, `.local/shortlist-full.log`,
 `.local/shortlist-pg.xml`, `.local/shortlist-benchmark.json`.
 
