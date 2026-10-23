@@ -255,3 +255,15 @@ existing seal/capture/independent validation still apply. No migration or physic
 [Evidence](MTR_019B_VARIANT_GENERATOR_EVIDENCE.md) distinguishes culinary drafts from full
 grounding. No ranking/shortlist/solver, nutrition/procurement/inventory allocation, execution,
 post-selection refinement or production authority. Submit MTR-019B for architecture review only.
+
+## After frozen MTR-019B: MTR-019C
+
+MTR-019B user FROZEN at23dd0b3. [Candidate Grounding A–J](MTR_019C_CANDIDATE_GROUNDING_REVIEW.md)
+defines shortlist-input primitive completeness separately from global feasibility/production acceptance.
+Public capture reads canonical source IDs in read-only RR/SERIALIZABLE; owner-domain resolvers
+produce nutrition input composition, distinct cooking/edible-yield facts, conditional procurement
+coefficients and unallocated confirmed inventory possibilities. Planning assembles immutable nested
+GroundedDishCandidate facts. Missing/unsupported facts fail closed; no invented price/nutrition.
+[Evidence](MTR_019C_CANDIDATE_GROUNDING_EVIDENCE.md). No migration;54 domain tables/head0010.
+Not MTR-020, solver, execution or PRECOMMIT authority. Full MTR-019/026 remain PARTIAL; submit
+MTR-019C for review only. Original A/B contracts/hashes remain frozen and compatible.

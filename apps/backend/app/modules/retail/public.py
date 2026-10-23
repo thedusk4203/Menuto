@@ -13,6 +13,8 @@ from app.modules.retail.contracts import (
     RetailPriceCalibrationFact,
     calibrated_money,
 )
+from app.modules.retail.grounding import capture_procurement_sources as capture_procurement_sources
+from app.modules.retail.grounding import resolve_procurement_sources as resolve_procurement_sources
 
 
 def derive_price_quote(

@@ -15,7 +15,7 @@ from app.domain.contracts import (
     Sha256,
 )
 from app.domain.snapshots import RawIngredientAssetFact
-from app.domain.units import ExternalRecordId, ExternalVersion, Quantity
+from app.domain.units import CalculatedQuantity, ExternalRecordId, ExternalVersion, Quantity
 from app.modules.retail.contracts import IngredientProductMapFact
 
 
@@ -466,3 +466,11 @@ class RetailSourcedAPAssetDraft(RawIngredientAssetFact):
         if self.retail_mapping.status != "REVIEWED":
             raise ValueError("Retail origin requires reviewed mapping evidence")
         return self
+
+
+class InventoryCandidateLot(Contract):
+    contract_version: Literal["inventory-candidate-lot.v1"] = "inventory-candidate-lot.v1"
+    allocation: Literal["UNALLOCATED"] = "UNALLOCATED"
+    lot: InventoryLot
+    position: InventoryPosition
+    usable_quantity: CalculatedQuantity

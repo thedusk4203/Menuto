@@ -9,6 +9,7 @@ from app.modules.planning import binding_models as bm
 from app.modules.planning import contracts as c
 from app.modules.planning import models as m
 from app.modules.planning.culinary import bind_generated_candidate as bind_generated_candidate
+from app.modules.planning.grounding_capture import ground_candidate as ground_candidate
 
 
 class PlanStore:

@@ -766,6 +766,199 @@
       "title": "CalculatedQuantity",
       "type": "object"
     },
+    "CandidateGroundingRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "candidate": {
+          "$ref": "#/$defs/CulinaryCandidateDraft"
+        },
+        "contract_version": {
+          "const": "candidate-grounding-request.v1",
+          "default": "candidate-grounding-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "nutrition_selections": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/GroundingNutritionSelection"
+          },
+          "title": "Nutrition Selections",
+          "type": "array"
+        },
+        "participants": {
+          "$ref": "#/$defs/MealParticipants"
+        },
+        "procurement_class_ids": {
+          "default": [],
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Procurement Class Ids",
+          "type": "array"
+        },
+        "region_code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Region Code",
+          "type": "string"
+        },
+        "tracked_member_id": {
+          "format": "uuid",
+          "title": "Tracked Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate",
+        "household_id",
+        "tracked_member_id",
+        "participants",
+        "region_code",
+        "currency",
+        "as_of"
+      ],
+      "title": "CandidateGroundingRequest",
+      "type": "object"
+    },
+    "CandidateGroundingResult": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "candidate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GroundedDishCandidate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contract_version": {
+          "const": "candidate-grounding-result.v1",
+          "default": "candidate-grounding-result.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/GroundingIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "GROUNDED",
+            "INCOMPLETE",
+            "REJECTED"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "candidate",
+        "issues"
+      ],
+      "title": "CandidateGroundingResult",
+      "type": "object"
+    },
+    "CandidateGroundingSources": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "candidate-grounding-sources.v1",
+          "default": "candidate-grounding-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "ingredients": {
+          "items": {
+            "$ref": "#/$defs/IngredientIdentityFact"
+          },
+          "title": "Ingredients",
+          "type": "array"
+        },
+        "inventory": {
+          "$ref": "#/$defs/PhysicalInventorySnapshot"
+        },
+        "member_safety": {
+          "items": {
+            "$ref": "#/$defs/CanonicalMemberSafetySnapshot"
+          },
+          "title": "Member Safety",
+          "type": "array"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/HouseholdMemberIdentity"
+          },
+          "title": "Members",
+          "type": "array"
+        },
+        "nutrition_references": {
+          "items": {
+            "$ref": "#/$defs/NutritionReferenceFact"
+          },
+          "title": "Nutrition References",
+          "type": "array"
+        },
+        "procurements": {
+          "items": {
+            "$ref": "#/$defs/ProcurementSnapshotDraft"
+          },
+          "title": "Procurements",
+          "type": "array"
+        },
+        "recipe": {
+          "$ref": "#/$defs/RecipeVersionSnapshot"
+        },
+        "retailer_statuses": {
+          "items": {
+            "$ref": "#/$defs/RetailerStatusFact"
+          },
+          "title": "Retailer Statuses",
+          "type": "array"
+        }
+      },
+      "required": [
+        "recipe",
+        "ingredients",
+        "nutrition_references",
+        "procurements",
+        "retailer_statuses",
+        "members",
+        "member_safety",
+        "inventory"
+      ],
+      "title": "CandidateGroundingSources",
+      "type": "object"
+    },
     "CanonicalMemberSafety": {
       "additionalProperties": false,
       "properties": {
@@ -1523,6 +1716,110 @@
       "title": "Granularity",
       "type": "string"
     },
+    "GroundedDishCandidate": {
+      "additionalProperties": false,
+      "description": "Complete supported primitives for shortlist input, never global feasibility/authority.",
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "grounded-dish-candidate.v1",
+          "default": "grounded-dish-candidate.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "ingredient_facts": {
+          "items": {
+            "$ref": "#/$defs/GroundedIngredientFacts"
+          },
+          "minItems": 1,
+          "title": "Ingredient Facts",
+          "type": "array"
+        },
+        "input_nutrition": {
+          "$ref": "#/$defs/ResolvedNutrients"
+        },
+        "preparation_outputs": {
+          "items": {
+            "$ref": "#/$defs/PreparationOutputEstimate"
+          },
+          "title": "Preparation Outputs",
+          "type": "array"
+        },
+        "request": {
+          "$ref": "#/$defs/CandidateGroundingRequest"
+        },
+        "shortlist_input_ready": {
+          "const": true,
+          "default": true,
+          "title": "Shortlist Input Ready",
+          "type": "boolean"
+        },
+        "sources": {
+          "$ref": "#/$defs/CandidateGroundingSources"
+        },
+        "status": {
+          "const": "PRIMITIVES_RESOLVED",
+          "default": "PRIMITIVES_RESOLVED",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request",
+        "sources",
+        "ingredient_facts",
+        "preparation_outputs",
+        "input_nutrition",
+        "fingerprint"
+      ],
+      "title": "GroundedDishCandidate",
+      "type": "object"
+    },
+    "GroundedIngredientFacts": {
+      "additionalProperties": false,
+      "properties": {
+        "inventory_paths": {
+          "items": {
+            "$ref": "#/$defs/InventoryCandidateLot"
+          },
+          "title": "Inventory Paths",
+          "type": "array"
+        },
+        "nutrition": {
+          "$ref": "#/$defs/ResolvedNutritionPortion"
+        },
+        "procurement_paths": {
+          "items": {
+            "$ref": "#/$defs/ProcurementSupplyPath"
+          },
+          "title": "Procurement Paths",
+          "type": "array"
+        },
+        "requirement_id": {
+          "format": "uuid",
+          "title": "Requirement Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "nutrition",
+        "procurement_paths",
+        "inventory_paths"
+      ],
+      "title": "GroundedIngredientFacts",
+      "type": "object"
+    },
     "GroundedRecipeVariantDraft": {
       "additionalProperties": false,
       "description": "Culinary binding input only; nutrition/retail/safety resolution still missing.",
@@ -1621,6 +1918,74 @@
         "fingerprint"
       ],
       "title": "GroundedRecipeVariantDraft",
+      "type": "object"
+    },
+    "GroundingIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Detail",
+          "type": "string"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope"
+        },
+        "severity": {
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "title": "Severity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "detail"
+      ],
+      "title": "GroundingIssue",
+      "type": "object"
+    },
+    "GroundingNutritionSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "reference_id": {
+          "format": "uuid",
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "requirement_id": {
+          "format": "uuid",
+          "title": "Requirement Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "reference_id"
+      ],
+      "title": "GroundingNutritionSelection",
       "type": "object"
     },
     "Horizon": {
@@ -1916,6 +2281,39 @@
         "provenance"
       ],
       "title": "IngredientProductMapFact",
+      "type": "object"
+    },
+    "InventoryCandidateLot": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation": {
+          "const": "UNALLOCATED",
+          "default": "UNALLOCATED",
+          "title": "Allocation",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-candidate-lot.v1",
+          "default": "inventory-candidate-lot.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "lot": {
+          "$ref": "#/$defs/InventoryLot"
+        },
+        "position": {
+          "$ref": "#/$defs/InventoryPosition"
+        },
+        "usable_quantity": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        }
+      },
+      "required": [
+        "lot",
+        "position",
+        "usable_quantity"
+      ],
+      "title": "InventoryCandidateLot",
       "type": "object"
     },
     "InventoryLot": {
@@ -4476,6 +4874,33 @@
       "title": "PlanningProcurementOptionDraft",
       "type": "object"
     },
+    "PreparationOutputEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "preparation-output-estimate.v1",
+          "default": "preparation-output-estimate.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "output": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "transformation": {
+          "$ref": "#/$defs/PreparationTransformationFact"
+        }
+      },
+      "required": [
+        "transformation",
+        "input",
+        "output"
+      ],
+      "title": "PreparationOutputEstimate",
+      "type": "object"
+    },
     "PreparationTransformationFact": {
       "additionalProperties": false,
       "description": "Net EP_RAW→COOKED yield under Recipe context, not multi-step preparation.",
@@ -4924,6 +5349,172 @@
         "options"
       ],
       "title": "ProcurementSnapshotDraft",
+      "type": "object"
+    },
+    "ProcurementSupplyPath": {
+      "additionalProperties": false,
+      "description": "Unallocated supply coefficients, not checkout quantity/cost or stock.",
+      "properties": {
+        "availability": {
+          "$ref": "#/$defs/Availability"
+        },
+        "contract_version": {
+          "const": "procurement-supply-path.v1",
+          "default": "procurement-supply-path.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "freshness_assessment": {
+          "const": "NOT_IMPLEMENTED",
+          "default": "NOT_IMPLEMENTED",
+          "title": "Freshness Assessment",
+          "type": "string"
+        },
+        "high_ep_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 36,
+              "gt": 0,
+              "max_digits": 72
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "High Ep G"
+        },
+        "interpretation": {
+          "const": "CONDITIONAL_EVIDENCE",
+          "default": "CONDITIONAL_EVIDENCE",
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "low_ep_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 36,
+              "gt": 0,
+              "max_digits": 72
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Low Ep G"
+        },
+        "minimum_ep_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 36,
+              "gt": 0,
+              "max_digits": 72
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Ep G"
+        },
+        "nominal_ep_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 36,
+              "gt": 0,
+              "max_digits": 72
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nominal Ep G"
+        },
+        "option": {
+          "$ref": "#/$defs/PlanningProcurementOptionDraft"
+        },
+        "priced_ep_raw": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "procurement_class_id": {
+          "format": "uuid",
+          "title": "Procurement Class Id",
+          "type": "string"
+        },
+        "retailer_status": {
+          "$ref": "#/$defs/RetailerStatusFact"
+        },
+        "step_ep_g": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "decimal_places": 36,
+              "gt": 0,
+              "max_digits": 72
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Ep G"
+        },
+        "supplied_basis": {
+          "const": "EP_RAW_G",
+          "default": "EP_RAW_G",
+          "title": "Supplied Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "procurement_class_id",
+        "option",
+        "retailer_status",
+        "availability",
+        "priced_ep_raw"
+      ],
+      "title": "ProcurementSupplyPath",
       "type": "object"
     },
     "ProductIngredientConversionFact": {
@@ -6546,6 +7137,115 @@
       "title": "ReserveInventoryCommand",
       "type": "object"
     },
+    "ResolvedNutrients": {
+      "additionalProperties": false,
+      "description": "Ingredient-input composition; not goal policy or nutrient-retention truth.",
+      "properties": {
+        "carbohydrate_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Carbohydrate G"
+        },
+        "energy_kcal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Energy Kcal"
+        },
+        "fat_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Fat G"
+        },
+        "protein_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Protein G"
+        }
+      },
+      "required": [
+        "energy_kcal",
+        "protein_g",
+        "fat_g",
+        "carbohydrate_g"
+      ],
+      "title": "ResolvedNutrients",
+      "type": "object"
+    },
+    "ResolvedNutritionPortion": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "resolved-nutrition-portion.v1",
+          "default": "resolved-nutrition-portion.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "interpretation": {
+          "const": "INGREDIENT_INPUT_COMPOSITION",
+          "default": "INGREDIENT_INPUT_COMPOSITION",
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "nutrients": {
+          "$ref": "#/$defs/ResolvedNutrients"
+        },
+        "quantity": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "reference": {
+          "$ref": "#/$defs/NutritionReferenceFact"
+        }
+      },
+      "required": [
+        "ingredient_id",
+        "quantity",
+        "reference",
+        "nutrients"
+      ],
+      "title": "ResolvedNutritionPortion",
+      "type": "object"
+    },
     "ResolvedRecipeIngredient": {
       "additionalProperties": false,
       "properties": {
@@ -8163,8 +8863,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:12",
+  "$id": "urn:menuto:domain:foundation:13",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

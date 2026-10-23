@@ -561,3 +561,10 @@ class VariantGenerationResult(Contract):
         if any(c.recipe_source_hash != self.recipe_source_hash for c in self.candidates):
             raise ValueError("Cross-source candidate")
         return self
+
+
+class PreparationOutputEstimate(Contract):
+    contract_version: Literal["preparation-output-estimate.v1"] = "preparation-output-estimate.v1"
+    transformation: PreparationTransformationFact
+    input: CalculatedQuantity
+    output: CalculatedQuantity

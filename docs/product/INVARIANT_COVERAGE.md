@@ -85,3 +85,12 @@ primitive provenance/bases. INV-015–017/021 stay independently checked by the 
 RecipeGroundingValidator; candidate hashes/triggers never grant validation authority.
 INV-011/013 remain unchanged: generated possibilities and selected intent create no physical stock.
 These additions do not certify downstream nutrition, procurement, material feasibility or full MTR-026.
+
+MTR-019B is user FROZEN at23dd0b3. [MTR-019C](MTR_019C_CANDIDATE_GROUNDING_REVIEW.md)
+adds source-supported grounding: INV-005/006 culinary claims recomputed without new possibilities;
+INV-003/004 member identities/restrictions preserved (unknown classification blocks eligibility);
+INV-007/009 conditional price/availability, no checkout/probability claim; INV-011/013 read-only
+physical context, no procurement-as-stock; INV-018 compatible-basis nutrition references, exact
+arithmetic/provenance and separate edible/cooking yield. INV-015–017/020/021 remain independent
+validation requirements; producer grounding never grants validation authority. Full clinical policy,
+scenarios/global material/chronology/assumptions and MTR-026 remain deferred, not certified.

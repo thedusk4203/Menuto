@@ -93,6 +93,21 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     errors = []
 
     def audit(target, line):
+        if module in {"app.modules.planning.grounding", "app.modules.planning.grounding_capture"}:
+            if target.startswith(
+                (
+                    "ortools",
+                    "benchmark",
+                    "app.modules.learning",
+                    "app.modules.assistant",
+                    "app.modules.planning.optimizer",
+                    "app.modules.planning.ranking",
+                    "app.modules.planning.shortlist",
+                    "app.modules.planning.objectives",
+                    "app.modules.planning.utility",
+                )
+            ):
+                errors.append(f"{line}: GROUNDING_NOT_OPTIMIZATION: {target}")
         if (context == "validation" or contract) and (
             target == "ortools" or target.startswith("ortools.")
         ):

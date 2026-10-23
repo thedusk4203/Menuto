@@ -12,6 +12,7 @@ from pydantic import Field, model_validator
 
 from app.domain.contracts import (
     AwareTime,
+    CalculationDecimal,
     Contract,
     Identifier,
     Label,
@@ -524,3 +525,61 @@ class PriceEvidenceAssessmentDraft(RetailContract):
     dispersion_minor: NonNegativeDecimal | None
     coverage: EvidenceQuality
     policy_version: Identifier
+
+
+_SupplyPositive = Annotated[CalculationDecimal, Field(gt=0)]
+
+
+class ProcurementSupplyPath(Contract):
+    """Unallocated supply coefficients, not checkout quantity/cost or stock."""
+
+    contract_version: Literal["procurement-supply-path.v1"] = "procurement-supply-path.v1"
+    interpretation: Literal["CONDITIONAL_EVIDENCE"] = "CONDITIONAL_EVIDENCE"
+    freshness_assessment: Literal["NOT_IMPLEMENTED"] = "NOT_IMPLEMENTED"
+    procurement_class_id: UUID
+    option: PlanningProcurementOptionDraft
+    retailer_status: RetailerStatusFact
+    supplied_basis: Literal["EP_RAW_G"] = "EP_RAW_G"
+    availability: Availability
+    nominal_ep_g: _SupplyPositive | None = None
+    low_ep_g: _SupplyPositive | None = None
+    high_ep_g: _SupplyPositive | None = None
+    minimum_ep_g: _SupplyPositive | None = None
+    step_ep_g: _SupplyPositive | None = None
+    priced_ep_raw: CalculatedQuantity
+
+    @model_validator(mode="after")
+    def coefficients(self):
+        q, p = self.option.quote, self.option.quote.package
+        if (
+            q.procurement_class_id != self.procurement_class_id
+            or self.retailer_status.retailer_id != q.retailer_id
+            or self.retailer_status.status != "ACTIVE"
+            or self.availability != q.availability
+            or self.availability == "UNAVAILABLE"
+        ):
+            raise ValueError("Supply path must retain eligible evidence context")
+        source = dict(
+            nominal_ep_g=p.fixed_ap_g if p.granularity == "FIXED_PACK" else p.expected_ap_g,
+            low_ep_g=p.low_ap_g,
+            high_ep_g=p.high_ap_g,
+            minimum_ep_g=p.minimum_ap_g,
+            step_ep_g=p.step_ap_g,
+        )
+        for name, amount in source.items():
+            expected = (
+                q.mapping.apply(CalculatedQuantity(amount=amount, basis="AP_G")).ep_raw.amount
+                if amount is not None
+                else None
+            )
+            if getattr(self, name) != expected:
+                raise ValueError("Supply coefficients disagree with package/mapping primitives")
+        expected_price = q.mapping.apply(
+            CalculatedQuantity(
+                amount=q.reference_price_pair.priced_ap_g,
+                basis="AP_G",
+            )
+        ).ep_raw
+        if self.priced_ep_raw != expected_price:
+            raise ValueError("Priced EP quantity must preserve the AP reference pair conversion")
+        return self

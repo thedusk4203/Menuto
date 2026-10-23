@@ -42,6 +42,7 @@ from app.modules.inventory.contracts import (
     ConsumeInventoryCommand,
     DiscardInventoryCommand,
     ExpireInventoryCommand,
+    InventoryCandidateLot,
     InventoryLot,
     InventoryMovement,
     InventoryPosition,
@@ -59,6 +60,8 @@ from app.modules.nutrition.contracts import (
     MemberNutritionProfileWrite,
     MemberSafetyConstraint,
     MemberSafetySourceFact,
+    ResolvedNutrients,
+    ResolvedNutritionPortion,
 )
 from app.modules.planning.contracts import (
     ActivePlanSnapshot,
@@ -67,8 +70,15 @@ from app.modules.planning.contracts import (
     BoundPlanIntentGraph,
     BoundPlanProposalSnapshot,
     BoundPlanRevisionSnapshot,
+    CandidateGroundingRequest,
+    CandidateGroundingResult,
+    CandidateGroundingSources,
     CreatePlanWorkspaceCommand,
     CulinaryRequirementBinding,
+    GroundedDishCandidate,
+    GroundedIngredientFacts,
+    GroundingIssue,
+    GroundingNutritionSelection,
     HorizonCommitmentsDraft,
     MealIntent,
     PlanIntentGraph,
@@ -89,6 +99,7 @@ from app.modules.recipes.contracts import (
     CulinaryGenerationRejection,
     CulinaryRuleSelection,
     GroundedRecipeVariantDraft,
+    PreparationOutputEstimate,
     PreparationTransformationFact,
     QuantityAdjustmentPolicy,
     RecipeFact,
@@ -113,6 +124,7 @@ from app.modules.retail.contracts import (
     ProcurementClassFact,
     ProcurementClassMemberFact,
     ProcurementSnapshotDraft,
+    ProcurementSupplyPath,
     ProductIngredientConversionFact,
     PurchaseIntent,
     ReferencePriceBookFact,
@@ -145,6 +157,18 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    CandidateGroundingRequest,
+    CandidateGroundingResult,
+    CandidateGroundingSources,
+    GroundedDishCandidate,
+    GroundedIngredientFacts,
+    GroundingIssue,
+    GroundingNutritionSelection,
+    ResolvedNutrients,
+    ResolvedNutritionPortion,
+    PreparationOutputEstimate,
+    ProcurementSupplyPath,
+    InventoryCandidateLot,
     VariantGenerationRequest,
     VariantGenerationResult,
     CulinaryCandidateDraft,
@@ -271,7 +295,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:12"
+    schema["$id"] = "urn:menuto:domain:foundation:13"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -283,6 +307,7 @@ def export() -> str:
         "Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; "
         "independent grounding companion; "
         "culinary generation v1 expands authored demand only, no downstream grounding/ranking; "
+        "candidate grounding v1 resolves supported primitives, not feasibility/authority; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "
