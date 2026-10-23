@@ -45,3 +45,15 @@ def member_identities(session, household_id):
             .order_by(HouseholdMember.id)
         )
     )
+
+
+def lock_household_actor(session, household_id, actor_user_id, *, write=False):
+    """Canonical access check for an authenticated internal caller; no ORM escapes."""
+    row = session.execute(
+        select(Membership.member_id, Membership.role)
+        .where(Membership.household_id == household_id, Membership.user_id == actor_user_id)
+        .with_for_update(read=True)
+    ).one_or_none()
+    if row is None or (write and row.role not in {"OWNER", "EDITOR"}):
+        raise PermissionError("Household actor access denied")
+    return row.member_id, row.role

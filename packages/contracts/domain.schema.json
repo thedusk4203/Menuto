@@ -152,6 +152,82 @@
       "title": "AdjustmentKind",
       "type": "string"
     },
+    "AffinityFeatureTermFact": {
+      "additionalProperties": false,
+      "description": "Reviewed vocabulary meaning only, never inferred recipe/ingredient classification.",
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "affinity-feature-term.v1",
+          "default": "affinity-feature-term.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Definition",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Label",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "status": {
+          "enum": [
+            "DRAFT",
+            "REVIEWED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "version": {
+          "exclusiveMinimum": 0,
+          "maximum": 2147483647,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "code",
+        "version",
+        "label",
+        "definition",
+        "status",
+        "provenance"
+      ],
+      "title": "AffinityFeatureTermFact",
+      "type": "object"
+    },
     "AssetType": {
       "enum": [
         "RAW_INGREDIENT",
@@ -1707,6 +1783,98 @@
       "title": "ExpireInventoryCommand",
       "type": "object"
     },
+    "ExplicitMemberPreferenceSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "captured_at": {
+          "format": "date-time",
+          "title": "Captured At",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "explicit-member-preferences.v1",
+          "default": "explicit-member-preferences.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "EXPLICIT_DECLARATIONS_ONLY",
+          "default": "EXPLICIT_DECLARATIONS_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "declarations": {
+          "items": {
+            "$ref": "#/$defs/MemberPreferenceDeclarationFact"
+          },
+          "title": "Declarations",
+          "type": "array"
+        },
+        "feature_terms": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AffinityFeatureTermFact"
+          },
+          "title": "Feature Terms",
+          "type": "array"
+        },
+        "frontier": {
+          "minimum": 0,
+          "title": "Frontier",
+          "type": "integer"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "profile_derivation": {
+          "const": "NOT_IMPLEMENTED",
+          "default": "NOT_IMPLEMENTED",
+          "title": "Profile Derivation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "frontier",
+        "captured_at",
+        "declarations"
+      ],
+      "title": "ExplicitMemberPreferenceSnapshot",
+      "type": "object"
+    },
+    "FeaturePreferenceTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "feature_term_id": {
+          "format": "uuid",
+          "title": "Feature Term Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "feature_term_id"
+      ],
+      "title": "FeaturePreferenceTarget",
+      "type": "object"
+    },
     "Granularity": {
       "enum": [
         "FIXED_PACK",
@@ -2181,6 +2349,27 @@
         "name"
       ],
       "title": "IngredientIdentityFact",
+      "type": "object"
+    },
+    "IngredientPreferenceTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "INGREDIENT",
+          "default": "INGREDIENT",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ingredient_id"
+      ],
+      "title": "IngredientPreferenceTarget",
       "type": "object"
     },
     "IngredientProductMapFact": {
@@ -3108,6 +3297,159 @@
         "member_id"
       ],
       "title": "MemberNutritionProfileWrite",
+      "type": "object"
+    },
+    "MemberPreferenceDeclarationFact": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_role": {
+          "enum": [
+            "OWNER",
+            "EDITOR"
+          ],
+          "title": "Actor Role",
+          "type": "string"
+        },
+        "command": {
+          "discriminator": {
+            "mapping": {
+              "RETRACT": "#/$defs/RetractMemberPreferenceCommand",
+              "SET": "#/$defs/SetMemberPreferenceCommand"
+            },
+            "propertyName": "action"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/SetMemberPreferenceCommand"
+            },
+            {
+              "$ref": "#/$defs/RetractMemberPreferenceCommand"
+            }
+          ],
+          "title": "Command"
+        },
+        "command_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Fingerprint",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "member-preference-declaration.v1",
+          "default": "member-preference-declaration.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "member_sequence": {
+          "exclusiveMinimum": 0,
+          "title": "Member Sequence",
+          "type": "integer"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "revision_no": {
+          "minimum": 0,
+          "title": "Revision No",
+          "type": "integer"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "stream_id",
+        "revision_no",
+        "member_sequence",
+        "recorded_at",
+        "actor_role",
+        "command",
+        "command_fingerprint"
+      ],
+      "title": "MemberPreferenceDeclarationFact",
+      "type": "object"
+    },
+    "MemberPreferenceState": {
+      "additionalProperties": false,
+      "properties": {
+        "declaration_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Declaration Id"
+        },
+        "status": {
+          "enum": [
+            "UNDECLARED",
+            "DECLARED",
+            "RETRACTED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "enum": [
+                "LIKE",
+                "DISLIKE",
+                "NEUTRAL"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "target",
+        "status",
+        "value",
+        "declaration_id"
+      ],
+      "title": "MemberPreferenceState",
       "type": "object"
     },
     "MemberSafetyConstraint": {
@@ -4973,6 +5315,154 @@
       "title": "PlanningProcurementOptionDraft",
       "type": "object"
     },
+    "PreferenceWriteCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "SET",
+            "RETRACT"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "authorship": {
+          "enum": [
+            "SELF",
+            "AUTHORIZED_REPRESENTATIVE"
+          ],
+          "title": "Authorship",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "member-preference-write.v1",
+          "default": "member-preference-write.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 2147483646,
+          "minimum": -1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "reason": {
+          "enum": [
+            "INITIAL",
+            "INPUT_CORRECTION",
+            "PREFERENCE_CHANGED",
+            "RETRACTED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "source": {
+          "const": "EXPLICIT_DECLARATION",
+          "default": "EXPLICIT_DECLARATION",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "enum": [
+                "LIKE",
+                "DISLIKE",
+                "NEUTRAL"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "actor_user_id",
+        "authorship",
+        "target",
+        "expected_revision",
+        "predecessor_id",
+        "action",
+        "value",
+        "reason",
+        "occurred_at",
+        "provenance",
+        "idempotency_key"
+      ],
+      "title": "PreferenceWriteCommand",
+      "type": "object"
+    },
     "PreparationOutputEstimate": {
       "additionalProperties": false,
       "properties": {
@@ -6492,6 +6982,27 @@
       "title": "RecipePortionTierFact",
       "type": "object"
     },
+    "RecipePreferenceTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "DIRECT_RECIPE",
+          "default": "DIRECT_RECIPE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "recipe_id": {
+          "format": "uuid",
+          "title": "Recipe Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "recipe_id"
+      ],
+      "title": "RecipePreferenceTarget",
+      "type": "object"
+    },
     "RecipeProvenance": {
       "additionalProperties": false,
       "properties": {
@@ -7803,6 +8314,134 @@
       "title": "RetailerStatusProvenance",
       "type": "object"
     },
+    "RetractMemberPreferenceCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "const": "RETRACT",
+          "default": "RETRACT",
+          "title": "Action",
+          "type": "string"
+        },
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "authorship": {
+          "enum": [
+            "SELF",
+            "AUTHORIZED_REPRESENTATIVE"
+          ],
+          "title": "Authorship",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "member-preference-write.v1",
+          "default": "member-preference-write.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 2147483646,
+          "minimum": -1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "reason": {
+          "const": "RETRACTED",
+          "default": "RETRACTED",
+          "title": "Reason",
+          "type": "string"
+        },
+        "source": {
+          "const": "EXPLICIT_DECLARATION",
+          "default": "EXPLICIT_DECLARATION",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "value": {
+          "default": null,
+          "title": "Value",
+          "type": "null"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "actor_user_id",
+        "authorship",
+        "target",
+        "expected_revision",
+        "predecessor_id",
+        "occurred_at",
+        "provenance",
+        "idempotency_key"
+      ],
+      "title": "RetractMemberPreferenceCommand",
+      "type": "object"
+    },
     "RevisionScope": {
       "enum": [
         "SINGLE_MEAL",
@@ -7907,6 +8546,144 @@
         "kind"
       ],
       "title": "ScalingPolicy",
+      "type": "object"
+    },
+    "SetMemberPreferenceCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "const": "SET",
+          "default": "SET",
+          "title": "Action",
+          "type": "string"
+        },
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "authorship": {
+          "enum": [
+            "SELF",
+            "AUTHORIZED_REPRESENTATIVE"
+          ],
+          "title": "Authorship",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "member-preference-write.v1",
+          "default": "member-preference-write.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 2147483646,
+          "minimum": -1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "reason": {
+          "enum": [
+            "INITIAL",
+            "INPUT_CORRECTION",
+            "PREFERENCE_CHANGED",
+            "RETRACTED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "source": {
+          "const": "EXPLICIT_DECLARATION",
+          "default": "EXPLICIT_DECLARATION",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "value": {
+          "enum": [
+            "LIKE",
+            "DISLIKE",
+            "NEUTRAL"
+          ],
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "actor_user_id",
+        "authorship",
+        "target",
+        "expected_revision",
+        "predecessor_id",
+        "value",
+        "reason",
+        "occurred_at",
+        "provenance",
+        "idempotency_key"
+      ],
+      "title": "SetMemberPreferenceCommand",
       "type": "object"
     },
     "ShoppingDemandContributionIntent": {
@@ -9077,8 +9854,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:14",
+  "$id": "urn:menuto:domain:foundation:15",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

@@ -350,3 +350,7 @@ một đối tượng cụ thể; khác preference suy ra từ hành vi hay hard
 **Preference Retraction**:
 Rút lại phát biểu sở thích đang có, vẫn giữ lịch sử phát biểu và việc rút lại.
 Không đồng nghĩa với việc thành viên đã tuyên bố trung lập.
+
+**EvidenceStrength**:
+Mức bằng chứng của affinity trong MemberBehaviorProfile được suy ra theo policy/version và
+evidence provenance. Không phải trường do caller gắn lên raw explicit preference declaration.

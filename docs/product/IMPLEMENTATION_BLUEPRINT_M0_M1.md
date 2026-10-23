@@ -288,6 +288,9 @@ with required ordering correction: **MTR-040A explicit member preference → MTR
 MTR-019D inventory-match signals may support STRUCTURAL_CHAMPION later/in parallel, but do not
 unblock EXPLOIT/EXPLORE and are not the next prerequisite.
 [MTR-040A design](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md) defines durable member-owned
-ingredient/protein/method/flavor/direct-recipe assertions, evidence strength/provenance and
-append-only correction/retraction. Proposed forward0011 only after design approval; actual0010
-/54 remains unchanged. No learned inference, exposure, scalar TasteFit, Execution or solver.
+ingredient/protein/method/flavor/direct-recipe assertions, source provenance and append-only
+correction/retraction. User approved design with correction: raw declarations have no caller
+EvidenceStrength; derived MemberBehaviorProfile owns it later.
+[040A evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md): forward0011 /58 tables,
+typed targets, member frontier, immutable lineage and SQL-protected CAS/idempotency. No learned
+inference/profile strength, exposure, scalar TasteFit, Execution or solver. Submit review only.

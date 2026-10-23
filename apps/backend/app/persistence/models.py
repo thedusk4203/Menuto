@@ -1,6 +1,6 @@
 """Explicit registration at the composition root; cross-context models use database FKs."""
 
-from app.modules.catalog.models import Ingredient, NutritionFact
+from app.modules.catalog.models import AffinityFeatureTerm, Ingredient, NutritionFact
 from app.modules.cooking.models import PlannedBatchAllocation, PlannedCookingBatch
 from app.modules.households.models import Household, HouseholdMember, Membership
 from app.modules.identity.models import User
@@ -24,6 +24,11 @@ from app.modules.planning.models import (
     PlanRevisionReservation,
     PlanValidationAuthorization,
     PlanWorkspace,
+)
+from app.modules.preferences.models import (
+    MemberPreferenceDeclaration,
+    MemberPreferenceFrontier,
+    MemberPreferenceStream,
 )
 from app.modules.recipes.models import (
     PreparationTransformation,
@@ -58,6 +63,10 @@ from app.modules.shopping.models import ShoppingDemandContribution, ShoppingRequ
 from app.shared.db import Base
 
 __all__ = [
+    "AffinityFeatureTerm",
+    "MemberPreferenceDeclaration",
+    "MemberPreferenceFrontier",
+    "MemberPreferenceStream",
     "CulinaryRequirementBinding",
     "PlannedCulinaryBinding",
     "PlanWorkspace",

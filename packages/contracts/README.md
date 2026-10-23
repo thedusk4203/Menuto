@@ -80,3 +80,9 @@ witness contracts. Exact source/path coverage only: no scalar ranking, goal synt
 cost, global feasibility or full role-aware portfolio. activation_ready=False. Result/hash/ready
 flags cannot mint the process-local canonical capture pool. All158 prior definitions unchanged;
 database remains0010 /54 tables; no migration. Frozen MTR-019A/B/C wire contracts are unchanged.
+
+Bundle15 adds explicit-member-preferences.v1, raw command/declaration/state contracts and typed
+ingredient/recipe/feature targets with reviewed vocabulary. No raw EvidenceStrength,
+assertion_confidence, learned profile or TasteFit scalar. Snapshot covers explicit declarations
+only; frontier and complete history support replay, not production PRECOMMIT authority.
+Migration0011 adds four tables (58 total); old wire/hash definitions remain unchanged.

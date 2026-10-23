@@ -102,3 +102,10 @@ mutations (INV-011/013). Every retained alternative keeps full basis/provenance 
 Canonical capture-only ingress and narrow zero-IO core protect the data boundary, not validation
 authority (INV-015–017/020/021). Global/causal feasibility (INV-019), full role/behavior portfolio,
 root policy and production PRECOMMIT remain deferred. No canonical invariant wording changes.
+
+MTR-040A [evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md) adds raw explicit member-owned
+source coverage for INV-003/004/018/026: typed targets, actor/proxy scope and immutable provenance.
+INV-022–025/027–029 are protected by excluding inferred/execution/utility events, scalar TasteFit
+and caller EvidenceStrength; hard safety is unchanged. DB CAS/frontier/idempotency, direct SQL and
+concurrency checks protect source history; no learned profile or full invariant certification.
+PRECOMMIT remains fail-closed (INV-021); exposure/horizon/solver/Execution remain deferred.

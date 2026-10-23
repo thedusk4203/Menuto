@@ -1,6 +1,9 @@
 # MTR-040A — Explicit Member Preference Foundation / design
 
-Status: **DESIGN ONLY — READY FOR ARCHITECTURE REVIEW**. No implementation/migration in this PR.
+Status: **DESIGN APPROVED WITH REQUIRED CORRECTION; IMPLEMENTATION AUTHORIZED**.
+User correction before implementation: raw declarations must not contain caller-authored
+EvidenceStrength. That belongs to later MemberBehaviorProfile derivation. Reviewed implementation
+baseline: `75d76ad2b400095d7eedf949fdec15bb969b9b5d`. Frozen migrations0001–0010 unchanged.
 Reviewed main: `a50f7c275793b126d9f4f9d40097a1f3ca00f2e7`. Existing schema0010 /54 domain tables.
 The user approved the [dependency review](POST_MTR_020A_DEPENDENCY_REVIEW.md) with one required
 ordering correction: **MTR-040A → MTR-041 → MTR-024 → MTR-020B → MTR-021**. MTR-019D is optional
@@ -64,17 +67,16 @@ Keep evidence dimensions separate:
 
 - Source origin: EXPLICIT_DECLARATION only. Neutral Provenance.kind is existing USER;
   source_system/external_record_id/source_version, optional URI/hash and observed_at are retained.
-- Evidence strength: NONE/LOW/MEDIUM/HIGH per ADR-011. For an active declaration the author must
-  explicitly state LOW/MEDIUM/HIGH under a versioned qualitative definition; no default HIGH just
-  because it was explicit. Preserve `strength_basis=EXPLICIT_ASSERTION` and assessor/actor identity.
-  This records stated certainty of the assertion, not liking intensity, sample count or calibrated
-  probability. Future learned/curated strength assessment has a different source/policy boundary.
-- No declaration: UNDECLARED, value absent, strength NONE. Explicit NEUTRAL: a real value with
-  non-NONE stated strength/provenance. Retraction: RETRACTED, current value absent/strength NONE,
-  with its prior assertion and retraction evidence retained.
+- EvidenceStrength belongs exclusively to later derived MemberBehaviorProfile, with its own
+  derivation policy/version and evidence provenance. Raw declarations carry no evidence_strength,
+  strength_basis or implicit default. Explicit source/authorship does not automatically set strength.
+- No declaration: UNDECLARED, value absent. Explicit NEUTRAL: a real asserted value/provenance.
+  Retraction: RETRACTED, current value absent, prior assertion and retraction evidence retained.
+- A future assertion_confidence would be a separate optional concept, never an automatic profile
+  EvidenceStrength. It is not implemented in040A.
 
 No row is not a declaration of neutrality, dislike, familiarity or exposure. Retrying/repeating
-a statement does not raise strength. A change in strength is a new explicit declaration. Unknown
+a statement creates no learned strength. Profile strength derivation is deferred. Unknown
 input must not be stored as a fake NEUTRAL/0 assertion to make later portfolio inputs complete.
 
 ## D. Actor and household boundary
@@ -113,7 +115,7 @@ and immutable declaration history. No JSONB, generic cross-domain event store or
 | affinity_feature_terms | Catalog | Immutable reviewed vocabulary above; no recipe/ingredient classification mapping in040A. |
 | member_preference_frontiers | Preferences | One row per composite household/member; DB-controlled monotonic generation/member_sequence. Detects new target streams as well as replacements, not just changes to already-known rows. |
 | member_preference_streams | Preferences | Stable stream_id, composite member ownership, target_kind + ingredient_id/recipe_id/feature_term_id typed FKs, cached head_revision/head_declaration. Identity immutable; head DB-controlled. |
-| member_preference_declarations | Preferences | Immutable stream-owned declaration_id, revision_no, predecessor identity/revision, member_sequence, SET/RETRACT, value/strength shape, actor/proxy audit, provenance, reason, occurred_at/recorded_at, idempotency identity and command fingerprint. |
+| member_preference_declarations | Preferences | Immutable stream-owned declaration_id, revision_no, predecessor identity/revision, member_sequence, SET/RETRACT, value/action shape, actor/proxy audit, provenance, reason, occurred_at/recorded_at, idempotency identity and command fingerprint. |
 
 Streams have exactly one correctly typed target: ingredient or direct recipe or feature term;
 feature composite FK(term_id,target_kind) prevents METHOD→PROTEIN mismatch. Five partial unique
@@ -123,7 +125,7 @@ FK binds exact same stream/member and revision, never a foreign member/target. N
 
 Initial SET is revision0 with no predecessor; later facts reference the exact current predecessor
 and revision+1. Unique(stream_id,revision_no), unique(household_id,member_id,member_sequence).
-SET requires value + non-NONE strength; RETRACT requires null value/NONE and an active predecessor.
+SET requires a value; RETRACT requires null value and an active predecessor.
 Initial RETRACT and repeated RETRACT without intervening SET reject. A deferred completeness check
 prevents committing an empty stream; first stream/fact/frontier/head assemble atomically.
 
@@ -161,7 +163,7 @@ different-target writes so snapshot generation includes new streams, and determi
 is independent of equal timestamps. All writer paths must take the same database fence.
 
 Idempotency unique(household_id,actor_user_id,source_system,idempotency_key), with a fingerprint of
-full subject/target/action/predecessor/value/strength/provenance command content. Verify current
+full subject/target/action/predecessor/value/provenance command content. Verify current
 access first, then return same recorded fact for an exact retry **before stale-head rejection**.
 Same key/different content fails; retries do not create new declarations/frontier increments.
 Distinct deliberate statements may create new revisions, but never count as learned evidence.
@@ -184,7 +186,7 @@ not needed for declaration truth.
 
 Capture one read-only RR/SERIALIZABLE source snapshot through Preferences public facade. Canonical
 sort unordered streams by owned target identity and facts by member_sequence; future ordered data
-needs explicit ordinal, never generic list sorting. Content/provenance/strength/target/frontier
+needs explicit ordinal, never generic list sorting. Content/provenance/target/frontier
 changes alter the snapshot hash; retrieval order does not. Validate/replay claims independently
 from the cache when a future validator consumes them. No live queries inside validation/shortlist.
 
@@ -208,19 +210,20 @@ Learning runtime, ORM internals from another domain, Retail/Inventory or utility
 Catalog vocabulary imports no Preferences. Later Learning reads explicit immutable declarations
 without overwriting them; MTR-039 inferred/contextual/passive events are not accepted by040A.
 
-## H. Migration and implementation acceptance plan (not executed)
+## H. Migration and acceptance plan (implemented subset evidence linked below)
 
-Implementation needs **0011_explicit_member_preferences.py** (if0011 remains available), frozen
+Implementation uses **0011_explicit_member_preferences.py**, frozen
 DDL independent of mutable ORM metadata. Do not edit0001–0010 or existing facts. Deterministic
 up/down/up on empty schema; downgrade locks/checks all four new tables and fails closed if any
 preference/term/frontier/history exists. No data copy or learned-score backfill; vocabulary data
 must have explicit reviewed provenance. ORM drift/domain export/import tests advance additively.
-Current actual schema remains0010 /54; this design does not claim the proposed schema exists.
+Current implementation schema is0011 /58 tables. Original design baseline was0010 /54.
+See [execution evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md) for actual checks and limits.
 
 Required implementation evidence:
 
 1. All five typed targets; wrong feature kind/foreign FK/unreviewed or missing term reject.
-2. UNDECLARED vs explicit NEUTRAL vs RETRACTED; explicit strength required, no unknown→0 default.
+2. UNDECLARED vs explicit NEUTRAL vs RETRACTED; raw strength/assertion_confidence fields rejected; no unknown→0 default.
 3. One member's declaration never updates another; self vs explicit authorized representative
    preserved; viewer/foreign actor/subject reject; concurrent permission revocation cannot race write.
 4. SET→replacement→retraction→SET history; old snapshots unchanged; no backdated head selection.
@@ -243,7 +246,7 @@ Required implementation evidence:
 
 Chosen: ordinal assertions instead of invented scalar affinity; durable append-only replacements;
 member-level frontier plus stream CAS; typed FKs; reviewed feature terms without guessed feature
-assignments; explicit self/proxy source modes; required qualitative asserted strength; no defaults
+assignments; explicit self/proxy source modes; no raw EvidenceStrength; no defaults
 or empirical constants. These are proposed decisions for architecture review, not a freeze verdict.
 Implementation review must validate DB protection and permission paths above; no silent alternative
 if a contradiction is found. Numeric affinity intensity, taxonomy mapping/generalization, learned
@@ -252,22 +255,21 @@ remain outside040A.
 
 MTR-041 is next on the approved critical path **after this slice is implemented and accepted**.
 MTR-024/020B/021 remain blocked; MTR-026 incomplete; PRECOMMIT fail-closed. No learning, Execution,
-MTR-019D, portfolio or solver starts in this design task.
+MTR-019D, portfolio or solver starts in this implementation slice.
 
 Trade-offs for review: ordinal declarations deliberately defer liking intensity; member-frontier
 serialization favors deterministic audit over write throughput; the vocabulary table defines
 targets without pretending to complete MTR-046 feature coverage. Proposed self/proxy permissions
-and the qualitative stated-strength definition require acceptance as design decisions before code.
+were accepted by the user; the raw-strength proposal was explicitly removed before code.
 Even after implementation,040A would complete only the explicit-source subset of MTR-040, not the
 full learned/hierarchical profile or a TasteFit producer.
 
-## J. Checks on this documentation revision
+## J. Implementation handoff
 
-Executed:156 existing architecture/baseline/frozen shortlist/grounding tests PASS; Ruff, canonical
-baseline, import boundaries, domain/OpenAPI export checks PASS. Alembic head0010 and registered
-metadata54 tables verified. No local PostgreSQL rerun is claimed for this docs-only change; the
-PostgreSQL cases above are an implementation acceptance plan, not already-tested040A behavior.
-PR CI runs the unchanged full suite separately. No production code, wire/schema export or frozen
-migration is changed in this task.
+User approved the design with the required raw-EvidenceStrength removal. It was corrected before
+implementation. [Evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md) distinguishes actual
+unit/PostgreSQL/SQL/concurrency/migration checks from the acceptance plan. No frozen migration,
+A/B/C/020A wire/hash or independent validator behavior is changed. New database head0011,58 tables;
+full MTR-040 remains incomplete. Submit040A for architecture/freeze review, do not self-freeze.
 
-**READY FOR ARCHITECTURE REVIEW**
+**READY FOR ARCHITECTURE/FREEZE REVIEW**
