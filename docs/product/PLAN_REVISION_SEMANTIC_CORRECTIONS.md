@@ -1,5 +1,6 @@
 # Plan/Revision Semantic Corrections — 0009
 
+> Current decision: user APPROVED/FROZEN MTR-016 at `751a40e847dd2e664a6fe3667c272bc740a44e49` (0009,52 tables). READY/not-FROZEN statements below record the earlier submission, not the current freeze decision. Production authority remains fail-closed.
 Date: 2026-10-23. Status: **READY FOR ARCHITECTURE/FREEZE REVIEW**, not FROZEN.
 Canonical slice remains F / MTR-016. No CookingBatchExecution or next milestone work.
 

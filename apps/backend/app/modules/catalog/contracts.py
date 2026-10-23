@@ -13,6 +13,12 @@ class IngredientCreate(Contract):
     name: Label
 
 
+class IngredientIdentityFact(Contract):
+    contract_version: Literal["ingredient-identity.v1"] = "ingredient-identity.v1"
+    id: UUID
+    name: Label
+
+
 class NutritionValues(Contract):
     energy_kcal: NonNegativeDecimal
     protein_g: NonNegativeDecimal
@@ -34,3 +40,9 @@ class NutritionFact(Contract):
         if self.reference.basis not in {MeasurementBasis.EP_RAW_G, MeasurementBasis.COOKED_G}:
             raise ValueError("Nutrition reference must use edible raw or cooked mass")
         return self
+
+
+class NutritionReferenceFact(Contract):
+    contract_version: Literal["nutrition-reference-source.v1"] = "nutrition-reference-source.v1"
+    id: UUID
+    fact: NutritionFact

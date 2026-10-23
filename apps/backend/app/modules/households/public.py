@@ -2,9 +2,14 @@
 
 from uuid import UUID
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.modules.households.contracts import HouseholdCreate, HouseholdCreated
+from app.modules.households.contracts import (
+    HouseholdCreate,
+    HouseholdCreated,
+    HouseholdMemberIdentity,
+)
 from app.modules.households.models import Household, HouseholdMember, Membership
 
 
@@ -28,4 +33,15 @@ def create_default_household(
     session.flush()
     return HouseholdCreated(
         household_id=household.id, member_id=member.id, owner_user_id=actor_user_id
+    )
+
+
+def member_identities(session, household_id):
+    return tuple(
+        HouseholdMemberIdentity(household_id=row.household_id, member_id=row.id)
+        for row in session.scalars(
+            select(HouseholdMember)
+            .where(HouseholdMember.household_id == household_id)
+            .order_by(HouseholdMember.id)
+        )
     )

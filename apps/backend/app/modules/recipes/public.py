@@ -12,6 +12,11 @@ from app.modules.recipes.contracts import (
     VariantReason,
     resolve_culinary_binding,
 )
+from app.modules.recipes.repository import RecipeRepository
+
+
+def authored_version(session, version_id):
+    return RecipeRepository(session).version(version_id)
 
 
 def bind_culinary_draft(

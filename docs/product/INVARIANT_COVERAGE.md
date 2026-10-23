@@ -18,12 +18,12 @@ Mỗi ID dưới đây dùng nghĩa trong canonical V1.3. SCAFFOLD_ONLY là ranh
 | INV-012 | PARTIAL_FOUNDATION | MTR-017, MTR-036 | M1.3 chỉ explicit consumption, elapsed time không ghi movement; chưa operational assumptions |
 | INV-013 | PARTIAL_FOUNDATION | MTR-017, MTR-036 | M1.3 explicit USER/RECEIPT/BARCODE/EXECUTION + household actor guards; không SYSTEM inference; chưa projection |
 | INV-014 | NOT_IMPLEMENTED | MTR-037 | Chưa có local-first repair escalation |
-| INV-015 | MICRO_MODEL_ONLY | MTR-026 | Micro verifier kiểm arithmetic; chưa có production orchestrator |
-| INV-016 | SCAFFOLD_ONLY | MTR-026 | test_architecture.py chặn solver/facade/contract backdoor; chưa chứng minh full semantic independence |
+| INV-015 | PARTIAL_FOUNDATION | MTR-026 | Independent foundation checks correctness primitives only; no optimality/search; full validator suite deferred |
+| INV-016 | PARTIAL_FOUNDATION | MTR-026 | Static independence plus zero DB/IO tests; independently implemented default-input arithmetic and physical replay; full suite deferred |
 | INV-017 | PARTIAL_FOUNDATION | MTR-025, MTR-026 | M1.1 mapping/quote primitives; M1.2 recomputable culinary primitives + DB seal; M1.3 exact quantities, timestamps/sequence and movement history; chưa production Independent Validator/nutrition path |
 | INV-018 | PARTIAL_FOUNDATION | MTR-003, MTR-014, MTR-025 | Exact units/provenance; M1.1 AP→EP mapping giữ nguyên; M1.2 contextual EP_RAW→COOKED factors/version/provenance; M1.3 explicit asset basis, immutable mapping FK + primitive ledger replay; full validation chain chưa có |
 | INV-019 | PARTIAL_FOUNDATION | MTR-015, MTR-026 | M1.3 exact event order, nonnegative/reservation/expiry SQL + snapshot replay và competing writer tests; chưa batch flow validator |
-| INV-020 | NOT_IMPLEMENTED | MTR-006, MTR-026 | Chưa có root-contract guards bỏ qua planner summaries |
+| INV-020 | PARTIAL_FOUNDATION | MTR-006, MTR-026 | Canonical participant/exclusion guards bypass planner summaries; unsupported allergen/diet/root goal policy fail closed |
 | INV-021 | PARTIAL_FOUNDATION | MTR-025, MTR-026 | F sealed graph hash + guarded receipt/frontier/CAS seam; production authority absent, publish fail-closed; chưa full PRECOMMIT/POSTFACT independent validation |
 | INV-022 | NOT_IMPLEMENTED | MTR-039, MTR-041 | Chưa có passive evidence quarantine/provisional exposure |
 | INV-023 | NOT_IMPLEMENTED | MTR-039 | Chưa có attribution retail/context ≠ taste |
@@ -58,3 +58,12 @@ Thêm typed quantitative shopping contributions, enforce SINGLE_MEAL dependency 
 và freeze advice theo scheduled_at/planned_at/need_by. Schema hiện0009, **52 bảng**;
 0001–0008 giữ nguyên. Legacy v1 giữ hash, graph v2 explicit; PRECOMMIT vẫn fail-closed.
 Trạng thái **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa tự FROZEN hoặc đóng MTR-016.
+
+
+MTR-016 foundation is user FROZEN; [validation foundation evidence](VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md)
+adds partial runtime coverage for INV-003/004/013/015–021: primitive member exclusion,
+exact source-aware hashing/nutrition/yield estimates, conservation and causal physical replay,
+zero-IO independent enforcement, non-authorizing PRECOMMIT and immutable POSTFACT diagnostics.
+No invariant is certified fully production-enforced. Root nutrition/goal/safety classification,
+scenario/planned material/batch/revision/assumption/bridge coverage and real authority remain
+unimplemented; synthetic benchmark remains separate evidence, not this production suite.

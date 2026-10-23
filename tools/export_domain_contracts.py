@@ -23,9 +23,19 @@ from app.domain.units import (
     QuantizationResult,
     YieldConversion,
 )
-from app.modules.catalog.contracts import IngredientCreate, NutritionFact
+from app.modules.catalog.contracts import (
+    IngredientCreate,
+    IngredientIdentityFact,
+    NutritionFact,
+    NutritionReferenceFact,
+)
 from app.modules.cooking.contracts import PlannedBatchAllocationIntent, PlannedCookingBatchIntent
-from app.modules.households.contracts import HouseholdCreate, HouseholdCreated, MealParticipants
+from app.modules.households.contracts import (
+    HouseholdCreate,
+    HouseholdCreated,
+    HouseholdMemberIdentity,
+    MealParticipants,
+)
 from app.modules.inventory.contracts import (
     AcquireInventoryCommand,
     BatchFlowLinkDraft,
@@ -44,7 +54,12 @@ from app.modules.inventory.contracts import (
     ReserveInventoryCommand,
     RetailSourcedAPAssetDraft,
 )
-from app.modules.nutrition.contracts import MemberNutritionProfileWrite, MemberSafetyConstraint
+from app.modules.nutrition.contracts import (
+    CanonicalMemberSafetySnapshot,
+    MemberNutritionProfileWrite,
+    MemberSafetyConstraint,
+    MemberSafetySourceFact,
+)
 from app.modules.planning.contracts import (
     ActivePlanSnapshot,
     CreatePlanWorkspaceCommand,
@@ -58,6 +73,7 @@ from app.modules.planning.contracts import (
     PublishPlanRevisionCommand,
     ReservationIntent,
 )
+from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
 from app.modules.recipes.contracts import (
     GroundedRecipeVariantDraft,
     PreparationTransformationFact,
@@ -99,9 +115,33 @@ from app.modules.shopping.contracts import (
     ShoppingDemandContributionIntent,
     ShoppingRequirementIntent,
 )
+from app.modules.validation.contracts import (
+    CalculatedNutrition,
+    DefaultBatchInputDerivation,
+    InventoryValidationFacts,
+    MaterialBalanceDerivation,
+    ValidationReport,
+    ValidationSourceFrontier,
+    ValidationSubjectSnapshot,
+    YieldEstimate,
+)
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    ValidationSubjectSnapshot,
+    ValidationReport,
+    InventoryValidationFacts,
+    ValidationSourceFrontier,
+    DefaultBatchInputDerivation,
+    CalculatedNutrition,
+    MaterialBalanceDerivation,
+    YieldEstimate,
+    ValidationCoveragePolicySnapshot,
+    IngredientIdentityFact,
+    NutritionReferenceFact,
+    CanonicalMemberSafetySnapshot,
+    MemberSafetySourceFact,
+    HouseholdMemberIdentity,
     PlanIntentGraph,
     MealIntent,
     ReservationIntent,
@@ -197,9 +237,11 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:9"
+    schema["$id"] = "urn:menuto:domain:foundation:10"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
+        "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
+        "production authority is absent and reports cannot authorize activation. "
         "Planner, validation and mutation handoffs are m0 drafts. "
         "Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. "
         "Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. "
