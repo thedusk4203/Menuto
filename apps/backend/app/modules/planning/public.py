@@ -5,6 +5,7 @@ from uuid import uuid4
 from sqlalchemy import insert, select, text
 
 from app.domain.snapshots import Horizon
+from app.modules.planning import binding_models as bm
 from app.modules.planning import contracts as c
 from app.modules.planning import models as m
 
@@ -166,13 +167,23 @@ class PlanStore:
             .one()
         )
         raw = self.session.scalar(text("SELECT menuto_plan_graph(:p)"), {"p": proposal_id})
-        graph = c.PlanIntentGraph.model_validate(raw)
+        graph_type = (
+            c.BoundPlanIntentGraph
+            if raw["contract_version"] == "plan-intent.v3"
+            else c.PlanIntentGraph
+        )
+        graph = graph_type.model_validate(raw)
         graph_hash = self.session.scalar(
             select(m.PlanProposalSeal.graph_hash).where(
                 m.PlanProposalSeal.proposal_id == proposal_id
             )
         )
-        return c.PlanProposalSnapshot(
+        snapshot_type = (
+            c.BoundPlanProposalSnapshot
+            if isinstance(graph, c.BoundPlanIntentGraph)
+            else c.PlanProposalSnapshot
+        )
+        return snapshot_type(
             id=row["id"],
             proposal_no=row["proposal_no"],
             graph=graph,
@@ -212,14 +223,20 @@ class PlanStore:
                     m.PlanProposalSeal.proposal_id == parent_proposal
                 )
             )
-        return c.PlanRevisionSnapshot(
+        proposal = self.proposal(household_id, plan_id, row["proposal_id"])
+        snapshot_type = (
+            c.BoundPlanRevisionSnapshot
+            if isinstance(proposal, c.BoundPlanProposalSnapshot)
+            else c.PlanRevisionSnapshot
+        )
+        return snapshot_type(
             household_id=household_id,
             plan_id=plan_id,
             revision_no=revision_no,
             parent_revision_no=row["parent_revision_no"],
             parent_graph_hash=parent_hash,
             reason_kind=("INITIAL_ACTIVATED_BASELINE" if revision_no == 0 else "PLAN_REVISION"),
-            proposal=self.proposal(household_id, plan_id, row["proposal_id"]),
+            proposal=proposal,
             authorization_id=row["authorization_id"],
             created_at=row["created_at"],
         )
@@ -300,3 +317,27 @@ class PlanStore:
                 shopping_node_id=shopping_node_id,
             )
         )
+
+    def store_bindings(self, graph):
+        for binding in getattr(graph, "culinary_bindings", ()):
+            data = binding.model_dump(exclude={"requirements", "provenance"})
+            data.update(binding.provenance.model_dump(exclude={"kind"}))
+            data["source_kind"] = binding.provenance.kind
+            if data["source_uri"] is not None:
+                data["source_uri"] = str(data["source_uri"])
+            self.session.execute(insert(bm.PlannedCulinaryBinding.__table__).values(**data))
+            for row in binding.requirements:
+                fields = row.model_dump(exclude={"quantity"})
+                fields.update(
+                    amount=row.quantity.amount,
+                    basis=row.quantity.basis,
+                    item_ref=row.quantity.item_ref,
+                )
+                self.session.execute(
+                    insert(bm.CulinaryRequirementBinding.__table__).values(
+                        proposal_id=binding.proposal_id,
+                        batch_node_id=binding.batch_node_id,
+                        recipe_version_id=binding.recipe_version_id,
+                        **fields,
+                    )
+                )

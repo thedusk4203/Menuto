@@ -10,10 +10,19 @@ from uuid import UUID
 
 from pydantic import Field, model_validator
 
-from app.domain.contracts import AwareTime, Contract, Identifier, Label, PositiveDecimal, Sha256
+from app.domain.contracts import (
+    AwareTime,
+    Contract,
+    Identifier,
+    Label,
+    PersistedDecimal,
+    PositiveDecimal,
+    Sha256,
+)
 from app.domain.snapshots import Horizon
-from app.domain.units import Quantity
+from app.domain.units import CalculatedQuantity, Quantity
 from app.modules.cooking.contracts import PlannedBatchAllocationIntent, PlannedCookingBatchIntent
+from app.modules.recipes.contracts import RecipeProvenance
 from app.modules.shopping.contracts import (
     ShoppingDemandContributionIntent,
     ShoppingRequirementIntent,
@@ -329,3 +338,124 @@ class ActivePlanSnapshot(Contract):
         ) != (self.revision.household_id, self.revision.plan_id, self.revision.revision_no):
             raise ValueError("ActivePlan snapshot requires exact accepted stable head")
         return self
+
+
+class CulinaryRequirementBinding(Contract):
+    requirement_id: UUID
+    selected_rule_id: UUID | None
+    ingredient_id: UUID
+    quantity: CalculatedQuantity
+    adjustment_delta: PersistedDecimal
+    transformation_id: UUID | None
+
+
+class PlannedCulinaryBinding(Contract):
+    """Captured claims, independently checked at seal/validation; never cached valid=true."""
+
+    contract_version: Literal["planned-culinary-binding.v1"] = "planned-culinary-binding.v1"
+    household_id: UUID
+    plan_id: UUID
+    proposal_id: UUID
+    batch_node_id: UUID
+    recipe_version_id: UUID
+    tier_id: UUID
+    planned_servings: PositiveDecimal
+    approved_combination_id: UUID | None
+    requirements: tuple[CulinaryRequirementBinding, ...] = Field(min_length=1)
+    provenance: RecipeProvenance
+    fingerprint: Sha256
+
+    def payload(self):
+        result = self.model_dump(mode="json", exclude={"fingerprint"})
+        result["planned_servings"] = format(self.planned_servings, "f")
+        result["provenance"]["observed_at"] = self.provenance.observed_at.isoformat(
+            timespec="microseconds"
+        ).replace("+00:00", "Z")
+        for row, fact in zip(result["requirements"], self.requirements, strict=True):
+            row["quantity"]["amount"] = format(fact.quantity.amount, "f")
+            row["adjustment_delta"] = format(fact.adjustment_delta, "f")
+        result["requirements"] = sorted(result["requirements"], key=lambda r: r["requirement_id"])
+        return result
+
+    def expected_fingerprint(self):
+        return sha256(
+            json.dumps(
+                self.payload(), sort_keys=True, ensure_ascii=False, separators=(",", ":")
+            ).encode()
+        ).hexdigest()
+
+    def semantic_fingerprint(self):
+        result = self.payload()
+        result.pop("proposal_id")
+        return sha256(
+            json.dumps(result, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()
+        ).hexdigest()
+
+
+class BoundCookingBatchIntent(PlannedCookingBatchIntent):
+    culinary_signature: Sha256
+
+
+class BoundPlanIntentGraph(PlanIntentGraph):
+    contract_version: Literal["plan-intent.v3"] = "plan-intent.v3"
+    batches: tuple[BoundCookingBatchIntent, ...] = ()
+    culinary_bindings: tuple[PlannedCulinaryBinding, ...] = ()
+
+    def content(self):
+        result = super().content()
+        result["culinary_bindings"] = [
+            b.payload() | {"fingerprint": b.fingerprint}
+            for b in sorted(self.culinary_bindings, key=lambda b: str(b.batch_node_id))
+        ]
+        return result
+
+    @model_validator(mode="after")
+    def exact_binding_ownership(self):
+        bindings = {b.batch_node_id: b for b in self.culinary_bindings}
+        if len(bindings) != len(self.culinary_bindings) or set(bindings) != {
+            b.node_id for b in self.batches
+        }:
+            raise ValueError("Exactly one binding per batch is required")
+        for batch in self.batches:
+            b = bindings[batch.node_id]
+            if (b.household_id, b.plan_id, b.recipe_version_id, b.tier_id, b.planned_servings) != (
+                self.household_id,
+                self.plan_id,
+                batch.recipe_version_id,
+                batch.tier_id,
+                batch.planned_servings,
+            ) or b.semantic_fingerprint() != batch.culinary_signature:
+                raise ValueError("Binding batch/owner/signature mismatch")
+        return self
+
+
+class ProposeBoundPlanCommand(ProposePlanCommand):
+    contract_version: Literal["plan-propose.v2-culinary"] = "plan-propose.v2-culinary"
+    graph: BoundPlanIntentGraph
+
+    @model_validator(mode="after")
+    def proposal_owner(self):
+        if any(b.proposal_id != self.proposal_id for b in self.graph.culinary_bindings):
+            raise ValueError("Binding belongs to another proposal")
+        return self
+
+
+class BoundPlanProposalSnapshot(PlanProposalSnapshot):
+    contract_version: Literal["plan-proposal.v2-culinary"] = "plan-proposal.v2-culinary"
+    graph: BoundPlanIntentGraph
+
+    @model_validator(mode="after")
+    def proposal_owner(self):
+        if any(b.proposal_id != self.id for b in self.graph.culinary_bindings):
+            raise ValueError("Binding belongs to another proposal")
+        return self
+
+
+class BoundPlanRevisionSnapshot(PlanRevisionSnapshot):
+    contract_version: Literal["plan-revision.v2-culinary"] = "plan-revision.v2-culinary"
+    proposal: BoundPlanProposalSnapshot
+
+
+class BoundActivePlanSnapshot(ActivePlanSnapshot):
+    contract_version: Literal["active-plan.v2-culinary"] = "active-plan.v2-culinary"
+    revision: BoundPlanRevisionSnapshot

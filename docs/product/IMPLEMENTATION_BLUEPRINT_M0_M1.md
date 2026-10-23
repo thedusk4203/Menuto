@@ -233,3 +233,13 @@ capture precedes immutable subject → independent primitive checks; full root/p
 scenario/bridge coverage and PRECOMMIT authority must precede execution. [Evidence](VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md)
 separates implemented/structurally supported/deferred capabilities. No new table/migration;
 source contracts/export version independently advance, production activation stays blocked.
+
+
+## After approved MTR-026 dependency review: MTR-019A
+
+[Review A–J](MTR_019A_CULINARY_BINDING_REVIEW.md) implements durable explicit culinary intent,
+not an ephemeral validation-only payload.0010 adds header/requirement relations; graph v3 binds
+full fingerprint and semantic batch signature to immutable proposal/revision history. Independent
+RecipeGroundingValidator consumes read-only captured companion primitives. Legacy plan/subject
+versions keep their own hashes. [Evidence](MTR_019A_CULINARY_BINDING_EVIDENCE.md). Production gate
+stays shut; policy/scenarios/material/batch/assumption/bridge prerequisites remain separate.

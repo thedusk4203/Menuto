@@ -18,6 +18,8 @@ from app.modules.shopping.public import store_shopping_intents
 
 def fingerprint(command):
     payload = command.model_dump()
+    if payload.get("graph", {}).get("contract_version") == "plan-intent.v3":
+        payload["graph"] = command.graph.content()
     if payload.get("graph", {}).get("contract_version") == "plan-intent.v1":
         payload["graph"].pop("shopping_contributions", None)
     return sha256(
@@ -72,12 +74,18 @@ class PlanRevisionService:
         w = self.store.workspace(household_id, plan_id)
         if w.active_revision_no is None:
             raise ValueError("Plan is not activated; use immutable draft proposals")
-        return c.ActivePlanSnapshot(
-            workspace=w, revision=self.store.revision(household_id, plan_id, w.active_revision_no)
+        revision = self.store.revision(household_id, plan_id, w.active_revision_no)
+        snapshot_type = (
+            c.BoundActivePlanSnapshot
+            if isinstance(revision, c.BoundPlanRevisionSnapshot)
+            else c.ActivePlanSnapshot
         )
+        return snapshot_type(workspace=w, revision=revision)
 
     def horizon_handoff(self, household_id, plan_id, cutoff):
         current = self.current_plan(household_id, plan_id)
+        if isinstance(current, c.BoundActivePlanSnapshot):
+            raise ValueError("V3 horizon projection is deferred; use exact culinary capture")
         return c.HorizonCommitmentsDraft(
             revision=current.revision,
             inventory_frontier=self.store.inventory_frontier(household_id),
@@ -86,7 +94,12 @@ class PlanRevisionService:
         )
 
     def propose(self, command: c.ProposePlanCommand):
-        command = c.ProposePlanCommand.model_validate(command.model_dump())
+        command_type = (
+            c.ProposeBoundPlanCommand
+            if isinstance(command, c.ProposeBoundPlanCommand)
+            else c.ProposePlanCommand
+        )
+        command = command_type.model_validate(command.model_dump())
         self.store.lock(command.graph.household_id)
         existing = self.store.existing(
             "proposal",
@@ -119,6 +132,7 @@ class PlanRevisionService:
                 requirements=command.graph.shopping,
                 contributions=command.graph.shopping_contributions,
             )
+            self.store.store_bindings(command.graph)
             self.store.seal(command.proposal_id)
             result = self.store.proposal(
                 command.graph.household_id, command.graph.plan_id, command.proposal_id

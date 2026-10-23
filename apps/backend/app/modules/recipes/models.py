@@ -302,6 +302,7 @@ class RecipeCombinationMember(Base):
 class PreparationTransformation(IdentityMixin, ProvenanceMixin, Base):
     __tablename__ = "preparation_transformations"
     __table_args__ = (
+        UniqueConstraint("id", "recipe_version_id"),
         *provenance(),
         UniqueConstraint("recipe_version_id", "requirement_id", "ingredient_id"),
         UniqueConstraint("recipe_version_id", "ordinal"),

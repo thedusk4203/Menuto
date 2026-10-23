@@ -12,6 +12,7 @@ from app.modules.inventory.models import (
     InventoryReservationRelease,
 )
 from app.modules.nutrition.models import MemberNutritionProfile, MemberSafetyConstraint
+from app.modules.planning.binding_models import CulinaryRequirementBinding, PlannedCulinaryBinding
 from app.modules.planning.models import (
     PlanMaterializationLink,
     PlanMealIntent,
@@ -57,6 +58,8 @@ from app.modules.shopping.models import ShoppingDemandContribution, ShoppingRequ
 from app.shared.db import Base
 
 __all__ = [
+    "CulinaryRequirementBinding",
+    "PlannedCulinaryBinding",
     "PlanWorkspace",
     "PlanProposal",
     "PlanProposalSeal",

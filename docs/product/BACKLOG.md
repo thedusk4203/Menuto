@@ -86,3 +86,12 @@ This records architecture acceptance; it does not silently close unrelated execu
 Next dependency-safe work is [MTR-025 subject foundation / partial MTR-026](VALIDATION_SUBJECT_FOUNDATION_REVIEW.md),
 with [implementation evidence](VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md). Full production
 MTR-025/026 remain PARTIAL and authorization stays fail-closed. No invented M1.4 numbering.
+
+
+## MTR-019A approved implementation scope
+
+[Explicit culinary ownership](MTR_019A_CULINARY_BINDING_REVIEW.md) is a narrow sub-slice under
+MTR-019 plus independent RecipeGroundingValidator under MTR-026. [Evidence](MTR_019A_CULINARY_BINDING_EVIDENCE.md).
+Durable sealed plan intent, forward0010, version3 graph/companion input; no demand-driven
+generator or production authorization. Both parent work items remain incomplete. Freeze approval
+of MTR-025 at219b556 concerns its foundation semantics; they remain untouched.

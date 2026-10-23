@@ -17,3 +17,10 @@ reads or repair effects. Production Plan authorization insertion guard remains u
 
 See docs/product/VALIDATION_SUBJECT_FOUNDATION_REVIEW.md and
 docs/product/VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md for exact scope.
+
+
+MTR-019A adds `recipe_grounding.validate_recipe_grounding` over versioned
+`CulinaryValidationInput`: exact sealed proposal bindings + authored RecipeVersion primitives.
+Independent rule/quantity/scaling/tier/transformation/hash enforcement; no producer resolver,
+DB/source queries or repair. Read-only capture is execution/culinary_capture.py. This is not full
+Independent Validator completion or production authorization. Frozen v1 input remains unchanged.

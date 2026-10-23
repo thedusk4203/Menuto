@@ -26,7 +26,11 @@ from app.modules.inventory.contracts import (
     InventoryReservationRelease,
 )
 from app.modules.nutrition.contracts import CanonicalMemberSafetySnapshot
-from app.modules.planning.contracts import PlanProposalSnapshot, PlanRevisionSnapshot
+from app.modules.planning.contracts import (
+    BoundPlanProposalSnapshot,
+    PlanProposalSnapshot,
+    PlanRevisionSnapshot,
+)
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
 from app.modules.recipes.contracts import RecipeVersionSnapshot
 
@@ -154,3 +158,27 @@ class ValidationReport(Contract):
     material_balances: tuple[MaterialBalanceDerivation, ...]
     yield_estimates: tuple[YieldEstimate, ...]
     deferred_capabilities: tuple[DeferredCapability, ...]
+
+
+class CulinaryValidationInput(Contract):
+    contract_version: Literal["culinary-validation-input.v1"] = "culinary-validation-input.v1"
+    activation_ready: Literal[False] = False
+    proposal: BoundPlanProposalSnapshot
+    recipes: tuple[RecipeVersionSnapshot, ...]
+
+    @property
+    def fingerprint(self):
+        from app.domain.canonical import canonical_hash
+
+        # Proposal/binding have explicit relationship IDs. Recipe facts are unordered;
+        # procedure text retains its own order. No GroundedVariantDraft is embedded.
+        return canonical_hash(self)
+
+
+class RecipeGroundingReport(Contract):
+    contract_version: Literal["recipe-grounding-report.v1"] = "recipe-grounding-report.v1"
+    phase: Literal["PRECOMMIT_VALIDATION", "POSTFACT_VALIDATION"]
+    subject_hash: Sha256
+    activation_authorized: Literal[False] = False
+    culinary_checks_passed: bool
+    findings: tuple[ValidationFinding, ...]

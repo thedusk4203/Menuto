@@ -511,9 +511,11 @@ def test_0008_0009_roundtrip_preserves_legacy_hash_without_guessed_ownership(
             db.commit()
     for _ in range(2):
         migrate(engine, config, "0009")
+        migrate(engine, config, "head")
         with engine.connect() as conn:
             config.attributes["connection"] = conn
             alembic_command.check(config)
+        migrate(engine, config, "0009", down=True)
         if populated:
             with Session(engine) as db:
                 saved = PlanStore(db).proposal(g.household_id, g.plan_id, pid)
