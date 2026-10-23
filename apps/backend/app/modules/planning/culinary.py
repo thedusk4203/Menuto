@@ -63,3 +63,46 @@ def author_binding(
         fingerprint="0" * 64,
     )
     return b.model_copy(update={"fingerprint": b.expected_fingerprint()})
+
+
+def bind_generated_candidate(*, candidate, recipe, **owner):
+    """Select a culinary possibility into frozen intent, never confer validation authority."""
+    from app.modules.recipes.contracts import CulinaryCandidateDraft, RecipeVersionSnapshot
+    from app.modules.recipes.public import recipe_source_hash
+
+    candidate = CulinaryCandidateDraft.model_validate(candidate.model_dump())
+    recipe = RecipeVersionSnapshot.model_validate(recipe.model_dump())
+    if (
+        recipe.review_status != "REVIEWED"
+        or candidate.recipe_version_id != recipe.id
+        or candidate.recipe_source_hash != recipe_source_hash(recipe)
+        or candidate.provenance != recipe.provenance
+    ):
+        raise ValueError("Candidate does not belong to the exact reviewed RecipeVersion snapshot")
+    resolved, transforms, count = resolve_culinary_binding(
+        recipe,
+        candidate.tier_id,
+        candidate.selected_rule_ids,
+        {r.requirement_id: r.adjustment_delta for r in candidate.resolved_ingredients},
+    )
+    if (
+        sorted(resolved, key=lambda r: str(r.requirement_id))
+        != sorted(candidate.resolved_ingredients, key=lambda r: str(r.requirement_id))
+        or sorted(transforms, key=lambda t: str(t.id))
+        != sorted(candidate.transformations, key=lambda t: str(t.id))
+        or count != candidate.serving_count
+    ):
+        raise ValueError("Candidate resolved claims disagree with authored primitives")
+    return author_binding(
+        recipe=recipe.model_copy(
+            update={
+                "approved_combinations": tuple(
+                    sorted(recipe.approved_combinations, key=lambda c: str(c.id))
+                )
+            }
+        ),
+        tier_id=candidate.tier_id,
+        selected_rule_ids=candidate.selected_rule_ids,
+        deltas={r.requirement_id: r.adjustment_delta for r in candidate.resolved_ingredients},
+        **owner,
+    )

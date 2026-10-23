@@ -312,3 +312,16 @@ adjustments and preparation paths. It records what is intended, not what was coo
 
 Identity of unchanged culinary intent across proposal copies. A change of culinary facts changes
 this signature; merely recording the same intent in a new proposal does not.
+
+**Culinary Candidate**:
+Một khả năng culinary cụ thể từ RecipeVersion đã được tác giả cho phép, có ingredient,
+lượng và serving tier xác định. Chưa phải DishCandidate hoàn chỉnh khi thiếu grounding downstream.
+_Avoid_: safe meal, fully grounded candidate
+
+**Culinary Demand**:
+Yêu cầu chọn khả năng culinary theo serving tier, ingredient mong muốn, rule set và exclusions.
+Đây là đầu vào lựa chọn, không tự chứng minh giá, inventory hay an toàn cho thành viên.
+
+**Generation Trigger**:
+Lý do cơ học khiến một khả năng được xét, như default, ingredient target hoặc rule set được yêu cầu.
+Khác lý do đã được chứng minh bằng bằng chứng như price advantage hay expiry rescue.

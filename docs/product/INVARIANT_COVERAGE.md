@@ -76,3 +76,12 @@ INV-015/016/021 gain pure companion checks, import/query traps and diagnostic/no
 INV-011/013 remain protected: no physical stock created. Own-anchor/closure/materialization
 boundaries see binding-only changes. All remain PARTIAL_FOUNDATION; this does not certify
 full MTR-019/026, nutrition safety, material feasibility or Execution. Canonical invariant wording unchanged.
+
+MTR-019A is now user FROZEN at4a6207a. [MTR-019B review](MTR_019B_VARIANT_GENERATOR_REVIEW.md)
+and [evidence](MTR_019B_VARIANT_GENERATOR_EVIDENCE.md) add INV-005/006 generation coverage:
+no invented substitutions/methods/tiers, no Cartesian expansion, exact combination authorization,
+zero refinement and unambiguous COUNT paths. INV-018 gains source/candidate fingerprints with
+primitive provenance/bases. INV-015–017/021 stay independently checked by the unchanged
+RecipeGroundingValidator; candidate hashes/triggers never grant validation authority.
+INV-011/013 remain unchanged: generated possibilities and selected intent create no physical stock.
+These additions do not certify downstream nutrition, procurement, material feasibility or full MTR-026.
