@@ -167,4 +167,8 @@ cannot establish canonical ingress. No source re-grounding/DB IO in shortlist co
 No tables/migration;0010 /54 and frozen A/B/C semantics unchanged; domain bundle14 additive.
 Full MTR-019/020/026 remain PARTIAL. Role/utility portfolio, evidence-backed reasons, COUNT
 nutrition, classification, global feasibility, solver, Execution and PRECOMMIT remain deferred.
-MTR-020A is **READY FOR ARCHITECTURE/FREEZE REVIEW**, not FROZEN.
+MTR-020A is user **FROZEN / APPROVED** at `87278ed1ea79771f80b09b161ff711ff066556a8`,
+head0010 /54 tables. Full MTR-019/020/026 remain NOT COMPLETE; MTR-021/Execution NOT STARTED;
+PRECOMMIT fail-closed. [Post-freeze dependency review](POST_MTR_020A_DEPENDENCY_REVIEW.md)
+finds MTR-020B BLOCKED and recommends a narrow MTR-019D inventory-match evidence slice for
+architecture approval only. No next-slice implementation is authorized by that document.
