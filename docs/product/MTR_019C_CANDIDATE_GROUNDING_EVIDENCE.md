@@ -3,7 +3,16 @@
 Reviewed frozen main: `23dd0b3bc3245ac9c7ef5493968f8ab120242f00`.
 [Architecture A–J](MTR_019C_CANDIDATE_GROUNDING_REVIEW.md) was recorded before code.
 MTR-019B is now user FROZEN at that commit. MTR-019C is submitted for review, not self-frozen.
-Exact implementation commit/PR/verified remote CI are recorded below when available.
+Implementation commit: `f5454f61b07b91be03e22849f0269692a1bc8d95`.
+PR: https://github.com/thedusk4203/Menuto/pull/67.
+
+## Verified remote CI
+
+[Code-checkpoint CI](https://github.com/thedusk4203/Menuto/actions/runs/39940172132)
+on f5454f6: **Python SUCCESS + web SUCCESS**. Inspected logs confirm **1158 Python tests passed
+in66.74s**, benchmark **22/22**, client **10/10**, generated checks, typecheck and web build.
+The final PR head must also pass both jobs before merge; evidence-only updates do not change
+runtime/test semantics. [Final PR checks](https://github.com/thedusk4203/Menuto/pull/67/checks).
 
 ## Delivered contracts / boundaries
 
@@ -90,6 +99,21 @@ and public facades; new nutrition/resolution.py, retail/grounding.py, inventory/
 planning/grounding.py and grounding_capture.py; grounding fixtures/unit/real-PG tests; import guard,
 domain export/bundle13/README; review/evidence/status/blueprint/backlog/invariant coverage/glossary.
 No ORM model, database migration, frozen generator/validator implementation or prior test changed.
+
+Exact file groups (brace entries name separate files):
+
+| Prefix | Files |
+| --- | --- |
+| apps/backend/app/domain/ | resolution.py |
+| apps/backend/app/modules/inventory/ | contracts.py, public.py, grounding.py |
+| apps/backend/app/modules/nutrition/ | contracts.py, public.py, resolution.py |
+| apps/backend/app/modules/planning/ | contracts.py, public.py, grounding.py, grounding_capture.py |
+| apps/backend/app/modules/recipes/ | contracts.py, public.py |
+| apps/backend/app/modules/retail/ | contracts.py, public.py, grounding.py |
+| apps/backend/tests/ | grounding_fixtures.py, test_candidate_grounding.py, test_postgres_candidate_grounding.py |
+| tools/ | check_import_boundaries.py, export_domain_contracts.py |
+| packages/contracts/ | domain.schema.json, README.md |
+| docs/product/ | MTR_019C_CANDIDATE_GROUNDING_REVIEW.md, MTR_019C_CANDIDATE_GROUNDING_EVIDENCE.md, FOUNDATION_STATUS.md, IMPLEMENTATION_BLUEPRINT_M0_M1.md, BACKLOG.md, INVARIANT_COVERAGE.md, GLOSSARY.md |
 
 ## Deferred / parent status
 
