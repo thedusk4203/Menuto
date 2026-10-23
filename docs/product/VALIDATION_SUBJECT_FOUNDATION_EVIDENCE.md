@@ -14,7 +14,7 @@ MTR-016 is user **APPROVED/FROZEN**, canonical main
 `751a40e847dd2e664a6fe3667c272bc740a44e49`, migration0009,52 domain tables.
 No concrete contradiction was found; its semantics/guards remain unchanged.
 Published migrations0001–0009 have no diff. **No new table or migration is needed.**
-Implementation commit and PR/CI: recorded after execution below.
+Implementation commit: `fb298dd177197d1c22fbd0644ad4535e3b10b0b7`. PR/CI results are recorded below after remote execution.
 
 ## Implemented
 
