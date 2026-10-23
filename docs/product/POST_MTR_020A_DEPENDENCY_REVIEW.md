@@ -1,6 +1,10 @@
 # Post-MTR-020A dependency review
 
-Review date:2026-10-23. **Documentation-only architecture proposal; awaiting approval.**
+Review date:2026-10-23. **APPROVED WITH REQUIRED ORDERING CORRECTION.**
+
+Correction reviewed against `a50f7c275793b126d9f4f9d40097a1f3ca00f2e7` (PR69). The user
+accepted the capability findings but rejected MTR-019D as the single next prerequisite.
+The corrected critical path below supersedes that recommendation; no frozen runtime changes.
 
 ## 1. Reviewed baseline and verdict
 
@@ -19,12 +23,11 @@ hash-ordered candidates to them, setting missing signals to zero, or calling mis
 novelty would create unsupported meaning. A contracts-only shell returning unsupported is
 possible, but would not implement this capability.
 
-**Recommended single next implementation slice: MTR-019D — Evidence-backed Inventory-Match
-Signals.** This is a proposed narrow sub-slice under canonical MTR-019, not an existing frozen
-backlog ID or authorization to implement it. It uses existing confirmed unallocated source
-possibilities to supply one truthful structural signal/reason. It is the smallest immediately
-implementable prerequisite on the inventory-backed portfolio path, **not sufficient to unblock
-all of MTR-020B**. Other source branches remain independently blocked below.
+**Next critical-path slice: MTR-040A — Explicit Member Preference Foundation.**
+Durable member-owned declarations precede MTR-041 exposure foundation, MTR-024 separable
+utility inputs and MTR-020B. See [MTR-040A design](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md).
+MTR-019D is useful optional STRUCTURAL_CHAMPION support, to do later/in parallel; it does not
+remove the hard preference/exposure blockers and is not the next prerequisite of MTR-020B.
 
 ## 2. Evidence inspected
 
@@ -73,98 +76,75 @@ READY means the named narrow capability can use existing canonical facts. PARTIA
 means raw support exists but a typed derivation/capture/policy seam is absent. BLOCKED means
 a required upstream source of truth is missing. A READY sub-primitive does not certify its
 containing production capability. Order is a recommended dependency wave, not numeric MTR order
-or permission to implement. D is the single immediate recommendation; branches in wave2 are
-independent and not all universally required by every future restricted portfolio.
+or permission to implement. Critical-path order: C1=MTR-040A, C2=MTR-041,
+C3=MTR-024, C4=MTR-020B, C5=MTR-021 (still gated). S marks independent source-support
+work before consuming its signal; optional MTR-019D is not ahead of C1/C2.
 
 | Capability | Owner | Existing primitives | Missing primitives | Status | Prerequisite MTR | Recommended order |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1. ShortlistPortfolioPolicy | Policy defines immutable policy; Planning applies portfolio selection | ShortlistPolicyDraft ID/version, input/frontier limits and exact containment relation | Three-role capacity/eligibility definitions, signal availability handling, duplicate role membership/accounting, protected diversity reserves, overflow/tie rules and binding to supported source snapshots. Existing resource limits are not portfolio quotas. | PARTIALLY READY | MTR-020B policy contract after MTR-024 signal definitions and required source branches; MTR-008 for applicable resolved user axes. No separate existing portfolio-policy MTR. | 3 definitions,4 selection |
-| 2a. EXPLOIT | Preferences/Learning supply signals; Planning selects | Member IDs/participants and exact culinary identities | Member-owned declared/learned affinity, reviewed cold-start priors, evidence strength, shrunk TasteFit/available fit dimensions and provenance. No known neutral baseline source. | BLOCKED | MTR-040 member source; MTR-039 for learned event attribution, MTR-046 for feature priors; MTR-024 separable fit inputs. Explicit direct declarations can precede learned-event routing. | 2 sources →3 →4 |
-| 2b. STRUCTURAL_CHAMPION | Domain sources + Planning grounding/portfolio | Exact nutrition composition; unallocated lot matches; retail price/granularity/coverage primitives | Candidate-bound inventory-match evidence; policy-defined nutrient/economic/expiry/fragility comparison where enabled. A's containment witness is not a quality/champion score. | PARTIALLY READY | MTR-019D first for inventory-match branch; MTR-006/007/008 for nutrition branch; MTR-011/012/013 and material resolution for economics/fragility. Not all branches must be enabled simultaneously. | D →2/3 →4 |
-| 2c. EXPLORE | Learning/Preferences sources; Planning portfolio | Recipe/version/method identities and candidate fingerprints | Authoritative exposure coverage/frontier, novelty/feature-fit inputs, cold-start priors, evidence availability and bounded exploration policy. Absence of an exposure implementation is not proof of never tried. | BLOCKED | MTR-041 exposure source + MTR-040 priors/affinity + MTR-046 features; MTR-039 where events contribute; MTR-024 input vector. Cross-horizon provisional exposure additionally MTR-038/017. | 2 →3 →4 |
-| 3. Preference / TasteFit | Preferences, member-owned; Learning attribution | HouseholdMember identity, MealParticipants, exact recipe/ingredients | Explicit preference source and correction semantics; direct/feature affinity, evidence strength, prior/shrink policy and member aggregation. Hard ingredient exclusion is not taste. | BLOCKED | MTR-040; MTR-039 for learned evidence; MTR-046 feature vocabulary/priors; MTR-024 fit derivation. Do not require Execution to store an explicit declared preference. | 2 →3 |
-| 4. Adherence vector | Source domains; MTR-024 utility boundary | Ingredient counts/quantities, methods and serving/batch intent identities | Separate time/equipment/complexity/ingredient-count/batch/schedule/repeat/novelty fit facts, applicability, source provenance and policy. Raw count is not fit; no canonical scalar adherence truth. | BLOCKED | MTR-024 input/vector foundation after MTR-008/046 effort/context and MTR-040/041/039 applicable member signals. Actual batch-fit extensions need MTR-023 planning facts, not execution success as taste. | 2 →3 |
-| 5. Recent exposure / repeat cooldown | Learning, member-scoped; projection lineage separate | Recipe ID/method, scheduled MealIntent/plan revisions, participant IDs | Exposure events with confirmation/provisional/reversal status and actor scope; completeness window/frontier; multi-level family/protein/flavor identity; versioned repeat/decay policy. Scheduled meals do not prove eating. | BLOCKED | MTR-041; MTR-039 attribution; MTR-046 descriptors; MTR-038/017 for horizon/provisional extensions. Later actual execution may supply confirmed events, but must not be started for this review. | 2 sources; horizon extension later |
-| 6. Kitchen effort / schedule convenience | Household kitchen/context + Policy; authored recipe descriptors | Draft KitchenEffort axis, meal/batch timestamps, recipe method/procedure | Authored prep/cook/active time, equipment and effort descriptors; household equipment/daily availability source; versioned compatibility/fit policy. Method text cannot establish minutes/equipment. | PARTIALLY READY | MTR-008 resolved KitchenEffort/DailyAvailability + MTR-046 reviewed recipe coverage/effort facts (Recipe-owned companion); MTR-024 separable fit inputs. | 2 →3 |
-| 7. Nutrition / goal fit | Nutrition/Policy; participant-specific allocation | Reviewed EP_RAW_G/COOKED_G references, exact input-composition totals, servings/participants, member mass/height | Eligible root goal/guideline source, applicable per-role/meal/serving demand and member allocations, supported resolution/comfort/weekly policy. Protein amount alone is not fit or health approval. | PARTIALLY READY | MTR-006 root/goal policy →MTR-007 resolution + MTR-008 policy binding; MTR-005 member allocation boundary/MTR-019 grounding extensions; MTR-046 culinary roles where used. | 2 →3; independent root enforcement MTR-026 |
-| 8. Structural economics | Retail/Shopping/Inventory facts; global Planning economics | Money/reference AP quantity, mapping yield, fixed/catch/loose coefficients, inventory and batch intent | Granularity-specific purchase cost and explicit quantization, marginal/shared package/lot/batch decision context, waste/carryover policy and stress scenario evidence. No legitimate per-dish checkout cost. | PARTIALLY READY | Remaining MTR-011/012 cost-resolution seam →MTR-013 scenarios; MTR-008/009 budget context. True marginal economic effects belong to later MTR-021/022 material/global decisions; shortlist must not recreate that solver. | 2 inputs →later global resolution; not a requirement to implement MTR-022 before any shortlist |
-| 9. Inventory / expiry-rescue signals | Inventory owns stock; Planning owns derived candidate-match context | Confirmed active lots, exact usable basis/quantity, retained AP→EP mapping, usable_until, reservations and captured frontier | Typed candidate-bound unallocated match witness/reason; for expiry-rescue additionally planned-use time, urgency policy/window and resolved consumption/competition before claiming rescued quantity/waste. | PARTIALLY READY | **MTR-019D proposed inventory-match-only slice** reusing frozen MTR-015/C; expiry urgency later MTR-019 policy extension, MTR-008 schedule context; actual saved quantity requires MTR-021/023 planned allocation/global replay. | **D first**; rescue later |
-| 10. Procurement fragility signals | Retail facts; Planning derives candidate structural context | Promotion derived from observation; retailer/provider/path coverage; package brittleness assessment/version; granularity/bounds and provenance | Candidate-demand-specific eligible coverage, comparable package sensitivity, freshness/source-quality eligibility and versioned fragility interpretation. Existing counts need not be resolved candidate-eligible coverage. No calibrated probability. | PARTIALLY READY | Remaining MTR-011 builder/fragility and MTR-012 quality/evidence policy; MTR-013 deterministic scenarios for spend-stress claims; MTR-019 signal handoff. | 2 →3 |
-| 11. Evidence-backed generation / shortlist reasons | Planning contextual grounding, not Recipe authoring | Frozen B DEFAULT/AUTHORED_SELECTION/INGREDIENT_TARGET triggers; C nested evidence; VariantReason enum in older culinary draft | Reason-to-candidate/source/cutoff witness and deterministic predicates; explicit distinction between selection hint, source possibility and demonstrated benefit. Enum existence is not proof. | PARTIALLY READY | **MTR-019D** inventory-match first; later MTR-006/008 nutrition, MTR-011/012/013 price/package and expiry policy branches. Portfolio-selected-for-role reasons later MTR-020B must cite the actual policy/signal. | **D first**, others 2/3/4 |
-| 12. Allergen / diet classification | Catalog reviewed source; Nutrition canonical member enforcement; Validation independent | Member ALLERGEN/DIET_RULE codes, ingredient IDs, EXCLUDED_INGREDIENT enforcement | Reviewed positive/negative/unknown ingredient classification; controlled code vocabulary, semantics/version/provenance and coverage. Ingredient names and feature tags cannot substitute. | BLOCKED | MTR-046 proposed ingredient-safety classification source scope + MTR-005 enforcement seam; MTR-026 independent check. Existing MTR-046 coverage wording alone does not implement that source model. | 2 safety source; required before admitting affected candidates |
-| 13. COUNT nutrition / count-to-mass | Catalog authored item definition/nutrition; neutral Units; Recipe retains ownership of culinary quantity | COUNT item_ref identity; explicit recipe count requirement; current nutrition source permits only edible raw/cooked mass | Authored item_ref-specific mass/edible basis or reviewed count nutrient reference, version/provenance, applicability/uncertainty/quantization rules; no generic unit magic. | BLOCKED | MTR-003 count measurement-source contract + MTR-046 authored catalog truth, MTR-014 yield-boundary compatibility, MTR-019 grounding extension. COUNT substitutions remain prohibited under frozen Recipe policy. | 2 source; required only before COUNT candidate eligibility |
+| 1. ShortlistPortfolioPolicy | Policy defines immutable policy; Planning applies portfolio selection | ShortlistPolicyDraft ID/version, input/frontier limits and exact containment relation | Three-role capacity/eligibility definitions, signal availability handling, duplicate role membership/accounting, protected diversity reserves, overflow/tie rules and binding to supported source snapshots. Existing resource limits are not portfolio quotas. | PARTIALLY READY | MTR-020B policy contract after MTR-024 signal definitions and required source branches; MTR-008 for applicable resolved user axes. No separate existing portfolio-policy MTR. | C3 definitions →C4 selection |
+| 2a. EXPLOIT | Preferences/Learning supply signals; Planning selects | Member IDs/participants and exact culinary identities | Member-owned declared/learned affinity, reviewed cold-start priors, evidence strength, shrunk TasteFit/available fit dimensions and provenance. No known neutral baseline source. | BLOCKED | MTR-040 member source; MTR-039 for learned event attribution, MTR-046 for feature priors; MTR-024 separable fit inputs. Explicit direct declarations can precede learned-event routing. | C1 →C3 →C4; learned extensions S |
+| 2b. STRUCTURAL_CHAMPION | Domain sources + Planning grounding/portfolio | Exact nutrition composition; unallocated lot matches; retail price/granularity/coverage primitives | Candidate-bound inventory-match evidence; policy-defined nutrient/economic/expiry/fragility comparison where enabled. A's containment witness is not a quality/champion score. | PARTIALLY READY | Optional MTR-019D for inventory-match branch; MTR-006/007/008 for nutrition branch; MTR-011/012/013 and material resolution for economics/fragility. Not all branches must be enabled simultaneously. | S alongside C1–C3 →C4 |
+| 2c. EXPLORE | Learning/Preferences sources; Planning portfolio | Recipe/version/method identities and candidate fingerprints | Authoritative exposure coverage/frontier, novelty/feature-fit inputs, cold-start priors, evidence availability and bounded exploration policy. Absence of an exposure implementation is not proof of never tried. | BLOCKED | MTR-041 exposure source + MTR-040 priors/affinity + MTR-046 features; MTR-039 where events contribute; MTR-024 input vector. Cross-horizon provisional exposure additionally MTR-038/017. | C1/C2 →C3 →C4 |
+| 3. Preference / TasteFit | Preferences, member-owned; Learning attribution | HouseholdMember identity, MealParticipants, exact recipe/ingredients | Explicit preference source and correction semantics; direct/feature affinity, evidence strength, prior/shrink policy and member aggregation. Hard ingredient exclusion is not taste. | BLOCKED | MTR-040; MTR-039 for learned evidence; MTR-046 feature vocabulary/priors; MTR-024 fit derivation. Do not require Execution to store an explicit declared preference. | C1 →C3 (member affinity); other sources S |
+| 4. Adherence vector | Source domains; MTR-024 utility boundary | Ingredient counts/quantities, methods and serving/batch intent identities | Separate time/equipment/complexity/ingredient-count/batch/schedule/repeat/novelty fit facts, applicability, source provenance and policy. Raw count is not fit; no canonical scalar adherence truth. | BLOCKED | MTR-024 input/vector foundation after MTR-008/046 effort/context and MTR-040/041/039 applicable member signals. Actual batch-fit extensions need MTR-023 planning facts, not execution success as taste. | S →C3 when that dimension is enabled |
+| 5. Recent exposure / repeat cooldown | Learning, member-scoped; projection lineage separate | Recipe ID/method, scheduled MealIntent/plan revisions, participant IDs | Exposure events with confirmation/provisional/reversal status and actor scope; completeness window/frontier; multi-level family/protein/flavor identity; versioned repeat/decay policy. Scheduled meals do not prove eating. | BLOCKED | MTR-041; MTR-039 attribution; MTR-046 descriptors; MTR-038/017 for horizon/provisional extensions. Later actual execution may supply confirmed events, but must not be started for this review. | C2 after C1; horizon extension S/later |
+| 6. Kitchen effort / schedule convenience | Household kitchen/context + Policy; authored recipe descriptors | Draft KitchenEffort axis, meal/batch timestamps, recipe method/procedure | Authored prep/cook/active time, equipment and effort descriptors; household equipment/daily availability source; versioned compatibility/fit policy. Method text cannot establish minutes/equipment. | PARTIALLY READY | MTR-008 resolved KitchenEffort/DailyAvailability + MTR-046 reviewed recipe coverage/effort facts (Recipe-owned companion); MTR-024 separable fit inputs. | S →C3 when that dimension is enabled |
+| 7. Nutrition / goal fit | Nutrition/Policy; participant-specific allocation | Reviewed EP_RAW_G/COOKED_G references, exact input-composition totals, servings/participants, member mass/height | Eligible root goal/guideline source, applicable per-role/meal/serving demand and member allocations, supported resolution/comfort/weekly policy. Protein amount alone is not fit or health approval. | PARTIALLY READY | MTR-006 root/goal policy →MTR-007 resolution + MTR-008 policy binding; MTR-005 member allocation boundary/MTR-019 grounding extensions; MTR-046 culinary roles where used. | S before enabling nutrition signal; independent root enforcement MTR-026 |
+| 8. Structural economics | Retail/Shopping/Inventory facts; global Planning economics | Money/reference AP quantity, mapping yield, fixed/catch/loose coefficients, inventory and batch intent | Granularity-specific purchase cost and explicit quantization, marginal/shared package/lot/batch decision context, waste/carryover policy and stress scenario evidence. No legitimate per-dish checkout cost. | PARTIALLY READY | Remaining MTR-011/012 cost-resolution seam →MTR-013 scenarios; MTR-008/009 budget context. True marginal economic effects belong to later MTR-021/022 material/global decisions; shortlist must not recreate that solver. | S before enabling economic signal; global decisions later, no solver inside shortlist |
+| 9. Inventory / expiry-rescue signals | Inventory owns stock; Planning owns derived candidate-match context | Confirmed active lots, exact usable basis/quantity, retained AP→EP mapping, usable_until, reservations and captured frontier | Typed candidate-bound unallocated match witness/reason; for expiry-rescue additionally planned-use time, urgency policy/window and resolved consumption/competition before claiming rescued quantity/waste. | PARTIALLY READY | **MTR-019D proposed inventory-match-only slice** reusing frozen MTR-015/C; expiry urgency later MTR-019 policy extension, MTR-008 schedule context; actual saved quantity requires MTR-021/023 planned allocation/global replay. | Optional S; rescue later |
+| 10. Procurement fragility signals | Retail facts; Planning derives candidate structural context | Promotion derived from observation; retailer/provider/path coverage; package brittleness assessment/version; granularity/bounds and provenance | Candidate-demand-specific eligible coverage, comparable package sensitivity, freshness/source-quality eligibility and versioned fragility interpretation. Existing counts need not be resolved candidate-eligible coverage. No calibrated probability. | PARTIALLY READY | Remaining MTR-011 builder/fragility and MTR-012 quality/evidence policy; MTR-013 deterministic scenarios for spend-stress claims; MTR-019 signal handoff. | S →C3 when that dimension is enabled |
+| 11. Evidence-backed generation / shortlist reasons | Planning contextual grounding, not Recipe authoring | Frozen B DEFAULT/AUTHORED_SELECTION/INGREDIENT_TARGET triggers; C nested evidence; VariantReason enum in older culinary draft | Reason-to-candidate/source/cutoff witness and deterministic predicates; explicit distinction between selection hint, source possibility and demonstrated benefit. Enum existence is not proof. | PARTIALLY READY | Optional **MTR-019D** inventory-match support; later MTR-006/008 nutrition, MTR-011/012/013 price/package and expiry policy branches. Portfolio-selected-for-role reasons later MTR-020B must cite the actual policy/signal. | S alongside critical path; role reasons C4 |
+| 12. Allergen / diet classification | Catalog reviewed source; Nutrition canonical member enforcement; Validation independent | Member ALLERGEN/DIET_RULE codes, ingredient IDs, EXCLUDED_INGREDIENT enforcement | Reviewed positive/negative/unknown ingredient classification; controlled code vocabulary, semantics/version/provenance and coverage. Ingredient names and feature tags cannot substitute. | BLOCKED | MTR-046 proposed ingredient-safety classification source scope + MTR-005 enforcement seam; MTR-026 independent check. Existing MTR-046 coverage wording alone does not implement that source model. | S; required before admitting affected candidates |
+| 13. COUNT nutrition / count-to-mass | Catalog authored item definition/nutrition; neutral Units; Recipe retains ownership of culinary quantity | COUNT item_ref identity; explicit recipe count requirement; current nutrition source permits only edible raw/cooked mass | Authored item_ref-specific mass/edible basis or reviewed count nutrient reference, version/provenance, applicability/uncertainty/quantization rules; no generic unit magic. | BLOCKED | MTR-003 count measurement-source contract + MTR-046 authored catalog truth, MTR-014 yield-boundary compatibility, MTR-019 grounding extension. COUNT substitutions remain prohibited under frozen Recipe policy. | S; required before COUNT candidate eligibility |
 | 14a. Deterministic identity/ties and preservation of current distinctions | Planning/Recipe immutable contracts | Frozen A/B/C hashes, exact recipe/method/rule/tier/source identities; canonical serialization, duplicate/tie handling and resource overflow in A | None for this narrow identity/preservation sub-capability. It proves no novelty/preference/quality. | READY | Frozen MTR-019A/B/C + MTR-020A; no new prerequisite for keeping these identities | Existing, preserve |
-| 14b. Semantic diversity / protected reserve rules | Catalog/Recipe descriptors; Policy definition; Planning selection | Existing recipe ID/method and preserved culinary differences | Reviewed role/family/protein/flavor descriptors and candidate-path applicability; explicit reserve/overlap/capacity/overflow rules, signal availability handling and policy provenance. Ingredient-slot role cannot stand in for dish role; structural diversity is not behavioral novelty. | PARTIALLY READY | MTR-046 descriptors + MTR-020B policy; MTR-024/040/041 only for utility/exposure-based reserve labels. A restricted future ID/method-only diversity reserve can be designed without claiming learned roles. | 2 descriptors →3/4 policy |
+| 14b. Semantic diversity / protected reserve rules | Catalog/Recipe descriptors; Policy definition; Planning selection | Existing recipe ID/method and preserved culinary differences | Reviewed role/family/protein/flavor descriptors and candidate-path applicability; explicit reserve/overlap/capacity/overflow rules, signal availability handling and policy provenance. Ingredient-slot role cannot stand in for dish role; structural diversity is not behavioral novelty. | PARTIALLY READY | MTR-046 descriptors + MTR-020B policy; MTR-024/040/041 only for utility/exposure-based reserve labels. A restricted future ID/method-only diversity reserve can be designed without claiming learned roles. | S descriptors →C3/C4 policy |
 
-## 4. Why MTR-019D is the single immediate recommendation
+## 4. Corrected immediate priority: MTR-040A
 
-This prioritizes an available evidence branch, rather than pretending there is a single source
-that unlocks the entire portfolio. It removes an actual remaining MTR-019 gap with no new raw
-domain truth: C already captures confirmed candidate-compatible InventoryCandidateLot paths.
-A utility-vector DTO alone would still contain unsupported fields. A learning router alone has
-no canonical behavior/exposure event store. Full catalog/clinical policy work is larger and is
-not required merely to attest a current ingredient/lot possibility.
+The original recommendation optimized for an easy available evidence branch rather than the
+hard dependency. Three-role MTR-020B needs member affinity for EXPLOIT and covered exposure/
+novelty semantics for EXPLORE. An inventory-match witness supplies neither. Therefore the next
+slice is **MTR-040A**, not MTR-019D.
 
-Proposed scope, **not implementation in this task**:
+Design durable, explicit member-owned declarations for ingredient/protein/method/flavor/direct
+recipe targets, evidence strength/provenance and append-only replacement/retraction. No learning,
+inferred preference, Execution, TasteFit scalar or copied household preference. MTR-040A uses
+canonical MTR-040 ownership; its minimum reviewed feature vocabulary does not invent ingredient/
+recipe feature classification. The [focused design](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md)
+separates storage of a declaration from later candidate feature matching and utility derivation.
 
-1. Planning-owned versioned immutable inventory-match evidence companion bound to exact grounded
-   fingerprint/source fingerprint, household, as_of and inventory ledger frontier. Retain
-   requirement/ingredient IDs, lot identity, physical asset type, original measurement identity,
-   usable unallocated quantity and any explicit retained mapping evidence. Do not mutate frozen
-   candidate/source contracts, their hashes, generation triggers or MTR-020A dominance relation.
-2. Deterministically attest **an eligible unallocated inventory possibility exists for this
-   authored ingredient requirement**. Declare the predicate and non-exclusive meaning; a single
-   50g lot matching a 200g requirement is not sufficient supply. No stock reservation or claim
-   that two candidate/requirement witnesses can both use that lot.
-3. A trusted context adapter may turn compatible captured ingredient IDs into frozen B demand
-   hints, constrained to exact authored base/replacement possibilities. Re-ground generated
-   candidates through frozen C before issuing evidence. Requests/targets alone never prove a
-   reason. Failure/unsupported data produce no evidence-backed benefit claim.
-4. Define inventory-match reason evidence separately from a culinary draft enum or arbitrary
-   caller string. Preserve member safety/basis/provenance and explicit unknowns. Source capture
-   and pure evidence derivation remain separated; no DB reads inside shortlist or validator.
+MTR-019D remains a valid optional side slice: derive non-exclusive inventory-match evidence from
+captured confirmed lot possibilities; no reservation/allocation, expiry-rescue or global benefit
+claim. It may be done later/in parallel after approval, but must not displace preference/exposure
+on the critical path. No MTR-019D implementation is requested or started.
 
-This supplies an input for a later inventory-focused STRUCTURAL_CHAMPION reserve; it does not
-declare one candidate better, select portfolio roles, rank utility, or implement MTR-020B.
-Do **not** include expiry urgency/rescued mass, actual waste saved, price advantage, nutrition fit,
-package fit, TasteFit, novelty, allocation, reservations, execution, validator authority or AI.
-No stock/time-to-use prediction is needed for the narrow matching predicate. Expiry validity at
-capture remains governed by frozen C; future use/competition is not established.
-
-All raw facts already exist; this proposed read-only transient signal needs **no new database
-table or migration**. If a later architecture requires durable selection/explanation history,
-review its owner and forward persistence separately. Do not add a generic event/JSON table now.
-
-## 5. Remaining dependency order after that slice
+## 5. Corrected dependency order
 
 ```text
-Frozen authored Recipe + B generation + C grounding + A conservative frontier
-    └─ proposed MTR-019D inventory-match evidence ──> inventory structural signal
+MTR-040A Explicit Member Preference Foundation
+    ↓
+MTR-041 Exposure Foundation
+    ↓
+MTR-024 Separable Utility Inputs
+    ↓
+MTR-020B Role-aware Portfolio (EXPLOIT / STRUCTURAL_CHAMPION / EXPLORE)
+    ↓
+MTR-021 Feasibility — still subject to its independent input/validation prerequisites
 
-MTR-046 reviewed feature/role/effort/catalog/safety/count source sub-slices (separate scopes)
-MTR-040 declared member preferences/priors ─┐
-MTR-039 attribution for learned sources ───┼─> MTR-024 separable captured signal inputs
-MTR-041 covered exposure/repeat sources ───┘       (no Stage-2 objective duplicated here)
-MTR-006/007/008 root/role/effort policy ─────────> supported fit inputs
-MTR-011/012/013 source quality/cost/stress ──────> supported procurement inputs
-                                                 ↓
-                               MTR-020B role eligibility/capacity/diversity policy
-                                                 ↓
-                               later MTR-021, subject to its own input/validation gate
+Support branches before the corresponding dimension is enabled:
+  MTR-046 reviewed features/classification/count sources
+  MTR-006/007/008 nutrition/goal/kitchen policy
+  MTR-011/012/013 procurement quality/economics/scenarios
+  MTR-039 learned attribution (not required for explicit declarations)
+  optional MTR-019D inventory-match signals, later/in parallel
 ```
 
-Arrows do not require all catalog extensions or full behavioral learning to finish for every
-restricted future portfolio. Explicit member declarations may precede learned observations.
-Role eligibility must name its actual supported inputs; unavailable dimensions remain typed
-unavailable, not zero. If a future scope explicitly disables an unsupported role, review that
-partial product contract first; do not call empty placeholders a complete three-role portfolio.
-Cold-start requires an explicit canonical prior/coverage policy, not a guessed affinity/novelty.
-No Execution implementation is authorized or required merely to define these source boundaries.
-
-MTR-024 owns the separable signal/utility boundary. Shortlist may consume supported immutable
-signals under its versioned reserve policy; it must not synthesize physiology, optimize the whole
-week, duplicate Stage-1/2 objectives or fabricate source values. Full objective composition stays
-with later Planner V4. Independent validation still recomputes critical primitives separately.
+MTR-040A alone does not unblock MTR-020B. Exposure remains MTR-041's separate truth; declaration
+absence is not novelty. MTR-024 captures separable supported inputs; it does not manufacture
+missing fields. Full Stage-1/2 objective composition stays in later Planner V4. Unknown dimensions
+remain unavailable, not zero. MTR-019D cannot stand in for any of these missing behavioral sources.
+No Execution implementation is required to persist an explicit member declaration.
 
 ## 6. Direct answers and counterexamples
 
@@ -172,11 +152,11 @@ with later Planner V4. Independent validation still recomputes critical primitiv
 Basic recipe-ID/method diversity and an empty quota contract are possible now, but cannot truthfully
 produce EXPLOIT or EXPLORE and would not close the requested gap. No fake scalar utility is needed.
 
-**Does full MTR-019 need another slice first? YES.** D is the recommended first narrow remaining
-slice on this route. Evidence-backed benefit/context reasons and wider grounding quality coverage
-remain incomplete; D does not complete MTR-019. It is not necessary to finish every COUNT or
-classification extension before any supported mass-based portfolio: those are conditional
-eligibility blockers, not excuses to reject all already-supported candidates.
+**Does full MTR-019 need further slices? YES; does it precede MTR-040A? NO.** Evidence-backed
+benefit/context reasons and wider grounding quality coverage remain incomplete. MTR-019D can
+address one optional inventory branch later/in parallel; completing full MTR-019 is not the next
+critical-path task. COUNT/classification remain conditional eligibility blockers for affected
+candidates, not a reason to delay the explicit preference source.
 
 **Can full MTR-020 finish now? NO.** Multi-role inputs, source availability/quality and portfolio
 policy/reserve semantics are absent. Frozen A only preserves contained supply-evidence choices.
@@ -187,9 +167,10 @@ planned material allocations/causal batch flows and required independent checks 
 A conservative shortlist or inventory-match witness cannot certify hard feasibility. Future
 MTR-021 input-contract prerequisite work may be reviewed separately; no solver is authorized here.
 
-**Migration required? NO for this review or proposed narrow D.** No production code/schema/export
-change, and no migration0001–0010 edit. Future durable preference/classification/count/exposure
-sources may genuinely need0011+ after their own schema review; that is not permission to add one now.
+**Migration required? None for this documentation correction/design.** MTR-040A needs durable
+member-owned preference sources and is designed for forward migration **0011** after architecture
+approval. No migration is created here and0001–0010 remain unchanged. Optional transient MTR-019D
+still would not require persistence; this does not determine priority.
 
 Counterexamples checked against current source/tests:
 
@@ -230,6 +211,7 @@ remains in [MTR-020A evidence](MTR_020A_PARETO_SHORTLIST_EVIDENCE.md); PR CI ind
 full configured suite on this documentation revision before delivery.
 No new test, production-code, migration or domain-schema change is needed to prove these findings.
 Frozen A implementation/evidence remain untouched; only current status documents acknowledge the
-user freeze. This review does not approve/implement D or any future role policy.
+user freeze. This review implements no preference/learning/role policy. The approved ordering correction is
+recorded; MTR-040A implementation still awaits review of its focused design.
 
 **READY FOR ARCHITECTURE REVIEW**

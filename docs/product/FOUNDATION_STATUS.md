@@ -170,5 +170,8 @@ nutrition, classification, global feasibility, solver, Execution and PRECOMMIT r
 MTR-020A is user **FROZEN / APPROVED** at `87278ed1ea79771f80b09b161ff711ff066556a8`,
 head0010 /54 tables. Full MTR-019/020/026 remain NOT COMPLETE; MTR-021/Execution NOT STARTED;
 PRECOMMIT fail-closed. [Post-freeze dependency review](POST_MTR_020A_DEPENDENCY_REVIEW.md)
-finds MTR-020B BLOCKED and recommends a narrow MTR-019D inventory-match evidence slice for
-architecture approval only. No next-slice implementation is authorized by that document.
+finds MTR-020B BLOCKED. User approved it with an ordering correction: **MTR-040A → MTR-041
+→ MTR-024 → MTR-020B → MTR-021**. MTR-019D is optional support later/in parallel, not next.
+[MTR-040A explicit preference design](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md) proposes
+durable member-owned declarations and forward0011 after architecture review. Design only:
+no production code/migration added, actual head0010 /54 unchanged; no implementation approval/freeze.

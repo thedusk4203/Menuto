@@ -279,3 +279,15 @@ No input/output wire flag/hash is authority. Explicit resource overflow exposes 
 [Evidence](MTR_020A_PARETO_SHORTLIST_EVIDENCE.md). No migration or persistence. This is not full
 MTR-020 role-aware portfolio, MTR-021 feasibility, optimization, execution or production validation.
 Submit for architecture/freeze review; do not self-freeze or start a following slice.
+
+## After frozen MTR-020A: corrected preference/exposure critical path
+
+User froze020A at87278ed. [Dependency review](POST_MTR_020A_DEPENDENCY_REVIEW.md) was approved
+with required ordering correction: **MTR-040A explicit member preference → MTR-041 exposure
+→ MTR-024 separable utility inputs → MTR-020B three-role portfolio → MTR-021 feasibility**.
+MTR-019D inventory-match signals may support STRUCTURAL_CHAMPION later/in parallel, but do not
+unblock EXPLOIT/EXPLORE and are not the next prerequisite.
+[MTR-040A design](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md) defines durable member-owned
+ingredient/protein/method/flavor/direct-recipe assertions, evidence strength/provenance and
+append-only correction/retraction. Proposed forward0011 only after design approval; actual0010
+/54 remains unchanged. No learned inference, exposure, scalar TasteFit, Execution or solver.

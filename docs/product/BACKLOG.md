@@ -45,7 +45,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-037](https://github.com/thedusk4203/Menuto/issues/38) | P1 | ExecutionImpactAnalyzer | NONE/LOCAL_REPAIR/REPLAN_RECOMMENDED/REPLAN_REQUIRED with local-first escalation. | OPEN — chưa chứng nhận |
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
-| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | OPEN — chưa chứng nhận |
+| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | OPEN — MTR-040A explicit declaration source is next critical-path slice; design only, not implemented |
 | [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | OPEN — chưa chứng nhận |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |

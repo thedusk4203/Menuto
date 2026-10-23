@@ -342,3 +342,11 @@ Không tự khẳng định nutrient retention sau nấu hay lượng thực t�
 Tập ứng viên giữ mọi lựa chọn cung ứng khác biệt; chỉ bỏ một ứng viên khi ứng viên cùng
 culinary/context giữ nguyên toàn bộ bằng chứng của nó và có thêm đường cung ứng.
 _Avoid_: cheapest dishes, guaranteed feasible shortlist
+
+**Explicit Preference Declaration**:
+Phát biểu được ghi rõ cho một HouseholdMember về việc thích, không thích hoặc trung lập với
+một đối tượng cụ thể; khác preference suy ra từ hành vi hay hard safety restriction.
+
+**Preference Retraction**:
+Rút lại phát biểu sở thích đang có, vẫn giữ lịch sử phát biểu và việc rút lại.
+Không đồng nghĩa với việc thành viên đã tuyên bố trung lập.
