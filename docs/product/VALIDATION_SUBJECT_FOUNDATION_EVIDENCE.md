@@ -115,3 +115,15 @@ Stop at architecture/freeze review of this foundation; do not start the next sli
 POSTFACT in this foundation diagnoses the supplied physical history and default planned
 exposure. It does not certify actual meal composition/member consumption allocations:
 MealExecution/batch-flow source contracts and their independent checks remain deferred.
+
+## Remote verification
+
+PR: https://github.com/thedusk4203/Menuto/pull/63.
+Implementation commit: `fb298dd177197d1c22fbd0644ad4535e3b10b0b7`.
+PR run https://github.com/thedusk4203/Menuto/actions/runs/39891596976
+at head `ba6fcdba5ce0cf52403b663f6047e34537388c3f`: **python SUCCESS; web SUCCESS**.
+Python log independently confirms928 passed in56.29s and benchmark22/22.
+Web log confirms10 client tests, contract/type checks and production build success.
+This evidence-only follow-up changes no executable code. Its own CI and postmerge CI
+must also finish before final delivery; they are linked in the delivery report rather
+than claiming a future result in this file.
