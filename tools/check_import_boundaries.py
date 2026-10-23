@@ -93,6 +93,20 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     errors = []
 
     def audit(target, line):
+        shortlist_imports = {
+            "app.modules.planning.shortlist": {
+                "json", "dataclasses", "hashlib", "app.modules.planning.contracts",
+            },
+            "app.modules.planning.shortlist_capture": {
+                "app.modules.planning.contracts", "app.modules.planning.grounding_capture",
+                "app.modules.planning.shortlist",
+            },
+        }
+        if module in shortlist_imports and not any(
+            target == allowed or target.startswith(allowed + ".")
+            for allowed in shortlist_imports[module]
+        ):
+            errors.append(f"{line}: SHORTLIST_NARROW_BOUNDARY: {target}")
         if module in {"app.modules.planning.grounding", "app.modules.planning.grounding_capture"}:
             if target.startswith(
                 (

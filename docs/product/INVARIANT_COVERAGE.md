@@ -94,3 +94,11 @@ physical context, no procurement-as-stock; INV-018 compatible-basis nutrition re
 arithmetic/provenance and separate edible/cooking yield. INV-015–017/020/021 remain independent
 validation requirements; producer grounding never grants validation authority. Full clinical policy,
 scenarios/global material/chronology/assumptions and MTR-026 remain deferred, not certified.
+
+MTR-019C is user FROZEN atffaa009. [MTR-020A review](MTR_020A_PARETO_SHORTLIST_REVIEW.md)
+adds conservative coverage pruning without new culinary choices (INV-005/006), erasing member
+restrictions (INV-003/004), inventing price/probability/quality metrics (INV-007–009), or physical
+mutations (INV-011/013). Every retained alternative keeps full basis/provenance (INV-018).
+Canonical capture-only ingress and narrow zero-IO core protect the data boundary, not validation
+authority (INV-015–017/020/021). Global/causal feasibility (INV-019), full role/behavior portfolio,
+root policy and production PRECOMMIT remain deferred. No canonical invariant wording changes.

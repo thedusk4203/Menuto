@@ -716,3 +716,92 @@ class CandidateGroundingResult(Contract):
         if self.candidate is not None and any(i.severity == "ERROR" for i in self.issues):
             raise ValueError("Blocking findings cannot accompany an eligible candidate")
         return self
+
+
+class ShortlistPolicyDraft(Contract):
+    """Explicit resource budgets; no invented nutrition/cost/utility preferences."""
+
+    contract_version: Literal["shortlist-policy.v1-draft"] = "shortlist-policy.v1-draft"
+    policy_id: Identifier
+    policy_version: Identifier
+    relation: Literal["EXACT_SUPPLY_PATH_COVERAGE"] = "EXACT_SUPPLY_PATH_COVERAGE"
+    max_inputs: Annotated[int, Field(strict=True, ge=1)]
+    max_frontier: Annotated[int, Field(strict=True, ge=1)]
+
+
+class ShortlistInputFailure(Contract):
+    request_fingerprint: Sha256
+    status: Literal["INCOMPLETE", "REJECTED"]
+    issues: tuple[GroundingIssue, ...]
+
+
+class ShortlistDominanceWitness(Contract):
+    removed_fingerprint: Sha256
+    retained_fingerprint: Sha256
+    partition_fingerprint: Sha256
+    reason: Literal["STRICT_SUPPLY_PATH_SUPERSET"] = "STRICT_SUPPLY_PATH_SUPERSET"
+
+
+class ParetoShortlistDraft(Contract):
+    contract_version: Literal["pareto-shortlist.v1-draft"] = "pareto-shortlist.v1-draft"
+    activation_ready: Literal[False] = False
+    status: Literal[
+        "COMPLETE", "EMPTY", "GROUNDING_FAILED", "INPUT_LIMIT_EXCEEDED", "FRONTIER_LIMIT_EXCEEDED"
+    ]
+    policy: ShortlistPolicyDraft
+    input_fingerprint: Sha256
+    unique_candidate_count: Annotated[int, Field(strict=True, ge=0)] | None
+    frontier_count: Annotated[int, Field(strict=True, ge=0)] | None
+    candidates: tuple[GroundedDishCandidate, ...]
+    dominance: tuple[ShortlistDominanceWitness, ...]
+    failures: tuple[ShortlistInputFailure, ...]
+    fingerprint: Sha256
+
+    def canonical_json(self):
+        body = self.model_dump(mode="json", exclude={"candidates"})
+        body["candidates"] = [json.loads(c.canonical_json()) for c in self.candidates]
+        return json.dumps(body, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+
+    def expected_fingerprint(self):
+        body = json.loads(self.canonical_json())
+        body.pop("fingerprint", None)
+        return sha256(
+            json.dumps(body, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()
+        ).hexdigest()
+
+    @model_validator(mode="after")
+    def result_shape(self):
+        ids = [c.fingerprint for c in self.candidates]
+        if ids != sorted(set(ids)):
+            raise ValueError("Shortlist candidates require unique fingerprint order")
+        if (self.status == "COMPLETE") != bool(self.candidates):
+            raise ValueError("Only a complete shortlist exposes candidates")
+        if self.status == "COMPLETE" and (
+            self.frontier_count != len(ids) or self.frontier_count > self.policy.max_frontier
+        ):
+            raise ValueError("Frontier budget/count differs")
+        if self.status == "INPUT_LIMIT_EXCEEDED" and (
+            self.unique_candidate_count is not None or self.frontier_count is not None
+        ):
+            raise ValueError("Input limit stops before counting candidates/frontier")
+        if self.status != "INPUT_LIMIT_EXCEEDED" and self.unique_candidate_count is None:
+            raise ValueError("Processed inputs require candidate count")
+        if (self.status in {"GROUNDING_FAILED", "INPUT_LIMIT_EXCEEDED"}) != (
+            self.frontier_count is None
+        ):
+            raise ValueError("Uncomputed frontier must be explicit, not a fabricated zero")
+        if self.frontier_count is not None and self.frontier_count > self.unique_candidate_count:
+            raise ValueError("Frontier exceeds unique input count")
+        if (self.status == "GROUNDING_FAILED") != bool(self.failures):
+            raise ValueError("Grounding failures require fail-closed status")
+        if self.status != "COMPLETE" and self.dominance:
+            raise ValueError("Failed shortlist exposes no pruning decisions")
+        removed = [w.removed_fingerprint for w in self.dominance]
+        if removed != sorted(set(removed)) or any(
+            w.retained_fingerprint not in ids or w.removed_fingerprint in ids
+            for w in self.dominance
+        ):
+            raise ValueError("Dominance witness must point to a retained frontier candidate")
+        if self.fingerprint != self.expected_fingerprint():
+            raise ValueError("Shortlist fingerprint differs")
+        return self

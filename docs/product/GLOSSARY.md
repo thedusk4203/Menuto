@@ -337,3 +337,8 @@ Khác số lượng đã mua, chi phí checkout hoặc stock đã sở hữu.
 **Ingredient Input Composition**:
 Lượng chất dinh dưỡng tính từ ingredient quantities và nutrition references tương thích basis.
 Không tự khẳng định nutrient retention sau nấu hay lượng thực tế một thành viên đã ăn.
+
+**Supply Coverage Frontier**:
+Tập ứng viên giữ mọi lựa chọn cung ứng khác biệt; chỉ bỏ một ứng viên khi ứng viên cùng
+culinary/context giữ nguyên toàn bộ bằng chứng của nó và có thêm đường cung ứng.
+_Avoid_: cheapest dishes, guaranteed feasible shortlist
