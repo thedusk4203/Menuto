@@ -68,3 +68,9 @@ culinary-generation-result.v1. Pure authored demand expansion only: no nutrition
 grounding, ranking or production authority. Limits are explicit; overflow exposes no candidates.
 Zero adjustment is intentional; MTR-030 refinement remains deferred. Plan binding/validation
 contracts are unchanged. Database stays0010 /54 tables; no new migration.
+
+Bundle13 adds candidate grounding request/source/result and GroundedDishCandidate plus owner-domain
+nutrition, preparation, procurement and inventory fact groups. PRIMITIVES_RESOLVED means supported
+shortlist-input completeness only; activation_ready=False. Unknown classifications/missing references
+fail closed. New objects do not widen frozen A/B or ValidationSubject contracts. All146 prior schema
+definitions remain unchanged; database head0010 /54 tables, no new migration.

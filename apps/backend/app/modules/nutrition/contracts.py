@@ -5,8 +5,16 @@ from uuid import UUID
 
 from pydantic import model_validator
 
-from app.domain.contracts import AwareTime, Contract, Identifier, PositiveDecimal
+from app.domain.contracts import (
+    AwareTime,
+    Contract,
+    Identifier,
+    NonNegativeCalculationDecimal,
+    PositiveDecimal,
+)
 from app.domain.snapshots import WriteCommand
+from app.domain.units import CalculatedQuantity
+from app.modules.catalog.contracts import NutritionReferenceFact
 
 
 class MemberNutritionProfileWrite(WriteCommand):
@@ -43,3 +51,32 @@ class CanonicalMemberSafetySnapshot(Contract):
     household_id: UUID
     member_id: UUID
     constraints: tuple[MemberSafetySourceFact, ...]
+
+
+class ResolvedNutrients(Contract):
+    """Ingredient-input composition; not goal policy or nutrient-retention truth."""
+
+    energy_kcal: NonNegativeCalculationDecimal
+    protein_g: NonNegativeCalculationDecimal
+    fat_g: NonNegativeCalculationDecimal
+    carbohydrate_g: NonNegativeCalculationDecimal
+
+
+class ResolvedNutritionPortion(Contract):
+    contract_version: Literal["resolved-nutrition-portion.v1"] = "resolved-nutrition-portion.v1"
+    interpretation: Literal["INGREDIENT_INPUT_COMPOSITION"] = "INGREDIENT_INPUT_COMPOSITION"
+    ingredient_id: UUID
+    quantity: CalculatedQuantity
+    reference: NutritionReferenceFact
+    nutrients: ResolvedNutrients
+
+    @model_validator(mode="after")
+    def reference_scope(self):
+        if (
+            self.reference.fact.ingredient_id != self.ingredient_id
+            or self.reference.fact.reference.basis != self.quantity.basis
+            or self.reference.fact.status != "REVIEWED"
+            or self.quantity.amount <= 0
+        ):
+            raise ValueError("Resolved nutrition requires positive compatible reviewed reference")
+        return self

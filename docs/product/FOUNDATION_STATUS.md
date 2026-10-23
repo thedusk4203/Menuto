@@ -136,6 +136,21 @@ approved structural combinations and explicit zero adjustments; canonical source
 identities, exclusion filters, fail-closed resource budgets and selected-binding handoff.
 Candidates remain culinary DRAFT, not fully grounded solver-facing DishCandidates.
 Frozen MTR-019A wire/hash/seal/validator semantics and migrations0001–0010 unchanged.
-No new persistence: schema remains0010 /54 tables. MTR-019B is submitted for review, not FROZEN.
+No new persistence: schema remains0010 /54 tables. MTR-019B is user **FROZEN / APPROVED** at
+`23dd0b3bc3245ac9c7ef5493968f8ab120242f00`.
 Deferred: downstream evidence-backed reasons, nutrition/retail/inventory grounding, shortlist,
 solver, MTR-030 refinement, Execution and production PRECOMMIT/TOCTOU authorization.
+
+## MTR-019C — Candidate Grounding
+
+[Review A–J](MTR_019C_CANDIDATE_GROUNDING_REVIEW.md),
+[evidence](MTR_019C_CANDIDATE_GROUNDING_EVIDENCE.md).
+Planning assembles immutable nested domain resolutions from canonical read-only capture:
+Recipe culinary/preparation, compatible Nutrition references, Retail supply coefficients/evidence,
+Inventory confirmed possibilities and canonical member restrictions. No caller nutrient/price summaries.
+Supported complete primitive inputs produce GroundedDishCandidate; missing facts return INCOMPLETE,
+forbidden/forged choices REJECTED. Candidate activation remains False; no physical/reservation writes.
+No migration/new tables;0010 /54 remains current. Frozen A/B/validator hashes/semantics unchanged.
+COUNT nutrition and allergen/diet classification unavailable; policy/scenarios/basket cost, global
+allocation/feasibility, MTR-020 and Execution deferred. MTR-019/026 remain PARTIAL.
+MTR-019C is **READY FOR ARCHITECTURE/FREEZE REVIEW**, not self-FROZEN.

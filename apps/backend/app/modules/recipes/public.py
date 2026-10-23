@@ -57,3 +57,53 @@ def bind_culinary_draft(
     # Construct solely to hash; only a fully validated object is returned.
     temporary = GroundedRecipeVariantDraft.model_construct(**fields)
     return GroundedRecipeVariantDraft(**fields, fingerprint=temporary.expected_fingerprint())
+
+
+def resolve_candidate_source(candidate, recipe):
+    """Recompute untrusted culinary claims from the canonical captured authored version."""
+    from app.domain.resolution import ResolutionError
+    from app.modules.recipes.calculations import cooking_output
+    from app.modules.recipes.contracts import CulinaryCandidateDraft, PreparationOutputEstimate
+
+    candidate = CulinaryCandidateDraft.model_validate(candidate.model_dump())
+    recipe = RecipeVersionSnapshot.model_validate(recipe.model_dump())
+    if (
+        recipe.review_status != "REVIEWED"
+        or candidate.recipe_version_id != recipe.id
+        or candidate.recipe_source_hash != recipe_source_hash(recipe)
+        or candidate.provenance != recipe.provenance
+    ):
+        raise ResolutionError(
+            "CULINARY_SOURCE_MISMATCH", "Exact reviewed RecipeVersion is required", rejected=True
+        )
+    try:
+        rows, transforms, servings = resolve_culinary_binding(
+            recipe,
+            candidate.tier_id,
+            candidate.selected_rule_ids,
+            {i.requirement_id: 0 for i in candidate.resolved_ingredients},
+        )
+    except ValueError as exc:
+        raise ResolutionError(
+            "CULINARY_SELECTION_REJECTED", "Selection was not authored", rejected=True
+        ) from exc
+    if (
+        sorted(rows, key=lambda i: str(i.requirement_id))
+        != sorted(candidate.resolved_ingredients, key=lambda i: str(i.requirement_id))
+        or sorted(transforms, key=lambda t: str(t.id))
+        != sorted(candidate.transformations, key=lambda t: str(t.id))
+        or servings != candidate.serving_count
+    ):
+        raise ResolutionError(
+            "CULINARY_RESOLUTION_MISMATCH", "Resolved claims differ from authorship", rejected=True
+        )
+    return rows, tuple(
+        PreparationOutputEstimate(
+            transformation=t,
+            input=next(i.quantity for i in rows if i.requirement_id == t.requirement_id),
+            output=cooking_output(
+                t, next(i.quantity for i in rows if i.requirement_id == t.requirement_id)
+            ),
+        )
+        for t in sorted(transforms, key=lambda t: str(t.id))
+    )

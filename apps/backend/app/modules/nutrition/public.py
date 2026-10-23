@@ -8,6 +8,9 @@ from app.modules.nutrition.contracts import (
     MemberSafetySourceFact,
 )
 from app.modules.nutrition.models import MemberSafetyConstraint as SafetyRow
+from app.modules.nutrition.resolution import check_candidate_members as check_candidate_members
+from app.modules.nutrition.resolution import resolve_nutrition as resolve_nutrition
+from app.modules.nutrition.resolution import total_nutrition as total_nutrition
 
 
 def canonical_member_safety(session, household_id, member_ids):

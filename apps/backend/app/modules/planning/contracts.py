@@ -21,8 +21,26 @@ from app.domain.contracts import (
 )
 from app.domain.snapshots import Horizon
 from app.domain.units import CalculatedQuantity, Quantity
+from app.modules.catalog.contracts import IngredientIdentityFact, NutritionReferenceFact
 from app.modules.cooking.contracts import PlannedBatchAllocationIntent, PlannedCookingBatchIntent
-from app.modules.recipes.contracts import RecipeProvenance
+from app.modules.households.contracts import HouseholdMemberIdentity, MealParticipants
+from app.modules.inventory.contracts import InventoryCandidateLot, PhysicalInventorySnapshot
+from app.modules.nutrition.contracts import (
+    CanonicalMemberSafetySnapshot,
+    ResolvedNutrients,
+    ResolvedNutritionPortion,
+)
+from app.modules.recipes.contracts import (
+    CulinaryCandidateDraft,
+    PreparationOutputEstimate,
+    RecipeProvenance,
+    RecipeVersionSnapshot,
+)
+from app.modules.retail.contracts import (
+    ProcurementSnapshotDraft,
+    ProcurementSupplyPath,
+    RetailerStatusFact,
+)
 from app.modules.shopping.contracts import (
     ShoppingDemandContributionIntent,
     ShoppingRequirementIntent,
@@ -527,3 +545,174 @@ class BoundActivePlanSnapshot(Contract):
 
     contract_version: Literal["active-plan.v2-culinary"] = "active-plan.v2-culinary"
     revision: BoundPlanRevisionSnapshot
+
+
+# MTR-019C is additive; frozen plan/candidate wire types above retain their semantics.
+_GROUNDING_SET_FIELDS = frozenset(
+    {
+        "procurement_class_ids",
+        "nutrition_selections",
+        "participants",
+        "ingredients",
+        "nutrition_references",
+        "procurements",
+        "retailer_statuses",
+        "members",
+        "member_safety",
+        "constraints",
+        "lots",
+        "positions",
+        "portion_tiers",
+        "variant_rules",
+        "approved_combinations",
+        "transformations",
+        "quantities",
+        "rule_ids",
+        "selected_rule_ids",
+        "resolved_ingredients",
+        "triggers",
+        "options",
+        "ingredient_facts",
+        "preparation_outputs",
+        "procurement_paths",
+        "inventory_paths",
+        "issues",
+    }
+)
+_GROUNDING_LEDGER_FIELDS = frozenset({"movements", "reservations", "releases"})
+
+
+def grounding_canonical_json(data):
+    """Only declared sets sort. Future ordered arrays need an explicit ordinal policy."""
+
+    def canonical(value, field=None):
+        if isinstance(value, dict):
+            return {k: canonical(v, k) for k, v in value.items()}
+        if isinstance(value, list):
+            rows = [canonical(v) for v in value]
+            if field in _GROUNDING_LEDGER_FIELDS:
+                return sorted(
+                    rows, key=lambda r: (r["occurred_at"], r["phase"], r["ledger_sequence"])
+                )
+            if field not in _GROUNDING_SET_FIELDS:
+                raise ValueError(f"Undeclared collection ordering: {field}")
+            return sorted(rows, key=lambda r: json.dumps(r, sort_keys=True, separators=(",", ":")))
+        return value
+
+    return json.dumps(canonical(data), sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+
+
+class GroundingNutritionSelection(Contract):
+    requirement_id: UUID
+    reference_id: UUID
+
+
+class CandidateGroundingRequest(Contract):
+    contract_version: Literal["candidate-grounding-request.v1"] = "candidate-grounding-request.v1"
+    candidate: CulinaryCandidateDraft
+    household_id: UUID
+    tracked_member_id: UUID
+    participants: MealParticipants
+    region_code: Identifier
+    currency: Annotated[str, Field(pattern=r"^[A-Z]{3}$")]
+    as_of: AwareTime
+    procurement_class_ids: tuple[UUID, ...] = ()
+    nutrition_selections: tuple[GroundingNutritionSelection, ...] = ()
+
+    @model_validator(mode="after")
+    def unique_selection(self):
+        ids = [s.requirement_id for s in self.nutrition_selections]
+        if len(ids) != len(set(ids)):
+            raise ValueError("Ambiguous nutrition selection for requirement")
+        return self
+
+
+class CandidateGroundingSources(Contract):
+    contract_version: Literal["candidate-grounding-sources.v1"] = "candidate-grounding-sources.v1"
+    recipe: RecipeVersionSnapshot
+    ingredients: tuple[IngredientIdentityFact, ...]
+    nutrition_references: tuple[NutritionReferenceFact, ...]
+    procurements: tuple[ProcurementSnapshotDraft, ...]
+    retailer_statuses: tuple[RetailerStatusFact, ...]
+    members: tuple[HouseholdMemberIdentity, ...]
+    member_safety: tuple[CanonicalMemberSafetySnapshot, ...]
+    inventory: PhysicalInventorySnapshot
+
+    @model_validator(mode="after")
+    def unique_sources(self):
+        times = [(s.retailer_id, s.effective_at) for s in self.retailer_statuses]
+        if len(times) != len(set(times)):
+            raise ValueError("Ambiguous retailer status effective timestamp")
+        for collection, ids in (
+            (self.ingredients, [i.id for i in self.ingredients]),
+            (self.nutrition_references, [r.id for r in self.nutrition_references]),
+            (self.procurements, [s.procurement_class.id for s in self.procurements]),
+            (self.retailer_statuses, [s.id for s in self.retailer_statuses]),
+            (self.members, [m.member_id for m in self.members]),
+            (self.member_safety, [m.member_id for m in self.member_safety]),
+        ):
+            if len(collection) != len(set(ids)):
+                raise ValueError("Duplicate captured source identity")
+        return self
+
+    def fingerprint(self):
+        return sha256(grounding_canonical_json(self.model_dump(mode="json")).encode()).hexdigest()
+
+
+class GroundedIngredientFacts(Contract):
+    requirement_id: UUID
+    nutrition: ResolvedNutritionPortion
+    procurement_paths: tuple[ProcurementSupplyPath, ...]
+    inventory_paths: tuple[InventoryCandidateLot, ...]
+
+
+class GroundingIssue(Contract):
+    code: Identifier
+    severity: Literal["ERROR", "WARNING"]
+    scope: UUID | None = None
+    detail: Label
+
+
+class GroundedDishCandidate(Contract):
+    """Complete supported primitives for shortlist input, never global feasibility/authority."""
+
+    contract_version: Literal["grounded-dish-candidate.v1"] = "grounded-dish-candidate.v1"
+    status: Literal["PRIMITIVES_RESOLVED"] = "PRIMITIVES_RESOLVED"
+    shortlist_input_ready: Literal[True] = True
+    activation_ready: Literal[False] = False
+    request: CandidateGroundingRequest
+    sources: CandidateGroundingSources
+    ingredient_facts: tuple[GroundedIngredientFacts, ...] = Field(min_length=1)
+    preparation_outputs: tuple[PreparationOutputEstimate, ...]
+    input_nutrition: ResolvedNutrients
+    fingerprint: Sha256
+
+    def canonical_json(self):
+        return grounding_canonical_json(self.model_dump(mode="json"))
+
+    def expected_fingerprint(self):
+        return sha256(
+            grounding_canonical_json(self.model_dump(mode="json", exclude={"fingerprint"})).encode()
+        ).hexdigest()
+
+    @model_validator(mode="after")
+    def identity(self):
+        if self.fingerprint != self.expected_fingerprint():
+            raise ValueError("Grounded candidate fingerprint differs")
+        return self
+
+
+class CandidateGroundingResult(Contract):
+    contract_version: Literal["candidate-grounding-result.v1"] = "candidate-grounding-result.v1"
+    status: Literal["GROUNDED", "INCOMPLETE", "REJECTED"]
+    activation_ready: Literal[False] = False
+    candidate: GroundedDishCandidate | None
+    issues: tuple[GroundingIssue, ...]
+
+    @model_validator(mode="after")
+    def readiness(self):
+        if (self.status == "GROUNDED") != (self.candidate is not None):
+            raise ValueError("Incomplete/rejected grounding exposes no eligible candidate")
+        if self.candidate is not None and any(i.severity == "ERROR" for i in self.issues):
+            raise ValueError("Blocking findings cannot accompany an eligible candidate")
+        return self

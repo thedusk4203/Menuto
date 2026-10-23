@@ -325,3 +325,15 @@ Yêu cầu chọn khả năng culinary theo serving tier, ingredient mong muốn
 **Generation Trigger**:
 Lý do cơ học khiến một khả năng được xét, như default, ingredient target hoặc rule set được yêu cầu.
 Khác lý do đã được chứng minh bằng bằng chứng như price advantage hay expiry rescue.
+
+**Grounded Dish Candidate**:
+Một khả năng culinary kèm đủ primitive facts được hỗ trợ cho đầu vào shortlist: composition,
+nguồn dinh dưỡng, các đường procurement/stock và context thành viên. Chưa khẳng định global feasibility hay activation.
+
+**Procurement Supply Path**:
+Một đường cung ứng nguyên liệu với package/granularity, edible yield và price evidence rõ ràng.
+Khác số lượng đã mua, chi phí checkout hoặc stock đã sở hữu.
+
+**Ingredient Input Composition**:
+Lượng chất dinh dưỡng tính từ ingredient quantities và nutrition references tương thích basis.
+Không tự khẳng định nutrient retention sau nấu hay lượng thực tế một thành viên đã ăn.

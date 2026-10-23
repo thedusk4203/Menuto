@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from app.domain.units import Quantity
 from app.modules.inventory import contracts as c
 from app.modules.inventory import models as m
+from app.modules.inventory.grounding import resolve_inventory_sources as resolve_inventory_sources
 from app.modules.retail.public import read_inventory_mapping
 
 
