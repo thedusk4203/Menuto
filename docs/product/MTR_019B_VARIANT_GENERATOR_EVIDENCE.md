@@ -10,9 +10,10 @@ Remote CI is recorded after verification below; no pending result is claimed as 
 ## Remote verification checkpoints
 
 [Code-checkpoint CI](https://github.com/thedusk4203/Menuto/actions/runs/39931815374)
-on implementation commit7ecc2d1: Python **SUCCESS**, logs confirm **1089 passed in63.59s**
-and benchmark **22/22**. Web was still in setup-node at09:35UTC on2026-10-23; that checkpoint
-does not yet establish web success. The final PR head must pass both jobs before merge.
+on implementation commit7ecc2d1: **Python SUCCESS + web SUCCESS**. Python logs confirm
+**1089 passed in63.59s** and benchmark **22/22**. Web logs confirm **10 client tests** and
+successful generated-contract check, typecheck and production build. The final PR head must
+also pass both jobs before merge; evidence-only commits do not change runtime/test semantics.
 Final check results are linked from [PR66 checks](https://github.com/thedusk4203/Menuto/pull/66/checks).
 
 ## Implemented
