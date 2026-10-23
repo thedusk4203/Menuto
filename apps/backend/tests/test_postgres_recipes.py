@@ -289,6 +289,10 @@ def test_empty_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
             "inventory_movements",
             "inventory_reservations",
             "inventory_reservation_releases",
+            "affinity_feature_terms",
+            "member_preference_frontiers",
+            "member_preference_streams",
+            "member_preference_declarations",
         }
         config.attributes["connection"] = conn
         command.check(config)

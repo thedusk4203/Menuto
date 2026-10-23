@@ -24,6 +24,7 @@ from app.domain.units import (
     YieldConversion,
 )
 from app.modules.catalog.contracts import (
+    AffinityFeatureTermFact,
     IngredientCreate,
     IngredientIdentityFact,
     NutritionFact,
@@ -96,6 +97,17 @@ from app.modules.planning.contracts import (
     ShortlistPolicyDraft,
 )
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
+from app.modules.preferences.contracts import (
+    ExplicitMemberPreferenceSnapshot,
+    FeaturePreferenceTarget,
+    IngredientPreferenceTarget,
+    MemberPreferenceDeclarationFact,
+    MemberPreferenceState,
+    PreferenceWriteCommand,
+    RecipePreferenceTarget,
+    RetractMemberPreferenceCommand,
+    SetMemberPreferenceCommand,
+)
 from app.modules.recipes.contracts import (
     CulinaryCandidateDraft,
     CulinaryDemand,
@@ -161,6 +173,16 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    AffinityFeatureTermFact,
+    ExplicitMemberPreferenceSnapshot,
+    FeaturePreferenceTarget,
+    IngredientPreferenceTarget,
+    MemberPreferenceDeclarationFact,
+    MemberPreferenceState,
+    PreferenceWriteCommand,
+    RecipePreferenceTarget,
+    RetractMemberPreferenceCommand,
+    SetMemberPreferenceCommand,
     ParetoShortlistDraft,
     ShortlistDominanceWitness,
     ShortlistInputFailure,
@@ -303,7 +325,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:14"
+    schema["$id"] = "urn:menuto:domain:foundation:15"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -318,6 +340,7 @@ def export() -> str:
         "candidate grounding v1 resolves supported primitives, not feasibility/authority; "
         "Pareto shortlist v1-draft compares exact optional supply coverage only, "
         "not full portfolio/ranking or global feasibility; "
+        "explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

@@ -172,6 +172,17 @@ head0010 /54 tables. Full MTR-019/020/026 remain NOT COMPLETE; MTR-021/Execution
 PRECOMMIT fail-closed. [Post-freeze dependency review](POST_MTR_020A_DEPENDENCY_REVIEW.md)
 finds MTR-020B BLOCKED. User approved it with an ordering correction: **MTR-040A → MTR-041
 → MTR-024 → MTR-020B → MTR-021**. MTR-019D is optional support later/in parallel, not next.
-[MTR-040A explicit preference design](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md) proposes
-durable member-owned declarations and forward0011 after architecture review. Design only:
-no production code/migration added, actual head0010 /54 unchanged; no implementation approval/freeze.
+[MTR-040A explicit preference design](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md) was approved
+with required correction: raw declarations have no EvidenceStrength; it belongs to later derived
+MemberBehaviorProfile. The correction was applied before implementation.
+
+## MTR-040A — Explicit Member Preference Foundation
+
+[Actual implementation evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md).
+Forward0011 adds four tables (58 total): reviewed affinity vocabulary, member source frontier,
+stable typed preference streams and immutable declaration facts. Explicit source only; all five
+targets, actor/subject ownership, replacement/retraction, CAS/idempotency and coherent snapshot.
+No raw EvidenceStrength/assertion_confidence/TasteFit; no inferred feature assignment or shared
+preference copying. MemberBehaviorProfile derivation/learning and full MTR-040 remain incomplete.
+Frozen A/B/C/020A,0001–0010 unchanged; production gate fail-closed. MTR-041 not started;
+MTR-020B/021 blocked. Submit040A **READY FOR ARCHITECTURE/FREEZE REVIEW**, not self-FROZEN.

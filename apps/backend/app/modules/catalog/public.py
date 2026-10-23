@@ -4,12 +4,13 @@ from sqlalchemy import select
 
 from app.domain.units import Provenance, Quantity
 from app.modules.catalog.contracts import (
+    AffinityFeatureTermFact,
     IngredientIdentityFact,
     NutritionFact,
     NutritionReferenceFact,
     NutritionValues,
 )
-from app.modules.catalog.models import Ingredient
+from app.modules.catalog.models import AffinityFeatureTerm, Ingredient
 from app.modules.catalog.models import NutritionFact as NutritionRow
 
 
@@ -51,3 +52,45 @@ def catalog_facts(session, ingredient_ids):
         )
     )
     return identities, nutrients
+
+
+def add_affinity_feature_term(session, fact):
+    """Internal curated-source write, not an unreviewed import or public HTTP endpoint."""
+    fact = AffinityFeatureTermFact.model_validate(fact.model_dump())
+    fields = fact.model_dump(exclude={"provenance", "contract_version"})
+    fields.update(fact.provenance.model_dump(exclude={"kind", "source_uri"}))
+    fields.update(
+        source_kind=fact.provenance.kind,
+        source_uri=str(fact.provenance.source_uri) if fact.provenance.source_uri else None,
+    )
+    session.add(AffinityFeatureTerm(**fields))
+    session.flush()
+    return fact
+
+
+def affinity_feature_terms(session, ids):
+    return tuple(
+        AffinityFeatureTermFact(
+            **{
+                k: getattr(row, k)
+                for k in ("id", "kind", "code", "version", "label", "definition", "status")
+            },
+            provenance=Provenance(
+                kind=row.source_kind,
+                **{
+                    k: getattr(row, k)
+                    for k in (
+                        "source_system",
+                        "external_record_id",
+                        "source_version",
+                        "source_uri",
+                        "content_hash",
+                        "observed_at",
+                    )
+                },
+            ),
+        )
+        for row in session.scalars(
+            select(AffinityFeatureTerm).where(AffinityFeatureTerm.id.in_(ids))
+        )
+    )

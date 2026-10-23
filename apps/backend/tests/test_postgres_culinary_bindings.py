@@ -369,8 +369,6 @@ def test_0009_0010_legacy_roundtrip_and_hashes(legacy_database, populated):
     for _ in range(2):
         migrate(engine, config, "0010")
         with engine.connect() as conn:
-            config.attributes["connection"] = conn
-            alembic_command.check(config)
             assert len(inspect(conn).get_table_names()) == 55
         if populated:
             with Session(engine) as db:
@@ -380,6 +378,12 @@ def test_0009_0010_legacy_roundtrip_and_hashes(legacy_database, populated):
                     assert PlanStore(db).proposal(g.household_id, g.plan_id, p.id) == p
         migrate(engine, config, "0009", down=True)
     migrate(engine, config, "0010")
+    # Keep exact0009↔0010/hash coverage above; current ORM drift belongs at current head.
+    migrate(engine, config, "head")
+    with engine.connect() as conn:
+        config.attributes["connection"] = conn
+        alembic_command.check(config)
+    migrate(engine, config, "0010", down=True)
 
 
 def test_populated_culinary_downgrade_fails_closed(legacy_database):
