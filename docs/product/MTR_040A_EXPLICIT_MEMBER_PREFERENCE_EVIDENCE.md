@@ -105,3 +105,11 @@ its later all-source TOCTOU/validator guard; this member frontier does not grant
 
 MTR-041 is next only after acceptance of 040A; full MTR-040/019/020/026 remain incomplete;
 MTR-020B and MTR-021 remain blocked. **READY FOR ARCHITECTURE/FREEZE REVIEW** for 040A only.
+
+
+## Review correction after PR #71
+
+This file preserves the original 0011 implementation evidence. Review found that a linked
+self-author could falsely label a declaration AUTHORIZED_REPRESENTATIVE. MTR-040A is **NOT FROZEN**.
+The [0012 authorship correction and current verification](MTR_040A_AUTHORSHIP_CORRECTION_EVIDENCE.md)
+add bidirectional enforcement without editing0011, rewriting history or adding tables.

@@ -109,3 +109,11 @@ INV-022–025/027–029 are protected by excluding inferred/execution/utility ev
 and caller EvidenceStrength; hard safety is unchanged. DB CAS/frontier/idempotency, direct SQL and
 concurrency checks protect source history; no learned profile or full invariant certification.
 PRECOMMIT remains fail-closed (INV-021); exposure/horizon/solver/Execution remain deferred.
+
+
+MTR-040A authorship correction (`0012`,58 tables) closes the inverse actor/subject check
+for INV-003/004/018/026 source provenance: SELF iff linked subject, representative iff distinct
+(NULL supported); OWNER/EDITOR only. Service and direct SQL matrix plus historical/data-bearing
+roundtrip tests are recorded in [correction evidence](MTR_040A_AUTHORSHIP_CORRECTION_EVIDENCE.md).
+No invariant wording, frozen culinary/shortlist contract, raw EvidenceStrength or validation
+authority changes. MTR-040A is NOT FROZEN; MTR-041 remains not started.

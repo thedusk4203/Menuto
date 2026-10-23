@@ -537,7 +537,7 @@ def test_migration_roundtrip_lossless_foundation_and_populated_guard(legacy_data
         migrate(engine, config, "0007", down=True)
     with Session(engine) as session:
         assert PlanStore(session).proposal(g.household_id, g.plan_id, p.id) == p
-        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0011"
+        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0012"
 
 
 def fully_populated(db):

@@ -186,3 +186,11 @@ No raw EvidenceStrength/assertion_confidence/TasteFit; no inferred feature assig
 preference copying. MemberBehaviorProfile derivation/learning and full MTR-040 remain incomplete.
 Frozen A/B/C/020A,0001–0010 unchanged; production gate fail-closed. MTR-041 not started;
 MTR-020B/021 blocked. Submit040A **READY FOR ARCHITECTURE/FREEZE REVIEW**, not self-FROZEN.
+
+
+MTR-040A remains **NOT FROZEN** after review of PR #71 (`f451d7f`).
+[Authorship correction](MTR_040A_AUTHORSHIP_CORRECTION_EVIDENCE.md): forward `0012` replaces only
+`menuto_preference_append()` and adds the inverse application guard. SELF iff canonical linked
+member equals subject; representative iff different (including NULL); OWNER/EDITOR only.
+Wrong modes reject, never normalize. No historical row/hash rewrite or new table; current schema
+`0012` / **58 tables**, migrations0001–0011 unchanged. No MTR-041 work started.

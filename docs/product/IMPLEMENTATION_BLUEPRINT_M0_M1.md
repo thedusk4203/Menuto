@@ -294,3 +294,9 @@ EvidenceStrength; derived MemberBehaviorProfile owns it later.
 [040A evidence](MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md): forward0011 /58 tables,
 typed targets, member frontier, immutable lineage and SQL-protected CAS/idempotency. No learned
 inference/profile strength, exposure, scalar TasteFit, Execution or solver. Submit review only.
+
+
+040A review found an inverse authorship guard gap. [Correction evidence](MTR_040A_AUTHORSHIP_CORRECTION_EVIDENCE.md)
+advances to `0012` /58 tables, changing only application/SQL enforcement, not old declarations.
+SELF iff actor membership links to subject; representative iff distinct (NULL allowed); OWNER/EDITOR
+only, wrong caller label rejected. 0001–0011 immutable; MTR-040A NOT FROZEN, MTR-041 not started.
