@@ -3,6 +3,8 @@
 Baseline: `06dc1dcbf38d474b90f7bfb74f04651e884285e4` (user-frozen040A,0012 /58 tables).
 [Architecture review before code](MTR_041A_RECENT_EXPOSURE_DOMAIN_REVIEW.md).
 Status: **proposal-preview subset implemented for review, NOT self-FROZEN**.
+Implementation: `35a69f5232abff22000a40210ed74d702852dbf3`.
+[PR #73](https://github.com/thedusk4203/Menuto/pull/73).
 
 ## Actual scope
 
@@ -69,8 +71,10 @@ Executed locally on Python 3.13 / PostgreSQL18.4:
 One existing Starlette/httpx deprecation warning remains. The earlier full run passed1402; a final
 UUID-lookup guard/test was added while it was running, so the entire final suite was rerun and
 passed1403 as recorded above. Prior tests were not edited. Existing PlanStore methods retain
-identical ASTs; Household/Planning additions are read-only. Exact implementation SHA/PR/CI are
-recorded after remote verification. Local ignored artifacts: `.local/exposure-final.xml/log`,
+identical ASTs; Household/Planning additions are read-only. [Implementation CI run40020090768](https://github.com/thedusk4203/Menuto/actions/runs/40020090768)
+completed **SUCCESS** for Python and web. Actual logs confirm **1403 passed** and **22/22 benchmark**;
+all architecture/import/export/client/typecheck/build steps passed. The documentation-only final
+head is checked again before merge; final-head/merge SHA and post-merge CI are reported at delivery. Local ignored artifacts: `.local/exposure-final.xml/log`,
 `exposure-pg-collection.log`, `exposure-benchmark.json`, earlier focused/full iteration logs.
 An initial roundtrip assertion compared arbitrary unordered tuple order; it was corrected to
 compare semantic canonical bytes/hash, with an actual shuffled graph regression added. No frozen
@@ -92,3 +96,6 @@ classification mapping (MTR-046), decay/cooldown/novelty scores, profile derivat
 role assignment, feasibility, Execution or PRECOMMIT authority. Accepted schedule exposure capture
 requires production authorization/frontier seams; proposal preview cannot stand in for it.
 Full040 remains incomplete; MTR-024/020B/021 remain blocked. Stop for architecture/freeze review.
+
+
+**READY FOR MTR-041 ARCHITECTURE/FREEZE REVIEW** — preview-source subset only.
