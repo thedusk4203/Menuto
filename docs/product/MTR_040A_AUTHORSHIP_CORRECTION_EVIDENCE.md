@@ -2,7 +2,8 @@
 
 Status: **NOT FROZEN — correction submitted for freeze review**.
 Reviewed baseline: PR #71, `f451d7fb86170ca5326692929b13be7dfb864173`.
-Implementation commit, correction PR and CI links are recorded after actual verification.
+Implementation commit: `64b9c67f9ff2acc1988dc39047cc2b47e41fb98f`.
+Correction: [PR #72](https://github.com/thedusk4203/Menuto/pull/72). CI evidence follows actual verification.
 
 ## Defect and exact rule
 
@@ -43,6 +44,17 @@ No wire schema/hash changes, new source primitive or raw EvidenceStrength. Froze
 and MTR-020A semantics remain unchanged. Learning, Execution, TasteFit, profile derivation,
 MTR-041 and PRECOMMIT authority are not implemented by this correction.
 
+## Changed files
+
+- Application: `apps/backend/app/modules/preferences/public.py` (inverse rejection only).
+- Migration: `apps/backend/migrations/versions/0012_preference_authorship_semantics.py`.
+- New tests: `apps/backend/tests/test_postgres_preference_authorship.py`.
+- Current-head assertions: `test_foundation_migration.py`, `test_postgres_plans.py`,
+  `test_postgres_retail.py`, `test_postgres_validation.py` under `apps/backend/tests/`.
+- Product docs: this evidence, `MTR_040A_EXPLICIT_MEMBER_PREFERENCE_REVIEW.md`,
+  `MTR_040A_EXPLICIT_MEMBER_PREFERENCE_EVIDENCE.md`, `FOUNDATION_STATUS.md`,
+  `IMPLEMENTATION_BLUEPRINT_M0_M1.md`, `INVARIANT_COVERAGE.md`.
+
 ## Tests executed
 
 26 focused real-PostgreSQL tests pass: 12 canonical membership/mode/role cases each through
@@ -75,6 +87,11 @@ Local verification on Python 3.13 / PostgreSQL 18.4:
 One existing Starlette/httpx deprecation warning remains. No tests were removed or weakened.
 Ignored local artifacts: `.local/authorship-red.log`, `authorship-focused.xml/log`,
 `authorship-full.xml/log`, `authorship-postgres-collection.log`, `authorship-benchmark.json`.
-Remote PR/head and post-merge evidence are recorded after actual CI completion.
+[Implementation CI run 40011302970](https://github.com/thedusk4203/Menuto/actions/runs/40011302970)
+for `64b9c67f9ff2acc1988dc39047cc2b47e41fb98f` completed **SUCCESS**: Python and web.
+Python logs confirm **1350 passed** and **22/22 benchmark**. Every architecture/import/export/
+fixture/client/typecheck/build step succeeded. This documentation follow-up is checked again at
+its final head before merge; exact final-head and post-merge CI are reported in the delivery.
+MTR-040A remains NOT FROZEN and MTR-041 has not started.
 
 **READY FOR MTR-040A FREEZE REVIEW** is the delivery gate; MTR-040A is not self-frozen.
