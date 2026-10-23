@@ -527,7 +527,6 @@
       "required": [
         "id",
         "proposal_no",
-        "graph",
         "graph_hash",
         "expected_revision",
         "scope",
@@ -536,7 +535,8 @@
         "source_system",
         "idempotency_key",
         "reason",
-        "created_at"
+        "created_at",
+        "graph"
       ],
       "title": "BoundPlanProposalSnapshot",
       "type": "object"
@@ -616,9 +616,9 @@
         "parent_revision_no",
         "parent_graph_hash",
         "reason_kind",
-        "proposal",
         "authorization_id",
-        "created_at"
+        "created_at",
+        "proposal"
       ],
       "title": "BoundPlanRevisionSnapshot",
       "type": "object"
@@ -4776,14 +4776,14 @@
       },
       "required": [
         "proposal_id",
-        "graph",
         "expected_generation",
         "scope",
         "effective_from",
         "actor_user_id",
         "source_system",
         "idempotency_key",
-        "reason"
+        "reason",
+        "graph"
       ],
       "title": "ProposeBoundPlanCommand",
       "type": "object"

@@ -392,22 +392,44 @@ class PlannedCulinaryBinding(Contract):
         ).hexdigest()
 
 
-class BoundCookingBatchIntent(PlannedCookingBatchIntent):
+class BoundCookingBatchIntent(Contract):
+    node_id: UUID
+    recipe_version_id: UUID
+    tier_id: UUID
+    planned_servings: PositiveDecimal
+    planned_at: AwareTime
+    status: Literal["PLANNED", "RETIRED"] = "PLANNED"
     culinary_signature: Sha256
 
 
-class BoundPlanIntentGraph(PlanIntentGraph):
+class BoundPlanIntentGraph(Contract):
+    household_id: UUID
+    plan_id: UUID
+    tracked_member_id: UUID
+    horizon: Horizon
+    meals: tuple[MealIntent, ...] = Field(min_length=1)
+    allocations: tuple[PlannedBatchAllocationIntent, ...] = ()
+    shopping: tuple[ShoppingRequirementIntent, ...] = ()
+    shopping_contributions: tuple[ShoppingDemandContributionIntent, ...] = ()
+    reservations: tuple[ReservationIntent, ...] = ()
     contract_version: Literal["plan-intent.v3"] = "plan-intent.v3"
     batches: tuple[BoundCookingBatchIntent, ...] = ()
     culinary_bindings: tuple[PlannedCulinaryBinding, ...] = ()
 
     def content(self):
-        result = super().content()
+        result = PlanIntentGraph.content(self)
         result["culinary_bindings"] = [
             b.payload() | {"fingerprint": b.fingerprint}
             for b in sorted(self.culinary_bindings, key=lambda b: str(b.batch_node_id))
         ]
         return result
+
+    def fingerprint(self):
+        return PlanIntentGraph.fingerprint(self)
+
+    @model_validator(mode="after")
+    def structural_graph(self):
+        return PlanIntentGraph.graph_integrity(self)
 
     @model_validator(mode="after")
     def exact_binding_ownership(self):
@@ -429,7 +451,16 @@ class BoundPlanIntentGraph(PlanIntentGraph):
         return self
 
 
-class ProposeBoundPlanCommand(ProposePlanCommand):
+class ProposeBoundPlanCommand(Contract):
+    proposal_id: UUID
+    expected_generation: Annotated[int, Field(strict=True, ge=-1)]
+    expected_revision: Annotated[int, Field(strict=True, ge=0)] | None = None
+    scope: RevisionScope
+    effective_from: AwareTime
+    actor_user_id: UUID
+    source_system: Identifier
+    idempotency_key: Identifier
+    reason: Label
     contract_version: Literal["plan-propose.v2-culinary"] = "plan-propose.v2-culinary"
     graph: BoundPlanIntentGraph
 
@@ -440,7 +471,25 @@ class ProposeBoundPlanCommand(ProposePlanCommand):
         return self
 
 
-class BoundPlanProposalSnapshot(PlanProposalSnapshot):
+class BoundPlanProposalSnapshot(Contract):
+    status: Literal["IMMUTABLE_INTENT_PROPOSAL"] = "IMMUTABLE_INTENT_PROPOSAL"
+    activation_ready: Literal[False] = False
+    id: UUID
+    proposal_no: int
+    graph_hash: Sha256
+    expected_revision: int | None
+    scope: RevisionScope
+    effective_from: AwareTime
+    actor_user_id: UUID
+    source_system: Identifier
+    idempotency_key: Identifier
+    reason: Label
+    created_at: AwareTime
+
+    @model_validator(mode="after")
+    def recompute_hash(self):
+        return PlanProposalSnapshot.recompute_hash(self)
+
     contract_version: Literal["plan-proposal.v2-culinary"] = "plan-proposal.v2-culinary"
     graph: BoundPlanIntentGraph
 
@@ -451,11 +500,30 @@ class BoundPlanProposalSnapshot(PlanProposalSnapshot):
         return self
 
 
-class BoundPlanRevisionSnapshot(PlanRevisionSnapshot):
+class BoundPlanRevisionSnapshot(Contract):
+    household_id: UUID
+    plan_id: UUID
+    revision_no: int
+    parent_revision_no: int | None
+    parent_graph_hash: Sha256 | None
+    reason_kind: Literal["INITIAL_ACTIVATED_BASELINE", "PLAN_REVISION"]
+    authorization_id: UUID
+    created_at: AwareTime
+
+    @model_validator(mode="after")
+    def exact_revision_chain(self):
+        return PlanRevisionSnapshot.exact_revision_chain(self)
+
     contract_version: Literal["plan-revision.v2-culinary"] = "plan-revision.v2-culinary"
     proposal: BoundPlanProposalSnapshot
 
 
-class BoundActivePlanSnapshot(ActivePlanSnapshot):
+class BoundActivePlanSnapshot(Contract):
+    workspace: PlanWorkspaceDraft
+
+    @model_validator(mode="after")
+    def exact_head(self):
+        return ActivePlanSnapshot.exact_head(self)
+
     contract_version: Literal["active-plan.v2-culinary"] = "active-plan.v2-culinary"
     revision: BoundPlanRevisionSnapshot

@@ -41,3 +41,16 @@ def test_frozen_validation_subject_v1_hash(monkeypatch):
         fixed_subject(monkeypatch).fingerprint
         == "7fd32bc476e937427e1b8a3d3034e6ed6876d657f9520588df62693627867287"
     )
+
+
+@pytest.mark.parametrize("wire", [False, True])
+def test_v3_cannot_enter_frozen_v1_by_nested_model_subtyping(monkeypatch, wire):
+    from app.modules.validation.contracts import ValidationSubjectSnapshot
+    from culinary_fixtures import culinary_source
+
+    # Construct v3 first; fixed_subject replaces only fixture generators for stable goldens.
+    v3 = culinary_source()
+    v1 = fixed_subject(monkeypatch)
+    data = v1.model_dump() | {"proposal": v3.proposal.model_dump() if wire else v3.proposal}
+    with pytest.raises(ValueError):
+        ValidationSubjectSnapshot.model_validate(data)

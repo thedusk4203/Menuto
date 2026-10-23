@@ -93,7 +93,7 @@ class PlanRevisionService:
             cutoff=cutoff,
         )
 
-    def propose(self, command: c.ProposePlanCommand):
+    def propose(self, command: c.ProposePlanCommand | c.ProposeBoundPlanCommand):
         command_type = (
             c.ProposeBoundPlanCommand
             if isinstance(command, c.ProposeBoundPlanCommand)

@@ -86,12 +86,12 @@ test materialization pins are existing confirmed ledger fixtures, not new Cookin
 
 ## Executed verification
 
-Final full local regression: **1032 passed**, **495 real PostgreSQL tests** (pytest postgres
-marker count), **938 prior tests retained**, **94 new cases** (45 standalone unit/golden,
+Final full local regression: **1034 passed**, **495 real PostgreSQL tests** (pytest postgres
+marker count), **938 prior tests retained**, **96 new cases** (47 standalone unit/golden,
 43 new PostgreSQL cases,6 additional cases in the existing table immutability matrix).
 **0 skipped,0 failures,0 errors**. One pre-existing Starlette/httpx deprecation warning.
-Command: `.venv/Scripts/python.exe -m pytest --junitxml=.local/culinary-final.xml --tb=short`,
-MENUTO_TEST_POSTGRES_URL points to isolated PostgreSQL18.4 on localhost; duration155.14s.
+Command: `.venv/Scripts/python.exe -m pytest --junitxml=.local/culinary-strict-final.xml --tb=short`,
+MENUTO_TEST_POSTGRES_URL points to isolated PostgreSQL18.4 on localhost; duration147.86s.
 Schema/ORM drift, empty and data-bearing migration roundtrips, lossy downgrade refusal,
 concurrent proposal writes, direct SQL guards and all previous regressions pass.
 Ruff,30-invariant/11-ADR baseline,16-context import checks, domain/OpenAPI/fixture export
@@ -148,3 +148,12 @@ No live UX/import workflow. Stop at this slice; do not start another prerequisit
 - `packages/contracts/domain.schema.json`
 - `tools/check_import_boundaries.py`
 - `tools/export_domain_contracts.py`
+
+
+Final boundary correction: v3 classes are separate contracts rather than legacy subclasses.
+A reproduced Pydantic nested-instance case accepted a v3 object under the old type before
+rejecting its JSON. Two new regression cases enforce both object and wire rejection without
+changing any frozen class/hash. Final implementation SHA and counts below supersede the
+first implementation checkpoint above.
+
+The producer-disagreement test also recomputes internally consistent forged binding/graph hashes: the independent semantic check still emits CULINARY_RESOLUTION with no fingerprint/signature mismatch. Focused unit/golden suite47/47 passes after strengthening that assertion.

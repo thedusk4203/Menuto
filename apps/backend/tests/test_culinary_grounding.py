@@ -201,13 +201,38 @@ def test_forged_producer_output_caught_without_using_producer(monkeypatch):
     s = culinary_source()
     import app.modules.recipes.contracts as recipe_contracts
 
+    forged = row_change(s, ingredient_id=uuid4())
+    b = forged.proposal.graph.culinary_bindings[0]
+    b = b.model_copy(update={"fingerprint": b.expected_fingerprint()})
+    g = forged.proposal.graph.model_copy(
+        update={
+            "culinary_bindings": (b,),
+            "batches": (
+                forged.proposal.graph.batches[0].model_copy(
+                    update={"culinary_signature": b.semantic_fingerprint()}
+                ),
+            ),
+        }
+    )
+    forged = forged.model_copy(
+        update={
+            "proposal": forged.proposal.model_copy(
+                update={"graph": g, "graph_hash": g.fingerprint()}
+            )
+        }
+    )
+
     def forbidden(*a, **kw):
         raise AssertionError("Producer enforcement called")
 
     monkeypatch.setattr(recipe_contracts, "resolve_culinary_binding", forbidden)
     monkeypatch.setattr(PlannedCulinaryBinding, "expected_fingerprint", forbidden)
     assert check(s).culinary_checks_passed
-    assert not check(row_change(s, ingredient_id=uuid4())).culinary_checks_passed
+    result = check(forged)
+    assert not result.culinary_checks_passed
+    codes = {f.code for f in result.findings}
+    assert "CULINARY_RESOLUTION" in codes
+    assert not codes & {"CULINARY_FINGERPRINT", "CULINARY_SIGNATURE"}
 
 
 def test_binding_copy_keeps_semantic_signature_but_changes_proposal_hash():

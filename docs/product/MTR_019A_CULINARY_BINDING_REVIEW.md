@@ -65,3 +65,12 @@ shared batch must close both meals; changing only a pinned binding must fail; de
 must survive a substitute-only transform; wrong ingredient/count/basis/rule cannot hide behind a
 correct-looking fingerprint; direct SQL late insert/UPDATE/DELETE/TRUNCATE must fail. V1/v2 and
 ValidationSubject v1 hash fixtures must remain unchanged. No new execution API or physical asset.
+
+
+### Strict legacy boundary evidence
+
+V3 types are separate Contract classes, not subclasses of legacy plan wire types. Pydantic
+can otherwise accept a nested subclass instance without revalidating old literal versions,
+while rejecting the same object on JSON roundtrip. Object/wire regression tests prove v3
+cannot enter frozen ValidationSubject v1 by that route. Shared legacy graph-shape/hash
+methods are neutral producer serialization/structural checks, not validator enforcement.
