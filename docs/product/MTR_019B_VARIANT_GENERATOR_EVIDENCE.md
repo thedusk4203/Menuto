@@ -3,7 +3,17 @@
 Reviewed frozen main: `4a6207ac52bc5ba0ce95de2df54c0c949f36066e`.
 [Architecture A–J](MTR_019B_VARIANT_GENERATOR_REVIEW.md) was recorded before implementation.
 Status: **READY FOR ARCHITECTURE/FREEZE REVIEW**, not self-frozen.
-Exact implementation commit and remote CI are recorded after verification below.
+Implementation commit: `7ecc2d1c9c2bde5faee02498dbabeb4d35edd055`.
+PR: https://github.com/thedusk4203/Menuto/pull/66.
+Remote CI is recorded after verification below; no pending result is claimed as success.
+
+## Remote verification checkpoints
+
+[Code-checkpoint CI](https://github.com/thedusk4203/Menuto/actions/runs/39931815374)
+on implementation commit7ecc2d1: Python **SUCCESS**, logs confirm **1089 passed in63.59s**
+and benchmark **22/22**. Web was still in setup-node at09:35UTC on2026-10-23; that checkpoint
+does not yet establish web success. The final PR head must pass both jobs before merge.
+Final check results are linked from [PR66 checks](https://github.com/thedusk4203/Menuto/pull/66/checks).
 
 ## Implemented
 
