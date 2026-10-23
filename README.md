@@ -91,3 +91,8 @@ tổng 51 bảng; operational activation vẫn fail-closed, chưa FROZEN.
 
 [Plan/revision correction0009](docs/product/PLAN_REVISION_SEMANTIC_CORRECTIONS.md) bổ sung
 shopping contribution ownership và historical advice guards; tổng52 bảng. Chưa FROZEN.
+
+
+MTR-016 đã user FROZEN tại751a40e. [Validation subject foundation](docs/product/VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md)
+bổ sung immutable input và independent supported checks; chưa full Independent Validator,
+production authority hoặc execution. Schema vẫn0009/52 bảng; không có migration mới.

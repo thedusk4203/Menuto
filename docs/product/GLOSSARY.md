@@ -288,3 +288,16 @@ hoặc planned batch. Các phần đang có hiệu lực giữ đúng tổng lư
 **Advice temporal anchor**:
 Thời điểm advice dự kiến diễn ra: giờ meal, giờ planned batch hoặc hạn shopping. Khác
 thời điểm có bằng chứng xác nhận vật chất đã được mua, nấu hoặc tiêu thụ.
+
+
+**ValidationSubject foundation**:
+Bộ facts bất biến và self-contained để kiểm độc lập các phần đã có nguồn, kèm policy và
+identity của đầu vào. Phạm vi foundation còn thiếu capability nên không cấp quyền activation.
+
+**Validation coverage policy**:
+Định nghĩa có phiên bản về phạm vi kiểm định đang hỗ trợ và cách từ chối facts quan trọng
+chưa giải được. Khác policy dinh dưỡng/goal do NutritionPolicyEngine tổng hợp.
+
+**POSTFACT diagnostic**:
+Kết quả giải thích lỗi hoặc mâu thuẫn của thực tế đã được ghi nhận. Không tự sửa/xóa lịch
+sử vật chất, không tự tạo plan revision hoặc repair.

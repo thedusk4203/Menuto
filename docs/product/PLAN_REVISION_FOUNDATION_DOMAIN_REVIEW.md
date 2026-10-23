@@ -1,5 +1,6 @@
 # F — Plan/revision foundation: domain architecture review
 
+> Current decision: user APPROVED/FROZEN MTR-016 at `751a40e847dd2e664a6fe3667c272bc740a44e49` (0009,52 tables). READY/not-FROZEN statements below record the earlier submission, not the current freeze decision. Production authority remains fail-closed.
 Date: 2026-10-23 (Asia/Saigon). Status: **READY FOR ARCHITECTURE/FREEZE REVIEW**.
 A–J records the architecture-first review. The implementation addendum and
 [implementation evidence](PLAN_REVISION_FOUNDATION_EVIDENCE.md) record subsequent foundation work.

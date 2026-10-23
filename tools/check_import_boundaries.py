@@ -32,6 +32,9 @@ ALLOWED = {
     },
     "shopping": {"households", "retail", "inventory", "planning"},
     "execution": {
+        "catalog",
+        "nutrition",
+        "recipes",
         "households",
         "planning",
         "cooking",
@@ -95,9 +98,20 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
         ):
             errors.append(f"{line}: VALIDATION_OR_CONTRACT_IMPORTS_SOLVER: {target}")
         if context == "validation":
-            if target.split(".")[0] in {"ortools", "sqlalchemy", "psycopg", "benchmark"} or (
-                target.startswith(("app.persistence", "app.shared.db"))
-            ):
+            if target.split(".")[0] in {
+                "ortools",
+                "sqlalchemy",
+                "psycopg",
+                "sqlite3",
+                "benchmark",
+                "socket",
+                "subprocess",
+                "httpx",
+                "requests",
+                "urllib",
+                "os",
+                "pathlib",
+            } or (target.startswith(("app.persistence", "app.shared.db"))):
                 errors.append(f"{line}: VALIDATION_INDEPENDENCE: {target}")
             if target.startswith("app.modules.") and target.split(".")[2] != "validation":
                 tail = target.split(".")[3:]
@@ -125,8 +139,10 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             errors.append(f"{line}: UNREGISTERED_CONTEXT: {target}")
             return
         tail = target.split(".")[3:]
-        if context == "planning" and destination == "shopping" and (
-            not tail or tail[0] != "contracts"
+        if (
+            context == "planning"
+            and destination == "shopping"
+            and (not tail or tail[0] != "contracts")
         ):
             errors.append(f"{line}: PLAN_SHOPPING_CONTRACTS_ONLY: {target}")
             return
@@ -165,6 +181,8 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 if item.name == "*" and context:
                     errors.append(f"{node.lineno}: WILDCARD_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            if context == "validation" and node.func.id == "open":
+                errors.append(f"{node.lineno}: VALIDATION_INDEPENDENCE: file IO")
             if context and node.func.id in {"__import__", "eval", "exec"}:
                 errors.append(f"{node.lineno}: DYNAMIC_IMPORT_REQUIRES_REVIEW")
     return sorted(set(errors))

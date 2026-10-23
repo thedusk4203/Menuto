@@ -79,7 +79,7 @@ batch flow vẫn DRAFT. M1.3 đã **APPROVED/FROZEN** ngày 2026-10-23 tại
 Không suy thành full M0/M1 hoặc execution readiness.
 
 
-## Tiếp theo: F — Plan/revision foundation (MTR-016)
+## F — Plan/revision foundation (MTR-016, FROZEN)
 
 [Review A–J](PLAN_REVISION_FOUNDATION_DOMAIN_REVIEW.md) ghi ownership, immutable full
 revision graph, mutable head view, reservation/fulfillment/batch seams và adversarial traces.
@@ -97,3 +97,19 @@ Thêm typed quantitative shopping contributions, enforce SINGLE_MEAL dependency 
 và freeze advice theo scheduled_at/planned_at/need_by. Schema hiện0009, **52 bảng**;
 0001–0008 giữ nguyên. Legacy v1 giữ hash, graph v2 explicit; PRECOMMIT vẫn fail-closed.
 Trạng thái **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa tự FROZEN hoặc đóng MTR-016.
+
+
+## Current freeze and validation foundation
+
+MTR-016 đã user APPROVED/FROZEN tại `751a40e847dd2e664a6fe3667c272bc740a44e49`,
+head0009,52 bảng. Các submission/evidence READY trước đó là lịch sử; freeze foundation
+không mở production PRECOMMIT hoặc cooking execution. Không sửa migrations0001–0009.
+
+Slice tiếp theo: **MTR-025 ValidationSubject v1 foundation + supported subset MTR-026**.
+[Review A–G](VALIDATION_SUBJECT_FOUNDATION_REVIEW.md), [evidence](VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md).
+Implemented: immutable policy/source-aware snapshot, read-only coherent capture, independent
+source-supported root/exclusion/nutrition/yield/physical replay checks. Structurally supported:
+future source/validator handoff. Deferred: full clinical/root policy, grounding/scenario,
+planned material/batch/revision/assumption/bridge validation and production authority.
+Subject/report remain FOUNDATION_ONLY and non-authorizing; no migration/new tables. Domain
+bundle10 is independent of DB head0009. Full MTR-025/026 production acceptance is PARTIAL.

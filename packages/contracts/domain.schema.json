@@ -285,6 +285,75 @@
       "title": "BudgetContract",
       "type": "object"
     },
+    "CalculatedNutrition": {
+      "additionalProperties": false,
+      "properties": {
+        "carbohydrate_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Carbohydrate G"
+        },
+        "energy_kcal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Energy Kcal"
+        },
+        "fat_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Fat G"
+        },
+        "protein_g": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "ge": 0,
+          "max_digits": 72,
+          "title": "Protein G"
+        }
+      },
+      "required": [
+        "energy_kcal",
+        "protein_g",
+        "fat_g",
+        "carbohydrate_g"
+      ],
+      "title": "CalculatedNutrition",
+      "type": "object"
+    },
     "CalculatedQuantity": {
       "additionalProperties": false,
       "description": "Bounded exact working value (72 digits/36 decimal places), not a DB row.",
@@ -381,6 +450,41 @@
         "excluded_ingredient_ids"
       ],
       "title": "CanonicalMemberSafety",
+      "type": "object"
+    },
+    "CanonicalMemberSafetySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "constraints": {
+          "items": {
+            "$ref": "#/$defs/MemberSafetySourceFact"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "canonical-member-safety.v1",
+          "default": "canonical-member-safety.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "constraints"
+      ],
+      "title": "CanonicalMemberSafetySnapshot",
       "type": "object"
     },
     "ConsumeInventoryCommand": {
@@ -482,6 +586,79 @@
       ],
       "title": "CreatePlanWorkspaceCommand",
       "type": "object"
+    },
+    "DefaultBatchInputDerivation": {
+      "additionalProperties": false,
+      "description": "Authored default input only, not fully grounded meal/member nutrient allocation.",
+      "properties": {
+        "batch_node_id": {
+          "format": "uuid",
+          "title": "Batch Node Id",
+          "type": "string"
+        },
+        "input_nutrition": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CalculatedNutrition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nutrition_reference_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Nutrition Reference Ids",
+          "type": "array"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "requirement_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Requirement Ids",
+          "type": "array"
+        },
+        "tier_id": {
+          "format": "uuid",
+          "title": "Tier Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "batch_node_id",
+        "recipe_version_id",
+        "tier_id",
+        "requirement_ids",
+        "nutrition_reference_ids",
+        "input_nutrition"
+      ],
+      "title": "DefaultBatchInputDerivation",
+      "type": "object"
+    },
+    "DeferredCapability": {
+      "enum": [
+        "ROOT_NUTRITION_POLICY",
+        "ALLERGEN_DIET_CLASSIFICATION",
+        "EXACT_GROUNDED_BINDING",
+        "PROCUREMENT_SCENARIOS",
+        "PLANNED_MATERIAL_ALLOCATION",
+        "BATCH_FLOW_EXECUTION",
+        "ASSUMPTION_GRAPH",
+        "HORIZON_BRIDGE",
+        "PRODUCTION_AUTHORITY",
+        "REVISION_MATERIALIZATION_REPLAY"
+      ],
+      "title": "DeferredCapability",
+      "type": "string"
     },
     "DiscardInventoryCommand": {
       "additionalProperties": false,
@@ -844,6 +1021,33 @@
       "title": "HouseholdCreated",
       "type": "object"
     },
+    "HouseholdMemberIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "household-member-identity.v1",
+          "default": "household-member-identity.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id"
+      ],
+      "title": "HouseholdMemberIdentity",
+      "type": "object"
+    },
     "IngredientCreate": {
       "additionalProperties": false,
       "properties": {
@@ -859,6 +1063,35 @@
         "name"
       ],
       "title": "IngredientCreate",
+      "type": "object"
+    },
+    "IngredientIdentityFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "ingredient-identity.v1",
+          "default": "ingredient-identity.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "IngredientIdentityFact",
       "type": "object"
     },
     "IngredientProductMapFact": {
@@ -1388,6 +1621,74 @@
       "title": "InventoryReservationRelease",
       "type": "object"
     },
+    "InventoryValidationFacts": {
+      "additionalProperties": false,
+      "description": "Primitive arrays, intentionally no aggregate replay validator before POSTFACT checks.",
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "inventory-validation-facts.v1",
+          "default": "inventory-validation-facts.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "lots": {
+          "items": {
+            "$ref": "#/$defs/InventoryLot"
+          },
+          "title": "Lots",
+          "type": "array"
+        },
+        "movements": {
+          "items": {
+            "$ref": "#/$defs/InventoryMovement"
+          },
+          "title": "Movements",
+          "type": "array"
+        },
+        "positions": {
+          "items": {
+            "$ref": "#/$defs/InventoryPosition"
+          },
+          "title": "Positions",
+          "type": "array"
+        },
+        "releases": {
+          "items": {
+            "$ref": "#/$defs/InventoryReservationRelease"
+          },
+          "title": "Releases",
+          "type": "array"
+        },
+        "reservations": {
+          "items": {
+            "$ref": "#/$defs/InventoryReservation"
+          },
+          "title": "Reservations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "as_of",
+        "lots",
+        "movements",
+        "reservations",
+        "releases",
+        "positions"
+      ],
+      "title": "InventoryValidationFacts",
+      "type": "object"
+    },
     "Lifecycle": {
       "enum": [
         "ACTIVE",
@@ -1397,6 +1698,53 @@
       ],
       "title": "Lifecycle",
       "type": "string"
+    },
+    "MaterialBalanceDerivation": {
+      "additionalProperties": false,
+      "properties": {
+        "lot_id": {
+          "format": "uuid",
+          "title": "Lot Id",
+          "type": "string"
+        },
+        "quantity_identity": {
+          "$ref": "#/$defs/QuantityIdentity"
+        },
+        "signed_closing_amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "max_digits": 72,
+          "title": "Signed Closing Amount"
+        },
+        "signed_reserved_amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "decimal_places": 36,
+          "max_digits": 72,
+          "title": "Signed Reserved Amount"
+        }
+      },
+      "required": [
+        "lot_id",
+        "quantity_identity",
+        "signed_closing_amount",
+        "signed_reserved_amount"
+      ],
+      "title": "MaterialBalanceDerivation",
+      "type": "object"
     },
     "MealIntent": {
       "additionalProperties": false,
@@ -1698,6 +2046,43 @@
       "title": "MemberSafetyConstraint",
       "type": "object"
     },
+    "MemberSafetySourceFact": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint": {
+          "$ref": "#/$defs/MemberSafetyConstraint"
+        },
+        "contract_version": {
+          "const": "member-safety-source.v1",
+          "default": "member-safety-source.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "source_system": {
+          "const": "menuto.member_safety_constraints",
+          "default": "menuto.member_safety_constraints",
+          "title": "Source System",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "recorded_at",
+        "constraint"
+      ],
+      "title": "MemberSafetySourceFact",
+      "type": "object"
+    },
     "Money": {
       "additionalProperties": false,
       "properties": {
@@ -1830,6 +2215,31 @@
         "status"
       ],
       "title": "NutritionFact",
+      "type": "object"
+    },
+    "NutritionReferenceFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "nutrition-reference-source.v1",
+          "default": "nutrition-reference-source.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fact": {
+          "$ref": "#/$defs/NutritionFact"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "fact"
+      ],
+      "title": "NutritionReferenceFact",
       "type": "object"
     },
     "NutritionValues": {
@@ -4114,6 +4524,34 @@
       "title": "QuantityAdjustmentPolicy",
       "type": "object"
     },
+    "QuantityIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/MeasurementBasis"
+        },
+        "item_ref": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Item Ref"
+        }
+      },
+      "required": [
+        "basis"
+      ],
+      "title": "QuantityIdentity",
+      "type": "object"
+    },
     "QuantizationPolicy": {
       "additionalProperties": false,
       "description": "Caller chooses direction at an explicit storage seam, never a hidden default.",
@@ -5975,59 +6413,153 @@
       "title": "TierQuantity",
       "type": "object"
     },
-    "ValidationFinding": {
+    "ValidationCoveragePolicySnapshot": {
       "additionalProperties": false,
       "properties": {
-        "code": {
+        "contract_version": {
+          "const": "validation-coverage-policy.v1",
+          "default": "validation-coverage-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "definition": {
+          "const": "FOUNDATION_NO_CLINICAL_POLICY",
+          "default": "FOUNDATION_NO_CLINICAL_POLICY",
+          "title": "Definition",
+          "type": "string"
+        },
+        "policy_version": {
           "maxLength": 100,
           "minLength": 1,
           "pattern": "^[A-Za-z0-9_.:-]+$",
-          "title": "Code",
+          "title": "Policy Version",
           "type": "string"
         },
-        "proof_refs": {
-          "items": {
-            "maxLength": 100,
-            "minLength": 1,
-            "pattern": "^[A-Za-z0-9_.:-]+$",
-            "type": "string"
-          },
-          "title": "Proof Refs",
-          "type": "array"
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
         },
-        "scope_ref": {
-          "maxLength": 100,
-          "minLength": 1,
-          "pattern": "^[A-Za-z0-9_.:-]+$",
-          "title": "Scope Ref",
-          "type": "string"
-        },
-        "severity": {
-          "enum": [
-            "FATAL",
-            "ERROR",
-            "WARNING",
-            "INFO"
-          ],
-          "title": "Severity",
-          "type": "string"
-        },
-        "source_domain": {
-          "maxLength": 100,
-          "minLength": 1,
-          "pattern": "^[A-Za-z0-9_.:-]+$",
-          "title": "Source Domain",
+        "unsupported_critical_facts": {
+          "const": "REJECT",
+          "default": "REJECT",
+          "title": "Unsupported Critical Facts",
           "type": "string"
         }
       },
       "required": [
-        "code",
-        "severity",
-        "source_domain",
-        "scope_ref",
-        "proof_refs"
+        "policy_version",
+        "provenance"
       ],
-      "title": "ValidationFinding",
+      "title": "ValidationCoveragePolicySnapshot",
+      "type": "object"
+    },
+    "ValidationReport": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_authorized": {
+          "const": false,
+          "default": false,
+          "title": "Activation Authorized",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "validation-report.v1-foundation",
+          "default": "validation-report.v1-foundation",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "REJECTED",
+            "BLOCKED_UNSUPPORTED",
+            "DIAGNOSTIC"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "default_batch_inputs": {
+          "items": {
+            "$ref": "#/$defs/DefaultBatchInputDerivation"
+          },
+          "title": "Default Batch Inputs",
+          "type": "array"
+        },
+        "deferred_capabilities": {
+          "items": {
+            "$ref": "#/$defs/DeferredCapability"
+          },
+          "title": "Deferred Capabilities",
+          "type": "array"
+        },
+        "evaluator_version": {
+          "const": "independent-foundation.1",
+          "default": "independent-foundation.1",
+          "title": "Evaluator Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Revision"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/app__modules__validation__contracts__ValidationFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "material_balances": {
+          "items": {
+            "$ref": "#/$defs/MaterialBalanceDerivation"
+          },
+          "title": "Material Balances",
+          "type": "array"
+        },
+        "phase": {
+          "enum": [
+            "PRECOMMIT_VALIDATION",
+            "POSTFACT_VALIDATION"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "policy_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Policy Hash",
+          "type": "string"
+        },
+        "subject_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Subject Hash",
+          "type": "string"
+        },
+        "yield_estimates": {
+          "items": {
+            "$ref": "#/$defs/YieldEstimate"
+          },
+          "title": "Yield Estimates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "phase",
+        "decision",
+        "subject_hash",
+        "policy_hash",
+        "expected_revision",
+        "findings",
+        "default_batch_inputs",
+        "material_balances",
+        "yield_estimates",
+        "deferred_capabilities"
+      ],
+      "title": "ValidationReport",
       "type": "object"
     },
     "ValidationReportDraft": {
@@ -6059,7 +6591,7 @@
         },
         "findings": {
           "items": {
-            "$ref": "#/$defs/ValidationFinding"
+            "$ref": "#/$defs/app__domain__snapshots__ValidationFinding"
           },
           "title": "Findings",
           "type": "array"
@@ -6085,6 +6617,50 @@
         "findings"
       ],
       "title": "ValidationReportDraft",
+      "type": "object"
+    },
+    "ValidationSourceFrontier": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_consistency": {
+          "enum": [
+            "REPEATABLE_READ",
+            "SERIALIZABLE",
+            "EXPLICIT_INPUT"
+          ],
+          "title": "Capture Consistency",
+          "type": "string"
+        },
+        "current_revision_no": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Revision No"
+        },
+        "inventory_ledger_sequence": {
+          "minimum": 0,
+          "title": "Inventory Ledger Sequence",
+          "type": "integer"
+        },
+        "materialization_boundary_version": {
+          "minimum": 0,
+          "title": "Materialization Boundary Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "current_revision_no",
+        "inventory_ledger_sequence",
+        "materialization_boundary_version",
+        "capture_consistency"
+      ],
+      "title": "ValidationSourceFrontier",
       "type": "object"
     },
     "ValidationSubjectDraft": {
@@ -6168,6 +6744,130 @@
         "opening_assets"
       ],
       "title": "ValidationSubjectDraft",
+      "type": "object"
+    },
+    "ValidationSubjectSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "bridge_assumptions_batch_flow": {
+          "const": "DEFERRED",
+          "default": "DEFERRED",
+          "title": "Bridge Assumptions Batch Flow",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "validation-subject.v1-foundation",
+          "default": "validation-subject.v1-foundation",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "FOUNDATION_ONLY",
+          "default": "FOUNDATION_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "exact_grounded_binding": {
+          "const": "DEFERRED",
+          "default": "DEFERRED",
+          "title": "Exact Grounded Binding",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "ingredients": {
+          "items": {
+            "$ref": "#/$defs/IngredientIdentityFact"
+          },
+          "title": "Ingredients",
+          "type": "array"
+        },
+        "inventory": {
+          "$ref": "#/$defs/InventoryValidationFacts"
+        },
+        "member_safety": {
+          "items": {
+            "$ref": "#/$defs/CanonicalMemberSafetySnapshot"
+          },
+          "title": "Member Safety",
+          "type": "array"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/HouseholdMemberIdentity"
+          },
+          "title": "Members",
+          "type": "array"
+        },
+        "nutrition_references": {
+          "items": {
+            "$ref": "#/$defs/NutritionReferenceFact"
+          },
+          "title": "Nutrition References",
+          "type": "array"
+        },
+        "parent_revision": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PlanRevisionSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "policy": {
+          "$ref": "#/$defs/ValidationCoveragePolicySnapshot"
+        },
+        "procurement_resolution": {
+          "const": "DEFERRED",
+          "default": "DEFERRED",
+          "title": "Procurement Resolution",
+          "type": "string"
+        },
+        "proposal": {
+          "$ref": "#/$defs/PlanProposalSnapshot"
+        },
+        "recipes": {
+          "items": {
+            "$ref": "#/$defs/RecipeVersionSnapshot"
+          },
+          "title": "Recipes",
+          "type": "array"
+        },
+        "root_nutrition_policy": {
+          "const": "DEFERRED",
+          "default": "DEFERRED",
+          "title": "Root Nutrition Policy",
+          "type": "string"
+        },
+        "source_frontier": {
+          "$ref": "#/$defs/ValidationSourceFrontier"
+        },
+        "validation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Validation Ready",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "household_id",
+        "proposal",
+        "parent_revision",
+        "source_frontier",
+        "members",
+        "member_safety",
+        "ingredients",
+        "nutrition_references",
+        "recipes",
+        "inventory",
+        "policy"
+      ],
+      "title": "ValidationSubjectSnapshot",
       "type": "object"
     },
     "VariantReason": {
@@ -6262,10 +6962,160 @@
       ],
       "title": "YieldConversion",
       "type": "object"
+    },
+    "YieldEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "context_id": {
+          "format": "uuid",
+          "title": "Context Id",
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "output": {
+          "$ref": "#/$defs/CalculatedQuantity"
+        },
+        "owner": {
+          "enum": [
+            "RETAIL_MAPPING",
+            "RECIPE_PREPARATION"
+          ],
+          "title": "Owner",
+          "type": "string"
+        },
+        "owner_id": {
+          "format": "uuid",
+          "title": "Owner Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "owner_id",
+        "context_id",
+        "input",
+        "output"
+      ],
+      "title": "YieldEstimate",
+      "type": "object"
+    },
+    "app__domain__snapshots__ValidationFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "proof_refs": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Proof Refs",
+          "type": "array"
+        },
+        "scope_ref": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Ref",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "FATAL",
+            "ERROR",
+            "WARNING",
+            "INFO"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source_domain": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source Domain",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "source_domain",
+        "scope_ref",
+        "proof_refs"
+      ],
+      "title": "ValidationFinding",
+      "type": "object"
+    },
+    "app__modules__validation__contracts__ValidationFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "title": "Detail",
+          "type": "string"
+        },
+        "proof_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Proof Refs",
+          "type": "array"
+        },
+        "scope": {
+          "title": "Scope",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "FATAL",
+            "ERROR",
+            "WARNING",
+            "INFO"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source_domain": {
+          "enum": [
+            "DATA",
+            "POLICY",
+            "PLAN",
+            "EXECUTION"
+          ],
+          "title": "Source Domain",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "source_domain",
+        "scope",
+        "proof_refs",
+        "detail"
+      ],
+      "title": "ValidationFinding",
+      "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:9",
+  "$id": "urn:menuto:domain:foundation:10",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1 legacy/v2 contribution graphs, guarded scope/cut-line revision seams; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1 legacy/v2 contribution graphs, guarded scope/cut-line revision seams; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

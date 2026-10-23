@@ -222,3 +222,14 @@ Thêm typed quantitative shopping contributions, enforce SINGLE_MEAL dependency 
 và freeze advice theo scheduled_at/planned_at/need_by. Schema hiện0009, **52 bảng**;
 0001–0008 giữ nguyên. Legacy v1 giữ hash, graph v2 explicit; PRECOMMIT vẫn fail-closed.
 Trạng thái **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa tự FROZEN hoặc đóng MTR-016.
+
+
+## After frozen MTR-016: source/validation foundation
+
+MTR-016 user APPROVED/FROZEN at751a40e (0009,52 tables). G above is a completion audit,
+not a dependency shortcut to execution. [Review A–G](VALIDATION_SUBJECT_FOUNDATION_REVIEW.md)
+selects canonical MTR-025, with a source-supported MTR-026 subset. Read-only coherent source
+capture precedes immutable subject → independent primitive checks; full root/policy/grounding/
+scenario/bridge coverage and PRECOMMIT authority must precede execution. [Evidence](VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md)
+separates implemented/structurally supported/deferred capabilities. No new table/migration;
+source contracts/export version independently advance, production activation stays blocked.

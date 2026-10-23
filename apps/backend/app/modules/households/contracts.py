@@ -30,6 +30,12 @@ class HouseholdCreated(Contract):
     owner_user_id: UUID
 
 
+class HouseholdMemberIdentity(Contract):
+    contract_version: Literal["household-member-identity.v1"] = "household-member-identity.v1"
+    household_id: UUID
+    member_id: UUID
+
+
 class Participant(Contract):
     member_id: UUID
     portion_factor: PositiveDecimal

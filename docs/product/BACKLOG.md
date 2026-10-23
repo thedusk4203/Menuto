@@ -21,7 +21,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-013](https://github.com/thedusk4203/Menuto/issues/12) | P0 | SPEND_LIMIT stress scenarios | BASE/ADVERSE_WEIGHT/BACKUP/CATEGORY_STRESS snapshot + revision sunk-spend semantics. | OPEN — chưa chứng nhận |
 | [MTR-014](https://github.com/thedusk4203/Menuto/issues/13) | P0 | AP→EP + cooking-yield chain | Product AP→EP explicit; cooking yield/prepared output separate. | OPEN — chưa chứng nhận |
 | [MTR-015](https://github.com/thedusk4203/Menuto/issues/14) | P0 | Inventory physical ledger | Household lots/movements/reservations/policy/reconcile; planned acquisition never physical stock. | OPEN — chưa chứng nhận |
-| [MTR-016](https://github.com/thedusk4203/Menuto/issues/17) | P0 | ActivePlan + PlanRevision schema | Stable plan_id, immutable revision snapshots/diffs, locked materialized past, optimistic revision locking. | OPEN — chưa chứng nhận |
+| [MTR-016](https://github.com/thedusk4203/Menuto/issues/17) | P0 | ActivePlan + PlanRevision schema | Stable plan_id, immutable revision snapshots/diffs, locked materialized past, optimistic revision locking. | FROZEN foundation — user approved 2026-10-23 |
 | [MTR-017](https://github.com/thedusk4203/Menuto/issues/18) | P0 | Execution state projections | Confirmed/Operational/Planning views + provisional assumption provenance. | OPEN — chưa chứng nhận |
 | [MTR-018](https://github.com/thedusk4203/Menuto/issues/19) | P0 | Recipe version/variant schema | Contextual substitution + quantity/scaling/adjustment policies. | OPEN — chưa chứng nhận |
 | [MTR-019](https://github.com/thedusk4203/Menuto/issues/20) | P0 | Grounded Variant Generator | Demand-driven immutable candidates; reason/fingerprint; explicit bases. | OPEN — chưa chứng nhận |
@@ -79,3 +79,10 @@ Thêm typed quantitative shopping contributions, enforce SINGLE_MEAL dependency 
 và freeze advice theo scheduled_at/planned_at/need_by. Schema hiện0009, **52 bảng**;
 0001–0008 giữ nguyên. Legacy v1 giữ hash, graph v2 explicit; PRECOMMIT vẫn fail-closed.
 Trạng thái **READY FOR ARCHITECTURE/FREEZE REVIEW**, chưa tự FROZEN hoặc đóng MTR-016.
+
+
+User freeze decision: MTR-016 foundation is APPROVED/FROZEN at751a40e,0009/52 tables.
+This records architecture acceptance; it does not silently close unrelated execution/gating work.
+Next dependency-safe work is [MTR-025 subject foundation / partial MTR-026](VALIDATION_SUBJECT_FOUNDATION_REVIEW.md),
+with [implementation evidence](VALIDATION_SUBJECT_FOUNDATION_EVIDENCE.md). Full production
+MTR-025/026 remain PARTIAL and authorization stays fail-closed. No invented M1.4 numbering.
