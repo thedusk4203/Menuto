@@ -2,7 +2,8 @@
 
 Reviewed base: `33297e89f3db68e4695ae8659f01cb16cbf1504d`.
 [Architecture A–J](MTR_019A_CULINARY_BINDING_REVIEW.md) was written before code.
-Implementation commit: `522f44e297a5402a4ff75d4749a105bd31070b61`. PR / CI are recorded after remote verification below.
+Final implementation commit: `10c1693eaa3aaa2735d9cb073e56ad193c81d0a4` (initial implementation checkpoint `522f44e297a5402a4ff75d4749a105bd31070b61`).
+PR: https://github.com/thedusk4203/Menuto/pull/65. Final CI is recorded after remote verification below.
 Status: submitted for architecture/freeze review, never self-FROZEN.
 
 ## Delivered model
@@ -153,7 +154,7 @@ No live UX/import workflow. Stop at this slice; do not start another prerequisit
 Final boundary correction: v3 classes are separate contracts rather than legacy subclasses.
 A reproduced Pydantic nested-instance case accepted a v3 object under the old type before
 rejecting its JSON. Two new regression cases enforce both object and wire rejection without
-changing any frozen class/hash. Final implementation SHA and counts below supersede the
-first implementation checkpoint above.
+changing any frozen class/hash. The final implementation SHA and full local counts above include this correction; the
+initial implementation checkpoint is retained only for audit history.
 
 The producer-disagreement test also recomputes internally consistent forged binding/graph hashes: the independent semantic check still emits CULINARY_RESOLUTION with no fingerprint/signature mismatch. Focused unit/golden suite47/47 passes after strengthening that assertion.
