@@ -2,7 +2,7 @@
 
 Reviewed base: `33297e89f3db68e4695ae8659f01cb16cbf1504d`.
 [Architecture A–J](MTR_019A_CULINARY_BINDING_REVIEW.md) was written before code.
-Implementation commit / PR / CI: recorded after verification below.
+Implementation commit: `522f44e297a5402a4ff75d4749a105bd31070b61`. PR / CI are recorded after remote verification below.
 Status: submitted for architecture/freeze review, never self-FROZEN.
 
 ## Delivered model
