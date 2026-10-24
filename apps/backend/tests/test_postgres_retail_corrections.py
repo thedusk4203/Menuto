@@ -131,6 +131,7 @@ def test_populated_upgrade_preserves_source_pair_status_and_legacy_flags(legacy_
     with engine.connect() as conn:
         old_observation = row(conn, "price_observations")
         old_mapping = row(conn, "ingredient_product_maps")
+        old_retailer = row(conn, "retailers")
     migrate(engine, config, "0004")
     with Session(engine) as db:
         repo = RetailEvidenceRepository(db)
@@ -141,8 +142,15 @@ def test_populated_upgrade_preserves_source_pair_status_and_legacy_flags(legacy_
         assert quote.reference_price_pair.money_for_reference_quantity.amount_minor == 50_000
         assert quote.reference_price_pair.priced_ap_g == 500
         assert quote.evidence_kind == "RETAIL_OBSERVED"
-        status = repo.retailer_status_at(f["retailer"].id, NOW + timedelta(days=2))
+        # 0004 anchors legacy status to the source retailer's creation time, not fixture NOW.
+        effective_at = old_retailer["created_at"]
+        assert (
+            repo.retailer_status_at(f["retailer"].id, effective_at - timedelta(microseconds=1))
+            is None
+        )
+        status = repo.retailer_status_at(f["retailer"].id, effective_at)
         assert status.status == "ACTIVE" and status.provenance.kind == "LEGACY_STATE"
+        assert status.effective_at == status.provenance.observed_at == effective_at
         assert status.provenance.source_system == "menuto.migration.0004"
         option = repo.get(c.PlanningProcurementOptionDraft, f["option"].id)
         assert option.depends_on_promotion  # Original false assertion is not trusted.
