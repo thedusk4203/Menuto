@@ -7258,6 +7258,238 @@
       "title": "RecipeCooldownWitness",
       "type": "object"
     },
+    "RecipeDecayBand": {
+      "additionalProperties": false,
+      "properties": {
+        "lower_age_microseconds": {
+          "minimum": 0,
+          "title": "Lower Age Microseconds",
+          "type": "integer"
+        },
+        "ordinal": {
+          "minimum": 0,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "retention_multiplier": {
+          "$ref": "#/$defs/RetentionMultiplier"
+        },
+        "upper_age_microseconds": {
+          "exclusiveMinimum": 0,
+          "title": "Upper Age Microseconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "ordinal",
+        "lower_age_microseconds",
+        "upper_age_microseconds",
+        "retention_multiplier"
+      ],
+      "title": "RecipeDecayBand",
+      "type": "object"
+    },
+    "RecipeDecayInput": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "$ref": "#/$defs/RecipeCooldownAssessmentDraft"
+        },
+        "contract_version": {
+          "const": "recipe-decay-input.v1",
+          "default": "recipe-decay-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/RecipeDecayPolicy"
+        }
+      },
+      "required": [
+        "assessment",
+        "policy"
+      ],
+      "title": "RecipeDecayInput",
+      "type": "object"
+    },
+    "RecipeDecayPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "band_interval": {
+          "const": "LOWER_EXCLUSIVE_UPPER_INCLUSIVE",
+          "default": "LOWER_EXCLUSIVE_UPPER_INCLUSIVE",
+          "title": "Band Interval",
+          "type": "string"
+        },
+        "bands": {
+          "items": {
+            "$ref": "#/$defs/RecipeDecayBand"
+          },
+          "minItems": 1,
+          "title": "Bands",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "recipe-decay-policy.v1",
+          "default": "recipe-decay-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint_kind": {
+          "const": "RECIPE_ID",
+          "default": "RECIPE_ID",
+          "title": "Fingerprint Kind",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "bands"
+      ],
+      "title": "RecipeDecayPolicy",
+      "type": "object"
+    },
+    "RecipeDecayTraceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NO_GLOBAL_PENALTY_OR_NOVELTY_CONCLUSION",
+          "default": "NO_GLOBAL_PENALTY_OR_NOVELTY_CONCLUSION",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "accepted_schedule": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Accepted Schedule",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "confirmed_exposure": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Confirmed Exposure",
+          "type": "string"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "recipe-decay-trace.v1-draft",
+          "default": "recipe-decay-trace.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "ONE_SELECTED_PROPOSAL_ONLY",
+          "default": "ONE_SELECTED_PROPOSAL_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/RecipeDecayTraceEntry"
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "global_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Global History",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "novelty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Novelty",
+          "type": "string"
+        },
+        "repeat_penalty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Repeat Penalty",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/RecipeDecayInput"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "entries"
+      ],
+      "title": "RecipeDecayTraceDraft",
+      "type": "object"
+    },
+    "RecipeDecayTraceEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "$ref": "#/$defs/RecipeDecayBand"
+        },
+        "witness": {
+          "$ref": "#/$defs/RecipeCooldownWitness"
+        }
+      },
+      "required": [
+        "witness",
+        "band"
+      ],
+      "title": "RecipeDecayTraceEntry",
+      "type": "object"
+    },
     "RecipeExposureIdentity": {
       "additionalProperties": false,
       "properties": {
@@ -9005,6 +9237,28 @@
       "title": "RetailerStatusProvenance",
       "type": "object"
     },
+    "RetentionMultiplier": {
+      "additionalProperties": false,
+      "description": "Exact reduced rational policy interpretation; never confidence or probability.",
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "minimum": 0,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "RetentionMultiplier",
+      "type": "object"
+    },
     "RetractMemberPreferenceCommand": {
       "additionalProperties": false,
       "properties": {
@@ -10545,8 +10799,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:17",
+  "$id": "urn:menuto:domain:foundation:18",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

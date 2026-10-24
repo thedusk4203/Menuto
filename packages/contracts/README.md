@@ -99,3 +99,9 @@ Whole-target-meal exclusion, half-open lookback and explicit participant/allocat
 no-match is scoped to that proposal. Accepted/confirmed/consumption history, decay, novelty,
 TasteFit and RepeatPenalty are UNAVAILABLE; activation_ready=False. All181 prior definitions
 and frozen041A hashes remain unchanged. No persistence/migration;0012 /58 tables.
+
+Bundle18 adds six recipe-decay v1 contracts: reduced rational retention, ordered age bands,
+explicit policy/input and per-witness diagnostic trace. AS_OF_CAPTURE only; all186 previous
+definitions and frozen041A/B canonical algorithms remain unchanged. No aggregation/probability/
+EvidenceStrength, RepeatPenalty, novelty or TasteFit. Zero retention preserves source evidence.
+The(0,D] domain is this subset only, not a future full-decay horizon rule. No migration;0012 /58.

@@ -12,3 +12,10 @@ Read-only canonical capture is Planning orchestration; Learning core has no DB/E
 IO. Latest proposal advice remains PROVISIONAL, not accepted schedule or confirmed consumption.
 No durable exposure history, learned profile, attribution router, repeat score or novelty.
 Exposure source coverage is explicitly selected plans, never complete member consumption history.
+
+Frozen041B adds proposal-local Recipe-ID cooldown assessment.041C adds pure AS_OF_CAPTURE
+decay trace over fully revalidated041B witnesses, with explicit policy bands and exact reduced
+rational retention. Multiplier is policy interpretation, never behavioral evidence/confidence.
+Zero retention preserves the source witness; no aggregate utility, RepeatPenalty, novelty,
+history/authority or new source workflow. Future full decay horizon/retrospective policy mode
+are separate semantics, not silently added here.

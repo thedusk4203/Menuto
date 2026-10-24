@@ -4,6 +4,7 @@ import hashlib
 import json
 from collections import defaultdict
 from datetime import timedelta
+from math import gcd
 from typing import Annotated, Literal
 from uuid import UUID
 
@@ -466,6 +467,163 @@ class RecipeCooldownAssessmentDraft(Contract):
         for name, value in _cooldown_values(subject).items():
             if getattr(self, name) != value:
                 raise ValueError("Cooldown result differs from captured primitives/policy")
+        return self
+
+    def canonical_json(self):
+        data = self.model_dump(mode="json")
+        data["subject"] = json.loads(self.subject.canonical_json())
+        return _json(data)
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+class RetentionMultiplier(Contract):
+    """Exact reduced rational policy interpretation; never confidence or probability."""
+
+    numerator: Annotated[int, Field(strict=True, ge=0)]
+    denominator: Annotated[int, Field(strict=True, gt=0)]
+
+    @model_validator(mode="after")
+    def reduced_rational(self):
+        if self.numerator > self.denominator:
+            raise ValueError("Retention multiplier must be between zero and one")
+        divisor = gcd(self.numerator, self.denominator)
+        object.__setattr__(self, "numerator", self.numerator // divisor)
+        object.__setattr__(self, "denominator", self.denominator // divisor)
+        return self
+
+
+class RecipeDecayBand(Contract):
+    ordinal: Annotated[int, Field(strict=True, ge=0)]
+    lower_age_microseconds: Annotated[int, Field(strict=True, ge=0)]
+    upper_age_microseconds: Annotated[int, Field(strict=True, gt=0)]
+    retention_multiplier: RetentionMultiplier
+
+    @model_validator(mode="after")
+    def positive_span(self):
+        if self.lower_age_microseconds >= self.upper_age_microseconds:
+            raise ValueError("Decay band requires lower age below upper age")
+        return self
+
+
+class RecipeDecayPolicy(Contract):
+    contract_version: Literal["recipe-decay-policy.v1"] = "recipe-decay-policy.v1"
+    policy_id: Identifier
+    policy_version: Identifier
+    provenance: Provenance
+    interpretation_mode: Literal["AS_OF_CAPTURE"] = "AS_OF_CAPTURE"
+    fingerprint_kind: Literal["RECIPE_ID"] = "RECIPE_ID"
+    source_kind: Literal["PROPOSAL_PREVIEW"] = "PROPOSAL_PREVIEW"
+    band_interval: Literal["LOWER_EXCLUSIVE_UPPER_INCLUSIVE"] = "LOWER_EXCLUSIVE_UPPER_INCLUSIVE"
+    bands: tuple[RecipeDecayBand, ...] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def ordered_contiguous_decay(self):
+        upper, prior = 0, None
+        for ordinal, band in enumerate(self.bands):
+            if band.ordinal != ordinal or band.lower_age_microseconds != upper:
+                raise ValueError("Decay bands require explicit ordinal order and exact adjacency")
+            current = band.retention_multiplier
+            if prior is not None and (
+                current.numerator * prior.denominator > prior.numerator * current.denominator
+            ):
+                raise ValueError("Retention must not increase with age")
+            upper, prior = band.upper_age_microseconds, current
+        return self
+
+    def fingerprint(self):
+        return _hash(self.model_dump(mode="json"))
+
+
+class RecipeDecayInput(Contract):
+    contract_version: Literal["recipe-decay-input.v1"] = "recipe-decay-input.v1"
+    assessment: RecipeCooldownAssessmentDraft
+    policy: RecipeDecayPolicy
+
+    @field_validator("assessment", mode="before")
+    @classmethod
+    def reparse_assessment_instance(cls, value):
+        # Reparse before frozen041B's own after-validator sees an untrusted instance.
+        return value.model_dump() if isinstance(value, RecipeCooldownAssessmentDraft) else value
+
+    @field_validator("policy", mode="before")
+    @classmethod
+    def reparse_policy_instance(cls, value):
+        return value.model_dump() if isinstance(value, RecipeDecayPolicy) else value
+
+    @model_validator(mode="after")
+    def revalidated_as_of_capture(self):
+        # Do not trust even a caller's model_copy/model_construct instance or witness list.
+        assessment = RecipeCooldownAssessmentDraft.model_validate(self.assessment.model_dump())
+        policy = RecipeDecayPolicy.model_validate(self.policy.model_dump())
+        if policy.bands[-1].upper_age_microseconds != (
+            assessment.subject.policy.duration_microseconds
+        ):
+            raise ValueError("This decay subset must exactly cover the frozen cooldown witnesses")
+        if policy.provenance.observed_at > assessment.subject.snapshot.captured_at:
+            raise ValueError("AS_OF_CAPTURE decay policy was observed after capture")
+        object.__setattr__(self, "assessment", assessment)
+        object.__setattr__(self, "policy", policy)
+        return self
+
+    def canonical_json(self):
+        data = self.model_dump(mode="json")
+        data["assessment"] = json.loads(self.assessment.canonical_json())
+        return _json(data)
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+class RecipeDecayTraceEntry(Contract):
+    witness: RecipeCooldownWitness
+    band: RecipeDecayBand
+
+
+def _decay_entries(subject):
+    entries = []
+    for witness in subject.assessment.witnesses:
+        age = witness.distance_microseconds
+        band = next(
+            (
+                b
+                for b in subject.policy.bands
+                if b.lower_age_microseconds < age <= b.upper_age_microseconds
+            ),
+            None,
+        )
+        if band is None:
+            raise ValueError("No explicit decay band for eligible witness age")
+        entries.append(RecipeDecayTraceEntry(witness=witness, band=band))
+    # Only unordered witness traces sort; policy bands retain authored ordinal order.
+    return tuple(sorted(entries, key=lambda e: e.witness.fact.event_key()))
+
+
+class RecipeDecayTraceDraft(Contract):
+    contract_version: Literal["recipe-decay-trace.v1-draft"] = "recipe-decay-trace.v1-draft"
+    activation_ready: Literal[False] = False
+    interpretation_mode: Literal["AS_OF_CAPTURE"] = "AS_OF_CAPTURE"
+    coverage: Literal["ONE_SELECTED_PROPOSAL_ONLY"] = "ONE_SELECTED_PROPOSAL_ONLY"
+    absence_semantics: Literal["NO_GLOBAL_PENALTY_OR_NOVELTY_CONCLUSION"] = (
+        "NO_GLOBAL_PENALTY_OR_NOVELTY_CONCLUSION"
+    )
+    repeat_penalty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    novelty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    taste_fit: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    confirmed_exposure: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    consumption_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    accepted_schedule: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    global_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    subject: RecipeDecayInput
+    entries: tuple[RecipeDecayTraceEntry, ...]
+
+    @model_validator(mode="after")
+    def recompute_trace(self):
+        subject = RecipeDecayInput.model_validate(self.subject.model_dump())
+        if self.entries != _decay_entries(subject):
+            raise ValueError("Decay trace differs from revalidated source witnesses/policy")
+        object.__setattr__(self, "subject", subject)
         return self
 
     def canonical_json(self):

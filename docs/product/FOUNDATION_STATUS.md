@@ -253,3 +253,14 @@ next step: apply an explicit versioned age policy to frozen041B's exact witnesse
 inventing confirmed history, a global penalty or novelty. This is a proposed sub-slice, not
 an implemented capability or permission to implement. No migration expected; full040/041,
 MTR-024/020B/021 remain incomplete/blocked. Execution unstarted; PRECOMMIT fail-closed.
+
+## MTR-041C — as-of-capture proposal-local decay trace / NOT FROZEN
+
+User approved the next subset with reduced rational, non-negative lower-bound and explicit
+policy-time/horizon clarifications. [Review](MTR_041C_DECAY_TRACE_REVIEW.md) /
+[evidence](MTR_041C_DECAY_TRACE_EVIDENCE.md). Six additive contracts; pure per-witness trace over
+fully revalidated frozen041B. Explicit ordered policy bands, exact reduced retention multiplier,
+zero retention keeps source witness, no aggregates/RepeatPenalty/novelty/utility. AS_OF_CAPTURE
+only; future retrospective mode and full-decay horizon are separate semantics. No persistence/
+migration:0012 /58 tables. Frozen040A/041A/041B unchanged. Full041/024/020B/021 blocked, Execution
+unstarted, PRECOMMIT fail-closed. Submit for review; no automatic next milestone or freeze.

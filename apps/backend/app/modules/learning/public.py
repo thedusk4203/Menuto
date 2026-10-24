@@ -4,9 +4,12 @@ from app.modules.learning.contracts import (
     ExposurePreviewSnapshot,
     RecipeCooldownAssessmentDraft,
     RecipeCooldownInput,
+    RecipeDecayInput,
+    RecipeDecayTraceDraft,
     RecipeExposurePreviewDraft,
     RecipeExposurePreviewFact,
     _cooldown_values,
+    _decay_entries,
     derive_preview_facts,
 )
 
@@ -38,3 +41,9 @@ def assess_recipe_cooldown(subject):
     """Assess only captured proposed repetition; invalid/unsupported inputs fail closed."""
     subject = RecipeCooldownInput.model_validate(subject.model_dump())
     return RecipeCooldownAssessmentDraft(subject=subject, **_cooldown_values(subject))
+
+
+def trace_recipe_decay(subject):
+    """AS_OF_CAPTURE interpretation only; no retrospective mode or aggregate utility."""
+    subject = RecipeDecayInput.model_validate(subject.model_dump())
+    return RecipeDecayTraceDraft(subject=subject, entries=_decay_entries(subject))

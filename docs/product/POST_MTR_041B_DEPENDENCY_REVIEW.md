@@ -1,6 +1,8 @@
 # Post-MTR-041B dependency review
 
-Status: **PROPOSED — READY FOR ARCHITECTURE REVIEW**. Documentation only; no new implementation.
+Status: **APPROVED by user;041C implementation authorized separately**. This document records
+the original documentation-only review. [Implemented review](MTR_041C_DECAY_TRACE_REVIEW.md) /
+[evidence](MTR_041C_DECAY_TRACE_EVIDENCE.md);041C is NOT FROZEN.
 
 Reviewed fetched `main` /`origin/main`: **`43192c7303e42c7bac321728edecaa8421a58e9a`**.
 User froze MTR-041B at that exact commit (PR #77). Frozen040A/041A/041B remain unchanged.
@@ -129,8 +131,8 @@ caller-authored event may replace source reconstruction. No DB calls during eval
 
 The policy should define explicit age bands and exact attenuation multipliers. A minimal
 reviewable representation is a bounded piecewise-constant policy over the same lookback D:
-ordered adjacent bands **(lower_age_us, upper_age_us]**, covering (0,D] exactly. Positive integer
-time bounds; first lower bound0; last upper bound equals041B duration. No gaps, overlaps or
+ordered adjacent bands **(lower_age_us, upper_age_us]**, covering (0,D] exactly. Non-negative
+integer lower bounds and positive upper bounds; first lower bound0; last upper bound equals041B duration. No gaps, overlaps or
 implicit tail/default. This matches041B's [T-D,T), including age D and excluding age0.
 
 Propose exact rational numerator/denominator multipliers in [0,1], denominator positive,
@@ -141,6 +143,9 @@ constant or implemented contract. Another exact representation may be approved b
 
 Policy provenance/version and applicable fixed source kind must enter result identity. Policy
 observation after capture must reject, as in041B; otherwise a new coherent capture is required.
+User approval clarifies this is AS_OF_CAPTURE only, not a ban on future separately designed
+retrospective evaluation. The equality to D bounds this subset's already-eligible witnesses;
+it is not an architecture invariant requiring full decay horizon to equal cooldown.
 Learning owns interpretation. Immutable policy definitions may stay alongside041B's Learning
 policy contracts; moving them into shared Policy is not a prerequisite and must not redesign B.
 
