@@ -349,4 +349,8 @@ rational retention. One trace entry per witness, including explicit zero retenti
 or RepeatPenalty. AS_OF_CAPTURE only; no rule that future full decay horizon equals cooldown.
 Six additive contracts (bundle18);186 old definitions unchanged. No migration/schema change,
 new source producer, Execution or authority;0012 /58 tables. Full041/024/020B/021 blocked.
-Implementation NOT FROZEN; stop for architecture/freeze review before further work.
+User froze041C at `338566c84197196dae12bbefd9e1ef0c96958f2f` (PR #79), with exact-merge
+CI40076805477 SUCCESS. No correction or new implementation follows automatically.
+[Post041C dependency review](POST_MTR_041C_DEPENDENCY_REVIEW.md) proposes a separate041D
+proposal-local RepeatPenalty policy subset. It needs architecture approval, introduces no
+implementation here, and does not remove full041/024/020B/021 source/policy blockers.

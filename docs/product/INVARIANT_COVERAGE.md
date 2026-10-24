@@ -157,3 +157,9 @@ interpretation;012/013/022 prevent time/policy inference becoming confirmed hist
 prevent taste/member fan-out/aggregate utility claims;009 forbids probability semantics.
 Ordered bands and temporal boundaries are explicit; full030 bridge still unavailable. Frozen
 A/B behavior/hashes unchanged; no new migration/authority or full-invariant certification.
+
+User **FROZEN / APPROVED MTR-041C** at `338566c84197196dae12bbefd9e1ef0c96958f2f`.
+Acceptance covers exact proposal-local decay trace only; no aggregation/global RepeatPenalty,
+novelty or Stage-2 utility. The [post041C review](POST_MTR_041C_DEPENDENCY_REVIEW.md) distinguishes
+a proposed single-dimension interpretation policy from prohibited scalar collapse under027.
+No new code/enforcement, source producer, migration or authority is added by this review.
