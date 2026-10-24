@@ -2,8 +2,11 @@
 
 from app.modules.learning.contracts import (
     ExposurePreviewSnapshot,
+    RecipeCooldownAssessmentDraft,
+    RecipeCooldownInput,
     RecipeExposurePreviewDraft,
     RecipeExposurePreviewFact,
+    _cooldown_values,
     derive_preview_facts,
 )
 
@@ -29,3 +32,9 @@ def deduplicate_preview_facts(facts):
             raise ValueError("Conflicting preview revisions; recapture current sources")
         unique[key] = fact
     return tuple(unique[k] for k in sorted(unique))
+
+
+def assess_recipe_cooldown(subject):
+    """Assess only captured proposed repetition; invalid/unsupported inputs fail closed."""
+    subject = RecipeCooldownInput.model_validate(subject.model_dump())
+    return RecipeCooldownAssessmentDraft(subject=subject, **_cooldown_values(subject))

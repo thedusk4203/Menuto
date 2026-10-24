@@ -62,6 +62,11 @@ from app.modules.learning.contracts import (
     ExposurePreviewRequest,
     ExposurePreviewSnapshot,
     ProposalExposureSource,
+    RecipeCooldownAssessmentDraft,
+    RecipeCooldownInput,
+    RecipeCooldownPolicy,
+    RecipeCooldownQuery,
+    RecipeCooldownWitness,
     RecipeExposureIdentity,
     RecipeExposurePreviewDraft,
     RecipeExposurePreviewFact,
@@ -184,6 +189,11 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    RecipeCooldownPolicy,
+    RecipeCooldownQuery,
+    RecipeCooldownInput,
+    RecipeCooldownWitness,
+    RecipeCooldownAssessmentDraft,
     ExposureAllocationSupport,
     ExposurePreviewPolicy,
     ExposurePreviewRequest,
@@ -345,7 +355,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:16"
+    schema["$id"] = "urn:menuto:domain:foundation:17"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -362,6 +372,7 @@ def export() -> str:
         "not full portfolio/ranking or global feasibility; "
         "explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; "
         "exposure preview v1 captures selected current proposals only, not consumption history; "
+        "recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

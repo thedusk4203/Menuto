@@ -325,3 +325,13 @@ window counts; it supplies no accepted/confirmed history, decay, novelty or fina
 Full041 remains incomplete;024/020B/021 remain blocked, Execution not started, PRECOMMIT
 fail-closed. No new persistence/migration is needed for the proposed subset. This review
 does not authorize implementation; stop for architecture approval.
+
+## MTR-041B — approved implementation / awaiting freeze review
+
+User subsequently approved the041B subset. [Review](MTR_041B_RECIPE_COOLDOWN_REVIEW.md) and
+[evidence](MTR_041B_RECIPE_COOLDOWN_EVIDENCE.md): exact target-relative cooldown assessment
+within one current proposal using explicit policy, positive provisional witnesses and no
+self-repeat. Five additive contracts; frozen041A unchanged. Schema0012 /58, no migration.
+Invalid/missing/unsupported inputs reject rather than imply zero penalty. Accepted/confirmed
+history, decay, novelty, TasteFit and RepeatPenalty remain UNAVAILABLE; full041 not complete.
+No024/020B/021/Execution/authority or automatic following milestone;041B is NOT FROZEN.

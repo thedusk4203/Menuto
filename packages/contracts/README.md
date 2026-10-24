@@ -92,3 +92,10 @@ Bundle16 adds recipe exposure proposal-preview v1 source/policy/request/fact/dra
 contracts. Selected current proposals only; consumption history UNAVAILABLE. Empty preview is
 not never-exposed; no confirmed producer, cooldown/novelty score, attribution or authority.
 Schema remains0012 /58 tables, no migration. All172 prior definitions remain unchanged.
+
+Bundle17 adds five recipe-cooldown v1 contracts (policy/query/input/witness/draft assessment).
+Only one current captured proposal and RECIPE_ID; positive exact integer duration is required.
+Whole-target-meal exclusion, half-open lookback and explicit participant/allocation identity;
+no-match is scoped to that proposal. Accepted/confirmed/consumption history, decay, novelty,
+TasteFit and RepeatPenalty are UNAVAILABLE; activation_ready=False. All181 prior definitions
+and frozen041A hashes remain unchanged. No persistence/migration;0012 /58 tables.

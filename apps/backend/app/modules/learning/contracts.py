@@ -3,6 +3,7 @@
 import hashlib
 import json
 from collections import defaultdict
+from datetime import timedelta
 from typing import Annotated, Literal
 from uuid import UUID
 
@@ -304,3 +305,173 @@ class RecipeExposurePreviewDraft(Contract):
                 "facts": [f.model_dump(mode="json") for f in self.facts],
             }
         )
+
+
+class RecipeCooldownPolicy(Contract):
+    """Explicit configuration, not an empirical default or a utility weight."""
+
+    contract_version: Literal["recipe-cooldown-policy.v1"] = "recipe-cooldown-policy.v1"
+    policy_id: Identifier
+    policy_version: Identifier
+    provenance: Provenance
+    duration_microseconds: Annotated[int, Field(strict=True, gt=0)]
+    fingerprint_kind: Literal["RECIPE_ID"] = "RECIPE_ID"
+    interval: Literal["START_INCLUSIVE_TARGET_EXCLUSIVE"] = "START_INCLUSIVE_TARGET_EXCLUSIVE"
+
+    def fingerprint(self):
+        return _hash(self.model_dump(mode="json"))
+
+
+class RecipeCooldownQuery(Contract):
+    contract_version: Literal["recipe-cooldown-query.v1"] = "recipe-cooldown-query.v1"
+    household_id: UUID
+    member_id: UUID
+    plan_id: UUID
+    proposal_id: UUID
+    meal_node_id: UUID
+    recipe_id: UUID
+
+
+class RecipeCooldownInput(Contract):
+    contract_version: Literal["recipe-cooldown-input.v1"] = "recipe-cooldown-input.v1"
+    snapshot: ExposurePreviewSnapshot
+    query: RecipeCooldownQuery
+    policy: RecipeCooldownPolicy
+
+    @model_validator(mode="after")
+    def exact_context(self):
+        _cooldown_context(self)
+        return self
+
+    def canonical_json(self):
+        data = self.model_dump(mode="json")
+        data["snapshot"] = json.loads(self.snapshot.canonical_json())
+        return _json(data)
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+class RecipeCooldownWitness(Contract):
+    fact: RecipeExposurePreviewFact
+    distance_microseconds: Annotated[int, Field(strict=True, gt=0)]
+
+
+def _cooldown_context(subject):
+    s, q = subject.snapshot, subject.query
+    if (q.household_id, q.member_id) != (s.household_id, s.member_id):
+        raise ValueError("Cooldown query household/member differs from capture")
+    if len(s.sources) != 1 or s.sources[0].proposal is None:
+        raise ValueError("Cooldown requires exactly one current selected proposal")
+    p = s.sources[0].proposal
+    if (q.plan_id, q.proposal_id) != (p.graph.plan_id, p.id):
+        raise ValueError("Cooldown query plan/proposal differs from capture")
+    if subject.policy.provenance.observed_at > s.captured_at:
+        raise ValueError("Cooldown policy was observed after capture")
+    meal = next((m for m in p.graph.meals if m.node_id == q.meal_node_id), None)
+    if (
+        meal is None
+        or meal.status != "PLANNED"
+        or q.member_id not in {m.member_id for m in meal.participants}
+    ):
+        raise ValueError("Cooldown target must be a planned participating meal")
+    recipes = {r.recipe_version_id: r.recipe_id for r in s.recipes}
+    batches = {
+        b.node_id: b
+        for b in p.graph.batches
+        if b.status == "PLANNED" and recipes[b.recipe_version_id] == q.recipe_id
+    }
+    support = tuple(
+        ExposureAllocationSupport(
+            allocation_node_id=a.node_id,
+            batch_node_id=a.batch_node_id,
+            recipe_version_id=batches[a.batch_node_id].recipe_version_id,
+        )
+        for a in p.graph.allocations
+        if a.meal_node_id == meal.node_id
+        and a.status == "PLANNED"
+        and a.servings > 0
+        and a.batch_node_id in batches
+    )
+    if not support:
+        raise ValueError("Target recipe requires a positive planned batch allocation")
+    try:
+        start = meal.scheduled_at - timedelta(microseconds=subject.policy.duration_microseconds)
+    except OverflowError as error:
+        raise ValueError("Cooldown lookback is outside representable time") from error
+    if not s.policy.window.start <= start < meal.scheduled_at <= s.policy.window.end:
+        raise ValueError("Captured window must contain the full cooldown lookback")
+    target = RecipeExposurePreviewFact(
+        household_id=s.household_id,
+        member_id=s.member_id,
+        plan_id=q.plan_id,
+        proposal_id=p.id,
+        proposal_hash=p.graph_hash,
+        meal_node_id=meal.node_id,
+        recipe_id=q.recipe_id,
+        scheduled_at=meal.scheduled_at,
+        support=support,
+    )
+    return target, start
+
+
+def _cooldown_values(subject):
+    target, start = _cooldown_context(subject)
+    witnesses = []
+    for fact in derive_preview_facts(subject.snapshot):
+        if (
+            fact.meal_node_id != target.meal_node_id
+            and fact.recipe_id == target.recipe_id
+            and start <= fact.scheduled_at < target.scheduled_at
+        ):
+            distance = target.scheduled_at - fact.scheduled_at
+            # No float total_seconds() or rounding, including sub-second distances.
+            micros = (distance.days * 86400 + distance.seconds) * 1000000 + distance.microseconds
+            witnesses.append(RecipeCooldownWitness(fact=fact, distance_microseconds=micros))
+    # This is an unordered witness set, not ordered execution history.
+    witnesses = tuple(sorted(witnesses, key=lambda w: w.fact.event_key()))
+    return dict(
+        target=target,
+        lookback_start=start,
+        witnesses=witnesses,
+        outcome="MATCH_IN_SELECTED_PROPOSAL" if witnesses else "NO_MATCH_IN_SELECTED_PROPOSAL",
+    )
+
+
+class RecipeCooldownAssessmentDraft(Contract):
+    contract_version: Literal["recipe-cooldown-assessment.v1-draft"] = (
+        "recipe-cooldown-assessment.v1-draft"
+    )
+    activation_ready: Literal[False] = False
+    coverage: Literal["ONE_SELECTED_PROPOSAL_ONLY"] = "ONE_SELECTED_PROPOSAL_ONLY"
+    absence_semantics: Literal["NOT_GLOBAL_COOLDOWN_SAFETY_OR_NEVER_EXPOSED"] = (
+        "NOT_GLOBAL_COOLDOWN_SAFETY_OR_NEVER_EXPOSED"
+    )
+    accepted_schedule: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    confirmed_exposure: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    consumption_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    decay: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    novelty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    taste_fit: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    repeat_penalty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    subject: RecipeCooldownInput
+    target: RecipeExposurePreviewFact
+    lookback_start: AwareTime
+    witnesses: tuple[RecipeCooldownWitness, ...]
+    outcome: Literal["MATCH_IN_SELECTED_PROPOSAL", "NO_MATCH_IN_SELECTED_PROPOSAL"]
+
+    @model_validator(mode="after")
+    def recompute_cooldown(self):
+        subject = RecipeCooldownInput.model_validate(self.subject.model_dump())
+        for name, value in _cooldown_values(subject).items():
+            if getattr(self, name) != value:
+                raise ValueError("Cooldown result differs from captured primitives/policy")
+        return self
+
+    def canonical_json(self):
+        data = self.model_dump(mode="json")
+        data["subject"] = json.loads(self.subject.canonical_json())
+        return _json(data)
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()
