@@ -7001,6 +7001,263 @@
       "title": "RawIngredientAssetFact",
       "type": "object"
     },
+    "RecipeCooldownAssessmentDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NOT_GLOBAL_COOLDOWN_SAFETY_OR_NEVER_EXPOSED",
+          "default": "NOT_GLOBAL_COOLDOWN_SAFETY_OR_NEVER_EXPOSED",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "accepted_schedule": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Accepted Schedule",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "confirmed_exposure": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Confirmed Exposure",
+          "type": "string"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "recipe-cooldown-assessment.v1-draft",
+          "default": "recipe-cooldown-assessment.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "ONE_SELECTED_PROPOSAL_ONLY",
+          "default": "ONE_SELECTED_PROPOSAL_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "decay": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Decay",
+          "type": "string"
+        },
+        "lookback_start": {
+          "format": "date-time",
+          "title": "Lookback Start",
+          "type": "string"
+        },
+        "novelty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Novelty",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "MATCH_IN_SELECTED_PROPOSAL",
+            "NO_MATCH_IN_SELECTED_PROPOSAL"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "repeat_penalty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Repeat Penalty",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/RecipeCooldownInput"
+        },
+        "target": {
+          "$ref": "#/$defs/RecipeExposurePreviewFact"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        },
+        "witnesses": {
+          "items": {
+            "$ref": "#/$defs/RecipeCooldownWitness"
+          },
+          "title": "Witnesses",
+          "type": "array"
+        }
+      },
+      "required": [
+        "subject",
+        "target",
+        "lookback_start",
+        "witnesses",
+        "outcome"
+      ],
+      "title": "RecipeCooldownAssessmentDraft",
+      "type": "object"
+    },
+    "RecipeCooldownInput": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "recipe-cooldown-input.v1",
+          "default": "recipe-cooldown-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/RecipeCooldownPolicy"
+        },
+        "query": {
+          "$ref": "#/$defs/RecipeCooldownQuery"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/ExposurePreviewSnapshot"
+        }
+      },
+      "required": [
+        "snapshot",
+        "query",
+        "policy"
+      ],
+      "title": "RecipeCooldownInput",
+      "type": "object"
+    },
+    "RecipeCooldownPolicy": {
+      "additionalProperties": false,
+      "description": "Explicit configuration, not an empirical default or a utility weight.",
+      "properties": {
+        "contract_version": {
+          "const": "recipe-cooldown-policy.v1",
+          "default": "recipe-cooldown-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "duration_microseconds": {
+          "exclusiveMinimum": 0,
+          "title": "Duration Microseconds",
+          "type": "integer"
+        },
+        "fingerprint_kind": {
+          "const": "RECIPE_ID",
+          "default": "RECIPE_ID",
+          "title": "Fingerprint Kind",
+          "type": "string"
+        },
+        "interval": {
+          "const": "START_INCLUSIVE_TARGET_EXCLUSIVE",
+          "default": "START_INCLUSIVE_TARGET_EXCLUSIVE",
+          "title": "Interval",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "duration_microseconds"
+      ],
+      "title": "RecipeCooldownPolicy",
+      "type": "object"
+    },
+    "RecipeCooldownQuery": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "recipe-cooldown-query.v1",
+          "default": "recipe-cooldown-query.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "meal_node_id": {
+          "format": "uuid",
+          "title": "Meal Node Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "recipe_id": {
+          "format": "uuid",
+          "title": "Recipe Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "plan_id",
+        "proposal_id",
+        "meal_node_id",
+        "recipe_id"
+      ],
+      "title": "RecipeCooldownQuery",
+      "type": "object"
+    },
+    "RecipeCooldownWitness": {
+      "additionalProperties": false,
+      "properties": {
+        "distance_microseconds": {
+          "exclusiveMinimum": 0,
+          "title": "Distance Microseconds",
+          "type": "integer"
+        },
+        "fact": {
+          "$ref": "#/$defs/RecipeExposurePreviewFact"
+        }
+      },
+      "required": [
+        "fact",
+        "distance_microseconds"
+      ],
+      "title": "RecipeCooldownWitness",
+      "type": "object"
+    },
     "RecipeExposureIdentity": {
       "additionalProperties": false,
       "properties": {
@@ -10288,8 +10545,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:16",
+  "$id": "urn:menuto:domain:foundation:17",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

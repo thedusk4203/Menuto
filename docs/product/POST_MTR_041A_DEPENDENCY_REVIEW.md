@@ -1,6 +1,9 @@
 # Post-MTR-041A dependency review
 
-Status: **PROPOSED — awaiting architecture approval; no implementation authorized here.**
+Status: **APPROVED by user; MTR-041B implementation authorized separately.**
+This document records the pre-implementation review. See the
+[implemented contract decisions](MTR_041B_RECIPE_COOLDOWN_REVIEW.md) and
+[evidence](MTR_041B_RECIPE_COOLDOWN_EVIDENCE.md); MTR-041B is NOT FROZEN.
 
 Reviewed `main` / fetched `origin/main`: **`fb6da0192421614f38ff18b94b2222cf0451a974`**.
 Schema head: **`0012_preference_authorship_semantics`** (Alembic ID `0012`);

@@ -360,3 +360,9 @@ evidence provenance. Không phải trường do caller gắn lên raw explicit p
 Dấu vết tạm theo từng thành viên và món ăn được đề xuất trong một meal intent; không chứng minh
 commitment đã được chấp nhận, món đã nấu hay thành viên đã ăn.
 _Avoid_: confirmed consumption, taste evidence
+
+**Proposal-local Recipe Cooldown Assessment**:
+Kiểm tra trong một proposal xem cùng thành viên có được đề xuất cùng Recipe ID ở bữa khác
+trước bữa mục tiêu, trong khoảng thời gian do policy có phiên bản quy định hay không.
+Không tính chính bữa mục tiêu. Không có match chỉ nói về proposal đang xét, không chứng minh
+chưa từng ăn, an toàn về cooldown toàn cục, novelty hay sở thích.

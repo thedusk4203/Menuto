@@ -230,3 +230,13 @@ self-exclusion and an explicit versioned policy, without fabricating consumption
 accepted-schedule evidence. This is a recommendation only; no041B implementation starts here.
 Full041 is not completable now;024/020B/021 remain BLOCKED. No migration, frozen040A/041A
 runtime change, Execution or PRECOMMIT authority. Approval is required before implementation.
+
+## MTR-041B — proposal-local cooldown subset / implemented, NOT FROZEN
+
+User approved the dependency review and authorized only this subset from391a53e.
+[Contract decisions](MTR_041B_RECIPE_COOLDOWN_REVIEW.md) /[evidence](MTR_041B_RECIPE_COOLDOWN_EVIDENCE.md).
+Pure RECIPE_ID predicate on one current captured proposal, explicit versioned cooldown policy,
+exact microsecond witnesses, target-relative interval and whole-target-meal exclusion.
+No-match is scoped absence, not global safety/novelty/history. No DB IO, new persistence or
+migration:0012 /58 tables. Frozen040A/041A semantics/hashes unchanged. Full040/041 remain
+incomplete;024/020B/021 blocked, Execution unstarted, PRECOMMIT fail-closed. Submit review only.

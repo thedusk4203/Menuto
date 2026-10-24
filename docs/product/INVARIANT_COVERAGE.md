@@ -134,3 +134,12 @@ Acceptance covers proposal-preview source/replay evidence only; the tests above 
 accepted commitments, confirmed cooking/consumption, durable behavior, complete INV-030 horizon
 replay or full MTR-041. INV-022..030 wording and frozen implementation remain unchanged.
 MTR-024/020B/021 remain blocked; Execution not started; PRECOMMIT fail-closed.
+
+MTR-041B [evidence](MTR_041B_RECIPE_COOLDOWN_EVIDENCE.md): target-relative, proposal-local
+RECIPE_ID cooldown witnesses under explicit policy. INV-012/013 retain provisional truth;
+022/024/027 forbid confirmed/taste/utility claims;026 enforces explicit member participation;
+018 preserves exact temporal distance/provenance;030 supports same-proposal scheduled repetition,
+not canonical cross-horizon reconciliation. Negative tests cover missing/invalid policy,
+insufficient lookback, unsupported identity, retired/nonparticipating targets and cached-output
+tampering. Real-PG capture/concurrent replacement/read-only/immutable-source checks preserve the
+frozen source boundary. No broadened invariant certification, migration or new authority.
