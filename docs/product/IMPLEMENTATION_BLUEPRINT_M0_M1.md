@@ -310,4 +310,8 @@ only read-only current-proposal previews, explicit member participation and stab
 Learning consumes captured immutable contracts, no DB/Execution runtime. Versioned explicit-window
 policy and overlap dedup are evidence primitives, not cooldown/novelty/utility. No durable history
 table or migration. [Evidence](MTR_041A_RECENT_EXPOSURE_EVIDENCE.md). Full041/040 incomplete;
-MTR-024/020B/021 remain blocked, Execution not started, PRECOMMIT fail-closed. Submit freeze review.
+MTR-024/020B/021 remain blocked, Execution not started, PRECOMMIT fail-closed.
+User **FROZEN / APPROVED MTR-041A** at `774405ebe51f126fec10ce61c4dd41b9d229230a` (PR #73,0012 /58 tables),
+proposal-preview subset only. This certifies proposed scheduled exposure, not accepted commitment,
+cooking/consumption/taste evidence or durable history. Full041 is incomplete; **do not start
+MTR-024** until its remaining source/policy dependencies are satisfied and implementation authorized.

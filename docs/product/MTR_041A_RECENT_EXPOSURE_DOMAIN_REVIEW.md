@@ -1,5 +1,13 @@
 # MTR-041A — Recent Exposure Source Foundation
 
+Status: **FROZEN / APPROVED by user** (proposal-preview subset only).
+Canonical commit: `774405ebe51f126fec10ce61c4dd41b9d229230a` ([PR #73](https://github.com/thedusk4203/Menuto/pull/73)).
+Schema: **0012 /58 domain tables**; no migration. The review below records the design before code.
+
+Frozen interpretation: proposal-preview exposure is evidence of **proposed scheduled exposure
+only**. It is not accepted-plan commitment, cooking evidence, consumption evidence, taste
+evidence or durable behavioral history.
+
 Reviewed main: `06dc1dcbf38d474b90f7bfb74f04651e884285e4`; schema0012 /58 tables.
 User freeze: MTR-040A APPROVED/FROZEN at that commit. Full040 remains incomplete.
 0001–0012 and frozen019A/B/C/020A/040A semantics remain unchanged.
@@ -140,4 +148,6 @@ Execution, MTR-038 resolver, MTR-020B roles, MTR-021 or production PRECOMMIT.
 
 Implement this subset with unit and real-PG capture/revision/concurrency/read-only negative tests,
 all frozen regressions, migration/drift, schema export, architecture checks, benchmark/client/web
-and CI. Do not self-freeze; stop for **MTR-041 ARCHITECTURE/FREEZE REVIEW**.
+and CI. User acceptance is now complete for041A at `774405ebe51f126fec10ce61c4dd41b9d229230a`.
+Full MTR-041 remains incomplete. **MTR-024/020B/021 remain BLOCKED**; do not start them or
+Execution as part of this freeze. PRECOMMIT remains fail-closed.

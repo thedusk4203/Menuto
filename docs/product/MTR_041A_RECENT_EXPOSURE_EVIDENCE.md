@@ -2,7 +2,11 @@
 
 Baseline: `06dc1dcbf38d474b90f7bfb74f04651e884285e4` (user-frozen040A,0012 /58 tables).
 [Architecture review before code](MTR_041A_RECENT_EXPOSURE_DOMAIN_REVIEW.md).
-Status: **proposal-preview subset implemented for review, NOT self-FROZEN**.
+Status: **FROZEN / APPROVED by user — proposal-preview subset only**.
+Canonical freeze/merge commit: `774405ebe51f126fec10ce61c4dd41b9d229230a`; schema **0012 /58 tables**, no migration.
+[Post-merge CI40020836511](https://github.com/thedusk4203/Menuto/actions/runs/40020836511)
+ran against that exact commit: **SUCCESS Python + web**, including1403 tests, architecture/import
+checks, exports, benchmark22/22, client10/10, typecheck and web build. No claim that full041 is done.
 Implementation: `35a69f5232abff22000a40210ed74d702852dbf3`.
 [PR #73](https://github.com/thedusk4203/Menuto/pull/73).
 
@@ -95,7 +99,9 @@ asset replay or confirmed/provisional reconciliation (MTR-038), variant-family/m
 classification mapping (MTR-046), decay/cooldown/novelty scores, profile derivation, utility/ranking,
 role assignment, feasibility, Execution or PRECOMMIT authority. Accepted schedule exposure capture
 requires production authorization/frontier seams; proposal preview cannot stand in for it.
-Full040 remains incomplete; MTR-024/020B/021 remain blocked. Stop for architecture/freeze review.
+Full040 remains incomplete; MTR-024/020B/021 remain blocked. User freeze closes041A review only.
 
 
-**READY FOR MTR-041 ARCHITECTURE/FREEZE REVIEW** — preview-source subset only.
+**MTR-041A FROZEN / APPROVED** — proposal-preview subset only. Full MTR-041 is NOT COMPLETE.
+No accepted-plan/confirmed consumption history, learning/attribution, Execution or production
+PRECOMMIT capability is certified. **Do not start MTR-024** from this source seam alone.

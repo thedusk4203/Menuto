@@ -208,4 +208,15 @@ durable confirmed exposure: no such producer exists. Recipe-level per-member fac
 PROVISIONAL/PROPOSAL_PREVIEW; consumption history UNAVAILABLE, empty is not never-exposed.
 No migration/new tables:0012 /58. No cooldown/novelty/taste scores, learning router, assumption
 graph, HorizonBridgeResolver, MTR-020B/021, Execution or PRECOMMIT authorization. Full041 remains
-PARTIAL and cannot yet supply complete production portfolio novelty/exposure. Not self-FROZEN.
+PARTIAL and cannot yet supply complete production portfolio novelty/exposure.
+User has **FROZEN / APPROVED MTR-041A** at `774405ebe51f126fec10ce61c4dd41b9d229230a` (PR #73), scope
+**proposal-preview subset only**. [Post-merge CI](https://github.com/thedusk4203/Menuto/actions/runs/40020836511)
+is SUCCESS for Python/web against that commit. Evidence:1403 Python /630 PostgreSQL-real,
+1350/1350 prior regressions retained,53 new tests, benchmark22/22, client10/10;172 old domain
+schema definitions unchanged and9 additive. Schema0012 /58 tables, no migration.
+
+Full040/041 and MTR-017 remain incomplete; MTR-038/039 are not implemented; MTR-046 lacks the
+required feature mappings. MTR-024/020B/021 remain BLOCKED. **Do not start MTR-024**:041A supplies
+proposed scheduled exposure only, not accepted commitment, cooking/consumption/taste evidence
+or durable history. Execution not started; PRECOMMIT fail-closed. No following slice is authorized
+by this freeze record.

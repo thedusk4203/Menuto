@@ -127,3 +127,10 @@ meal/member/recipe dedup across explicit windows, not complete horizon/asset rep
 retain provisional provenance, no physical/confirmed truth or authority from previews. Source
 capture RO/RR/concurrency and pure-core boundaries have focused tests; no claim of full invariant
 certification.040A is user FROZEN; full041 remains PARTIAL; no migration/schema change.
+
+
+User froze **MTR-041A** at `774405ebe51f126fec10ce61c4dd41b9d229230a` (0012 /58 tables, PR #73).
+Acceptance covers proposal-preview source/replay evidence only; the tests above do not certify
+accepted commitments, confirmed cooking/consumption, durable behavior, complete INV-030 horizon
+replay or full MTR-041. INV-022..030 wording and frozen implementation remain unchanged.
+MTR-024/020B/021 remain blocked; Execution not started; PRECOMMIT fail-closed.
