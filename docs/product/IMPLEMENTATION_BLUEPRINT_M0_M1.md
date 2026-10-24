@@ -315,3 +315,13 @@ User **FROZEN / APPROVED MTR-041A** at `774405ebe51f126fec10ce61c4dd41b9d229230a
 proposal-preview subset only. This certifies proposed scheduled exposure, not accepted commitment,
 cooking/consumption/taste evidence or durable history. Full041 is incomplete; **do not start
 MTR-024** until its remaining source/policy dependencies are satisfied and implementation authorized.
+
+## Post-MTR-041A dependency review — proposed next subset
+
+[Dependency review](POST_MTR_041A_DEPENDENCY_REVIEW.md) recommends a narrowly scoped
+**MTR-041B RECIPE_ID cooldown assessment within one current proposal**, using explicit policy,
+target-relative witnesses and self-exclusion. This adds policy interpretation beyond041A
+window counts; it supplies no accepted/confirmed history, decay, novelty or final utility.
+Full041 remains incomplete;024/020B/021 remain blocked, Execution not started, PRECOMMIT
+fail-closed. No new persistence/migration is needed for the proposed subset. This review
+does not authorize implementation; stop for architecture approval.
