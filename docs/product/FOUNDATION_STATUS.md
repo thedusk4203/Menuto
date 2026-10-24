@@ -220,3 +220,13 @@ required feature mappings. MTR-024/020B/021 remain BLOCKED. **Do not start MTR-0
 proposed scheduled exposure only, not accepted commitment, cooking/consumption/taste evidence
 or durable history. Execution not started; PRECOMMIT fail-closed. No following slice is authorized
 by this freeze record.
+
+## Post-MTR-041A dependency review — awaiting approval
+
+[Review and capability/source/fingerprint matrices](POST_MTR_041A_DEPENDENCY_REVIEW.md)
+propose **MTR-041B recipe-level, single-proposal cooldown-policy assessment** as the smallest
+next slice. Existing provisional source truth can support a target-relative predicate with
+self-exclusion and an explicit versioned policy, without fabricating consumption/novelty or
+accepted-schedule evidence. This is a recommendation only; no041B implementation starts here.
+Full041 is not completable now;024/020B/021 remain BLOCKED. No migration, frozen040A/041A
+runtime change, Execution or PRECOMMIT authority. Approval is required before implementation.
