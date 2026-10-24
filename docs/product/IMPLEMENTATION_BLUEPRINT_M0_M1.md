@@ -326,7 +326,7 @@ Full041 remains incomplete;024/020B/021 remain blocked, Execution not started, P
 fail-closed. No new persistence/migration is needed for the proposed subset. This review
 does not authorize implementation; stop for architecture approval.
 
-## MTR-041B — approved implementation / awaiting freeze review
+## MTR-041B — FROZEN / APPROVED
 
 User subsequently approved the041B subset. [Review](MTR_041B_RECIPE_COOLDOWN_REVIEW.md) and
 [evidence](MTR_041B_RECIPE_COOLDOWN_EVIDENCE.md): exact target-relative cooldown assessment
@@ -334,4 +334,8 @@ within one current proposal using explicit policy, positive provisional witnesse
 self-repeat. Five additive contracts; frozen041A unchanged. Schema0012 /58, no migration.
 Invalid/missing/unsupported inputs reject rather than imply zero penalty. Accepted/confirmed
 history, decay, novelty, TasteFit and RepeatPenalty remain UNAVAILABLE; full041 not complete.
-No024/020B/021/Execution/authority or automatic following milestone;041B is NOT FROZEN.
+No024/020B/021/Execution/authority or automatic following milestone.
+User froze041B at `43192c7303e42c7bac321728edecaa8421a58e9a` (PR #77,0012 /58 tables), with
+post-merge CI40073675503 SUCCESS. [Post041B review](POST_MTR_041B_DEPENDENCY_REVIEW.md)
+proposes a separate, pure, explicit decay-policy evidence subset under041C. No implementation
+of that proposal starts here; it does not unblock024 or complete041. No correction to041B.

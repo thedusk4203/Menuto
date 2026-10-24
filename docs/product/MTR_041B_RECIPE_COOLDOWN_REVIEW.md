@@ -2,7 +2,9 @@
 
 Architecture: **APPROVED by user** after [dependency review](POST_MTR_041A_DEPENDENCY_REVIEW.md).
 Implementation baseline: `391a53e80e841252cc9fd7389e7d566a5d77907b`.
-Implementation status: **implemented; NOT FROZEN; awaiting architecture/freeze review**.
+Implementation status: **FROZEN / APPROVED by user**.
+Canonical freeze commit: **`43192c7303e42c7bac321728edecaa8421a58e9a`**
+([PR #77](https://github.com/thedusk4203/Menuto/pull/77)).
 Schema **0012 /58 domain tables**, no persistence or migration. [Evidence](MTR_041B_RECIPE_COOLDOWN_EVIDENCE.md).
 
 ## Scope and ownership
@@ -100,4 +102,5 @@ Full041 remains BLOCKED: accepted publication requires026 authority/TOCTOU; conf
 events need later Execution/039; operational/cross-horizon reconciliation needs017/038 (036 for
 assumptions); METHOD/PROTEIN/FLAVOR/family need046 mappings. Full040 profile derivation remains
 incomplete. No decay, novelty, RepeatPenalty, Stage-2 utility, MTR-024/020B/021, production
-authorization or Execution implementation. Do not self-freeze or start the next slice.
+authorization or Execution implementation. User freeze closes only this subset. No following
+implementation is authorized by the freeze. See the [post041B dependency review](POST_MTR_041B_DEPENDENCY_REVIEW.md).
