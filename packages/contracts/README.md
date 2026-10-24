@@ -105,3 +105,9 @@ explicit policy/input and per-witness diagnostic trace. AS_OF_CAPTURE only; all1
 definitions and frozen041A/B canonical algorithms remain unchanged. No aggregation/probability/
 EvidenceStrength, RepeatPenalty, novelty or TasteFit. Zero retention preserves source evidence.
 The(0,D] domain is this subset only, not a future full-decay horizon rule. No migration;0012 /58.
+
+
+Bundle19 adds five recipe-repeat-penalty contracts: exact unbounded nonnegative rational policy
+units, explicit policy/input, source-preserving contribution and proposal-local DRAFT result.
+Empty evidence is None; explicit zero keeps witnesses. All192 prior definitions and frozen
+041A/B/C hashes remain unchanged. No migration or production authority;0012 /58 tables.

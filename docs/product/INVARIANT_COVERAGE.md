@@ -163,3 +163,11 @@ Acceptance covers exact proposal-local decay trace only; no aggregation/global R
 novelty or Stage-2 utility. The [post041C review](POST_MTR_041C_DEPENDENCY_REVIEW.md) distinguishes
 a proposed single-dimension interpretation policy from prohibited scalar collapse under027.
 No new code/enforcement, source producer, migration or authority is added by this review.
+
+
+MTR-041D [review](MTR_041D_REPEAT_PENALTY_REVIEW.md) /
+[evidence](MTR_041D_REPEAT_PENALTY_EVIDENCE.md): INV-009/012/013/018/021/022–029
+are covered by exact typed rational interpretation, full frozen source revalidation, zero/absence
+separation, pure read-only boundary tests, provenance, no member fan-out and unavailable wider
+claims. One behavioral dimension only (INV-027), no cross-dimension utility. Full INV-030 bridge,
+production authority and full041 remain deferred. NOT FROZEN; no existing enforcement replaced.

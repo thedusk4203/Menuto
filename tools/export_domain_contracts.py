@@ -76,6 +76,11 @@ from app.modules.learning.contracts import (
     RecipeExposurePreviewDraft,
     RecipeExposurePreviewFact,
     RecipeRepeatEvidenceDraft,
+    RecipeRepeatPenaltyContribution,
+    RecipeRepeatPenaltyDraft,
+    RecipeRepeatPenaltyInput,
+    RecipeRepeatPenaltyPolicy,
+    RepeatPenaltyAmount,
     RetentionMultiplier,
 )
 from app.modules.nutrition.contracts import (
@@ -201,6 +206,11 @@ CONTRACTS = (
     RecipeDecayInput,
     RecipeDecayTraceEntry,
     RecipeDecayTraceDraft,
+    RepeatPenaltyAmount,
+    RecipeRepeatPenaltyPolicy,
+    RecipeRepeatPenaltyInput,
+    RecipeRepeatPenaltyContribution,
+    RecipeRepeatPenaltyDraft,
     RecipeCooldownPolicy,
     RecipeCooldownQuery,
     RecipeCooldownInput,
@@ -367,7 +377,7 @@ def export() -> str:
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:18"
+    schema["$id"] = "urn:menuto:domain:foundation:19"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -386,6 +396,7 @@ def export() -> str:
         "exposure preview v1 captures selected current proposals only, not consumption history; "
         "recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; "
         "decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; "
+        "repeat penalty v1-draft uses exact proposal-local policy units, not global history; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

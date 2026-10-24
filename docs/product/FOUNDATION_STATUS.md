@@ -269,11 +269,26 @@ Post-merge CI40076805477 SUCCESS;1540 Python /640 PostgreSQL-real,1453 prior reg
 87 new tests, benchmark22/22, client10/10;186 previous definitions unchanged +6 additive.
 Schema0012 /58 tables, no migration;0001–0012 immutable. No correction PR required.
 
-## Post-MTR-041C dependency review — recommendation only
+## Post-MTR-041C dependency review — historical recommendation (now approved)
 
 [Review](POST_MTR_041C_DEPENDENCY_REVIEW.md) proposes **MTR-041D — proposal-local Recipe-ID
 RepeatPenalty interpretation policy**. Current source truth supports a separately approved,
 explicit exact-rational policy for this one dimension; it does not support global history,
 novelty or final utility. Source/classification branches remain prerequisites for their wider
-capabilities. No041D implementation starts here; full040/041 incomplete,024/020B/021 BLOCKED,
-Execution unstarted and PRECOMMIT fail-closed. No migration expected for this proposed subset.
+capabilities. The user subsequently approved041D implementation, tracked below. Full040/041
+incomplete,024/020B/021 BLOCKED; Execution unstarted, PRECOMMIT fail-closed. No migration.
+
+
+## MTR-041D — proposal-local RepeatPenalty interpretation / NOT FROZEN
+
+User-approved implementation after PR #80, baseline59cc0a48b52addc5c7d612fae6b81b0681e90a00.
+[Review](MTR_041D_REPEAT_PENALTY_REVIEW.md) / [evidence](MTR_041D_REPEAT_PENALTY_EVIDENCE.md).
+Pure Learning interpretation fully reparses frozen041C/source/041B. Explicit versioned policy,
+SUM_RETAINED_OCCURRENCES only; positive explicit unit penalty, exact reduced nonnegative
+rational contributions/total in POLICY_REPEAT_PENALTY_UNITS, unbounded above. Empty evidence
+returns scoped NO_MATCH/None; zero-retained witnesses yield explicit0 with provenance retained.
+No production parameter default. AS_OF_CAPTURE only; activation_ready=False. Global history,
+RepeatPenalty, novelty, TasteFit, authority and final utility remain unavailable.
+Five additive contracts (bundle19);192 old definitions unchanged. No persistence/migration:
+0012 /58 tables;0001–0012 unchanged. Frozen040A/041A/B/C unchanged. Full040/041 incomplete,
+024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed. Stop for freeze review.
