@@ -339,3 +339,14 @@ User froze041B at `43192c7303e42c7bac321728edecaa8421a58e9a` (PR #77,0012 /58 ta
 post-merge CI40073675503 SUCCESS. [Post041B review](POST_MTR_041B_DEPENDENCY_REVIEW.md)
 proposes a separate, pure, explicit decay-policy evidence subset under041C. No implementation
 of that proposal starts here; it does not unblock024 or complete041. No correction to041B.
+
+## MTR-041C — approved as-of-capture decay trace subset
+
+User approved041C; [review](MTR_041C_DECAY_TRACE_REVIEW.md) /
+[evidence](MTR_041C_DECAY_TRACE_EVIDENCE.md). Learning interprets only frozen041B's eligible
+proposal-local Recipe-ID witnesses with explicit contiguous ordered age bands and exact reduced
+rational retention. One trace entry per witness, including explicit zero retention; no aggregate
+or RepeatPenalty. AS_OF_CAPTURE only; no rule that future full decay horizon equals cooldown.
+Six additive contracts (bundle18);186 old definitions unchanged. No migration/schema change,
+new source producer, Execution or authority;0012 /58 tables. Full041/024/020B/021 blocked.
+Implementation NOT FROZEN; stop for architecture/freeze review before further work.

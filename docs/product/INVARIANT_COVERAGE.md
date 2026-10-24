@@ -150,3 +150,10 @@ the full lookback is captured and the target resolves from the graph. No correct
 Full041 and INV-030 cross-horizon replay remain incomplete. The
 [post041B dependency review](POST_MTR_041B_DEPENDENCY_REVIEW.md) proposes a pure decay-policy
 evidence subset for separate approval; no new enforcement/code, migration or authority here.
+
+MTR-041C [evidence](MTR_041C_DECAY_TRACE_EVIDENCE.md): user-approved pure AS_OF_CAPTURE
+per-witness decay trace. INV-018 preserves source/age/policy provenance and exact rational
+interpretation;012/013/022 prevent time/policy inference becoming confirmed history;024/026/027
+prevent taste/member fan-out/aggregate utility claims;009 forbids probability semantics.
+Ordered bands and temporal boundaries are explicit; full030 bridge still unavailable. Frozen
+A/B behavior/hashes unchanged; no new migration/authority or full-invariant certification.

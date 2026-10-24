@@ -366,3 +366,9 @@ Kiểm tra trong một proposal xem cùng thành viên có được đề xuất
 trước bữa mục tiêu, trong khoảng thời gian do policy có phiên bản quy định hay không.
 Không tính chính bữa mục tiêu. Không có match chỉ nói về proposal đang xét, không chứng minh
 chưa từng ăn, an toàn về cooldown toàn cục, novelty hay sở thích.
+
+**Proposal-local Decay Trace (AS_OF_CAPTURE)**:
+Diễn giải từng cooldown witness theo policy age bands có phiên bản tại thời điểm capture.
+Witness là bằng chứng nguồn; tuổi là primitive được tính; retention multiplier là diễn giải
+policy bằng rational chính xác, không phải confidence/probability/EvidenceStrength hay sở thích.
+Hệ số0 vẫn giữ witness. Trace là diagnostic, chưa có RepeatPenalty hay tổng điểm utility.
