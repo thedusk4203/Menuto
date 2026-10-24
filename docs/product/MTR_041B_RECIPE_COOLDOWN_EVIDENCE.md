@@ -3,7 +3,12 @@
 Status: **IMPLEMENTED / NOT FROZEN — awaiting architecture/freeze review**.
 Approved baseline: `391a53e80e841252cc9fd7389e7d566a5d77907b`.
 Implementation commit: **`ac51b3877282666e0798dbaf4b40164b4359e6ea`**.
-This evidence file is a documentation-only follow-up; PR/head/merge CI are reported at delivery.
+This evidence file is a documentation-only follow-up.
+[PR #77](https://github.com/thedusk4203/Menuto/pull/77).
+[Implementation-head CI40073273433](https://github.com/thedusk4203/Menuto/actions/runs/40073273433)
+ran against `9ef8f7203e17ad0ae169d75d77694bd8742f6d57`: **SUCCESS Python +web**,
+1453 tests and22/22 benchmark; all architecture/import/export/client/typecheck/build steps passed.
+This final CI-note update changes documentation only; final-head/merge CI is verified at delivery.
 Schema remains **0012 /58 domain tables**; migrations0001–0012 unchanged, no new migration.
 [Architecture/contract decisions](MTR_041B_RECIPE_COOLDOWN_REVIEW.md).
 
