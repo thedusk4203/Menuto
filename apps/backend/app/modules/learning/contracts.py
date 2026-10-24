@@ -633,3 +633,149 @@ class RecipeDecayTraceDraft(Contract):
 
     def fingerprint(self):
         return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+class RepeatPenaltyAmount(Contract):
+    """Exact policy units, unbounded above; neither material nor probability."""
+
+    numerator: Annotated[int, Field(strict=True, ge=0)]
+    denominator: Annotated[int, Field(strict=True, gt=0)]
+    unit: Literal["POLICY_REPEAT_PENALTY_UNITS"] = "POLICY_REPEAT_PENALTY_UNITS"
+
+    @model_validator(mode="after")
+    def reduced_amount(self):
+        divisor = gcd(self.numerator, self.denominator)
+        object.__setattr__(self, "numerator", self.numerator // divisor)
+        object.__setattr__(self, "denominator", self.denominator // divisor)
+        return self
+
+
+class RecipeRepeatPenaltyPolicy(Contract):
+    contract_version: Literal["recipe-repeat-penalty-policy.v1"] = "recipe-repeat-penalty-policy.v1"
+    policy_id: Identifier
+    policy_version: Identifier
+    provenance: Provenance
+    operator: Literal["SUM_RETAINED_OCCURRENCES"]
+    unit_penalty: RepeatPenaltyAmount
+    interpretation_mode: Literal["AS_OF_CAPTURE"] = "AS_OF_CAPTURE"
+    fingerprint_kind: Literal["RECIPE_ID"] = "RECIPE_ID"
+    source_kind: Literal["PROPOSAL_PREVIEW"] = "PROPOSAL_PREVIEW"
+
+    @model_validator(mode="after")
+    def positive_unit_penalty(self):
+        if self.unit_penalty.numerator == 0:
+            raise ValueError("Explicit unit penalty must be positive")
+        return self
+
+    def fingerprint(self):
+        return _hash(self.model_dump(mode="json"))
+
+
+class RecipeRepeatPenaltyInput(Contract):
+    contract_version: Literal["recipe-repeat-penalty-input.v1"] = "recipe-repeat-penalty-input.v1"
+    trace: RecipeDecayTraceDraft
+    policy: RecipeRepeatPenaltyPolicy
+
+    @field_validator("trace", "policy", mode="before")
+    @classmethod
+    def reparse_instances(cls, value):
+        if isinstance(value, (RecipeDecayTraceDraft, RecipeRepeatPenaltyPolicy)):
+            return value.model_dump()
+        return value
+
+    @model_validator(mode="after")
+    def revalidated_as_of_capture(self):
+        trace = RecipeDecayTraceDraft.model_validate(self.trace.model_dump())
+        policy = RecipeRepeatPenaltyPolicy.model_validate(self.policy.model_dump())
+        if policy.provenance.observed_at > trace.subject.assessment.subject.snapshot.captured_at:
+            raise ValueError("AS_OF_CAPTURE repeat penalty policy was observed after capture")
+        object.__setattr__(self, "trace", trace)
+        object.__setattr__(self, "policy", policy)
+        return self
+
+    def canonical_json(self):
+        data = self.model_dump(mode="json")
+        data["trace"] = json.loads(self.trace.canonical_json())
+        return _json(data)
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+class RecipeRepeatPenaltyContribution(Contract):
+    source: RecipeDecayTraceEntry
+    unit_penalty: RepeatPenaltyAmount
+    contribution: RepeatPenaltyAmount
+
+
+def _repeat_penalty_values(subject):
+    unit = subject.policy.unit_penalty
+    entries = []
+    total_n, total_d = 0, 1
+    for source in subject.trace.entries:
+        retention = source.band.retention_multiplier
+        amount = RepeatPenaltyAmount(
+            numerator=unit.numerator * retention.numerator,
+            denominator=unit.denominator * retention.denominator,
+        )
+        entries.append(
+            RecipeRepeatPenaltyContribution(
+                source=source, unit_penalty=unit, contribution=amount
+            )
+        )
+        total_n, total_d = (
+            total_n * amount.denominator + amount.numerator * total_d,
+            total_d * amount.denominator,
+        )
+        divisor = gcd(total_n, total_d)
+        total_n, total_d = total_n // divisor, total_d // divisor
+    return dict(
+        contributions=tuple(entries),
+        outcome="INTERPRETED_IN_SELECTED_PROPOSAL" if entries else "NO_MATCH_IN_SELECTED_PROPOSAL",
+        proposal_local_repeat_penalty=(
+            RepeatPenaltyAmount(numerator=total_n, denominator=total_d) if entries else None
+        ),
+    )
+
+
+class RecipeRepeatPenaltyDraft(Contract):
+    contract_version: Literal["recipe-repeat-penalty.v1-draft"] = "recipe-repeat-penalty.v1-draft"
+    activation_ready: Literal[False] = False
+    interpretation_mode: Literal["AS_OF_CAPTURE"] = "AS_OF_CAPTURE"
+    coverage: Literal["ONE_SELECTED_PROPOSAL_ONLY"] = "ONE_SELECTED_PROPOSAL_ONLY"
+    absence_semantics: Literal["NO_GLOBAL_PENALTY_OR_NOVELTY_CONCLUSION"] = (
+        "NO_GLOBAL_PENALTY_OR_NOVELTY_CONCLUSION"
+    )
+    repeat_penalty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    novelty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    taste_fit: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    confirmed_exposure: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    consumption_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    accepted_schedule: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    global_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    subject: RecipeRepeatPenaltyInput
+    contributions: tuple[RecipeRepeatPenaltyContribution, ...]
+    outcome: Literal["INTERPRETED_IN_SELECTED_PROPOSAL", "NO_MATCH_IN_SELECTED_PROPOSAL"]
+    proposal_local_repeat_penalty: RepeatPenaltyAmount | None
+
+    @field_validator("subject", mode="before")
+    @classmethod
+    def reparse_subject_instance(cls, value):
+        return value.model_dump() if isinstance(value, RecipeRepeatPenaltyInput) else value
+
+    @model_validator(mode="after")
+    def recompute_interpretation(self):
+        subject = RecipeRepeatPenaltyInput.model_validate(self.subject.model_dump())
+        for name, value in _repeat_penalty_values(subject).items():
+            if getattr(self, name) != value:
+                raise ValueError("Repeat penalty differs from revalidated source/policy")
+        object.__setattr__(self, "subject", subject)
+        return self
+
+    def canonical_json(self):
+        data = self.model_dump(mode="json")
+        data["subject"] = json.loads(self.subject.canonical_json())
+        return _json(data)
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()

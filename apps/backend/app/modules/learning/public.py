@@ -8,8 +8,11 @@ from app.modules.learning.contracts import (
     RecipeDecayTraceDraft,
     RecipeExposurePreviewDraft,
     RecipeExposurePreviewFact,
+    RecipeRepeatPenaltyDraft,
+    RecipeRepeatPenaltyInput,
     _cooldown_values,
     _decay_entries,
+    _repeat_penalty_values,
     derive_preview_facts,
 )
 
@@ -47,3 +50,9 @@ def trace_recipe_decay(subject):
     """AS_OF_CAPTURE interpretation only; no retrospective mode or aggregate utility."""
     subject = RecipeDecayInput.model_validate(subject.model_dump())
     return RecipeDecayTraceDraft(subject=subject, entries=_decay_entries(subject))
+
+
+def interpret_recipe_repeat_penalty(subject):
+    """Interpret captured proposal repetitions only; no global history or utility claim."""
+    subject = RecipeRepeatPenaltyInput.model_validate(subject.model_dump())
+    return RecipeRepeatPenaltyDraft(subject=subject, **_repeat_penalty_values(subject))

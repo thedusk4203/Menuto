@@ -352,5 +352,20 @@ new source producer, Execution or authority;0012 /58 tables. Full041/024/020B/02
 User froze041C at `338566c84197196dae12bbefd9e1ef0c96958f2f` (PR #79), with exact-merge
 CI40076805477 SUCCESS. No correction or new implementation follows automatically.
 [Post041C dependency review](POST_MTR_041C_DEPENDENCY_REVIEW.md) proposes a separate041D
-proposal-local RepeatPenalty policy subset. It needs architecture approval, introduces no
-implementation here, and does not remove full041/024/020B/021 source/policy blockers.
+proposal-local RepeatPenalty policy subset, subsequently approved by the user. Implementation
+is tracked below; full041/024/020B/021 source/policy blockers remain.
+
+
+## MTR-041D — proposal-local RepeatPenalty interpretation / NOT FROZEN
+
+User-approved implementation after PR #80, baseline59cc0a48b52addc5c7d612fae6b81b0681e90a00.
+[Review](MTR_041D_REPEAT_PENALTY_REVIEW.md) / [evidence](MTR_041D_REPEAT_PENALTY_EVIDENCE.md).
+Pure Learning interpretation fully reparses frozen041C/source/041B. Explicit versioned policy,
+SUM_RETAINED_OCCURRENCES only; positive explicit unit penalty, exact reduced nonnegative
+rational contributions/total in POLICY_REPEAT_PENALTY_UNITS, unbounded above. Empty evidence
+returns scoped NO_MATCH/None; zero-retained witnesses yield explicit0 with provenance retained.
+No production parameter default. AS_OF_CAPTURE only; activation_ready=False. Global history,
+RepeatPenalty, novelty, TasteFit, authority and final utility remain unavailable.
+Five additive contracts (bundle19);192 old definitions unchanged. No persistence/migration:
+0012 /58 tables;0001–0012 unchanged. Frozen040A/041A/B/C unchanged. Full040/041 incomplete,
+024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed. Stop for freeze review.

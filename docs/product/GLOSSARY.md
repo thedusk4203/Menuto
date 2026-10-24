@@ -372,3 +372,14 @@ Diễn giải từng cooldown witness theo policy age bands có phiên bản t�
 Witness là bằng chứng nguồn; tuổi là primitive được tính; retention multiplier là diễn giải
 policy bằng rational chính xác, không phải confidence/probability/EvidenceStrength hay sở thích.
 Hệ số0 vẫn giữ witness. Trace là diagnostic, chưa có RepeatPenalty hay tổng điểm utility.
+
+
+**Proposal-local RepeatPenalty**:
+Mức penalty theo policy cho các lần cùng thành viên được đề xuất cùng Recipe ID trong một
+proposal và lookback đang xét. Đây là một dimension riêng, không phải sở thích hay utility.
+Không có witness thì chưa có giá trị; witness có retention0 vẫn cho giá trị0 kèm nguồn chứng cứ.
+
+**Policy Repeat Penalty Units**:
+Đơn vị diễn giải do policy RepeatPenalty định nghĩa, dùng rational chính xác và có thể lớn hơn1.
+Không phải xác suất, confidence, EvidenceStrength, tiền hay lượng vật chất; các policy khác nhau
+không mặc nhiên cho giá trị có thể so sánh trực tiếp.

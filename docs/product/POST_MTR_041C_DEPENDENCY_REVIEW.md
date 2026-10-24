@@ -1,6 +1,8 @@
 # Post-MTR-041C dependency review
 
-Status: **PROPOSED — READY FOR ARCHITECTURE REVIEW**. Documentation only; no041D implementation.
+Status: **ARCHITECTURE APPROVED** by user after PR #80. Historical dependency review.
+Implementation is tracked in [041D review](MTR_041D_REPEAT_PENALTY_REVIEW.md) and
+[evidence](MTR_041D_REPEAT_PENALTY_EVIDENCE.md);041D is NOT FROZEN.
 
 Reviewed fetched `main` /`origin/main`: **`338566c84197196dae12bbefd9e1ef0c96958f2f`**.
 User-frozen040A and041A/B/C remain untouched. Current schema **0012 /58 domain tables**;
@@ -12,7 +14,7 @@ migrations0001–0012 immutable. No correction to041C is required. Full040/041 i
 **Recommend MTR-041D — proposal-local Recipe-ID RepeatPenalty interpretation policy.**
 This is a proposed sub-slice under canonical MTR-041, not a new backlog numbering scheme.
 **READY for a bounded policy interpretation; BLOCKED for global/production RecentExposureModel.**
-Implementation must await approval of this review.
+User approval is now recorded; the historical proposal below remains the design rationale.
 
 Existing source truth can answer: under an explicit policy, what repeat-penalty amount is
 assigned to this member/target/Recipe ID's eligible proposed repetitions **within this one
@@ -228,7 +230,8 @@ approval. Does an upstream source/classification prerequisite have to precede th
 Do full/global041 capabilities still require upstream work? **YES**, as the matrix records.
 Can full041 complete now, or can024/020B/021 start? **NO**. Execution required for the proposed
 policy step? **NO**. New migration required for this pure transient slice? **NONE expected**.
-No041D implementation or self-freeze is authorized by merging this documentation.
+The documentation merge itself did not authorize implementation or self-freeze. Subsequent
+explicit user approval authorizes the041D implementation scope only; freeze still needs review.
 
 ## 8. Verification and evidence
 

@@ -19,3 +19,9 @@ rational retention. Multiplier is policy interpretation, never behavioral eviden
 Zero retention preserves the source witness; no aggregate utility, RepeatPenalty, novelty,
 history/authority or new source workflow. Future full decay horizon/retrospective policy mode
 are separate semantics, not silently added here.
+
+
+MTR-041D adds interpret_recipe_repeat_penalty: fully revalidated041C→exact per-witness
+contributions and proposal_local_repeat_penalty, explicit versioned SUM_RETAINED_OCCURRENCES
+policy only. None for empty; exact0 for zero retention with witnesses retained. No numeric defaults,
+DB IO, global history, member aggregation, ranking or cross-dimension utility. NOT FROZEN.
