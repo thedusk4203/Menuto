@@ -1,6 +1,7 @@
 # MTR-041B — proposal-local Recipe-ID cooldown evidence
 
-Status: **IMPLEMENTED / NOT FROZEN — awaiting architecture/freeze review**.
+Status: **FROZEN / APPROVED by user** at canonical commit
+**`43192c7303e42c7bac321728edecaa8421a58e9a`** ([PR #77](https://github.com/thedusk4203/Menuto/pull/77)).
 Approved baseline: `391a53e80e841252cc9fd7389e7d566a5d77907b`.
 Implementation commit: **`ac51b3877282666e0798dbaf4b40164b4359e6ea`**.
 This evidence file is a documentation-only follow-up.
@@ -8,7 +9,10 @@ This evidence file is a documentation-only follow-up.
 [Implementation-head CI40073273433](https://github.com/thedusk4203/Menuto/actions/runs/40073273433)
 ran against `9ef8f7203e17ad0ae169d75d77694bd8742f6d57`: **SUCCESS Python +web**,
 1453 tests and22/22 benchmark; all architecture/import/export/client/typecheck/build steps passed.
-This final CI-note update changes documentation only; final-head/merge CI is verified at delivery.
+[Post-merge CI40073675503](https://github.com/thedusk4203/Menuto/actions/runs/40073675503)
+ran against the exact canonical freeze commit: **SUCCESS Python +web**,1453 tests and22/22
+benchmark; all architecture/import/export/client/typecheck/build gates passed. This freeze
+record changes documentation only; it does not modify or extend the implementation.
 Schema remains **0012 /58 domain tables**; migrations0001–0012 unchanged, no new migration.
 [Architecture/contract decisions](MTR_041B_RECIPE_COOLDOWN_REVIEW.md).
 
@@ -78,4 +82,5 @@ possibilities, material movement, reservations, persistence or migration. AP→E
 yields remain separate; proposal intent is not physical or behavioral history.
 
 MTR-024/020B/021 remain BLOCKED. Execution remains NOT STARTED. PRECOMMIT remains fail-closed.
-Do not self-freeze or start any following slice.
+User freeze certifies only the implemented proposal-local cooldown subset. No correction is
+required; do not start any following implementation without its architecture approval.

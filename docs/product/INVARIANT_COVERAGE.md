@@ -143,3 +143,10 @@ not canonical cross-horizon reconciliation. Negative tests cover missing/invalid
 insufficient lookback, unsupported identity, retired/nonparticipating targets and cached-output
 tampering. Real-PG capture/concurrent replacement/read-only/immutable-source checks preserve the
 frozen source boundary. No broadened invariant certification, migration or new authority.
+
+User **FROZEN / APPROVED MTR-041B** at `43192c7303e42c7bac321728edecaa8421a58e9a`:
+proposal-local Recipe-ID cooldown only. The boundary window.end ==target is explicitly valid;
+the full lookback is captured and the target resolves from the graph. No correction is needed.
+Full041 and INV-030 cross-horizon replay remain incomplete. The
+[post041B dependency review](POST_MTR_041B_DEPENDENCY_REVIEW.md) proposes a pure decay-policy
+evidence subset for separate approval; no new enforcement/code, migration or authority here.

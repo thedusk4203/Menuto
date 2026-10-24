@@ -231,7 +231,7 @@ accepted-schedule evidence. This is a recommendation only; no041B implementation
 Full041 is not completable now;024/020B/021 remain BLOCKED. No migration, frozen040A/041A
 runtime change, Execution or PRECOMMIT authority. Approval is required before implementation.
 
-## MTR-041B — proposal-local cooldown subset / implemented, NOT FROZEN
+## MTR-041B — proposal-local cooldown subset / FROZEN
 
 User approved the dependency review and authorized only this subset from391a53e.
 [Contract decisions](MTR_041B_RECIPE_COOLDOWN_REVIEW.md) /[evidence](MTR_041B_RECIPE_COOLDOWN_EVIDENCE.md).
@@ -239,4 +239,17 @@ Pure RECIPE_ID predicate on one current captured proposal, explicit versioned co
 exact microsecond witnesses, target-relative interval and whole-target-meal exclusion.
 No-match is scoped absence, not global safety/novelty/history. No DB IO, new persistence or
 migration:0012 /58 tables. Frozen040A/041A semantics/hashes unchanged. Full040/041 remain
-incomplete;024/020B/021 blocked, Execution unstarted, PRECOMMIT fail-closed. Submit review only.
+incomplete;024/020B/021 blocked, Execution unstarted, PRECOMMIT fail-closed.
+User **FROZEN / APPROVED MTR-041B** at `43192c7303e42c7bac321728edecaa8421a58e9a` (PR #77).
+Post-merge CI40073675503 SUCCESS;1453 Python /635 PostgreSQL-real,1403 prior regressions retained,
+50 new tests, benchmark22/22, client10/10;181 prior schema definitions unchanged +5 additive.
+Schema0012 /58 tables; migrations0001–0012 immutable. No correction PR is needed.
+
+## Post-MTR-041B dependency review — recommendation only
+
+[Remaining capability matrix and next-slice proposal](POST_MTR_041B_DEPENDENCY_REVIEW.md)
+recommend **MTR-041C — proposal-local Recipe-ID decay-policy evidence** as a narrowly scoped
+next step: apply an explicit versioned age policy to frozen041B's exact witnesses, without
+inventing confirmed history, a global penalty or novelty. This is a proposed sub-slice, not
+an implemented capability or permission to implement. No migration expected; full040/041,
+MTR-024/020B/021 remain incomplete/blocked. Execution unstarted; PRECOMMIT fail-closed.
