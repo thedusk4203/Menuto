@@ -1,8 +1,8 @@
 # MTR-041D — RepeatPenalty interpretation implementation evidence
 
-Status: IMPLEMENTED / local verification PASS / NOT FROZEN.
+Status: IMPLEMENTED / local and implementation-head CI PASS / NOT FROZEN.
 Baseline59cc0a48b52addc5c7d612fae6b81b0681e90a00, PR #80 architecture approval.
-Implementation commit and CI are recorded after verification below.
+Implementation commit: `fb933881b0422594b7fd67d1bca7d3948b4f77a1`.
 [Architecture](MTR_041D_REPEAT_PENALTY_REVIEW.md).
 
 Schema:0012 /58 domain tables. No migration;0001–0012 unchanged.
@@ -77,5 +77,15 @@ Local logs: .local/repeat-penalty-full.log/.xml, collection.json and benchmark.j
 
 ## Delivery
 
-Implementation commit and PR/CI references are recorded in the following evidence update.
-This slice is ready for architecture/freeze review after CI; it is not self-frozen.
+[PR #81](https://github.com/thedusk4203/Menuto/pull/81), implementation head
+`fb933881b0422594b7fd67d1bca7d3948b4f77a1`, against approved baseline59cc0a4.
+[Implementation-head CI40088421704](https://github.com/thedusk4203/Menuto/actions/runs/40088421704)
+**SUCCESS**, Python and web. Python log:1626 passed,3 warnings,94.46s; architecture/import,
+OpenAPI/domain exports,22 fixtures and22/22 benchmark all PASS. Web gates ran actual
+client contract check/typecheck/tests/build successfully.
+
+This evidence update changes documentation only. Final-head and exact post-merge CI are
+verified separately at delivery; this document does not claim a run against a commit that
+does not exist yet. No runtime or test changes follow implementation-head verification.
+
+**READY FOR MTR-041D ARCHITECTURE/FREEZE REVIEW** — NOT FROZEN.
