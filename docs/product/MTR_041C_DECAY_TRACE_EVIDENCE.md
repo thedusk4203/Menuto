@@ -1,6 +1,7 @@
 # MTR-041C — proposal-local Recipe-ID decay trace evidence
 
-Status: **IMPLEMENTED / NOT FROZEN — awaiting architecture/freeze review**.
+Status: **FROZEN / APPROVED by user** at canonical commit
+**`338566c84197196dae12bbefd9e1ef0c96958f2f`** ([PR #79](https://github.com/thedusk4203/Menuto/pull/79)).
 Baseline: `378cb36615b7f9445b500ce961627669e99cb858`.
 Implementation commit: **`92c937366424462bfbbf47e6f116a6ed74a7fe76`**.
 This evidence file is a documentation-only follow-up.
@@ -8,7 +9,10 @@ This evidence file is a documentation-only follow-up.
 [Implementation-head CI40076441139](https://github.com/thedusk4203/Menuto/actions/runs/40076441139)
 ran against `fa543d5838f4e9b6b9fa61534862a8bc18f01b7b`: **SUCCESS Python +web**,
 1540 tests and22/22 benchmark; architecture/import/export/client/typecheck/build gates passed.
-This final CI-note update changes documentation only; final-head/merge CI is verified at delivery.
+[Post-merge CI40076805477](https://github.com/thedusk4203/Menuto/actions/runs/40076805477)
+ran against the exact canonical freeze commit: **SUCCESS Python +web**,1540 tests and22/22
+benchmark; all architecture/import/export/client/typecheck/build gates passed. This freeze
+record changes documentation only; no correction to041C is required.
 Schema **0012 /58 domain tables**; no persistence/migration.
 [Approved boundary and implemented contracts](MTR_041C_DECAY_TRACE_REVIEW.md).
 
@@ -88,3 +92,6 @@ events/039, accepted authority026, projections/bridge017/038 or assumptions036. 
 derivation incomplete;024/020B/021 blocked, Execution unstarted, PRECOMMIT fail-closed.
 No retrospective policy mode, new physical fact, material allocation, reservation, AP/EP/cooked
 conversion, generic persistence or migration. Do not self-freeze or start another milestone.
+
+User freeze closes only the implemented041C subset. The [post041C dependency review](POST_MTR_041C_DEPENDENCY_REVIEW.md)
+contains a next-slice proposal, not implementation permission or completion of full041.

@@ -254,7 +254,7 @@ inventing confirmed history, a global penalty or novelty. This is a proposed sub
 an implemented capability or permission to implement. No migration expected; full040/041,
 MTR-024/020B/021 remain incomplete/blocked. Execution unstarted; PRECOMMIT fail-closed.
 
-## MTR-041C — as-of-capture proposal-local decay trace / NOT FROZEN
+## MTR-041C — as-of-capture proposal-local decay trace / FROZEN
 
 User approved the next subset with reduced rational, non-negative lower-bound and explicit
 policy-time/horizon clarifications. [Review](MTR_041C_DECAY_TRACE_REVIEW.md) /
@@ -263,4 +263,17 @@ fully revalidated frozen041B. Explicit ordered policy bands, exact reduced reten
 zero retention keeps source witness, no aggregates/RepeatPenalty/novelty/utility. AS_OF_CAPTURE
 only; future retrospective mode and full-decay horizon are separate semantics. No persistence/
 migration:0012 /58 tables. Frozen040A/041A/041B unchanged. Full041/024/020B/021 blocked, Execution
-unstarted, PRECOMMIT fail-closed. Submit for review; no automatic next milestone or freeze.
+unstarted, PRECOMMIT fail-closed.
+User **FROZEN / APPROVED MTR-041C** at `338566c84197196dae12bbefd9e1ef0c96958f2f` (PR #79).
+Post-merge CI40076805477 SUCCESS;1540 Python /640 PostgreSQL-real,1453 prior regressions retained,
+87 new tests, benchmark22/22, client10/10;186 previous definitions unchanged +6 additive.
+Schema0012 /58 tables, no migration;0001–0012 immutable. No correction PR required.
+
+## Post-MTR-041C dependency review — recommendation only
+
+[Review](POST_MTR_041C_DEPENDENCY_REVIEW.md) proposes **MTR-041D — proposal-local Recipe-ID
+RepeatPenalty interpretation policy**. Current source truth supports a separately approved,
+explicit exact-rational policy for this one dimension; it does not support global history,
+novelty or final utility. Source/classification branches remain prerequisites for their wider
+capabilities. No041D implementation starts here; full040/041 incomplete,024/020B/021 BLOCKED,
+Execution unstarted and PRECOMMIT fail-closed. No migration expected for this proposed subset.

@@ -2,7 +2,8 @@
 
 Status: **APPROVED by user;041C implementation authorized separately**. This document records
 the original documentation-only review. [Implemented review](MTR_041C_DECAY_TRACE_REVIEW.md) /
-[evidence](MTR_041C_DECAY_TRACE_EVIDENCE.md);041C is NOT FROZEN.
+[evidence](MTR_041C_DECAY_TRACE_EVIDENCE.md);041C is now user FROZEN at338566c.
+The subsequent [post041C review](POST_MTR_041C_DEPENDENCY_REVIEW.md) governs next-slice recommendations.
 
 Reviewed fetched `main` /`origin/main`: **`43192c7303e42c7bac321728edecaa8421a58e9a`**.
 User froze MTR-041B at that exact commit (PR #77). Frozen040A/041A/041B remain unchanged.

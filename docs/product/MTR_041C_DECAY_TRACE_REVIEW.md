@@ -1,7 +1,9 @@
 # MTR-041C — proposal-local Recipe-ID decay trace
 
 Architecture: **APPROVED by user**, including the horizon, naming and policy-time clarifications.
-Baseline: `378cb36615b7f9445b500ce961627669e99cb858`. Implementation: NOT FROZEN.
+Baseline: `378cb36615b7f9445b500ce961627669e99cb858`.
+Implementation: **FROZEN / APPROVED by user** at canonical commit
+**`338566c84197196dae12bbefd9e1ef0c96958f2f`** ([PR #79](https://github.com/thedusk4203/Menuto/pull/79)).
 Schema stays0012 /58 tables; no persistence/migration. Frozen040A/041A/041B unchanged.
 
 ## Approved boundary before implementation
