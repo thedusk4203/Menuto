@@ -11,6 +11,13 @@ and freeze approval. Current MTR-040B status: **FROZEN** at PR #90 merge
 [canonical freeze receipt](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md). The recommendations
 below remain this review's historical record and do not authorize another milestone.
 
+Subsequent next-milestone decision after040B freeze: the user authorizes
+[MTR-041F feature repeat policy architecture/design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md)
+only, from `ce03e1b925c80771d20863277963fac8db711c66`. The optional feature-policy branch identified
+below is now selected for design; the earlier040-first priority has already delivered040B.
+040C design is NOT READY/NOT AUTHORIZED because prior/broader-evidence sources are absent.
+No041F implementation,024 composition, accepted/confirmed/history or Execution is authorized.
+
 Reviewed latest canonical `main`: **`146c7cee9915c91593c4ec7518615e065d7abf53`**, PR #87.
 The user has **FROZEN / APPROVED MTR-041E** at that commit. Schema is **0013 /71 domain tables**;
 the domain export has237 definitions. No migration/runtime/contracts/tests/exports change in this

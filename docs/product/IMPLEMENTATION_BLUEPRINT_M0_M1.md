@@ -469,3 +469,19 @@ No production mappings or prior source are installed. No migration/profile store
 scope, invariants and unavailable evidence/prior/shrinkage. Cross-target inference and candidate
 aggregation remain NOT_PERFORMED; planner_ready=False and activation_ready=False.
 No MTR-040C/downstream implementation, TasteFit, Execution or PRECOMMIT authority is authorized.
+
+## MTR-041F architecture/design boundary — implementation not authorized
+
+[Proposed feature repeat policy design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) consumes the
+full frozen041E preview and source/coverage, one exact member/target meal/dimension/term, with
+explicit versioned cooldown/decay/unit-penalty policies for METHOD/MAIN_PROTEIN/FLAVOR.
+Learning remains pure, calling immutable Recipes term-resolution contracts; Planning's existing
+read-only RR/SERIALIZABLE source capture is reused. No new source matcher, capture path or history.
+Term-specific meal occurrence resolution preserves finite REVIEWED_NONE and UNRESOLVED semantics,
+deduplicates multiple batch supports, and withholds a total for unresolved potential occurrences.
+Exact arithmetic, AS_OF_CAPTURE policy cutoff, source/diagnostic identity distinctions and44
+proposed adversarial cases require architecture review. No defaults or Recipe-ID weight reuse.
+Frozen041B/C/D and040A/B/041A–E/046A remain untouched; no runtime/contracts/exports/tests/migration.
+0013 /71 unchanged. MTR-040C is NOT READY / design NOT AUTHORIZED;040B prior/shrinkage remain
+UNAVAILABLE. No024, novelty, TasteFit, accepted/confirmed/global/family exposure, Execution or
+PRECOMMIT authority. DESIGN ONLY / NOT FROZEN. Stop with design PR open before implementation.
