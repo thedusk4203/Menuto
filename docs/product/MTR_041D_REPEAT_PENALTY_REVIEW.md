@@ -1,7 +1,8 @@
 # MTR-041D — proposal-local Recipe-ID RepeatPenalty interpretation
 
 Architecture approved by the user after PR #80. Implementation baseline:
-`59cc0a48b52addc5c7d612fae6b81b0681e90a00`. NOT FROZEN.
+`59cc0a48b52addc5c7d612fae6b81b0681e90a00`. User **FROZEN / APPROVED** at
+`091daa81ae9bc67b536fec4956ba1f52780fe9c9` (PR #81).
 Schema remains0012 /58 domain tables; no persistence or migration is required.
 
 ## Ownership and input/output
@@ -68,3 +69,16 @@ policy time/provenance, deterministic hashes, frozen compatibility, pure boundar
 real-PG read-only capture/immutability/concurrent source replacement. Full Python,
 real PostgreSQL/migration/drift, architecture/export, benchmark, client and web
 gates plus PR and post-merge CI are recorded in the implementation evidence.
+
+
+## User freeze decision — MTR-041D
+
+User **FROZEN / APPROVED MTR-041D** at `091daa81ae9bc67b536fec4956ba1f52780fe9c9`
+(PR #81). Exact post-merge [CI40088853692](https://github.com/thedusk4203/Menuto/actions/runs/40088853692)
+SUCCESS, Python and web;1626 Python /645 PostgreSQL-real,1540 prior regressions retained,
+86 additive tests, benchmark22/22, client10/10. Schema0012 /58; no migration,0001–0012 unchanged.
+Acceptance is only proposal-local Recipe-ID RepeatPenalty interpretation. Full040/041 remain
+incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed. No correction PR.
+[Post041D dependency review](POST_MTR_041D_DEPENDENCY_REVIEW.md) recommends a separately
+approved046A reviewed culinary feature assignment source design, not an041E arithmetic wrapper.
+No next implementation is authorized or started by recording this freeze.

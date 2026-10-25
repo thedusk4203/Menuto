@@ -356,7 +356,7 @@ proposal-local RepeatPenalty policy subset, subsequently approved by the user. I
 is tracked below; full041/024/020B/021 source/policy blockers remain.
 
 
-## MTR-041D — proposal-local RepeatPenalty interpretation / NOT FROZEN
+## MTR-041D — proposal-local RepeatPenalty interpretation / FROZEN
 
 User-approved implementation after PR #80, baseline59cc0a48b52addc5c7d612fae6b81b0681e90a00.
 [Review](MTR_041D_REPEAT_PENALTY_REVIEW.md) / [evidence](MTR_041D_REPEAT_PENALTY_EVIDENCE.md).
@@ -368,4 +368,17 @@ No production parameter default. AS_OF_CAPTURE only; activation_ready=False. Glo
 RepeatPenalty, novelty, TasteFit, authority and final utility remain unavailable.
 Five additive contracts (bundle19);192 old definitions unchanged. No persistence/migration:
 0012 /58 tables;0001–0012 unchanged. Frozen040A/041A/B/C unchanged. Full040/041 incomplete,
-024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed. Stop for freeze review.
+024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed. User freeze recorded below.
+
+
+## User freeze decision — MTR-041D
+
+User **FROZEN / APPROVED MTR-041D** at `091daa81ae9bc67b536fec4956ba1f52780fe9c9`
+(PR #81). Exact post-merge [CI40088853692](https://github.com/thedusk4203/Menuto/actions/runs/40088853692)
+SUCCESS, Python and web;1626 Python /645 PostgreSQL-real,1540 prior regressions retained,
+86 additive tests, benchmark22/22, client10/10. Schema0012 /58; no migration,0001–0012 unchanged.
+Acceptance is only proposal-local Recipe-ID RepeatPenalty interpretation. Full040/041 remain
+incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed. No correction PR.
+[Post041D dependency review](POST_MTR_041D_DEPENDENCY_REVIEW.md) recommends a separately
+approved046A reviewed culinary feature assignment source design, not an041E arithmetic wrapper.
+No next implementation is authorized or started by recording this freeze.
