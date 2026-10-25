@@ -389,8 +389,15 @@ Phát biểu đã review rằng một culinary source trong phạm vi cụ thể
 FLAVOR hoặc MAIN_PROTEIN. Định nghĩa term và việc gán term là hai loại sự thật khác nhau.
 
 **Culinary Feature Applicability**:
-Phạm vi culinary đã được reviewer xét cho một loại feature: RecipeVersion, lựa chọn ingredient,
-preparation, tier và quantity-adjustment được nêu rõ. Không đồng nghĩa với exact candidate identity.
+Phạm vi culinary đã được reviewer xét cho một loại feature. METHOD gắn với cooking context của
+RecipeVersion và giữ nguyên qua các variant hợp lệ. FLAVOR/MAIN_PROTEIN có thể xét lựa chọn
+ingredient, preparation, tier và quantity-adjustment theo path được nêu rõ. Không đồng nghĩa với
+exact candidate identity.
+
+**Culinary Feature Capture / Term Query**:
+Capture lấy các assignment dương, coverage và nguồn chứng cứ theo dimensions được yêu cầu,
+không cần biết trước term IDs. Term query là câu hỏi riêng chạy trên snapshot đã capture;
+term ngoài manifest đã capture vẫn UNRESOLVED, không tự trở thành REVIEWED_ABSENT.
 
 **Feature Coverage**:
 Phát biểu phạm vi review đã bao phủ đầy đủ hay một phần một tập term có danh tính rõ ràng.

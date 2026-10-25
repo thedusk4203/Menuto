@@ -129,5 +129,8 @@ This review adds no production implementation, migration or issue closure.
 User approved the source dependency area after PR #82, not implementation. The
 [046A design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md) proposes exact applicability,
 coverage, contextual support, immutable version/frontier, SQL integrity and capture contracts.
+[PR #83 corrections](MTR_046A_DESIGN_CORRECTIONS.md) make METHOD cooking-context invariant,
+allow dimension-only capture/discovery before term queries, and fence Catalog associations only
+for MAIN_PROTEIN. Design approval and implementation authorization remain pending.
 It does not complete role/style/quick/high-protein coverage, family or safety taxonomy, and
 must not close MTR-046. Actual schema0012 /58; forward0013 is a proposal only.
