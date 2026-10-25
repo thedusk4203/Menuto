@@ -1,6 +1,12 @@
 # MTR-046A — Reviewed Culinary Feature Assignment Implementation Evidence
 
-Status: **IMPLEMENTED; LOCAL VERIFICATION PASS; NOT FROZEN**.
+Status: **FROZEN / APPROVED by user at `428b992892ac2aeebdbedb8bb3fd5e436e76415c` (PR #85)**.
+
+Freeze delivery: PR head `96dca5b63cfbdb194b4213c4cbd426d08b47f2c9`;
+merge `428b992892ac2aeebdbedb8bb3fd5e436e76415c`. PR [CI40172339720](https://github.com/thedusk4203/Menuto/actions/runs/40172339720)
+and exact post-merge [CI40172577535](https://github.com/thedusk4203/Menuto/actions/runs/40172577535)
+completed SUCCESS. Exact merge CI was rechecked during the subsequent documentation review.
+Schema0013 /71 tables;0001–0013 immutable. Original pre-freeze delivery wording below is historical.
 
 Authorized implementation baseline: `c1dcf48907fa4dcb1acc210acd15ceba670345f0` (PR #84).
 Exact implementation/test/export commit: `b02c5aa6c74889c9f7c73200ef3925dc1a33337d`.
@@ -118,7 +124,7 @@ preserved. No prior test is deleted or weakened.
 
 ## Explicitly deferred / no completion claim
 
-MTR-046A is not self-frozen. Full MTR-040/041/046 remain incomplete. No multi-fingerprint exposure
+MTR-046A was frozen by the user, not self-frozen. Full MTR-040/041/046 remain incomplete. No multi-fingerprint exposure
 integration, member profile derivation, novelty, TasteFit, utility/ranking, family identity,
 allergen/diet classification, quick/high-protein tags, receipt import or Execution is started.
 MTR-024/020B/021 remain BLOCKED. Existing RecipeGroundingValidator enforcement is reused, not
@@ -128,4 +134,6 @@ permission. No physical stock/reservation change and no new AP/EP/cooked convers
 PRECOMMIT remains fail-closed; classification captures have activation_ready=False and provide
 no production TOCTOU authorization. POSTFACT remains diagnostic.
 
-**READY FOR MTR-046A ARCHITECTURE/FREEZE REVIEW** after remote PR/exact-merge gates are verified in delivery.
+The user accepted the completed implementation after remote PR/exact-merge gates. Further
+[feature exposure integration](POST_MTR_046A_DEPENDENCY_REVIEW.md) is a separate DESIGN ONLY
+review, with no runtime or migration added and no next implementation authorization.

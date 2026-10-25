@@ -1,7 +1,10 @@
 # MTR-046A — Design correction record
 
 Status: **HISTORICAL DESIGN CORRECTION RECORD — subsequently APPROVED at PR #84**.
-Implementation was authorized by the user from c1dcf489; see [implementation evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md). MTR-046A is NOT FROZEN.
+Implementation was authorized by the user from c1dcf489; see [implementation evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md).
+The user subsequently **FROZE / APPROVED MTR-046A** at `428b992892ac2aeebdbedb8bb3fd5e436e76415c`
+(PR #85), schema0013 /71 tables. Prospective implementation/schema references below record the
+earlier correction stage. They are not the current status or permission to reopen frozen semantics.
 
 Reviewed baseline: `4adc312879d647bb6a7b8dacf593704f8280dc51`, PR #83.
 This documentation-only correction addresses the user's three required changes to the

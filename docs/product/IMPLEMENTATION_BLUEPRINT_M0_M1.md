@@ -384,7 +384,7 @@ approved046A reviewed culinary feature assignment source design, not an041E arit
 No next implementation is authorized or started by recording this freeze.
 
 
-## MTR-046A — Reviewed Culinary Feature Assignment / IMPLEMENTED, NOT FROZEN
+## MTR-046A — Reviewed Culinary Feature Assignment / FROZEN
 
 User authorized implementation from `c1dcf48907fa4dcb1acc210acd15ceba670345f0` after approving
 PR #84's corrected [design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md).
@@ -403,8 +403,21 @@ association changes make fresh results STALE_ASSOCIATION, preserving old capture
 SQL/Python key/command identity parity and direct SQL/concurrency/migration tests cover this seam.
 Captured outputs remain PROPOSAL_PREVIEW / activation_ready=False.
 
-**NOT FROZEN**; submitted for user architecture/freeze review. Full040/041/046 are incomplete;
+User **FROZEN / APPROVED MTR-046A** at `428b992892ac2aeebdbedb8bb3fd5e436e76415c`
+(PR #85). Exact post-merge [CI40172577535](https://github.com/thedusk4203/Menuto/actions/runs/40172577535)
+SUCCESS, Python and web. Schema0013 /71 tables;0001–0013 are now immutable.
+Full040/041/046 are incomplete;
 024/020B/021 remain BLOCKED. No multi-fingerprint exposure integration, profile derivation,
 TasteFit, novelty, safety inference, Execution or PRECOMMIT authority. PRECOMMIT stays fail-closed.
 
-**READY FOR MTR-046A ARCHITECTURE/FREEZE REVIEW**
+## Proposed next source integration — DESIGN ONLY
+
+[Post046A review](POST_MTR_046A_DEPENDENCY_REVIEW.md) maps existing041A and046A primitives
+to a coordinated single-proposal member/meal feature exposure source. METHOD stays cooking-context
+invariant; FLAVOR/MAIN_PROTEIN use exact selected paths; Catalog fences MAIN_PROTEIN only.
+Event identity is member×meal×dimension×term with household/plan ownership, independent of batch
+support multiplicity. Positive proofs, finite reviewed-none coverage and unresolved diagnostics
+remain distinct. Proposed **MTR-041E — Proposal-local Reviewed Feature Exposure Sources** requires
+architecture approval, including suffix. No implementation is authorized here and no migration
+is expected. Full040/041/046 incomplete;024/020B/021 BLOCKED. Execution NOT STARTED and PRECOMMIT
+fail-closed; this design is not a feature-policy, profile or utility implementation.

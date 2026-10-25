@@ -1,6 +1,10 @@
 # MTR-046A — Reviewed Culinary Feature Assignment Foundation
 
-Status: **DESIGN APPROVED; IMPLEMENTED — NOT FROZEN; awaiting architecture/freeze review**.
+Status: **FROZEN / APPROVED by user at `428b992892ac2aeebdbedb8bb3fd5e436e76415c` (PR #85)**.
+
+The implementation was subsequently accepted; the design below remains the historical approved
+model, not a reopened proposal. Schema0013 /71 tables. See [post046A source-integration design](POST_MTR_046A_DEPENDENCY_REVIEW.md)
+for a separately proposed next slice; no implementation authorization follows from that review.
 
 The user authorized this implementation after reviewing PR #84, exact baseline
 `c1dcf48907fa4dcb1acc210acd15ceba670345f0`. The approved corrections are normative:
