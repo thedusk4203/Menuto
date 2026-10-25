@@ -1,6 +1,7 @@
 # MTR-046A — Design correction record
 
-Status: **DESIGN REVIEW PENDING; IMPLEMENTATION NOT AUTHORIZED; NOT FROZEN**.
+Status: **HISTORICAL DESIGN CORRECTION RECORD — subsequently APPROVED at PR #84**.
+Implementation was authorized by the user from c1dcf489; see [implementation evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md). MTR-046A is NOT FROZEN.
 
 Reviewed baseline: `4adc312879d647bb6a7b8dacf593704f8280dc51`, PR #83.
 This documentation-only correction addresses the user's three required changes to the

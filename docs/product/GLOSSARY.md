@@ -406,3 +406,12 @@ Không có assignment chỉ chứng minh feature vắng mặt khi có coverage �
 **Contextual Main Protein**:
 Protein category được reviewer chỉ định là chính cho một culinary path, có ingredient-slot support.
 Không tự suy ra từ protein grams, ingredient order, lượng nguyên liệu hay ingredient association.
+
+
+**Ingredient Protein Association**:
+Phát biểu đã review rằng một ingredient gắn với một protein term cụ thể. Đây là nguồn chứng cứ
+có thể tái dùng; chưa đủ để kết luận protein đó là chính trong một món ăn.
+
+**Stale Main-Protein Support**:
+Một designation MAIN_PROTEIN còn giữ chứng cứ đã pin, nhưng association nguồn đã được thay thế
+hoặc rút lại. Capture mới trả về chưa xác định cho tới khi được review lại; lịch sử cũ vẫn giữ nguyên.

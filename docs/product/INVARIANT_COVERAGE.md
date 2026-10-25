@@ -191,3 +191,18 @@ Dimension-only capture preserves positive source discovery and explicit coverage
 term queries (INV-013/018/020). Catalog association dependency is MAIN_PROTEIN-only; source-owned
 frontiers and future TOCTOU checks follow that dependency. These are design/test requirements,
 not new enforcement. Frozen contracts, SQL and migrations remain unchanged; PRECOMMIT fail-closed.
+
+
+## MTR-046A implementation coverage (not a full-invariant completion claim)
+
+[Evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md) adds owned relational source enforcement and
+adversarial tests. INV-005/006: exact authored possibility/path checks, METHOD invariant across
+variants, conservative overlap rejection and approved structural-combination semantics.
+INV-013/018/020: reviewed terms/assignment/coverage/provenance remain distinct, no classification
+from names/nutrients and no allergen/diet inference. INV-015/016/017: captured primitive replay,
+independent existing RecipeGroundingValidator for exact paths, pure-core import/zero-IO guards;
+this does not implement another validator or full026. INV-021: no authorization, fail-closed
+PRECOMMIT preserved. INV-022–029: source classification does not mint preference, EvidenceStrength,
+novelty, exposure, TasteFit or utility. INV-030 bridge remains unavailable. Dimension-sensitive
+frontiers prepare future rechecks only; no TOCTOU authority is installed. Existing invariant
+status rows are not upgraded to complete by this subset.
