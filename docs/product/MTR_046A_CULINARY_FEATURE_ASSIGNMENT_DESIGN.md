@@ -226,7 +226,8 @@ Every standalone aggregate/command has its own literal version; nested values ar
 | --- | --- |
 | FeatureSlotApplicability | requirement_id, choice closed union, preparation closed union, adjustment enum (§3); nullable IDs only in their explicit union cases |
 | CulinaryFeatureApplicabilityKey | `culinary-feature-applicability.v1`, fields of§3; full source validation required, not just UUID shape |
-| FeatureCoverageFact | `feature-coverage.v1`, review_id, term_kind, coverage PARTIAL/COMPLETE, nonempty covered_term_ids; not a validity boolean |
+| IngredientProteinCoverageFact | `ingredient-protein-coverage.v1`, review_id/stream_id/ingredient_id, term_kind=PROTEIN, coverage PARTIAL/COMPLETE, nonempty covered_term_ids; not a validity boolean |
+| CulinaryFeatureCoverageFact | `culinary-feature-coverage.v1`, review_id/applicability_id/recipe_version_id/dimension, exact term_kind, coverage PARTIAL/COMPLETE, nonempty covered_term_ids; ownership cannot cross to a Catalog review |
 | IngredientProteinAssociationFact | review_id, ingredient_id, term_id, term_kind literal PROTEIN |
 | CulinaryFeatureAssignmentFact | review_id, applicability_id, recipe_version_id, dimension, term_id, term_kind; dimension↔kind equivalence enforced |
 | MainProteinSupport | review_id, applicability_id, recipe_version_id, term_id, requirement_id, ingredient_id, catalog_review_id; exact ownership chain in§5/§7 |
@@ -481,6 +482,14 @@ No match is an explicit captured absence decision under the owner frontiers, not
 
 Catalog continues not to import Recipes. Recipe contracts may read Catalog contracts; read/write
 repositories stay in their owning modules. Planning adapter may orchestrate their public readers.
+Proposed implementation placement: additive owner contracts in catalog/contracts.py and
+recipes/contracts.py, owner persistence services behind their public surfaces, pure classification
+matching in recipes/feature_resolution.py, and read-only adapter in planning/feature_capture.py.
+The pure Recipes matcher is source-owned applicability enforcement, not a Learning preference
+model or an Independent Validator. Future import tests must explicitly guard that new pure
+module against DB/network/optimizer IO, in addition to existing Learning/Validation guards.
+Existing frozen class/function bodies and schemas stay unchanged; none of these modules is
+added or edited during this design task.
 Learning receives only immutable contracts; no DB/Recipe runtime/Preferences mutation/optimizer.
 Independent Validator remains independent: later classification validation must derive from
 captured source/ingredient/participant primitives, never a planner safety/feature summary.046A
