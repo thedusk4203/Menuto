@@ -333,13 +333,24 @@ Full040/041/046 are incomplete;
 024/020B/021 remain BLOCKED. No multi-fingerprint exposure integration, profile derivation,
 TasteFit, novelty, safety inference, Execution or PRECOMMIT authority. PRECOMMIT stays fail-closed.
 
-## Post-MTR-046A feature exposure source design — approval pending
+## Post-MTR-046A feature exposure source design — subsequently approved
 
 [Dependency/design review](POST_MTR_046A_DEPENDENCY_REVIEW.md) proposes a coherent read-only
 join of frozen041A proposal/member/meal allocation evidence and046A reviewed classification.
 One selected proposal, METHOD/MAIN_PROTEIN/FLAVOR, distinct member×meal×dimension×term events,
 full support witnesses and coverage diagnostics; no defaulting unknowns to zero/absence.
-Conditional naming recommendation: **MTR-041E — Proposal-local Reviewed Feature Exposure Sources**.
-This is DESIGN ONLY, not assigned/authorized/frozen by this document. No runtime/contracts/tests/
-exports/migration changes. Schema0013 /71 unchanged. Full040/041/046 incomplete;024/020B/021
-BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed. Stop for architecture/design approval.
+The user subsequently approved the name/design and authorized implementation from c609d3bf.
+The original review was documentation only; see the implementation status below.
+
+## MTR-041E — Proposal-local Reviewed Feature Exposure Sources / IMPLEMENTED, NOT FROZEN
+
+[Evidence](MTR_041E_FEATURE_EXPOSURE_EVIDENCE.md). Eleven additive definitions and one pure
+Learning API join exact batch/context/path reviewed sources to member/meal/allocation facts.
+Planning captures one current proposal in one clean read-only RR/SERIALIZABLE transaction.
+Multiple batches/versions supporting one term in a member's meal give one event and multiple
+witnesses. ASSIGNED, finite REVIEWED_NONE and UNRESOLVED remain distinct; empty output has
+machine-readable scoped absence. All digests/events/diagnostics are recomputed from attached
+primitives. Evidence-cut digest is diagnostic only, never liveness/PRECOMMIT authority.
+No persistence/migration;0013 /71 tables. Frozen040A/041A–D/046A algorithms and226 old definitions
+unchanged. No feature B/C/D policy or profile/utility/Execution work. Full040/041/046 incomplete;
+024/020B/021 BLOCKED, PRECOMMIT fail-closed. Awaiting user architecture/freeze review.

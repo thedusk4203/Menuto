@@ -46,7 +46,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
 | [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL — MTR-040A user FROZEN at06dc1dc; derived profile/learning NOT COMPLETE |
-| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D user FROZEN;046A source FROZEN at428b992; feature exposure integration DESIGN ONLY, suffix approval pending; full041/history NOT COMPLETE |
+| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D FROZEN;041E name/design user approved, implemented for freeze review; full041/history NOT COMPLETE |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
 | [MTR-044](https://github.com/thedusk4203/Menuto/issues/45) | P1 | AI intent/explanation | Structured intent + verified metrics only. | OPEN — chưa chứng nhận |
@@ -158,3 +158,10 @@ approval of both suffix and design. It joins existing041A/046A evidence in one r
 deduplicates member/meal feature events and retains exact classification coverage/provenance.
 This does not create/close a canonical root task or authorize implementation. No migration expected.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED, PRECOMMIT fail-closed.
+
+The user subsequently approved the041E name/design and authorized implementation from
+`c609d3bf25768bc571a33c8c9ca1c21c7cbeece3`; earlier proposed wording records PR #86's review stage.
+[MTR-041E implementation evidence](MTR_041E_FEATURE_EXPOSURE_EVIDENCE.md) records the additive
+source join, read-only coordinated capture, exact support/coverage/dedup and diagnostic evidence
+cut. IMPLEMENTED / NOT FROZEN. No migration;0013 /71 unchanged. It does not implement feature
+policy consumers, accepted/confirmed/global history or full041 and does not close the root task.

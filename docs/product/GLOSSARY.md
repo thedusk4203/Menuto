@@ -416,12 +416,16 @@ có thể tái dùng; chưa đủ để kết luận protein đó là chính tro
 Một designation MAIN_PROTEIN còn giữ chứng cứ đã pin, nhưng association nguồn đã được thay thế
 hoặc rút lại. Capture mới trả về chưa xác định cho tới khi được review lại; lịch sử cũ vẫn giữ nguyên.
 
-**Proposed Feature Exposure Event** (design only):
+**Feature Exposure Event** (proposal-local source):
 Một feature đã review được đề xuất cho một member tham gia một meal trong một selected proposal.
 Danh tính gồm household, member, plan, meal, dimension và term. Hai batch cùng hỗ trợ một term
 trong meal đó vẫn chỉ là một event; chưa phải bằng chứng đã ăn hay accepted schedule.
 
-**Proposed Feature Exposure Support Witness** (design only):
+**Feature Exposure Support Witness**:
 Chuỗi chứng cứ nối participant, allocation, batch, RecipeVersion và exact context/path với review,
 assignment, finite covered universe và nguồn đã capture. Nhiều witness có thể hỗ trợ cùng một
-event. [Thiết kế nguồn exposure](POST_MTR_046A_DEPENDENCY_REVIEW.md) chưa được authorize implementation.
+event. Đây là nguồn đề xuất trong một proposal, chưa phải lịch sử ăn uống hay sở thích.
+
+**Dimension Evidence-cut Digest**:
+Dấu nhận diện để so sánh nguồn chứng cứ của một dimension trong preview. Không chứng minh nguồn
+vẫn còn mới, không cấp quyền thực thi và không thay thế kiểm tra nguồn tại thời điểm commit.

@@ -421,3 +421,11 @@ remain distinct. Proposed **MTR-041E — Proposal-local Reviewed Feature Exposur
 architecture approval, including suffix. No implementation is authorized here and no migration
 is expected. Full040/041/046 incomplete;024/020B/021 BLOCKED. Execution NOT STARTED and PRECOMMIT
 fail-closed; this design is not a feature-policy, profile or utility implementation.
+
+The user subsequently approved the041E name/design and implementation from c609d3bf (PR #86
+merge). [Evidence](MTR_041E_FEATURE_EXPOSURE_EVIDENCE.md): **MTR-041E IMPLEMENTED, NOT FROZEN**.
+One read-only RR/SERIALIZABLE source cut; additive immutable contracts; pure exact-source join;
+machine-readable scoped absence; fully recomputed diagnostic cut digests. Eleven definitions
+additive,226 prior definitions unchanged. No migration;0013 /71. Source-only provisional feature
+exposure is not a feature cooldown/decay/penalty policy or full041 completion. Full040/041/046
+incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed. No next slice starts.

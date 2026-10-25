@@ -216,3 +216,15 @@ source frontiers. Its proposed INV-005/006/012/013/015–018/020/021/022/026/027
 design/test plan only, not new enforcement or completed full invariant coverage. No runtime,
 contract, tests, migrations or exports change in this PR. Old041A–D/046A semantics remain frozen;
 full040/041/046 incomplete,024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed.
+
+## MTR-041E implementation — provisional source evidence only
+
+[Evidence](MTR_041E_FEATURE_EXPOSURE_EVIDENCE.md) adds partial enforcement/tests for
+INV-005/006 (authored path only),012/013/022 (proposed intent never consumed/durable history),
+018 (full source chain, explicit binding bases/provenance),026 (participant/member ownership),
+027 (no utility/preferences/policy collapse) and021 (diagnostic cut digest is not authority).
+INV-015–017/020 enforcement remains the existing independent validation/primitive boundary;
+this slice does not complete026 or create a validator. INV-030 bridge remains unavailable.
+Exact manifests, coherent read-only capture, child revalidation, event/support dedup, explicit
+unknown/finite coverage, empty scope and forged-result negatives are covered by unit and real-PG
+tests. No full invariant is promoted to complete. Schema0013 /71; no migration or physical writes.
