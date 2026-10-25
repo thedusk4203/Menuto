@@ -206,3 +206,13 @@ PRECOMMIT preserved. INV-022–029: source classification does not mint preferen
 novelty, exposure, TasteFit or utility. INV-030 bridge remains unavailable. Dimension-sensitive
 frontiers prepare future rechecks only; no TOCTOU authority is installed. Existing invariant
 status rows are not upgraded to complete by this subset.
+
+## Post-MTR-046A feature exposure design — no new runtime coverage
+
+The user froze046A at428b992892ac2aeebdbedb8bb3fd5e436e76415c, schema0013 /71 tables.
+[Feature exposure source review](POST_MTR_046A_DEPENDENCY_REVIEW.md) proposes member/meal
+feature events with exact authored/reviewed witnesses, finite coverage diagnostics and conditional
+source frontiers. Its proposed INV-005/006/012/013/015–018/020/021/022/026/027/030 mapping is a
+design/test plan only, not new enforcement or completed full invariant coverage. No runtime,
+contract, tests, migrations or exports change in this PR. Old041A–D/046A semantics remain frozen;
+full040/041/046 incomplete,024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed.

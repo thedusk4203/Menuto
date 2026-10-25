@@ -307,7 +307,7 @@ approved046A reviewed culinary feature assignment source design, not an041E arit
 No next implementation is authorized or started by recording this freeze.
 
 
-## MTR-046A — Reviewed Culinary Feature Assignment / IMPLEMENTED, NOT FROZEN
+## MTR-046A — Reviewed Culinary Feature Assignment / FROZEN
 
 User authorized implementation from `c1dcf48907fa4dcb1acc210acd15ceba670345f0` after approving
 PR #84's corrected [design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md).
@@ -326,8 +326,20 @@ association changes make fresh results STALE_ASSOCIATION, preserving old capture
 SQL/Python key/command identity parity and direct SQL/concurrency/migration tests cover this seam.
 Captured outputs remain PROPOSAL_PREVIEW / activation_ready=False.
 
-**NOT FROZEN**; submitted for user architecture/freeze review. Full040/041/046 are incomplete;
+User **FROZEN / APPROVED MTR-046A** at `428b992892ac2aeebdbedb8bb3fd5e436e76415c`
+(PR #85). Exact post-merge [CI40172577535](https://github.com/thedusk4203/Menuto/actions/runs/40172577535)
+SUCCESS, Python and web. Schema0013 /71 tables;0001–0013 are now immutable.
+Full040/041/046 are incomplete;
 024/020B/021 remain BLOCKED. No multi-fingerprint exposure integration, profile derivation,
 TasteFit, novelty, safety inference, Execution or PRECOMMIT authority. PRECOMMIT stays fail-closed.
 
-**READY FOR MTR-046A ARCHITECTURE/FREEZE REVIEW**
+## Post-MTR-046A feature exposure source design — approval pending
+
+[Dependency/design review](POST_MTR_046A_DEPENDENCY_REVIEW.md) proposes a coherent read-only
+join of frozen041A proposal/member/meal allocation evidence and046A reviewed classification.
+One selected proposal, METHOD/MAIN_PROTEIN/FLAVOR, distinct member×meal×dimension×term events,
+full support witnesses and coverage diagnostics; no defaulting unknowns to zero/absence.
+Conditional naming recommendation: **MTR-041E — Proposal-local Reviewed Feature Exposure Sources**.
+This is DESIGN ONLY, not assigned/authorized/frozen by this document. No runtime/contracts/tests/
+exports/migration changes. Schema0013 /71 unchanged. Full040/041/046 incomplete;024/020B/021
+BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed. Stop for architecture/design approval.
