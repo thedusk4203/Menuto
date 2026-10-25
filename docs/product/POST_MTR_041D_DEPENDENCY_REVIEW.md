@@ -1,6 +1,8 @@
 # Post-MTR-041D dependency review
 
-Status: **PROPOSED — READY FOR ARCHITECTURE REVIEW**. Documentation only.
+Status: **DEPENDENCY SELECTION APPROVED by user** after PR #82. Documentation only.
+The [046A design proposal](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md) is now submitted
+for separate architecture/design review; implementation remains NOT AUTHORIZED.
 Reviewed fetched main/origin/main: `091daa81ae9bc67b536fec4956ba1f52780fe9c9`.
 The user has **FROZEN / APPROVED MTR-041D** at that exact commit (PR #81).
 Schema: **0012 /58 domain tables**; migrations0001–0012 remain immutable.
@@ -10,7 +12,8 @@ Frozen040A/041A/B/C/D runtime, contracts, tests and hashes remain untouched.
 
 **Recommend a dedicated design for MTR-046A — Reviewed Culinary Feature Assignment
 Foundation**, a proposed source sub-slice of canonical **MTR-046 Catalog coverage matrix**.
-This suffix is a review proposal, not an existing completed backlog item or permission to code.
+This suffix identifies the user-approved foundation design area, not a completed backlog item
+or permission to implement.
 Do not add an041E arithmetic wrapper. No new implementation is authorized by this review.
 
 The missing source truth is: which reviewed PROTEIN/METHOD/FLAVOR terms apply to an exact

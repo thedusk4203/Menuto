@@ -177,3 +177,10 @@ Post041D [dependency review](POST_MTR_041D_DEPENDENCY_REVIEW.md) records user ac
 091daa81 and recommends an upstream reviewed assignment source under046, preserving INV-005/006,
 009/012/013/018/020/021/022–030. Vocabulary is not assignment, affinity is not safety, and capture
 is not commit authority. The review adds no new invariant enforcement or completion claim.
+
+
+MTR-046A [design proposal](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md) maps INV-005/006,
+009/012/013/015–021/022–030 to explicit semantic applicability, finite reviewed vocabulary
+coverage, source-owned immutable facts, no inference/utility/safety substitution and pure capture
+handoff. This is a proposed enforcement/test plan, **not implemented invariant coverage**.
+No migration/runtime change, authority or full040/041/046 completion; design approval required.
