@@ -2,6 +2,8 @@
 
 from app.modules.learning.contracts import (
     ExposurePreviewSnapshot,
+    FeatureExposurePreviewDraft,
+    FeatureExposureSourceSnapshotDraft,
     RecipeCooldownAssessmentDraft,
     RecipeCooldownInput,
     RecipeDecayInput,
@@ -12,6 +14,7 @@ from app.modules.learning.contracts import (
     RecipeRepeatPenaltyInput,
     _cooldown_values,
     _decay_entries,
+    _feature_exposure_values,
     _repeat_penalty_values,
     derive_preview_facts,
 )
@@ -56,3 +59,9 @@ def interpret_recipe_repeat_penalty(subject):
     """Interpret captured proposal repetitions only; no global history or utility claim."""
     subject = RecipeRepeatPenaltyInput.model_validate(subject.model_dump())
     return RecipeRepeatPenaltyDraft(subject=subject, **_repeat_penalty_values(subject))
+
+
+def preview_feature_exposure(snapshot):
+    """Pure reviewed source join only; no feature policy interpretation or history authority."""
+    snapshot = FeatureExposureSourceSnapshotDraft.model_validate(snapshot.model_dump())
+    return FeatureExposurePreviewDraft(snapshot=snapshot, **_feature_exposure_values(snapshot))

@@ -67,6 +67,9 @@ from app.modules.learning.contracts import (
     ExposurePreviewPolicy,
     ExposurePreviewRequest,
     ExposurePreviewSnapshot,
+    FeatureExposurePreviewDraft,
+    FeatureExposurePreviewRequest,
+    FeatureExposureSourceSnapshotDraft,
     ProposalExposureSource,
     RecipeCooldownAssessmentDraft,
     RecipeCooldownInput,
@@ -228,6 +231,9 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    FeatureExposurePreviewRequest,
+    FeatureExposureSourceSnapshotDraft,
+    FeatureExposurePreviewDraft,
     ReplaceIngredientProteinReviewCommand,
     RetractIngredientProteinReviewCommand,
     IngredientProteinReviewCommand,

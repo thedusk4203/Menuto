@@ -380,3 +380,10 @@ from app.modules.planning.feature_preview import (  # noqa: E402,F401
     discover_culinary_feature_assignments,
     resolve_feature_terms,
 )
+
+
+def capture_feature_exposure_preview(session, request, *, actor_user_id):
+    """Capture one coherent proposal source cut; never commits or materializes inventory."""
+    from app.modules.planning.feature_exposure_capture import capture_feature_exposure_sources
+
+    return capture_feature_exposure_sources(session, request, actor_user_id=actor_user_id)
