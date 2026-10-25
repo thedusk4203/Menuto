@@ -184,3 +184,10 @@ MTR-046A [design proposal](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md) maps 
 coverage, source-owned immutable facts, no inference/utility/safety substitution and pure capture
 handoff. This is a proposed enforcement/test plan, **not implemented invariant coverage**.
 No migration/runtime change, authority or full040/041/046 completion; design approval required.
+
+MTR-046A [design corrections](MTR_046A_DESIGN_CORRECTIONS.md) restore INV-005/006 consistency:
+METHOD belongs to the RecipeVersion cooking context and cannot vary with runtime culinary paths.
+Dimension-only capture preserves positive source discovery and explicit coverage without fabricated
+term queries (INV-013/018/020). Catalog association dependency is MAIN_PROTEIN-only; source-owned
+frontiers and future TOCTOU checks follow that dependency. These are design/test requirements,
+not new enforcement. Frozen contracts, SQL and migrations remain unchanged; PRECOMMIT fail-closed.
