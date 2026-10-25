@@ -46,12 +46,12 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
 | [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL — MTR-040A user FROZEN at06dc1dc; derived profile/learning NOT COMPLETE |
-| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D user FROZEN; D at091daa81; full041/history NOT COMPLETE; 046A dependency selection approved; source design awaits separate review |
+| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D user FROZEN; D at091daa81; full041/history NOT COMPLETE; 046A source implemented for freeze review; no multi-fingerprint exposure integration |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
 | [MTR-044](https://github.com/thedusk4203/Menuto/issues/45) | P1 | AI intent/explanation | Structured intent + verified metrics only. | OPEN — chưa chứng nhận |
 | [MTR-045](https://github.com/thedusk4203/Menuto/issues/46) | P1 | Telemetry/feedback | Execution/learning/relaxation events with attribution reason/context and privacy review. | OPEN — chưa chứng nhận |
-| [MTR-046](https://github.com/thedusk4203/Menuto/issues/47) | P1 | Catalog coverage matrix | Role/protein/style/quick/high-protein coverage + planner-ready completeness. | DESIGN ONLY —046A foundation proposal under review; full046 incomplete; implementation NOT AUTHORIZED |
+| [MTR-046](https://github.com/thedusk4203/Menuto/issues/47) | P1 | Catalog coverage matrix | Role/protein/style/quick/high-protein coverage + planner-ready completeness. | PARTIAL —046A implemented for freeze review (0013 /71 tables); NOT FROZEN; full046 incomplete |
 | [MTR-047](https://github.com/thedusk4203/Menuto/issues/48) | P1 | Receipt-vs-plan calibration dataset | Planned quotes/scenarios vs actual checkout, with retailer/category/context. | OPEN — chưa chứng nhận |
 | [MTR-048](https://github.com/thedusk4203/Menuto/issues/49) | P2 | Barcode/receipt import | Reviewable mapping to fulfillment/inventory/actual-price. | OPEN — chưa chứng nhận |
 | [MTR-049](https://github.com/thedusk4203/Menuto/issues/50) | P2 | Household-lite collaboration | Shared household UI/permissions, no individualized solver yet. | OPEN — chưa chứng nhận |
@@ -124,13 +124,27 @@ confirmed/assumed/bridge sources retain their separate026/023/035/039/017/036/03
 This review adds no production implementation, migration or issue closure.
 
 
-## MTR-046A design phase
+## MTR-046A — Reviewed Culinary Feature Assignment / IMPLEMENTED, NOT FROZEN
 
-User approved the source dependency area after PR #82, not implementation. The
-[046A design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md) proposes exact applicability,
-coverage, contextual support, immutable version/frontier, SQL integrity and capture contracts.
-[PR #83 corrections](MTR_046A_DESIGN_CORRECTIONS.md) make METHOD cooking-context invariant,
-allow dimension-only capture/discovery before term queries, and fence Catalog associations only
-for MAIN_PROTEIN. Design approval and implementation authorization remain pending.
-It does not complete role/style/quick/high-protein coverage, family or safety taxonomy, and
-must not close MTR-046. Actual schema0012 /58; forward0013 is a proposal only.
+User authorized implementation from `c1dcf48907fa4dcb1acc210acd15ceba670345f0` after approving
+PR #84's corrected [design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md).
+[Implementation evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md) records actual gates and limits.
+Forward migration **0013** adds **13 relational tables**, actual metadata total **71**;
+released0001–0012 remain unchanged. Catalog owns Ingredient→PROTEIN; Recipes owns invariant
+METHOD cooking contexts and authored FLAVOR/MAIN_PROTEIN path scopes. Review coverage is separate
+from positive assignment. Append-only replacements/retractions preserve complete lineage,
+provider identity, reviewer/provenance, CAS/idempotency, database-protected heads/frontiers and
+transactional aggregate closure. No Recipe seals are redesigned.
+
+Dimension-only Planning capture is coherent read-only RR/SERIALIZABLE. Pure discovery needs no
+term IDs; optional pure term queries reuse the same subject. METHOD/FLAVOR neither read/lock/hash
+nor CAS the Catalog association generation. MAIN_PROTEIN pins current Catalog support; later
+association changes make fresh results STALE_ASSOCIATION, preserving old captured replay.
+SQL/Python key/command identity parity and direct SQL/concurrency/migration tests cover this seam.
+Captured outputs remain PROPOSAL_PREVIEW / activation_ready=False.
+
+**NOT FROZEN**; submitted for user architecture/freeze review. Full040/041/046 are incomplete;
+024/020B/021 remain BLOCKED. No multi-fingerprint exposure integration, profile derivation,
+TasteFit, novelty, safety inference, Execution or PRECOMMIT authority. PRECOMMIT stays fail-closed.
+
+**READY FOR MTR-046A ARCHITECTURE/FREEZE REVIEW**

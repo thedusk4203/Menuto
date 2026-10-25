@@ -384,19 +384,27 @@ approved046A reviewed culinary feature assignment source design, not an041E arit
 No next implementation is authorized or started by recording this freeze.
 
 
-## MTR-046A — Reviewed Culinary Feature Assignment / DESIGN PROPOSAL
+## MTR-046A — Reviewed Culinary Feature Assignment / IMPLEMENTED, NOT FROZEN
 
-Dependency selection approved by user after PR #82; reviewed mainb55353ca2d6f7f3461ad19bcd0f40ec15d4e54b4.
-[Design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md) specifies vocabulary vs assignment,
-Catalog Ingredient→PROTEIN association versus Recipes classification, with METHOD invariant
-at RecipeVersion cooking context and FLAVOR/MAIN_PROTEIN keyed by explicit culinary paths.
-Following the PR #83 review, the [design correction](MTR_046A_DESIGN_CORRECTIONS.md) separates
-dimension-only capture/discovery from optional pure term queries. Catalog association fencing is
-required only for MAIN_PROTEIN; METHOD/FLAVOR depend on the Recipes classification frontier.
-Finite reviewed universes, immutable replacement/retraction history and transactional closure
-remain proposed. These corrections await architecture approval; they add no implementation.
-Proposed forward0013 has13 new tables (prospective71), subject to design approval; no migration,
-runtime contracts, exports or implementation are added now. Actual schema remains0012 /58.
-Frozen040A/041A/B/C/D unchanged. Full040/041/046 incomplete;024/020B/021 BLOCKED, Execution
-NOT STARTED, PRECOMMIT fail-closed. **IMPLEMENTATION NOT AUTHORIZED; NOT FROZEN.**
-Stop at READY FOR MTR-046A ARCHITECTURE/DESIGN REVIEW.
+User authorized implementation from `c1dcf48907fa4dcb1acc210acd15ceba670345f0` after approving
+PR #84's corrected [design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md).
+[Implementation evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md) records actual gates and limits.
+Forward migration **0013** adds **13 relational tables**, actual metadata total **71**;
+released0001–0012 remain unchanged. Catalog owns Ingredient→PROTEIN; Recipes owns invariant
+METHOD cooking contexts and authored FLAVOR/MAIN_PROTEIN path scopes. Review coverage is separate
+from positive assignment. Append-only replacements/retractions preserve complete lineage,
+provider identity, reviewer/provenance, CAS/idempotency, database-protected heads/frontiers and
+transactional aggregate closure. No Recipe seals are redesigned.
+
+Dimension-only Planning capture is coherent read-only RR/SERIALIZABLE. Pure discovery needs no
+term IDs; optional pure term queries reuse the same subject. METHOD/FLAVOR neither read/lock/hash
+nor CAS the Catalog association generation. MAIN_PROTEIN pins current Catalog support; later
+association changes make fresh results STALE_ASSOCIATION, preserving old captured replay.
+SQL/Python key/command identity parity and direct SQL/concurrency/migration tests cover this seam.
+Captured outputs remain PROPOSAL_PREVIEW / activation_ready=False.
+
+**NOT FROZEN**; submitted for user architecture/freeze review. Full040/041/046 are incomplete;
+024/020B/021 remain BLOCKED. No multi-fingerprint exposure integration, profile derivation,
+TasteFit, novelty, safety inference, Execution or PRECOMMIT authority. PRECOMMIT stays fail-closed.
+
+**READY FOR MTR-046A ARCHITECTURE/FREEZE REVIEW**

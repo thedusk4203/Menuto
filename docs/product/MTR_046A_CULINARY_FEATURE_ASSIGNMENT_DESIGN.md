@@ -1,13 +1,17 @@
 # MTR-046A — Reviewed Culinary Feature Assignment Foundation
 
-Status: **DESIGN CORRECTION PROPOSAL — implementation NOT AUTHORIZED; NOT FROZEN**.
-The user approved dependency selection after PR #82, not runtime implementation.
-Original design reviewed b55353ca; correction baseline:
-`4adc312879d647bb6a7b8dacf593704f8280dc51` (PR #83).
-The user requested three corrections: invariant METHOD context, dimension-only capture followed
-by pure term queries, and MAIN_PROTEIN-only Catalog association frontier dependency.
-Current schema: **0012 /58 domain tables**. No migration, runtime contract, model or export
-changes in this task. All persistence/contracts below are proposals for architecture review.
+Status: **DESIGN APPROVED; IMPLEMENTED — NOT FROZEN; awaiting architecture/freeze review**.
+
+The user authorized this implementation after reviewing PR #84, exact baseline
+`c1dcf48907fa4dcb1acc210acd15ceba670345f0`. The approved corrections are normative:
+METHOD is cooking-context invariant; discovery capture takes dimensions, not term queries;
+Catalog association fencing applies only to MAIN_PROTEIN.
+
+The design below records the approved model (originally a proposal). Actual implementation
+and verification are mapped in [implementation evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md).
+Forward migration **0013_culinary_feature_assignments** adds **13 tables: 58 → 71**.
+Migrations0001–0012 and frozen Recipe/Preferences/041A/B/C/D definitions remain unchanged.
+This slice does not freeze itself or start a following milestone.
 
 ## 1. Canonical basis and current facts
 
@@ -627,9 +631,11 @@ exception. Existing source data remains untouched when the new slice is empty. T
 0012→0013→0012→0013, existing populated foundation with empty new slice, and refusal with
 populated/retracted classification history. Proposed total71 is subject to design approval.
 
-## 11. Adversarial acceptance plan — future implementation tests
+## 11. Approved adversarial acceptance requirements
 
-These are requirements, not tests implemented by this documentation task.
+This table originated in the documentation-only design phase. Actual implemented tests and
+results are reported separately in [implementation evidence](MTR_046A_IMPLEMENTATION_EVIDENCE.md);
+the table itself is not a test execution receipt.
 
 | Scenario | Required result /enforcement |
 | --- | --- |
@@ -701,7 +707,46 @@ Original design verification:405 existing tests passed in5.82s; PR #83 exact-mer
 CI40161060481 on4adc312 was SUCCESS (1626 Python,645 PG,22/22 benchmark,10/10 client).
 The user's design review nevertheless found the three blockers; green regression did not
 validate the proposed, unimplemented schema/contracts. [Correction record](MTR_046A_DESIGN_CORRECTIONS.md)
-tracks the revised design checks. No runtime/contracts/tests/migrations/exports change or local
-PostgreSQL run is claimed by this design correction. Current schema remains0012 /58.
+tracks the revised design checks. At that documentation-only correction, no runtime/migration change or local PostgreSQL run
+was claimed and schema was0012 /58. Current implementation is recorded in§13 below.
 
 **READY FOR MTR-046A ARCHITECTURE/DESIGN REVIEW**
+
+
+## 13. Approved implementation mapping
+
+The source tables and ownership in§7 are implemented without adding seal tables, JSON payloads
+or children to frozen RecipeVersion aggregates. `assembly_xid` is database-authored; direct
+SQL/COMMIT tests cover immutable counts, independently reconstructed key/command hashes,
+missing/excess children and later/stale-transaction insertion. Empty downgrade is lossless;
+any source registry/review history or nonzero frontier blocks downgrade.
+
+Public write surfaces: Catalog `IngredientProteinService.write`; Recipes
+`CulinaryFeatureService.write/rekey`. Commands use explicit command_kind and action-specific
+wire versions from§6. Recipe-only and MAIN_PROTEIN command branches differ structurally:
+Catalog expected generation is forbidden for METHOD/FLAVOR and required for MAIN_PROTEIN.
+Coverage/universe and positive assignments are relationally separate; captured full review
+commands retain those immutable primitive sets inside their typed owner review facts, rather
+than exporting detached ORM child rows as independently sufficient source truth.
+
+Pure contract enforcement lives with the owned immutable contracts, consistent with existing
+Recipe binding/value validators. `recipes/feature_resolution.py` exposes that pure source
+matcher; `planning/feature_preview.py` reparses complete captured inputs and recomputes discovery,
+term conclusions and result identities. Neither core reads a live source or calculates utility.
+`planning/feature_capture.py` performs coherent read-only RR/SERIALIZABLE capture through owner
+public readers. Path-sensitive capture additionally invokes the existing independent
+RecipeGroundingValidator; no new validator enforcement or production authority is claimed.
+
+The complete capture retains the current proposal/workspace, exact RecipeVersion, the closed
+cooking-context/path context, requested dimensions, relevant registered scopes and complete
+per-stream review histories, pinned universes/terms/support and applicable owner frontiers.
+Capture completeness is guaranteed by the trusted adapter, not by a self-consistent caller hash.
+METHOD-only can capture legacy batch intent without fabricating path binding. FLAVOR/MAIN_PROTEIN
+cannot. A fresh request must match the current selected proposal identity/hash.
+
+No exposure integration, preference profile, family/safety taxonomy, TasteFit, novelty, utility,
+Execution or PRECOMMIT authorization is included. Full040/041/046 remain incomplete;
+024/020B/021 remain blocked. Earlier documentation-phase verification above is historical;
+current implementation evidence is separate.
+
+**READY FOR MTR-046A ARCHITECTURE/FREEZE REVIEW**

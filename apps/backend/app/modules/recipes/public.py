@@ -107,3 +107,10 @@ def resolve_candidate_source(candidate, recipe):
         )
         for t in sorted(transforms, key=lambda t: str(t.id))
     )
+
+# Additive classification source APIs; not exposure/utility or production authorization.
+from app.modules.recipes.feature_repository import (  # noqa: E402,F401
+    CulinaryFeatureService,
+    culinary_feature_frontier,
+    culinary_feature_sources,
+)

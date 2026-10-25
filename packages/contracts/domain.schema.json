@@ -417,6 +417,25 @@
       "title": "BoundCookingBatchIntent",
       "type": "object"
     },
+    "BoundCulinaryFeatureContext": {
+      "additionalProperties": false,
+      "properties": {
+        "binding": {
+          "$ref": "#/$defs/PlannedCulinaryBinding"
+        },
+        "mode": {
+          "const": "BOUND_CULINARY_PATH",
+          "default": "BOUND_CULINARY_PATH",
+          "title": "Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "binding"
+      ],
+      "title": "BoundCulinaryFeatureContext",
+      "type": "object"
+    },
     "BoundPlanIntentGraph": {
       "additionalProperties": false,
       "properties": {
@@ -1124,6 +1143,82 @@
       "title": "CanonicalMemberSafetySnapshot",
       "type": "object"
     },
+    "CapturedCulinaryFeatureSubjectDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "context": {
+          "discriminator": {
+            "mapping": {
+              "BOUND_CULINARY_PATH": "#/$defs/BoundCulinaryFeatureContext",
+              "RECIPE_COOKING_CONTEXT_ONLY": "#/$defs/RecipeCookingFeatureContext"
+            },
+            "propertyName": "mode"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RecipeCookingFeatureContext"
+            },
+            {
+              "$ref": "#/$defs/BoundCulinaryFeatureContext"
+            }
+          ],
+          "title": "Context"
+        },
+        "contract_version": {
+          "const": "culinary-feature-subject.v1-draft",
+          "default": "culinary-feature-subject.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "SELECTED_PROPOSAL_CLASSIFICATION_ONLY",
+          "default": "SELECTED_PROPOSAL_CLASSIFICATION_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "evaluation": {
+          "$ref": "#/$defs/CulinaryFeatureEvaluationInput"
+        },
+        "proposal": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundPlanProposalSnapshot"
+            },
+            {
+              "$ref": "#/$defs/PlanProposalSnapshot"
+            }
+          ],
+          "title": "Proposal"
+        },
+        "request": {
+          "$ref": "#/$defs/CulinaryFeatureCaptureRequest"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "workspace": {
+          "$ref": "#/$defs/PlanWorkspaceDraft"
+        }
+      },
+      "required": [
+        "request",
+        "workspace",
+        "proposal",
+        "context",
+        "evaluation"
+      ],
+      "title": "CapturedCulinaryFeatureSubjectDraft",
+      "type": "object"
+    },
     "ConsumeInventoryCommand": {
       "additionalProperties": false,
       "properties": {
@@ -1380,6 +1475,502 @@
         }
       },
       "title": "CulinaryDemand",
+      "type": "object"
+    },
+    "CulinaryFeatureCaptureRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "batch_node_id": {
+          "format": "uuid",
+          "title": "Batch Node Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "culinary-feature-capture-request.v1",
+          "default": "culinary-feature-capture-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "proposal_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Proposal Hash",
+          "type": "string"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "requested_dimensions": {
+          "items": {
+            "enum": [
+              "METHOD",
+              "FLAVOR",
+              "MAIN_PROTEIN"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Requested Dimensions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "plan_id",
+        "proposal_id",
+        "proposal_hash",
+        "batch_node_id",
+        "requested_dimensions"
+      ],
+      "title": "CulinaryFeatureCaptureRequest",
+      "type": "object"
+    },
+    "CulinaryFeatureDiscoveryDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "culinary-feature-discovery.v1-draft",
+          "default": "culinary-feature-discovery.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimensions": {
+          "items": {
+            "$ref": "#/$defs/FeatureDimensionDiscovery"
+          },
+          "title": "Dimensions",
+          "type": "array"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/CapturedCulinaryFeatureSubjectDraft"
+        }
+      },
+      "required": [
+        "subject",
+        "dimensions",
+        "fingerprint"
+      ],
+      "title": "CulinaryFeatureDiscoveryDraft",
+      "type": "object"
+    },
+    "CulinaryFeatureEvaluationInput": {
+      "additionalProperties": false,
+      "properties": {
+        "captured_at": {
+          "format": "date-time",
+          "title": "Captured At",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "culinary-feature-evaluation.v1",
+          "default": "culinary-feature-evaluation.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FeatureSelectedPath"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recipe": {
+          "$ref": "#/$defs/RecipeVersionSnapshot"
+        },
+        "requested_dimensions": {
+          "items": {
+            "enum": [
+              "METHOD",
+              "FLAVOR",
+              "MAIN_PROTEIN"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Requested Dimensions",
+          "type": "array"
+        },
+        "sources": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MainProteinFeatureSources"
+            },
+            {
+              "$ref": "#/$defs/RecipeFeatureSources"
+            }
+          ],
+          "title": "Sources"
+        }
+      },
+      "required": [
+        "recipe",
+        "requested_dimensions",
+        "path",
+        "sources",
+        "captured_at"
+      ],
+      "title": "CulinaryFeatureEvaluationInput",
+      "type": "object"
+    },
+    "CulinaryFeaturePathKey": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "culinary-feature-applicability.v1",
+          "default": "culinary-feature-applicability.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "EXACT_PATH",
+            "REVIEWED_SCOPE"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "slots": {
+          "items": {
+            "$ref": "#/$defs/FeatureSlotApplicability"
+          },
+          "minItems": 1,
+          "title": "Slots",
+          "type": "array"
+        },
+        "tier_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Tier Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "recipe_version_id",
+        "dimension",
+        "scope",
+        "tier_ids",
+        "slots"
+      ],
+      "title": "CulinaryFeaturePathKey",
+      "type": "object"
+    },
+    "CulinaryFeatureResolutionDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "culinary-feature-resolution.v1-draft",
+          "default": "culinary-feature-resolution.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "queries": {
+          "items": {
+            "$ref": "#/$defs/FeatureTermQuery"
+          },
+          "minItems": 1,
+          "title": "Queries",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "RESOLVED",
+            "PARTIAL",
+            "UNRESOLVED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/CapturedCulinaryFeatureSubjectDraft"
+        },
+        "terms": {
+          "items": {
+            "$ref": "#/$defs/FeatureTermResolution"
+          },
+          "title": "Terms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "subject",
+        "queries",
+        "terms",
+        "status",
+        "fingerprint"
+      ],
+      "title": "CulinaryFeatureResolutionDraft",
+      "type": "object"
+    },
+    "CulinaryFeatureReviewFact": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability_id": {
+          "format": "uuid",
+          "title": "Applicability Id",
+          "type": "string"
+        },
+        "command": {
+          "discriminator": {
+            "mapping": {
+              "FLAVOR": "#/$defs/RecipeOnlyFeatureCommand",
+              "MAIN_PROTEIN": "#/$defs/MainProteinFeatureCommand",
+              "METHOD": "#/$defs/RecipeOnlyFeatureCommand"
+            },
+            "propertyName": "dimension"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RecipeOnlyFeatureCommand"
+            },
+            {
+              "$ref": "#/$defs/MainProteinFeatureCommand"
+            }
+          ],
+          "title": "Command"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "culinary-feature-review.v1",
+          "default": "culinary-feature-review.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "predecessor_revision_no": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Revision No"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "reviewer_user_id": {
+          "format": "uuid",
+          "title": "Reviewer User Id",
+          "type": "string"
+        },
+        "revision_no": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Revision No",
+          "type": "integer"
+        },
+        "source_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Source Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "applicability_id",
+        "recipe_version_id",
+        "dimension",
+        "revision_no",
+        "predecessor_revision_no",
+        "source_sequence",
+        "reviewer_user_id",
+        "recorded_at",
+        "command",
+        "command_hash"
+      ],
+      "title": "CulinaryFeatureReviewFact",
+      "type": "object"
+    },
+    "CulinaryFeatureScopeFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "culinary-feature-scope.v1",
+          "default": "culinary-feature-scope.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "key": {
+          "discriminator": {
+            "mapping": {
+              "FLAVOR": "#/$defs/CulinaryFeaturePathKey",
+              "MAIN_PROTEIN": "#/$defs/CulinaryFeaturePathKey",
+              "METHOD": "#/$defs/RecipeMethodContextKey"
+            },
+            "propertyName": "dimension"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RecipeMethodContextKey"
+            },
+            {
+              "$ref": "#/$defs/CulinaryFeaturePathKey"
+            }
+          ],
+          "title": "Key"
+        },
+        "reviews": {
+          "items": {
+            "$ref": "#/$defs/CulinaryFeatureReviewFact"
+          },
+          "minItems": 1,
+          "title": "Reviews",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "key",
+        "reviews"
+      ],
+      "title": "CulinaryFeatureScopeFact",
+      "type": "object"
+    },
+    "CulinaryFeatureWriteReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability_id": {
+          "format": "uuid",
+          "title": "Applicability Id",
+          "type": "string"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "culinary-feature-write-receipt.v1",
+          "default": "culinary-feature-write-receipt.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "replayed": {
+          "title": "Replayed",
+          "type": "boolean"
+        },
+        "review_id": {
+          "format": "uuid",
+          "title": "Review Id",
+          "type": "string"
+        },
+        "source_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Source Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "recipe_version_id",
+        "applicability_id",
+        "dimension",
+        "review_id",
+        "source_sequence",
+        "command_hash",
+        "replayed"
+      ],
+      "title": "CulinaryFeatureWriteReceipt",
       "type": "object"
     },
     "CulinaryGenerationLimits": {
@@ -2035,6 +2626,114 @@
       "title": "ExposurePreviewSnapshot",
       "type": "object"
     },
+    "FeatureDimensionDiscovery": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Applicability Id"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "enum": [
+                "PARTIAL",
+                "COMPLETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Coverage"
+        },
+        "covered_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Covered Term Ids",
+          "type": "array"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "positive_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Positive Term Ids",
+          "type": "array"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "NO_SOURCE",
+                "NO_MATCHING_SCOPE",
+                "RETRACTED",
+                "PARTIAL_COVERAGE",
+                "STALE_ASSOCIATION"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "review_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Review Id"
+        },
+        "state": {
+          "enum": [
+            "ASSIGNED",
+            "REVIEWED_NONE",
+            "UNRESOLVED"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "state",
+        "reason",
+        "applicability_id",
+        "review_id",
+        "coverage",
+        "covered_term_ids",
+        "positive_term_ids"
+      ],
+      "title": "FeatureDimensionDiscovery",
+      "type": "object"
+    },
     "FeaturePreferenceTarget": {
       "additionalProperties": false,
       "properties": {
@@ -2058,6 +2757,300 @@
         "feature_term_id"
       ],
       "title": "FeaturePreferenceTarget",
+      "type": "object"
+    },
+    "FeatureReviewSource": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "external_record_id": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "External Record Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "USER",
+            "REVIEWED_REFERENCE"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "source_uri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Uri"
+        },
+        "source_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "source_system",
+        "external_record_id",
+        "source_version",
+        "observed_at"
+      ],
+      "title": "FeatureReviewSource",
+      "type": "object"
+    },
+    "FeatureSelectedPath": {
+      "additionalProperties": false,
+      "properties": {
+        "deltas": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "decimal_places": 6,
+                "max_digits": 18
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Deltas",
+          "type": "array"
+        },
+        "selected_rule_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Selected Rule Ids",
+          "type": "array"
+        },
+        "tier_id": {
+          "format": "uuid",
+          "title": "Tier Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tier_id",
+        "selected_rule_ids",
+        "deltas"
+      ],
+      "title": "FeatureSelectedPath",
+      "type": "object"
+    },
+    "FeatureSlotApplicability": {
+      "additionalProperties": false,
+      "properties": {
+        "adjustment": {
+          "enum": [
+            "ZERO_ONLY",
+            "AUTHORED_ENVELOPE"
+          ],
+          "title": "Adjustment",
+          "type": "string"
+        },
+        "choice": {
+          "enum": [
+            "BASE",
+            "RULE",
+            "ANY_AUTHORED_CHOICE"
+          ],
+          "title": "Choice",
+          "type": "string"
+        },
+        "preparation": {
+          "enum": [
+            "NONE",
+            "TRANSFORMATION",
+            "ANY_AUTHORED_PATH_CONTEXT"
+          ],
+          "title": "Preparation",
+          "type": "string"
+        },
+        "requirement_id": {
+          "format": "uuid",
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "selected_rule_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Selected Rule Id"
+        },
+        "transformation_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Transformation Id"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "choice",
+        "selected_rule_id",
+        "preparation",
+        "transformation_id",
+        "adjustment"
+      ],
+      "title": "FeatureSlotApplicability",
+      "type": "object"
+    },
+    "FeatureTermQuery": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Term Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dimension",
+        "term_ids"
+      ],
+      "title": "FeatureTermQuery",
+      "type": "object"
+    },
+    "FeatureTermResolution": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "NO_SOURCE",
+                "NO_MATCHING_SCOPE",
+                "RETRACTED",
+                "PARTIAL_COVERAGE",
+                "STALE_ASSOCIATION",
+                "OUTSIDE_REVIEWED_UNIVERSE",
+                "TERM_NOT_CAPTURED"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "review_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Review Id"
+        },
+        "state": {
+          "enum": [
+            "PRESENT",
+            "REVIEWED_ABSENT",
+            "UNRESOLVED"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "term_id": {
+          "format": "uuid",
+          "title": "Term Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "term_id",
+        "state",
+        "reason",
+        "review_id"
+      ],
+      "title": "FeatureTermResolution",
       "type": "object"
     },
     "Granularity": {
@@ -2657,6 +3650,297 @@
       "title": "IngredientProductMapFact",
       "type": "object"
     },
+    "IngredientProteinReviewCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "command_kind": {
+          "enum": [
+            "REPLACE",
+            "RETRACT"
+          ],
+          "title": "Command Kind",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "ingredient-protein-write.v1",
+          "enum": [
+            "ingredient-protein-write.v1",
+            "ingredient-protein-retract.v1"
+          ],
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "correction_reason": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correction Reason"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "enum": [
+                "PARTIAL",
+                "COMPLETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Coverage"
+        },
+        "covered_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Covered Term Ids",
+          "type": "array"
+        },
+        "expected_catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Catalog Frontier",
+          "type": "integer"
+        },
+        "expected_revision_no": {
+          "maximum": 2147483647,
+          "minimum": -1,
+          "title": "Expected Revision No",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "positive_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Positive Term Ids",
+          "type": "array"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/FeatureReviewSource"
+        }
+      },
+      "required": [
+        "command_kind",
+        "ingredient_id",
+        "expected_revision_no",
+        "expected_catalog_frontier",
+        "predecessor_id",
+        "coverage",
+        "covered_term_ids",
+        "positive_term_ids",
+        "provenance",
+        "correction_reason",
+        "idempotency_key"
+      ],
+      "title": "IngredientProteinReviewCommand",
+      "type": "object"
+    },
+    "IngredientProteinReviewFact": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "$ref": "#/$defs/IngredientProteinReviewCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "ingredient-protein-review.v1",
+          "default": "ingredient-protein-review.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "predecessor_revision_no": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Revision No"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "reviewer_user_id": {
+          "format": "uuid",
+          "title": "Reviewer User Id",
+          "type": "string"
+        },
+        "revision_no": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Revision No",
+          "type": "integer"
+        },
+        "source_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Source Sequence",
+          "type": "integer"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "stream_id",
+        "ingredient_id",
+        "revision_no",
+        "predecessor_revision_no",
+        "source_sequence",
+        "reviewer_user_id",
+        "recorded_at",
+        "command",
+        "command_hash"
+      ],
+      "title": "IngredientProteinReviewFact",
+      "type": "object"
+    },
+    "IngredientProteinStreamFact": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "ingredient-protein-stream.v1",
+          "default": "ingredient-protein-stream.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "reviews": {
+          "items": {
+            "$ref": "#/$defs/IngredientProteinReviewFact"
+          },
+          "minItems": 1,
+          "title": "Reviews",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "ingredient_id",
+        "reviews"
+      ],
+      "title": "IngredientProteinStreamFact",
+      "type": "object"
+    },
+    "IngredientProteinWriteReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "ingredient-protein-write-receipt.v1",
+          "default": "ingredient-protein-write-receipt.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "replayed": {
+          "title": "Replayed",
+          "type": "boolean"
+        },
+        "review_id": {
+          "format": "uuid",
+          "title": "Review Id",
+          "type": "string"
+        },
+        "source_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Source Sequence",
+          "type": "integer"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ingredient_id",
+        "stream_id",
+        "review_id",
+        "source_sequence",
+        "command_hash",
+        "replayed"
+      ],
+      "title": "IngredientProteinWriteReceipt",
+      "type": "object"
+    },
     "InventoryCandidateLot": {
       "additionalProperties": false,
       "properties": {
@@ -3194,6 +4478,276 @@
       ],
       "title": "Lifecycle",
       "type": "string"
+    },
+    "MainProteinFeatureCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Applicability Id"
+        },
+        "command_kind": {
+          "enum": [
+            "REGISTER",
+            "REPLACE",
+            "RETRACT"
+          ],
+          "title": "Command Kind",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "culinary-feature-write.v1",
+          "enum": [
+            "culinary-feature-register.v1",
+            "culinary-feature-write.v1",
+            "culinary-feature-retract.v1"
+          ],
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "correction_reason": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correction Reason"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "enum": [
+                "PARTIAL",
+                "COMPLETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Coverage"
+        },
+        "covered_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Covered Term Ids",
+          "type": "array"
+        },
+        "dimension": {
+          "const": "MAIN_PROTEIN",
+          "default": "MAIN_PROTEIN",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "expected_catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Catalog Frontier",
+          "type": "integer"
+        },
+        "expected_recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Recipe Frontier",
+          "type": "integer"
+        },
+        "expected_revision_no": {
+          "maximum": 2147483647,
+          "minimum": -1,
+          "title": "Expected Revision No",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "FLAVOR": "#/$defs/CulinaryFeaturePathKey",
+                  "MAIN_PROTEIN": "#/$defs/CulinaryFeaturePathKey",
+                  "METHOD": "#/$defs/RecipeMethodContextKey"
+                },
+                "propertyName": "dimension"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/RecipeMethodContextKey"
+                },
+                {
+                  "$ref": "#/$defs/CulinaryFeaturePathKey"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Key"
+        },
+        "positive_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Positive Term Ids",
+          "type": "array"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/FeatureReviewSource"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "supports": {
+          "items": {
+            "$ref": "#/$defs/MainProteinSupport"
+          },
+          "title": "Supports",
+          "type": "array"
+        }
+      },
+      "required": [
+        "command_kind",
+        "recipe_version_id",
+        "applicability_id",
+        "key",
+        "expected_revision_no",
+        "predecessor_id",
+        "expected_recipe_frontier",
+        "coverage",
+        "covered_term_ids",
+        "positive_term_ids",
+        "supports",
+        "provenance",
+        "correction_reason",
+        "idempotency_key",
+        "expected_catalog_frontier"
+      ],
+      "title": "MainProteinFeatureCommand",
+      "type": "object"
+    },
+    "MainProteinFeatureSources": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Catalog Frontier",
+          "type": "integer"
+        },
+        "catalog_streams": {
+          "items": {
+            "$ref": "#/$defs/IngredientProteinStreamFact"
+          },
+          "title": "Catalog Streams",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "recipe-feature-sources.v1",
+          "default": "recipe-feature-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Recipe Frontier",
+          "type": "integer"
+        },
+        "scopes": {
+          "items": {
+            "$ref": "#/$defs/CulinaryFeatureScopeFact"
+          },
+          "title": "Scopes",
+          "type": "array"
+        },
+        "terms": {
+          "items": {
+            "$ref": "#/$defs/AffinityFeatureTermFact"
+          },
+          "title": "Terms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "recipe_frontier",
+        "scopes",
+        "terms",
+        "catalog_frontier",
+        "catalog_streams"
+      ],
+      "title": "MainProteinFeatureSources",
+      "type": "object"
+    },
+    "MainProteinSupport": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_review_id": {
+          "format": "uuid",
+          "title": "Catalog Review Id",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "requirement_id": {
+          "format": "uuid",
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "term_id": {
+          "format": "uuid",
+          "title": "Term Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "term_id",
+        "requirement_id",
+        "ingredient_id",
+        "catalog_review_id"
+      ],
+      "title": "MainProteinSupport",
+      "type": "object"
     },
     "MaterialBalanceDerivation": {
       "additionalProperties": false,
@@ -7001,6 +8555,19 @@
       "title": "RawIngredientAssetFact",
       "type": "object"
     },
+    "RecipeCookingFeatureContext": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "const": "RECIPE_COOKING_CONTEXT_ONLY",
+          "default": "RECIPE_COOKING_CONTEXT_ONLY",
+          "title": "Mode",
+          "type": "string"
+        }
+      },
+      "title": "RecipeCookingFeatureContext",
+      "type": "object"
+    },
     "RecipeCooldownAssessmentDraft": {
       "additionalProperties": false,
       "properties": {
@@ -7678,6 +9245,44 @@
       "title": "RecipeFact",
       "type": "object"
     },
+    "RecipeFeatureSources": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "recipe-feature-sources.v1",
+          "default": "recipe-feature-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Recipe Frontier",
+          "type": "integer"
+        },
+        "scopes": {
+          "items": {
+            "$ref": "#/$defs/CulinaryFeatureScopeFact"
+          },
+          "title": "Scopes",
+          "type": "array"
+        },
+        "terms": {
+          "items": {
+            "$ref": "#/$defs/AffinityFeatureTermFact"
+          },
+          "title": "Terms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "recipe_frontier",
+        "scopes",
+        "terms"
+      ],
+      "title": "RecipeFeatureSources",
+      "type": "object"
+    },
     "RecipeGroundingReport": {
       "additionalProperties": false,
       "properties": {
@@ -7786,6 +9391,219 @@
         "adjustment"
       ],
       "title": "RecipeIngredientFact",
+      "type": "object"
+    },
+    "RecipeMethodContextKey": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "culinary-feature-applicability.v1",
+          "default": "culinary-feature-applicability.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "const": "METHOD",
+          "default": "METHOD",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "scope": {
+          "const": "RECIPE_COOKING_CONTEXT",
+          "default": "RECIPE_COOKING_CONTEXT",
+          "title": "Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "recipe_version_id"
+      ],
+      "title": "RecipeMethodContextKey",
+      "type": "object"
+    },
+    "RecipeOnlyFeatureCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Applicability Id"
+        },
+        "command_kind": {
+          "enum": [
+            "REGISTER",
+            "REPLACE",
+            "RETRACT"
+          ],
+          "title": "Command Kind",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "culinary-feature-write.v1",
+          "enum": [
+            "culinary-feature-register.v1",
+            "culinary-feature-write.v1",
+            "culinary-feature-retract.v1"
+          ],
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "correction_reason": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correction Reason"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "enum": [
+                "PARTIAL",
+                "COMPLETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Coverage"
+        },
+        "covered_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Covered Term Ids",
+          "type": "array"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "expected_recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Recipe Frontier",
+          "type": "integer"
+        },
+        "expected_revision_no": {
+          "maximum": 2147483647,
+          "minimum": -1,
+          "title": "Expected Revision No",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "FLAVOR": "#/$defs/CulinaryFeaturePathKey",
+                  "MAIN_PROTEIN": "#/$defs/CulinaryFeaturePathKey",
+                  "METHOD": "#/$defs/RecipeMethodContextKey"
+                },
+                "propertyName": "dimension"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/RecipeMethodContextKey"
+                },
+                {
+                  "$ref": "#/$defs/CulinaryFeaturePathKey"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Key"
+        },
+        "positive_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Positive Term Ids",
+          "type": "array"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/FeatureReviewSource"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "supports": {
+          "items": {
+            "$ref": "#/$defs/MainProteinSupport"
+          },
+          "title": "Supports",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dimension",
+        "command_kind",
+        "recipe_version_id",
+        "applicability_id",
+        "key",
+        "expected_revision_no",
+        "predecessor_id",
+        "expected_recipe_frontier",
+        "coverage",
+        "covered_term_ids",
+        "positive_term_ids",
+        "supports",
+        "provenance",
+        "correction_reason",
+        "idempotency_key"
+      ],
+      "title": "RecipeOnlyFeatureCommand",
       "type": "object"
     },
     "RecipePortionTierFact": {
@@ -8796,6 +10614,121 @@
       "title": "RepeatPenaltyAmount",
       "type": "object"
     },
+    "ReplaceIngredientProteinReviewCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "command_kind": {
+          "const": "REPLACE",
+          "default": "REPLACE",
+          "title": "Command Kind",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "ingredient-protein-write.v1",
+          "default": "ingredient-protein-write.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "correction_reason": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correction Reason"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "enum": [
+                "PARTIAL",
+                "COMPLETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Coverage"
+        },
+        "covered_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Covered Term Ids",
+          "type": "array"
+        },
+        "expected_catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Catalog Frontier",
+          "type": "integer"
+        },
+        "expected_revision_no": {
+          "maximum": 2147483647,
+          "minimum": -1,
+          "title": "Expected Revision No",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "positive_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Positive Term Ids",
+          "type": "array"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/FeatureReviewSource"
+        }
+      },
+      "required": [
+        "ingredient_id",
+        "expected_revision_no",
+        "expected_catalog_frontier",
+        "predecessor_id",
+        "coverage",
+        "covered_term_ids",
+        "positive_term_ids",
+        "provenance",
+        "correction_reason",
+        "idempotency_key"
+      ],
+      "title": "ReplaceIngredientProteinReviewCommand",
+      "type": "object"
+    },
     "ReservationIntent": {
       "additionalProperties": false,
       "properties": {
@@ -9505,6 +11438,121 @@
         "denominator"
       ],
       "title": "RetentionMultiplier",
+      "type": "object"
+    },
+    "RetractIngredientProteinReviewCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "command_kind": {
+          "const": "RETRACT",
+          "default": "RETRACT",
+          "title": "Command Kind",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "ingredient-protein-retract.v1",
+          "default": "ingredient-protein-retract.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "correction_reason": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Correction Reason"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "enum": [
+                "PARTIAL",
+                "COMPLETE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Coverage"
+        },
+        "covered_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Covered Term Ids",
+          "type": "array"
+        },
+        "expected_catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Catalog Frontier",
+          "type": "integer"
+        },
+        "expected_revision_no": {
+          "maximum": 2147483647,
+          "minimum": -1,
+          "title": "Expected Revision No",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "positive_term_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Positive Term Ids",
+          "type": "array"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/FeatureReviewSource"
+        }
+      },
+      "required": [
+        "ingredient_id",
+        "expected_revision_no",
+        "expected_catalog_frontier",
+        "predecessor_id",
+        "coverage",
+        "covered_term_ids",
+        "positive_term_ids",
+        "provenance",
+        "correction_reason",
+        "idempotency_key"
+      ],
+      "title": "RetractIngredientProteinReviewCommand",
       "type": "object"
     },
     "RetractMemberPreferenceCommand": {
@@ -11047,7 +13095,7 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:19",
+  "$id": "urn:menuto:domain:foundation:20",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; repeat penalty v1-draft uses exact proposal-local policy units, not global history; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"

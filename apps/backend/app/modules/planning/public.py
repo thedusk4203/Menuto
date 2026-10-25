@@ -369,3 +369,14 @@ def capture_exposure_preview(session, request, *, actor_user_id):
     from app.modules.planning.exposure_capture import capture_exposure_preview_sources
 
     return capture_exposure_preview_sources(session, request, actor_user_id=actor_user_id)
+
+
+def capture_culinary_feature_subject(session, request, *, actor_user_id):
+    from app.modules.planning.feature_capture import capture_culinary_feature_subject as capture
+    return capture(session,request,actor_user_id=actor_user_id)
+
+
+from app.modules.planning.feature_preview import (  # noqa: E402,F401
+    discover_culinary_feature_assignments,
+    resolve_feature_terms,
+)

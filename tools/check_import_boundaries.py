@@ -145,6 +145,13 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             or target.startswith(("app.persistence", "app.shared.db"))
         ):
             errors.append(f"{line}: EXPOSURE_CORE_INDEPENDENCE: {target}")
+        if module in {
+            "app.modules.recipes.feature_resolution",
+            "app.modules.planning.feature_preview",
+        } and not any(target == allowed or target.startswith(allowed + ".") for allowed in {
+            "app.domain", "app.modules.recipes.contracts", "app.modules.planning.contracts",
+        }):
+            errors.append(f"{line}: CULINARY_FEATURE_PURE_CORE: {target}")
         if context == "validation":
             if target.endswith((".resolve_culinary_binding", ".bind_culinary_draft")):
                 errors.append(f"{line}: VALIDATION_PRODUCER_ENFORCEMENT: {target}")

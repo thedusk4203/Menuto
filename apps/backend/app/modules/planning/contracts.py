@@ -19,6 +19,7 @@ from app.domain.contracts import (
     PositiveDecimal,
     Sha256,
 )
+from app.domain.feature_identity import canonical, identity_hash, unique_sorted
 from app.domain.snapshots import Horizon
 from app.domain.units import CalculatedQuantity, Quantity
 from app.modules.catalog.contracts import IngredientIdentityFact, NutritionReferenceFact
@@ -32,9 +33,17 @@ from app.modules.nutrition.contracts import (
 )
 from app.modules.recipes.contracts import (
     CulinaryCandidateDraft,
+    CulinaryFeatureEvaluationInput,
+    FeatureDimension,
+    FeatureDimensionDiscovery,
+    FeatureTermQuery,
+    FeatureTermResolution,
     PreparationOutputEstimate,
     RecipeProvenance,
     RecipeVersionSnapshot,
+    discover_feature_input,
+    resolve_culinary_binding,
+    resolve_feature_input,
 )
 from app.modules.retail.contracts import (
     ProcurementSnapshotDraft,
@@ -804,4 +813,182 @@ class ParetoShortlistDraft(Contract):
             raise ValueError("Dominance witness must point to a retained frontier candidate")
         if self.fingerprint != self.expected_fingerprint():
             raise ValueError("Shortlist fingerprint differs")
+        return self
+
+
+# MTR-046A read-only classification capture; frozen proposal encoders remain unchanged.
+
+
+class CulinaryFeatureCaptureRequest(Contract):
+    contract_version: Literal["culinary-feature-capture-request.v1"] = (
+        "culinary-feature-capture-request.v1"
+    )
+    household_id: UUID
+    plan_id: UUID
+    proposal_id: UUID
+    proposal_hash: Sha256
+    batch_node_id: UUID
+    requested_dimensions: Annotated[tuple[FeatureDimension, ...], Field(min_length=1)]
+
+    @model_validator(mode="after")
+    def dimensions(self):
+        object.__setattr__(self, "requested_dimensions", unique_sorted(self.requested_dimensions))
+        return self
+
+
+class RecipeCookingFeatureContext(Contract):
+    mode: Literal["RECIPE_COOKING_CONTEXT_ONLY"] = "RECIPE_COOKING_CONTEXT_ONLY"
+
+
+class BoundCulinaryFeatureContext(Contract):
+    mode: Literal["BOUND_CULINARY_PATH"] = "BOUND_CULINARY_PATH"
+    binding: PlannedCulinaryBinding
+
+
+class CapturedCulinaryFeatureSubjectDraft(Contract):
+    contract_version: Literal["culinary-feature-subject.v1-draft"] = (
+        "culinary-feature-subject.v1-draft"
+    )
+    activation_ready: Literal[False] = False
+    source_kind: Literal["PROPOSAL_PREVIEW"] = "PROPOSAL_PREVIEW"
+    coverage: Literal["SELECTED_PROPOSAL_CLASSIFICATION_ONLY"] = (
+        "SELECTED_PROPOSAL_CLASSIFICATION_ONLY"
+    )
+    request: CulinaryFeatureCaptureRequest
+    workspace: PlanWorkspaceDraft
+    proposal: BoundPlanProposalSnapshot | PlanProposalSnapshot
+    context: Annotated[
+        RecipeCookingFeatureContext | BoundCulinaryFeatureContext, Field(discriminator="mode")
+    ]
+    evaluation: CulinaryFeatureEvaluationInput
+
+    @model_validator(mode="after")
+    def source_binding(self):
+        q, p, e, w = self.request, self.proposal, self.evaluation, self.workspace
+        if (
+            (q.household_id, q.plan_id) != (p.graph.household_id, p.graph.plan_id)
+            or (q.household_id, q.plan_id) != (w.household_id, w.id)
+            or (q.proposal_id, q.proposal_hash) != (p.id, p.graph_hash)
+            or w.latest_proposal_no != p.proposal_no
+            or p.created_at > e.captured_at
+            or q.requested_dimensions != e.requested_dimensions
+        ):
+            raise ValueError("Foreign/stale proposal capture binding")
+        batch = next((b for b in p.graph.batches if b.node_id == q.batch_node_id), None)
+        if batch is None or batch.status != "PLANNED" or batch.recipe_version_id != e.recipe.id:
+            raise ValueError("Canonical planned batch/recipe required")
+        path_sensitive = set(q.requested_dimensions) != {"METHOD"}
+        if path_sensitive != isinstance(self.context, BoundCulinaryFeatureContext):
+            raise ValueError("Dimension-appropriate capture context required")
+        if not path_sensitive:
+            if e.path is not None:
+                raise ValueError("METHOD-only capture has no path dependency")
+        else:
+            binding = self.context.binding
+            if binding != next(
+                (
+                    b
+                    for b in getattr(p.graph, "culinary_bindings", ())
+                    if b.batch_node_id == batch.node_id
+                ),
+                None,
+            ):
+                raise ValueError("CULINARY_BINDING_UNAVAILABLE")
+            path = e.path
+            if (
+                path is None
+                or path.tier_id != binding.tier_id
+                or set(path.selected_rule_ids)
+                != {
+                    r.selected_rule_id
+                    for r in binding.requirements
+                    if r.selected_rule_id is not None
+                }
+                or dict(path.deltas)
+                != {r.requirement_id: r.adjustment_delta for r in binding.requirements}
+            ):
+                raise ValueError("Selected path differs from immutable binding")
+            resolved, transforms, servings = resolve_culinary_binding(
+                e.recipe, path.tier_id, path.selected_rule_ids, dict(path.deltas)
+            )
+            rows = {r.requirement_id: r for r in binding.requirements}
+            ts = {t.requirement_id: t.id for t in transforms}
+            if servings != binding.planned_servings or any(
+                r.ingredient_id != rows[r.requirement_id].ingredient_id
+                or r.quantity != rows[r.requirement_id].quantity
+                or ts.get(r.requirement_id) != rows[r.requirement_id].transformation_id
+                for r in resolved
+            ):
+                raise ValueError("Binding primitives differ from authored path")
+        return self
+
+    def canonical_bytes(self):
+        # Preserve frozen nested serializations; new source timestamps use six-digit UTC.
+        data = canonical(self)
+        data["proposal"] = self.proposal.model_dump(mode="json")
+        data["proposal"]["graph"] = self.proposal.graph.content()
+        data["evaluation"]["recipe"] = self.evaluation.recipe.model_dump(mode="json")
+        if isinstance(self.context, BoundCulinaryFeatureContext):
+            data["context"]["binding"] = self.context.binding.payload() | {
+                "fingerprint": self.context.binding.fingerprint
+            }
+        from app.domain.feature_identity import canonical_bytes
+
+        return canonical_bytes(data)
+
+    @property
+    def fingerprint(self):
+        return sha256(self.canonical_bytes()).hexdigest()
+
+
+class CulinaryFeatureDiscoveryDraft(Contract):
+    contract_version: Literal["culinary-feature-discovery.v1-draft"] = (
+        "culinary-feature-discovery.v1-draft"
+    )
+    activation_ready: Literal[False] = False
+    subject: CapturedCulinaryFeatureSubjectDraft
+    dimensions: tuple[FeatureDimensionDiscovery, ...]
+    fingerprint: Sha256
+
+    @model_validator(mode="after")
+    def recompute(self):
+        expected = discover_feature_input(self.subject.evaluation)
+        if self.dimensions != expected or self.fingerprint != identity_hash(
+            dict(subject_hash=self.subject.fingerprint, dimensions=expected)
+        ):
+            raise ValueError("Forged/cached discovery output")
+        return self
+
+
+class CulinaryFeatureResolutionDraft(Contract):
+    contract_version: Literal["culinary-feature-resolution.v1-draft"] = (
+        "culinary-feature-resolution.v1-draft"
+    )
+    activation_ready: Literal[False] = False
+    subject: CapturedCulinaryFeatureSubjectDraft
+    queries: Annotated[tuple[FeatureTermQuery, ...], Field(min_length=1)]
+    terms: tuple[FeatureTermResolution, ...]
+    status: Literal["RESOLVED", "PARTIAL", "UNRESOLVED"]
+    fingerprint: Sha256
+
+    @model_validator(mode="after")
+    def recompute(self):
+        object.__setattr__(self, "queries", unique_sorted(self.queries, key=lambda q: q.dimension))
+        expected = resolve_feature_input(self.subject.evaluation, self.queries)
+        known = sum(t.state != "UNRESOLVED" for t in expected)
+        status = "RESOLVED" if known == len(expected) else ("PARTIAL" if known else "UNRESOLVED")
+        if (
+            self.terms != expected
+            or self.status != status
+            or self.fingerprint
+            != identity_hash(
+                dict(
+                    subject_hash=self.subject.fingerprint,
+                    queries=self.queries,
+                    terms=expected,
+                    status=status,
+                )
+            )
+        ):
+            raise ValueError("Forged/cached resolution output")
         return self

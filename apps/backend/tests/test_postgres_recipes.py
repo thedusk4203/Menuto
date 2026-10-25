@@ -293,6 +293,19 @@ def test_empty_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
             "member_preference_frontiers",
             "member_preference_streams",
             "member_preference_declarations",
+            "ingredient_protein_frontier",
+            "ingredient_protein_streams",
+            "ingredient_protein_reviews",
+            "ingredient_protein_review_terms",
+            "ingredient_protein_assignments",
+            "culinary_feature_frontier",
+            "culinary_feature_applicabilities",
+            "culinary_feature_applicability_slots",
+            "culinary_feature_applicability_tiers",
+            "culinary_feature_reviews",
+            "culinary_feature_review_terms",
+            "culinary_feature_assignments",
+            "culinary_feature_main_protein_support",
         }
         config.attributes["connection"] = conn
         command.check(config)
