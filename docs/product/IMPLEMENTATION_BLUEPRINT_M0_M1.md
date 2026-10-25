@@ -440,3 +440,13 @@ policy/contract design as the recommended next branch. Proposed040B is design-on
 not another implementation authorized here. No migration is required for this review; no table
 is justified merely by the conceptual MemberBehaviorProfile box. Full040/041/046 remain incomplete;
 024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed.
+
+## MTR-040B exact-target explicit interpretation — design stage
+
+User-requested [detailed040B design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md), baseline
+b3d381966126822d7fd9544034c9bb3bf1bab92d. Member ownership and derivation semantics stay Preferences-owned.
+Existing040A source is captured with exact canonical target identity in one read-only RR/SERIALIZABLE
+transaction; pure interpretation consumes immutable captured input and a complete policy.
+Current head only, separate affinity/strength, explicit unavailable prior/shrinkage and draft
+scope. No auto-learning/generalization/utility/Execution. No migration or profile table;0013 /71.
+This is a proposed implementation boundary/test plan, not code, approval or full040 completion.

@@ -235,3 +235,13 @@ policy/source gaps without adding runtime enforcement or claiming complete behav
 An explicit-source profile must preserve member-owned raw assertions, correction history, soft
 preference versus safety, derived rather than caller-authored strength and unavailable priors.
 This is a proposed next **design**; no derivation, learning, feature policy or authority is added.
+
+## MTR-040B detailed design — no new runtime enforcement
+
+[Exact-target profile design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md) maps INV-026/027/028
+to member-owned raw-source interpretation, separated affinity/strength and preserved explicit
+policy. INV-022–025/029 prohibit learning from passive/execution/friction signals in this scope;
+INV-012/013/015–021 keep source truth, independent validation and authority boundaries intact.
+The canonical-target proof, missing-as-unavailable rules, current-head correction algebra and
+28 adversarial cases are future acceptance requirements, not executed040B tests or completed
+invariants. Frozen040A/041A–E/046A and all migrations remain unchanged; no profiles or priors added.

@@ -369,3 +369,16 @@ and scope require review; not implementation-ready or authorized here. Frozen040
 coherent read-only capture. A profile policy/contract and production prior sources do not yet exist.
 Feature-aware041 policies are independently designable but not prerequisites before this design.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed.
+
+## MTR-040B — Explicit-source Target Affinity Profile / DESIGN ONLY
+
+The user authorized detailed design from b3d381966126822d7fd9544034c9bb3bf1bab92d, not runtime.
+[Design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md) proposes Preferences-owned pure derivation
+from frozen040A + finite owner-captured target manifest + complete explicit versioned policy.
+Requested undeclared targets require actual canonical identity reads; arbitrary UUIDs fail capture.
+Separate exact rational affinity and derived ordinal strength use only the current target head;
+retry/revision count and exposure/cooking outcomes have no influence. Prior/shrunk affinity are
+fixed UNAVAILABLE. Full source/provenance/frontier and frozen040A encoding/flags remain unchanged.
+No persistence, migrations, exports or runtime/tests added. Schema0013 /71,237 definitions unchanged.
+No implementation authorization or self-freeze. Full040/041/046 incomplete;024/020B/021 BLOCKED;
+Execution NOT STARTED, PRECOMMIT fail-closed. Proposed acceptance cases are not executed features.
