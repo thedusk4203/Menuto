@@ -382,3 +382,18 @@ incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed. N
 [Post041D dependency review](POST_MTR_041D_DEPENDENCY_REVIEW.md) recommends a separately
 approved046A reviewed culinary feature assignment source design, not an041E arithmetic wrapper.
 No next implementation is authorized or started by recording this freeze.
+
+
+## MTR-046A — Reviewed Culinary Feature Assignment / DESIGN PROPOSAL
+
+Dependency selection approved by user after PR #82; reviewed mainb55353ca2d6f7f3461ad19bcd0f40ec15d4e54b4.
+[Design](MTR_046A_CULINARY_FEATURE_ASSIGNMENT_DESIGN.md) specifies vocabulary vs assignment,
+Catalog Ingredient→PROTEIN association versus Recipes contextual MAIN_PROTEIN/METHOD/FLAVOR,
+a typed applicability key distinct from candidate fingerprints, explicit per-slot choice/preparation/
+adjustment plus tier whitelist, finite reviewed term universe and separate coverage, full append-only
+review replacement/retraction, SQL closure/CAS/frontiers, immutable capture and adversarial criteria.
+Proposed forward0013 has13 new tables (prospective71), subject to design approval; no migration,
+runtime contracts, exports or implementation are added now. Actual schema remains0012 /58.
+Frozen040A/041A/B/C/D unchanged. Full040/041/046 incomplete;024/020B/021 BLOCKED, Execution
+NOT STARTED, PRECOMMIT fail-closed. **IMPLEMENTATION NOT AUTHORIZED; NOT FROZEN.**
+Stop at READY FOR MTR-046A ARCHITECTURE/DESIGN REVIEW.

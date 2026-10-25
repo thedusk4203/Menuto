@@ -383,3 +383,19 @@ Không có witness thì chưa có giá trị; witness có retention0 vẫn cho g
 Đơn vị diễn giải do policy RepeatPenalty định nghĩa, dùng rational chính xác và có thể lớn hơn1.
 Không phải xác suất, confidence, EvidenceStrength, tiền hay lượng vật chất; các policy khác nhau
 không mặc nhiên cho giá trị có thể so sánh trực tiếp.
+
+**Culinary Feature Assignment**:
+Phát biểu đã review rằng một culinary source trong phạm vi cụ thể mang một term METHOD,
+FLAVOR hoặc MAIN_PROTEIN. Định nghĩa term và việc gán term là hai loại sự thật khác nhau.
+
+**Culinary Feature Applicability**:
+Phạm vi culinary đã được reviewer xét cho một loại feature: RecipeVersion, lựa chọn ingredient,
+preparation, tier và quantity-adjustment được nêu rõ. Không đồng nghĩa với exact candidate identity.
+
+**Feature Coverage**:
+Phát biểu phạm vi review đã bao phủ đầy đủ hay một phần một tập term có danh tính rõ ràng.
+Không có assignment chỉ chứng minh feature vắng mặt khi có coverage đầy đủ cho term đang hỏi.
+
+**Contextual Main Protein**:
+Protein category được reviewer chỉ định là chính cho một culinary path, có ingredient-slot support.
+Không tự suy ra từ protein grams, ingredient order, lượng nguyên liệu hay ingredient association.
