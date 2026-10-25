@@ -1,9 +1,77 @@
 # MTR-040B — Explicit-source Target Affinity Profile Foundation
 
-Status: **IMPLEMENTED / NOT FROZEN — pending architecture/freeze review**.
+Status: **FROZEN — user architecture/freeze review APPROVED on 2026-10-26**.
+This documentation-only freeze records the user's approval; it does not change implementation
+or authorize MTR-040C or any next milestone.
 Approved design: [MTR-040B](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md).
 Implementation base: `5cb39464fd1f07c55c82bb221dde3255c3773e64` (canonical main).
 No next milestone is authorized; no root issue is closed.
+
+## Canonical freeze receipt
+
+| Receipt | Canonical value |
+| --- | --- |
+| Approved implementation | [PR #90](https://github.com/thedusk4203/Menuto/pull/90) |
+| Implementation head / PR head | `6ef6b8f9d64a6b1c45fce570857d3cd0568385c6` |
+| Implementation merge on main | `08ddeb87604b8913175ae3852a32ce6f4b8d1273` |
+| Successful implementation post-merge CI | [40215578850](https://github.com/thedusk4203/Menuto/actions/runs/40215578850), push/main at that exact merge SHA; python/web SUCCESS |
+| Implementation verification | 2015 tests passed;785 real PostgreSQL tests;1860 old identities retained;155 additive tests; benchmark22/22; client10/10 |
+| Schema | **0013 /71 domain tables**, no migration |
+| Approval authority | Explicit user architecture/freeze review: **APPROVED**; freeze requested2026-10-26 |
+
+Freeze scope is exactly: exact-target explicit preference interpretation; canonical target
+identity capture; complete versioned explicit interpretation policy; rational explicit affinity;
+explicit evidence strength; deterministic replay and fingerprints. No production policy mapping,
+prior source, inferred preference or planner weight is introduced by this freeze.
+
+## Documentation-only freeze file scope
+
+This freeze changes exactly nine Markdown documents. Runtime, contracts, schema, migrations,
+test sources/fixtures, exports and existing frozen semantics are unchanged.
+
+- `README.md`
+- `docs/product/BACKLOG.md`
+- `docs/product/FOUNDATION_STATUS.md`
+- `docs/product/GLOSSARY.md`
+- `docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md`
+- `docs/product/INVARIANT_COVERAGE.md`
+- `docs/product/MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md`
+- `docs/product/MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md`
+- `docs/product/POST_MTR_041E_DEPENDENCY_REVIEW.md`
+
+## Frozen availability and authorization boundary
+
+```text
+prior                   = UNAVAILABLE
+shrinkage               = UNAVAILABLE
+shrunk_affinity         = UNAVAILABLE
+learned_evidence        = UNAVAILABLE
+contextual_evidence     = UNAVAILABLE
+passive_evidence        = UNAVAILABLE
+cross_target_inference  = NOT_PERFORMED
+candidate_aggregation   = NOT_PERFORMED
+planner_ready           = False
+activation_ready        = False
+```
+
+No TasteFit, planner/PRECOMMIT authority, profile persistence, default-zero prior or other
+prior/shrinkage placeholder is authorized. Full MTR-040/041/046 remain incomplete;
+024/020B/021 remain BLOCKED and Execution NOT STARTED. MTR-040C and every next milestone require
+separate architecture review and explicit implementation authorization; none is started here.
+
+## Frozen interpretation invariants
+
+- `UNDECLARED != NEUTRAL` and `RETRACTED != NEUTRAL`.
+- Explicit zero may be AVAILABLE; it remains distinct from absence.
+- Only the current explicit declaration head determines affinity and strength.
+- Retries, corrections, revision count and history length do not increase evidence strength.
+- Identity is the exact typed target; no cross-target transfer or feature-version reconciliation.
+- Affinity is an explicit policy coordinate, not a probability or calibrated utility.
+- EvidenceStrength is policy metadata for explicit evidence, not statistical confidence.
+- Offline self-consistency does not prove canonical database origin or current liveness.
+- Full-source fingerprint is capture/replay identity over the complete attached source and its
+  capture/frontier, not merely a hash of visible requested target rows.
+- Frozen040A/041A–E/046A contracts/semantics and all migrations0001–0013 remain unchanged.
 
 ## Implemented surface and ownership
 
@@ -86,7 +154,7 @@ The existing compatibility receipts/tests remain untouched. Nineteen new exporte
 bring the bundle to256; OpenAPI remains unchanged. No schema/model/migration/profile table/cache
 is added: **0013 /71 domain tables** (72 including Alembic bookkeeping).
 
-## Changed files
+## Implementation PR #90 changed files
 
 - `README.md`
 - `apps/backend/app/modules/catalog/public.py`
@@ -137,4 +205,24 @@ reported in final delivery after the remote gates finish; no in-progress run is 
 databases on loopback PostgreSQL18.4. Existing source tests are unchanged and test identities are
 compared to the canonical design-stage baseline. Local logs/XML live under ignored `.local/040b-*`.
 
-**READY FOR MTR-040B ARCHITECTURE/FREEZE REVIEW**
+## Documentation-only freeze verification (2026-10-26)
+
+| Gate | Result |
+| --- | --- |
+| Full Python with real PostgreSQL18.4 | **2015 passed**,0 failures/errors/skips,221.65s; one existing Starlette/httpx warning |
+| Regression identities | **2015/2015 retained**,0 new/removed; compared full XML against the canonical implementation run |
+| PostgreSQL-real | All785 existing marked tests included/passed; no test/fixture changes |
+| Schema/migration/direct SQL/frozen compatibility | PASS;0013 /71; no migration, schema, contract or runtime changes |
+| Documentation/architecture/import checks and Ruff | PASS;30 invariants,11 ADRs,50 linked tasks,16 contexts |
+| Domain/OpenAPI/synthetic fixtures | PASS; unchanged256 exported definitions and HTTP contract;22 fixtures verified |
+| Benchmark / client | **22/22** synthetic harness; **10/10** client tests |
+| Typecheck / web build | PASS |
+| Diff scope/whitespace | PASS; exactly9 Markdown files; no code/contracts/schema/migrations/tests changed |
+
+Full command: `.venv/Scripts/python -m pytest --basetemp=.local/040b-freeze-full
+--junitxml=.local/040b-freeze-full.xml` with loopback PostgreSQL enabled. Other commands match
+`.github/workflows/ci.yml`. Exact freeze PR head/merge and remote CI receipts are reported in the
+freeze PR and final delivery after the required checks pass. The canonical implementation
+receipt above remains PR #90; a documentation merge does not create a new implementation scope.
+
+**MTR-040B FROZEN — READY FOR NEXT-MILESTONE ARCHITECTURE REVIEW, NOT IMPLEMENTATION.**

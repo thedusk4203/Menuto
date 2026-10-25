@@ -441,7 +441,7 @@ not another implementation authorized here. No migration is required for this re
 is justified merely by the conceptual MemberBehaviorProfile box. Full040/041/046 remain incomplete;
 024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed.
 
-## MTR-040B exact-target explicit interpretation — design stage
+## MTR-040B exact-target explicit interpretation — historical design stage
 
 User-requested [detailed040B design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md), baseline
 b3d381966126822d7fd9544034c9bb3bf1bab92d. Member ownership and derivation semantics stay Preferences-owned.
@@ -451,7 +451,7 @@ Current head only, separate affinity/strength, explicit unavailable prior/shrink
 scope. No auto-learning/generalization/utility/Execution. No migration or profile table;0013 /71.
 This is a proposed implementation boundary/test plan, not code, approval or full040 completion.
 
-## MTR-040B approved implementation boundary
+## MTR-040B frozen implementation boundary
 
 The user's approval supersedes the design-only authorization wording above.
 [040B implementation evidence](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) records the additive
@@ -461,4 +461,11 @@ source. Pure replay validates every primitive and recomputes all rows/identities
 undeclared targets require owner proof; empty requests remain empty. Policy coordinates use
 exact rationals, and strength depends only on the current assertion's explicit authorship rule.
 No production mappings or prior source are installed. No migration/profile store;0013 /71 unchanged.
-IMPLEMENTED / NOT FROZEN. No downstream milestone, Execution or PRECOMMIT authority is authorized.
+**FROZEN**, user architecture/freeze review APPROVED2026-10-26. Canonical PR #90 head
+`6ef6b8f9d64a6b1c45fce570857d3cd0568385c6`, merge
+`08ddeb87604b8913175ae3852a32ce6f4b8d1273`;
+[post-merge CI40215578850](https://github.com/thedusk4203/Menuto/actions/runs/40215578850) SUCCESS,
+2015 tests. The [freeze receipt](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) preserves exact
+scope, invariants and unavailable evidence/prior/shrinkage. Cross-target inference and candidate
+aggregation remain NOT_PERFORMED; planner_ready=False and activation_ready=False.
+No MTR-040C/downstream implementation, TasteFit, Execution or PRECOMMIT authority is authorized.

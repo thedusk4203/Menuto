@@ -103,8 +103,14 @@ RecipeGroundingValidator; [review A–J](docs/product/MTR_019A_CULINARY_BINDING_
 [evidence](docs/product/MTR_019A_CULINARY_BINDING_EVIDENCE.md). V1/v2 plan hashes và frozen
 MTR-025 giữ nguyên. Chưa có full VariantGenerator, Execution hoặc production authority.
 
-MTR-040B bổ sung profile nháp cho các target được yêu cầu và xác minh từ nguồn chuẩn:
+MTR-040B đã **FROZEN** theo phê duyệt architecture/freeze của người dùng ngày2026-10-26;
+profile vẫn là draft cho các target được yêu cầu và xác minh từ nguồn chuẩn:
 [evidence](docs/product/MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md). Affinity dùng phân số chính xác,
 EvidenceStrength theo policy riêng; prior/shrinkage chưa có nguồn nên vẫn UNAVAILABLE.
-Schema hiện tại0013 /71 bảng, không có migration hay lưu profile. Chờ architecture/freeze review;
-chưa hoàn tất MemberBehaviorProfile, TasteFit, Planner hoặc quyền kích hoạt.
+Canonical PR #90: head `6ef6b8f9d64a6b1c45fce570857d3cd0568385c6`, merge
+`08ddeb87604b8913175ae3852a32ce6f4b8d1273`;
+[CI sau merge40215578850](https://github.com/thedusk4203/Menuto/actions/runs/40215578850) SUCCESS,
+2015 tests. Schema0013 /71 bảng, không migration hay lưu profile. Learned/contextual/passive evidence
+vẫn UNAVAILABLE; cross-target inference/candidate aggregation NOT_PERFORMED; planner_ready=False,
+activation_ready=False. Chưa hoàn tất MemberBehaviorProfile, TasteFit, Planner hoặc quyền kích hoạt.
+Không bắt đầu MTR-040C hay cho phép triển khai milestone tiếp theo.

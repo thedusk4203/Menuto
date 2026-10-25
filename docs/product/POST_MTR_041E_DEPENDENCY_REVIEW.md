@@ -5,7 +5,11 @@ Status: **DEPENDENCY REVIEW ONLY — next design/implementation not authorized o
 Subsequent user task: detailed [MTR-040B exact-target design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md)
 is now requested from this review's merge b3d381966126822d7fd9544034c9bb3bf1bab92d.
 The recommendations/approval-pending statements below record this dependency-review stage;
-the new design remains implementation NOT AUTHORIZED / NOT FROZEN.
+those historical design-only limits were subsequently superseded by explicit implementation
+and freeze approval. Current MTR-040B status: **FROZEN** at PR #90 merge
+`08ddeb87604b8913175ae3852a32ce6f4b8d1273`; see the
+[canonical freeze receipt](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md). The recommendations
+below remain this review's historical record and do not authorize another milestone.
 
 Reviewed latest canonical `main`: **`146c7cee9915c91593c4ec7518615e065d7abf53`**, PR #87.
 The user has **FROZEN / APPROVED MTR-041E** at that commit. Schema is **0013 /71 domain tables**;
