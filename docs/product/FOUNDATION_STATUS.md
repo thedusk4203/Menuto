@@ -399,3 +399,19 @@ Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED. N
 next-milestone implementation is started or authorized. Earlier design-only entries are history.
 
 **MTR-040B FROZEN — READY FOR NEXT-MILESTONE ARCHITECTURE REVIEW, NOT IMPLEMENTATION.**
+
+## MTR-041F — Proposal-local Reviewed Feature Repeat Policy / DESIGN ONLY
+
+The user's next-milestone architecture decision authorizes a docs-only
+[041F design PR](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md), based on
+`ce03e1b925c80771d20863277963fac8db711c66`, whose exact post-merge CI40218477245 succeeded.
+040A/B,041A–E and046A remain FROZEN. This design proposes additive pure Learning interpretation
+of041E's METHOD/MAIN_PROTEIN/FLAVOR events and coverage: cooldown witnesses, exact rational decay
+and proposal-local per-term penalty.041B/C/D stay RECIPE_ID-specific; no genericization or weights reused.
+Unresolved potential occurrences keep the total unavailable. Scoped empty is not zero; nonempty
+explicit zero retention remains distinguishable. No learned profile, novelty, TasteFit, accepted/
+confirmed/consumed/cross-horizon/family source,024 composition, Execution or PRECOMMIT authority.
+No proposed041F contract/test/runtime is implemented or exported. Schema0013 /71 and256 definitions
+unchanged; no migration. NOT FROZEN / implementation NOT AUTHORIZED.040C design NOT READY because
+canonical priors/broader evidence are absent;040B prior/shrinkage remain UNAVAILABLE.024/020B/021
+remain BLOCKED. The design PR stops open for architecture review; no implementation starts.

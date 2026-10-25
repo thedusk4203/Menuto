@@ -114,3 +114,9 @@ Canonical PR #90: head `6ef6b8f9d64a6b1c45fce570857d3cd0568385c6`, merge
 vẫn UNAVAILABLE; cross-target inference/candidate aggregation NOT_PERFORMED; planner_ready=False,
 activation_ready=False. Chưa hoàn tất MemberBehaviorProfile, TasteFit, Planner hoặc quyền kích hoạt.
 Không bắt đầu MTR-040C hay cho phép triển khai milestone tiếp theo.
+
+MTR-041F hiện chỉ ở bước [architecture/design](docs/product/MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md):
+policy cooldown -> decay -> proposal-local feature RepeatPenalty cho METHOD/MAIN_PROTEIN/FLAVOR,
+giữ riêng từng dimension/term và xử lý coverage chưa xác định. Chưa triển khai, chưa freeze;
+PR tài liệu sẽ dừng để review. MTR-040C chưa sẵn sàng và chưa được phép thiết kế; không mở novelty,
+TasteFit,024 composition, accepted/confirmed/history, Execution hay PRECOMMIT authority.

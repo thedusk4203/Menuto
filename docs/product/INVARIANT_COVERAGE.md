@@ -266,3 +266,16 @@ full-source capture/replay identity imply neither origin authentication offline 
 Prior/shrinkage and learned/contextual/passive evidence remain UNAVAILABLE; cross-target inference
 and candidate aggregation remain NOT_PERFORMED; planner_ready=False, activation_ready=False.
 No MTR-040C/next implementation is authorized.
+
+## MTR-041F design — no new runtime invariant enforcement
+
+[Feature repeat policy design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) proposes explicit
+METHOD/MAIN_PROTEIN/FLAVOR term-specific cooldown, rational decay and proposal-local penalty over
+frozen041E. INV-012/013 preserve preview versus accepted/confirmed reality;018 exact primitives;
+021 non-authority;022–029 member ownership, no taste inference/passive learning, separable policy
+dimensions and no hidden policy mutation. INV-030 remains incomplete; no cross-horizon source.
+REVIEWED_NONE is finite-scope absence; UNRESOLVED is not zero; support cardinality is not occurrence
+count. The44-case future acceptance plan is not executed041F test coverage. Frozen040A/B,041A–E,
+046A,256 exported definitions and migrations0001–0013 stay unchanged. No runtime/schema/test changes,
+no full-invariant completion claim.040C design NOT READY;024/020B/021 BLOCKED, Execution NOT STARTED,
+PRECOMMIT FAIL-CLOSED.041F DESIGN ONLY / implementation NOT AUTHORIZED / NOT FROZEN.
