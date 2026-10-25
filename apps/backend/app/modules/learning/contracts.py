@@ -11,15 +11,23 @@ from uuid import UUID
 from pydantic import Field, TypeAdapter, field_validator, model_validator
 
 from app.domain.contracts import AwareTime, Contract, Identifier, Sha256
+from app.domain.feature_identity import canonical, canonical_bytes, identity_hash, unique_sorted
 from app.domain.snapshots import Horizon
 from app.domain.units import Provenance
+from app.modules.catalog.contracts import FeatureFrontier
 from app.modules.households.contracts import HouseholdMemberIdentity
 from app.modules.planning.contracts import (
     BoundPlanProposalSnapshot,
+    CulinaryFeatureDiscoveryDraft,
+    MealParticipantIntent,
     PlanProposalSnapshot,
     PlanWorkspaceDraft,
 )
-from app.modules.recipes.contracts import RecipeProvenance
+from app.modules.recipes.contracts import (
+    FeatureDimension,
+    FeatureDimensionDiscovery,
+    RecipeProvenance,
+)
 
 
 def _json(value):
@@ -776,6 +784,444 @@ class RecipeRepeatPenaltyDraft(Contract):
         data = self.model_dump(mode="json")
         data["subject"] = json.loads(self.subject.canonical_json())
         return _json(data)
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+# MTR-041E is additive. The frozen Recipe-ID source/policy algorithms are unchanged.
+
+
+class FeatureExposurePreviewRequest(Contract):
+    contract_version: Literal["feature-exposure-request.v1"] = "feature-exposure-request.v1"
+    household_id: UUID
+    plan_id: UUID
+    proposal_id: UUID
+    proposal_hash: Sha256
+    selected_member_ids: Annotated[tuple[UUID, ...], Field(min_length=1)]
+    requested_dimensions: Annotated[tuple[FeatureDimension, ...], Field(min_length=1)]
+    recipe_eligibility_policy: ExposurePreviewPolicy
+
+    @model_validator(mode="after")
+    def sets(self):
+        for name in ("selected_member_ids", "requested_dimensions"):
+            object.__setattr__(self, name, unique_sorted(getattr(self, name)))
+        return self
+
+
+class RecipeExposureFrontier(Contract):
+    dimension: Literal["METHOD", "FLAVOR"]
+    recipe_frontier: FeatureFrontier
+
+
+class MainProteinExposureFrontier(Contract):
+    dimension: Literal["MAIN_PROTEIN"] = "MAIN_PROTEIN"
+    recipe_frontier: FeatureFrontier
+    catalog_frontier: FeatureFrontier
+
+
+def _feature_proposal(proposal):
+    return proposal.model_dump(mode="json") | {"graph": proposal.graph.content()}
+
+
+def _feature_member_source(source, *, audit=True):
+    data = json.loads(source.canonical_json())
+    if not audit:
+        del data["captured_at"]
+    return data
+
+
+def _feature_classification_source(source, *, audit=True):
+    data = json.loads(source.subject.canonical_bytes())
+    if not audit:
+        del data["evaluation"]["captured_at"]
+    # Frozen discovery fingerprint includes the audit clock; don't leak it into cut digests.
+    result = dict(subject=data, dimensions=canonical(source.dimensions))
+    if audit:
+        result["fingerprint"] = source.fingerprint
+    return result
+
+
+def _feature_eligible_rows(snapshot):
+    """Flatten every allocation support, including versions grouped by frozen041A Recipe ID."""
+    for member in snapshot.member_sources:
+        proposal = member.sources[0].proposal
+        meals = {m.node_id: m for m in proposal.graph.meals}
+        for fact in derive_preview_facts(member):
+            meal = meals[fact.meal_node_id]
+            participant = next(p for p in meal.participants if p.member_id == member.member_id)
+            for support in fact.support:
+                yield fact, support, participant
+
+
+class FeatureExposureSourceSnapshotDraft(Contract):
+    contract_version: Literal["feature-exposure-source.v1-draft"] = (
+        "feature-exposure-source.v1-draft"
+    )
+    activation_ready: Literal[False] = False
+    request: FeatureExposurePreviewRequest
+    capture_completed_at: AwareTime
+    member_sources: Annotated[tuple[ExposurePreviewSnapshot, ...], Field(min_length=1)]
+    classification_sources: tuple[CulinaryFeatureDiscoveryDraft, ...]
+    frontiers: tuple[
+        Annotated[
+            RecipeExposureFrontier | MainProteinExposureFrontier, Field(discriminator="dimension")
+        ],
+        ...,
+    ]
+
+    @model_validator(mode="after")
+    def coherent_primitives(self):
+        # Reparse recursively: constructed/copied nested objects are not trusted.
+        q = FeatureExposurePreviewRequest.model_validate(self.request.model_dump())
+        members = unique_sorted(
+            tuple(
+                ExposurePreviewSnapshot.model_validate(m.model_dump()) for m in self.member_sources
+            ),
+            key=lambda m: str(m.member_id),
+        )
+        sources = unique_sorted(
+            tuple(
+                CulinaryFeatureDiscoveryDraft.model_validate(s.model_dump())
+                for s in self.classification_sources
+            ),
+            key=lambda s: (
+                str(s.subject.request.batch_node_id),
+                s.subject.request.requested_dimensions,
+            ),
+        )
+        frontiers = unique_sorted(self.frontiers, key=lambda f: f.dimension)
+        if (
+            {m.member_id for m in members} != set(q.selected_member_ids)
+            or {f.dimension for f in frontiers} != set(q.requested_dimensions)
+            or len({f.recipe_frontier for f in frontiers}) != 1
+        ):
+            raise ValueError("Feature member/dimension/frontier manifest mismatch")
+        object.__setattr__(self, "request", q)
+        object.__setattr__(self, "member_sources", members)
+        object.__setattr__(self, "classification_sources", sources)
+        object.__setattr__(self, "frontiers", frontiers)
+        first = members[0]
+        reference = _feature_member_source(first, audit=False)
+        reference.pop("member_id")
+        for m in members:
+            common = _feature_member_source(m, audit=False)
+            common.pop("member_id")
+            if (
+                common != reference
+                or m.household_id != q.household_id
+                or m.policy != q.recipe_eligibility_policy
+                or len(m.sources) != 1
+                or m.captured_at > self.capture_completed_at
+            ):
+                raise ValueError("Conflicting feature member source cut")
+        owner = first.sources[0]
+        p = owner.proposal
+        if p is None or (owner.workspace.id, p.id, p.graph_hash) != (
+            q.plan_id,
+            q.proposal_id,
+            q.proposal_hash,
+        ):
+            raise ValueError("Selected current proposal required")
+        expected = {
+            (s.batch_node_id, d)
+            for _, s, _ in _feature_eligible_rows(self)
+            for d in q.requested_dimensions
+        }
+        actual = {
+            (s.subject.request.batch_node_id, s.subject.request.requested_dimensions[0])
+            for s in sources
+            if len(s.subject.request.requested_dimensions) == 1
+        }
+        if len(actual) != len(sources) or actual != expected:
+            raise ValueError("Exact eligible batch/singleton-dimension manifest required")
+        identities = {r.recipe_version_id: r for r in first.recipes}
+        cuts = {f.dimension: f for f in frontiers}
+        seen = {}
+
+        def consistent(key, value):
+            encoded = canonical_bytes(value)
+            if key in seen and seen[key] != encoded:
+                raise ValueError("Conflicting classification primitive/source cut")
+            seen[key] = encoded
+
+        for s in sources:
+            child, e = s.subject, s.subject.evaluation
+            d = child.request.requested_dimensions[0]
+            frontier = cuts[d]
+            recipe = e.recipe
+            identity = RecipeExposureIdentity(
+                recipe_version_id=recipe.id,
+                recipe_id=recipe.recipe.id,
+                version=recipe.version,
+                review_status=recipe.review_status,
+                provenance=recipe.provenance,
+            )
+            if (
+                child.workspace != owner.workspace
+                or _feature_proposal(child.proposal) != _feature_proposal(p)
+                or e.captured_at > self.capture_completed_at
+                or identity != identities.get(recipe.id)
+                or e.sources.recipe_frontier != frontier.recipe_frontier
+                or (d == "MAIN_PROTEIN" and e.sources.catalog_frontier != frontier.catalog_frontier)
+            ):
+                raise ValueError("Conflicting classification owner/recipe/frontier/cutoff")
+            consistent(("recipe", recipe.id), recipe)
+            consistent(("scopes", recipe.id, d), e.sources.scopes)
+            for t in e.sources.terms:
+                consistent(("term", t.id), t)
+            for scope in e.sources.scopes:
+                consistent(("scope", scope.id), scope)
+                for review in scope.reviews:
+                    consistent(("recipe_sequence", review.source_sequence), review)
+            for stream in getattr(e.sources, "catalog_streams", ()):
+                consistent(("ingredient", stream.ingredient_id), stream)
+                for review in stream.reviews:
+                    consistent(("catalog_sequence", review.source_sequence), review)
+        return self
+
+    def content(self, *, dimension=None):
+        """An explicit diagnostic projection; only capture clocks/other dimensions are excluded."""
+        audit = dimension is None
+        data = canonical(self)
+        data["member_sources"] = [
+            _feature_member_source(m, audit=audit) for m in self.member_sources
+        ]
+        sources = self.classification_sources
+        if not audit:
+            if dimension not in self.request.requested_dimensions:
+                raise ValueError("Uncaptured feature dimension")
+            data.pop("capture_completed_at")
+            data["contract_version"] = "feature-exposure-evidence-cut.v1-diagnostic"
+            data["request"]["requested_dimensions"] = [dimension]
+            sources = tuple(
+                s for s in sources if s.subject.request.requested_dimensions == (dimension,)
+            )
+            data["frontiers"] = [canonical(f) for f in self.frontiers if f.dimension == dimension]
+        data["classification_sources"] = [
+            _feature_classification_source(s, audit=audit) for s in sources
+        ]
+        return data
+
+    def canonical_json(self):
+        return canonical_bytes(self.content()).decode()
+
+    def fingerprint(self):
+        return identity_hash(self.content())
+
+
+class FeatureExposureSourceKey(Contract):
+    batch_node_id: UUID
+    dimension: FeatureDimension
+
+
+class FeatureExposureAssignmentRef(Contract):
+    review_id: UUID
+    term_id: UUID
+
+
+class FeatureExposureSupportWitness(Contract):
+    participant: MealParticipantIntent
+    recipe_event_key: Sha256
+    allocation_node_id: UUID
+    batch_node_id: UUID
+    recipe_id: UUID
+    recipe_version_id: UUID
+    classification_source: FeatureExposureSourceKey
+    subject_hash: Sha256
+    discovery_hash: Sha256
+    applicability_id: UUID
+    assignment: FeatureExposureAssignmentRef
+
+
+class FeatureExposurePreviewFact(Contract):
+    contract_version: Literal["feature-exposure-fact.v1-draft"] = "feature-exposure-fact.v1-draft"
+    activation_ready: Literal[False] = False
+    status: Literal["PROVISIONAL"] = "PROVISIONAL"
+    source_kind: Literal["PROPOSAL_PREVIEW"] = "PROPOSAL_PREVIEW"
+    household_id: UUID
+    member_id: UUID
+    plan_id: UUID
+    meal_node_id: UUID
+    dimension: FeatureDimension
+    feature_term_id: UUID
+    proposal_id: UUID
+    proposal_hash: Sha256
+    scheduled_at: AwareTime
+    support: Annotated[tuple[FeatureExposureSupportWitness, ...], Field(min_length=1)]
+
+    @field_validator("support")
+    @classmethod
+    def witnesses(cls, values):
+        return unique_sorted(values, key=lambda w: str(w.allocation_node_id))
+
+    @model_validator(mode="after")
+    def support_owners(self):
+        if any(
+            w.participant.member_id != self.member_id
+            or w.classification_source.batch_node_id != w.batch_node_id
+            or w.classification_source.dimension != self.dimension
+            or w.assignment.term_id != self.feature_term_id
+            for w in self.support
+        ):
+            raise ValueError("Feature support participant/batch/dimension/assignment mismatch")
+        return self
+
+    def event_key(self):
+        return identity_hash(
+            dict(
+                contract_version="feature-exposure-event-key.v1",
+                **{
+                    k: getattr(self, k)
+                    for k in (
+                        "household_id",
+                        "member_id",
+                        "plan_id",
+                        "meal_node_id",
+                        "dimension",
+                        "feature_term_id",
+                    )
+                },
+            )
+        )
+
+
+class FeatureExposureCoverageDiagnostic(Contract):
+    household_id: UUID
+    member_id: UUID
+    plan_id: UUID
+    meal_node_id: UUID
+    classification_source: FeatureExposureSourceKey
+    allocation_node_ids: Annotated[tuple[UUID, ...], Field(min_length=1)]
+    discovery: FeatureDimensionDiscovery
+
+
+class FeatureExposureEvidenceCut(Contract):
+    contract_version: Literal["feature-exposure-cut.v1-diagnostic"] = (
+        "feature-exposure-cut.v1-diagnostic"
+    )
+    dimension: FeatureDimension
+    digest: Sha256
+    authority: Literal["DIAGNOSTIC_ONLY_NOT_LIVENESS_OR_AUTHORIZATION"] = (
+        "DIAGNOSTIC_ONLY_NOT_LIVENESS_OR_AUTHORIZATION"
+    )
+
+
+def _feature_exposure_values(snapshot):
+    sources = {
+        (s.subject.request.batch_node_id, s.subject.request.requested_dimensions[0]): s
+        for s in snapshot.classification_sources
+    }
+    grouped, diagnostics = {}, {}
+    for fact, support, participant in _feature_eligible_rows(snapshot):
+        for dimension in snapshot.request.requested_dimensions:
+            source = sources[support.batch_node_id, dimension]
+            discovery = source.dimensions[0]
+            key = FeatureExposureSourceKey(batch_node_id=support.batch_node_id, dimension=dimension)
+            dk = (fact.member_id, fact.meal_node_id, support.batch_node_id, dimension)
+            if dk not in diagnostics:
+                diagnostics[dk] = dict(
+                    household_id=fact.household_id,
+                    member_id=fact.member_id,
+                    plan_id=fact.plan_id,
+                    meal_node_id=fact.meal_node_id,
+                    classification_source=key,
+                    discovery=discovery,
+                    allocation_node_ids=set(),
+                )
+            diagnostics[dk]["allocation_node_ids"].add(support.allocation_node_id)
+            for term in discovery.positive_term_ids:
+                if discovery.state != "ASSIGNED":
+                    raise ValueError("Positive exposure requires reviewed assignment")
+                ek = (fact.member_id, fact.meal_node_id, dimension, term)
+                if ek not in grouped:
+                    grouped[ek] = dict(
+                        household_id=fact.household_id,
+                        member_id=fact.member_id,
+                        plan_id=fact.plan_id,
+                        meal_node_id=fact.meal_node_id,
+                        dimension=dimension,
+                        feature_term_id=term,
+                        proposal_id=fact.proposal_id,
+                        proposal_hash=fact.proposal_hash,
+                        scheduled_at=fact.scheduled_at,
+                        support=[],
+                    )
+                grouped[ek]["support"].append(
+                    FeatureExposureSupportWitness(
+                        participant=participant,
+                        recipe_event_key=fact.event_key(),
+                        allocation_node_id=support.allocation_node_id,
+                        batch_node_id=support.batch_node_id,
+                        recipe_id=fact.recipe_id,
+                        recipe_version_id=support.recipe_version_id,
+                        classification_source=key,
+                        subject_hash=source.subject.fingerprint,
+                        discovery_hash=source.fingerprint,
+                        applicability_id=discovery.applicability_id,
+                        assignment=FeatureExposureAssignmentRef(
+                            review_id=discovery.review_id, term_id=term
+                        ),
+                    )
+                )
+    events = tuple(
+        sorted(
+            (FeatureExposurePreviewFact(**v) for v in grouped.values()), key=lambda f: f.event_key()
+        )
+    )
+    rows = tuple(
+        FeatureExposureCoverageDiagnostic(
+            **(v | {"allocation_node_ids": tuple(sorted(v["allocation_node_ids"], key=str))})
+        )
+        for _, v in sorted(diagnostics.items(), key=lambda kv: tuple(map(str, kv[0])))
+    )
+    cuts = tuple(
+        FeatureExposureEvidenceCut(dimension=d, digest=identity_hash(snapshot.content(dimension=d)))
+        for d in snapshot.request.requested_dimensions
+    )
+    return dict(events=events, diagnostics=rows, evidence_cuts=cuts)
+
+
+class FeatureExposurePreviewDraft(Contract):
+    contract_version: Literal["feature-exposure-preview.v1-draft"] = (
+        "feature-exposure-preview.v1-draft"
+    )
+    activation_ready: Literal[False] = False
+    coverage: Literal["SELECTED_PROPOSAL_FEATURE_PREVIEW_ONLY"] = (
+        "SELECTED_PROPOSAL_FEATURE_PREVIEW_ONLY"
+    )
+    absence_semantics: Literal["NOT_EVIDENCE_OF_NEVER_EXPOSED_OR_GLOBAL_FEATURE_ABSENCE"] = (
+        "NOT_EVIDENCE_OF_NEVER_EXPOSED_OR_GLOBAL_FEATURE_ABSENCE"
+    )
+    accepted_schedule: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    confirmed_exposure: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    consumption_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    durable_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    cross_horizon_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    feature_cooldown: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    feature_decay: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    repeat_penalty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    novelty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    taste_fit: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    snapshot: FeatureExposureSourceSnapshotDraft
+    events: tuple[FeatureExposurePreviewFact, ...]
+    diagnostics: tuple[FeatureExposureCoverageDiagnostic, ...]
+    evidence_cuts: tuple[FeatureExposureEvidenceCut, ...]
+
+    @model_validator(mode="after")
+    def recompute(self):
+        snapshot = FeatureExposureSourceSnapshotDraft.model_validate(self.snapshot.model_dump())
+        expected = _feature_exposure_values(snapshot)
+        for name, value in expected.items():
+            if getattr(self, name) != value:
+                raise ValueError("Feature exposure differs from revalidated source primitives")
+        object.__setattr__(self, "snapshot", snapshot)
+        return self
+
+    def canonical_json(self):
+        data = canonical(self)
+        data["snapshot"] = self.snapshot.content()
+        return canonical_bytes(data).decode()
 
     def fingerprint(self):
         return hashlib.sha256(self.canonical_json().encode()).hexdigest()

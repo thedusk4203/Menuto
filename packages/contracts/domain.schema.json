@@ -2734,6 +2734,568 @@
       "title": "FeatureDimensionDiscovery",
       "type": "object"
     },
+    "FeatureExposureAssignmentRef": {
+      "additionalProperties": false,
+      "properties": {
+        "review_id": {
+          "format": "uuid",
+          "title": "Review Id",
+          "type": "string"
+        },
+        "term_id": {
+          "format": "uuid",
+          "title": "Term Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "review_id",
+        "term_id"
+      ],
+      "title": "FeatureExposureAssignmentRef",
+      "type": "object"
+    },
+    "FeatureExposureCoverageDiagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_node_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Allocation Node Ids",
+          "type": "array"
+        },
+        "classification_source": {
+          "$ref": "#/$defs/FeatureExposureSourceKey"
+        },
+        "discovery": {
+          "$ref": "#/$defs/FeatureDimensionDiscovery"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "meal_node_id": {
+          "format": "uuid",
+          "title": "Meal Node Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "plan_id",
+        "meal_node_id",
+        "classification_source",
+        "allocation_node_ids",
+        "discovery"
+      ],
+      "title": "FeatureExposureCoverageDiagnostic",
+      "type": "object"
+    },
+    "FeatureExposureEvidenceCut": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "const": "DIAGNOSTIC_ONLY_NOT_LIVENESS_OR_AUTHORIZATION",
+          "default": "DIAGNOSTIC_ONLY_NOT_LIVENESS_OR_AUTHORIZATION",
+          "title": "Authority",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "feature-exposure-cut.v1-diagnostic",
+          "default": "feature-exposure-cut.v1-diagnostic",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Digest",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "digest"
+      ],
+      "title": "FeatureExposureEvidenceCut",
+      "type": "object"
+    },
+    "FeatureExposurePreviewDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NOT_EVIDENCE_OF_NEVER_EXPOSED_OR_GLOBAL_FEATURE_ABSENCE",
+          "default": "NOT_EVIDENCE_OF_NEVER_EXPOSED_OR_GLOBAL_FEATURE_ABSENCE",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "accepted_schedule": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Accepted Schedule",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "confirmed_exposure": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Confirmed Exposure",
+          "type": "string"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "feature-exposure-preview.v1-draft",
+          "default": "feature-exposure-preview.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "SELECTED_PROPOSAL_FEATURE_PREVIEW_ONLY",
+          "default": "SELECTED_PROPOSAL_FEATURE_PREVIEW_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "cross_horizon_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Cross Horizon History",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/FeatureExposureCoverageDiagnostic"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "durable_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Durable History",
+          "type": "string"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/FeatureExposurePreviewFact"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "evidence_cuts": {
+          "items": {
+            "$ref": "#/$defs/FeatureExposureEvidenceCut"
+          },
+          "title": "Evidence Cuts",
+          "type": "array"
+        },
+        "feature_cooldown": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Feature Cooldown",
+          "type": "string"
+        },
+        "feature_decay": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Feature Decay",
+          "type": "string"
+        },
+        "novelty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Novelty",
+          "type": "string"
+        },
+        "repeat_penalty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Repeat Penalty",
+          "type": "string"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/FeatureExposureSourceSnapshotDraft"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "snapshot",
+        "events",
+        "diagnostics",
+        "evidence_cuts"
+      ],
+      "title": "FeatureExposurePreviewDraft",
+      "type": "object"
+    },
+    "FeatureExposurePreviewFact": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "feature-exposure-fact.v1-draft",
+          "default": "feature-exposure-fact.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "feature_term_id": {
+          "format": "uuid",
+          "title": "Feature Term Id",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "meal_node_id": {
+          "format": "uuid",
+          "title": "Meal Node Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "proposal_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Proposal Hash",
+          "type": "string"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "scheduled_at": {
+          "format": "date-time",
+          "title": "Scheduled At",
+          "type": "string"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "status": {
+          "const": "PROVISIONAL",
+          "default": "PROVISIONAL",
+          "title": "Status",
+          "type": "string"
+        },
+        "support": {
+          "items": {
+            "$ref": "#/$defs/FeatureExposureSupportWitness"
+          },
+          "minItems": 1,
+          "title": "Support",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "plan_id",
+        "meal_node_id",
+        "dimension",
+        "feature_term_id",
+        "proposal_id",
+        "proposal_hash",
+        "scheduled_at",
+        "support"
+      ],
+      "title": "FeatureExposurePreviewFact",
+      "type": "object"
+    },
+    "FeatureExposurePreviewRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "feature-exposure-request.v1",
+          "default": "feature-exposure-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "proposal_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Proposal Hash",
+          "type": "string"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "recipe_eligibility_policy": {
+          "$ref": "#/$defs/ExposurePreviewPolicy"
+        },
+        "requested_dimensions": {
+          "items": {
+            "enum": [
+              "METHOD",
+              "FLAVOR",
+              "MAIN_PROTEIN"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Requested Dimensions",
+          "type": "array"
+        },
+        "selected_member_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Selected Member Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "plan_id",
+        "proposal_id",
+        "proposal_hash",
+        "selected_member_ids",
+        "requested_dimensions",
+        "recipe_eligibility_policy"
+      ],
+      "title": "FeatureExposurePreviewRequest",
+      "type": "object"
+    },
+    "FeatureExposureSourceKey": {
+      "additionalProperties": false,
+      "properties": {
+        "batch_node_id": {
+          "format": "uuid",
+          "title": "Batch Node Id",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        }
+      },
+      "required": [
+        "batch_node_id",
+        "dimension"
+      ],
+      "title": "FeatureExposureSourceKey",
+      "type": "object"
+    },
+    "FeatureExposureSourceSnapshotDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "capture_completed_at": {
+          "format": "date-time",
+          "title": "Capture Completed At",
+          "type": "string"
+        },
+        "classification_sources": {
+          "items": {
+            "$ref": "#/$defs/CulinaryFeatureDiscoveryDraft"
+          },
+          "title": "Classification Sources",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "feature-exposure-source.v1-draft",
+          "default": "feature-exposure-source.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "frontiers": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "FLAVOR": "#/$defs/RecipeExposureFrontier",
+                "MAIN_PROTEIN": "#/$defs/MainProteinExposureFrontier",
+                "METHOD": "#/$defs/RecipeExposureFrontier"
+              },
+              "propertyName": "dimension"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/RecipeExposureFrontier"
+              },
+              {
+                "$ref": "#/$defs/MainProteinExposureFrontier"
+              }
+            ]
+          },
+          "title": "Frontiers",
+          "type": "array"
+        },
+        "member_sources": {
+          "items": {
+            "$ref": "#/$defs/ExposurePreviewSnapshot"
+          },
+          "minItems": 1,
+          "title": "Member Sources",
+          "type": "array"
+        },
+        "request": {
+          "$ref": "#/$defs/FeatureExposurePreviewRequest"
+        }
+      },
+      "required": [
+        "request",
+        "capture_completed_at",
+        "member_sources",
+        "classification_sources",
+        "frontiers"
+      ],
+      "title": "FeatureExposureSourceSnapshotDraft",
+      "type": "object"
+    },
+    "FeatureExposureSupportWitness": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_node_id": {
+          "format": "uuid",
+          "title": "Allocation Node Id",
+          "type": "string"
+        },
+        "applicability_id": {
+          "format": "uuid",
+          "title": "Applicability Id",
+          "type": "string"
+        },
+        "assignment": {
+          "$ref": "#/$defs/FeatureExposureAssignmentRef"
+        },
+        "batch_node_id": {
+          "format": "uuid",
+          "title": "Batch Node Id",
+          "type": "string"
+        },
+        "classification_source": {
+          "$ref": "#/$defs/FeatureExposureSourceKey"
+        },
+        "discovery_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Discovery Hash",
+          "type": "string"
+        },
+        "participant": {
+          "$ref": "#/$defs/MealParticipantIntent"
+        },
+        "recipe_event_key": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Recipe Event Key",
+          "type": "string"
+        },
+        "recipe_id": {
+          "format": "uuid",
+          "title": "Recipe Id",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "subject_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Subject Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "participant",
+        "recipe_event_key",
+        "allocation_node_id",
+        "batch_node_id",
+        "recipe_id",
+        "recipe_version_id",
+        "classification_source",
+        "subject_hash",
+        "discovery_hash",
+        "applicability_id",
+        "assignment"
+      ],
+      "title": "FeatureExposureSupportWitness",
+      "type": "object"
+    },
     "FeaturePreferenceTarget": {
       "additionalProperties": false,
       "properties": {
@@ -4478,6 +5040,35 @@
       ],
       "title": "Lifecycle",
       "type": "string"
+    },
+    "MainProteinExposureFrontier": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Catalog Frontier",
+          "type": "integer"
+        },
+        "dimension": {
+          "const": "MAIN_PROTEIN",
+          "default": "MAIN_PROTEIN",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Recipe Frontier",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "recipe_frontier",
+        "catalog_frontier"
+      ],
+      "title": "MainProteinExposureFrontier",
+      "type": "object"
     },
     "MainProteinFeatureCommand": {
       "additionalProperties": false,
@@ -9055,6 +9646,31 @@
         "band"
       ],
       "title": "RecipeDecayTraceEntry",
+      "type": "object"
+    },
+    "RecipeExposureFrontier": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Recipe Frontier",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dimension",
+        "recipe_frontier"
+      ],
+      "title": "RecipeExposureFrontier",
       "type": "object"
     },
     "RecipeExposureIdentity": {

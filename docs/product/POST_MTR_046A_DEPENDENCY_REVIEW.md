@@ -1,6 +1,14 @@
 # Post-MTR-046A — Feature-aware MTR-041 Proposal Exposure Source Integration
 
-Status: **DESIGN PROPOSAL ONLY — implementation NOT AUTHORIZED; NOT FROZEN**.
+Status: **NAME / DESIGN APPROVED by user; implementation authorized from PR #86 merge;
+MTR-041E IMPLEMENTED, NOT FROZEN**.
+
+The user subsequently approved **MTR-041E — Proposal-local Reviewed Feature Exposure Sources**
+at baseline `c609d3bf25768bc571a33c8c9ca1c21c7cbeece3`. Two implementation freeze criteria were
+added: explicit machine-readable empty-preview scope/absence and fully recomputed diagnostic
+evidence-cut digests. [Implementation evidence](MTR_041E_FEATURE_EXPOSURE_EVIDENCE.md) maps the
+actual runtime/tests. The original design/review chronology below remains historical: its
+DESIGN ONLY/approval-pending statements describe PR #86, not the later user authorization.
 
 Reviewed canonical `main`: **`428b992892ac2aeebdbedb8bb3fd5e436e76415c`**, PR #85.
 The user froze MTR-046A at this commit. Actual Alembic head is **0013**, SQLAlchemy
