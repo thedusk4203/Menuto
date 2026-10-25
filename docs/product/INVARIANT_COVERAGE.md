@@ -236,7 +236,7 @@ An explicit-source profile must preserve member-owned raw assertions, correction
 preference versus safety, derived rather than caller-authored strength and unavailable priors.
 This is a proposed next **design**; no derivation, learning, feature policy or authority is added.
 
-## MTR-040B detailed design — no new runtime enforcement
+## MTR-040B historical detailed design — superseded by implementation/freeze below
 
 [Exact-target profile design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md) maps INV-026/027/028
 to member-owned raw-source interpretation, separated affinity/strength and preserved explicit
@@ -246,7 +246,7 @@ The canonical-target proof, missing-as-unavailable rules, current-head correctio
 28 adversarial cases are future acceptance requirements, not executed040B tests or completed
 invariants. Frozen040A/041A–E/046A and all migrations remain unchanged; no profiles or priors added.
 
-## MTR-040B implementation evidence — partial explicit-source coverage
+## MTR-040B FROZEN — partial explicit-source coverage
 
 The approved implementation supersedes the design-only runtime status above.
 [Evidence and adversarial test mapping](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) cover
@@ -255,4 +255,14 @@ policy-explicit rational affinity and separate strength, unavailable prior/shrin
 result recomputation. Real PostgreSQL tests cover capture coherence, access and absence of writes.
 This supplies scoped enforcement for INV-026/027/028 and the applicable non-inference boundaries;
 it does not complete full behavior learning, safety validation or production authorization.
-Frozen040A/041A–E/046A contracts and migrations remain unchanged.040B is NOT FROZEN.
+Frozen040A/041A–E/046A contracts and migrations remain unchanged. **040B is FROZEN** by explicit
+user approval2026-10-26 at PR #90 merge `08ddeb87604b8913175ae3852a32ce6f4b8d1273`,
+implementation head `6ef6b8f9d64a6b1c45fce570857d3cd0568385c6`;
+[post-merge CI40215578850](https://github.com/thedusk4203/Menuto/actions/runs/40215578850) SUCCESS,
+2015 tests;0013 /71, no migration. The [frozen invariants and scope](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md)
+retain UNDECLARED/NEUTRAL/RETRACTED separation, AVAILABLE explicit zero, head-only policy
+interpretation and no evidence-strength gain from retries/history. Exact-target identity and
+full-source capture/replay identity imply neither origin authentication offline nor planner authority.
+Prior/shrinkage and learned/contextual/passive evidence remain UNAVAILABLE; cross-target inference
+and candidate aggregation remain NOT_PERFORMED; planner_ready=False, activation_ready=False.
+No MTR-040C/next implementation is authorized.

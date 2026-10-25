@@ -45,7 +45,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-037](https://github.com/thedusk4203/Menuto/issues/38) | P1 | ExecutionImpactAnalyzer | NONE/LOCAL_REPAIR/REPLAN_RECOMMENDED/REPLAN_REQUIRED with local-first escalation. | OPEN — chưa chứng nhận |
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
-| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A FROZEN at06dc1dc;040B detailed exact-target design under review, no implementation; full profile/learning NOT COMPLETE |
+| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A FROZEN at06dc1dc;040B FROZEN at08ddeb8 (PR #90; exact-target explicit interpretation only); full profile/learning NOT COMPLETE |
 | [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D/E user FROZEN;E at146c7cee; full041/history NOT COMPLETE; no feature-policy or authority completion |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
@@ -174,18 +174,19 @@ implementation is authorized by this review; source040A is ready, derived policy
 Do not open more feature policies by inertia or treat them as mandatory before040 design.
 Full040/041/046 incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed.
 
-## MTR-040B — detailed design only
+## MTR-040B — historical design stage, superseded by freeze below
 
 The user requested [Explicit-source Target Affinity Profile Foundation design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md)
 from b3d381966126822d7fd9544034c9bb3bf1bab92d. Preferences owns the member-specific pure exact-target
 interpretation. Canonical requested target proof is captured with040A in one read-only transaction;
 complete explicit policy maps affinity and separate current-assertion strength. Prior/shrinkage
 stay UNAVAILABLE. No Learning preference store, generalization, TasteFit or feature policy.
-DESIGN ONLY / implementation NOT AUTHORIZED / NOT FROZEN. No migration/profile table;0013 /71.
+Historical design-stage status was DESIGN ONLY / NOT FROZEN; user approval and freeze below
+supersede that status. No migration/profile table;0013 /71.
 No root issue is closed. Full040/041/046 incomplete;024/020B/021 BLOCKED; Execution not started,
-PRECOMMIT fail-closed. Stop for architecture/design review.
+PRECOMMIT fail-closed. That design-stage review checkpoint is historical; current freeze is below.
 
-## MTR-040B implementation — awaiting architecture/freeze review
+## MTR-040B implementation — FROZEN
 
 The user approved the detailed design and authorized implementation from
 `5cb39464fd1f07c55c82bb221dde3255c3773e64`. Earlier design-only entries record the previous stage.
@@ -193,6 +194,13 @@ The user approved the detailed design and authorized implementation from
 identity reads, one read-only RR/SERIALIZABLE capture with the full frozen040A source, and pure
 policy-driven exact-rational affinity plus separate current-assertion EvidenceStrength.
 Prior/shrinkage remain UNAVAILABLE; no profile persistence, migration, candidate aggregation,
-TasteFit, learned evidence or authority. Schema0013 /71 remains unchanged. IMPLEMENTED / NOT FROZEN;
+TasteFit, learned evidence or authority. Schema0013 /71 remains unchanged.
+**FROZEN**, per explicit user approval2026-10-26;
 full040/041/046 remain incomplete,024/020B/021 BLOCKED, Execution NOT STARTED and PRECOMMIT fail-closed.
 No root issue is closed and no next milestone is authorized.
+
+Canonical040B: implementation head `6ef6b8f9d64a6b1c45fce570857d3cd0568385c6`,
+merge `08ddeb87604b8913175ae3852a32ce6f4b8d1273` (PR #90),
+[post-merge CI40215578850](https://github.com/thedusk4203/Menuto/actions/runs/40215578850) SUCCESS,
+2015 tests. [Frozen scope, invariants and availability](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md)
+remain binding. No MTR-040C or next milestone is started or implementation-authorized.

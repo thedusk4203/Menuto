@@ -187,10 +187,15 @@ Phép chiếu chronological commitments đến đầu horizon mới, tạo openi
 **MemberBehaviorProfile**:
 Sở thích và learned evidence thuộc từng member, giữ taste và context/exposure thành các chiều riêng.
 
-**Explicit Target Affinity** (MTR-040B design):
+**Explicit Target Affinity** (MTR-040B FROZEN; [phạm vi](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md)):
 Cách diễn giải theo policy việc một member đã khai báo thích, không thích hoặc trung lập với
 đúng một target. Khác độ mạnh bằng chứng, prior, TasteFit và mức thích được suy ra cho target khác.
-Chưa phải MemberBehaviorProfile hoàn chỉnh.
+Chỉ head khai báo hiện tại quyết định affinity/strength; chưa khai báo và đã rút lại khác NEUTRAL,
+zero tường minh có thể AVAILABLE. Affinity là tọa độ theo policy, không phải xác suất hay utility
+đã hiệu chuẩn; EvidenceStrength là metadata theo policy, không phải độ tin cậy thống kê.
+Prior/shrinkage và learned/contextual/passive evidence vẫn UNAVAILABLE; không suy diễn chéo target,
+không candidate aggregation, không TasteFit/planner authority. planner_ready=False,
+activation_ready=False. Chưa phải MemberBehaviorProfile hoàn chỉnh; không cấp phép bước triển khai tiếp theo.
 
 **TasteAffinity**:
 Mức ưa thích món/đặc tính ẩm thực; không bị suy ra chỉ từ nấu thành công hoặc gặp khó khi mua/nấu.

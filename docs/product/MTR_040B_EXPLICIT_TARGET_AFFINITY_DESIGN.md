@@ -1,12 +1,18 @@
 # MTR-040B — Explicit-source Target Affinity Profile Foundation
 
-Status: **DESIGN APPROVED by user; additive implementation authorized from
-`5cb39464fd1f07c55c82bb221dde3255c3773e64`; NOT FROZEN**.
+Status: **FROZEN — user architecture/freeze review APPROVED on 2026-10-26**.
+Canonical implementation: PR #90, head `6ef6b8f9d64a6b1c45fce570857d3cd0568385c6`,
+merge `08ddeb87604b8913175ae3852a32ce6f4b8d1273`;
+[post-merge CI40215578850](https://github.com/thedusk4203/Menuto/actions/runs/40215578850)
+SUCCESS,2015 tests; schema0013 /71, no migration.
+The [freeze receipt and invariants](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md)
+define the exact frozen scope and unavailable/deferred boundaries. No next implementation is authorized.
 
 [Implementation evidence](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) records the subsequent
 implementation and verification. The design-stage observations and proposed wording below
 remain the historical approved specification; their earlier authorization limits were superseded
-by the user's explicit implementation request. No next milestone is authorized.
+by the user's explicit implementation request and subsequent freeze approval.
+No next milestone is authorized. Sections1–14 below retain the original design-stage record.
 
 Canonical reviewed `main`: **`b3d381966126822d7fd9544034c9bb3bf1bab92d`**, PR #88.
 User authorized this design only. Schema **0013 /71 domain tables**,237 exported definitions.
@@ -489,4 +495,6 @@ and random isolated test databases. Other gates match `.github/workflows/ci.yml`
 `.local/040b-design*` logs/XML are local verification artifacts, not source or production data.
 No proposed040B contract/runtime/adversarial behavior is claimed tested before implementation exists.
 
-**READY FOR MTR-040B ARCHITECTURE/DESIGN REVIEW**
+The earlier design-review checkpoint is historical. Current status: **FROZEN**.
+
+**MTR-040B FROZEN — READY FOR NEXT-MILESTONE ARCHITECTURE REVIEW, NOT IMPLEMENTATION.**

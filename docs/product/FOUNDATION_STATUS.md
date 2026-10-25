@@ -361,7 +361,9 @@ SUCCESS, Python/web;1860 Python /755 real-PG,1758 prior identities retained,102 
 benchmark22/22, client10/10. Schema0013 /71, no migration;040A/041A–E/046A FROZEN.
 The implementation was accepted without reopening its source or identity semantics.
 
-## Post-MTR-041E dependency review — no next implementation
+## Post-MTR-041E historical dependency review — superseded by040B freeze below
+
+This paragraph records the earlier dependency-review stage; current040B status is FROZEN below.
 
 [Dependency matrix](POST_MTR_041E_DEPENDENCY_REVIEW.md) recommends detailed design of remaining040
 explicit-source target affinity/derived-strength/prior-availability semantics. Suggested040B suffix
@@ -370,15 +372,30 @@ coherent read-only capture. A profile policy/contract and production prior sourc
 Feature-aware041 policies are independently designable but not prerequisites before this design.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed.
 
-## MTR-040B — Explicit-source Target Affinity Profile / DESIGN ONLY
+## MTR-040B — Explicit-source Target Affinity Profile / FROZEN
 
-The user authorized detailed design from b3d381966126822d7fd9544034c9bb3bf1bab92d, not runtime.
-[Design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md) proposes Preferences-owned pure derivation
-from frozen040A + finite owner-captured target manifest + complete explicit versioned policy.
-Requested undeclared targets require actual canonical identity reads; arbitrary UUIDs fail capture.
-Separate exact rational affinity and derived ordinal strength use only the current target head;
-retry/revision count and exposure/cooking outcomes have no influence. Prior/shrunk affinity are
-fixed UNAVAILABLE. Full source/provenance/frontier and frozen040A encoding/flags remain unchanged.
-No persistence, migrations, exports or runtime/tests added. Schema0013 /71,237 definitions unchanged.
-No implementation authorization or self-freeze. Full040/041/046 incomplete;024/020B/021 BLOCKED;
-Execution NOT STARTED, PRECOMMIT fail-closed. Proposed acceptance cases are not executed features.
+User architecture/freeze review **APPROVED**, freeze requested2026-10-26.
+[Implementation/freeze evidence](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md),
+[approved design](MTR_040B_EXPLICIT_TARGET_AFFINITY_DESIGN.md): Preferences owns exact-target
+explicit preference interpretation, canonical target identity capture, a complete versioned
+explicit interpretation policy, rational explicit affinity, explicit evidence strength and
+deterministic replay/fingerprints. Canonical implementation PR #90 head
+`6ef6b8f9d64a6b1c45fce570857d3cd0568385c6`, merge
+`08ddeb87604b8913175ae3852a32ce6f4b8d1273`;
+[post-merge CI40215578850](https://github.com/thedusk4203/Menuto/actions/runs/40215578850) SUCCESS,
+2015 tests /785 real-PG, benchmark22/22, client10/10. Schema0013 /71; no migration.
+
+Only the current explicit declaration head determines affinity/strength. UNDECLARED and RETRACTED
+are distinct from NEUTRAL; explicit zero may be AVAILABLE. Retries/history do not strengthen
+assertions. No cross-target transfer. Affinity is a policy coordinate, not probability/calibrated
+utility; EvidenceStrength is explicit-evidence policy metadata, not statistical confidence.
+Offline consistency does not prove canonical database origin. Full-source fingerprint includes
+complete captured source/frontier and capture identity, not merely visible target rows.
+
+Prior/shrinkage and learned/contextual/passive evidence remain UNAVAILABLE. Cross-target inference
+and candidate aggregation remain NOT_PERFORMED; planner_ready=False and activation_ready=False.
+No default prior, inferred preference, planner weight, TasteFit or planner/PRECOMMIT authority.
+Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED. No MTR-040C or
+next-milestone implementation is started or authorized. Earlier design-only entries are history.
+
+**MTR-040B FROZEN — READY FOR NEXT-MILESTONE ARCHITECTURE REVIEW, NOT IMPLEMENTATION.**
