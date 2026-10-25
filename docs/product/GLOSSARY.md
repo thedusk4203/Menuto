@@ -187,6 +187,11 @@ Phép chiếu chronological commitments đến đầu horizon mới, tạo openi
 **MemberBehaviorProfile**:
 Sở thích và learned evidence thuộc từng member, giữ taste và context/exposure thành các chiều riêng.
 
+**Explicit Target Affinity** (MTR-040B design):
+Cách diễn giải theo policy việc một member đã khai báo thích, không thích hoặc trung lập với
+đúng một target. Khác độ mạnh bằng chứng, prior, TasteFit và mức thích được suy ra cho target khác.
+Chưa phải MemberBehaviorProfile hoàn chỉnh.
+
 **TasteAffinity**:
 Mức ưa thích món/đặc tính ẩm thực; không bị suy ra chỉ từ nấu thành công hoặc gặp khó khi mua/nấu.
 
