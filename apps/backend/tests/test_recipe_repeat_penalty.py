@@ -316,7 +316,7 @@ def test_frozen_definitions_and_schema_unchanged():
     baseline = "59cc0a48b52addc5c7d612fae6b81b0681e90a00"
     # Compatibility is tested from checked-in exports too, without requiring Git in CI.
     schema = json.loads(Path("packages/contracts/domain.schema.json").read_text(encoding="utf-8"))
-    assert schema["$id"] == "urn:menuto:domain:foundation:19"
+    assert schema["$id"] == "urn:menuto:domain:foundation:20"
     assert "RepeatPenaltyAmount" in schema["$defs"]
     assert "RecipeDecayTraceDraft" in schema["$defs"]
     if not Path(".git").exists():

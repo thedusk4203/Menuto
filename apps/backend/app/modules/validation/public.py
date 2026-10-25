@@ -392,3 +392,10 @@ def validate_subject(
         ),
         deferred_capabilities=DEFERRED_CAPABILITIES,
     )
+
+
+def validate_culinary_grounding(source, *, phase="PRECOMMIT_VALIDATION"):
+    """Existing independent MTR-019A enforcement exposed for immutable capture consumers."""
+    from app.modules.validation.recipe_grounding import validate_recipe_grounding
+
+    return validate_recipe_grounding(source, phase=phase)

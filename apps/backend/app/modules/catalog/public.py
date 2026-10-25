@@ -94,3 +94,11 @@ def affinity_feature_terms(session, ids):
             select(AffinityFeatureTerm).where(AffinityFeatureTerm.id.in_(ids))
         )
     )
+
+# Additive curated association source surface. No Recipe dependency.
+from app.modules.catalog.feature_repository import (  # noqa: E402,F401  # noqa: E402,F401
+    IngredientProteinService,
+    ingredient_protein_frontier,
+    ingredient_protein_sources,
+    lock_ingredient_protein_frontier,
+)

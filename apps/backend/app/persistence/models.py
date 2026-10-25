@@ -123,3 +123,22 @@ __all__ = [
     "RetailProduct",
     "StoreRegion",
 ]
+
+# Source-owned companion facts, independently versioned from frozen Recipe aggregates.
+from app.modules.catalog.feature_models import (  # noqa: E402,F401
+    IngredientProteinAssignment,
+    IngredientProteinFrontier,
+    IngredientProteinReview,
+    IngredientProteinReviewTerm,
+    IngredientProteinStream,
+)
+from app.modules.recipes.feature_models import (  # noqa: E402,F401
+    CulinaryFeatureApplicability,
+    CulinaryFeatureApplicabilitySlot,
+    CulinaryFeatureApplicabilityTier,
+    CulinaryFeatureAssignment,
+    CulinaryFeatureFrontier,
+    CulinaryFeatureMainProteinSupport,
+    CulinaryFeatureReview,
+    CulinaryFeatureReviewTerm,
+)
