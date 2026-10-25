@@ -342,7 +342,7 @@ full support witnesses and coverage diagnostics; no defaulting unknowns to zero/
 The user subsequently approved the name/design and authorized implementation from c609d3bf.
 The original review was documentation only; see the implementation status below.
 
-## MTR-041E — Proposal-local Reviewed Feature Exposure Sources / IMPLEMENTED, NOT FROZEN
+## MTR-041E — Proposal-local Reviewed Feature Exposure Sources / FROZEN
 
 [Evidence](MTR_041E_FEATURE_EXPOSURE_EVIDENCE.md). Eleven additive definitions and one pure
 Learning API join exact batch/context/path reviewed sources to member/meal/allocation facts.
@@ -353,4 +353,19 @@ machine-readable scoped absence. All digests/events/diagnostics are recomputed f
 primitives. Evidence-cut digest is diagnostic only, never liveness/PRECOMMIT authority.
 No persistence/migration;0013 /71 tables. Frozen040A/041A–D/046A algorithms and226 old definitions
 unchanged. No feature B/C/D policy or profile/utility/Execution work. Full040/041/046 incomplete;
-024/020B/021 BLOCKED, PRECOMMIT fail-closed. Awaiting user architecture/freeze review.
+024/020B/021 BLOCKED, PRECOMMIT fail-closed. User freeze is recorded below.
+
+User **FROZEN / APPROVED MTR-041E** at `146c7cee9915c91593c4ec7518615e065d7abf53` (PR #87),
+without a correction PR. Exact [post-merge CI40183397009](https://github.com/thedusk4203/Menuto/actions/runs/40183397009)
+SUCCESS, Python/web;1860 Python /755 real-PG,1758 prior identities retained,102 additive tests,
+benchmark22/22, client10/10. Schema0013 /71, no migration;040A/041A–E/046A FROZEN.
+The implementation was accepted without reopening its source or identity semantics.
+
+## Post-MTR-041E dependency review — no next implementation
+
+[Dependency matrix](POST_MTR_041E_DEPENDENCY_REVIEW.md) recommends detailed design of remaining040
+explicit-source target affinity/derived-strength/prior-availability semantics. Suggested040B suffix
+and scope require review; not implementation-ready or authorized here. Frozen040A already provides
+coherent read-only capture. A profile policy/contract and production prior sources do not yet exist.
+Feature-aware041 policies are independently designable but not prerequisites before this design.
+Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT fail-closed.

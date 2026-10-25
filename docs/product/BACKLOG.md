@@ -46,7 +46,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
 | [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL — MTR-040A user FROZEN at06dc1dc; derived profile/learning NOT COMPLETE |
-| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D FROZEN;041E name/design user approved, implemented for freeze review; full041/history NOT COMPLETE |
+| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D/E user FROZEN;E at146c7cee; full041/history NOT COMPLETE; no feature-policy or authority completion |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
 | [MTR-044](https://github.com/thedusk4203/Menuto/issues/45) | P1 | AI intent/explanation | Structured intent + verified metrics only. | OPEN — chưa chứng nhận |
@@ -165,3 +165,11 @@ The user subsequently approved the041E name/design and authorized implementation
 source join, read-only coordinated capture, exact support/coverage/dedup and diagnostic evidence
 cut. IMPLEMENTED / NOT FROZEN. No migration;0013 /71 unchanged. It does not implement feature
 policy consumers, accepted/confirmed/global history or full041 and does not close the root task.
+
+User subsequently **FROZE / APPROVED041E** at146c7cee9915c91593c4ec7518615e065d7abf53, PR #87;
+no correction required, schema0013 /71 unchanged. Earlier NOT FROZEN wording is delivery history.
+[Post041E review](POST_MTR_041E_DEPENDENCY_REVIEW.md) recommends **remaining040 detailed design**,
+conditionally named040B Explicit-source Target Affinity Profile Foundation. No suffix/scope or
+implementation is authorized by this review; source040A is ready, derived policy/contract is not.
+Do not open more feature policies by inertia or treat them as mandatory before040 design.
+Full040/041/046 incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed.

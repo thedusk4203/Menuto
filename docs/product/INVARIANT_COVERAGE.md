@@ -228,3 +228,10 @@ this slice does not complete026 or create a validator. INV-030 bridge remains un
 Exact manifests, coherent read-only capture, child revalidation, event/support dedup, explicit
 unknown/finite coverage, empty scope and forged-result negatives are covered by unit and real-PG
 tests. No full invariant is promoted to complete. Schema0013 /71; no migration or physical writes.
+
+User froze041E at146c7cee9915c91593c4ec7518615e065d7abf53 after exact CI/review; no correction
+needed. [Post041E dependency review](POST_MTR_041E_DEPENDENCY_REVIEW.md) maps remaining040/041
+policy/source gaps without adding runtime enforcement or claiming complete behavioral invariants.
+An explicit-source profile must preserve member-owned raw assertions, correction history, soft
+preference versus safety, derived rather than caller-authored strength and unavailable priors.
+This is a proposed next **design**; no derivation, learning, feature policy or authority is added.
