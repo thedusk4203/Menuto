@@ -429,3 +429,14 @@ machine-readable scoped absence; fully recomputed diagnostic cut digests. Eleven
 additive,226 prior definitions unchanged. No migration;0013 /71. Source-only provisional feature
 exposure is not a feature cooldown/decay/penalty policy or full041 completion. Full040/041/046
 incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed. No next slice starts.
+
+## User freeze041E / next dependency review
+
+User **FROZEN / APPROVED041E** at `146c7cee9915c91593c4ec7518615e065d7abf53`, PR #87;
+no correction PR, schema0013 /71;1860 Python /755 real-PG, benchmark22/22/client10/10 and
+exact post-merge CI40183397009 SUCCESS. Original NOT FROZEN entries above are historical delivery.
+[Post041E review](POST_MTR_041E_DEPENDENCY_REVIEW.md) identifies remaining040 exact-target profile
+policy/contract design as the recommended next branch. Proposed040B is design-only pending approval,
+not another implementation authorized here. No migration is required for this review; no table
+is justified merely by the conceptual MemberBehaviorProfile box. Full040/041/046 remain incomplete;
+024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed.

@@ -1,6 +1,16 @@
 # MTR-041E — Proposal-local Reviewed Feature Exposure Sources
 
-Status: **IMPLEMENTED; NOT FROZEN — awaiting architecture/freeze review**.
+Status: **FROZEN / APPROVED by user**, canonical merge:
+**`146c7cee9915c91593c4ec7518615e065d7abf53`** (PR #87).
+
+The user reviewed the implementation/source/provenance/concurrency/compatibility boundaries and
+found no freeze blocker; no correction PR is required. PR head was
+`5dd93d9fc1615b31eb4574f9c435855c61123c36`;
+[PR CI40183158620](https://github.com/thedusk4203/Menuto/actions/runs/40183158620) and exact
+[merge CI40183397009](https://github.com/thedusk4203/Menuto/actions/runs/40183397009) completed
+SUCCESS for Python/web. The merge run/head was independently rechecked in the post041E review.
+Schema0013 /71 tables; no migration. This freezes only the proposal-local source subset, not
+full040/041/046 or production authority. Original implementation verification chronology follows.
 
 Authorized implementation baseline: `c609d3bf25768bc571a33c8c9ca1c21c7cbeece3` (PR #86).
 The user approved the name and [source integration design](POST_MTR_046A_DEPENDENCY_REVIEW.md),
@@ -126,7 +136,7 @@ Fixes corrected the new fixtures/expectations; database guards and frozen semant
 | Client contract check / typecheck / tests | PASS, **10/10** |
 | Web typecheck/build | PASS |
 | Git diff whitespace | PASS |
-| PR and exact post-merge CI | Exact head/merge SHAs and run links reported in final delivery after remote gates complete; no advance PASS claim |
+| PR and exact post-merge CI | SUCCESS on the exact head/merge listed in the user freeze record above; all Python/web gates ran |
 
 Full command: `.venv/Scripts/python -m pytest --basetemp=.local/041e-full
 --junitxml=.local/041e-full.xml` with MENUTO_TEST_POSTGRES_URL targeting loopback PostgreSQL18
@@ -147,4 +157,7 @@ Full040/041/046 and026 remain incomplete;024/020B/021 BLOCKED; Execution NOT STA
 PRECOMMIT fail-closed; POSTFACT diagnostic. This slice does not self-freeze or authorize another
 slice. Stop for architecture/freeze review.
 
-**READY FOR MTR-041E ARCHITECTURE/FREEZE REVIEW**. Remote gate identities are included in delivery.
+MTR-041E was frozen by the user after that review; it is not self-frozen.
+[Post041E dependency review](POST_MTR_041E_DEPENDENCY_REVIEW.md) recommends designing the
+remaining040 exact-target explicit-source profile subset before optional feature policies.
+That review does not authorize implementation or freeze another slice.
