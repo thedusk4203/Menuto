@@ -4,9 +4,10 @@ Status: **IMPLEMENTED; LOCAL VERIFICATION PASS; NOT FROZEN**.
 
 Authorized implementation baseline: `c1dcf48907fa4dcb1acc210acd15ceba670345f0` (PR #84).
 Exact implementation/test/export commit: `b02c5aa6c74889c9f7c73200ef3925dc1a33337d`.
-Verification date: 2026-10-25, Asia/Saigon. The following documentation commit does not change
-that tested runtime. PR/head and exact merge/CI identities are reported in the delivery record;
+Verification date: 2026-10-25, Asia/Saigon. Following documentation and DDL whitespace-only commits do not change
+that tested runtime/SQL semantics. PR/head and exact merge/CI identities are reported in the delivery record;
 remote gates are not claimed passed before they run.
+Implementation PR: [#85](https://github.com/thedusk4203/Menuto/pull/85).
 
 ## Architecture and actual ownership
 
