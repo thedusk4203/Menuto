@@ -114,3 +114,8 @@ from app.modules.recipes.feature_repository import (  # noqa: E402,F401
     culinary_feature_frontier,
     culinary_feature_sources,
 )
+
+
+def recipe_identities(session, recipe_ids):
+    """Read stable Recipe identities only, without choosing any RecipeVersion."""
+    return RecipeRepository(session).identities(recipe_ids)

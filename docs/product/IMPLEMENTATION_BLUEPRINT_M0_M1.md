@@ -450,3 +450,15 @@ transaction; pure interpretation consumes immutable captured input and a complet
 Current head only, separate affinity/strength, explicit unavailable prior/shrinkage and draft
 scope. No auto-learning/generalization/utility/Execution. No migration or profile table;0013 /71.
 This is a proposed implementation boundary/test plan, not code, approval or full040 completion.
+
+## MTR-040B approved implementation boundary
+
+The user's approval supersedes the design-only authorization wording above.
+[040B implementation evidence](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) records the additive
+Preferences capture/derive facades, canonical owner identity reads and versioned explicit policy.
+One clean read-only RR/SERIALIZABLE transaction captures identities and the complete frozen040A
+source. Pure replay validates every primitive and recomputes all rows/identities. Canonical
+undeclared targets require owner proof; empty requests remain empty. Policy coordinates use
+exact rationals, and strength depends only on the current assertion's explicit authorship rule.
+No production mappings or prior source are installed. No migration/profile store;0013 /71 unchanged.
+IMPLEMENTED / NOT FROZEN. No downstream milestone, Execution or PRECOMMIT authority is authorized.

@@ -1,6 +1,12 @@
 # MTR-040B — Explicit-source Target Affinity Profile Foundation
 
-Status: **DETAILED DESIGN ONLY — implementation NOT AUTHORIZED; NOT FROZEN**.
+Status: **DESIGN APPROVED by user; additive implementation authorized from
+`5cb39464fd1f07c55c82bb221dde3255c3773e64`; NOT FROZEN**.
+
+[Implementation evidence](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) records the subsequent
+implementation and verification. The design-stage observations and proposed wording below
+remain the historical approved specification; their earlier authorization limits were superseded
+by the user's explicit implementation request. No next milestone is authorized.
 
 Canonical reviewed `main`: **`b3d381966126822d7fd9544034c9bb3bf1bab92d`**, PR #88.
 User authorized this design only. Schema **0013 /71 domain tables**,237 exported definitions.

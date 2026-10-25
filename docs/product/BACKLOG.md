@@ -184,3 +184,15 @@ stay UNAVAILABLE. No Learning preference store, generalization, TasteFit or feat
 DESIGN ONLY / implementation NOT AUTHORIZED / NOT FROZEN. No migration/profile table;0013 /71.
 No root issue is closed. Full040/041/046 incomplete;024/020B/021 BLOCKED; Execution not started,
 PRECOMMIT fail-closed. Stop for architecture/design review.
+
+## MTR-040B implementation — awaiting architecture/freeze review
+
+The user approved the detailed design and authorized implementation from
+`5cb39464fd1f07c55c82bb221dde3255c3773e64`. Earlier design-only entries record the previous stage.
+[Implementation evidence](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) covers canonical target
+identity reads, one read-only RR/SERIALIZABLE capture with the full frozen040A source, and pure
+policy-driven exact-rational affinity plus separate current-assertion EvidenceStrength.
+Prior/shrinkage remain UNAVAILABLE; no profile persistence, migration, candidate aggregation,
+TasteFit, learned evidence or authority. Schema0013 /71 remains unchanged. IMPLEMENTED / NOT FROZEN;
+full040/041/046 remain incomplete,024/020B/021 BLOCKED, Execution NOT STARTED and PRECOMMIT fail-closed.
+No root issue is closed and no next milestone is authorized.

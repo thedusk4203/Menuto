@@ -249,3 +249,17 @@ class PreferenceService:
             declarations=rows,
             feature_terms=affinity_feature_terms(s, ids),
         )
+
+
+def capture_explicit_target_affinity_sources(session, request, *, actor_user_id):
+    """Additive lazy capture facade; caller owns the read-only RR/SERIALIZABLE transaction."""
+    from app.modules.preferences.profile_capture import capture_explicit_target_affinity_sources
+
+    return capture_explicit_target_affinity_sources(session, request, actor_user_id=actor_user_id)
+
+
+def derive_explicit_target_affinity_profile(subject):
+    """Additive facade; the derivation core itself has no IO dependency."""
+    from app.modules.preferences.profile_derivation import derive_explicit_target_affinity_profile
+
+    return derive_explicit_target_affinity_profile(subject)

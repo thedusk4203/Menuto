@@ -140,15 +140,34 @@ from app.modules.planning.contracts import (
 )
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
 from app.modules.preferences.contracts import (
+    AvailableExplicitAffinity,
+    CanonicalPreferenceTargetManifest,
+    DerivedExplicitEvidenceStrength,
+    DerivedTargetAffinity,
+    ExplicitAffinityAmount,
+    ExplicitAffinityValueRule,
+    ExplicitAuthorshipStrengthRule,
     ExplicitMemberPreferenceSnapshot,
+    ExplicitTargetAffinityCaptureRequest,
+    ExplicitTargetAffinityInput,
+    ExplicitTargetAffinityPolicy,
+    ExplicitTargetAffinityProfileDraft,
+    ExplicitTargetAffinitySourceSnapshotDraft,
+    ExplicitTargetKindPolicy,
     FeaturePreferenceTarget,
+    FeatureTargetManifestEntry,
     IngredientPreferenceTarget,
+    IngredientTargetManifestEntry,
     MemberPreferenceDeclarationFact,
     MemberPreferenceState,
     PreferenceWriteCommand,
     RecipePreferenceTarget,
+    RecipeTargetManifestEntry,
     RetractMemberPreferenceCommand,
     SetMemberPreferenceCommand,
+    UnavailableExplicitAffinity,
+    UnavailablePreferencePrior,
+    UnavailableShrunkAffinity,
 )
 from app.modules.recipes.contracts import (
     CulinaryCandidateDraft,
@@ -231,6 +250,25 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    AvailableExplicitAffinity,
+    CanonicalPreferenceTargetManifest,
+    DerivedExplicitEvidenceStrength,
+    DerivedTargetAffinity,
+    ExplicitAffinityAmount,
+    ExplicitAffinityValueRule,
+    ExplicitAuthorshipStrengthRule,
+    ExplicitTargetAffinityCaptureRequest,
+    ExplicitTargetAffinityInput,
+    ExplicitTargetAffinityPolicy,
+    ExplicitTargetAffinityProfileDraft,
+    ExplicitTargetAffinitySourceSnapshotDraft,
+    ExplicitTargetKindPolicy,
+    FeatureTargetManifestEntry,
+    IngredientTargetManifestEntry,
+    RecipeTargetManifestEntry,
+    UnavailableExplicitAffinity,
+    UnavailablePreferencePrior,
+    UnavailableShrunkAffinity,
     FeatureExposurePreviewRequest,
     FeatureExposureSourceSnapshotDraft,
     FeatureExposurePreviewDraft,
@@ -459,6 +497,8 @@ def export() -> str:
         "recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; "
         "decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; "
         "repeat penalty v1-draft uses exact proposal-local policy units, not global history; "
+        "explicit target affinity v1-draft interprets canonical requested targets only; "
+        "no prior/shrinkage, inferred evidence, candidate utility or activation; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

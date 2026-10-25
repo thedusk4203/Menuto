@@ -245,3 +245,14 @@ INV-012/013/015–021 keep source truth, independent validation and authority bo
 The canonical-target proof, missing-as-unavailable rules, current-head correction algebra and
 28 adversarial cases are future acceptance requirements, not executed040B tests or completed
 invariants. Frozen040A/041A–E/046A and all migrations remain unchanged; no profiles or priors added.
+
+## MTR-040B implementation evidence — partial explicit-source coverage
+
+The approved implementation supersedes the design-only runtime status above.
+[Evidence and adversarial test mapping](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md) cover
+member-specific canonical requested identities, full040A lineage, head-only interpretation,
+policy-explicit rational affinity and separate strength, unavailable prior/shrinkage and immutable
+result recomputation. Real PostgreSQL tests cover capture coherence, access and absence of writes.
+This supplies scoped enforcement for INV-026/027/028 and the applicable non-inference boundaries;
+it does not complete full behavior learning, safety validation or production authorization.
+Frozen040A/041A–E/046A contracts and migrations remain unchanged.040B is NOT FROZEN.
