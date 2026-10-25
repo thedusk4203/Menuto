@@ -2,7 +2,8 @@
 
 Status: **ARCHITECTURE APPROVED** by user after PR #80. Historical dependency review.
 Implementation is tracked in [041D review](MTR_041D_REPEAT_PENALTY_REVIEW.md) and
-[evidence](MTR_041D_REPEAT_PENALTY_EVIDENCE.md);041D is NOT FROZEN.
+[evidence](MTR_041D_REPEAT_PENALTY_EVIDENCE.md);041D is now user FROZEN at091daa81.
+The [post041D review](POST_MTR_041D_DEPENDENCY_REVIEW.md) supersedes the next-slice recommendation.
 
 Reviewed fetched `main` /`origin/main`: **`338566c84197196dae12bbefd9e1ef0c96958f2f`**.
 User-frozen040A and041A/B/C remain untouched. Current schema **0012 /58 domain tables**;
@@ -231,7 +232,7 @@ Do full/global041 capabilities still require upstream work? **YES**, as the matr
 Can full041 complete now, or can024/020B/021 start? **NO**. Execution required for the proposed
 policy step? **NO**. New migration required for this pure transient slice? **NONE expected**.
 The documentation merge itself did not authorize implementation or self-freeze. Subsequent
-explicit user approval authorizes the041D implementation scope only; freeze still needs review.
+explicit user approval authorized implementation; the later user freeze at091daa81 closes that gate.
 
 ## 8. Verification and evidence
 

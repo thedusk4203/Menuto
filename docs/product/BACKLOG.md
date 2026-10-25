@@ -46,7 +46,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
 | [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL — MTR-040A user FROZEN at06dc1dc; derived profile/learning NOT COMPLETE |
-| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C FROZEN; 041D local RepeatPenalty interpretation implemented, NOT FROZEN; full041/history NOT COMPLETE |
+| [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D user FROZEN; D at091daa81; full041/history NOT COMPLETE; next proposed046A source design awaits approval |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
 | [MTR-044](https://github.com/thedusk4203/Menuto/issues/45) | P1 | AI intent/explanation | Structured intent + verified metrics only. | OPEN — chưa chứng nhận |
@@ -111,3 +111,14 @@ MTR-019B is user FROZEN at23dd0b3. [MTR-019C](MTR_019C_CANDIDATE_GROUNDING_REVIE
 adds supported canonical primitive grounding before any Pareto shortlist. [Evidence](MTR_019C_CANDIDATE_GROUNDING_EVIDENCE.md).
 MTR-019/026 remain incomplete; no MTR-020 implementation or new milestone numbering. MTR-019C
 awaits architecture/freeze review, not self-FROZEN. Prior submission notes above are historical.
+
+
+## Post-MTR-041D source dependency review
+
+User froze041D at091daa81 (0012 /58 tables). [Dependency matrix](POST_MTR_041D_DEPENDENCY_REVIEW.md)
+recommends designing **MTR-046A — Reviewed Culinary Feature Assignment Foundation** as a proposed
+source subset of existing046; suffix/scope require architecture approval. Remaining040 explicit-only
+profile derivation is independently designable with its own policy; it is not a prerequisite for
+all exposure operations. Neither branch alone completes041 or unblocks024/020B/021. Accepted/
+confirmed/assumed/bridge sources retain their separate026/023/035/039/017/036/038 dependencies.
+This review adds no production implementation, migration or issue closure.

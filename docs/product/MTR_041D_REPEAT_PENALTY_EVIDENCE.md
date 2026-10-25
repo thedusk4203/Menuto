@@ -1,6 +1,7 @@
 # MTR-041D — RepeatPenalty interpretation implementation evidence
 
-Status: IMPLEMENTED / local and implementation-head CI PASS / NOT FROZEN.
+Status: **FROZEN / APPROVED by user**, canonical commit091daa81 (full SHA below).
+The implementation evidence below preserves the original verification chronology.
 Baseline59cc0a48b52addc5c7d612fae6b81b0681e90a00, PR #80 architecture approval.
 Implementation commit: `fb933881b0422594b7fd67d1bca7d3948b4f77a1`.
 [Architecture](MTR_041D_REPEAT_PENALTY_REVIEW.md).
@@ -88,4 +89,23 @@ This evidence update changes documentation only. Final-head and exact post-merge
 verified separately at delivery; this document does not claim a run against a commit that
 does not exist yet. No runtime or test changes follow implementation-head verification.
 
-**READY FOR MTR-041D ARCHITECTURE/FREEZE REVIEW** — NOT FROZEN.
+Original submission: READY FOR MTR-041D ARCHITECTURE/FREEZE REVIEW; subsequently approved below.
+
+
+## User freeze decision — MTR-041D
+
+User **FROZEN / APPROVED MTR-041D** at `091daa81ae9bc67b536fec4956ba1f52780fe9c9`
+(PR #81). Exact post-merge [CI40088853692](https://github.com/thedusk4203/Menuto/actions/runs/40088853692)
+SUCCESS, Python and web;1626 Python /645 PostgreSQL-real,1540 prior regressions retained,
+86 additive tests, benchmark22/22, client10/10. Schema0012 /58; no migration,0001–0012 unchanged.
+Acceptance is only proposal-local Recipe-ID RepeatPenalty interpretation. Full040/041 remain
+incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT fail-closed. No correction PR.
+[Post041D dependency review](POST_MTR_041D_DEPENDENCY_REVIEW.md) recommends a separately
+approved046A reviewed culinary feature assignment source design, not an041E arithmetic wrapper.
+No next implementation is authorized or started by recording this freeze.
+
+Final PR head: `5739df00885d14cf9a1e37124333699942cddca5`.
+[Final-head CI40088672054](https://github.com/thedusk4203/Menuto/actions/runs/40088672054)
+SUCCESS;1626 passed,87.13s. Canonical merge091daa81 has identical file content to that head.
+Exact post-merge CI40088853692:1626 passed,3 warnings,92.47s; benchmark22/22;
+Python and web SUCCESS. This documentation records the user's freeze; it does not alter runtime.

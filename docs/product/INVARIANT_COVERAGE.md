@@ -170,4 +170,10 @@ MTR-041D [review](MTR_041D_REPEAT_PENALTY_REVIEW.md) /
 are covered by exact typed rational interpretation, full frozen source revalidation, zero/absence
 separation, pure read-only boundary tests, provenance, no member fan-out and unavailable wider
 claims. One behavioral dimension only (INV-027), no cross-dimension utility. Full INV-030 bridge,
-production authority and full041 remain deferred. NOT FROZEN; no existing enforcement replaced.
+production authority and full041 remain deferred. User FROZEN at091daa81; no existing enforcement replaced.
+
+
+Post041D [dependency review](POST_MTR_041D_DEPENDENCY_REVIEW.md) records user acceptance at
+091daa81 and recommends an upstream reviewed assignment source under046, preserving INV-005/006,
+009/012/013/018/020/021/022–030. Vocabulary is not assignment, affinity is not safety, and capture
+is not commit authority. The review adds no new invariant enforcement or completion claim.
