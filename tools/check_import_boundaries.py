@@ -93,6 +93,11 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     errors = []
 
     def audit(target, line):
+        if module == "app.modules.preferences.profile_derivation" and not (
+            target == "app.modules.preferences.contracts"
+            or target.startswith("app.modules.preferences.contracts.")
+        ):
+            errors.append(f"{line}: EXPLICIT_AFFINITY_PURE_CORE: {target}")
         shortlist_imports = {
             "app.modules.planning.shortlist": {
                 "json",

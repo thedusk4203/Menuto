@@ -222,3 +222,12 @@ class RecipeRepository:
             c.RecipeRuleCombinationFact(**r) for r in combinations
         )
         return c.RecipeVersionSnapshot(**fields)
+
+    def identities(self, recipe_ids):
+        return tuple(
+            c.RecipeFact(id=row.id, name=row.name, cooking_method=row.cooking_method)
+            for row in self.session.execute(
+                select(m.Recipe.id, m.Recipe.name, m.Recipe.cooking_method)
+                .where(m.Recipe.id.in_(recipe_ids)).order_by(m.Recipe.id)
+            )
+        )

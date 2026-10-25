@@ -102,3 +102,22 @@ from app.modules.catalog.feature_repository import (  # noqa: E402,F401  # noqa:
     ingredient_protein_sources,
     lock_ingredient_protein_frontier,
 )
+
+
+def ingredient_identities(session, ingredient_ids):
+    """Identity-only canonical owner read; no nutrition or inferred feature evidence."""
+    return tuple(
+        IngredientIdentityFact(id=row.id, name=row.name)
+        for row in session.execute(
+            select(Ingredient.id, Ingredient.name)
+            .where(Ingredient.id.in_(ingredient_ids)).order_by(Ingredient.id)
+        )
+    )
+
+
+def reviewed_affinity_feature_terms(session, ids):
+    """Exact vocabulary identities; never silently filter an existing DRAFT term."""
+    terms = affinity_feature_terms(session, ids)
+    if any(t.status != "REVIEWED" for t in terms):
+        raise ValueError("TARGET_NOT_REVIEWED: reviewed vocabulary identity required")
+    return terms

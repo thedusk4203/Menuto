@@ -247,6 +247,58 @@
       "title": "Availability",
       "type": "string"
     },
+    "AvailableExplicitAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/ExplicitAffinityAmount"
+        },
+        "declaration_id": {
+          "format": "uuid",
+          "title": "Declaration Id",
+          "type": "string"
+        },
+        "policy_rule_key": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "enum": [
+                "INGREDIENT",
+                "DIRECT_RECIPE",
+                "PROTEIN",
+                "METHOD",
+                "FLAVOR"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "LIKE",
+                "DISLIKE",
+                "NEUTRAL"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Policy Rule Key",
+          "type": "array"
+        },
+        "status": {
+          "const": "AVAILABLE",
+          "default": "AVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "policy_rule_key",
+        "declaration_id"
+      ],
+      "title": "AvailableExplicitAffinity",
+      "type": "object"
+    },
     "BatchFlowLinkDraft": {
       "additionalProperties": false,
       "description": "Future orchestration seam only: not permission to create a physical batch.",
@@ -1141,6 +1193,67 @@
         "constraints"
       ],
       "title": "CanonicalMemberSafetySnapshot",
+      "type": "object"
+    },
+    "CanonicalPreferenceTargetManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "preference-target-manifest.v1",
+          "default": "preference-target-manifest.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "REQUESTED_CANONICAL_TARGETS_ONLY",
+          "default": "REQUESTED_CANONICAL_TARGETS_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "entries": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "DIRECT_RECIPE": "#/$defs/RecipeTargetManifestEntry",
+                "FLAVOR": "#/$defs/FeatureTargetManifestEntry",
+                "INGREDIENT": "#/$defs/IngredientTargetManifestEntry",
+                "METHOD": "#/$defs/FeatureTargetManifestEntry",
+                "PROTEIN": "#/$defs/FeatureTargetManifestEntry"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/IngredientTargetManifestEntry"
+              },
+              {
+                "$ref": "#/$defs/RecipeTargetManifestEntry"
+              },
+              {
+                "$ref": "#/$defs/FeatureTargetManifestEntry"
+              }
+            ]
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "entries"
+      ],
+      "title": "CanonicalPreferenceTargetManifest",
       "type": "object"
     },
     "CapturedCulinaryFeatureSubjectDraft": {
@@ -2244,6 +2357,179 @@
       "title": "DeferredCapability",
       "type": "string"
     },
+    "DerivedExplicitEvidenceStrength": {
+      "additionalProperties": false,
+      "properties": {
+        "active_declaration_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Active Declaration Id"
+        },
+        "basis": {
+          "enum": [
+            "NO_ACTIVE_DECLARATION",
+            "SINGLE_CURRENT_EXPLICIT_DECLARATION"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "explicit-evidence-strength.v1",
+          "default": "explicit-evidence-strength.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "NONE",
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "rule_key": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "enum": [
+                    "INGREDIENT",
+                    "DIRECT_RECIPE",
+                    "PROTEIN",
+                    "METHOD",
+                    "FLAVOR"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    "SELF",
+                    "AUTHORIZED_REPRESENTATIVE"
+                  ],
+                  "type": "string"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rule Key"
+        },
+        "scope": {
+          "const": "CURRENT_EXPLICIT_TARGET_ONLY",
+          "default": "CURRENT_EXPLICIT_TARGET_ONLY",
+          "title": "Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "level",
+        "basis",
+        "active_declaration_id",
+        "rule_key"
+      ],
+      "title": "DerivedExplicitEvidenceStrength",
+      "type": "object"
+    },
+    "DerivedTargetAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "affinity": {
+          "discriminator": {
+            "mapping": {
+              "AVAILABLE": "#/$defs/AvailableExplicitAffinity",
+              "UNAVAILABLE": "#/$defs/UnavailableExplicitAffinity"
+            },
+            "propertyName": "status"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AvailableExplicitAffinity"
+            },
+            {
+              "$ref": "#/$defs/UnavailableExplicitAffinity"
+            }
+          ],
+          "title": "Affinity"
+        },
+        "contract_version": {
+          "const": "derived-explicit-target-affinity.v1",
+          "default": "derived-explicit-target-affinity.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "current_declaration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MemberPreferenceDeclarationFact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_strength": {
+          "$ref": "#/$defs/DerivedExplicitEvidenceStrength"
+        },
+        "prior": {
+          "$ref": "#/$defs/UnavailablePreferencePrior"
+        },
+        "raw_state": {
+          "$ref": "#/$defs/MemberPreferenceState"
+        },
+        "shrunk_affinity": {
+          "$ref": "#/$defs/UnavailableShrunkAffinity"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "raw_state",
+        "current_declaration",
+        "affinity",
+        "evidence_strength",
+        "prior",
+        "shrunk_affinity"
+      ],
+      "title": "DerivedTargetAffinity",
+      "type": "object"
+    },
     "DiscardInventoryCommand": {
       "additionalProperties": false,
       "properties": {
@@ -2374,6 +2660,89 @@
       "title": "ExpireInventoryCommand",
       "type": "object"
     },
+    "ExplicitAffinityAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "explicit-affinity-amount.v1",
+          "default": "explicit-affinity-amount.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "title": "Numerator",
+          "type": "integer"
+        },
+        "unit": {
+          "const": "POLICY_EXPLICIT_AFFINITY_UNITS",
+          "default": "POLICY_EXPLICIT_AFFINITY_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "ExplicitAffinityAmount",
+      "type": "object"
+    },
+    "ExplicitAffinityValueRule": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/ExplicitAffinityAmount"
+        },
+        "value": {
+          "enum": [
+            "LIKE",
+            "DISLIKE",
+            "NEUTRAL"
+          ],
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "amount"
+      ],
+      "title": "ExplicitAffinityValueRule",
+      "type": "object"
+    },
+    "ExplicitAuthorshipStrengthRule": {
+      "additionalProperties": false,
+      "properties": {
+        "authorship": {
+          "enum": [
+            "SELF",
+            "AUTHORIZED_REPRESENTATIVE"
+          ],
+          "title": "Authorship",
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "title": "Level",
+          "type": "string"
+        }
+      },
+      "required": [
+        "authorship",
+        "level"
+      ],
+      "title": "ExplicitAuthorshipStrengthRule",
+      "type": "object"
+    },
     "ExplicitMemberPreferenceSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -2439,6 +2808,344 @@
         "declarations"
       ],
       "title": "ExplicitMemberPreferenceSnapshot",
+      "type": "object"
+    },
+    "ExplicitTargetAffinityCaptureRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "explicit-target-affinity-capture.v1",
+          "default": "explicit-target-affinity-capture.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "requested_targets": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                "METHOD": "#/$defs/FeaturePreferenceTarget",
+                "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/IngredientPreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/RecipePreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/FeaturePreferenceTarget"
+              }
+            ]
+          },
+          "title": "Requested Targets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "requested_targets"
+      ],
+      "title": "ExplicitTargetAffinityCaptureRequest",
+      "type": "object"
+    },
+    "ExplicitTargetAffinityInput": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "explicit-target-affinity-input.v1",
+          "default": "explicit-target-affinity-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/ExplicitTargetAffinityPolicy"
+        },
+        "source": {
+          "$ref": "#/$defs/ExplicitTargetAffinitySourceSnapshotDraft"
+        }
+      },
+      "required": [
+        "source",
+        "policy"
+      ],
+      "title": "ExplicitTargetAffinityInput",
+      "type": "object"
+    },
+    "ExplicitTargetAffinityPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "explicit-target-affinity-policy.v1",
+          "default": "explicit-target-affinity-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence_basis": {
+          "const": "LATEST_ACTIVE_EXPLICIT_DECLARATION_ONLY",
+          "default": "LATEST_ACTIVE_EXPLICIT_DECLARATION_ONLY",
+          "title": "Evidence Basis",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "EXPLICIT_POLICY_VERSION_REPLAY",
+          "default": "EXPLICIT_POLICY_VERSION_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "prior_mode": {
+          "const": "UNAVAILABLE_ONLY",
+          "default": "UNAVAILABLE_ONLY",
+          "title": "Prior Mode",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "shrinkage_mode": {
+          "const": "UNAVAILABLE_ONLY",
+          "default": "UNAVAILABLE_ONLY",
+          "title": "Shrinkage Mode",
+          "type": "string"
+        },
+        "target_policies": {
+          "items": {
+            "$ref": "#/$defs/ExplicitTargetKindPolicy"
+          },
+          "title": "Target Policies",
+          "type": "array"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "target_policies"
+      ],
+      "title": "ExplicitTargetAffinityPolicy",
+      "type": "object"
+    },
+    "ExplicitTargetAffinityProfileDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NO_TARGET_ROWS_IS_NOT_GLOBAL_PREFERENCE_NEUTRALITY",
+          "default": "NO_TARGET_ROWS_IS_NOT_GLOBAL_PREFERENCE_NEUTRALITY",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "candidate_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Candidate Aggregation",
+          "type": "string"
+        },
+        "contextual_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Contextual Evidence",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "explicit-target-affinity-profile.v1-draft",
+          "default": "explicit-target-affinity-profile.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "EXPLICIT_SOURCE_TARGETS_ONLY",
+          "default": "EXPLICIT_SOURCE_TARGETS_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "cross_target_inference": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Target Inference",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "learned_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Learned Evidence",
+          "type": "string"
+        },
+        "manifest_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Manifest Fingerprint",
+          "type": "string"
+        },
+        "passive_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Passive Evidence",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Policy Fingerprint",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/DerivedTargetAffinity"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/ExplicitTargetAffinityInput"
+        }
+      },
+      "required": [
+        "subject",
+        "rows",
+        "source_fingerprint",
+        "manifest_fingerprint",
+        "policy_fingerprint",
+        "fingerprint"
+      ],
+      "title": "ExplicitTargetAffinityProfileDraft",
+      "type": "object"
+    },
+    "ExplicitTargetAffinitySourceSnapshotDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "capture_completed_at": {
+          "format": "date-time",
+          "title": "Capture Completed At",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "explicit-target-affinity-source.v1-draft",
+          "default": "explicit-target-affinity-source.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "manifest": {
+          "$ref": "#/$defs/CanonicalPreferenceTargetManifest"
+        },
+        "preferences": {
+          "$ref": "#/$defs/ExplicitMemberPreferenceSnapshot"
+        },
+        "request": {
+          "$ref": "#/$defs/ExplicitTargetAffinityCaptureRequest"
+        }
+      },
+      "required": [
+        "request",
+        "preferences",
+        "manifest",
+        "capture_completed_at"
+      ],
+      "title": "ExplicitTargetAffinitySourceSnapshotDraft",
+      "type": "object"
+    },
+    "ExplicitTargetKindPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "affinity_rules": {
+          "items": {
+            "$ref": "#/$defs/ExplicitAffinityValueRule"
+          },
+          "title": "Affinity Rules",
+          "type": "array"
+        },
+        "retracted_strength": {
+          "const": "NONE",
+          "title": "Retracted Strength",
+          "type": "string"
+        },
+        "strength_rules": {
+          "items": {
+            "$ref": "#/$defs/ExplicitAuthorshipStrengthRule"
+          },
+          "title": "Strength Rules",
+          "type": "array"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        },
+        "undeclared_strength": {
+          "const": "NONE",
+          "title": "Undeclared Strength",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_kind",
+        "affinity_rules",
+        "strength_rules",
+        "undeclared_strength",
+        "retracted_strength"
+      ],
+      "title": "ExplicitTargetKindPolicy",
       "type": "object"
     },
     "ExposureAllocationSupport": {
@@ -3517,6 +4224,29 @@
       "title": "FeatureSlotApplicability",
       "type": "object"
     },
+    "FeatureTargetManifestEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "$ref": "#/$defs/AffinityFeatureTermFact"
+        },
+        "kind": {
+          "enum": [
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "identity"
+      ],
+      "title": "FeatureTargetManifestEntry",
+      "type": "object"
+    },
     "FeatureTermQuery": {
       "additionalProperties": false,
       "properties": {
@@ -4501,6 +5231,25 @@
         "replayed"
       ],
       "title": "IngredientProteinWriteReceipt",
+      "type": "object"
+    },
+    "IngredientTargetManifestEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "$ref": "#/$defs/IngredientIdentityFact"
+        },
+        "kind": {
+          "const": "INGREDIENT",
+          "default": "INGREDIENT",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity"
+      ],
+      "title": "IngredientTargetManifestEntry",
       "type": "object"
     },
     "InventoryCandidateLot": {
@@ -10703,6 +11452,25 @@
       "title": "RecipeRuleCombinationFact",
       "type": "object"
     },
+    "RecipeTargetManifestEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "$ref": "#/$defs/RecipeFact"
+        },
+        "kind": {
+          "const": "DIRECT_RECIPE",
+          "default": "DIRECT_RECIPE",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity"
+      ],
+      "title": "RecipeTargetManifestEntry",
+      "type": "object"
+    },
     "RecipeVariantRuleFact": {
       "additionalProperties": false,
       "description": "V1 mass-only substitution; replacement COUNT identity/conversion is deferred.",
@@ -12917,6 +13685,80 @@
       "title": "TierQuantity",
       "type": "object"
     },
+    "UnavailableExplicitAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "enum": [
+            "UNDECLARED",
+            "RETRACTED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "UnavailableExplicitAffinity",
+      "type": "object"
+    },
+    "UnavailablePreferencePrior": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "preference-prior-availability.v1",
+          "default": "preference-prior-availability.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "reason": {
+          "const": "NO_CANONICAL_PREFERENCE_PRIOR_SOURCE",
+          "default": "NO_CANONICAL_PREFERENCE_PRIOR_SOURCE",
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "title": "UnavailablePreferencePrior",
+      "type": "object"
+    },
+    "UnavailableShrunkAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "shrunk-affinity-availability.v1",
+          "default": "shrunk-affinity-availability.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "reason": {
+          "const": "PRIOR_UNAVAILABLE",
+          "default": "PRIOR_UNAVAILABLE",
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "title": "UnavailableShrunkAffinity",
+      "type": "object"
+    },
     "ValidationCoveragePolicySnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -13713,6 +14555,6 @@
   },
   "$id": "urn:menuto:domain:foundation:20",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; repeat penalty v1-draft uses exact proposal-local policy units, not global history; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; repeat penalty v1-draft uses exact proposal-local policy units, not global history; explicit target affinity v1-draft interprets canonical requested targets only; no prior/shrinkage, inferred evidence, candidate utility or activation; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

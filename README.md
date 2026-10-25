@@ -102,3 +102,9 @@ MTR-019A thêm authoritative sealed culinary binding trong plan-intent.v3 và in
 RecipeGroundingValidator; [review A–J](docs/product/MTR_019A_CULINARY_BINDING_REVIEW.md),
 [evidence](docs/product/MTR_019A_CULINARY_BINDING_EVIDENCE.md). V1/v2 plan hashes và frozen
 MTR-025 giữ nguyên. Chưa có full VariantGenerator, Execution hoặc production authority.
+
+MTR-040B bổ sung profile nháp cho các target được yêu cầu và xác minh từ nguồn chuẩn:
+[evidence](docs/product/MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md). Affinity dùng phân số chính xác,
+EvidenceStrength theo policy riêng; prior/shrinkage chưa có nguồn nên vẫn UNAVAILABLE.
+Schema hiện tại0013 /71 bảng, không có migration hay lưu profile. Chờ architecture/freeze review;
+chưa hoàn tất MemberBehaviorProfile, TasteFit, Planner hoặc quyền kích hoạt.
