@@ -23,12 +23,17 @@
 
 Numeric examples trong spec/debate không tự trở thành production defaults. Không chốt schema DB, thresholds hoặc thuật toán qua tài liệu khung này.
 
-Current additive review: [Exact-target Prior Compatibility & Shrinkage](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md)
-is IMPLEMENTED / NOT FROZEN, NOT MERGED from exact base12048de. Separate user authorization followed
-approved design PR #99; this is not MTR-040C. Pure member-owned compatibility/shrinkage retains kind/
+Current canonical slice: [Exact-target Prior Compatibility & Shrinkage](EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md)
+is **FROZEN / APPROVED** at5728411 (PR #100, exact push CI40351934792 SUCCESS;2597 tests).
+Historical [implementation evidence](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md) starts
+from12048de; this is not MTR-040C. Pure member-owned compatibility/shrinkage retains kind/
 mapping-policy coordinate descriptors; no IO, persistence, migration0015 or production numeric defaults.
 0014 /78 remains unchanged;299 old definitions +19 additive =318. Full040/041/046 incomplete;
-024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. Await dedicated implementation review.
+024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+[Post-freeze review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) selects Hierarchical
+Preference Mapping & Derivation Foundation for dedicated DESIGN ONLY. Resolve canonical relation/
+policy publication authority and exact endpoints/context before a pure hierarchy consumer. No runtime,
+039/040C implementation, new schema/0015 or downstream authority is authorized.
 
 
 M1.3 đã APPROVED/FROZEN tại `fef629965dd7401e27c98b5a0c523998a27017c4`

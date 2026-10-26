@@ -136,8 +136,16 @@ production content, mapping, shrinkage và MTR-040C vẫn chưa được phép. 
 Cập nhật hiện tại: nguồn prior đã [FROZEN](docs/product/PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md).
 Sau khi PR #99 được duyệt/merge, người dùng cấp quyền riêng cho **Exact-target Prior Compatibility
 & Shrinkage Foundation** từ `12048deeffd8c0b30368df0684de1d971a2c4b9c`.
-[Slice đã triển khai, chưa frozen/chưa merge](docs/product/EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md):
+[Slice đã FROZEN / APPROVED](docs/product/EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md)
+tại `5728411ac12555f583f8df72ac71861998978aa4` (PR #100),
+[push CI40351934792](https://github.com/thedusk4203/Menuto/actions/runs/40351934792) SUCCESS, python/web xanh,
+2.597 test đạt. [Evidence triển khai](docs/product/EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md) giữ trạng thái lịch sử:
 API thuần, không IO/lưu trữ, descriptor gắn với target kind và full mapping-policy fingerprint;
 299 định nghĩa giữ nguyên +19 mới =318. Schema vẫn0014 /78, không0015 hay production policy values.
 MTR-040C chưa được gán/cho phép; full040/041/046 chưa hoàn tất;024/020B/021 vẫn BLOCKED,
-Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Chờ review implementation riêng; CI không cấp quyền merge.
+Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Scoped numeric equality không cấp quyền truyền/gộp/xếp hạng
+sở thích giữa hai exact targets, kể cả cùng kind và cùng policy.
+[Dependency review sau PR #100](docs/product/POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md)
+chọn **Hierarchical Preference Mapping & Derivation Foundation**: chỉ cho phép thiết kế riêng,
+ưu tiên làm rõ nguồn relation/policy có thẩm quyền trước consumer thuần. Classification fact không
+phải quy tắc truyền sở thích. Runtime implementation, MTR-040C và migration0015 chưa được phép.

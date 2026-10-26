@@ -1,6 +1,11 @@
 # Exact-target Prior Compatibility & Shrinkage Foundation
 
-Status: **APPROVED DESIGN — implementation separately authorized; IMPLEMENTED / NOT FROZEN**.
+Current canonical status: **FROZEN / APPROVED** at `5728411ac12555f583f8df72ac71861998978aa4`.
+See the [freeze receipt](EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md) and
+[post-freeze dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md).
+Only the current-status interpretation is superseded; the approved design/semantics below remain intact.
+
+Historical design/delivery status: **APPROVED DESIGN — implementation separately authorized; IMPLEMENTED / NOT FROZEN**.
 
 PR #99's corrected head `097557cc7b52676393c78e44f23c1ef313c989f5` was approved and merged
 at `12048deeffd8c0b30368df0684de1d971a2c4b9c`. The user subsequently authorized exactly this
