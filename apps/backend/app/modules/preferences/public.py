@@ -263,3 +263,10 @@ def derive_explicit_target_affinity_profile(subject):
     from app.modules.preferences.profile_derivation import derive_explicit_target_affinity_profile
 
     return derive_explicit_target_affinity_profile(subject)
+
+
+def derive_exact_target_prior_backed_affinity(subject):
+    """Additive zero-IO exact-target compatibility/shrinkage facade; no planner authority."""
+    from app.modules.preferences.prior_affinity import derive_exact_target_prior_backed_affinity
+
+    return derive_exact_target_prior_backed_affinity(subject)

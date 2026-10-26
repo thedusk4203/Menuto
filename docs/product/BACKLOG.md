@@ -72,6 +72,18 @@ capability grants hay prior values. Production content, mapping, shrinkage và04
 Full040/041/046 vẫn PARTIAL;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
 
 
+## Exact-target compatibility/shrinkage — current implementation review
+
+The prior source is [FROZEN](PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md); historical source-stage
+wording above is superseded only as to status. The user approved/merged design PR #99 and then
+authorized this exact additive consumer from `12048deeffd8c0b30368df0684de1d971a2c4b9c`.
+[Evidence](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md): **IMPLEMENTED / NOT FROZEN,
+NOT MERGED**. Zero-IO, member-owned exact target; mapping-policy/kind-scoped values, finite lookup,
+exact rational shrinkage, no persistence.299 unchanged definitions +19 additive =318;0014 /78,
+no0015 or production numeric defaults. This is not MTR-040C; no milestone number assigned.
+Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+No implementation-PR merge/freeze or downstream work is authorized.
+
 ## Review evidence sau baseline
 
 M1.3 đã user APPROVED/FROZEN tại `fef629965dd7401e27c98b5a0c523998a27017c4`

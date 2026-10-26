@@ -132,3 +132,12 @@ quyền SCRAM riêng theo provider, lịch sử bất biến, capture đầy đ�
 Migration `0014` thêm 7 bảng, tổng 78; 276 định nghĩa cũ giữ nguyên, thêm 23, tổng 299.
 Không seed provider, principal, capability grants hay prior values. Chưa gán số milestone;
 production content, mapping, shrinkage và MTR-040C vẫn chưa được phép. Chờ architecture/freeze review.
+
+Cập nhật hiện tại: nguồn prior đã [FROZEN](docs/product/PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md).
+Sau khi PR #99 được duyệt/merge, người dùng cấp quyền riêng cho **Exact-target Prior Compatibility
+& Shrinkage Foundation** từ `12048deeffd8c0b30368df0684de1d971a2c4b9c`.
+[Slice đã triển khai, chưa frozen/chưa merge](docs/product/EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md):
+API thuần, không IO/lưu trữ, descriptor gắn với target kind và full mapping-policy fingerprint;
+299 định nghĩa giữ nguyên +19 mới =318. Schema vẫn0014 /78, không0015 hay production policy values.
+MTR-040C chưa được gán/cho phép; full040/041/046 chưa hoàn tất;024/020B/021 vẫn BLOCKED,
+Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Chờ review implementation riêng; CI không cấp quyền merge.

@@ -1,6 +1,13 @@
 # Exact-target Prior Compatibility & Shrinkage Foundation
 
-Status: **DESIGN PROPOSAL — IMPLEMENTATION NOT AUTHORIZED**
+Status: **APPROVED DESIGN — implementation separately authorized; IMPLEMENTED / NOT FROZEN**.
+
+PR #99's corrected head `097557cc7b52676393c78e44f23c1ef313c989f5` was approved and merged
+at `12048deeffd8c0b30368df0684de1d971a2c4b9c`. The user subsequently authorized exactly this
+additive consumer. [Implementation evidence](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md)
+records the review delivery. Original design-stage authorization wording below is historical;
+the later authorization changes only that gate, not this design's semantic scope. Implementation
+PR merge/freeze, MTR-040C, migration0015 and all downstream work remain unauthorized.
 
 Design date: 2026-10-26.
 

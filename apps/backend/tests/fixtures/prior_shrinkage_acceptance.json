@@ -1,0 +1,212 @@
+{
+  "test_file": "apps/backend/tests/test_prior_shrinkage.py",
+  "cases": {
+    "1": [
+      "test_c01_source_fractions_have_no_automatic_conversion"
+    ],
+    "2": [
+      "test_c02_c03_explicit_policy_identity_version"
+    ],
+    "3": [
+      "test_c02_c03_explicit_policy_identity_version"
+    ],
+    "4": [
+      "test_c04_explicit_policy_fingerprint"
+    ],
+    "5": [
+      "test_c05_all_explicit_amount_bindings"
+    ],
+    "6": [
+      "test_c06_missing_duplicate_explicit_mapping"
+    ],
+    "7": [
+      "test_c07_explicit_mapping_order"
+    ],
+    "8": [
+      "test_c08_reference_coordinate_is_closed"
+    ],
+    "9": [
+      "test_c09_provider_immutable_binding"
+    ],
+    "10": [
+      "test_c10_provider_aggregation_not_in_contract"
+    ],
+    "11": [
+      "test_c11_empty_reference_group_is_explicitly_unmapped_duplicate_rejects"
+    ],
+    "12": [
+      "test_c12_reference_mapping_strict_order"
+    ],
+    "13": [
+      "test_c13_no_reference_interpolation"
+    ],
+    "14": [
+      "test_c14_no_publication_does_not_synthesize_zero",
+      "test_c14_to_c25_exhaustive_missingness_by_kind"
+    ],
+    "15": [
+      "test_c15_prior_retracted_does_not_reuse_amount"
+    ],
+    "16": [
+      "test_c16_real_available_zero"
+    ],
+    "17": [
+      "test_c17_undeclared_distinct_from_neutral"
+    ],
+    "18": [
+      "test_c18_retracted_distinct_from_undeclared"
+    ],
+    "19": [
+      "test_c19_member_retraction_blocks_all_prior_branches"
+    ],
+    "20": [
+      "test_c20_exact_blend_all_five_kinds"
+    ],
+    "21": [
+      "test_c21_c22_c23_observable_explicit_only"
+    ],
+    "22": [
+      "test_c21_c22_c23_observable_explicit_only"
+    ],
+    "23": [
+      "test_c21_c22_c23_observable_explicit_only"
+    ],
+    "24": [
+      "test_c24_cold_start_does_not_mint_strength"
+    ],
+    "25": [
+      "test_c25_no_explicit_or_compatible_prior",
+      "test_c14_to_c25_exhaustive_missingness_by_kind"
+    ],
+    "26": [
+      "test_c26_neutral_mapping_need_not_be_zero"
+    ],
+    "27": [
+      "test_c27_strength_is_ordinal_not_probability"
+    ],
+    "28": [
+      "test_c28_strength_rules_complete"
+    ],
+    "29": [
+      "test_c29_malformed_weights"
+    ],
+    "30": [
+      "test_c30_active_weight_one_rejects"
+    ],
+    "31": [
+      "test_c31_nonmonotonic_weights"
+    ],
+    "32": [
+      "test_c32_zero_weight_preserves_prior_trace"
+    ],
+    "33": [
+      "test_c33_ordinal_policy_chooses_exact_authored_weight"
+    ],
+    "34": [
+      "test_c34_exact_rational_canonical_reduction"
+    ],
+    "35": [
+      "test_c35_no_clipping_or_noncanonical_output"
+    ],
+    "36": [
+      "test_c36_exactly_one_requested_target"
+    ],
+    "37": [
+      "test_c37_c38_mismatched_identity_or_kind"
+    ],
+    "38": [
+      "test_c37_c38_mismatched_identity_or_kind",
+      "test_c38_identical_uuid_different_typed_kind_rejects"
+    ],
+    "39": [
+      "test_c39_new_feature_version_identity_independent"
+    ],
+    "40": [
+      "test_c40_c41_cached_children_not_input_authority"
+    ],
+    "41": [
+      "test_c40_c41_cached_children_not_input_authority"
+    ],
+    "42": [
+      "test_c42_rehashed_derived_forgery_rejects"
+    ],
+    "43": [
+      "test_c43_old_cuts_replay_byte_deterministically"
+    ],
+    "44": [
+      "test_c44_fresh_prior_changes_only_fresh_result"
+    ],
+    "45": [
+      "test_c45_separate_capture_cuts_are_retained"
+    ],
+    "46": [
+      "test_c46_new_mapping_version_does_not_mutate_old_replay"
+    ],
+    "47": [
+      "test_c47_later_policy_is_replay_not_as_of_capture"
+    ],
+    "48": [
+      "test_c48_c49_c50_unrelated_evidence_cannot_enter"
+    ],
+    "49": [
+      "test_c48_c49_c50_unrelated_evidence_cannot_enter"
+    ],
+    "50": [
+      "test_c48_c49_c50_unrelated_evidence_cannot_enter"
+    ],
+    "51": [
+      "test_c51_no_hierarchy_or_cross_target_policy"
+    ],
+    "52": [
+      "test_c52_no_cross_member_fanout"
+    ],
+    "53": [
+      "test_c53_zero_io_closed_imports_and_runtime_guards"
+    ],
+    "54": [
+      "test_c54_c55_c56_frozen_files_migrations_and_299_definitions"
+    ],
+    "55": [
+      "test_c54_c55_c56_frozen_files_migrations_and_299_definitions"
+    ],
+    "56": [
+      "test_c54_c55_c56_frozen_files_migrations_and_299_definitions"
+    ],
+    "57": [
+      "test_c57_no_production_policy_values_and_retained_test_baseline"
+    ],
+    "58": [
+      "test_c58_fixed_scope_flags_reject_widening"
+    ],
+    "59": [
+      "test_c59_cannot_mint_authority"
+    ],
+    "60": [
+      "test_c60_unordered_policy_shuffle_same_fingerprint_and_result"
+    ],
+    "61": [
+      "test_c61_same_fraction_different_kind_no_comparison_or_aggregation"
+    ],
+    "62": [
+      "test_c62_same_fraction_different_mapping_policy_no_comparison"
+    ],
+    "63": [
+      "test_c63_mismatched_descriptor_rejects_before_arithmetic"
+    ],
+    "64": [
+      "test_c64_c65_correct_numeric_wrong_descriptor_rehashed"
+    ],
+    "65": [
+      "test_c64_c65_correct_numeric_wrong_descriptor_rehashed"
+    ],
+    "66": [
+      "test_c66_equal_descriptor_equal_fraction_deterministic_equality"
+    ],
+    "67": [
+      "test_c67_shrinkage_version_changes_provenance_not_coordinate"
+    ],
+    "68": [
+      "test_c68_descriptor_stripping_naked_downstream_value_rejects"
+    ]
+  }
+}

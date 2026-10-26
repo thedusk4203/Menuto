@@ -306,3 +306,18 @@ Full-source/authority replay does not prove database origin or grant PRECOMMIT a
 No canonical invariant wording or frozen semantics change.0014 /78 domain tables;
 276 prior definitions unchanged plus23 additive,299 total. No production source values or defaults.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+
+## Exact-target compatibility/shrinkage — additive enforcement, not frozen
+
+The [implementation evidence](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md) records the
+user-authorized pure consumer from12048de following approved design PR #99. Source freeze remains
+as recorded in the [prior-source freeze receipt](PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md).
+All68 approved acceptance cases map to tests. Exact target/kind/provider/policy bindings, descriptor
+inseparability, finite lookup, strict state distinctions, ordinal EvidenceStrength, exact contributions
+and recursive primitive replay add enforcement inside this slice only. Prior/shared reference does
+not become a member declaration; shrinkage identity is provenance rather than coordinate identity.
+No invariant wording/frozen semantics change;299 prior definitions and0001–0014 remain unchanged.
+19 additive definitions,318 total; schema0014 /78, no IO/persistence/default numeric policies.
+IMPLEMENTED / NOT FROZEN, NOT MERGED; planner_ready=False, activation_ready=False.
+MTR-040C NOT ASSIGNED / NOT AUTHORIZED; full040/041/046 incomplete;024/020B/021 BLOCKED;
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. Dedicated implementation review required before merge.
