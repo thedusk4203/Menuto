@@ -267,7 +267,7 @@ Prior/shrinkage and learned/contextual/passive evidence remain UNAVAILABLE; cros
 and candidate aggregation remain NOT_PERFORMED; planner_ready=False, activation_ready=False.
 No MTR-040C/next implementation is authorized.
 
-## MTR-041F — additive enforcement / IMPLEMENTED / NOT FROZEN
+## MTR-041F — additive enforcement / FROZEN / APPROVED
 
 [Approved design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) now has pure Learning interpretation
 and [adversarial/real-PG evidence](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
@@ -280,4 +280,14 @@ occurrence count. Every stage recursively verifies the full source and exact dia
 including rehashed cached-result rejection. The44-case acceptance matrix is mapped to actual tests.
 All256 old definitions and0001–0013 remain unchanged;20 additive definitions,276 total;0013 /71.
 040C design NOT READY;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-041F IMPLEMENTED / NOT FROZEN; awaiting user architecture/freeze review, no next milestone.
+041F user FROZEN / APPROVED at `63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`; exact post-merge
+[CI40257089579](https://github.com/thedusk4203/Menuto/actions/runs/40257089579) SUCCESS for python/web.
+
+## Post-MTR-041F dependency review — no new enforcement
+
+[Review](POST_MTR_041F_DEPENDENCY_REVIEW.md) records satisfied local exposure→repeat policy edges
+and missing canonical prior, hierarchical mapping, attributed evidence and full history edges.
+INV-022–029 and ADR-011 remain requirements for the missing profile/utility branches; F does not
+complete them. MEDIUM remains the frozen wire literal for the middle EvidenceStrength category,
+not a probability. No invariant wording, runtime, contract, test or migration changes.
+Recommended source foundation needs its own design approval; no implementation is authorized.

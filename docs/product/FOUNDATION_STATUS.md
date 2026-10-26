@@ -400,7 +400,7 @@ next-milestone implementation is started or authorized. Earlier design-only entr
 
 **MTR-040B FROZEN — READY FOR NEXT-MILESTONE ARCHITECTURE REVIEW, NOT IMPLEMENTATION.**
 
-## MTR-041F — Proposal-local Reviewed Feature Repeat Policy / IMPLEMENTED / NOT FROZEN
+## MTR-041F — Proposal-local Reviewed Feature Repeat Policy / FROZEN / APPROVED
 
 The user approved the [041F design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) after design PR #92
 merged at `9e9dfc0f9cf234a8e0c32082652318becce38bfd`. The additive implementation provides pure
@@ -414,4 +414,19 @@ Frozen040A/B,041A–E,046A remain unchanged.256 old definitions retained plus20 
 schema0013 /71, no migration or new source/persistence/HTTP endpoint. Full041 stays PARTIAL.
 040C design NOT READY/NOT AUTHORIZED,040B prior/shrinkage UNAVAILABLE;024/020B/021 BLOCKED.
 No learned profile, novelty, TasteFit, accepted/confirmed/consumed/cross-horizon/family history,
-Execution or PRECOMMIT authority.041F NOT FROZEN; no next-milestone authorization.
+Execution or PRECOMMIT authority. User FROZEN / APPROVED at exact canonical main
+`63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`; exact push
+[CI40257089579](https://github.com/thedusk4203/Menuto/actions/runs/40257089579) SUCCESS,
+python/web SUCCESS. PR #93 supplied implementation, PR #94 corrected a new test's UUID-order
+assumption; frozen runtime semantics were unchanged by that correction.
+
+## Post-MTR-041F dependency review — design only
+
+[Independent dependency review](POST_MTR_041F_DEPENDENCY_REVIEW.md) finds no additional proposal-local
+041 prerequisite for remaining profile work.040B already derives explicit exact-target affinity and
+strength; full040 is PARTIAL, while prior-backed/hierarchical/learned derivation is still blocked.
+Proposed next implementation target: canonical reviewed exact-target preference-prior source,
+pending dedicated source design/authority/coordinate approval; no milestone suffix assigned.
+Future source persistence is expected to require a forward migration; none is made here.
+Full040/041/046 remain incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
+No 040C or other implementation is authorized by this review or its merge.

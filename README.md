@@ -116,8 +116,11 @@ activation_ready=False. Chưa hoàn tất MemberBehaviorProfile, TasteFit, Plann
 Không bắt đầu MTR-040C hay cho phép triển khai milestone tiếp theo.
 
 MTR-041F đã triển khai theo [thiết kế được duyệt](docs/product/MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md),
-trạng thái **IMPLEMENTED / NOT FROZEN**; xem [bằng chứng](docs/product/MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
+trạng thái **FROZEN / APPROVED** tại `63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`;
+xem [bằng chứng](docs/product/MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
 Ba API thuần diễn giải cooldown -> decay -> proposal-local feature RepeatPenalty, giữ riêng
 METHOD/MAIN_PROTEIN/FLAVOR và từng exact term. Không migration, schema0013 /71 bảng.
 MTR-040C chưa sẵn sàng/chưa được phép thiết kế. Không mở novelty, TasteFit,024 composition,
-accepted/confirmed/history, Execution hay PRECOMMIT authority. Chờ architecture/freeze review.
+accepted/confirmed/history, Execution hay PRECOMMIT authority.
+[Đánh giá phụ thuộc sau041F](docs/product/POST_MTR_041F_DEPENDENCY_REVIEW.md) đề xuất nguồn prior
+chuẩn cho exact target làm hướng tiếp theo; cần duyệt thiết kế nguồn trước khi triển khai.
