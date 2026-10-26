@@ -45,7 +45,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-037](https://github.com/thedusk4203/Menuto/issues/38) | P1 | ExecutionImpactAnalyzer | NONE/LOCAL_REPAIR/REPLAN_RECOMMENDED/REPLAN_REQUIRED with local-first escalation. | OPEN — chưa chứng nhận |
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
-| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A FROZEN at06dc1dc;040B FROZEN at08ddeb8 (PR #90; exact-target explicit interpretation only); full profile/learning NOT COMPLETE |
+| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A/B, prior source and PR #100 exact-target consumer FROZEN (5728411); hierarchy design only; full profile/learning NOT COMPLETE;040C NOT ASSIGNED |
 | [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D/E/F user FROZEN;F at63e6b9f; full041/history NOT COMPLETE; no global history or authority completion |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
@@ -72,17 +72,23 @@ capability grants hay prior values. Production content, mapping, shrinkage và04
 Full040/041/046 vẫn PARTIAL;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
 
 
-## Exact-target compatibility/shrinkage — current implementation review
+## Exact-target compatibility/shrinkage — FROZEN; next design only
 
 The prior source is [FROZEN](PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md); historical source-stage
 wording above is superseded only as to status. The user approved/merged design PR #99 and then
 authorized this exact additive consumer from `12048deeffd8c0b30368df0684de1d971a2c4b9c`.
-[Evidence](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md): **IMPLEMENTED / NOT FROZEN,
-NOT MERGED**. Zero-IO, member-owned exact target; mapping-policy/kind-scoped values, finite lookup,
+[Canonical freeze receipt](EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md): **FROZEN / APPROVED**
+at `5728411ac12555f583f8df72ac71861998978aa4` (PR #100; exact push CI40351934792 SUCCESS,
+2597 tests). [Implementation evidence](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md)
+retains historical delivery status. Zero-IO, member-owned exact target; mapping-policy/kind-scoped values, finite lookup,
 exact rational shrinkage, no persistence.299 unchanged definitions +19 additive =318;0014 /78,
 no0015 or production numeric defaults. This is not MTR-040C; no milestone number assigned.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-No implementation-PR merge/freeze or downstream work is authorized.
+[Post-freeze dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md): dependency
+selection APPROVED; dedicated **Hierarchical Preference Mapping & Derivation Foundation** design
+AUTHORIZED, with relation/policy-source before pure-consumer decomposition recommended. Classification
+is not transfer authority; equality is not cross-target aggregation. Runtime,039,040C, migration0015
+and downstream work NOT AUTHORIZED. No new milestone number or production coefficients assigned.
 
 ## Review evidence sau baseline
 

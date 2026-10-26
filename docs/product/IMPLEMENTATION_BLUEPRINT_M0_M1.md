@@ -513,14 +513,21 @@ typed immutable history and complete capture/replay. No production source record
 040B prior/shrinkage stay UNAVAILABLE; mapping/shrinkage/040C are not authorized. Full040/041/046
 remain incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
 
-## Exact-target compatibility/shrinkage — additive implementation review
+## Exact-target compatibility/shrinkage — FROZEN; hierarchy design gate
 
 The source is now [FROZEN](PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md); historical pre-freeze status
 above is superseded only as to that status. After approved/merged design PR #99, the user separately
 authorized the [pure consumer implementation](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md)
-from12048de. **IMPLEMENTED / NOT FROZEN, NOT MERGED**. One typed target/member/provider; complete
+from12048de. It is now **FROZEN / APPROVED** at5728411 after PR #100 and exact push CI40351934792
+SUCCESS (2597 tests); see [canonical receipt](EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md).
+Historical delivery wording is superseded only as to current status. One typed target/member/provider; complete
 mapping-policy/kind coordinate descriptors; exact lookup, explicit state matrix and convex rational
 blend.299 old definitions retained +19 additive =318. No IO/persistence, schema0014 /78 unchanged,
 no0015 and no production/default policy values. Frozen040B's unavailable fields stay unchanged.
 MTR-040C NOT ASSIGNED / NOT AUTHORIZED; full040/041/046 incomplete;024/020B/021 BLOCKED;
-Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. Await implementation review; no merge/freeze authority.
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+[Next dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) authorizes only
+dedicated Hierarchical Preference Mapping & Derivation Foundation design. Prefer classification facts
+plus a separate Preferences transfer policy with verified canonical publication authority; source
+design must precede pure-consumer implementation. No direction/coefficient/schema/table or0015
+is authorized; MTR-039 and all runtime/downstream work remain unauthorized by this review.

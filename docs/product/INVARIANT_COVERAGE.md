@@ -307,7 +307,7 @@ No canonical invariant wording or frozen semantics change.0014 /78 domain tables
 276 prior definitions unchanged plus23 additive,299 total. No production source values or defaults.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
 
-## Exact-target compatibility/shrinkage — additive enforcement, not frozen
+## Exact-target compatibility/shrinkage — FROZEN, bounded enforcement
 
 The [implementation evidence](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md) records the
 user-authorized pure consumer from12048de following approved design PR #99. Source freeze remains
@@ -318,6 +318,14 @@ and recursive primitive replay add enforcement inside this slice only. Prior/sha
 not become a member declaration; shrinkage identity is provenance rather than coordinate identity.
 No invariant wording/frozen semantics change;299 prior definitions and0001–0014 remain unchanged.
 19 additive definitions,318 total; schema0014 /78, no IO/persistence/default numeric policies.
-IMPLEMENTED / NOT FROZEN, NOT MERGED; planner_ready=False, activation_ready=False.
+**FROZEN / APPROVED** at5728411 (PR #100; exact push CI40351934792 SUCCESS,2597 tests);
+[freeze receipt](EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md). Historical delivery status in
+the evidence is retained; planner_ready=False, activation_ready=False.
 MTR-040C NOT ASSIGNED / NOT AUTHORIZED; full040/041/046 incomplete;024/020B/021 BLOCKED;
-Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. Dedicated implementation review required before merge.
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+[Post-freeze dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) authorizes
+dedicated hierarchy DESIGN ONLY. Classification fact != preference-transfer rule; scoped numeric
+equality != same exact target or cross-target aggregation. Relation authority, endpoint/context,
+coordinate mapping, precedence, cycles, correction/invalidation and replay remain design gates.
+Inherited interpretation must not mint/change frozen explicit EvidenceStrength by default. INV-022–030
+and ADR-011 remain unchanged;039,040C, migration0015 and all runtime/downstream work are not authorized.

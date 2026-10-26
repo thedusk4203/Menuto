@@ -1,6 +1,11 @@
 # Exact-target Prior Compatibility & Shrinkage — implementation evidence
 
-Status: **IMPLEMENTED / NOT FROZEN — dedicated implementation review required; NOT MERGED**.
+Current canonical status: **FROZEN / APPROVED** at `5728411ac12555f583f8df72ac71861998978aa4`.
+The [freeze receipt](EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md) records PR #100's accepted
+head, merge and successful exact post-merge CI. It supersedes only the current-status interpretation
+of this historical delivery record. [Next dependency/design gate](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md).
+
+Historical delivery status: **IMPLEMENTED / NOT FROZEN — dedicated implementation review required; NOT MERGED**.
 
 Implementation authorization is limited to the additive slice named here. This is **not MTR-040C**;
 MTR-040C remains **NOT ASSIGNED / NOT AUTHORIZED**. Full MTR-040/041/046 remain incomplete;
@@ -12,7 +17,7 @@ MTR-024/020B/021 remain BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
 - approved design: PR #99, approved head `097557cc7b52676393c78e44f23c1ef313c989f5`;
 - approved design merge is the implementation base above;
 - implementation code/test/export head: `090ef5f2a752b16fb20c876e057562a3a5e503ba`;
-- dedicated implementation PR: [#100](https://github.com/thedusk4203/Menuto/pull/100), OPEN / NOT MERGED;
+- dedicated implementation PR: [#100](https://github.com/thedusk4203/Menuto/pull/100), OPEN / NOT MERGED at delivery; now merged/frozen per the canonical receipt above;
 - full implementation CI: [40334554571](https://github.com/thedusk4203/Menuto/actions/runs/40334554571),
   SUCCESS on that exact code/test/export head; both python and web succeeded;
 - final documentation-receipt PR head and its exact CI run: recorded in PR #100's receipt;

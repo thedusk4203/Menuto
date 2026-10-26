@@ -1,5 +1,20 @@
 # Trạng thái foundation V1.3 và bằng chứng
 
+## Cập nhật canonical sau PR #100
+
+**Exact-target Prior Compatibility & Shrinkage Foundation FROZEN / APPROVED** tại
+`5728411ac12555f583f8df72ac71861998978aa4`; [freeze receipt](EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md).
+Push CI40351934792 SUCCESS trên đúng SHA; python/web xanh;2597 tests;318 exports;0014 /78 bảng;
+không0015, persistence hoặc production/default policy values.040B cũ vẫn giữ prior/shrinkage UNAVAILABLE;
+PR #100 là consumer cộng thêm, planner_ready=False, activation_ready=False.
+[Dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) xác nhận hierarchy còn
+NOT_PERFORMED: chỉ AUTHORIZED dedicated design cho **Hierarchical Preference Mapping & Derivation
+Foundation**, không gán040C. Hướng ưu tiên là facts Catalog/Recipes + policy truyền sở thích của
+Preferences, với thiết kế nguồn relation/policy có thẩm quyền trước consumer thuần.
+Full040/041/046 chưa hoàn tất;039 implementation chưa được phép;024/020B/021 BLOCKED,
+Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Không cho phép migration0015 hoặc runtime mới.
+Các trạng thái delivery/next-slice trước đây bên dưới là lịch sử, không phải trạng thái canonical hiện tại.
+
 ## Đã có
 
 - Canonical V1.3 spec, 30 invariants, 11 accepted ADR; bảng chuyển mã cũ/mới.
