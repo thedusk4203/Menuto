@@ -195,6 +195,26 @@ Implementation head, PR head, merge SHA and exact PR/post-merge CI runs are publ
 implementation PR's delivery receipt once GitHub finishes them; this file does not predict a
 self-referential commit hash or claim a future CI result.
 
+### Post-merge test-determinism correction
+
+Implementation [PR #93](https://github.com/thedusk4203/Menuto/pull/93), head
+`da4e352bed652a65cb40a43a1c5dc6a4e1bbb8b8`, passed
+[PR CI40255145985](https://github.com/thedusk4203/Menuto/actions/runs/40255145985) with2237 tests,
+then merged at `153857ee6af39f91f6eb722160061606e0bcab59`.
+[Initial post-merge CI40255523400](https://github.com/thedusk4203/Menuto/actions/runs/40255523400)
+found a nondeterministic **new test**: case18/forge_discovery selected diagnostic index0, but the
+frozen manifest sorts by UUID. When index0 was already the positive target's ASSIGNED cell,
+assigning ASSIGNED again made no actual forgery, so expecting validation rejection was incorrect.
+That run had2236 passed and this single failed test; it is not a successful delivery receipt.
+
+The follow-up selects the actual UNRESOLVED diagnostic before forging ASSIGNED. No runtime,
+contract, frozen2015 regression, policy, exported definition, migration or schema changes.
+All6 case18 variants passed;40 independently generated UUID layouts also rejected the real forged
+unknown cell. The original full-suite receipt above is retained as implementation history; the
+follow-up full-suite/PR and exact post-merge CI results are recorded in the delivery PR receipt.
+The total remains2237 tests (2015 retained +222 additive), including798 real-PG tests.
+MTR-041F remains IMPLEMENTED / NOT FROZEN; this correction does not authorize another milestone.
+
 ## Changed files
 
 ```text
