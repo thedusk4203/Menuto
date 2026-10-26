@@ -1,10 +1,12 @@
 # MTR-041F — Proposal-local Reviewed Feature Repeat Policy Foundation
 
-Status: **APPROVED DESIGN — IMPLEMENTED / NOT FROZEN; architecture/freeze review pending**.
+Status: **FROZEN / APPROVED**, by user review at canonical main
+`63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`.
 The user approved this design and explicitly authorized implementation from canonical main
-`9e9dfc0f9cf234a8e0c32082652318becce38bfd` (design PR #92). No next milestone or freeze is authorized.
+`9e9dfc0f9cf234a8e0c32082652318becce38bfd` (design PR #92). Implementation PR #93 and test
+correction PR #94 precede the current user freeze. No next milestone is authorized.
 The design below is preserved as the approved specification; future/proposed wording records its
-authoring stage and is superseded only as to implementation authorization/status by this notice.
+authoring stage and is superseded only as to implementation authorization/freeze status by this notice.
 [Implementation evidence and44-case acceptance mapping](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md)
 records delivered APIs/contracts/tests and compatibility. No migration; schema0013 /71.
 The historical design base was `ce03e1b925c80771d20863277963fac8db711c66` (freeze PR #91),
@@ -24,7 +26,7 @@ is defined. All model/API names below define the approved additive implementatio
 
 ## 1. Decision, dependencies and frozen basis
 
-040A,040B,041A/B/C/D/E and046A are user FROZEN.041F is **IMPLEMENTED / NOT FROZEN**, following explicit user approval.
+040A,040B,041A/B/C/D/E/F and046A are user FROZEN.041F is **FROZEN / APPROVED** at the exact main above.
 MTR-040C design is **NOT READY / NOT AUTHORIZED**: canonical onboarding/catalog preference priors
 and broader observation sources do not exist;040B keeps prior/shrinkage UNAVAILABLE.041F needs
 neither a fabricated prior nor039 attribution/Execution. It interprets041E's already typed
@@ -450,9 +452,9 @@ The following design decisions were explicitly approved before implementation:
    origin authentication and no modification of frozen041B/C/D/E/046A.
 
 MTR-040C remains NOT READY/NOT AUTHORIZED for design. MTR-024,020B,021 remain BLOCKED;
-Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.041F itself is IMPLEMENTED / NOT FROZEN and
-implementation was separately authorized by the user after design PR #92 merged;041F remains NOT FROZEN.
-The original design task stopped for review. The user later merged PR #92 and approved this implementation; see the current status notice above.
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.041F itself is now user FROZEN / APPROVED at63e6b9f.
+Implementation was separately authorized after design PR #92; freeze followed implementation
+and the correction in PR #94. See the current status notice above and implementation evidence.
 
 ## 13. Historical verification of the design-only PR #92
 
@@ -492,4 +494,6 @@ Changed documents:
 - `docs/product/POST_MTR_041E_DEPENDENCY_REVIEW.md`
 
 
-**READY FOR MTR-041F ARCHITECTURE/FREEZE REVIEW — IMPLEMENTED / NOT FROZEN.**
+Historical implementation handoff: READY FOR MTR-041F ARCHITECTURE/FREEZE REVIEW.
+Current status: **MTR-041F FROZEN / APPROVED**. The
+[post-041F dependency review](POST_MTR_041F_DEPENDENCY_REVIEW.md) authorizes no next implementation.

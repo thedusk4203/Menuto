@@ -440,10 +440,12 @@ event. Đây là nguồn đề xuất trong một proposal, chưa phải lịch 
 Dấu nhận diện để so sánh nguồn chứng cứ của một dimension trong preview. Không chứng minh nguồn
 vẫn còn mới, không cấp quyền thực thi và không thay thế kiểm tra nguồn tại thời điểm commit.
 
-**Proposal-local Feature Repeat Policy** (MTR-041F, IMPLEMENTED / NOT FROZEN):
+**Proposal-local Feature Repeat Policy** (MTR-041F, FROZEN / APPROVED at63e6b9f):
 Policy có version để diễn giải cooldown, decay và penalty của đúng một term thuộc METHOD,
 MAIN_PROTEIN hoặc FLAVOR cho một member/meal đích trong một proposal. Không lấy trọng số Recipe-ID
 làm mặc định, không cộng các dimension thành một điểm hành vi. Coverage chưa xác định không
 được đổi thành zero; REVIEWED_NONE chỉ có nghĩa trong tập term đã review, không phải chưa từng gặp.
 [Thiết kế được duyệt](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) đã được triển khai cộng thêm;
-[bằng chứng kiểm tra](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md), đang chờ architecture/freeze review.
+[bằng chứng kiểm tra và freeze](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
+Đây không phải lịch sử hành vi toàn cục hay nguồn prior; xem
+[đánh giá phụ thuộc sau041F](POST_MTR_041F_DEPENDENCY_REVIEW.md).

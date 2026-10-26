@@ -470,7 +470,7 @@ scope, invariants and unavailable evidence/prior/shrinkage. Cross-target inferen
 aggregation remain NOT_PERFORMED; planner_ready=False and activation_ready=False.
 No MTR-040C/downstream implementation, TasteFit, Execution or PRECOMMIT authority is authorized.
 
-## MTR-041F — approved design implemented / NOT FROZEN
+## MTR-041F — FROZEN / APPROVED
 
 [Approved design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md), implemented additively from
 `9e9dfc0f9cf234a8e0c32082652318becce38bfd`; [verification evidence](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
@@ -486,4 +486,13 @@ unavailable, while complete nonempty zero-retention evidence yields AVAILABLE0/1
 Frozen Recipe-ID041B/C/D and040A/B/041A–E/046A semantics/hashes remain unchanged;276 definitions
 include all256 old shapes plus20 additive contracts. Schema0013 /71; no migration/persistence.
 040C design NOT READY;024/020B/021 BLOCKED. No novelty, TasteFit, profile change, accepted/confirmed/
-global/family history, Execution or PRECOMMIT authority. Stop for041F architecture/freeze review.
+global/family history, Execution or PRECOMMIT authority. User FROZEN / APPROVED at
+`63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`; exact push
+[CI40257089579](https://github.com/thedusk4203/Menuto/actions/runs/40257089579) SUCCESS for python/web.
+
+[Post-041F dependency review](POST_MTR_041F_DEPENDENCY_REVIEW.md): proposal-local feature repeat
+is complete within F's frozen scope, not global history or a prior source. No additional local041
+slice must precede profile work. Next proposed implementation target is a canonical reviewed
+exact-target prior source; dedicated source design approval is required first. Prior-backed,
+hierarchical and learned profile derivation remain blocked; full040/041/046 remain incomplete.
+No next milestone implementation, migration or planner/Execution/PRECOMMIT authority is authorized.

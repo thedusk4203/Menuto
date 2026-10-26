@@ -1,10 +1,30 @@
 # MTR-041F — Proposal-local Reviewed Feature Repeat Policy Foundation
 
-Status: **IMPLEMENTED / NOT FROZEN — architecture/freeze review pending**.
+Status: **FROZEN / APPROVED**, by the user's post-041F review request, at canonical main
+`63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`.
 The user approved [the design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) and implementation from
 canonical main `9e9dfc0f9cf234a8e0c32082652318becce38bfd` (design PR #92; exact post-merge
 [CI40223523693](https://github.com/thedusk4203/Menuto/actions/runs/40223523693) SUCCESS).
-This implementation does not self-freeze041F or authorize any later milestone.
+Implementation did not self-freeze041F; the later user approval recorded here supplies the freeze.
+It does not authorize any later milestone. The design and implementation history below remains
+unchanged in meaning; older NOT FROZEN/ready-for-freeze statements describe delivery before approval.
+
+## Canonical freeze receipt
+
+- [Implementation PR #93](https://github.com/thedusk4203/Menuto/pull/93), head
+  `da4e352bed652a65cb40a43a1c5dc6a4e1bbb8b8`, merge
+  `153857ee6af39f91f6eb722160061606e0bcab59`.
+- [Test correction PR #94](https://github.com/thedusk4203/Menuto/pull/94), head
+  `438ec93865005e0cc255e98a0db8b9bf71d1bf7f`, merge / frozen main
+  `63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`. The correction targets an actually unresolved
+  diagnostic before forging ASSIGNED, avoiding a UUID-order-dependent no-op; no runtime change.
+- Exact push [CI40257089579](https://github.com/thedusk4203/Menuto/actions/runs/40257089579)
+  on that frozen main: SUCCESS, python/web SUCCESS; 2237 Python tests, benchmark22/22, client10/10.
+  Schema0013 /71 domain tables,276 definitions; no migration.
+
+Frozen scope remains proposal-local METHOD / MAIN_PROTEIN / FLAVOR interpretation only, with
+all unavailable history/novelty/TasteFit and planner/activation restrictions preserved.
+[Post-041F dependency review](POST_MTR_041F_DEPENDENCY_REVIEW.md) authorizes no new implementation.
 
 ## Delivered scope
 
@@ -213,7 +233,8 @@ All6 case18 variants passed;40 independently generated UUID layouts also rejecte
 unknown cell. The original full-suite receipt above is retained as implementation history; the
 follow-up full-suite/PR and exact post-merge CI results are recorded in the delivery PR receipt.
 The total remains2237 tests (2015 retained +222 additive), including798 real-PG tests.
-MTR-041F remains IMPLEMENTED / NOT FROZEN; this correction does not authorize another milestone.
+At correction delivery MTR-041F was IMPLEMENTED / NOT FROZEN. The subsequent user freeze is
+recorded in the canonical receipt above; the correction did not authorize another milestone.
 
 ## Changed files
 
@@ -240,4 +261,5 @@ tools/check_import_boundaries.py
 tools/export_domain_contracts.py
 ```
 
-**READY FOR MTR-041F ARCHITECTURE/FREEZE REVIEW** — implementation only, NOT FROZEN.
+Historical implementation handoff: READY FOR MTR-041F ARCHITECTURE/FREEZE REVIEW.
+Current status: **MTR-041F FROZEN / APPROVED**; no next implementation is authorized.

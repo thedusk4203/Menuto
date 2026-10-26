@@ -33,4 +33,7 @@ Full frozen041E preview/source is reconstructed every stage; frozen046A resolves
 Explicit versioned per-term policies only; no Recipe-ID weight reuse or default numeric values.
 Unknown meals withhold totals, scoped empty is unavailable, complete nonempty zero retention is
 AVAILABLE0/1. No IO/persistence, profile mutation, global history, novelty, TasteFit or planner authority.
-041F IMPLEMENTED / NOT FROZEN; stop for architecture/freeze review. Frozen041B/C/D remain separate.
+041F is user FROZEN / APPROVED at `63e6b9f7dff3f061657fa96680a69cfc6fd1ae06`.
+Frozen041B/C/D remain separate. The
+[post-041F dependency review](../../../../../docs/product/POST_MTR_041F_DEPENDENCY_REVIEW.md)
+does not authorize another implementation or turn proposal-local repeat into member history.
