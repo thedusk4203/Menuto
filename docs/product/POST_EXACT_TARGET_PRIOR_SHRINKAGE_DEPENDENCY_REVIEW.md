@@ -310,7 +310,8 @@ point to the freeze receipt; historical delivery status is retained as such. Exa
 PR head/CI are recorded in the PR delivery receipt, separately from the canonical implementation
 freeze SHA, to avoid conflating a later documentation commit with runtime implementation identity.
 
-This review PR is left open for review. Dedicated design is the only next authorized activity;
-no detailed hierarchy design or runtime implementation is started by creating it.
+Documentation delivery follows the user's standing commit/merge authorization after required
+checks pass. Merging this docs-only review does not authorize runtime or start the next detailed
+hierarchy design. Dedicated architecture/design is the only next authorized activity.
 
 **READY FOR HIERARCHICAL PREFERENCE FOUNDATION DESIGN REVIEW — IMPLEMENTATION NOT AUTHORIZED**
