@@ -449,3 +449,11 @@ làm mặc định, không cộng các dimension thành một điểm hành vi. 
 [bằng chứng kiểm tra và freeze](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
 Đây không phải lịch sử hành vi toàn cục hay nguồn prior; xem
 [đánh giá phụ thuộc sau041F](POST_MTR_041F_DEPENDENCY_REVIEW.md).
+
+**Reviewed Exact-target Preference Prior** (đề xuất DESIGN ONLY, chưa gán mã milestone):
+Mốc tham chiếu do curator nội bộ có quyền riêng của provider xuất bản cho đúng một target.
+Đây là nguồn tham chiếu dùng chung, không phải khai báo của thành viên, EvidenceStrength hay xác
+suất thích món. Tọa độ/phân số có phiên bản riêng; chưa được chuyển sang affinity040B hoặc dùng
+cho shrinkage. Thiếu nguồn/đã thu hồi khác với một zero thực sự được review và xuất bản.
+[Thiết kế nguồn](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) đang chờ duyệt; implementation
+NOT AUTHORIZED, không có prior values, role/grant hay migration nào được thêm.

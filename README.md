@@ -124,3 +124,9 @@ MTR-040C chưa sẵn sàng/chưa được phép thiết kế. Không mở novelt
 accepted/confirmed/history, Execution hay PRECOMMIT authority.
 [Đánh giá phụ thuộc sau041F](docs/product/POST_MTR_041F_DEPENDENCY_REVIEW.md) đề xuất nguồn prior
 chuẩn cho exact target làm hướng tiếp theo; cần duyệt thiết kế nguồn trước khi triển khai.
+
+Người dùng đã **APPROVED dependency selection / AUTHORIZED dedicated design** tại main
+`0a6abb4b004e9a1fa82e3aac8905a2a0fc9d3e47`. [Thiết kế nguồn prior](docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md)
+đề xuất quyền curator nội bộ riêng theo provider, tọa độ tham chiếu riêng và lịch sử/replay bất biến.
+Chỉ DESIGN: chưa duyệt thiết kế này, chưa cho phép implementation, chưa gán số milestone/migration;
+MTR-040C vẫn chưa được phép. Schema0013 /71 bảng giữ nguyên.

@@ -430,3 +430,17 @@ pending dedicated source design/authority/coordinate approval; no milestone suff
 Future source persistence is expected to require a forward migration; none is made here.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
 No 040C or other implementation is authorized by this review or its merge.
+
+## Reviewed exact-target preference-prior source — dedicated design authorized
+
+The user APPROVED PR #95's dependency selection at exact main
+`0a6abb4b004e9a1fa82e3aac8905a2a0fc9d3e47`, push
+[CI40263357354](https://github.com/thedusk4203/Menuto/actions/runs/40263357354) SUCCESS.
+[Dedicated source design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) is AUTHORIZED and now
+proposed for review; its architecture is not yet approved. Preferences source semantics are
+separate from member authorship and from enrolled global/internal provider publication authority.
+The proposal settles a separate reference coordinate, explicit one-provider exact-target selection,
+immutable immediate publication/retraction and coherent full-source/authority replay.
+No runtime/contracts/tests/roles/migrations or prior values added. No milestone/migration number
+assigned; schema0013 /71 and276 definitions unchanged. Source implementation and MTR-040C remain
+NOT AUTHORIZED; full040/041/046 incomplete,024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
