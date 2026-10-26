@@ -470,18 +470,20 @@ scope, invariants and unavailable evidence/prior/shrinkage. Cross-target inferen
 aggregation remain NOT_PERFORMED; planner_ready=False and activation_ready=False.
 No MTR-040C/downstream implementation, TasteFit, Execution or PRECOMMIT authority is authorized.
 
-## MTR-041F architecture/design boundary — implementation not authorized
+## MTR-041F — approved design implemented / NOT FROZEN
 
-[Proposed feature repeat policy design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) consumes the
-full frozen041E preview and source/coverage, one exact member/target meal/dimension/term, with
-explicit versioned cooldown/decay/unit-penalty policies for METHOD/MAIN_PROTEIN/FLAVOR.
-Learning remains pure, calling immutable Recipes term-resolution contracts; Planning's existing
-read-only RR/SERIALIZABLE source capture is reused. No new source matcher, capture path or history.
-Term-specific meal occurrence resolution preserves finite REVIEWED_NONE and UNRESOLVED semantics,
-deduplicates multiple batch supports, and withholds a total for unresolved potential occurrences.
-Exact arithmetic, AS_OF_CAPTURE policy cutoff, source/diagnostic identity distinctions and44
-proposed adversarial cases require architecture review. No defaults or Recipe-ID weight reuse.
-Frozen041B/C/D and040A/B/041A–E/046A remain untouched; no runtime/contracts/exports/tests/migration.
-0013 /71 unchanged. MTR-040C is NOT READY / design NOT AUTHORIZED;040B prior/shrinkage remain
-UNAVAILABLE. No024, novelty, TasteFit, accepted/confirmed/global/family exposure, Execution or
-PRECOMMIT authority. DESIGN ONLY / NOT FROZEN. Stop with design PR open before implementation.
+[Approved design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md), implemented additively from
+`9e9dfc0f9cf234a8e0c32082652318becce38bfd`; [verification evidence](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
+Learning public APIs assess_feature_cooldown, trace_feature_decay and interpret_feature_repeat_penalty
+consume full041E source/preview and exact per-term policies. Recursive contract validators independently
+reconstruct all cells, term resolutions (via frozen046A), occurrences, ages, bands and contributions.
+The repository's contract independence rule keeps these pure validators inside learning.contracts;
+learning.feature_repeat contains the three public entry points. Existing Planning read-only capture
+is reused, without a new adapter/store/HTTP endpoint. The real graph.horizon and source window must
+contain the lookback, and all policies obey the minimum actually consumed child capture clock.
+Unresolved potential occurrences withhold totals, even in zero bands; no prior witnesses means
+unavailable, while complete nonempty zero-retention evidence yields AVAILABLE0/1.
+Frozen Recipe-ID041B/C/D and040A/B/041A–E/046A semantics/hashes remain unchanged;276 definitions
+include all256 old shapes plus20 additive contracts. Schema0013 /71; no migration/persistence.
+040C design NOT READY;024/020B/021 BLOCKED. No novelty, TasteFit, profile change, accepted/confirmed/
+global/family history, Execution or PRECOMMIT authority. Stop for041F architecture/freeze review.

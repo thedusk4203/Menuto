@@ -1,12 +1,14 @@
 # MTR-041F — Proposal-local Reviewed Feature Repeat Policy Foundation
 
-Status: **DESIGN ONLY — architecture review pending; implementation NOT AUTHORIZED; NOT FROZEN**.
-The user authorized a docs-only architecture/design PR, then a stop for review before any code.
-Canonical design base: `ce03e1b925c80771d20863277963fac8db711c66` (main, freeze PR #91).
-[Exact base CI40218477245](https://github.com/thedusk4203/Menuto/actions/runs/40218477245)
-SUCCESS, python/web, independently rechecked. Schema **0013 /71 domain tables**,256 exported
-contract definitions. This PR changes documentation only: no runtime, contracts, tests, exports,
-schema or migration; no new HTTP endpoint, persistence, cache or durable frontier is proposed.
+Status: **APPROVED DESIGN — IMPLEMENTED / NOT FROZEN; architecture/freeze review pending**.
+The user approved this design and explicitly authorized implementation from canonical main
+`9e9dfc0f9cf234a8e0c32082652318becce38bfd` (design PR #92). No next milestone or freeze is authorized.
+The design below is preserved as the approved specification; future/proposed wording records its
+authoring stage and is superseded only as to implementation authorization/status by this notice.
+[Implementation evidence and44-case acceptance mapping](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md)
+records delivered APIs/contracts/tests and compatibility. No migration; schema0013 /71.
+The historical design base was `ce03e1b925c80771d20863277963fac8db711c66` (freeze PR #91),
+with256 definitions; implementation adds20 while preserving all256 shapes.
 
 ```text
 frozen041E reviewed proposal-local feature exposure + full captured source/coverage
@@ -18,11 +20,11 @@ frozen041E reviewed proposal-local feature exposure + full captured source/cover
 Supported dimensions are exactly **METHOD / MAIN_PROTEIN / FLAVOR**. One atomic interpretation
 belongs to one HouseholdMember and one target meal in one selected proposal, for one exact
 (dimension, term ID). No cross-term, cross-dimension, member/shared or recipe-plus-feature total
-is defined. All model/API names below are **proposals**, not existing exports or tested features.
+is defined. All model/API names below define the approved additive implementation; the evidence document records its tests.
 
 ## 1. Decision, dependencies and frozen basis
 
-040A,040B,041A/B/C/D/E and046A are user FROZEN.041F is the next **design-only** branch.
+040A,040B,041A/B/C/D/E and046A are user FROZEN.041F is **IMPLEMENTED / NOT FROZEN**, following explicit user approval.
 MTR-040C design is **NOT READY / NOT AUTHORIZED**: canonical onboarding/catalog preference priors
 and broader observation sources do not exist;040B keeps prior/shrinkage UNAVAILABLE.041F needs
 neither a fabricated prior nor039 attribution/Execution. It interprets041E's already typed
@@ -37,7 +39,7 @@ References: [ADR-011](../adr/ADR-011-behavioral-learning-loop.md),
 [post041E dependency matrix](POST_MTR_041E_DEPENDENCY_REVIEW.md),
 [040B freeze receipt](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md).
 The older dependency matrix identified feature policies as separately designable once041E existed;
-the user's current decision selects that branch after040B freeze. It does not authorize code.
+the user's later decision approved that design and its implementation after040B freeze.
 
 Direct inspection at the base confirms:
 
@@ -125,7 +127,7 @@ Same code/new term ID is a separate identity. No term/family/version reconciliat
 All proposed models are frozen, extra-forbid, tuple-based, with closed literal/discriminator
 unions. Wire aggregates have explicit versions. Static scope tags may default; **numeric policy
 values, term/dimension selection and operators must be explicitly supplied**, with no constructor
-fallbacks or production seeds. The following table specifies future shape, not code in this PR.
+fallbacks or production seeds. The following table specifies the approved shapes implemented in041F.
 
 | Proposed contract | Required content / rule |
 | --- | --- |
@@ -434,7 +436,7 @@ history, variant-family exposure, Execution,039 attribution or PRECOMMIT authori
 optimizer, ranking, shared-member aggregation, profile persistence or production default weights.
 No new prior/shrinkage source, placeholder, neutral/zero prior or learned evidence is introduced.
 
-Reviewer decisions requested before any implementation:
+The following design decisions were explicitly approved before implementation:
 
 1. Atomic exact dimension/term/member/meal scope and the explicit per-stage/per-term policy triple.
 2. Use of frozen046A term resolution and existential term-occurrence counting, including a known
@@ -448,11 +450,11 @@ Reviewer decisions requested before any implementation:
    origin authentication and no modification of frozen041B/C/D/E/046A.
 
 MTR-040C remains NOT READY/NOT AUTHORIZED for design. MTR-024,020B,021 remain BLOCKED;
-Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.041F itself is DESIGN ONLY, NOT FROZEN and
-implementation NOT AUTHORIZED. Creating or merging documentation is not implementation approval.
-This task will leave the design PR open for architecture review; no implementation begins.
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.041F itself is IMPLEMENTED / NOT FROZEN and
+implementation was separately authorized by the user after design PR #92 merged;041F remains NOT FROZEN.
+The original design task stopped for review. The user later merged PR #92 and approved this implementation; see the current status notice above.
 
-## 13. Verification of this documentation PR
+## 13. Historical verification of the design-only PR #92
 
 Existing gates validate regression/documentation integrity only, not the proposed041F algorithms
 or44 future acceptance cases. Fresh local verification and the exact design PR head/CI receipt
@@ -476,7 +478,7 @@ Full command: `.venv/Scripts/python -m pytest --basetemp=.local/041f-design-full
 --junitxml=.local/041f-design-full.xml`, loopback PostgreSQL enabled. Other checks follow
 `.github/workflows/ci.yml`. Ignored `.local/041f-design-*` logs/XML are verification artifacts.
 These passing regressions do not prove the proposed041F algorithm or its44 planned cases.
-The design PR remains open for architecture review; no merge or implementation is authorized.
+Historical design delivery: the PR originally stopped open. Subsequent explicit user instructions authorized merge and then implementation; current status is recorded above.
 
 Changed documents:
 
@@ -490,4 +492,4 @@ Changed documents:
 - `docs/product/POST_MTR_041E_DEPENDENCY_REVIEW.md`
 
 
-**READY FOR MTR-041F ARCHITECTURE/DESIGN REVIEW — IMPLEMENTATION NOT AUTHORIZED.**
+**READY FOR MTR-041F ARCHITECTURE/FREEZE REVIEW — IMPLEMENTED / NOT FROZEN.**

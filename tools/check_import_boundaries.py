@@ -93,6 +93,15 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     errors = []
 
     def audit(target, line):
+        if module == "app.modules.learning.feature_repeat" and not any(
+            target == allowed or target.startswith(allowed + ".")
+            for allowed in {
+                "json", "datetime", "math", "uuid", "app.domain.contracts",
+                "app.domain.feature_identity", "app.modules.learning.contracts",
+                "app.modules.recipes.contracts",
+            }
+        ):
+            errors.append(f"{line}: FEATURE_REPEAT_PURE_CORE: {target}")
         if module == "app.modules.preferences.profile_derivation" and not (
             target == "app.modules.preferences.contracts"
             or target.startswith("app.modules.preferences.contracts.")

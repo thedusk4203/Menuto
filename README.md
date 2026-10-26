@@ -115,8 +115,9 @@ vẫn UNAVAILABLE; cross-target inference/candidate aggregation NOT_PERFORMED; p
 activation_ready=False. Chưa hoàn tất MemberBehaviorProfile, TasteFit, Planner hoặc quyền kích hoạt.
 Không bắt đầu MTR-040C hay cho phép triển khai milestone tiếp theo.
 
-MTR-041F hiện chỉ ở bước [architecture/design](docs/product/MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md):
-policy cooldown -> decay -> proposal-local feature RepeatPenalty cho METHOD/MAIN_PROTEIN/FLAVOR,
-giữ riêng từng dimension/term và xử lý coverage chưa xác định. Chưa triển khai, chưa freeze;
-PR tài liệu sẽ dừng để review. MTR-040C chưa sẵn sàng và chưa được phép thiết kế; không mở novelty,
-TasteFit,024 composition, accepted/confirmed/history, Execution hay PRECOMMIT authority.
+MTR-041F đã triển khai theo [thiết kế được duyệt](docs/product/MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md),
+trạng thái **IMPLEMENTED / NOT FROZEN**; xem [bằng chứng](docs/product/MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
+Ba API thuần diễn giải cooldown -> decay -> proposal-local feature RepeatPenalty, giữ riêng
+METHOD/MAIN_PROTEIN/FLAVOR và từng exact term. Không migration, schema0013 /71 bảng.
+MTR-040C chưa sẵn sàng/chưa được phép thiết kế. Không mở novelty, TasteFit,024 composition,
+accepted/confirmed/history, Execution hay PRECOMMIT authority. Chờ architecture/freeze review.
