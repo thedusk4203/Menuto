@@ -11,8 +11,11 @@ MTR-024/020B/021 remain BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
 - exact implementation base: `12048deeffd8c0b30368df0684de1d971a2c4b9c`;
 - approved design: PR #99, approved head `097557cc7b52676393c78e44f23c1ef313c989f5`;
 - approved design merge is the implementation base above;
-- implementation code/test/export head: recorded in the receipt-only follow-up after commit;
-- final PR head and its exact CI run: recorded in the implementation PR's receipt;
+- implementation code/test/export head: `090ef5f2a752b16fb20c876e057562a3a5e503ba`;
+- dedicated implementation PR: [#100](https://github.com/thedusk4203/Menuto/pull/100), OPEN / NOT MERGED;
+- full implementation CI: [40334554571](https://github.com/thedusk4203/Menuto/actions/runs/40334554571),
+  SUCCESS on that exact code/test/export head; both python and web succeeded;
+- final documentation-receipt PR head and its exact CI run: recorded in PR #100's receipt;
 - schema: Alembic `0014 / 78 domain tables` (79 relations including Alembic);
 - new migration, persistence table, cache/store or production numeric policy: **NONE**.
 
@@ -121,7 +124,9 @@ Documentation status updates:
 
 ## Regression receipts
 
-New suite: **220 passed**. Complete regression receipt is filled after the running real-PG suite.
+New suite: **220 passed**. Complete local real-PostgreSQL regression: **2,597 passed**, no skips,
+one existing dependency deprecation warning, 882.23s. Exact implementation-head CI above:
+**2,597 passed**, no skips, three dependency warnings, 253.00s; real SCRAM/TLS smoke **8/8**.
 Collected tests: **2,597 = 2,377 retained + 220 additive**. All new tests are pure tests in the new
 test module; no existing test is modified/removed. Baseline node IDs are pinned before new exports.
 One frozen parametrized test creates a uuid4 at collection, so retained-ID comparison normalizes
