@@ -134,3 +134,21 @@ def test_a04_unsafe_effective_privileges_fail_closed_on_scram_sessions(source, u
         finally:
             with conn.connection.driver_connection.cursor() as cur:
                 cur.execute(revoke.format(name))
+
+
+def test_m01_populated_downgrade_refuses_registry_and_audit_loss(source_server):
+    from alembic import command
+
+    s = source_server
+    with s["engines"]["root"].connect() as conn:
+        config = s["config"]
+        config.attributes["connection"] = conn
+        assert conn.scalar(text("SELECT count(*) FROM reference_prior_revisions")) == 0
+        before = conn.scalar(text("SELECT count(*) FROM reference_prior_principals"))
+        assert before > 0
+        conn.commit()
+        with pytest.raises(DBAPIError, match="Refusing destructive"):
+            command.downgrade(config, "0013")
+        conn.rollback()
+        assert conn.scalar(text("SELECT count(*) FROM reference_prior_principals")) == before
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0014"

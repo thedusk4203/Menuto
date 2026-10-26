@@ -638,20 +638,6 @@ def test_a08_admin_cas_idempotency_and_noop(source):
         authority(s, "other", "CAPTURE", "REVOKE", generation=6)
 
 
-def test_m01_populated_downgrade_refuses_registry_and_audit_loss(source_server):
-    s = source_server
-    with s["engines"]["root"].connect() as conn:
-        config = s["config"]
-        config.attributes["connection"] = conn
-        before = conn.scalar(text("SELECT count(*) FROM reference_prior_principals"))
-        conn.commit()
-        with pytest.raises(DBAPIError, match="Refusing destructive"):
-            command.downgrade(config, "0013")
-        conn.rollback()
-        assert conn.scalar(text("SELECT count(*) FROM reference_prior_principals")) == before
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0014"
-
-
 @pytest.mark.parametrize("isolation", ["READ COMMITTED", "REPEATABLE READ", "SERIALIZABLE"])
 @pytest.mark.parametrize("replace", [False, True])
 def test_l02_competing_real_publications(source, isolation, replace):
