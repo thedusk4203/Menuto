@@ -1,5 +1,34 @@
 # Implementation Blueprint — Milestone 0/1
 
+## Hierarchy relation/policy source — implementation review candidate
+
+The user approved the [source design](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md)
+together with the [neutral-anchor correction](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_NEUTRAL_ANCHOR_CORRECTION.md)
+and separately authorized **SOURCE ONLY** implementation from exact canonical main
+`4ad3f682554b7feee9f333eca1f1f5c258852f5e` (push CI40386371459 SUCCESS).
+The [implementation evidence](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md) records **IMPLEMENTED / NOT FROZEN / REVIEW PENDING**.
+This review candidate adds migration0015 and seven empty source tables:78→85 domain tables;
+318 unchanged definitions +31 additive =349. Canonical frozen baseline remains0014 /78 until
+this PR is reviewed and merged. The implementation PR must remain **OPEN / NOT MERGED**.
+
+Hierarchy publication/capture has a separate PostgreSQL SCRAM trust root, provider grants,
+immutable revisions/tombstones, exact owner-controlled support pins, coherent capture and pure
+source replay. Classification is not transfer authority. The complete25-cell policy is authored;
+semantic NEUTRAL maps only to0/1, with no missing-row zero or sign-flipped anti-correlation.
+Durable storage holds owner references/fingerprints, not capture snapshots or member results.
+No provider, principal, grant, relation, enabled direction or numeric production value is seeded.
+
+Source readiness requires implementation review/freeze. The pure hierarchy consumer is absent:
+no inherited member affinity, strength propagation, MemberBehaviorProfile, shrinkage extension,
+recursive traversal or parent aggregation.040A/B,041A–F,046A, prior source, PR #100 and migrations
+0001–0014 retain frozen semantics. Full040/041/046 remain PARTIAL;039 and040C NOT AUTHORIZED /
+040C NOT ASSIGNED;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED;
+`planner_ready=False`, `activation_ready=False`. No next slice is authorized.
+
+Earlier design-stage authorization/status statements below are historical and are superseded
+only by this source-only implementation authorization; their semantic restrictions remain binding.
+
+
 Ngày: 2026-10-22. Chuẩn kiến trúc: [Development Spec V1.3](../MENUTO_DEVELOPMENT_SPEC_V1_3.md), [INV-001..030](../ARCHITECTURE_INVARIANTS.md), [ADR-001..011](../adr/). V1.2 là lịch sử; số MTR trong V1.3 không ánh xạ trực tiếp sang số issue GitHub đã tạo cho V1.2.
 
 ## Phạm vi
