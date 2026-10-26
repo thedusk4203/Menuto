@@ -431,16 +431,18 @@ Future source persistence is expected to require a forward migration; none is ma
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
 No 040C or other implementation is authorized by this review or its merge.
 
-## Reviewed exact-target preference-prior source — dedicated design authorized
+## Reviewed exact-target preference-prior source — implemented, not frozen
 
 The user APPROVED PR #95's dependency selection at exact main
 `0a6abb4b004e9a1fa82e3aac8905a2a0fc9d3e47`, push
 [CI40263357354](https://github.com/thedusk4203/Menuto/actions/runs/40263357354) SUCCESS.
-[Dedicated source design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) is AUTHORIZED and now
-proposed for review; its architecture is not yet approved. Preferences source semantics are
-separate from member authorship and from enrolled global/internal provider publication authority.
-The proposal settles a separate reference coordinate, explicit one-provider exact-target selection,
-immutable immediate publication/retraction and coherent full-source/authority replay.
-No runtime/contracts/tests/roles/migrations or prior values added. No milestone/migration number
-assigned; schema0013 /71 and276 definitions unchanged. Source implementation and MTR-040C remain
-NOT AUTHORIZED; full040/041/046 incomplete,024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
+The user subsequently APPROVED the [dedicated source design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md)
+and AUTHORIZED source implementation from main577f32a (PR #96). The additive
+[implementation](PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md) is **IMPLEMENTED / NOT FROZEN**:
+dedicated SCRAM/provider authority, immutable exact-target reference revisions, coherent capture
+and pure replay. Preferences semantics remain separate from member authorship/publication authority.
+Migration0014 adds7 tables:0014 /78 domain tables;276 old definitions unchanged,23 additive,299 total.
+No providers, principals, provider capability grants or prior values are seeded. No milestone number
+assigned.040B prior/shrinkage stay UNAVAILABLE. Production content, coordinate mapping, shrinkage
+and MTR-040C remain unauthorized; full040/041/046 incomplete,024/020B/021 BLOCKED, Execution NOT STARTED,
+PRECOMMIT FAIL-CLOSED. Architecture/freeze review of this implementation is still required.

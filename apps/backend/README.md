@@ -92,3 +92,48 @@ retry toàn outer transaction. current_plan đọc exact head, horizon_handoff v
 MTR-019A: planning owns sealed culinary bindings; independent validation consumes the
 read-only culinary-validation-input.v1 companion. [Review/evidence](../../docs/product/MTR_019A_CULINARY_BINDING_EVIDENCE.md).
 No production PRECOMMIT issuer or cooking/meal execution. Database head0010; old migrations unchanged.
+
+## Reviewed reference prior source (0014, not frozen)
+
+The [approved design](../../docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) now has an
+[additive implementation](../../docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md).
+Head0014 has78 domain tables.0001–0013 and frozen semantics remain unchanged. The migration
+creates empty source storage and NOLOGIN privilege infrastructure; no providers, enrolled
+principals, provider grants, prior values, credentials or policy defaults are seeded.
+
+Provision separate SCRAM-authenticated administrator/curator/reader logins out of band.
+Grant the administrator the menuto_prior_admin structural group, ordinary source clients
+menuto_prior_client, and neither owner membership nor direct source mutation privileges.
+Use the dedicated administration boundary to register a provider, enroll immutable role
+bindings and append provider-scoped capability grants. Household roles are irrelevant here.
+Remote source engines require TLS with sslmode=verify-full; do not reuse ordinary pooled
+application credentials or assert request actors. No source HTTP endpoint is exposed.
+The server needs PostgreSQL's standard `sslinfo` contrib extension files.0014 installs the
+extension privately when absent or reuses an existing deployment extension. Only the private
+backend-local TLS primitive is delegated to the source owner; no global statistics/monitoring
+privilege is granted. Empty downgrade removes the new private extension, while preserving an
+existing shared extension. Publishers/readers cannot execute the private helper directly.
+
+The internal facade is `preferences/reference_priors.py`: register_reference_prior_provider,
+enroll_reference_prior_principal, change_reference_prior_authority, publish_reference_prior,
+retract_reference_prior and capture_reference_prior_sources. Caller owns commit/rollback.
+After any rejected SQL operation, roll back; on serialization failure retry the complete
+transaction explicitly. Idempotent receipt replay still checks current permission first.
+
+Capture uses the same clean SQLAlchemy Session on an engine configured with
+`isolation_level="REPEATABLE READ", postgresql_readonly=True` (or SERIALIZABLE).
+It makes no hidden connection or commit. `reference_prior_resolution.resolve_reference_priors`
+then replays without IO. Empty provider source has no default numeric prior.040B continues
+to expose prior/shrunk_affinity UNAVAILABLE. No shrinkage/040C or next milestone is authorized.
+
+New real-PG acceptance requires the same explicitly configured loopback maintenance test URL.
+Its fixture provisions random separate SCRAM logins and temporarily prepends only their own
+HBA rules using the isolated test server's privileged maintenance connection. Original HBA
+bytes are restored and random databases/logins are removed afterward. These tests must never
+target a production server. They do not use SET SESSION AUTHORIZATION to claim real login proof.
+CI uses `tools/configure_ci_postgres_tls.py` to provision a disposable certificate in the
+ephemeral PostgreSQL service and verify it with verify-full. Docker bridge traffic receives
+no exception from the runtime TLS check. HBA changes are limited to exact test logins and
+the observed client address; existing regression roles/rules stay unchanged.
+Empty downgrade is supported; populated registry/enrollment/authority/source downgrade refuses
+data loss. Credential secrets and structural cluster-role lifecycle are not downgrade-managed.

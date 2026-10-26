@@ -292,13 +292,17 @@ complete them. MEDIUM remains the frozen wire literal for the middle EvidenceStr
 not a probability. No invariant wording, runtime, contract, test or migration changes.
 Recommended source foundation needs its own design approval; no implementation is authorized.
 
-## Prior-source dedicated design — no new enforcement
+## Prior-source implementation — source enforcement only, not frozen
 
-Dependency selection APPROVED / dedicated DESIGN AUTHORIZED after PR #95; the
-[proposed design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) is not implementation or freeze.
+Dependency selection APPROVED after PR #95; the user later approved the
+[dedicated design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) and authorized implementation
+from577f32a (PR #96). The [source implementation/evidence](PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md)
+is IMPLEMENTED / NOT FROZEN. Real session/provider capability checks, immutable source history,
+complete capture and independent replay add enforcement within that source boundary.
 INV-022–029 remain unchanged: a global reference prior is not a member assertion, EvidenceStrength,
 probability, behavioral observation or hard-safety policy. Household authorship grants no global
 publication permission. Coordinate compatibility and later shrinkage remain separate reviews.
 Full-source/authority replay does not prove database origin or grant PRECOMMIT authority.
-No canonical invariant, runtime/contract/test/schema/migration change;0013 /71,276 definitions.
+No canonical invariant wording or frozen semantics change.0014 /78 domain tables;
+276 prior definitions unchanged plus23 additive,299 total. No production source values or defaults.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.

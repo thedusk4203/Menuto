@@ -318,6 +318,64 @@
       "title": "AvailableProposalLocalFeaturePenalty",
       "type": "object"
     },
+    "AvailableReviewedReferencePrior": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/ReferencePriorAmount"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/ReferencePriorCoordinate"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "publication": {
+          "$ref": "#/$defs/ReferencePriorRevisionFact"
+        },
+        "status": {
+          "const": "AVAILABLE",
+          "default": "AVAILABLE",
+          "title": "Status",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "provider_id",
+        "coordinate",
+        "publication",
+        "amount"
+      ],
+      "title": "AvailableReviewedReferencePrior",
+      "type": "object"
+    },
     "BatchFlowLinkDraft": {
       "additionalProperties": false,
       "description": "Future orchestration seam only: not permission to create a physical batch.",
@@ -13076,6 +13134,1241 @@
       "title": "ReferencePricePair",
       "type": "object"
     },
+    "ReferencePriorAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "maximum": 2147483647,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 2147483647,
+          "minimum": -2147483647,
+          "title": "Numerator",
+          "type": "integer"
+        },
+        "unit": {
+          "const": "REVIEWED_REFERENCE_ANCHOR_UNITS",
+          "default": "REVIEWED_REFERENCE_ANCHOR_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "ReferencePriorAmount",
+      "type": "object"
+    },
+    "ReferencePriorAuthorityCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "GRANT",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "capability": {
+          "enum": [
+            "REVIEW_PUBLISH",
+            "RETRACT",
+            "CAPTURE"
+          ],
+          "title": "Capability",
+          "type": "string"
+        },
+        "expected_authority_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Authority Generation",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "principal_id": {
+          "format": "uuid",
+          "title": "Principal Id",
+          "type": "string"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "principal_id",
+        "capability",
+        "action",
+        "expected_authority_generation",
+        "reason",
+        "idempotency_key"
+      ],
+      "title": "ReferencePriorAuthorityCommand",
+      "type": "object"
+    },
+    "ReferencePriorAuthorityEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/ReferencePriorSessionFact"
+        },
+        "authority_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Authority Sequence",
+          "type": "integer"
+        },
+        "command": {
+          "$ref": "#/$defs/ReferencePriorAuthorityCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "fact_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Hash",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "mutation_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Mutation Sequence",
+          "type": "integer"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "administrator",
+        "recorded_at",
+        "authority_sequence",
+        "mutation_sequence",
+        "command_hash",
+        "fact_hash"
+      ],
+      "title": "ReferencePriorAuthorityEvent",
+      "type": "object"
+    },
+    "ReferencePriorCaptureRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate": {
+          "$ref": "#/$defs/ReferencePriorCoordinate",
+          "default": {
+            "applicability": "GLOBAL_REFERENCE_ONLY",
+            "coordinate_id": "CURATED_REFERENCE_PREFERENCE",
+            "coordinate_version": 1,
+            "unit": "REVIEWED_REFERENCE_ANCHOR_UNITS"
+          }
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "requested_targets": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                "METHOD": "#/$defs/FeaturePreferenceTarget",
+                "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/IngredientPreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/RecipePreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/FeaturePreferenceTarget"
+              }
+            ]
+          },
+          "title": "Requested Targets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "provider_id",
+        "requested_targets"
+      ],
+      "title": "ReferencePriorCaptureRequest",
+      "type": "object"
+    },
+    "ReferencePriorCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability": {
+          "const": "GLOBAL_REFERENCE_ONLY",
+          "default": "GLOBAL_REFERENCE_ONLY",
+          "title": "Applicability",
+          "type": "string"
+        },
+        "coordinate_id": {
+          "const": "CURATED_REFERENCE_PREFERENCE",
+          "default": "CURATED_REFERENCE_PREFERENCE",
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "coordinate_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Coordinate Version",
+          "type": "integer"
+        },
+        "unit": {
+          "const": "REVIEWED_REFERENCE_ANCHOR_UNITS",
+          "default": "REVIEWED_REFERENCE_ANCHOR_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "title": "ReferencePriorCoordinate",
+      "type": "object"
+    },
+    "ReferencePriorFrontier": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Authority Generation",
+          "type": "integer"
+        },
+        "authority_head_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Authority Head Id"
+        },
+        "mutation_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Mutation Generation",
+          "type": "integer"
+        },
+        "mutation_head_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mutation Head Hash"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "source_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Source Generation",
+          "type": "integer"
+        },
+        "source_head_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Head Id"
+        }
+      },
+      "required": [
+        "provider_id",
+        "source_generation",
+        "authority_generation",
+        "mutation_generation",
+        "source_head_id",
+        "authority_head_id",
+        "mutation_head_hash"
+      ],
+      "title": "ReferencePriorFrontier",
+      "type": "object"
+    },
+    "ReferencePriorMutationFact": {
+      "additionalProperties": false,
+      "properties": {
+        "child_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Child Hash",
+          "type": "string"
+        },
+        "child_id": {
+          "format": "uuid",
+          "title": "Child Id",
+          "type": "string"
+        },
+        "journal_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Journal Hash",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "AUTHORITY",
+            "PUBLICATION"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "mutation_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Mutation Sequence",
+          "type": "integer"
+        },
+        "predecessor_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Hash"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "mutation_sequence",
+        "kind",
+        "child_id",
+        "child_hash",
+        "predecessor_hash",
+        "recorded_at",
+        "journal_hash"
+      ],
+      "title": "ReferencePriorMutationFact",
+      "type": "object"
+    },
+    "ReferencePriorPrincipalCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role_name",
+        "idempotency_key"
+      ],
+      "title": "ReferencePriorPrincipalCommand",
+      "type": "object"
+    },
+    "ReferencePriorPrincipalFact": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/ReferencePriorSessionFact"
+        },
+        "command": {
+          "$ref": "#/$defs/ReferencePriorPrincipalCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        },
+        "role_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Role Oid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "database_oid",
+        "database_name",
+        "role_oid",
+        "role_name",
+        "administrator",
+        "recorded_at",
+        "command_hash"
+      ],
+      "title": "ReferencePriorPrincipalFact",
+      "type": "object"
+    },
+    "ReferencePriorProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "external_record_id": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "External Record Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "REVIEWED_REFERENCE",
+          "default": "REVIEWED_REFERENCE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "source_uri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Uri"
+        },
+        "source_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_system",
+        "external_record_id",
+        "source_version",
+        "content_hash",
+        "observed_at"
+      ],
+      "title": "ReferencePriorProvenance",
+      "type": "object"
+    },
+    "ReferencePriorProviderCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/ReferencePriorCoordinate",
+          "default": {
+            "applicability": "GLOBAL_REFERENCE_ONLY",
+            "coordinate_id": "CURATED_REFERENCE_PREFERENCE",
+            "coordinate_version": 1,
+            "unit": "REVIEWED_REFERENCE_ANCHOR_UNITS"
+          }
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "remit": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Remit",
+          "type": "string"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "version",
+        "source_system",
+        "remit",
+        "idempotency_key"
+      ],
+      "title": "ReferencePriorProviderCommand",
+      "type": "object"
+    },
+    "ReferencePriorProviderFact": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/ReferencePriorSessionFact"
+        },
+        "command": {
+          "$ref": "#/$defs/ReferencePriorProviderCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "administrator",
+        "recorded_at",
+        "command_hash"
+      ],
+      "title": "ReferencePriorProviderFact",
+      "type": "object"
+    },
+    "ReferencePriorPublishCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/ReferencePriorAmount"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/ReferencePriorCoordinate",
+          "default": {
+            "applicability": "GLOBAL_REFERENCE_ONLY",
+            "coordinate_id": "CURATED_REFERENCE_PREFERENCE",
+            "coordinate_version": 1,
+            "unit": "REVIEWED_REFERENCE_ANCHOR_UNITS"
+          }
+        },
+        "expected_provider_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Provider Generation",
+          "type": "integer"
+        },
+        "expected_revision": {
+          "maximum": 2147483647,
+          "minimum": -1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "operation": {
+          "const": "REPLACE",
+          "default": "REPLACE",
+          "title": "Operation",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ReferencePriorProvenance"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "review_rationale": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Review Rationale",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "provider_id",
+        "target",
+        "amount",
+        "provenance",
+        "review_rationale",
+        "expected_provider_generation",
+        "expected_revision",
+        "predecessor_id",
+        "idempotency_key"
+      ],
+      "title": "ReferencePriorPublishCommand",
+      "type": "object"
+    },
+    "ReferencePriorRetractCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate": {
+          "$ref": "#/$defs/ReferencePriorCoordinate",
+          "default": {
+            "applicability": "GLOBAL_REFERENCE_ONLY",
+            "coordinate_id": "CURATED_REFERENCE_PREFERENCE",
+            "coordinate_version": 1,
+            "unit": "REVIEWED_REFERENCE_ANCHOR_UNITS"
+          }
+        },
+        "expected_provider_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Provider Generation",
+          "type": "integer"
+        },
+        "expected_revision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "operation": {
+          "const": "RETRACT",
+          "default": "RETRACT",
+          "title": "Operation",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "format": "uuid",
+          "title": "Predecessor Id",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ReferencePriorProvenance"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "review_rationale": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Review Rationale",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "provider_id",
+        "target",
+        "provenance",
+        "review_rationale",
+        "expected_provider_generation",
+        "expected_revision",
+        "predecessor_id",
+        "idempotency_key"
+      ],
+      "title": "ReferencePriorRetractCommand",
+      "type": "object"
+    },
+    "ReferencePriorRevisionFact": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Authority Generation",
+          "type": "integer"
+        },
+        "command": {
+          "discriminator": {
+            "mapping": {
+              "REPLACE": "#/$defs/ReferencePriorPublishCommand",
+              "RETRACT": "#/$defs/ReferencePriorRetractCommand"
+            },
+            "propertyName": "operation"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ReferencePriorPublishCommand"
+            },
+            {
+              "$ref": "#/$defs/ReferencePriorRetractCommand"
+            }
+          ],
+          "title": "Command"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "effective_at": {
+          "format": "date-time",
+          "title": "Effective At",
+          "type": "string"
+        },
+        "fact_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Hash",
+          "type": "string"
+        },
+        "grant_event_id": {
+          "format": "uuid",
+          "title": "Grant Event Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "mutation_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Mutation Sequence",
+          "type": "integer"
+        },
+        "principal_id": {
+          "format": "uuid",
+          "title": "Principal Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "revision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "session": {
+          "$ref": "#/$defs/ReferencePriorSessionFact"
+        },
+        "source_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Source Sequence",
+          "type": "integer"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "stream_id",
+        "command",
+        "principal_id",
+        "session",
+        "grant_event_id",
+        "authority_generation",
+        "revision",
+        "source_sequence",
+        "mutation_sequence",
+        "recorded_at",
+        "effective_at",
+        "command_hash",
+        "fact_hash"
+      ],
+      "title": "ReferencePriorRevisionFact",
+      "type": "object"
+    },
+    "ReferencePriorSessionFact": {
+      "additionalProperties": false,
+      "properties": {
+        "authenticated_identity": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Authenticated Identity",
+          "type": "string"
+        },
+        "authentication_method": {
+          "const": "scram-sha-256",
+          "default": "scram-sha-256",
+          "title": "Authentication Method",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        },
+        "role_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Role Oid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "database_oid",
+        "database_name",
+        "role_oid",
+        "role_name",
+        "authenticated_identity"
+      ],
+      "title": "ReferencePriorSessionFact",
+      "type": "object"
+    },
+    "ReferencePriorSourceSnapshotDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_events": {
+          "items": {
+            "$ref": "#/$defs/ReferencePriorAuthorityEvent"
+          },
+          "title": "Authority Events",
+          "type": "array"
+        },
+        "capture_completed_at": {
+          "format": "date-time",
+          "title": "Capture Completed At",
+          "type": "string"
+        },
+        "capture_started_at": {
+          "format": "date-time",
+          "title": "Capture Started At",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "reference-prior-source.v1-draft",
+          "default": "reference-prior-source.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "frontier": {
+          "$ref": "#/$defs/ReferencePriorFrontier"
+        },
+        "identities": {
+          "items": {
+            "$ref": "#/$defs/ReferencePriorTargetIdentity"
+          },
+          "title": "Identities",
+          "type": "array"
+        },
+        "isolation": {
+          "enum": [
+            "REPEATABLE READ",
+            "SERIALIZABLE"
+          ],
+          "title": "Isolation",
+          "type": "string"
+        },
+        "mutations": {
+          "items": {
+            "$ref": "#/$defs/ReferencePriorMutationFact"
+          },
+          "title": "Mutations",
+          "type": "array"
+        },
+        "principals": {
+          "items": {
+            "$ref": "#/$defs/ReferencePriorPrincipalFact"
+          },
+          "title": "Principals",
+          "type": "array"
+        },
+        "provider": {
+          "$ref": "#/$defs/ReferencePriorProviderFact"
+        },
+        "publications": {
+          "items": {
+            "$ref": "#/$defs/ReferencePriorRevisionFact"
+          },
+          "title": "Publications",
+          "type": "array"
+        },
+        "read_only": {
+          "const": true,
+          "default": true,
+          "title": "Read Only",
+          "type": "boolean"
+        },
+        "reader_grant_id": {
+          "format": "uuid",
+          "title": "Reader Grant Id",
+          "type": "string"
+        },
+        "reader_principal_id": {
+          "format": "uuid",
+          "title": "Reader Principal Id",
+          "type": "string"
+        },
+        "reader_session": {
+          "$ref": "#/$defs/ReferencePriorSessionFact"
+        },
+        "request": {
+          "$ref": "#/$defs/ReferencePriorCaptureRequest"
+        },
+        "streams": {
+          "items": {
+            "$ref": "#/$defs/ReferencePriorStreamFact"
+          },
+          "title": "Streams",
+          "type": "array"
+        }
+      },
+      "required": [
+        "request",
+        "provider",
+        "principals",
+        "authority_events",
+        "publications",
+        "mutations",
+        "streams",
+        "frontier",
+        "identities",
+        "reader_principal_id",
+        "reader_session",
+        "reader_grant_id",
+        "capture_started_at",
+        "capture_completed_at",
+        "isolation"
+      ],
+      "title": "ReferencePriorSourceSnapshotDraft",
+      "type": "object"
+    },
+    "ReferencePriorStreamFact": {
+      "additionalProperties": false,
+      "properties": {
+        "head_id": {
+          "format": "uuid",
+          "title": "Head Id",
+          "type": "string"
+        },
+        "head_revision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Head Revision",
+          "type": "integer"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "id",
+        "provider_id",
+        "target",
+        "head_id",
+        "head_revision"
+      ],
+      "title": "ReferencePriorStreamFact",
+      "type": "object"
+    },
+    "ReferencePriorTargetIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IngredientIdentityFact"
+            },
+            {
+              "$ref": "#/$defs/RecipeFact"
+            },
+            {
+              "$ref": "#/$defs/AffinityFeatureTermFact"
+            }
+          ],
+          "title": "Identity"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "identity"
+      ],
+      "title": "ReferencePriorTargetIdentity",
+      "type": "object"
+    },
+    "ReferencePriorWriteReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "commit_status": {
+          "const": "CALLER_TRANSACTION_NOT_CERTIFIED",
+          "default": "CALLER_TRANSACTION_NOT_CERTIFIED",
+          "title": "Commit Status",
+          "type": "string"
+        },
+        "frontier": {
+          "$ref": "#/$defs/ReferencePriorFrontier"
+        },
+        "mutation": {
+          "$ref": "#/$defs/ReferencePriorMutationFact"
+        },
+        "publication": {
+          "$ref": "#/$defs/ReferencePriorRevisionFact"
+        }
+      },
+      "required": [
+        "publication",
+        "mutation",
+        "frontier"
+      ],
+      "title": "ReferencePriorWriteReceipt",
+      "type": "object"
+    },
     "ReleaseReservationCommand": {
       "additionalProperties": false,
       "properties": {
@@ -14232,6 +15525,149 @@
       "title": "RetractMemberPreferenceCommand",
       "type": "object"
     },
+    "ReviewedReferencePriorDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "candidate_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Candidate Aggregation",
+          "type": "string"
+        },
+        "contextual_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Contextual Evidence",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "reviewed-reference-prior.v1-draft",
+          "default": "reviewed-reference-prior.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coordinate_conversion": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Coordinate Conversion",
+          "type": "string"
+        },
+        "cross_target_inference": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Target Inference",
+          "type": "string"
+        },
+        "evidence_strength": {
+          "const": "NOT_DERIVED",
+          "default": "NOT_DERIVED",
+          "title": "Evidence Strength",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "learned_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Learned Evidence",
+          "type": "string"
+        },
+        "member_preference_data": {
+          "const": "NOT_MODIFIED",
+          "default": "NOT_MODIFIED",
+          "title": "Member Preference Data",
+          "type": "string"
+        },
+        "passive_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Passive Evidence",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "provider_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Provider Aggregation",
+          "type": "string"
+        },
+        "result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "AVAILABLE": "#/$defs/AvailableReviewedReferencePrior",
+                "UNAVAILABLE": "#/$defs/UnavailableReviewedReferencePrior"
+              },
+              "propertyName": "status"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/AvailableReviewedReferencePrior"
+              },
+              {
+                "$ref": "#/$defs/UnavailableReviewedReferencePrior"
+              }
+            ]
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "scope": {
+          "const": "ONE_EXPLICIT_PROVIDER_EXACT_TARGET_REFERENCE_ONLY",
+          "default": "ONE_EXPLICIT_PROVIDER_EXACT_TARGET_REFERENCE_ONLY",
+          "title": "Scope",
+          "type": "string"
+        },
+        "shrinkage": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Shrinkage",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/ReferencePriorSourceSnapshotDraft"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "rows",
+        "source_fingerprint",
+        "result_fingerprint"
+      ],
+      "title": "ReviewedReferencePriorDraft",
+      "type": "object"
+    },
     "RevisionScope": {
       "enum": [
         "SINGLE_MEAL",
@@ -14921,6 +16357,72 @@
         "reason"
       ],
       "title": "UnavailableProposalLocalFeaturePenalty",
+      "type": "object"
+    },
+    "UnavailableReviewedReferencePrior": {
+      "additionalProperties": false,
+      "properties": {
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "NO_PUBLICATION",
+            "RETRACTED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "tombstone": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReferencePriorRevisionFact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "reason",
+        "target",
+        "provider_id",
+        "tombstone"
+      ],
+      "title": "UnavailableReviewedReferencePrior",
       "type": "object"
     },
     "UnavailableShrunkAffinity": {

@@ -497,7 +497,7 @@ exact-target prior source; dedicated source design approval is required first. P
 hierarchical and learned profile derivation remain blocked; full040/041/046 remain incomplete.
 No next milestone implementation, migration or planner/Execution/PRECOMMIT authority is authorized.
 
-## Canonical reviewed preference-prior source — design-only proposal
+## Canonical reviewed preference-prior source — implementation pending freeze review
 
 After user approval of PR #95's dependency selection, the
 [dedicated source design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) is authorized from
@@ -505,6 +505,10 @@ After user approval of PR #95's dependency selection, the
 not member-authored preference data: provider-scoped enrolled internal publication authority,
 versioned reference anchor coordinate distinct from040B, explicit exact provider/target applicability,
 atomic reviewed revisions/tombstones and complete authority/publication replay.
-Physical DDL/table count and a forward migration after0013 await design approval; no identifier
-reserved and no implementation authorized.040B prior/shrinkage stay UNAVAILABLE, full040/041/046
-incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
+The later user approval of this design authorized source implementation from577f32a (PR #96).
+The [additive implementation/evidence](PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md) is
+IMPLEMENTED / NOT FROZEN.0014 adds7 source tables,78 total, with protected SCRAM authority,
+typed immutable history and complete capture/replay. No production source records are seeded;
+276 old definitions remain unchanged,23 additive,299 total. No milestone number is assigned.
+040B prior/shrinkage stay UNAVAILABLE; mapping/shrinkage/040C are not authorized. Full040/041/046
+remain incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
