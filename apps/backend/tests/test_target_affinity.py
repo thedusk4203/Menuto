@@ -513,7 +513,8 @@ def test_all_frozen_040a_041abcde_046a_definitions_and_migrations_retained():
         assert digest(Path(path).read_text(encoding="utf-8")) == expected, path
     directory = Path(next(iter(receipt["released_migrations"]))).parent
     assert {p.as_posix() for p in directory.glob("*.py")} == set(receipt["released_migrations"]) | {
-        "apps/backend/migrations/versions/0014_reviewed_reference_prior_source.py"
+        "apps/backend/migrations/versions/0014_reviewed_reference_prior_source.py",
+        "apps/backend/migrations/versions/0015_reviewed_hierarchy_source.py",
     }
 
 

@@ -223,5 +223,5 @@ def test_source_capture_cannot_cross_household_and_schema_is_unchanged(postgres_
     with pytest.raises(NoResultFound):
         capture(postgres_engine, keys | {"household_id": uuid4()})
     with postgres_engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0014"
-        assert len(set(inspect(conn).get_table_names()) - {"alembic_version"}) == 78
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0015"
+        assert len(set(inspect(conn).get_table_names()) - {"alembic_version"}) == 85

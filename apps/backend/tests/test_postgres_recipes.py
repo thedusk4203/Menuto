@@ -313,6 +313,13 @@ def test_empty_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
             "reference_prior_authority",
             "reference_prior_revisions",
             "reference_prior_mutations",
+            "hierarchy_source_providers",
+            "hierarchy_source_principals",
+            "hierarchy_source_frontiers",
+            "hierarchy_source_streams",
+            "hierarchy_source_authority",
+            "hierarchy_source_revisions",
+            "hierarchy_source_mutations",
         }
         config.attributes["connection"] = conn
         command.check(config)

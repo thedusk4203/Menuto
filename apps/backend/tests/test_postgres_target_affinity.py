@@ -382,8 +382,8 @@ def test_capture_and_derivation_only_read_without_schema_or_row_changes(postgres
     def stored():
         with postgres_engine.connect() as conn:
             tables = inspect(conn).get_table_names()
-            assert len(tables) == 79 and "alembic_version" in tables
-            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0014"
+            assert len(tables) == 86 and "alembic_version" in tables
+            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0015"
             return {
                 t: conn.execute(text(f'SELECT to_jsonb(t)::text FROM "{t}" t ORDER BY 1')).all()
                 for t in tables

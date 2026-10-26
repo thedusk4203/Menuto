@@ -25,6 +25,15 @@ from app.modules.planning.models import (
     PlanValidationAuthorization,
     PlanWorkspace,
 )
+from app.modules.preferences.hierarchy_models import (  # noqa: F401
+    HierarchyAuthority,
+    HierarchyMutation,
+    HierarchyPrincipal,
+    HierarchyProvider,
+    HierarchyProviderFrontier,
+    HierarchyRevision,
+    HierarchyStream,
+)
 from app.modules.preferences.models import (
     MemberPreferenceDeclaration,
     MemberPreferenceFrontier,
