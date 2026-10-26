@@ -8,7 +8,7 @@ from math import gcd
 from typing import Annotated, Literal
 from uuid import UUID
 
-from pydantic import Field, TypeAdapter, field_validator, model_validator
+from pydantic import ConfigDict, Field, TypeAdapter, field_validator, model_validator
 
 from app.domain.contracts import AwareTime, Contract, Identifier, Sha256
 from app.domain.feature_identity import canonical, canonical_bytes, identity_hash, unique_sorted
@@ -26,7 +26,10 @@ from app.modules.planning.contracts import (
 from app.modules.recipes.contracts import (
     FeatureDimension,
     FeatureDimensionDiscovery,
+    FeatureTermQuery,
+    FeatureTermResolution,
     RecipeProvenance,
+    resolve_feature_input,
 )
 
 
@@ -1225,3 +1228,631 @@ class FeatureExposurePreviewDraft(Contract):
 
     def fingerprint(self):
         return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+# MTR-041F: separate feature contracts; frozen Recipe-ID and 041E shapes stay unchanged.
+def _feature_repeat_wire(value):
+    if isinstance(value, Contract):
+        value = value.model_dump()
+    if isinstance(value, dict):
+        return {k: _feature_repeat_wire(v) for k, v in value.items()}
+    if isinstance(value, (tuple, list)):
+        return tuple(_feature_repeat_wire(v) for v in value)
+    return value
+
+
+class _FeatureRepeatContract(Contract):
+    model_config = ConfigDict(revalidate_instances="always")
+
+    @model_validator(mode="before")
+    @classmethod
+    def recursive_wire(cls, value):
+        return _feature_repeat_wire(value)
+
+    def canonical_json(self):
+        return canonical_bytes(feature_repeat_content(self)).decode()
+
+    def fingerprint(self):
+        return hashlib.sha256(self.canonical_json().encode()).hexdigest()
+
+
+class FeatureRepeatQuery(_FeatureRepeatContract):
+    contract_version: Literal["feature-repeat-query.v1"] = "feature-repeat-query.v1"
+    household_id: UUID
+    member_id: UUID
+    plan_id: UUID
+    proposal_id: UUID
+    proposal_hash: Sha256
+    meal_node_id: UUID
+    dimension: FeatureDimension
+    feature_term_id: UUID
+
+
+class FeatureRetentionMultiplier(_FeatureRepeatContract):
+    """Exact policy retention, not probability or statistical confidence."""
+
+    numerator: Annotated[int, Field(strict=True, ge=0)]
+    denominator: Annotated[int, Field(strict=True, gt=0)]
+
+    @model_validator(mode="after")
+    def reduced(self):
+        if self.numerator > self.denominator:
+            raise ValueError("Feature retention must be in [0,1]")
+        divisor = gcd(self.numerator, self.denominator)
+        object.__setattr__(self, "numerator", self.numerator // divisor)
+        object.__setattr__(self, "denominator", self.denominator // divisor)
+        return self
+
+
+class FeatureRepeatPenaltyAmount(_FeatureRepeatContract):
+    numerator: Annotated[int, Field(strict=True, ge=0)]
+    denominator: Annotated[int, Field(strict=True, gt=0)]
+    unit: Literal["POLICY_FEATURE_REPEAT_PENALTY_UNITS"] = "POLICY_FEATURE_REPEAT_PENALTY_UNITS"
+
+    @model_validator(mode="after")
+    def reduced(self):
+        divisor = gcd(self.numerator, self.denominator)
+        object.__setattr__(self, "numerator", self.numerator // divisor)
+        object.__setattr__(self, "denominator", self.denominator // divisor)
+        return self
+
+
+class _FeatureTermPolicy(_FeatureRepeatContract):
+    policy_id: Identifier
+    policy_version: Identifier
+    provenance: Provenance
+    dimension: FeatureDimension
+    feature_term_id: UUID
+    fingerprint_kind: Literal["REVIEWED_FEATURE_TERM_ID"] = "REVIEWED_FEATURE_TERM_ID"
+    source_kind: Literal["PROPOSAL_PREVIEW"] = "PROPOSAL_PREVIEW"
+    interpretation_mode: Literal["AS_OF_CAPTURE"] = "AS_OF_CAPTURE"
+
+    @model_validator(mode="after")
+    def reviewed_policy(self):
+        if self.provenance.kind not in {"USER", "REVIEWED_REFERENCE"}:
+            raise ValueError("Feature policy requires USER or REVIEWED_REFERENCE provenance")
+        return self
+
+
+class FeatureCooldownPolicy(_FeatureTermPolicy):
+    contract_version: Literal["feature-cooldown-policy.v1"] = "feature-cooldown-policy.v1"
+    duration_microseconds: Annotated[int, Field(strict=True, gt=0)]
+    interval: Literal["START_INCLUSIVE_TARGET_EXCLUSIVE"] = "START_INCLUSIVE_TARGET_EXCLUSIVE"
+
+
+class FeatureDecayBand(_FeatureRepeatContract):
+    ordinal: Annotated[int, Field(strict=True, ge=0)]
+    lower_age_microseconds: Annotated[int, Field(strict=True, ge=0)]
+    upper_age_microseconds: Annotated[int, Field(strict=True, gt=0)]
+    retention_multiplier: FeatureRetentionMultiplier
+
+    @model_validator(mode="after")
+    def positive_span(self):
+        if self.lower_age_microseconds >= self.upper_age_microseconds:
+            raise ValueError("Feature decay band requires a positive span")
+        return self
+
+
+class FeatureDecayPolicy(_FeatureTermPolicy):
+    contract_version: Literal["feature-decay-policy.v1"] = "feature-decay-policy.v1"
+    band_interval: Literal["LOWER_EXCLUSIVE_UPPER_INCLUSIVE"] = "LOWER_EXCLUSIVE_UPPER_INCLUSIVE"
+    bands: Annotated[tuple[FeatureDecayBand, ...], Field(min_length=1)]
+
+    @model_validator(mode="after")
+    def contiguous_monotone(self):
+        upper, previous = 0, None
+        for ordinal, band in enumerate(self.bands):
+            if band.ordinal != ordinal or band.lower_age_microseconds != upper:
+                raise ValueError("Feature decay requires authored ordinals and contiguous bands")
+            current = band.retention_multiplier
+            if previous is not None and (
+                current.numerator * previous.denominator
+                > previous.numerator * current.denominator
+            ):
+                raise ValueError("Feature retention must not increase with age")
+            upper, previous = band.upper_age_microseconds, current
+        return self
+
+
+class FeatureRepeatPenaltyPolicy(_FeatureTermPolicy):
+    contract_version: Literal["feature-repeat-penalty-policy.v1"] = (
+        "feature-repeat-penalty-policy.v1"
+    )
+    operator: Literal["SUM_RETAINED_TERM_OCCURRENCES"]
+    unit_penalty: FeatureRepeatPenaltyAmount
+
+    @model_validator(mode="after")
+    def positive_unit(self):
+        if self.unit_penalty.numerator == 0:
+            raise ValueError("Feature unit penalty must be explicitly positive")
+        return self
+
+
+class FeatureCooldownInput(_FeatureRepeatContract):
+    contract_version: Literal["feature-cooldown-input.v1"] = "feature-cooldown-input.v1"
+    preview: FeatureExposurePreviewDraft
+    query: FeatureRepeatQuery
+    policy: FeatureCooldownPolicy
+
+    @field_validator("preview", mode="before")
+    @classmethod
+    def canonical_preview(cls, value):
+        return reparse_feature_preview(value)
+
+    @model_validator(mode="after")
+    def captured_context(self):
+        feature_cooldown_context(self)
+        return self
+
+
+class FeatureTermCoverageCell(_FeatureRepeatContract):
+    diagnostic: FeatureExposureCoverageDiagnostic
+    resolution: FeatureTermResolution
+
+    @field_validator("diagnostic", mode="before")
+    @classmethod
+    def canonical_diagnostic(cls, value):
+        return _feature_repeat_diagnostic(value)
+
+    @model_validator(mode="after")
+    def dimension_matches(self):
+        if self.diagnostic.classification_source.dimension != self.resolution.dimension:
+            raise ValueError("Feature cell dimension mismatch")
+        return self
+
+
+class FeatureMealTermOccurrence(_FeatureRepeatContract):
+    meal_node_id: UUID
+    scheduled_at: AwareTime
+    dimension: FeatureDimension
+    feature_term_id: UUID
+    cells: Annotated[tuple[FeatureTermCoverageCell, ...], Field(min_length=1)]
+    state: Literal["PRESENT", "REVIEWED_ABSENT", "UNRESOLVED"]
+    event: FeatureExposurePreviewFact | None
+
+    @field_validator("cells")
+    @classmethod
+    def unordered_cells(cls, values):
+        return unique_sorted(
+            values, key=lambda c: str(c.diagnostic.classification_source.batch_node_id)
+        )
+
+
+class FeatureCooldownWitness(_FeatureRepeatContract):
+    fact: FeatureExposurePreviewFact
+    distance_microseconds: Annotated[int, Field(strict=True, gt=0)]
+
+
+class _FeatureRepeatResult(_FeatureRepeatContract):
+    coverage: Literal["ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY"] = (
+        "ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY"
+    )
+    source_kind: Literal["PROPOSAL_PREVIEW"] = "PROPOSAL_PREVIEW"
+    interpretation_mode: Literal["AS_OF_CAPTURE"] = "AS_OF_CAPTURE"
+    absence_semantics: Literal["NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION"] = (
+        "NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION"
+    )
+    accepted_schedule: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    confirmed_exposure: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    consumption_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    durable_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    cross_horizon_history: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    global_repeat_penalty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    novelty: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    taste_fit: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    member_behavior_profile: Literal["NOT_MODIFIED"] = "NOT_MODIFIED"
+    cross_dimension_aggregation: Literal["NOT_PERFORMED"] = "NOT_PERFORMED"
+    planner_ready: Literal[False] = False
+    activation_ready: Literal[False] = False
+    source_preview_fingerprint: Sha256
+    dimension_evidence_cut_digest: Sha256
+    outcome: Literal[
+        "MATCH_IN_SELECTED_PROPOSAL",
+        "UNRESOLVED_IN_SELECTED_PROPOSAL",
+        "NO_MATCH_IN_SELECTED_PROPOSAL",
+    ]
+    occurrence_resolution: Literal[
+        "ALL_QUERIED_TERM_OCCURRENCES_DECIDABLE", "HAS_UNRESOLVED_MEALS", "NO_ELIGIBLE_PRIOR_MEALS"
+    ]
+    unresolved_meal_ids: tuple[UUID, ...]
+
+    @field_validator("unresolved_meal_ids")
+    @classmethod
+    def unordered_unknowns(cls, values):
+        return unique_sorted(values)
+
+
+class FeatureCooldownAssessmentDraft(_FeatureRepeatResult):
+    contract_version: Literal["feature-cooldown-assessment.v1-draft"] = (
+        "feature-cooldown-assessment.v1-draft"
+    )
+    subject: FeatureCooldownInput
+    target: FeatureExposurePreviewFact
+    lookback_start: AwareTime
+    policy_cutoff: AwareTime
+    occurrences: tuple[FeatureMealTermOccurrence, ...]
+    witnesses: tuple[FeatureCooldownWitness, ...]
+
+    @field_validator("occurrences")
+    @classmethod
+    def unordered_occurrences(cls, values):
+        return unique_sorted(values, key=lambda o: str(o.meal_node_id))
+
+    @field_validator("witnesses")
+    @classmethod
+    def unordered_witnesses(cls, values):
+        return unique_sorted(values, key=lambda w: w.fact.event_key())
+
+    @model_validator(mode="after")
+    def recompute(self):
+        verify_feature_result(self, feature_cooldown_values(self.subject))
+        return self
+
+
+class FeatureDecayInput(_FeatureRepeatContract):
+    contract_version: Literal["feature-decay-input.v1"] = "feature-decay-input.v1"
+    assessment: FeatureCooldownAssessmentDraft
+    policy: FeatureDecayPolicy
+
+    @model_validator(mode="after")
+    def matching_policy(self):
+        verify_feature_policy(
+            self.policy, self.assessment.subject.query, self.assessment.policy_cutoff
+        )
+        if self.policy.bands[-1].upper_age_microseconds != (
+            self.assessment.subject.policy.duration_microseconds
+        ):
+            raise ValueError("Feature decay must cover exactly (0,D]")
+        return self
+
+
+class FeatureDecayTraceEntry(_FeatureRepeatContract):
+    witness: FeatureCooldownWitness
+    age_microseconds: Annotated[int, Field(strict=True, gt=0)]
+    band: FeatureDecayBand
+
+
+class FeatureDecayTraceDraft(_FeatureRepeatResult):
+    contract_version: Literal["feature-decay-trace.v1-draft"] = "feature-decay-trace.v1-draft"
+    subject: FeatureDecayInput
+    entries: tuple[FeatureDecayTraceEntry, ...]
+
+    @field_validator("entries")
+    @classmethod
+    def unordered_entries(cls, values):
+        return unique_sorted(values, key=lambda e: e.witness.fact.event_key())
+
+    @model_validator(mode="after")
+    def recompute(self):
+        verify_feature_result(self, feature_decay_values(self.subject))
+        return self
+
+
+class FeatureRepeatPenaltyInput(_FeatureRepeatContract):
+    contract_version: Literal["feature-repeat-penalty-input.v1"] = "feature-repeat-penalty-input.v1"
+    trace: FeatureDecayTraceDraft
+    policy: FeatureRepeatPenaltyPolicy
+
+    @model_validator(mode="after")
+    def matching_policy(self):
+        assessment = self.trace.subject.assessment
+        verify_feature_policy(self.policy, assessment.subject.query, assessment.policy_cutoff)
+        return self
+
+
+class FeatureRepeatPenaltyContribution(_FeatureRepeatContract):
+    entry: FeatureDecayTraceEntry
+    unit_penalty: FeatureRepeatPenaltyAmount
+    contribution: FeatureRepeatPenaltyAmount
+
+
+class AvailableProposalLocalFeaturePenalty(_FeatureRepeatContract):
+    status: Literal["AVAILABLE"] = "AVAILABLE"
+    amount: FeatureRepeatPenaltyAmount
+
+
+class UnavailableProposalLocalFeaturePenalty(_FeatureRepeatContract):
+    status: Literal["UNAVAILABLE"] = "UNAVAILABLE"
+    reason: Literal["UNRESOLVED_TERM_OCCURRENCES", "NO_MATCH_IN_SELECTED_PROPOSAL"]
+
+
+class FeatureRepeatPenaltyDraft(_FeatureRepeatResult):
+    contract_version: Literal["feature-repeat-penalty.v1-draft"] = "feature-repeat-penalty.v1-draft"
+    subject: FeatureRepeatPenaltyInput
+    contributions: tuple[FeatureRepeatPenaltyContribution, ...]
+    proposal_local_feature_repeat_penalty: Annotated[
+        AvailableProposalLocalFeaturePenalty | UnavailableProposalLocalFeaturePenalty,
+        Field(discriminator="status"),
+    ]
+
+    @field_validator("contributions")
+    @classmethod
+    def unordered_contributions(cls, values):
+        return unique_sorted(values, key=lambda c: c.entry.witness.fact.event_key())
+
+    @model_validator(mode="after")
+    def recompute(self):
+        verify_feature_result(self, feature_penalty_values(self.subject))
+        return self
+
+
+def feature_repeat_content(value):
+    """Respect frozen nested encodings, including unordered graph content and child clocks."""
+    if isinstance(value, FeatureExposurePreviewDraft):
+        return json.loads(value.canonical_json())
+    if isinstance(value, Contract):
+        return {
+            name: feature_repeat_content(getattr(value, name)) for name in type(value).model_fields
+        }
+    if isinstance(value, dict):
+        return {k: feature_repeat_content(v) for k, v in value.items()}
+    if isinstance(value, (tuple, list)):
+        return tuple(feature_repeat_content(v) for v in value)
+    return value
+
+
+def reparse_feature_preview(value):
+    """Normalize only declared sets, then let frozen 041E reconstruct its full manifest."""
+    data = _feature_repeat_wire(value)
+    if not isinstance(data, dict):
+        raise ValueError("A full FeatureExposurePreviewDraft is required")
+    data = dict(data)
+    if "events" in data:
+        data["events"] = unique_sorted(
+            tuple(FeatureExposurePreviewFact.model_validate(e) for e in data["events"]),
+            key=lambda e: e.event_key(),
+        )
+    if "diagnostics" in data:
+        rows = [_feature_repeat_diagnostic(raw) for raw in data["diagnostics"]]
+        data["diagnostics"] = unique_sorted(
+            rows,
+            key=lambda d: (
+                str(d.member_id),
+                str(d.meal_node_id),
+                str(d.classification_source.batch_node_id),
+                d.classification_source.dimension,
+            ),
+        )
+    if "evidence_cuts" in data:
+        data["evidence_cuts"] = unique_sorted(
+            tuple(FeatureExposureEvidenceCut.model_validate(e) for e in data["evidence_cuts"]),
+            key=lambda e: e.dimension,
+        )
+    return FeatureExposurePreviewDraft.model_validate(data)
+
+
+def _feature_repeat_diagnostic(value):
+    row = FeatureExposureCoverageDiagnostic.model_validate(_feature_repeat_wire(value))
+    return row.model_copy(update={"allocation_node_ids": unique_sorted(row.allocation_node_ids)})
+
+
+def verify_feature_policy(policy, query, cutoff):
+    if (policy.dimension, policy.feature_term_id) != (query.dimension, query.feature_term_id):
+        raise ValueError("FEATURE_POLICY_TERM_MISMATCH")
+    if policy.provenance.observed_at > cutoff:
+        raise ValueError("AS_OF_CAPTURE policy observed after minimum consumed child capture")
+
+
+def feature_cooldown_context(subject):
+    preview, query = subject.preview, subject.query
+    source, request = preview.snapshot, preview.snapshot.request
+    if (
+        (query.household_id, query.plan_id, query.proposal_id, query.proposal_hash)
+        != (request.household_id, request.plan_id, request.proposal_id, request.proposal_hash)
+        or query.member_id not in request.selected_member_ids
+        or query.dimension not in request.requested_dimensions
+    ):
+        raise ValueError("FEATURE_QUERY_OWNER_OR_DIMENSION_MISMATCH")
+    member = next(m for m in source.member_sources if m.member_id == query.member_id)
+    graph = member.sources[0].proposal.graph
+    meal = next((m for m in graph.meals if m.node_id == query.meal_node_id), None)
+    if meal is None:
+        raise ValueError("TARGET_NOT_CAPTURED")
+    time = meal.scheduled_at
+    window = request.recipe_eligibility_policy.window
+    if not (window.start <= time < window.end and graph.horizon.start <= time < graph.horizon.end):
+        raise ValueError("TARGET_OUTSIDE_CAPTURE")
+    try:
+        start = time - timedelta(microseconds=subject.policy.duration_microseconds)
+    except OverflowError as error:
+        raise ValueError("LOOKBACK_NOT_CAPTURED: outside representable time") from error
+    if not (window.start <= start and graph.horizon.start <= start):
+        raise ValueError("LOOKBACK_NOT_CAPTURED")
+    target = next(
+        (
+            e
+            for e in preview.events
+            if e.member_id == query.member_id
+            and e.meal_node_id == query.meal_node_id
+            and e.dimension == query.dimension
+            and e.feature_term_id == query.feature_term_id
+        ),
+        None,
+    )
+    relevant = tuple(
+        d
+        for d in preview.diagnostics
+        if d.member_id == query.member_id and d.classification_source.dimension == query.dimension
+    )
+    if target is None:
+        unresolved = any(
+            d.meal_node_id == query.meal_node_id and d.discovery.state == "UNRESOLVED"
+            for d in relevant
+        )
+        raise ValueError("TARGET_FEATURE_UNRESOLVED" if unresolved else "TARGET_NOT_PRESENT")
+    meals = {m.node_id: m for m in graph.meals}
+    cells = tuple(
+        d
+        for d in relevant
+        if d.meal_node_id == query.meal_node_id
+        or start <= meals[d.meal_node_id].scheduled_at < time
+    )
+    consumed_batches = {d.classification_source.batch_node_id for d in cells}
+    classifications = {
+        s.subject.request.batch_node_id: s.subject.evaluation
+        for s in source.classification_sources
+        if s.subject.request.requested_dimensions == (query.dimension,)
+        and s.subject.request.batch_node_id in consumed_batches
+    }
+    cutoff = min(member.captured_at, *(s.captured_at for s in classifications.values()))
+    verify_feature_policy(subject.policy, query, cutoff)
+    return target, start, cutoff, cells, classifications, meals
+
+
+def feature_cooldown_values(subject):
+    target, start, cutoff, diagnostics, classifications, meals = feature_cooldown_context(subject)
+    query = subject.query
+    grouped = {}
+    term_query = FeatureTermQuery(dimension=query.dimension, term_ids=(query.feature_term_id,))
+    # Resolve once per consumed source; one batch may support several participating meals.
+    resolutions = {
+        bid: resolve_feature_input(evaluation, (term_query,))[0]
+        for bid, evaluation in classifications.items()
+    }
+    for diagnostic in diagnostics:
+        if diagnostic.meal_node_id == query.meal_node_id:
+            continue
+        cell = FeatureTermCoverageCell(
+            diagnostic=diagnostic,
+            resolution=resolutions[diagnostic.classification_source.batch_node_id],
+        )
+        grouped.setdefault(diagnostic.meal_node_id, []).append(cell)
+    events = {
+        e.meal_node_id: e
+        for e in subject.preview.events
+        if e.member_id == query.member_id
+        and e.dimension == query.dimension
+        and e.feature_term_id == query.feature_term_id
+    }
+    occurrences, witnesses, unknowns = [], [], []
+    for meal_id, cells in sorted(grouped.items(), key=lambda kv: str(kv[0])):
+        states = {cell.resolution.state for cell in cells}
+        state = (
+            "PRESENT"
+            if "PRESENT" in states
+            else "REVIEWED_ABSENT"
+            if states == {"REVIEWED_ABSENT"}
+            else "UNRESOLVED"
+        )
+        event = events.get(meal_id)
+        positive_allocations = {
+            aid
+            for cell in cells
+            if cell.resolution.state == "PRESENT"
+            for aid in cell.diagnostic.allocation_node_ids
+        }
+        if (event is not None) != (state == "PRESENT") or (
+            event is not None
+            and {w.allocation_node_id for w in event.support} != positive_allocations
+        ):
+            raise ValueError("Feature occurrence and frozen 041E positive support disagree")
+        occurrences.append(
+            FeatureMealTermOccurrence(
+                meal_node_id=meal_id,
+                scheduled_at=meals[meal_id].scheduled_at,
+                dimension=query.dimension,
+                feature_term_id=query.feature_term_id,
+                cells=tuple(cells),
+                state=state,
+                event=event,
+            )
+        )
+        if state == "UNRESOLVED":
+            unknowns.append(meal_id)
+        if event is not None:
+            distance = target.scheduled_at - event.scheduled_at
+            age = (distance.days * 86400 + distance.seconds) * 1000000 + distance.microseconds
+            witnesses.append(FeatureCooldownWitness(fact=event, distance_microseconds=age))
+    return dict(
+        target=target,
+        lookback_start=start,
+        policy_cutoff=cutoff,
+        occurrences=tuple(occurrences),
+        witnesses=tuple(sorted(witnesses, key=lambda w: w.fact.event_key())),
+        unresolved_meal_ids=tuple(sorted(unknowns, key=str)),
+        outcome=(
+            "MATCH_IN_SELECTED_PROPOSAL"
+            if witnesses
+            else "UNRESOLVED_IN_SELECTED_PROPOSAL"
+            if unknowns
+            else "NO_MATCH_IN_SELECTED_PROPOSAL"
+        ),
+        occurrence_resolution=(
+            "HAS_UNRESOLVED_MEALS"
+            if unknowns
+            else "ALL_QUERIED_TERM_OCCURRENCES_DECIDABLE"
+            if occurrences
+            else "NO_ELIGIBLE_PRIOR_MEALS"
+        ),
+        source_preview_fingerprint=subject.preview.fingerprint(),
+        dimension_evidence_cut_digest=next(
+            e.digest for e in subject.preview.evidence_cuts if e.dimension == query.dimension
+        ),
+    )
+
+
+def _inherited_result(assessment):
+    return {
+        name: getattr(assessment, name)
+        for name in (
+            "outcome",
+            "occurrence_resolution",
+            "unresolved_meal_ids",
+            "source_preview_fingerprint",
+            "dimension_evidence_cut_digest",
+        )
+    }
+
+
+def feature_decay_values(subject):
+    entries = []
+    for witness in subject.assessment.witnesses:
+        age = witness.distance_microseconds
+        band = next(
+            b
+            for b in subject.policy.bands
+            if b.lower_age_microseconds < age <= b.upper_age_microseconds
+        )
+        entries.append(FeatureDecayTraceEntry(witness=witness, age_microseconds=age, band=band))
+    return _inherited_result(subject.assessment) | dict(entries=tuple(entries))
+
+
+def feature_penalty_values(subject):
+    contributions = []
+    total_n, total_d = 0, 1
+    unit = subject.policy.unit_penalty
+    for entry in subject.trace.entries:
+        retention = entry.band.retention_multiplier
+        amount = FeatureRepeatPenaltyAmount(
+            numerator=unit.numerator * retention.numerator,
+            denominator=unit.denominator * retention.denominator,
+        )
+        contributions.append(
+            FeatureRepeatPenaltyContribution(
+                entry=entry,
+                unit_penalty=unit,
+                contribution=amount,
+            )
+        )
+        total_n = total_n * amount.denominator + amount.numerator * total_d
+        total_d *= amount.denominator
+        divisor = gcd(total_n, total_d)
+        total_n, total_d = total_n // divisor, total_d // divisor
+    if subject.trace.unresolved_meal_ids:
+        result = UnavailableProposalLocalFeaturePenalty(reason="UNRESOLVED_TERM_OCCURRENCES")
+    elif not contributions:
+        result = UnavailableProposalLocalFeaturePenalty(reason="NO_MATCH_IN_SELECTED_PROPOSAL")
+    else:
+        result = AvailableProposalLocalFeaturePenalty(
+            amount=FeatureRepeatPenaltyAmount(numerator=total_n, denominator=total_d)
+        )
+    return _inherited_result(subject.trace) | dict(
+        contributions=tuple(contributions),
+        proposal_local_feature_repeat_penalty=result,
+    )
+
+
+def verify_feature_result(result, expected):
+    for name, value in expected.items():
+        if getattr(result, name) != value:
+            raise ValueError(f"Feature repeat result differs from recomputed primitives: {name}")

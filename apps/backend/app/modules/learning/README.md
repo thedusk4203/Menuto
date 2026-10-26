@@ -24,4 +24,13 @@ are separate semantics, not silently added here.
 MTR-041D adds interpret_recipe_repeat_penalty: fully revalidated041C→exact per-witness
 contributions and proposal_local_repeat_penalty, explicit versioned SUM_RETAINED_OCCURRENCES
 policy only. None for empty; exact0 for zero retention with witnesses retained. No numeric defaults,
-DB IO, global history, member aggregation, ranking or cross-dimension utility. NOT FROZEN.
+DB IO, global history, member aggregation, ranking or cross-dimension utility.041D is user FROZEN.
+
+
+MTR-041F implements additive assess_feature_cooldown -> trace_feature_decay ->
+interpret_feature_repeat_penalty for one exact reviewed term/member/target in one proposal.
+Full frozen041E preview/source is reconstructed every stage; frozen046A resolves finite coverage.
+Explicit versioned per-term policies only; no Recipe-ID weight reuse or default numeric values.
+Unknown meals withhold totals, scoped empty is unavailable, complete nonempty zero retention is
+AVAILABLE0/1. No IO/persistence, profile mutation, global history, novelty, TasteFit or planner authority.
+041F IMPLEMENTED / NOT FROZEN; stop for architecture/freeze review. Frozen041B/C/D remain separate.

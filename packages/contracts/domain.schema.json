@@ -299,6 +299,25 @@
       "title": "AvailableExplicitAffinity",
       "type": "object"
     },
+    "AvailableProposalLocalFeaturePenalty": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/FeatureRepeatPenaltyAmount"
+        },
+        "status": {
+          "const": "AVAILABLE",
+          "default": "AVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "title": "AvailableProposalLocalFeaturePenalty",
+      "type": "object"
+    },
     "BatchFlowLinkDraft": {
       "additionalProperties": false,
       "description": "Future orchestration seam only: not permission to create a physical batch.",
@@ -3333,6 +3352,646 @@
       "title": "ExposurePreviewSnapshot",
       "type": "object"
     },
+    "FeatureCooldownAssessmentDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION",
+          "default": "NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "accepted_schedule": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Accepted Schedule",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "confirmed_exposure": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Confirmed Exposure",
+          "type": "string"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "feature-cooldown-assessment.v1-draft",
+          "default": "feature-cooldown-assessment.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY",
+          "default": "ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "cross_dimension_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Dimension Aggregation",
+          "type": "string"
+        },
+        "cross_horizon_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Cross Horizon History",
+          "type": "string"
+        },
+        "dimension_evidence_cut_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Dimension Evidence Cut Digest",
+          "type": "string"
+        },
+        "durable_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Durable History",
+          "type": "string"
+        },
+        "global_repeat_penalty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Global Repeat Penalty",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "lookback_start": {
+          "format": "date-time",
+          "title": "Lookback Start",
+          "type": "string"
+        },
+        "member_behavior_profile": {
+          "const": "NOT_MODIFIED",
+          "default": "NOT_MODIFIED",
+          "title": "Member Behavior Profile",
+          "type": "string"
+        },
+        "novelty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Novelty",
+          "type": "string"
+        },
+        "occurrence_resolution": {
+          "enum": [
+            "ALL_QUERIED_TERM_OCCURRENCES_DECIDABLE",
+            "HAS_UNRESOLVED_MEALS",
+            "NO_ELIGIBLE_PRIOR_MEALS"
+          ],
+          "title": "Occurrence Resolution",
+          "type": "string"
+        },
+        "occurrences": {
+          "items": {
+            "$ref": "#/$defs/FeatureMealTermOccurrence"
+          },
+          "title": "Occurrences",
+          "type": "array"
+        },
+        "outcome": {
+          "enum": [
+            "MATCH_IN_SELECTED_PROPOSAL",
+            "UNRESOLVED_IN_SELECTED_PROPOSAL",
+            "NO_MATCH_IN_SELECTED_PROPOSAL"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_cutoff": {
+          "format": "date-time",
+          "title": "Policy Cutoff",
+          "type": "string"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "source_preview_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Preview Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/FeatureCooldownInput"
+        },
+        "target": {
+          "$ref": "#/$defs/FeatureExposurePreviewFact"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        },
+        "unresolved_meal_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Unresolved Meal Ids",
+          "type": "array"
+        },
+        "witnesses": {
+          "items": {
+            "$ref": "#/$defs/FeatureCooldownWitness"
+          },
+          "title": "Witnesses",
+          "type": "array"
+        }
+      },
+      "required": [
+        "source_preview_fingerprint",
+        "dimension_evidence_cut_digest",
+        "outcome",
+        "occurrence_resolution",
+        "unresolved_meal_ids",
+        "subject",
+        "target",
+        "lookback_start",
+        "policy_cutoff",
+        "occurrences",
+        "witnesses"
+      ],
+      "title": "FeatureCooldownAssessmentDraft",
+      "type": "object"
+    },
+    "FeatureCooldownInput": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "feature-cooldown-input.v1",
+          "default": "feature-cooldown-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/FeatureCooldownPolicy"
+        },
+        "preview": {
+          "$ref": "#/$defs/FeatureExposurePreviewDraft"
+        },
+        "query": {
+          "$ref": "#/$defs/FeatureRepeatQuery"
+        }
+      },
+      "required": [
+        "preview",
+        "query",
+        "policy"
+      ],
+      "title": "FeatureCooldownInput",
+      "type": "object"
+    },
+    "FeatureCooldownPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "feature-cooldown-policy.v1",
+          "default": "feature-cooldown-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "duration_microseconds": {
+          "exclusiveMinimum": 0,
+          "title": "Duration Microseconds",
+          "type": "integer"
+        },
+        "feature_term_id": {
+          "format": "uuid",
+          "title": "Feature Term Id",
+          "type": "string"
+        },
+        "fingerprint_kind": {
+          "const": "REVIEWED_FEATURE_TERM_ID",
+          "default": "REVIEWED_FEATURE_TERM_ID",
+          "title": "Fingerprint Kind",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "interval": {
+          "const": "START_INCLUSIVE_TARGET_EXCLUSIVE",
+          "default": "START_INCLUSIVE_TARGET_EXCLUSIVE",
+          "title": "Interval",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "dimension",
+        "feature_term_id",
+        "duration_microseconds"
+      ],
+      "title": "FeatureCooldownPolicy",
+      "type": "object"
+    },
+    "FeatureCooldownWitness": {
+      "additionalProperties": false,
+      "properties": {
+        "distance_microseconds": {
+          "exclusiveMinimum": 0,
+          "title": "Distance Microseconds",
+          "type": "integer"
+        },
+        "fact": {
+          "$ref": "#/$defs/FeatureExposurePreviewFact"
+        }
+      },
+      "required": [
+        "fact",
+        "distance_microseconds"
+      ],
+      "title": "FeatureCooldownWitness",
+      "type": "object"
+    },
+    "FeatureDecayBand": {
+      "additionalProperties": false,
+      "properties": {
+        "lower_age_microseconds": {
+          "minimum": 0,
+          "title": "Lower Age Microseconds",
+          "type": "integer"
+        },
+        "ordinal": {
+          "minimum": 0,
+          "title": "Ordinal",
+          "type": "integer"
+        },
+        "retention_multiplier": {
+          "$ref": "#/$defs/FeatureRetentionMultiplier"
+        },
+        "upper_age_microseconds": {
+          "exclusiveMinimum": 0,
+          "title": "Upper Age Microseconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "ordinal",
+        "lower_age_microseconds",
+        "upper_age_microseconds",
+        "retention_multiplier"
+      ],
+      "title": "FeatureDecayBand",
+      "type": "object"
+    },
+    "FeatureDecayInput": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "$ref": "#/$defs/FeatureCooldownAssessmentDraft"
+        },
+        "contract_version": {
+          "const": "feature-decay-input.v1",
+          "default": "feature-decay-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/FeatureDecayPolicy"
+        }
+      },
+      "required": [
+        "assessment",
+        "policy"
+      ],
+      "title": "FeatureDecayInput",
+      "type": "object"
+    },
+    "FeatureDecayPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "band_interval": {
+          "const": "LOWER_EXCLUSIVE_UPPER_INCLUSIVE",
+          "default": "LOWER_EXCLUSIVE_UPPER_INCLUSIVE",
+          "title": "Band Interval",
+          "type": "string"
+        },
+        "bands": {
+          "items": {
+            "$ref": "#/$defs/FeatureDecayBand"
+          },
+          "minItems": 1,
+          "title": "Bands",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "feature-decay-policy.v1",
+          "default": "feature-decay-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "feature_term_id": {
+          "format": "uuid",
+          "title": "Feature Term Id",
+          "type": "string"
+        },
+        "fingerprint_kind": {
+          "const": "REVIEWED_FEATURE_TERM_ID",
+          "default": "REVIEWED_FEATURE_TERM_ID",
+          "title": "Fingerprint Kind",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "dimension",
+        "feature_term_id",
+        "bands"
+      ],
+      "title": "FeatureDecayPolicy",
+      "type": "object"
+    },
+    "FeatureDecayTraceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION",
+          "default": "NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "accepted_schedule": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Accepted Schedule",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "confirmed_exposure": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Confirmed Exposure",
+          "type": "string"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "feature-decay-trace.v1-draft",
+          "default": "feature-decay-trace.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY",
+          "default": "ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "cross_dimension_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Dimension Aggregation",
+          "type": "string"
+        },
+        "cross_horizon_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Cross Horizon History",
+          "type": "string"
+        },
+        "dimension_evidence_cut_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Dimension Evidence Cut Digest",
+          "type": "string"
+        },
+        "durable_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Durable History",
+          "type": "string"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/FeatureDecayTraceEntry"
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "global_repeat_penalty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Global Repeat Penalty",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "member_behavior_profile": {
+          "const": "NOT_MODIFIED",
+          "default": "NOT_MODIFIED",
+          "title": "Member Behavior Profile",
+          "type": "string"
+        },
+        "novelty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Novelty",
+          "type": "string"
+        },
+        "occurrence_resolution": {
+          "enum": [
+            "ALL_QUERIED_TERM_OCCURRENCES_DECIDABLE",
+            "HAS_UNRESOLVED_MEALS",
+            "NO_ELIGIBLE_PRIOR_MEALS"
+          ],
+          "title": "Occurrence Resolution",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "MATCH_IN_SELECTED_PROPOSAL",
+            "UNRESOLVED_IN_SELECTED_PROPOSAL",
+            "NO_MATCH_IN_SELECTED_PROPOSAL"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "source_preview_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Preview Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/FeatureDecayInput"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        },
+        "unresolved_meal_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Unresolved Meal Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "source_preview_fingerprint",
+        "dimension_evidence_cut_digest",
+        "outcome",
+        "occurrence_resolution",
+        "unresolved_meal_ids",
+        "subject",
+        "entries"
+      ],
+      "title": "FeatureDecayTraceDraft",
+      "type": "object"
+    },
+    "FeatureDecayTraceEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "age_microseconds": {
+          "exclusiveMinimum": 0,
+          "title": "Age Microseconds",
+          "type": "integer"
+        },
+        "band": {
+          "$ref": "#/$defs/FeatureDecayBand"
+        },
+        "witness": {
+          "$ref": "#/$defs/FeatureCooldownWitness"
+        }
+      },
+      "required": [
+        "witness",
+        "age_microseconds",
+        "band"
+      ],
+      "title": "FeatureDecayTraceEntry",
+      "type": "object"
+    },
     "FeatureDimensionDiscovery": {
       "additionalProperties": false,
       "properties": {
@@ -4003,6 +4662,73 @@
       "title": "FeatureExposureSupportWitness",
       "type": "object"
     },
+    "FeatureMealTermOccurrence": {
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "items": {
+            "$ref": "#/$defs/FeatureTermCoverageCell"
+          },
+          "minItems": 1,
+          "title": "Cells",
+          "type": "array"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "event": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FeatureExposurePreviewFact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "feature_term_id": {
+          "format": "uuid",
+          "title": "Feature Term Id",
+          "type": "string"
+        },
+        "meal_node_id": {
+          "format": "uuid",
+          "title": "Meal Node Id",
+          "type": "string"
+        },
+        "scheduled_at": {
+          "format": "date-time",
+          "title": "Scheduled At",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "PRESENT",
+            "REVIEWED_ABSENT",
+            "UNRESOLVED"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "meal_node_id",
+        "scheduled_at",
+        "dimension",
+        "feature_term_id",
+        "cells",
+        "state",
+        "event"
+      ],
+      "title": "FeatureMealTermOccurrence",
+      "type": "object"
+    },
     "FeaturePreferenceTarget": {
       "additionalProperties": false,
       "properties": {
@@ -4026,6 +4752,428 @@
         "feature_term_id"
       ],
       "title": "FeaturePreferenceTarget",
+      "type": "object"
+    },
+    "FeatureRepeatPenaltyAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "minimum": 0,
+          "title": "Numerator",
+          "type": "integer"
+        },
+        "unit": {
+          "const": "POLICY_FEATURE_REPEAT_PENALTY_UNITS",
+          "default": "POLICY_FEATURE_REPEAT_PENALTY_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "FeatureRepeatPenaltyAmount",
+      "type": "object"
+    },
+    "FeatureRepeatPenaltyContribution": {
+      "additionalProperties": false,
+      "properties": {
+        "contribution": {
+          "$ref": "#/$defs/FeatureRepeatPenaltyAmount"
+        },
+        "entry": {
+          "$ref": "#/$defs/FeatureDecayTraceEntry"
+        },
+        "unit_penalty": {
+          "$ref": "#/$defs/FeatureRepeatPenaltyAmount"
+        }
+      },
+      "required": [
+        "entry",
+        "unit_penalty",
+        "contribution"
+      ],
+      "title": "FeatureRepeatPenaltyContribution",
+      "type": "object"
+    },
+    "FeatureRepeatPenaltyDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_semantics": {
+          "const": "NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION",
+          "default": "NO_GLOBAL_REPEAT_NOVELTY_OR_NEVER_EXPOSED_CONCLUSION",
+          "title": "Absence Semantics",
+          "type": "string"
+        },
+        "accepted_schedule": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Accepted Schedule",
+          "type": "string"
+        },
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "confirmed_exposure": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Confirmed Exposure",
+          "type": "string"
+        },
+        "consumption_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Consumption History",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "feature-repeat-penalty.v1-draft",
+          "default": "feature-repeat-penalty.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "contributions": {
+          "items": {
+            "$ref": "#/$defs/FeatureRepeatPenaltyContribution"
+          },
+          "title": "Contributions",
+          "type": "array"
+        },
+        "coverage": {
+          "const": "ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY",
+          "default": "ONE_SELECTED_PROPOSAL_EXACT_FEATURE_TERM_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "cross_dimension_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Dimension Aggregation",
+          "type": "string"
+        },
+        "cross_horizon_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Cross Horizon History",
+          "type": "string"
+        },
+        "dimension_evidence_cut_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Dimension Evidence Cut Digest",
+          "type": "string"
+        },
+        "durable_history": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Durable History",
+          "type": "string"
+        },
+        "global_repeat_penalty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Global Repeat Penalty",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "member_behavior_profile": {
+          "const": "NOT_MODIFIED",
+          "default": "NOT_MODIFIED",
+          "title": "Member Behavior Profile",
+          "type": "string"
+        },
+        "novelty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Novelty",
+          "type": "string"
+        },
+        "occurrence_resolution": {
+          "enum": [
+            "ALL_QUERIED_TERM_OCCURRENCES_DECIDABLE",
+            "HAS_UNRESOLVED_MEALS",
+            "NO_ELIGIBLE_PRIOR_MEALS"
+          ],
+          "title": "Occurrence Resolution",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "MATCH_IN_SELECTED_PROPOSAL",
+            "UNRESOLVED_IN_SELECTED_PROPOSAL",
+            "NO_MATCH_IN_SELECTED_PROPOSAL"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "proposal_local_feature_repeat_penalty": {
+          "discriminator": {
+            "mapping": {
+              "AVAILABLE": "#/$defs/AvailableProposalLocalFeaturePenalty",
+              "UNAVAILABLE": "#/$defs/UnavailableProposalLocalFeaturePenalty"
+            },
+            "propertyName": "status"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AvailableProposalLocalFeaturePenalty"
+            },
+            {
+              "$ref": "#/$defs/UnavailableProposalLocalFeaturePenalty"
+            }
+          ],
+          "title": "Proposal Local Feature Repeat Penalty"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "source_preview_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Preview Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/FeatureRepeatPenaltyInput"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        },
+        "unresolved_meal_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Unresolved Meal Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "source_preview_fingerprint",
+        "dimension_evidence_cut_digest",
+        "outcome",
+        "occurrence_resolution",
+        "unresolved_meal_ids",
+        "subject",
+        "contributions",
+        "proposal_local_feature_repeat_penalty"
+      ],
+      "title": "FeatureRepeatPenaltyDraft",
+      "type": "object"
+    },
+    "FeatureRepeatPenaltyInput": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "feature-repeat-penalty-input.v1",
+          "default": "feature-repeat-penalty-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/FeatureRepeatPenaltyPolicy"
+        },
+        "trace": {
+          "$ref": "#/$defs/FeatureDecayTraceDraft"
+        }
+      },
+      "required": [
+        "trace",
+        "policy"
+      ],
+      "title": "FeatureRepeatPenaltyInput",
+      "type": "object"
+    },
+    "FeatureRepeatPenaltyPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "feature-repeat-penalty-policy.v1",
+          "default": "feature-repeat-penalty-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "feature_term_id": {
+          "format": "uuid",
+          "title": "Feature Term Id",
+          "type": "string"
+        },
+        "fingerprint_kind": {
+          "const": "REVIEWED_FEATURE_TERM_ID",
+          "default": "REVIEWED_FEATURE_TERM_ID",
+          "title": "Fingerprint Kind",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "AS_OF_CAPTURE",
+          "default": "AS_OF_CAPTURE",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "operator": {
+          "const": "SUM_RETAINED_TERM_OCCURRENCES",
+          "title": "Operator",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "source_kind": {
+          "const": "PROPOSAL_PREVIEW",
+          "default": "PROPOSAL_PREVIEW",
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "unit_penalty": {
+          "$ref": "#/$defs/FeatureRepeatPenaltyAmount"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "dimension",
+        "feature_term_id",
+        "operator",
+        "unit_penalty"
+      ],
+      "title": "FeatureRepeatPenaltyPolicy",
+      "type": "object"
+    },
+    "FeatureRepeatQuery": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "feature-repeat-query.v1",
+          "default": "feature-repeat-query.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimension": {
+          "enum": [
+            "METHOD",
+            "FLAVOR",
+            "MAIN_PROTEIN"
+          ],
+          "title": "Dimension",
+          "type": "string"
+        },
+        "feature_term_id": {
+          "format": "uuid",
+          "title": "Feature Term Id",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "meal_node_id": {
+          "format": "uuid",
+          "title": "Meal Node Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "format": "uuid",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "proposal_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Proposal Hash",
+          "type": "string"
+        },
+        "proposal_id": {
+          "format": "uuid",
+          "title": "Proposal Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "plan_id",
+        "proposal_id",
+        "proposal_hash",
+        "meal_node_id",
+        "dimension",
+        "feature_term_id"
+      ],
+      "title": "FeatureRepeatQuery",
+      "type": "object"
+    },
+    "FeatureRetentionMultiplier": {
+      "additionalProperties": false,
+      "description": "Exact policy retention, not probability or statistical confidence.",
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "minimum": 0,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "FeatureRetentionMultiplier",
       "type": "object"
     },
     "FeatureReviewSource": {
@@ -4245,6 +5393,23 @@
         "identity"
       ],
       "title": "FeatureTargetManifestEntry",
+      "type": "object"
+    },
+    "FeatureTermCoverageCell": {
+      "additionalProperties": false,
+      "properties": {
+        "diagnostic": {
+          "$ref": "#/$defs/FeatureExposureCoverageDiagnostic"
+        },
+        "resolution": {
+          "$ref": "#/$defs/FeatureTermResolution"
+        }
+      },
+      "required": [
+        "diagnostic",
+        "resolution"
+      ],
+      "title": "FeatureTermCoverageCell",
       "type": "object"
     },
     "FeatureTermQuery": {
@@ -13734,6 +14899,30 @@
       "title": "UnavailablePreferencePrior",
       "type": "object"
     },
+    "UnavailableProposalLocalFeaturePenalty": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "enum": [
+            "UNRESOLVED_TERM_OCCURRENCES",
+            "NO_MATCH_IN_SELECTED_PROPOSAL"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "UnavailableProposalLocalFeaturePenalty",
+      "type": "object"
+    },
     "UnavailableShrunkAffinity": {
       "additionalProperties": false,
       "properties": {
@@ -14555,6 +15744,6 @@
   },
   "$id": "urn:menuto:domain:foundation:20",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; repeat penalty v1-draft uses exact proposal-local policy units, not global history; explicit target affinity v1-draft interprets canonical requested targets only; no prior/shrinkage, inferred evidence, candidate utility or activation; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; repeat penalty v1-draft uses exact proposal-local policy units, not global history; explicit target affinity v1-draft interprets canonical requested targets only; no prior/shrinkage, inferred evidence, candidate utility or activation; feature repeat v1-draft interprets one proposal-local term with explicit policies; unresolved/empty occurrences are unavailable, no cross-dimension utility or history; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

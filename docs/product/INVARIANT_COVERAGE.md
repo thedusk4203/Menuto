@@ -267,15 +267,17 @@ Prior/shrinkage and learned/contextual/passive evidence remain UNAVAILABLE; cros
 and candidate aggregation remain NOT_PERFORMED; planner_ready=False, activation_ready=False.
 No MTR-040C/next implementation is authorized.
 
-## MTR-041F design — no new runtime invariant enforcement
+## MTR-041F — additive enforcement / IMPLEMENTED / NOT FROZEN
 
-[Feature repeat policy design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) proposes explicit
-METHOD/MAIN_PROTEIN/FLAVOR term-specific cooldown, rational decay and proposal-local penalty over
-frozen041E. INV-012/013 preserve preview versus accepted/confirmed reality;018 exact primitives;
-021 non-authority;022–029 member ownership, no taste inference/passive learning, separable policy
-dimensions and no hidden policy mutation. INV-030 remains incomplete; no cross-horizon source.
-REVIEWED_NONE is finite-scope absence; UNRESOLVED is not zero; support cardinality is not occurrence
-count. The44-case future acceptance plan is not executed041F test coverage. Frozen040A/B,041A–E,
-046A,256 exported definitions and migrations0001–0013 stay unchanged. No runtime/schema/test changes,
-no full-invariant completion claim.040C design NOT READY;024/020B/021 BLOCKED, Execution NOT STARTED,
-PRECOMMIT FAIL-CLOSED.041F DESIGN ONLY / implementation NOT AUTHORIZED / NOT FROZEN.
+[Approved design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) now has pure Learning interpretation
+and [adversarial/real-PG evidence](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
+INV-012/013 preserve preview versus accepted/confirmed reality;018 uses strict reduced rational
+arithmetic;021 withholds authority;022–029 preserve member ownership, separate dimensions,
+explicit authored policies, no passive/learned/taste inference or hidden preference mutation.
+INV-030 remains incomplete; no cross-horizon source or full invariant completion is claimed.
+Finite REVIEWED_NONE is not never exposed, UNRESOLVED is not zero, support cardinality is not
+occurrence count. Every stage recursively verifies the full source and exact diagnostic manifest,
+including rehashed cached-result rejection. The44-case acceptance matrix is mapped to actual tests.
+All256 old definitions and0001–0013 remain unchanged;20 additive definitions,276 total;0013 /71.
+040C design NOT READY;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+041F IMPLEMENTED / NOT FROZEN; awaiting user architecture/freeze review, no next milestone.

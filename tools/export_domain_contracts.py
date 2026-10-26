@@ -63,13 +63,32 @@ from app.modules.inventory.contracts import (
     RetailSourcedAPAssetDraft,
 )
 from app.modules.learning.contracts import (
+    AvailableProposalLocalFeaturePenalty,
     ExposureAllocationSupport,
     ExposurePreviewPolicy,
     ExposurePreviewRequest,
     ExposurePreviewSnapshot,
+    FeatureCooldownAssessmentDraft,
+    FeatureCooldownInput,
+    FeatureCooldownPolicy,
+    FeatureCooldownWitness,
+    FeatureDecayBand,
+    FeatureDecayInput,
+    FeatureDecayPolicy,
+    FeatureDecayTraceDraft,
+    FeatureDecayTraceEntry,
     FeatureExposurePreviewDraft,
     FeatureExposurePreviewRequest,
     FeatureExposureSourceSnapshotDraft,
+    FeatureMealTermOccurrence,
+    FeatureRepeatPenaltyAmount,
+    FeatureRepeatPenaltyContribution,
+    FeatureRepeatPenaltyDraft,
+    FeatureRepeatPenaltyInput,
+    FeatureRepeatPenaltyPolicy,
+    FeatureRepeatQuery,
+    FeatureRetentionMultiplier,
+    FeatureTermCoverageCell,
     ProposalExposureSource,
     RecipeCooldownAssessmentDraft,
     RecipeCooldownInput,
@@ -91,6 +110,7 @@ from app.modules.learning.contracts import (
     RecipeRepeatPenaltyPolicy,
     RepeatPenaltyAmount,
     RetentionMultiplier,
+    UnavailableProposalLocalFeaturePenalty,
 )
 from app.modules.nutrition.contracts import (
     CanonicalMemberSafetySnapshot,
@@ -250,6 +270,26 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    AvailableProposalLocalFeaturePenalty,
+    FeatureCooldownAssessmentDraft,
+    FeatureCooldownInput,
+    FeatureCooldownPolicy,
+    FeatureCooldownWitness,
+    FeatureDecayBand,
+    FeatureDecayInput,
+    FeatureDecayPolicy,
+    FeatureDecayTraceDraft,
+    FeatureDecayTraceEntry,
+    FeatureMealTermOccurrence,
+    FeatureRepeatPenaltyAmount,
+    FeatureRepeatPenaltyContribution,
+    FeatureRepeatPenaltyDraft,
+    FeatureRepeatPenaltyInput,
+    FeatureRepeatPenaltyPolicy,
+    FeatureRepeatQuery,
+    FeatureRetentionMultiplier,
+    FeatureTermCoverageCell,
+    UnavailableProposalLocalFeaturePenalty,
     AvailableExplicitAffinity,
     CanonicalPreferenceTargetManifest,
     DerivedExplicitEvidenceStrength,
@@ -499,6 +539,8 @@ def export() -> str:
         "repeat penalty v1-draft uses exact proposal-local policy units, not global history; "
         "explicit target affinity v1-draft interprets canonical requested targets only; "
         "no prior/shrinkage, inferred evidence, candidate utility or activation; "
+        "feature repeat v1-draft interprets one proposal-local term with explicit policies; "
+        "unresolved/empty occurrences are unavailable, no cross-dimension utility or history; "
         "PRECOMMIT authority not installed. "
         "No production activation or full independent validation is provided. "
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "

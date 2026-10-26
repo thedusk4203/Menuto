@@ -400,18 +400,18 @@ next-milestone implementation is started or authorized. Earlier design-only entr
 
 **MTR-040B FROZEN — READY FOR NEXT-MILESTONE ARCHITECTURE REVIEW, NOT IMPLEMENTATION.**
 
-## MTR-041F — Proposal-local Reviewed Feature Repeat Policy / DESIGN ONLY
+## MTR-041F — Proposal-local Reviewed Feature Repeat Policy / IMPLEMENTED / NOT FROZEN
 
-The user's next-milestone architecture decision authorizes a docs-only
-[041F design PR](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md), based on
-`ce03e1b925c80771d20863277963fac8db711c66`, whose exact post-merge CI40218477245 succeeded.
-040A/B,041A–E and046A remain FROZEN. This design proposes additive pure Learning interpretation
-of041E's METHOD/MAIN_PROTEIN/FLAVOR events and coverage: cooldown witnesses, exact rational decay
-and proposal-local per-term penalty.041B/C/D stay RECIPE_ID-specific; no genericization or weights reused.
-Unresolved potential occurrences keep the total unavailable. Scoped empty is not zero; nonempty
-explicit zero retention remains distinguishable. No learned profile, novelty, TasteFit, accepted/
-confirmed/consumed/cross-horizon/family source,024 composition, Execution or PRECOMMIT authority.
-No proposed041F contract/test/runtime is implemented or exported. Schema0013 /71 and256 definitions
-unchanged; no migration. NOT FROZEN / implementation NOT AUTHORIZED.040C design NOT READY because
-canonical priors/broader evidence are absent;040B prior/shrinkage remain UNAVAILABLE.024/020B/021
-remain BLOCKED. The design PR stops open for architecture review; no implementation starts.
+The user approved the [041F design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md) after design PR #92
+merged at `9e9dfc0f9cf234a8e0c32082652318becce38bfd`. The additive implementation provides pure
+cooldown, exact decay and proposal-local feature penalty for one member/target/dimension/term.
+Full041E source/preview is revalidated each stage; frozen046A resolves finite term coverage.
+Explicit versioned policies, contained lookback and minimum consumed-child cutoff are enforced.
+Unresolved potential occurrences keep the aggregate unavailable; scoped empty is not zero;
+complete nonempty explicit-zero traces remain AVAILABLE0/1. All44 acceptance cases and current
+receipts are recorded in [implementation evidence](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
+Frozen040A/B,041A–E,046A remain unchanged.256 old definitions retained plus20 additive=276;
+schema0013 /71, no migration or new source/persistence/HTTP endpoint. Full041 stays PARTIAL.
+040C design NOT READY/NOT AUTHORIZED,040B prior/shrinkage UNAVAILABLE;024/020B/021 BLOCKED.
+No learned profile, novelty, TasteFit, accepted/confirmed/consumed/cross-horizon/family history,
+Execution or PRECOMMIT authority.041F NOT FROZEN; no next-milestone authorization.

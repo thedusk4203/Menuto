@@ -11,12 +11,13 @@ and freeze approval. Current MTR-040B status: **FROZEN** at PR #90 merge
 [canonical freeze receipt](MTR_040B_EXPLICIT_TARGET_AFFINITY_EVIDENCE.md). The recommendations
 below remain this review's historical record and do not authorize another milestone.
 
-Subsequent next-milestone decision after040B freeze: the user authorizes
-[MTR-041F feature repeat policy architecture/design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md)
-only, from `ce03e1b925c80771d20863277963fac8db711c66`. The optional feature-policy branch identified
-below is now selected for design; the earlier040-first priority has already delivered040B.
-040C design is NOT READY/NOT AUTHORIZED because prior/broader-evidence sources are absent.
-No041F implementation,024 composition, accepted/confirmed/history or Execution is authorized.
+Subsequent decision after040B freeze: the user approved [MTR-041F's design](MTR_041F_FEATURE_REPEAT_POLICY_DESIGN.md)
+and implementation from design PR #92 merge `9e9dfc0f9cf234a8e0c32082652318becce38bfd`.
+Current041F: **IMPLEMENTED / NOT FROZEN**; see [implementation evidence](MTR_041F_FEATURE_REPEAT_POLICY_EVIDENCE.md).
+This supersedes the earlier041F design-only limit; the matrix below remains this review's historical
+source-readiness assessment.040C design remains NOT READY/NOT AUTHORIZED because canonical prior/
+broader-evidence sources are absent. No024 composition, accepted/confirmed/history, Execution or
+PRECOMMIT authority is authorized. No later milestone starts.
 
 Reviewed latest canonical `main`: **`146c7cee9915c91593c4ec7518615e065d7abf53`**, PR #87.
 The user has **FROZEN / APPROVED MTR-041E** at that commit. Schema is **0013 /71 domain tables**;

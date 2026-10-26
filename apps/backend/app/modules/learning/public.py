@@ -18,6 +18,15 @@ from app.modules.learning.contracts import (
     _repeat_penalty_values,
     derive_preview_facts,
 )
+from app.modules.learning.feature_repeat import (
+    assess_feature_cooldown as assess_feature_cooldown,
+)
+from app.modules.learning.feature_repeat import (
+    interpret_feature_repeat_penalty as interpret_feature_repeat_penalty,
+)
+from app.modules.learning.feature_repeat import (
+    trace_feature_decay as trace_feature_decay,
+)
 
 
 def preview_recent_exposure(snapshot):
