@@ -115,24 +115,52 @@ Therefore v1 explicitly rejects:
 - direct weighted average of raw `ExplicitAffinityAmount` and raw `ReferencePriorAmount`;
 - treating either source coordinate as probability or candidate utility.
 
-### 3.2 New consumer/output coordinate
+### 3.2 Policy-scoped, target-kind-scoped output coordinate
 
-Introduce a distinct proposed coordinate:
+Introduce an immutable `MemberProfileAffinityCoordinate`. Its complete semantic identity is the exact tuple:
 
 ```text
 coordinate_id      = MEMBER_PROFILE_AFFINITY
 coordinate_version = 1
+target_kind        = the exact target's typed kind
+compatibility_policy_fingerprint = the full selected compatibility-policy fingerprint
 unit               = POLICY_MEMBER_PROFILE_AFFINITY_UNITS
-scope              = ONE_POLICY_VERSION_EXACT_TARGET_ONLY
+scope              = ONE_COMPATIBILITY_POLICY_ONE_TARGET_KIND_EXACT_TARGET_ONLY
 ```
 
-Proposed `MemberProfileAffinityAmount` is a canonical signed exact rational in `[-1,1]`.
+The family label/version alone is not a complete coordinate. V1 uses the full compatibility-policy fingerprint, not an interchangeable mapping-group hash. Even numerically identical mappings under different policy fingerprints do not establish coordinate equivalence.
+
+Proposed `MemberProfileAffinityAmount` is a canonical signed exact rational in `[-1,1]`, usable only as a numeric component of an inseparable scoped value:
+
+```text
+ScopedMemberProfileAffinity {
+    coordinate: MemberProfileAffinityCoordinate
+    amount: MemberProfileAffinityAmount
+}
+```
+
+Mapped explicit values, mapped prior values, weighted contributions and effective values must all use this structure. No mapping/derivation result or serialized consumer value may expose a naked `MemberProfileAffinityAmount(1/2)` with implied global semantics. The exact target remains separately bound to every derivation result; sharing a descriptor does not authorize cross-target transfer or aggregation.
 
 Its meaning is:
 
-> a policy-linear exact-target member-profile affinity coordinate produced only after explicit source values and reviewed reference values have been mapped by an approved compatibility policy.
+> a policy-linear exact-target member-profile affinity coordinate for one target kind under one exact compatibility policy, produced only after explicit source values and reviewed reference values have been mapped by that policy.
 
-Unlike the two source coordinates, this output coordinate explicitly permits **convex interpolation after mapping**, because the compatibility policy authors the source anchors into this policy-linear space.
+Unlike the two source coordinates, this output coordinate explicitly permits **convex interpolation after mapping within one identical descriptor**, because the compatibility policy authors the source anchors into that scoped policy-linear space.
+
+Required invariants:
+
+```text
+same rational + different target_kind
+    => NO DEFINED COMPARABILITY OR AGGREGATION
+same rational + different compatibility_policy_fingerprint
+    => NO DEFINED COMPARABILITY OR AGGREGATION
+same exact descriptor + same canonical rational
+    => deterministic scoped-value equality is allowed
+```
+
+Equality does not grant ranking, aggregation or planner-utility authority. A consumer must not strip the descriptor to compare or aggregate fractions across these scopes.
+
+Compatibility/mapping identity defines coordinate semantics. `shrinkage_policy_fingerprint` is deliberately **not** part of the descriptor: shrinkage selects a point/composition on the existing scale and belongs to derivation/result provenance. Changing only the shrinkage-policy version may change weights, contributions and the result fingerprint, but must not redefine the coordinate when the compatibility policy and target kind are unchanged. Equal scoped values may therefore have different derivation provenance.
 
 It is still **not**:
 
@@ -141,7 +169,7 @@ It is still **not**:
 - planner utility;
 - EvidenceStrength;
 - hard exclusion/safety policy;
-- comparable across different compatibility/shrinkage policy versions without another explicit policy.
+- a defined cross-kind or cross-compatibility-policy comparison/aggregation scale.
 
 A reference prior mapped into this coordinate remains reference evidence. It never becomes an `ExplicitAffinityAmount` or an explicit declaration.
 
@@ -160,25 +188,27 @@ It is immutable, versioned, extra-forbid, deterministic, and complete for the ex
 - exact expected 040B explicit policy identity/version/fingerprint
 - exact expected reviewed-reference provider identity plus immutable provider command hash
 - expected reference coordinate ID/version/unit/applicability
-- output coordinate identity/version/unit
+- output coordinate family identity/version/unit/scope, instantiated with the requested target kind and this policy's full fingerprint
 - five exact target-kind explicit mapping groups
 - five exact target-kind reference mapping groups
 
 No production mappings/default values are supplied by this design.
+
+To avoid a recursive self-hash, compute the compatibility-policy fingerprint from its canonical authored body: pinned source bindings, coordinate family constants and all mapping groups/rows, including their exact numeric components. Derived descriptors containing that fingerprint are not part of the authored body. Each authored row is structurally nested under its target-kind group and policy; its numeric output has no standalone consumer meaning. Mapping materializes only `ScopedMemberProfileAffinity` with the descriptor deterministically constructed from that enclosing policy and requested target kind. Caller-supplied descriptor/fingerprint claims cannot replace this construction.
 
 ### 4.1 Explicit-side mapping
 
 For each of the five target kinds, require exactly three authored mapping rows:
 
 ```text
-(target_kind, DISLIKE, expected ExplicitAffinityAmount) -> MemberProfileAffinityAmount
-(target_kind, NEUTRAL, expected ExplicitAffinityAmount) -> MemberProfileAffinityAmount
-(target_kind, LIKE,    expected ExplicitAffinityAmount) -> MemberProfileAffinityAmount
+(target_kind, DISLIKE, expected ExplicitAffinityAmount) -> ScopedMemberProfileAffinity
+(target_kind, NEUTRAL, expected ExplicitAffinityAmount) -> ScopedMemberProfileAffinity
+(target_kind, LIKE,    expected ExplicitAffinityAmount) -> ScopedMemberProfileAffinity
 ```
 
 The `expected ExplicitAffinityAmount` must exactly equal the amount in the pinned frozen `ExplicitTargetAffinityPolicy`. The compatibility policy cannot reinterpret the explicit source under a different hidden rule.
 
-For each target kind require strict output ordering:
+For each target kind, all three outputs must carry the descriptor for that kind and the full selected policy fingerprint. Require strict numeric output ordering only inside that identical descriptor:
 
 ```text
 mapped(DISLIKE) < mapped(NEUTRAL) < mapped(LIKE)
@@ -205,7 +235,7 @@ reference_mapping_mode = FINITE_EXACT_LOOKUP
 For each target kind, the compatibility policy contains a finite authored set:
 
 ```text
-(target_kind, exact ReferencePriorAmount) -> MemberProfileAffinityAmount
+(target_kind, exact ReferencePriorAmount) -> ScopedMemberProfileAffinity
 ```
 
 Rules:
@@ -218,6 +248,8 @@ Rules:
 - no endpoint extrapolation;
 - no target-kind fallback;
 - no use of a mapping row from another provider or another coordinate version.
+
+Every mapped reference value must carry exactly the same descriptor as the explicit-side output for the same requested target and compatibility policy. Lookup cannot establish comparability with another kind or policy.
 
 A valid provider publication whose exact amount is not present in the selected compatibility policy is **not corrupt source data**. It resolves as an explicit consumer incompatibility:
 
@@ -246,7 +278,7 @@ A different provider requires a different explicit policy binding/version.
 
 Proposed contract: `ExactTargetShrinkagePolicy`.
 
-It is immutable, versioned and restricted to `REVIEWED_REFERENCE` provenance. It pins the exact compatibility-policy fingerprint and output coordinate.
+It is immutable, versioned and restricted to `REVIEWED_REFERENCE` provenance. It pins the exact compatibility-policy fingerprint and output coordinate family; for the requested target kind it must resolve to the exact descriptor defined in section 3.2. Its own fingerprint remains derivation provenance, not coordinate identity.
 
 ### 5.1 Prior influence coefficient
 
@@ -289,15 +321,20 @@ All exact coefficients are authored policy data. This design defines no producti
 
 ### 5.2 Exact blend algebra
 
-Only after both inputs have been mapped into `MemberProfileAffinityAmount`:
+Only after both inputs have been mapped into `ScopedMemberProfileAffinity`, validate their complete descriptors against each other and against the descriptor independently derived for the requested target/policy. Any mismatch rejects before arithmetic; never coerce or relabel an operand, even if the numeric values match.
+
+For that one identical descriptor `D`, the exact numeric algebra is:
 
 ```text
 explicit_weight = 1 - prior_weight
 
-effective =
-    explicit_weight * mapped_explicit
-  + prior_weight    * mapped_prior
+explicit_contribution = Scoped(D, explicit_weight * mapped_explicit.amount)
+prior_contribution    = Scoped(D, prior_weight * mapped_prior.amount)
+effective             = Scoped(D,
+    explicit_contribution.amount + prior_contribution.amount)
 ```
+
+Here `Scoped(D, amount)` denotes `ScopedMemberProfileAffinity`. Weights are dimensionless policy coefficients; every affinity operand, contribution and output retains `D`. Arithmetic on numeric components is internal to this validated operation, not a standalone scalar consumer interface.
 
 Use integer rational multiplication/addition followed by canonical gcd reduction. No float, decimal rounding, epsilon comparison or hidden clipping.
 
@@ -305,13 +342,13 @@ Because both mapped inputs lie in `[-1,1]` and weights form an exact convex pair
 
 Retain an exact audit trace:
 
-- mapped explicit amount;
-- mapped prior amount;
+- mapped explicit amount and its complete descriptor;
+- mapped prior amount and its complete descriptor;
 - explicit weight;
 - prior weight;
-- exact explicit contribution;
-- exact prior contribution;
-- final canonical amount;
+- exact explicit contribution and its complete descriptor;
+- exact prior contribution and its complete descriptor;
+- final canonical amount and its complete descriptor;
 - rule keys and policy fingerprints.
 
 A valid `prior_weight = 0` remains an explicit policy decision. If the compatible prior exists, keep the zero prior contribution in the trace rather than pretending no prior was available.
@@ -352,6 +389,8 @@ mode   = EXPLICIT_ONLY
 
 Map the active explicit assertion into the output coordinate. Preserve the exact prior availability/incompatibility reason and set shrinkage to `NOT_APPLIED`.
 
+Both mapped explicit and effective values retain the same complete descriptor; the absent mapped prior remains an explicit unavailable branch, never a fabricated scoped zero.
+
 This is an **observable explicit fallback**, not a synthesized prior of zero.
 
 ### 6.3 `UNDECLARED` + compatible `AVAILABLE` prior
@@ -365,6 +404,8 @@ EvidenceStrength = NONE
 ```
 
 Use the mapped prior directly as the effective output amount. No blend weight is applied because no explicit member amount exists.
+
+Mapped prior and effective values retain the same complete descriptor; the absent mapped explicit value remains absent.
 
 Prior-only cold start does not create a declaration, does not create DIRECT evidence and does not mint EvidenceStrength.
 
@@ -427,6 +468,7 @@ Structural requirements:
 5. reference source coordinate exactly equals the pinned closed v1 coordinate;
 6. shrinkage policy exactly pins the compatibility-policy fingerprint;
 7. no caller-supplied mapped amounts, prior rows, EvidenceStrength, weights, contributions, totals or cached child result fingerprints are accepted as authoritative inputs.
+8. every derived output descriptor is constructed from the exact requested target kind and full compatibility-policy fingerprint; mapped operands and shrinkage-policy bindings must agree with it exactly.
 
 This singleton slice is deliberate. Multi-target assembly is deferred until exact-target semantics are frozen.
 
@@ -445,8 +487,8 @@ Required flow:
 3. invoke/reproduce frozen `resolve_reference_priors()` semantics from the frozen `ReferencePriorSourceSnapshotDraft`;
 4. verify one exact target and all provider/policy/coordinate bindings;
 5. resolve the exact member state and frozen EvidenceStrength;
-6. map explicit/prior branches by the compatibility policy;
-7. apply the exact state matrix and, when applicable, the shrinkage policy;
+6. construct the expected scoped descriptor and map explicit/prior branches into inseparable scoped values;
+7. validate exact descriptor equality, then apply the exact state matrix and, when applicable, the shrinkage policy;
 8. recompute all contribution traces and fingerprints;
 9. return a new immutable result.
 
@@ -461,6 +503,7 @@ Forging/re-hashing any of these must not mint a valid result:
 - prior row;
 - source status;
 - mapped amount;
+- coordinate descriptor/target-kind/compatibility-policy binding;
 - selected weight;
 - contribution;
 - effective result;
@@ -490,7 +533,10 @@ The result must retain at least:
 - reference source fingerprint;
 - reference provider/frontier/capture clocks already present in the frozen source;
 - compatibility-policy fingerprint;
+- exact target/target kind and complete output coordinate descriptor, retained with each mapped/contribution/effective value that exists;
 - shrinkage-policy fingerprint.
+
+Canonical result serialization and its fingerprint include the complete descriptors and scoped values, plus both policy fingerprints. The compatibility-policy fingerprint determines coordinate semantics; the shrinkage-policy fingerprint determines derivation provenance. Replay/equality validation must recompute descriptor bindings along with child results and arithmetic. Numerically correct amounts with a forged target kind or policy fingerprint reject, including when the attacker re-hashes the forged result.
 
 Selected interpretation mode:
 
@@ -519,7 +565,8 @@ Names below are concrete design proposals; they are not implemented or exported 
 ### Coordinate and mapping
 
 - `MemberProfileAffinityCoordinate`
-- `MemberProfileAffinityAmount`
+- `MemberProfileAffinityAmount` (numeric component only; never a standalone consumer value)
+- `ScopedMemberProfileAffinity` (inseparable coordinate + amount)
 - `ExplicitProfileMappingRule`
 - `ExplicitTargetKindCompatibilityMap`
 - `ReferenceProfileMappingRule`
@@ -541,6 +588,8 @@ Names below are concrete design proposals; they are not implemented or exported 
 - `AvailableExactTargetProfileAffinity`
 - `UnavailableExactTargetProfileAffinity`
 
+Mapping rules are nested within the authored policy/kind groups; their mapped outputs use `ScopedMemberProfileAffinity`. `MappedExplicitProfileAffinity`, `MappedReferenceProfileAffinity` and `AvailableExactTargetProfileAffinity` contain scoped values, not bare amount fields with an optional sibling descriptor. `ExactTargetShrinkageContribution` retains its dimensionless weight and a scoped contribution. All these structures are immutable and extra-forbid; descriptor omission, mismatch or replacement rejects.
+
 ### Input/result
 
 - `ExactTargetPriorBackedAffinityInput`
@@ -557,16 +606,23 @@ Do not modify frozen 040B types to make `UnavailablePreferencePrior` suddenly av
 Required audit fields include:
 
 - canonical subject input;
-- target;
+- target and exact target kind;
+- full compatibility-policy fingerprint;
+- complete output coordinate descriptor derived from that fingerprint and target kind;
 - frozen member raw state;
 - frozen EvidenceStrength;
 - explicit mapping status/rule;
 - prior source status;
 - prior compatibility status/rule;
+- mapped explicit scoped value, or its explicit absent-state branch;
+- mapped prior scoped value, or its explicit unavailable/incompatible branch;
 - exact shrinkage mode/trace when applicable;
-- effective availability/result;
+- effective scoped value, or its explicit unavailable branch;
+- shrinkage-policy fingerprint as derivation provenance;
 - all child/policy fingerprints;
 - result fingerprint.
+
+Every result, including unavailable results, preserves the expected output descriptor and both selected policy fingerprints. Unavailable branches retain missingness reasons without synthesizing amounts. Every present mapped value, contribution and effective value independently carries the identical expected descriptor; the outer descriptor is not a substitute for structural binding. Recompute and validate exact target/kind/policy correspondence and complete descriptor equality across the result before accepting it.
 
 Fixed scope flags:
 
@@ -755,6 +811,14 @@ Implementation, if separately authorized later, must cover at least these catego
 58. `planner_ready=False` and `activation_ready=False` are immutable.
 59. No hard-safety, validator or PRECOMMIT authority can be minted.
 60. Canonicalization is deterministic under semantically unordered policy-row shuffles while preserving order where policy order is meaningful.
+61. Same rational `1/2` under INGREDIENT vs FLAVOR has no defined comparison or aggregation semantics, even with the same coordinate family label/version.
+62. Same rational `1/2` under compatibility policy A vs B has no defined comparison or aggregation semantics, even if both policies happen to contain identical numeric mappings.
+63. Blend operands carrying different complete output coordinate descriptors reject before arithmetic; coercion/relabeling is forbidden.
+64. Forged mapped/contribution/effective output with the correct numeric value but wrong descriptor target kind rejects, even if re-hashed.
+65. Forged mapped/contribution/effective output with the correct numeric value but wrong compatibility-policy fingerprint rejects, even if re-hashed.
+66. Same exact descriptor + same canonical rational permits deterministic scoped-value equality; distinct result provenance is still preserved and equality grants no planner authority.
+67. Changing only shrinkage-policy version while holding compatibility policy and target kind fixed changes derivation/provenance, not the coordinate; changed weights may change the selected point on that same scale.
+68. A future consumer cannot strip the descriptor and treat the numeric component as globally comparable planner utility: naked consumer values reject, scoped serialization retains the complete descriptor, and this interface grants no cross-scope comparison/aggregation operation.
 
 Real PostgreSQL tests are not intrinsically required for the pure arithmetic core, but the full regression suite must retain the existing real-PostgreSQL/SCRAM/source tests to prove that this additive consumer does not weaken frozen source enforcement.
 
@@ -793,7 +857,7 @@ Even if this exact-target slice is later implemented and frozen:
 - Execution remains not started;
 - PRECOMMIT remains fail-closed.
 
-This design supplies one exact-target member-profile input coordinate. It does not create planner-ready utility.
+This design supplies one exact-target member-profile value with a policy-scoped, target-kind-scoped coordinate. It does not create planner-ready utility or cross-kind/cross-policy comparison semantics.
 
 ---
 
@@ -801,7 +865,7 @@ This design supplies one exact-target member-profile input coordinate. It does n
 
 Before implementation may be authorized, review must explicitly approve or correct:
 
-1. the new `MEMBER_PROFILE_AFFINITY / v1` policy-linear output coordinate;
+1. the complete `MEMBER_PROFILE_AFFINITY / v1` descriptor scoped by target kind and full compatibility-policy fingerprint, structurally inseparable from every mapped/contribution/effective amount; shrinkage identity remains derivation provenance;
 2. finite exact lookup rather than interpolation for the reference coordinate;
 3. per-target-kind explicit and reference mappings;
 4. exact provider binding with no fallback/aggregation;
@@ -827,4 +891,4 @@ It authorizes no runtime change, no new contract export, no test addition, no mi
 
 Stop at:
 
-**READY FOR PRIOR COMPATIBILITY/SHRINKAGE DESIGN REVIEW — IMPLEMENTATION NOT AUTHORIZED**
+**READY FOR PRIOR COMPATIBILITY/SHRINKAGE RE-REVIEW — IMPLEMENTATION NOT AUTHORIZED**
