@@ -391,6 +391,9 @@ Capture requires a clean caller-owned read-only RR/SERIALIZABLE transaction and 
 capture grant for the selected provider. Capture complete immutable provider enrollment/authority/
 mutation history, all policy/relation streams and tombstones, canonical head/frontier manifests,
 endpoint identities, and complete consumed owner review histories/contexts/support frontiers.
+Capture checks permission at its coherent snapshot cut; it takes no write/frontier lock. A cut
+preceding a concurrent revocation may complete with that recorded grant; a later cut must deny.
+This is historical cut authorization, not a promise that the grant remains live at response time.
 Use one database snapshot and connection; no lazy later reads, mixed sessions or favorable-row slice.
 Recording a full provider set deliberately trades size for independently checkable completeness.
 If resource limits prevent complete capture, fail explicitly; never silently truncate or rank/select.
