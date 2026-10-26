@@ -10,6 +10,7 @@ import secrets
 import time
 from contextlib import contextmanager
 from datetime import UTC, datetime, timedelta
+from ipaddress import ip_address
 from pathlib import Path
 from uuid import uuid4
 
@@ -124,8 +125,13 @@ def source_server():
             hba_path = conn.scalar(text("SHOW hba_file"))
             original_hba = conn.scalar(text("SELECT pg_read_file(:path)"), {"path": hba_path})
             rules = []
+            actual_address = conn.scalar(text("SELECT host(inet_client_addr())"))
+            addresses = {"127.0.0.1/32", "::1/128"}
+            if actual_address:
+                mask = 32 if ip_address(actual_address).version == 4 else 128
+                addresses.add(f"{actual_address}/{mask}")
             for k, name in names.items():
-                for address in ("127.0.0.1/32", "::1/128"):
+                for address in sorted(addresses):
                     method = k if k in {"trust", "password"} else "scram-sha-256"
                     rules.append(f"host {dbname} {name} {address} {method}")
             write_hba(conn, "\n".join(rules) + "\n" + original_hba)
@@ -615,9 +621,20 @@ def test_t01_t02_l04_fail_closed_requests(source, change):
 
 
 def test_a07_empty_rationale_and_provenance_rejected_by_sql(source):
-    for field, value in (("review_rationale", "  "), ("provenance", {})):
+    for field, value in (
+        ("review_rationale", "  "),
+        ("provenance", {}),
+        ("review_rationale", "\u00a0"),
+        ("external_record_id", "\u2007"),
+        ("source_version", "\u202f"),
+        ("external_record_id", "x" * 2049),
+        ("source_version", "x" * 201),
+    ):
         c = canonical(publication(source))
-        c[field] = value
+        if field in {"external_record_id", "source_version"}:
+            c["provenance"][field] = value
+        else:
+            c[field] = value
         with Session(source["engines"]["curator"]) as session, pytest.raises(DBAPIError):
             session.scalar(
                 text("SELECT menuto_prior.publish(CAST(:c AS jsonb))"), {"c": json.dumps(c)}

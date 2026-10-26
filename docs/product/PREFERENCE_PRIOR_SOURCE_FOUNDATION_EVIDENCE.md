@@ -126,6 +126,10 @@ The new real-PG module uses random isolated databases and separate real login co
 Ephemeral secrets are generated during tests. HBA additions affect only random test logins;
 the exact original HBA bytes are restored, including Windows CRLF. Existing trust-authenticated
 fixtures remain unchanged and are not counted as SCRAM proof.
+CI provisions a one-day disposable server certificate and verifies TLS with verify-full;
+Docker bridge connections receive no runtime TLS exemption. Test HBA rules name only the
+random database/logins and the exact observed client address. Canonical SQL validation also
+rejects Unicode-only whitespace and oversized artifact references before storing source facts.
 
 | Design category | Concrete coverage |
 | --- | --- |
@@ -179,7 +183,7 @@ Local verification on2026-10-26, with isolated PostgreSQL18.4:
 | Existing test identities | **2237/2237 retained**,0 removed;140 additive tests |
 | Real PostgreSQL | **918 passed**:798 existing +120 new SCRAM/source acceptance cases |
 | Explicit authority/authentication cases | **73** of the120 new real-PG cases; remaining47 cover source arithmetic/identity/lifecycle/replay/migration under those real sessions |
-| Final admin race refinement | GRANT versus REVOKE rechecked separately:3/3 PASS, RC/RR/SERIALIZABLE; no runtime change after the full run |
+| Final source hardening | All140 new tests rechecked PASS after Unicode/bounded-reference hardening and enrollment-only downgrade isolation; GRANT versus REVOKE passes RC/RR/SERIALIZABLE |
 | Frozen compatibility |13 migration byte pins and all276 prior structural definition pins PASS;23 additive definitions,299 total |
 | Migration/deployment | Empty upgrade/downgrade/upgrade and ORM drift PASS; populated registry/audit downgrade refusal PASS; no source production rows seeded |
 | Privilege/direct SQL | Real curator/reader DML, TRUNCATE, heads/frontiers, function/schema changes, owner/admin role switches and enrollment/grant attempts denied; real SCRAM superuser/database-owner and unsafe effective privilege cases denied |
@@ -191,14 +195,14 @@ Local verification on2026-10-26, with isolated PostgreSQL18.4:
 
 Ignored local receipts: `.local/prior-source-final.xml`, `.local/prior-final-full.log`,
 `.local/prior-implementation-receipt.json`, `.local/prior-implementation-benchmark.json`.
-The earlier full pass was followed by the three-case admin race refinement; exact GitHub PR
-and post-merge CI run the complete final tree again. Merge/head/CI receipts are reported in
+The earlier full pass was followed by focused source hardening and CI TLS provisioning;
+exact GitHub PR and post-merge CI run the complete final tree again. Merge/head/CI receipts are reported in
 the PR delivery record, without predicting hashes or successful checks in advance.
 
 Files changed are limited to the five additive Preferences implementation modules/migration,
 model registration, three new test modules plus frozen compatibility pins, mechanical schema
 head/table/migration enumeration updates in ten existing tests, additive domain export/import
-guards and pytest marker, and source/status/deployment documentation. No frozen algorithms,
+guards and pytest marker, disposable CI TLS provisioning, and source/status/deployment documentation. No frozen algorithms,
 old migrations, old schema definitions, HTTP endpoints, production source records or downstream
 milestone implementations change.
 

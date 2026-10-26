@@ -126,5 +126,9 @@ Its fixture provisions random separate SCRAM logins and temporarily prepends onl
 HBA rules using the isolated test server's privileged maintenance connection. Original HBA
 bytes are restored and random databases/logins are removed afterward. These tests must never
 target a production server. They do not use SET SESSION AUTHORIZATION to claim real login proof.
+CI uses `tools/configure_ci_postgres_tls.py` to provision a disposable certificate in the
+ephemeral PostgreSQL service and verify it with verify-full. Docker bridge traffic receives
+no exception from the runtime TLS check. HBA changes are limited to exact test logins and
+the observed client address; existing regression roles/rules stay unchanged.
 Empty downgrade is supported; populated registry/enrollment/authority/source downgrade refuses
 data loss. Credential secrets and structural cluster-role lifecycle are not downgrade-managed.

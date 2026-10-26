@@ -314,10 +314,14 @@ DECLARE v uuid; BEGIN
  v:=(j#>>'{}')::uuid;
  IF v::text<>(j#>>'{}') THEN RAISE EXCEPTION 'Canonical UUID required'; END IF; RETURN v;
 END $$;
+CREATE FUNCTION menuto_prior.nonblank(t text) RETURNS boolean LANGUAGE sql IMMUTABLE STRICT
+SET search_path=pg_catalog,menuto_prior,pg_temp AS $$
+ SELECT length(btrim(t, chr(9)||chr(10)||chr(11)||chr(12)||chr(13)||' '||U&'\0085\00A0\1680\2000\2001\2002\2003\2004\2005\2006\2007\2008\2009\200A\2028\2029\202F\205F\3000'))>0
+$$;
 CREATE FUNCTION menuto_prior.reason(j jsonb) RETURNS text LANGUAGE plpgsql IMMUTABLE
 SET search_path=pg_catalog,menuto_prior,pg_temp AS $$
 BEGIN
- IF jsonb_typeof(j) IS DISTINCT FROM 'string' OR length(j#>>'{}') NOT BETWEEN 1 AND 4000 OR (j#>>'{}') !~ '[^[:space:]]' THEN RAISE EXCEPTION 'Review rationale required'; END IF; RETURN j#>>'{}';
+ IF jsonb_typeof(j) IS DISTINCT FROM 'string' OR length(j#>>'{}') NOT BETWEEN 1 AND 4000 OR NOT menuto_prior.nonblank(j#>>'{}') THEN RAISE EXCEPTION 'Review rationale required'; END IF; RETURN j#>>'{}';
 END $$;
 CREATE FUNCTION menuto_prior.safe_role(login name, admin_mode boolean) RETURNS void LANGUAGE plpgsql STABLE
 SET search_path=pg_catalog,menuto_prior,pg_temp AS $$
@@ -562,6 +566,7 @@ DECLARE s jsonb:=menuto_prior.session_fact(false); p uuid; who uuid; grant_id uu
  IF prov->>'kind' IS DISTINCT FROM 'REVIEWED_REFERENCE' OR prov->>'source_system' IS DISTINCT FROM (SELECT source_system FROM public.reference_prior_providers WHERE id=p) THEN RAISE EXCEPTION 'Provider provenance mismatch'; END IF;
  IF jsonb_typeof(prov->'external_record_id') IS DISTINCT FROM 'string' OR jsonb_typeof(prov->'source_version') IS DISTINCT FROM 'string' OR
   jsonb_typeof(prov->'content_hash') IS DISTINCT FROM 'string' OR jsonb_typeof(prov->'observed_at') IS DISTINCT FROM 'string' THEN RAISE EXCEPTION 'Reviewed provenance required'; END IF;
+ IF NOT menuto_prior.nonblank(prov->>'external_record_id') OR NOT menuto_prior.nonblank(prov->>'source_version') OR length(prov->>'external_record_id') NOT BETWEEN 1 AND 2048 OR length(prov->>'source_version') NOT BETWEEN 1 AND 200 THEN RAISE EXCEPTION 'Nonblank bounded artifact reference required'; END IF;
  IF prov->>'observed_at' IS DISTINCT FROM menuto_prior.utc((prov->>'observed_at')::timestamptz) OR NOT isfinite((prov->>'observed_at')::timestamptz) THEN RAISE EXCEPTION 'Canonical finite observed time required'; END IF;
  PERFORM menuto_prior.check_uri(prov->'source_uri');
  h:=menuto_prior.hash('prior.publication-command.v1',c);

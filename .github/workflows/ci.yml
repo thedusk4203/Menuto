@@ -31,6 +31,8 @@ jobs:
           version: "0.11.28"
           enable-cache: true
       - run: uv sync --locked
+      - name: Configure verified TLS for disposable PostgreSQL service
+        run: uv run python tools/configure_ci_postgres_tls.py --container '${{ job.services.postgres.id }}'
       - run: uv run ruff check .
       - run: uv run python tools/check_architecture_baseline.py
       - run: uv run python tools/check_import_boundaries.py
