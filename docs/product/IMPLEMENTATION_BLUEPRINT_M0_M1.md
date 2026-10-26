@@ -526,8 +526,11 @@ blend.299 old definitions retained +19 additive =318. No IO/persistence, schema0
 no0015 and no production/default policy values. Frozen040B's unavailable fields stay unchanged.
 MTR-040C NOT ASSIGNED / NOT AUTHORIZED; full040/041/046 incomplete;024/020B/021 BLOCKED;
 Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-[Next dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) authorizes only
-dedicated Hierarchical Preference Mapping & Derivation Foundation design. Prefer classification facts
-plus a separate Preferences transfer policy with verified canonical publication authority; source
-design must precede pure-consumer implementation. No direction/coefficient/schema/table or0015
-is authorized; MTR-039 and all runtime/downstream work remain unauthorized by this review.
+[Next dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) is APPROVED at73b3b0b
+(PR #101; exact push CI40365344734 SUCCESS). The authorized dedicated DESIGN is narrowed to
+[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md),
+DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW. Preferences transfer semantics/publication remain
+separate from member authorship, prior grants and classification curation. Source comes first;
+pure consumer is only a downstream seam. Source/consumer implementation,039/040C and downstream
+work remain unauthorized. No production direction/coefficient, physical table, permission enum
+or migration0015 is reserved/authorized; documentation merge is not architecture approval.

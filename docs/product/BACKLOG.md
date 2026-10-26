@@ -85,10 +85,14 @@ exact rational shrinkage, no persistence.299 unchanged definitions +19 additive 
 no0015 or production numeric defaults. This is not MTR-040C; no milestone number assigned.
 Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
 [Post-freeze dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md): dependency
-selection APPROVED; dedicated **Hierarchical Preference Mapping & Derivation Foundation** design
-AUTHORIZED, with relation/policy-source before pure-consumer decomposition recommended. Classification
-is not transfer authority; equality is not cross-target aggregation. Runtime,039,040C, migration0015
-and downstream work NOT AUTHORIZED. No new milestone number or production coefficients assigned.
+selection APPROVED at canonical73b3b0b3bbe6571ca5e70c09442d394701c5adf8 (PR #101;
+push CI40365344734 SUCCESS). The user's review narrows the authorized next DESIGN to
+[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md).
+Status: DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW; source before pure-consumer, which is
+described only as a downstream seam. Classification is not transfer authority; caller policy and
+scoped numeric equality authorize no transfer. Source/consumer implementation,039/040C and downstream
+work NOT AUTHORIZED. No milestone number, migration0015, physical tables, permission enum or
+production directions/coefficients reserved. Documentation merge is not architecture approval.
 
 ## Review evidence sau baseline
 
