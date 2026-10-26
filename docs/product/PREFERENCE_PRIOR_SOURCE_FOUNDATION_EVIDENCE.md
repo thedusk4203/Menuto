@@ -63,6 +63,17 @@ schema; relations are explicitly qualified in public and have private ACLs. Defa
 function execution is revoked. Only the administration group can execute enrollment/provider/
 authority functions; only the client group can execute publication/capture functions.
 
+PostgreSQL's standard `sslinfo` contrib extension supplies the backend-local TLS bit.0014
+installs it inside the private schema when absent, or reuses a deployment-owned existing
+extension. The private no-argument helper binds the extension function by parsed SQL/OID
+dependency; ordinary clients cannot execute it or redirect it to a shadow function. The source
+owner gets only EXECUTE on that primitive, never pg_read_all_stats or monitoring-role membership.
+The extension's C functions retain their deployment owner. This avoids the role-filtered
+pg_stat_ssl visibility issue in SECURITY DEFINER calls; see PostgreSQL's
+[statistics visibility rules](https://www.postgresql.org/docs/18/monitoring-stats.html).
+Empty downgrade removes a newly installed private extension with its schema; a pre-existing
+shared extension survives. Both paths and the owner's lack of global monitoring rights are tested.
+
 Deployment must provision separate real PostgreSQL LOGIN credentials for administrators,
 curators and readers, require SCRAM-SHA-256 in HBA, and grant the appropriate structural group.
 Do not grant owner membership, database ownership, superuser/role-creation/bypass privileges,
@@ -183,7 +194,7 @@ Local verification on2026-10-26, with isolated PostgreSQL18.4:
 | Existing test identities | **2237/2237 retained**,0 removed;140 additive tests |
 | Real PostgreSQL | **918 passed**:798 existing +120 new SCRAM/source acceptance cases |
 | Explicit authority/authentication cases | **73** of the120 new real-PG cases; remaining47 cover source arithmetic/identity/lifecycle/replay/migration under those real sessions |
-| Final source hardening | All140 new tests rechecked PASS after Unicode/bounded-reference hardening and enrollment-only downgrade isolation; GRANT versus REVOKE passes RC/RR/SERIALIZABLE |
+| Final source hardening | All140 new tests rechecked PASS after Unicode/bounded-reference hardening, backend-local TLS primitive and enrollment-only downgrade isolation; GRANT versus REVOKE passes RC/RR/SERIALIZABLE |
 | Frozen compatibility |13 migration byte pins and all276 prior structural definition pins PASS;23 additive definitions,299 total |
 | Migration/deployment | Empty upgrade/downgrade/upgrade and ORM drift PASS; populated registry/audit downgrade refusal PASS; no source production rows seeded |
 | Privilege/direct SQL | Real curator/reader DML, TRUNCATE, heads/frontiers, function/schema changes, owner/admin role switches and enrollment/grant attempts denied; real SCRAM superuser/database-owner and unsafe effective privilege cases denied |

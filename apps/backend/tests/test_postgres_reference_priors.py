@@ -101,7 +101,31 @@ def source_server():
             conn.commit()
             command.downgrade(config, "0013")
             conn.commit()
+            assert (
+                conn.scalar(text("SELECT count(*) FROM pg_extension WHERE extname='sslinfo'")) == 0
+            )
+            # A pre-existing shared deployment extension must survive source downgrade.
+            conn.execute(text("CREATE EXTENSION sslinfo WITH SCHEMA public"))
+            conn.commit()
             command.upgrade(config, "head")
+            conn.commit()
+            command.downgrade(config, "0013")
+            conn.commit()
+            assert (
+                conn.scalar(text("SELECT count(*) FROM pg_extension WHERE extname='sslinfo'")) == 1
+            )
+            conn.commit()
+            command.upgrade(config, "head")
+            expected_tls = conn.scalar(
+                text("SELECT ssl FROM pg_stat_ssl WHERE pid=pg_backend_pid()")
+            )
+            conn.execute(text("SET LOCAL ROLE menuto_prior_owner"))
+            assert conn.scalar(text("SELECT menuto_prior.backend_tls()")) is expected_tls
+            assert not conn.scalar(
+                text("SELECT pg_has_role(current_user,'pg_read_all_stats','USAGE')")
+            )
+            conn.execute(text("RESET ROLE"))
+            conn.commit()
         with maintenance.connect() as conn:
             from psycopg import sql
 

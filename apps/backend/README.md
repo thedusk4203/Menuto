@@ -108,6 +108,11 @@ Use the dedicated administration boundary to register a provider, enroll immutab
 bindings and append provider-scoped capability grants. Household roles are irrelevant here.
 Remote source engines require TLS with sslmode=verify-full; do not reuse ordinary pooled
 application credentials or assert request actors. No source HTTP endpoint is exposed.
+The server needs PostgreSQL's standard `sslinfo` contrib extension files.0014 installs the
+extension privately when absent or reuses an existing deployment extension. Only the private
+backend-local TLS primitive is delegated to the source owner; no global statistics/monitoring
+privilege is granted. Empty downgrade removes the new private extension, while preserving an
+existing shared extension. Publishers/readers cannot execute the private helper directly.
 
 The internal facade is `preferences/reference_priors.py`: register_reference_prior_provider,
 enroll_reference_prior_principal, change_reference_prior_authority, publish_reference_prior,

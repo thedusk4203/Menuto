@@ -36,6 +36,8 @@ jobs:
       - run: uv run ruff check .
       - run: uv run python tools/check_architecture_baseline.py
       - run: uv run python tools/check_import_boundaries.py
+      - name: Real SCRAM and TLS authority smoke
+        run: uv run pytest apps/backend/tests/test_postgres_reference_prior_authority_extra.py
       - run: uv run pytest
       - run: uv run python tools/export_openapi.py --check
       - run: uv run python tools/export_domain_contracts.py --check

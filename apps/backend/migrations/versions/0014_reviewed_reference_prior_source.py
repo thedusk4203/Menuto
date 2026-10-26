@@ -253,6 +253,19 @@ REVOKE ALL ON SCHEMA menuto_prior FROM PUBLIC;
 GRANT USAGE ON SCHEMA menuto_prior TO menuto_prior_admin, menuto_prior_client;
 GRANT USAGE ON SCHEMA public TO menuto_prior_owner;
 GRANT SELECT ON public.ingredients, public.recipes, public.affinity_feature_terms TO menuto_prior_owner;
+-- Backend-local TLS primitive, not pg_stat_ssl's role-filtered cross-session statistics.
+-- Reuse a pre-existing deployment extension; newly installed objects belong to this schema.
+DO $$ DECLARE ns name; BEGIN
+ IF NOT EXISTS (SELECT FROM pg_catalog.pg_extension WHERE extname='sslinfo') THEN
+  CREATE EXTENSION sslinfo WITH SCHEMA menuto_prior;
+ END IF;
+ SELECT n.nspname INTO STRICT ns FROM pg_catalog.pg_extension e JOIN pg_catalog.pg_namespace n ON n.oid=e.extnamespace WHERE e.extname='sslinfo';
+ EXECUTE format('GRANT USAGE ON SCHEMA %I TO menuto_prior_owner',ns);
+ EXECUTE format('GRANT EXECUTE ON FUNCTION %I.ssl_is_used() TO menuto_prior_owner',ns);
+ -- Parsed SQL body records an OID dependency. Dropping/replacing extension objects cannot
+ -- silently redirect this helper to a caller-created shadow function.
+ EXECUTE format('CREATE FUNCTION menuto_prior.backend_tls() RETURNS boolean LANGUAGE sql STABLE SET search_path=pg_catalog,menuto_prior,pg_temp BEGIN ATOMIC SELECT %I.ssl_is_used(); END',ns);
+END $$;
 DO $$ BEGIN
  IF has_schema_privilege('menuto_prior_owner','public','CREATE') OR EXISTS (
   SELECT FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
@@ -353,7 +366,7 @@ DECLARE r record; d record; addr inet; BEGIN
   RAISE EXCEPTION 'Enrollment administrator required' USING ERRCODE='42501';
  END IF;
  addr:=inet_client_addr();
- IF addr IS NULL OR (addr NOT IN ('127.0.0.1'::inet,'::1'::inet) AND NOT coalesce((SELECT ssl FROM pg_catalog.pg_stat_ssl WHERE pid=pg_backend_pid()),false)) THEN
+ IF addr IS NULL OR (addr NOT IN ('127.0.0.1'::inet,'::1'::inet) AND NOT menuto_prior.backend_tls()) THEN
   RAISE EXCEPTION 'Remote reference sessions require TLS' USING ERRCODE='28000';
  END IF;
  SELECT oid,rolname INTO r FROM pg_catalog.pg_roles WHERE rolname=session_user;
@@ -667,7 +680,9 @@ DO $$ DECLARE t text; f record; BEGIN
   EXECUTE format('REVOKE ALL ON public.reference_prior_%I FROM PUBLIC, menuto_prior_admin, menuto_prior_client',t);
  END LOOP;
  FOR f IN SELECT p.oid::regprocedure sig FROM pg_catalog.pg_proc p JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='menuto_prior' LOOP
-  EXECUTE format('ALTER FUNCTION %s OWNER TO menuto_prior_owner',f.sig);
+  IF NOT EXISTS (SELECT FROM pg_catalog.pg_depend d WHERE d.classid='pg_catalog.pg_proc'::regclass AND d.objid=f.sig::regprocedure AND d.deptype='e') THEN
+   EXECUTE format('ALTER FUNCTION %s OWNER TO menuto_prior_owner',f.sig);
+  END IF;
   EXECUTE format('REVOKE ALL ON FUNCTION %s FROM PUBLIC',f.sig);
  END LOOP;
 END $$;
@@ -699,6 +714,10 @@ def downgrade():
       END IF;
     END $$;
     REVOKE SELECT ON public.ingredients,public.recipes,public.affinity_feature_terms FROM menuto_prior_client,menuto_prior_owner;
+    DO $$ DECLARE ns name; BEGIN
+      SELECT n.nspname INTO ns FROM pg_catalog.pg_extension e JOIN pg_catalog.pg_namespace n ON n.oid=e.extnamespace WHERE e.extname='sslinfo';
+      IF ns IS NOT NULL THEN EXECUTE format('REVOKE EXECUTE ON FUNCTION %I.ssl_is_used() FROM menuto_prior_owner',ns); END IF;
+    END $$;
     DROP SCHEMA menuto_prior CASCADE;
     ALTER TABLE public.reference_prior_streams DROP CONSTRAINT fk_reference_prior_stream_head;
     DROP TABLE public.reference_prior_mutations;

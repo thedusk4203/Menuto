@@ -134,6 +134,8 @@ def test_a04_unsafe_effective_privileges_fail_closed_on_scram_sessions(source, u
         finally:
             with conn.connection.driver_connection.cursor() as cur:
                 cur.execute(revoke.format(name))
+    with Session(s["engines"][who]) as session, pytest.raises(DBAPIError):
+        session.scalar(text("SELECT menuto_prior.backend_tls()"))
 
 
 def test_m01_populated_downgrade_refuses_registry_and_audit_loss(source_server):
