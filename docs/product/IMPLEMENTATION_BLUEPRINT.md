@@ -23,6 +23,13 @@
 
 Numeric examples trong spec/debate không tự trở thành production defaults. Không chốt schema DB, thresholds hoặc thuật toán qua tài liệu khung này.
 
+Current additive review: [Exact-target Prior Compatibility & Shrinkage](EXACT_TARGET_PRIOR_COMPATIBILITY_SHRINKAGE_EVIDENCE.md)
+is IMPLEMENTED / NOT FROZEN, NOT MERGED from exact base12048de. Separate user authorization followed
+approved design PR #99; this is not MTR-040C. Pure member-owned compatibility/shrinkage retains kind/
+mapping-policy coordinate descriptors; no IO, persistence, migration0015 or production numeric defaults.
+0014 /78 remains unchanged;299 old definitions +19 additive =318. Full040/041/046 incomplete;
+024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. Await dedicated implementation review.
+
 
 M1.3 đã APPROVED/FROZEN tại `fef629965dd7401e27c98b5a0c523998a27017c4`
 (head0007, 38 bảng). [Evidence](M1_3_INVENTORY_PHYSICAL_LEDGER_EVIDENCE.md).

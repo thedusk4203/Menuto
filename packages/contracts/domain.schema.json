@@ -247,6 +247,35 @@
       "title": "Availability",
       "type": "string"
     },
+    "AvailableExactTargetProfileAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "BLENDED_EXPLICIT_AND_PRIOR",
+            "EXPLICIT_ONLY",
+            "PRIOR_ONLY_COLD_START"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "status": {
+          "const": "AVAILABLE",
+          "default": "AVAILABLE",
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/ScopedMemberProfileAffinity"
+        }
+      },
+      "required": [
+        "mode",
+        "value"
+      ],
+      "title": "AvailableExactTargetProfileAffinity",
+      "type": "object"
+    },
     "AvailableExplicitAffinity": {
       "additionalProperties": false,
       "properties": {
@@ -2684,6 +2713,542 @@
       "title": "EvidenceQuality",
       "type": "string"
     },
+    "EvidenceStrengthShrinkageRule": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "prior_weight": {
+          "$ref": "#/$defs/PriorInfluenceWeight"
+        }
+      },
+      "required": [
+        "level",
+        "prior_weight"
+      ],
+      "title": "EvidenceStrengthShrinkageRule",
+      "type": "object"
+    },
+    "ExactTargetPriorBackedAffinityDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "candidate_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Candidate Aggregation",
+          "type": "string"
+        },
+        "compatibility_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Compatibility Policy Fingerprint",
+          "type": "string"
+        },
+        "contextual_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Contextual Evidence",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "exact-target-prior-backed-affinity.v1-draft",
+          "default": "exact-target-prior-backed-affinity.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "contributions": {
+          "items": {
+            "$ref": "#/$defs/ExactTargetShrinkageContribution"
+          },
+          "title": "Contributions",
+          "type": "array"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/MemberProfileAffinityCoordinate"
+        },
+        "coverage": {
+          "const": "ONE_MEMBER_ONE_EXACT_TARGET_PRIOR_BACKED_ONLY",
+          "default": "ONE_MEMBER_ONE_EXACT_TARGET_PRIOR_BACKED_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "cross_target_inference": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Target Inference",
+          "type": "string"
+        },
+        "effective": {
+          "discriminator": {
+            "mapping": {
+              "AVAILABLE": "#/$defs/AvailableExactTargetProfileAffinity",
+              "UNAVAILABLE": "#/$defs/UnavailableExactTargetProfileAffinity"
+            },
+            "propertyName": "status"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AvailableExactTargetProfileAffinity"
+            },
+            {
+              "$ref": "#/$defs/UnavailableExactTargetProfileAffinity"
+            }
+          ],
+          "title": "Effective"
+        },
+        "explicit_evidence_strength": {
+          "const": "PRESERVED_NOT_MODIFIED",
+          "default": "PRESERVED_NOT_MODIFIED",
+          "title": "Explicit Evidence Strength",
+          "type": "string"
+        },
+        "explicit_profile": {
+          "$ref": "#/$defs/ExplicitTargetAffinityProfileDraft"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "hierarchical_inference": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Hierarchical Inference",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "default": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "learned_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Learned Evidence",
+          "type": "string"
+        },
+        "mapped_explicit": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MappedExplicitProfileAffinity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mapped_prior": {
+          "discriminator": {
+            "mapping": {
+              "AVAILABLE": "#/$defs/MappedReferenceProfileAffinity",
+              "UNAVAILABLE": "#/$defs/UnavailableReferenceCompatibility"
+            },
+            "propertyName": "status"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/MappedReferenceProfileAffinity"
+            },
+            {
+              "$ref": "#/$defs/UnavailableReferenceCompatibility"
+            }
+          ],
+          "title": "Mapped Prior"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "member_owner": {
+          "const": "PRESERVED",
+          "default": "PRESERVED",
+          "title": "Member Owner",
+          "type": "string"
+        },
+        "passive_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Passive Evidence",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "provider_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Provider Aggregation",
+          "type": "string"
+        },
+        "reviewed_prior": {
+          "$ref": "#/$defs/ReviewedReferencePriorDraft"
+        },
+        "shrinkage": {
+          "enum": [
+            "APPLIED",
+            "NOT_APPLIED"
+          ],
+          "title": "Shrinkage",
+          "type": "string"
+        },
+        "shrinkage_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Shrinkage Policy Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/ExactTargetPriorBackedAffinityInput"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "household_id",
+        "member_id",
+        "target",
+        "target_kind",
+        "coordinate",
+        "explicit_profile",
+        "reviewed_prior",
+        "mapped_explicit",
+        "mapped_prior",
+        "shrinkage",
+        "contributions",
+        "effective",
+        "compatibility_policy_fingerprint",
+        "shrinkage_policy_fingerprint",
+        "fingerprint"
+      ],
+      "title": "ExactTargetPriorBackedAffinityDraft",
+      "type": "object"
+    },
+    "ExactTargetPriorBackedAffinityInput": {
+      "additionalProperties": false,
+      "properties": {
+        "compatibility_policy": {
+          "$ref": "#/$defs/ExactTargetPriorCompatibilityPolicy"
+        },
+        "explicit": {
+          "$ref": "#/$defs/ExplicitTargetAffinityInput"
+        },
+        "reference_source": {
+          "$ref": "#/$defs/ReferencePriorSourceSnapshotDraft"
+        },
+        "shrinkage_policy": {
+          "$ref": "#/$defs/ExactTargetShrinkagePolicy"
+        }
+      },
+      "required": [
+        "explicit",
+        "reference_source",
+        "compatibility_policy",
+        "shrinkage_policy"
+      ],
+      "title": "ExactTargetPriorBackedAffinityInput",
+      "type": "object"
+    },
+    "ExactTargetPriorCompatibilityPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "exact-target-prior-compatibility-policy.v1",
+          "default": "exact-target-prior-compatibility-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coordinate_id": {
+          "const": "MEMBER_PROFILE_AFFINITY",
+          "default": "MEMBER_PROFILE_AFFINITY",
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "coordinate_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Coordinate Version",
+          "type": "integer"
+        },
+        "explicit_maps": {
+          "items": {
+            "$ref": "#/$defs/ExplicitTargetKindCompatibilityMap"
+          },
+          "maxItems": 5,
+          "minItems": 5,
+          "title": "Explicit Maps",
+          "type": "array"
+        },
+        "explicit_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Explicit Policy Fingerprint",
+          "type": "string"
+        },
+        "explicit_policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Explicit Policy Id",
+          "type": "string"
+        },
+        "explicit_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Explicit Policy Version",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "default": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "provider_command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Provider Command Hash",
+          "type": "string"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "reference_coordinate": {
+          "$ref": "#/$defs/ReferencePriorCoordinate"
+        },
+        "reference_mapping_mode": {
+          "const": "FINITE_EXACT_LOOKUP",
+          "default": "FINITE_EXACT_LOOKUP",
+          "title": "Reference Mapping Mode",
+          "type": "string"
+        },
+        "reference_maps": {
+          "items": {
+            "$ref": "#/$defs/ReferenceTargetKindCompatibilityMap"
+          },
+          "maxItems": 5,
+          "minItems": 5,
+          "title": "Reference Maps",
+          "type": "array"
+        },
+        "scope": {
+          "const": "ONE_COMPATIBILITY_POLICY_ONE_TARGET_KIND_EXACT_TARGET_ONLY",
+          "default": "ONE_COMPATIBILITY_POLICY_ONE_TARGET_KIND_EXACT_TARGET_ONLY",
+          "title": "Scope",
+          "type": "string"
+        },
+        "unit": {
+          "const": "POLICY_MEMBER_PROFILE_AFFINITY_UNITS",
+          "default": "POLICY_MEMBER_PROFILE_AFFINITY_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "explicit_policy_id",
+        "explicit_policy_version",
+        "explicit_policy_fingerprint",
+        "provider_id",
+        "provider_command_hash",
+        "reference_coordinate",
+        "explicit_maps",
+        "reference_maps"
+      ],
+      "title": "ExactTargetPriorCompatibilityPolicy",
+      "type": "object"
+    },
+    "ExactTargetShrinkageContribution": {
+      "additionalProperties": false,
+      "properties": {
+        "side": {
+          "enum": [
+            "EXPLICIT",
+            "PRIOR"
+          ],
+          "title": "Side",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/ScopedMemberProfileAffinity"
+        },
+        "weight_denominator": {
+          "exclusiveMinimum": 0,
+          "maximum": 2147483647,
+          "title": "Weight Denominator",
+          "type": "integer"
+        },
+        "weight_numerator": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Weight Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "side",
+        "weight_numerator",
+        "weight_denominator",
+        "value"
+      ],
+      "title": "ExactTargetShrinkageContribution",
+      "type": "object"
+    },
+    "ExactTargetShrinkagePolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "compatibility_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Compatibility Policy Fingerprint",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "exact-target-shrinkage-policy.v1",
+          "default": "exact-target-shrinkage-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coordinate_id": {
+          "const": "MEMBER_PROFILE_AFFINITY",
+          "default": "MEMBER_PROFILE_AFFINITY",
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "coordinate_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Coordinate Version",
+          "type": "integer"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "rules": {
+          "items": {
+            "$ref": "#/$defs/EvidenceStrengthShrinkageRule"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Rules",
+          "type": "array"
+        },
+        "scope": {
+          "const": "ONE_COMPATIBILITY_POLICY_ONE_TARGET_KIND_EXACT_TARGET_ONLY",
+          "default": "ONE_COMPATIBILITY_POLICY_ONE_TARGET_KIND_EXACT_TARGET_ONLY",
+          "title": "Scope",
+          "type": "string"
+        },
+        "unit": {
+          "const": "POLICY_MEMBER_PROFILE_AFFINITY_UNITS",
+          "default": "POLICY_MEMBER_PROFILE_AFFINITY_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "compatibility_policy_fingerprint",
+        "rules"
+      ],
+      "title": "ExactTargetShrinkagePolicy",
+      "type": "object"
+    },
     "ExpireInventoryCommand": {
       "additionalProperties": false,
       "properties": {
@@ -2885,6 +3450,33 @@
         "declarations"
       ],
       "title": "ExplicitMemberPreferenceSnapshot",
+      "type": "object"
+    },
+    "ExplicitProfileMappingRule": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_explicit_amount": {
+          "$ref": "#/$defs/ExplicitAffinityAmount"
+        },
+        "output_amount": {
+          "$ref": "#/$defs/MemberProfileAffinityAmount"
+        },
+        "value": {
+          "enum": [
+            "LIKE",
+            "DISLIKE",
+            "NEUTRAL"
+          ],
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "expected_explicit_amount",
+        "output_amount"
+      ],
+      "title": "ExplicitProfileMappingRule",
       "type": "object"
     },
     "ExplicitTargetAffinityCaptureRequest": {
@@ -3174,6 +3766,37 @@
         "capture_completed_at"
       ],
       "title": "ExplicitTargetAffinitySourceSnapshotDraft",
+      "type": "object"
+    },
+    "ExplicitTargetKindCompatibilityMap": {
+      "additionalProperties": false,
+      "properties": {
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/ExplicitProfileMappingRule"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Rows",
+          "type": "array"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_kind",
+        "rows"
+      ],
+      "title": "ExplicitTargetKindCompatibilityMap",
       "type": "object"
     },
     "ExplicitTargetKindPolicy": {
@@ -7312,6 +7935,93 @@
       "title": "MainProteinSupport",
       "type": "object"
     },
+    "MappedExplicitProfileAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "rule_key": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "enum": [
+                "INGREDIENT",
+                "DIRECT_RECIPE",
+                "PROTEIN",
+                "METHOD",
+                "FLAVOR"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "LIKE",
+                "DISLIKE",
+                "NEUTRAL"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Rule Key",
+          "type": "array"
+        },
+        "status": {
+          "const": "AVAILABLE",
+          "default": "AVAILABLE",
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/ScopedMemberProfileAffinity"
+        }
+      },
+      "required": [
+        "rule_key",
+        "value"
+      ],
+      "title": "MappedExplicitProfileAffinity",
+      "type": "object"
+    },
+    "MappedReferenceProfileAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "rule_key": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "enum": [
+                "INGREDIENT",
+                "DIRECT_RECIPE",
+                "PROTEIN",
+                "METHOD",
+                "FLAVOR"
+              ],
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/ReferencePriorAmount"
+            }
+          ],
+          "title": "Rule Key",
+          "type": "array"
+        },
+        "status": {
+          "const": "AVAILABLE",
+          "default": "AVAILABLE",
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/ScopedMemberProfileAffinity"
+        }
+      },
+      "required": [
+        "rule_key",
+        "value"
+      ],
+      "title": "MappedReferenceProfileAffinity",
+      "type": "object"
+    },
     "MaterialBalanceDerivation": {
       "additionalProperties": false,
       "properties": {
@@ -7752,6 +8462,81 @@
         "declaration_id"
       ],
       "title": "MemberPreferenceState",
+      "type": "object"
+    },
+    "MemberProfileAffinityAmount": {
+      "additionalProperties": false,
+      "description": "Numeric component only. Consumer operations require ScopedMemberProfileAffinity.",
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "maximum": 340282366920938463463374607431768211455,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 340282366920938463463374607431768211455,
+          "minimum": -340282366920938463463374607431768211455,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "MemberProfileAffinityAmount",
+      "type": "object"
+    },
+    "MemberProfileAffinityCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "compatibility_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Compatibility Policy Fingerprint",
+          "type": "string"
+        },
+        "coordinate_id": {
+          "const": "MEMBER_PROFILE_AFFINITY",
+          "default": "MEMBER_PROFILE_AFFINITY",
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "coordinate_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Coordinate Version",
+          "type": "integer"
+        },
+        "scope": {
+          "const": "ONE_COMPATIBILITY_POLICY_ONE_TARGET_KIND_EXACT_TARGET_ONLY",
+          "default": "ONE_COMPATIBILITY_POLICY_ONE_TARGET_KIND_EXACT_TARGET_ONLY",
+          "title": "Scope",
+          "type": "string"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        },
+        "unit": {
+          "const": "POLICY_MEMBER_PROFILE_AFFINITY_UNITS",
+          "default": "POLICY_MEMBER_PROFILE_AFFINITY_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_kind",
+        "compatibility_policy_fingerprint"
+      ],
+      "title": "MemberProfileAffinityCoordinate",
       "type": "object"
     },
     "MemberSafetyConstraint": {
@@ -10095,6 +10880,29 @@
         "provenance"
       ],
       "title": "PriceObservationFact",
+      "type": "object"
+    },
+    "PriorInfluenceWeight": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "maximum": 2147483647,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "PriorInfluenceWeight",
       "type": "object"
     },
     "ProcurementClassFact": {
@@ -14369,6 +15177,52 @@
       "title": "ReferencePriorWriteReceipt",
       "type": "object"
     },
+    "ReferenceProfileMappingRule": {
+      "additionalProperties": false,
+      "properties": {
+        "output_amount": {
+          "$ref": "#/$defs/MemberProfileAffinityAmount"
+        },
+        "reference_amount": {
+          "$ref": "#/$defs/ReferencePriorAmount"
+        }
+      },
+      "required": [
+        "reference_amount",
+        "output_amount"
+      ],
+      "title": "ReferenceProfileMappingRule",
+      "type": "object"
+    },
+    "ReferenceTargetKindCompatibilityMap": {
+      "additionalProperties": false,
+      "properties": {
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/ReferenceProfileMappingRule"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_kind",
+        "rows"
+      ],
+      "title": "ReferenceTargetKindCompatibilityMap",
+      "type": "object"
+    },
     "ReleaseReservationCommand": {
       "additionalProperties": false,
       "properties": {
@@ -15774,6 +16628,23 @@
       "title": "ScalingPolicy",
       "type": "object"
     },
+    "ScopedMemberProfileAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/MemberProfileAffinityAmount"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/MemberProfileAffinityCoordinate"
+        }
+      },
+      "required": [
+        "coordinate",
+        "amount"
+      ],
+      "title": "ScopedMemberProfileAffinity",
+      "type": "object"
+    },
     "SetMemberPreferenceCommand": {
       "additionalProperties": false,
       "properties": {
@@ -16286,6 +17157,30 @@
       "title": "TierQuantity",
       "type": "object"
     },
+    "UnavailableExactTargetProfileAffinity": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "enum": [
+            "MEMBER_RETRACTED",
+            "NO_EXPLICIT_OR_COMPATIBLE_PRIOR"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "UnavailableExactTargetProfileAffinity",
+      "type": "object"
+    },
     "UnavailableExplicitAffinity": {
       "additionalProperties": false,
       "properties": {
@@ -16357,6 +17252,31 @@
         "reason"
       ],
       "title": "UnavailableProposalLocalFeaturePenalty",
+      "type": "object"
+    },
+    "UnavailableReferenceCompatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "enum": [
+            "NO_PUBLICATION",
+            "RETRACTED",
+            "PRIOR_VALUE_NOT_MAPPED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "UnavailableReferenceCompatibility",
       "type": "object"
     },
     "UnavailableReviewedReferencePrior": {
