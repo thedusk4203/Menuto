@@ -30,10 +30,14 @@ from12048de; this is not MTR-040C. Pure member-owned compatibility/shrinkage ret
 mapping-policy coordinate descriptors; no IO, persistence, migration0015 or production numeric defaults.
 0014 /78 remains unchanged;299 old definitions +19 additive =318. Full040/041/046 incomplete;
 024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-[Post-freeze review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) selects Hierarchical
-Preference Mapping & Derivation Foundation for dedicated DESIGN ONLY. Resolve canonical relation/
-policy publication authority and exact endpoints/context before a pure hierarchy consumer. No runtime,
-039/040C implementation, new schema/0015 or downstream authority is authorized.
+[Post-freeze review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) is APPROVED at73b3b0b
+(PR #101; exact push CI40365344734 SUCCESS). Authorized dedicated DESIGN is now narrowed to
+[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md),
+DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW. Separate verified publication/capture authority,
+exact endpoints/context, versioned mappings and lifecycle come before a pure hierarchy consumer;
+consumer is only a downstream seam. No source/consumer runtime,039/040C implementation or downstream
+authority is authorized; no migration0015, physical table or permission enum is reserved. Documentation
+merge is not architecture approval; no production direction/coefficient is introduced.
 
 
 M1.3 đã APPROVED/FROZEN tại `fef629965dd7401e27c98b5a0c523998a27017c4`

@@ -323,9 +323,14 @@ No invariant wording/frozen semantics change;299 prior definitions and0001–001
 the evidence is retained; planner_ready=False, activation_ready=False.
 MTR-040C NOT ASSIGNED / NOT AUTHORIZED; full040/041/046 incomplete;024/020B/021 BLOCKED;
 Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-[Post-freeze dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) authorizes
-dedicated hierarchy DESIGN ONLY. Classification fact != preference-transfer rule; scoped numeric
-equality != same exact target or cross-target aggregation. Relation authority, endpoint/context,
-coordinate mapping, precedence, cycles, correction/invalidation and replay remain design gates.
-Inherited interpretation must not mint/change frozen explicit EvidenceStrength by default. INV-022–030
-and ADR-011 remain unchanged;039,040C, migration0015 and all runtime/downstream work are not authorized.
+[Post-freeze dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) is APPROVED
+at73b3b0b (PR #101; exact push CI40365344734 SUCCESS). Dedicated DESIGN is narrowed to
+[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md),
+DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW. Classification fact != preference-transfer rule;
+scoped equality != same exact target or aggregation; caller policy != production authority.
+The proposal fixes separate authority, exact/context-bound relations, closed25-cell default deny,
+mapping-before-attenuation, append-only lifecycle, one-hop/single-parent and distinct missingness.
+These are design decisions pending review, not runtime enforcement evidence. Inheritance cannot
+mint/change frozen explicit EvidenceStrength. INV-022–030/ADR-011 remain unchanged. Source/consumer
+implementation,039/040C and downstream work are not authorized;0015/physical tables/permission enums
+are not reserved. Documentation merge is not architecture approval.

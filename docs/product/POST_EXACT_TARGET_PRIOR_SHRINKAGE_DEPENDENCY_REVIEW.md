@@ -2,6 +2,15 @@
 
 Status: **DEPENDENCY SELECTION APPROVED — DEDICATED DESIGN AUTHORIZED; IMPLEMENTATION NOT AUTHORIZED**.
 
+The user approved this review at canonical `73b3b0b3bbe6571ca5e70c09442d394701c5adf8`
+(PR #101; exact push [CI40365344734](https://github.com/thedusk4203/Menuto/actions/runs/40365344734)
+SUCCESS), then narrowed the next dedicated design to
+[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md).
+That source design is a proposal ready for architecture review; the pure consumer is only a
+downstream seam. Source/consumer implementation remains NOT AUTHORIZED;040C unassigned;
+0015/physical schema/permission enums unreserved. The broader name and design-gate wording below
+are the original dependency-selection record, not approval of the new design or implementation.
+
 Reviewed on 2026-10-26 from exact canonical `main`:
 `5728411ac12555f583f8df72ac71861998978aa4`.
 

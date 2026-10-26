@@ -146,6 +146,10 @@ MTR-040C chưa được gán/cho phép; full040/041/046 chưa hoàn tất;024/02
 Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Scoped numeric equality không cấp quyền truyền/gộp/xếp hạng
 sở thích giữa hai exact targets, kể cả cùng kind và cùng policy.
 [Dependency review sau PR #100](docs/product/POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md)
-chọn **Hierarchical Preference Mapping & Derivation Foundation**: chỉ cho phép thiết kế riêng,
-ưu tiên làm rõ nguồn relation/policy có thẩm quyền trước consumer thuần. Classification fact không
-phải quy tắc truyền sở thích. Runtime implementation, MTR-040C và migration0015 chưa được phép.
+đã được APPROVED tại canonical `73b3b0b3bbe6571ca5e70c09442d394701c5adf8` (PR #101;
+push CI40365344734 SUCCESS). Phạm vi thiết kế kế tiếp được thu hẹp thành
+[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md):
+**DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW**. Nguồn có thẩm quyền riêng phải đi trước
+consumer hierarchy thuần. Classification không tự cấp quyền truyền sở thích; policy caller đưa vào
+không tự chứng minh authority. Source/consumer implementation chưa được phép; MTR-040C chưa gán;
+không reserve migration0015, bảng hoặc permission enum. Merge tài liệu không phải duyệt kiến trúc.

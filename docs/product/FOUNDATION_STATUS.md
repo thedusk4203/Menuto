@@ -8,9 +8,13 @@ Push CI40351934792 SUCCESS trên đúng SHA; python/web xanh;2597 tests;318 expo
 không0015, persistence hoặc production/default policy values.040B cũ vẫn giữ prior/shrinkage UNAVAILABLE;
 PR #100 là consumer cộng thêm, planner_ready=False, activation_ready=False.
 [Dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) xác nhận hierarchy còn
-NOT_PERFORMED: chỉ AUTHORIZED dedicated design cho **Hierarchical Preference Mapping & Derivation
-Foundation**, không gán040C. Hướng ưu tiên là facts Catalog/Recipes + policy truyền sở thích của
-Preferences, với thiết kế nguồn relation/policy có thẩm quyền trước consumer thuần.
+NOT_PERFORMED. PR #101 đã APPROVED tại canonical73b3b0b3bbe6571ca5e70c09442d394701c5adf8;
+push CI40365344734 SUCCESS. User thu hẹp dedicated DESIGN thành
+[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md):
+DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW. Preferences sở hữu semantics; quyền publication
+hierarchy tách khỏi member, prior publisher và curator. Consumer thuần chỉ là seam tương lai;
+source/consumer implementation chưa được phép. Không gán040C, reserve0015, bảng hoặc permission enum.
+Merge tài liệu không phải approval kiến trúc. Không thêm direction/coefficient production.
 Full040/041/046 chưa hoàn tất;039 implementation chưa được phép;024/020B/021 BLOCKED,
 Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Không cho phép migration0015 hoặc runtime mới.
 Các trạng thái delivery/next-slice trước đây bên dưới là lịch sử, không phải trạng thái canonical hiện tại.
