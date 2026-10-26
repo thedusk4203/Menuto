@@ -496,3 +496,15 @@ slice must precede profile work. Next proposed implementation target is a canoni
 exact-target prior source; dedicated source design approval is required first. Prior-backed,
 hierarchical and learned profile derivation remain blocked; full040/041/046 remain incomplete.
 No next milestone implementation, migration or planner/Execution/PRECOMMIT authority is authorized.
+
+## Canonical reviewed preference-prior source — design-only proposal
+
+After user approval of PR #95's dependency selection, the
+[dedicated source design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) is authorized from
+`0a6abb4b004e9a1fa82e3aac8905a2a0fc9d3e47`. It proposes a Preferences-owned global reference source,
+not member-authored preference data: provider-scoped enrolled internal publication authority,
+versioned reference anchor coordinate distinct from040B, explicit exact provider/target applicability,
+atomic reviewed revisions/tombstones and complete authority/publication replay.
+Physical DDL/table count and a forward migration after0013 await design approval; no identifier
+reserved and no implementation authorized.040B prior/shrinkage stay UNAVAILABLE, full040/041/046
+incomplete;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.

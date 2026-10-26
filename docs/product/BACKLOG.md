@@ -64,6 +64,11 @@ Dependencies/contracts chi tiết cần freeze trong [Milestone 0/1 blueprint](I
 triển khai tiếp theo được đề xuất, cần duyệt thiết kế nguồn trước; không giao số040C hoặc cho phép
 triển khai. Full040/041/046 vẫn PARTIAL;024/020B/021 BLOCKED, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
 
+Verdict sau PR #95: dependency selection **APPROVED**, dedicated prior-source **DESIGN AUTHORIZED**
+từ main0a6abb4. [Thiết kế riêng](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) đang chờ architecture
+review; chỉ là đề xuất. Không gán số milestone, không reserve schema/migration, không triển khai040C
+hay nguồn prior. Source implementation và production prior values vẫn NOT AUTHORIZED.
+
 
 ## Review evidence sau baseline
 

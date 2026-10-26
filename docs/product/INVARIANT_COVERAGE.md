@@ -291,3 +291,14 @@ INV-022–029 and ADR-011 remain requirements for the missing profile/utility br
 complete them. MEDIUM remains the frozen wire literal for the middle EvidenceStrength category,
 not a probability. No invariant wording, runtime, contract, test or migration changes.
 Recommended source foundation needs its own design approval; no implementation is authorized.
+
+## Prior-source dedicated design — no new enforcement
+
+Dependency selection APPROVED / dedicated DESIGN AUTHORIZED after PR #95; the
+[proposed design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) is not implementation or freeze.
+INV-022–029 remain unchanged: a global reference prior is not a member assertion, EvidenceStrength,
+probability, behavioral observation or hard-safety policy. Household authorship grants no global
+publication permission. Coordinate compatibility and later shrinkage remain separate reviews.
+Full-source/authority replay does not prove database origin or grant PRECOMMIT authority.
+No canonical invariant, runtime/contract/test/schema/migration change;0013 /71,276 definitions.
+Full040/041/046 remain incomplete;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.

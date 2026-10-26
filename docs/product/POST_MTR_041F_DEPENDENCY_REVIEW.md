@@ -1,8 +1,15 @@
 # Post-MTR-041F dependency review
 
-Status: **DESIGN / DEPENDENCY REVIEW ONLY — implementation NOT AUTHORIZED**.
+Status: **APPROVED DEPENDENCY REVIEW — DEDICATED SOURCE DESIGN AUTHORIZED; IMPLEMENTATION NOT AUTHORIZED**.
 Reviewed on 2026-10-26. This document recommends a dependency-enabling implementation target;
 it does not approve its detailed contracts, production policy values or implementation.
+
+Subsequent user verdict on PR #95 at `0a6abb4b004e9a1fa82e3aac8905a2a0fc9d3e47`:
+**DEPENDENCY SELECTION APPROVED / DEDICATED DESIGN AUTHORIZED**. The
+[dedicated source design](PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) is now proposed for review.
+The historical dependency findings below remain valid; source implementation, milestone numbering,
+migration/schema reservation and MTR-040C remain NOT AUTHORIZED. Design authorization does not
+approve that proposed design's contracts or publication policies.
 
 ## 1. Decision and canonical baseline
 
