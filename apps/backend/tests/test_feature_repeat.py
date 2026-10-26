@@ -351,7 +351,10 @@ def test_case18_full_source_manifest_cannot_hide_cells(mutation):
     elif mutation == "remove_support":
         pre["events"][0]["support"] = ()
     else:
-        pre["diagnostics"][0]["discovery"]["state"] = "ASSIGNED"
+        # Diagnostics sort by UUID, so index 0 may already be the positive target cell.
+        # Always forge the unresolved cell; changing ASSIGNED to itself is a valid no-op.
+        unresolved = next(d for d in pre["diagnostics"] if d["discovery"]["state"] == "UNRESOLVED")
+        unresolved["discovery"]["state"] = "ASSIGNED"
     with pytest.warns(UserWarning, match="Pydantic serializer"), pytest.raises(ValueError):
         assess(c.FeatureCooldownInput.model_construct(**data))
 
