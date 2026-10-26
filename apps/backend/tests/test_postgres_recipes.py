@@ -306,6 +306,13 @@ def test_empty_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
             "culinary_feature_review_terms",
             "culinary_feature_assignments",
             "culinary_feature_main_protein_support",
+            "reference_prior_providers",
+            "reference_prior_principals",
+            "reference_prior_frontiers",
+            "reference_prior_streams",
+            "reference_prior_authority",
+            "reference_prior_revisions",
+            "reference_prior_mutations",
         }
         config.attributes["connection"] = conn
         command.check(config)

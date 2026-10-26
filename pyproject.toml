@@ -29,7 +29,10 @@ packages = ["apps/backend/app", "benchmark"]
 [tool.pytest.ini_options]
 testpaths = ["apps/backend/tests", "benchmark/tests"]
 addopts = ["--strict-markers", "-q"]
-markers = ["postgres: isolated real PostgreSQL integration tests (requires MENUTO_TEST_POSTGRES_URL)"]
+markers = [
+    "postgres: isolated real PostgreSQL integration tests (requires MENUTO_TEST_POSTGRES_URL)",
+    "reference_prior_auth: real SCRAM and protected reference source acceptance",
+]
 
 [tool.ruff]
 target-version = "py313"

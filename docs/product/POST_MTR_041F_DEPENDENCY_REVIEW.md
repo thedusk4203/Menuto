@@ -1,6 +1,11 @@
 # Post-MTR-041F dependency review
 
-Status: **APPROVED DEPENDENCY REVIEW — DEDICATED SOURCE DESIGN AUTHORIZED; IMPLEMENTATION NOT AUTHORIZED**.
+Status: **APPROVED DEPENDENCY REVIEW**. Subsequent dedicated source design and implementation
+were explicitly authorized by the user from577f32a (PR #96); the
+[implementation](PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md) is **NOT FROZEN**. Source capability
+does not authorize production prior content, compatibility mapping, shrinkage or MTR-040C.
+
+The review and authorization wording below preserve the earlier PR #95 record and its baseline.
 Reviewed on 2026-10-26. This document recommends a dependency-enabling implementation target;
 it does not approve its detailed contracts, production policy values or implementation.
 

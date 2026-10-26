@@ -1,8 +1,15 @@
 # Canonical Reviewed Exact-target Preference Prior Source Foundation
 
-Status: **DEDICATED DESIGN AUTHORIZED — PROPOSED DESIGN; IMPLEMENTATION NOT AUTHORIZED**.
-Milestone number: **UNASSIGNED**. This is not MTR-040C. No migration identifier, physical
-schema or production reference values are reserved/approved by this document.
+Current decision: **ARCHITECTURE APPROVED / IMPLEMENTATION AUTHORIZED** by the user from
+canonical main `577f32a302cca56c7b6ac9dfb65ce2d663ae8a30` (design PR #96).
+Implementation delivery is **NOT FROZEN**; see the [implementation review/evidence](PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md).
+Milestone number remains **UNASSIGNED**. This is not MTR-040C; production prior content,
+coordinate mapping, shrinkage and the next milestone remain unauthorized.
+
+Sections1–14 preserve the original design review record and its then-current baseline,
+authorization wording and regression receipt. Their statements about absent implementation
+describe the documentation-only PR #96. The current user decision above supersedes that
+historical authorization status; migration0014 is accounted for in the implementation evidence.
 
 The user approved the dependency selection in [PR #95](https://github.com/thedusk4203/Menuto/pull/95)
 and authorized this dedicated design, with an explicit distinction between domain semantics,

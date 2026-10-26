@@ -113,7 +113,7 @@ def test_capture_has_no_physical_preference_plan_or_schema_side_effects(postgres
     preview_feature_exposure(capture(postgres_engine, actor, q))
     assert before == counts()
     with postgres_engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0013"
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0014"
 
 
 @pytest.mark.parametrize("mutation", ["actor", "member", "household", "proposal", "hash", "plan"])

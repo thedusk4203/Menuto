@@ -12,7 +12,7 @@ Menuto giúp cá nhân/hộ gia đình tối ưu kế hoạch ăn và mua sắm 
 - [Glossary](docs/product/GLOSSARY.md), [kiến trúc](docs/product/ARCHITECTURE.md), [trạng thái/bằng chứng](docs/product/FOUNDATION_STATUS.md).
 - [Backlog V1.3 MTR-001 → MTR-050](docs/product/BACKLOG.md).
 - [Chuyển mã V1.2 → V1.3](docs/product/BASELINE_MIGRATION_V1_3.md), [entry checklist Milestone 0/1](docs/product/IMPLEMENTATION_BLUEPRINT.md).
-- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): migration đến `0010`, tổng 54 bảng; M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và net cooking yield theo ingredient path. Handoff planning/validation/grounded culinary input vẫn draft. [Correction evidence M1.2](docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md), [hướng dẫn database/tests](apps/backend/README.md).
+- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): migration đến `0014`, tổng 78 bảng; M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và net cooking yield theo ingredient path. Handoff planning/validation/grounded culinary input vẫn draft. [Correction evidence M1.2](docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md), [hướng dẫn database/tests](apps/backend/README.md).
 
 V1.3 là baseline duy nhất đang hiệu lực. V1.2 chỉ còn trong lịch sử Git; mã invariant/backlog cũ không được diễn giải theo nghĩa V1.3. Các bản gốc người dùng đặt tại root được giữ ở máy và bỏ qua trong Git; `docs/` là bản chuẩn được quản lý.
 
@@ -49,7 +49,7 @@ Web: http://127.0.0.1:5173. API docs: http://127.0.0.1:8000/docs. Health chỉ k
 apps/backend/app/modules/   16 namespace theo V1.3 §16.4, gồm validation và learning
 apps/backend/app/domain/    Neutral units/provenance và draft handoff contracts
 apps/backend/app/persistence/ SQLAlchemy metadata/engine, chưa provision DB ứng dụng
-apps/backend/migrations/    Alembic 0001 → 0010, hiện có 54 bảng domain
+apps/backend/migrations/    Alembic 0001 → 0014, hiện có 78 bảng domain
 apps/backend/app/shared/    Technical primitives và health contract
 apps/backend/tests/        Health, architecture/import và baseline consistency tests
 apps/backend/workers/      Chưa có worker
@@ -125,8 +125,10 @@ accepted/confirmed/history, Execution hay PRECOMMIT authority.
 [Đánh giá phụ thuộc sau041F](docs/product/POST_MTR_041F_DEPENDENCY_REVIEW.md) đề xuất nguồn prior
 chuẩn cho exact target làm hướng tiếp theo; cần duyệt thiết kế nguồn trước khi triển khai.
 
-Người dùng đã **APPROVED dependency selection / AUTHORIZED dedicated design** tại main
-`0a6abb4b004e9a1fa82e3aac8905a2a0fc9d3e47`. [Thiết kế nguồn prior](docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md)
-đề xuất quyền curator nội bộ riêng theo provider, tọa độ tham chiếu riêng và lịch sử/replay bất biến.
-Chỉ DESIGN: chưa duyệt thiết kế này, chưa cho phép implementation, chưa gán số milestone/migration;
-MTR-040C vẫn chưa được phép. Schema0013 /71 bảng giữ nguyên.
+Người dùng đã duyệt [thiết kế nguồn prior](docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md)
+và cho phép triển khai từ main `577f32a302cca56c7b6ac9dfb65ce2d663ae8a30` (PR #96).
+[Nguồn đã triển khai](docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md), **IMPLEMENTED / NOT FROZEN**:
+quyền SCRAM riêng theo provider, lịch sử bất biến, capture đầy đủ và replay thuần.
+Migration `0014` thêm 7 bảng, tổng 78; 276 định nghĩa cũ giữ nguyên, thêm 23, tổng 299.
+Không seed provider, principal, capability grants hay prior values. Chưa gán số milestone;
+production content, mapping, shrinkage và MTR-040C vẫn chưa được phép. Chờ architecture/freeze review.

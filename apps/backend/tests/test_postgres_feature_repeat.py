@@ -161,8 +161,8 @@ def test_cases03_36_41_real_capture_zero_io_and_no_occurrence_inflation(
         event.remove(Engine, "before_cursor_execute", forbidden)
     assert counts() == before
     with postgres_engine.connect() as db:
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0013"
-        assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 71
+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0014"
+        assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 78
 
 
 @pytest.mark.parametrize("isolation", ["REPEATABLE READ", "SERIALIZABLE"])

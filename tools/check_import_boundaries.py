@@ -93,6 +93,14 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     errors = []
 
     def audit(target, line):
+        if module == "app.modules.preferences.reference_prior_resolution" and not any(
+            target == allowed or target.startswith(allowed + ".")
+            for allowed in {
+                "app.domain.feature_identity",
+                "app.modules.preferences.reference_prior_contracts",
+            }
+        ):
+            errors.append(f"{line}: REFERENCE_PRIOR_PURE_CORE: {target}")
         if module == "app.modules.learning.feature_repeat" and not any(
             target == allowed or target.startswith(allowed + ".")
             for allowed in {

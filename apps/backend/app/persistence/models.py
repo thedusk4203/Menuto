@@ -30,6 +30,15 @@ from app.modules.preferences.models import (
     MemberPreferenceFrontier,
     MemberPreferenceStream,
 )
+from app.modules.preferences.reference_prior_models import (  # noqa: F401
+    ReferencePriorAuthority,
+    ReferencePriorMutation,
+    ReferencePriorPrincipal,
+    ReferencePriorProvider,
+    ReferencePriorProviderFrontier,
+    ReferencePriorRevision,
+    ReferencePriorStream,
+)
 from app.modules.recipes.models import (
     PreparationTransformation,
     Recipe,
