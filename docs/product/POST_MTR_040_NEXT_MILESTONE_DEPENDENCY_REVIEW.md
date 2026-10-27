@@ -3,6 +3,15 @@
 Status: **REVIEW / DOCUMENTATION ONLY — NO IMPLEMENTATION AUTHORIZED**.
 Reviewed 2026-10-27 at `b42abd13226c983b9f131f0b15671e134292fcfb`.
 
+Subsequent approved gate: [PR #110](https://github.com/thedusk4203/Menuto/pull/110) merged reviewed
+head `e8989e41e237a81b330adc6387dee44881b67e99` at actual main
+`623218e2713faf950dd01325436c9a6e3969f638`; tree equals the approved head. Exact post-merge push
+[CI 40499400731](https://github.com/thedusk4203/Menuto/actions/runs/40499400731) SUCCESS, python/web SUCCESS;
+2,978 tests, 358 exports, schema 0015 / 85. Dependency selection is approved and dedicated design
+was separately authorized. The [resulting design](CANDIDATE_BOUND_REVIEWED_CULINARY_FEATURE_PROJECTION_DESIGN.md)
+is **DESIGN READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED**. The findings below
+retain their exact reviewed baseline; this receipt grants no implementation or downstream authority.
+
 ## 1. Selected next gate
 
 ```text

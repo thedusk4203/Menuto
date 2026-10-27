@@ -18,18 +18,22 @@ Member-owned typed sources and pure derived views satisfy this acceptance. MTR-0
 separate requirement for broader attributed learning; no such event consumer is claimed complete.
 
 Full 041/046 remain PARTIAL; 039 OPEN; 024/020B/021 BLOCKED; Execution NOT STARTED;
-PRECOMMIT FAIL-CLOSED; planner_ready=False, activation_ready=False. No downstream design or
-implementation is authorized. Earlier delivery/review-stage status statements below are historical;
+PRECOMMIT FAIL-CLOSED; planner_ready=False, activation_ready=False. The separately authorized
+design gate below grants no downstream implementation. Earlier delivery/review-stage statements are historical;
 this closure receipt supersedes current-status wording only, never frozen behavior.
 
-## Post-MTR-040 next-gate review — recommendation only
+## Candidate-bound reviewed feature projection — design ready for review
 
-The [next-milestone dependency review](POST_MTR_040_NEXT_MILESTONE_DEPENDENCY_REVIEW.md)
-recommends **Candidate-bound Reviewed Culinary Feature Projection Foundation** as **READY FOR
-DETAILED DESIGN**: an additive 019B/C + 046A candidate-input integration, with no MTR suffix assigned.
-This is a review recommendation, not detailed-design approval or implementation authorization.
-MTR-040 remains COMPLETE / issue #41 CLOSED — COMPLETED. Full 041/046 remain PARTIAL;
-020B/021/024 remain BLOCKED. No downstream work starts; the review PR must not auto-merge.
+The approved [dependency review](POST_MTR_040_NEXT_MILESTONE_DEPENDENCY_REVIEW.md) merged as
+[PR #110](https://github.com/thedusk4203/Menuto/pull/110) at
+`623218e2713faf950dd01325436c9a6e3969f638`; exact push
+[CI 40499400731](https://github.com/thedusk4203/Menuto/actions/runs/40499400731) SUCCESS, python/web green.
+The separately authorized [detailed design](CANDIDATE_BOUND_REVIEWED_CULINARY_FEATURE_PROJECTION_DESIGN.md)
+for **Candidate-bound Reviewed Culinary Feature Projection Foundation** is **DESIGN READY FOR
+ARCHITECTURE REVIEW**, not approved or implemented. It proposes additive 019B/C + 046A capture/replay,
+60 acceptance cases and zero new persistence; no MTR suffix assigned. **IMPLEMENTATION NOT AUTHORIZED**.
+The design PR must not auto-merge. MTR-040 remains COMPLETE / issue #41 CLOSED — COMPLETED;
+039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
 
 
 
