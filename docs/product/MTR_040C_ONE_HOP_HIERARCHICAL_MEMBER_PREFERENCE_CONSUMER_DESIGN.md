@@ -1,15 +1,16 @@
 # MTR-040C — One-hop Hierarchical Member Preference Consumer Foundation
 
-Status: **ARCHITECTURE APPROVED — MTR-040C IMPLEMENTED / NOT FROZEN**.
-The user approved this architecture and separately authorized exactly the bounded implementation
-from `b591464e3ca495909851217141f96a55faaa35cc` (PR #106). The implementation PR must remain
-**OPEN / NOT MERGED**, pending implementation review and a separate freeze decision.
-See [implementation evidence](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_EVIDENCE.md).
+Status: **MTR-040C FROZEN / APPROVED**.
+Exact implementation head `b138ae7eee9ca9a94dd0a00a0f4e2eb0782d80b0` was accepted by the user
+in [review receipt6434925372](https://github.com/thedusk4203/Menuto/pull/107#issuecomment-6434925372).
+PR #107 merge/main/freeze SHA is `69241affc2d85ee534ca682a0ff9a4d23a7c7862`;
+exact push [CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498) SUCCESS,
+python/web;2,978 tests;358 definitions;0015 /85 tables. The user declared FROZEN after verification.
 
-The design body below preserves its original proposal-stage wording and receipts; those historical
-authorization gates are superseded only by the explicit user authorization recorded here.
-HC81 covers all nested explicit and reference identity manifests and hierarchy owner/context cuts.
-No downstream milestone, production content, persistence or migration is authorized.
+The [parent completion review](POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md) is PASS / eligible for completion,
+pending separate closure approval. Issue #41 remains OPEN and tracked parent status PARTIAL.
+Original design/delivery-stage authorization wording below is historical; this header supersedes
+status only. Frozen semantics and HC01–HC81 remain unchanged. No downstream implementation.
 
 ## 1. Canonical basis and authorization
 

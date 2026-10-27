@@ -155,15 +155,14 @@ ghi schema0015 /85 bảng,349 definitions và7 bảng nguồn rỗng sau migrati
 [Evidence triển khai](docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md)
 giữ receipt lịch sử; runtime/contracts/frozen semantics không đổi.
 
-**MTR-040C IMPLEMENTED — NOT FROZEN; ARCHITECTURE APPROVED.**
-[Thiết kế đã duyệt](docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
-được triển khai trong một pure consumer riêng. [Evidence](docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_EVIDENCE.md)
-ghi kiểm thử HC01–HC81,358 definitions (349 cũ +9 mới), schema0015 /85 bảng không đổi.
-PR implementation giữ mở/chưa merge để review và duyệt freeze; không thêm production rows/defaults.
-Các receipt/phát biểu cấp quyền ở những lần giao trước trong README là lịch sử.
-Consumer chỉ dùng mapped explicit, không truyền prior/blended/inherited values; direct/NEUTRAL/
-retraction ở đích được giữ ưu tiên, không mint EvidenceStrength hay gộp nhiều parent.
-Full040/041/046 vẫn PARTIAL; parent040/issue #41 vẫn OPEN chờ completion review sau040C.
-Không cần chèn thêm041 hoặc039 để thiết kế consumer này; broader learned preference vẫn cần039.
-024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED;
-planner_ready=False, activation_ready=False.
+**MTR-040C — FROZEN** tại `69241affc2d85ee534ca682a0ff9a4d23a7c7862`, PR #107;
+[push CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498) SUCCESS trên đúng SHA,
+python/web xanh;2.978 tests,358 definitions, schema0015 /85 bảng.
+[Parent MTR-040 completion review](docs/product/POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md)
+kết luận **PASS — đủ canonical acceptance, ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE**.
+Đây là review-only: parent vẫn PARTIAL/chờ phê duyệt closure và issue #41 vẫn OPEN; chưa đóng issue
+hay tự chuyển status COMPLETE. Không phát hiện slice implementation bắt buộc còn thiếu hoặc
+dependency MTR-039 cho acceptance này; broader learned evidence vẫn là phạm vi riêng chưa triển khai.
+Không thêm aggregate/table/migration hay đổi frozen semantics. Full041/046 vẫn PARTIAL;
+024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED;
+planner_ready=False,activation_ready=False. Không bắt đầu downstream milestone.

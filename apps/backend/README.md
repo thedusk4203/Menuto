@@ -184,19 +184,16 @@ Real-PG hierarchy tests use the same disposable SCRAM/TLS harness discipline abo
 eight hierarchy authentication tests alongside the retained eight prior-source smoke tests, then
 the complete suite. Empty downgrade→0014 is supported; any populated source registry/enrollment/
 history refuses destructive downgrade. Structural cluster roles/credentials remain deployment-owned.
-### MTR-040C pure one-hop consumer — implemented, not frozen
+### MTR-040C frozen; parent completion review pending approval
 
-The [approved design](../../docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
-is implemented through `derive_one_hop_hierarchical_member_preference(subject)` in Preferences.
-[Implementation evidence](../../docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_EVIDENCE.md)
-maps HC01–HC81 to real frozen child/source replay. It adds nine exports (349 →358), no persistence,
-IO, capture helper, migration or production defaults; schema remains0015 /85 domain tables.
-Parent/destination must share the complete member ledger (only its observation clock may differ).
-All repeated immutable typed owner facts across explicit/prior/hierarchy manifests must agree.
-Only mapped explicit lineage can transfer; raw semantic state determines the finite map, then
-exact authored attenuation applies in a separate inherited coordinate. Direct/retracted destination
-suppresses inheritance; destination prior output stays separate. Multiple incoming relations remain
-unavailable without aggregation. No EvidenceStrength is derived and no planner authority is granted.
-**ARCHITECTURE APPROVED; IMPLEMENTATION REVIEW / FREEZE REQUIRED. Implementation PR stays unmerged.**
-Issue #41 remains OPEN/full040 PARTIAL. No039,024/020B/021,Execution/PRECOMMIT implementation
-is authorized. Source freeze supplies no production taste coverage.
+MTR-040C is FROZEN at `69241affc2d85ee534ca682a0ff9a4d23a7c7862`, PR #107; exact push
+[CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498) SUCCESS, python/web;
+2,978 tests;358 definitions;schema0015 /85 domain tables. The pure consumer interface and its
+frozen one-hop/mapped-explicit/ownership/coordinate/zero-IO boundaries remain unchanged.
+[Parent completion review](../../docs/product/POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md)
+finds canonical MTR-040 acceptance satisfied: PASS / ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE.
+That is a review verdict, not closure approval: issue #41 stays OPEN and tracking stays PARTIAL /
+closure pending. No new aggregate, persistence, migration, inherited EvidenceStrength, recursive
+engine or behavioral-event admission is required by this acceptance. MTR-039 remains a separate
+requirement for broader attributed learning; no router or downstream integration is claimed.
+No planner utility, safety, Execution or PRECOMMIT authority is granted.
