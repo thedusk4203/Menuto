@@ -93,6 +93,15 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     errors = []
 
     def audit(target, line):
+        if module == "app.modules.planning.candidate_feature_projection" and not any(
+            target == allowed or target.startswith(allowed + ".")
+            for allowed in {
+                "uuid", "pydantic", "app.domain.contracts", "app.domain.feature_identity",
+                "app.domain.resolution", "app.modules.planning.contracts",
+                "app.modules.planning.grounding", "app.modules.recipes.contracts",
+            }
+        ):
+            errors.append(f"{line}: CANDIDATE_FEATURE_PURE_CORE: {target}")
         if module == "app.modules.preferences.reference_prior_resolution" and not any(
             target == allowed or target.startswith(allowed + ".")
             for allowed in {

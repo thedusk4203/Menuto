@@ -19,21 +19,23 @@ separate requirement for broader attributed learning; no such event consumer is 
 
 Full 041/046 remain PARTIAL; 039 OPEN; 024/020B/021 BLOCKED; Execution NOT STARTED;
 PRECOMMIT FAIL-CLOSED; planner_ready=False, activation_ready=False. The separately authorized
-design gate below grants no downstream implementation. Earlier delivery/review-stage statements are historical;
+bounded candidate projection below grants no other downstream implementation.
+Earlier delivery/review-stage statements are historical;
 this closure receipt supersedes current-status wording only, never frozen behavior.
 
-## Candidate-bound reviewed feature projection — design ready for review
+## Candidate-bound reviewed feature projection — implementation review candidate
 
-The approved [dependency review](POST_MTR_040_NEXT_MILESTONE_DEPENDENCY_REVIEW.md) merged as
-[PR #110](https://github.com/thedusk4203/Menuto/pull/110) at
-`623218e2713faf950dd01325436c9a6e3969f638`; exact push
-[CI 40499400731](https://github.com/thedusk4203/Menuto/actions/runs/40499400731) SUCCESS, python/web green.
-The separately authorized [detailed design](CANDIDATE_BOUND_REVIEWED_CULINARY_FEATURE_PROJECTION_DESIGN.md)
-for **Candidate-bound Reviewed Culinary Feature Projection Foundation** is **DESIGN READY FOR
-ARCHITECTURE REVIEW**, not approved or implemented. It proposes additive 019B/C + 046A capture/replay,
-60 acceptance cases and zero new persistence; no MTR suffix assigned. **IMPLEMENTATION NOT AUTHORIZED**.
-The design PR must not auto-merge. MTR-040 remains COMPLETE / issue #41 CLOSED — COMPLETED;
-039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+[Design PR #111](https://github.com/thedusk4203/Menuto/pull/111) is APPROVED at
+`04dbbb012041be80fc86914b582777812ed32e59` and merged at
+`3efcd8c9594cbc0ae154d5bcac4e6315bf09d8f8`; exact post-merge push
+[CI 40507097863](https://github.com/thedusk4203/Menuto/actions/runs/40507097863) SUCCESS, python/web green.
+The separately authorized [bounded implementation](CANDIDATE_BOUND_REVIEWED_CULINARY_FEATURE_PROJECTION_EVIDENCE.md)
+is **IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE**, not frozen or parent-complete.
+It adds the approved four Planning contracts and three capture/replay/validation operations,
+with CFP01–CFP60 covered; exports **362 = 358 + 4**, schema **0015 / 85**, zero new persistence.
+The implementation PR must not auto-merge. No new MTR suffix assigned. MTR-040 remains COMPLETE /
+issue #41 CLOSED — COMPLETED; 039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED;
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No downstream implementation is authorized.
 
 
 
