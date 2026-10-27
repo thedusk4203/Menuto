@@ -155,14 +155,14 @@ ghi schema0015 /85 bảng,349 definitions và7 bảng nguồn rỗng sau migrati
 [Evidence triển khai](docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md)
 giữ receipt lịch sử; runtime/contracts/frozen semantics không đổi.
 
-**MTR-040C — FROZEN** tại `69241affc2d85ee534ca682a0ff9a4d23a7c7862`, PR #107;
-[push CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498) SUCCESS trên đúng SHA,
-python/web xanh;2.978 tests,358 definitions, schema0015 /85 bảng.
-[Parent MTR-040 completion review](docs/product/POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md)
-kết luận **PASS — đủ canonical acceptance, ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE**.
-Đây là review-only: parent vẫn PARTIAL/chờ phê duyệt closure và issue #41 vẫn OPEN; chưa đóng issue
-hay tự chuyển status COMPLETE. Không phát hiện slice implementation bắt buộc còn thiếu hoặc
-dependency MTR-039 cho acceptance này; broader learned evidence vẫn là phạm vi riêng chưa triển khai.
-Không thêm aggregate/table/migration hay đổi frozen semantics. Full041/046 vẫn PARTIAL;
-024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED;
-planner_ready=False,activation_ready=False. Không bắt đầu downstream milestone.
+**MTR-040 — COMPLETE; issue #41 — CLOSED / COMPLETED.**
+[Completion review và closure receipt](docs/product/POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md#12-approved-closure-receipt)
+đã được duyệt; PR #108 merge đúng head `d30f9f610af937f2e59fb4eea5962478037ff414` tại
+`959e7fa3488e0c379ab37044c25da74292c2d76b`, tree khớp head đã review.
+[Push CI 40486320021](https://github.com/thedusk4203/Menuto/actions/runs/40486320021) SUCCESS trên đúng SHA,
+python/web xanh; 2.978 tests; 358 definitions; schema **0015 / 85 bảng**.
+Issue #41 đã đóng với lý do completed. Frozen 040A/B/C và các nguồn/policy giữ nguyên;
+040C vẫn frozen tại `69241affc2d85ee534ca682a0ff9a4d23a7c7862` (PR #107).
+Không thêm runtime, aggregate, persistence, migration 0016 hay production rows/defaults.
+Full 041/046 PARTIAL; 039 OPEN; 024/020B/021 BLOCKED; Execution NOT STARTED;
+PRECOMMIT FAIL-CLOSED; planner_ready=False, activation_ready=False. Không bắt đầu downstream milestone.

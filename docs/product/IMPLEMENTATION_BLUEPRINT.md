@@ -1,30 +1,26 @@
 # Milestone 0/1 — entry checklist V1.3
 
-## MTR-040C — FROZEN; parent MTR-040 completion review — PASS, approval pending
+## MTR-040 — COMPLETE; issue #41 — CLOSED / COMPLETED
 
-MTR-040C is **FROZEN** at `69241affc2d85ee534ca682a0ff9a4d23a7c7862`, PR #107,
-from reviewed head `b138ae7eee9ca9a94dd0a00a0f4e2eb0782d80b0`.
-Exact post-merge push [CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498)
-SUCCESS, python/web SUCCESS;2,978 tests;358 definitions;schema0015 /85 domain tables.
-The [parent completion review](POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md) concludes **A: MTR-040 COMPLETE against its canonical
-acceptance; COMPLETION REVIEW — PASS; ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE**.
+The separately approved closure gate has passed. [PR #108](https://github.com/thedusk4203/Menuto/pull/108)
+merged reviewed head `d30f9f610af937f2e59fb4eea5962478037ff414` at
+`959e7fa3488e0c379ab37044c25da74292c2d76b`; its tree exactly equals that head.
+Exact post-merge push [CI 40486320021](https://github.com/thedusk4203/Menuto/actions/runs/40486320021)
+SUCCESS, python/web SUCCESS; 2,978 tests; 358 exported definitions; schema **0015 / 85 domain tables**.
+[Issue #41](https://github.com/thedusk4203/Menuto/issues/41) is CLOSED with state_reason=completed.
+The [accepted parent review and closure receipt](POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md#12-approved-closure-receipt)
+record canonical acceptance satisfied and the exact scope of completion.
 
-This is **REVIEW ONLY — NO IMPLEMENTATION AUTHORIZED**. Current tracking stays **PARTIAL /
-closure approval pending**, and issue #41 stays **OPEN**. No issue checkbox/closure or parent
-COMPLETE status is applied by this PR. The review proposes those exact changes for a separate
-approval gate; it identifies no required implementation gap or MTR-039 prerequisite for parent040.
+Frozen 040A/B/C, reviewed prior source, PR #100 and hierarchy SOURCE semantics remain unchanged.
+040C remains frozen at `69241affc2d85ee534ca682a0ff9a4d23a7c7862` (PR #107);
+no new aggregate, persistence, migration 0016, source policy or production rows/defaults are added.
+Member-owned typed sources and pure derived views satisfy this acceptance. MTR-039 remains a
+separate requirement for broader attributed learning; no such event consumer is claimed complete.
 
-Member-owned direct affinity/strength, reviewed prior compatibility/shrinkage and one-hop
-mapped-explicit hierarchy provide the audited profile capability through existing typed sources
-and pure views. No new aggregate/table, inherited strength formula, recursive/multi-parent engine,
-behavioral router or production corpus is required by this acceptance. Broader attributed learning
-still needs separate MTR-039/observation-consumer work; it is not declared implemented here.
-
-All frozen semantics and unavailable/not-performed flags remain unchanged. Full041/046 PARTIAL;
-039 OPEN;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED;
-planner_ready=False,activation_ready=False. No downstream work starts.
-Earlier delivery-stage status/authorization statements below remain historical; the canonical
-freeze receipt and this review supersede current-status wording only.
+Full 041/046 remain PARTIAL; 039 OPEN; 024/020B/021 BLOCKED; Execution NOT STARTED;
+PRECOMMIT FAIL-CLOSED; planner_ready=False, activation_ready=False. No downstream design or
+implementation is authorized. Earlier delivery/review-stage status statements below are historical;
+this closure receipt supersedes current-status wording only, never frozen behavior.
 
 
 Đây là checklist theo §23.5. [Blueprint M0/M1 và phần nền tảng đã triển khai](IMPLEMENTATION_BLUEPRINT_M0_M1.md) là tài liệu chi tiết; checklist chưa đạt toàn bộ tiêu chí cho các workflow ở milestones sau.

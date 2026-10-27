@@ -7,8 +7,9 @@ PR #107 merge/main/freeze SHA is `69241affc2d85ee534ca682a0ff9a4d23a7c7862`;
 exact push [CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498) SUCCESS,
 python/web;2,978 tests;358 definitions;0015 /85 tables. The user declared FROZEN after verification.
 
-The [parent completion review](POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md) is PASS / eligible for completion,
-pending separate closure approval. Issue #41 remains OPEN and tracked parent status PARTIAL.
+The [accepted parent review and closure receipt](POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md#12-approved-closure-receipt)
+record **MTR-040 COMPLETE / issue #41 CLOSED — COMPLETED** after PR #108 merged at
+`959e7fa3488e0c379ab37044c25da74292c2d76b` and exact push CI 40486320021 succeeded.
 Original design/delivery-stage authorization wording below is historical; this header supersedes
 status only. Frozen semantics and HC01–HC81 remain unchanged. No downstream implementation.
 
