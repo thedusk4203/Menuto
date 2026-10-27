@@ -1,38 +1,31 @@
 # Trạng thái foundation V1.3 và bằng chứng
 
-## Hierarchy SOURCE — FROZEN; MTR-040C — IMPLEMENTED / NOT FROZEN
+## MTR-040C — FROZEN; parent MTR-040 completion review — PASS, approval pending
 
-MTR-040C architecture is **APPROVED** and the user separately authorized this bounded runtime
-implementation from canonical `b591464e3ca495909851217141f96a55faaa35cc` (PR #106).
-The [implementation evidence](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_EVIDENCE.md)
-records HC01–HC81, retained frozen dependencies and verification receipts.
-**IMPLEMENTATION REVIEW / FREEZE REQUIRED. The implementation PR must remain OPEN / NOT MERGED.**
+MTR-040C is **FROZEN** at `69241affc2d85ee534ca682a0ff9a4d23a7c7862`, PR #107,
+from reviewed head `b138ae7eee9ca9a94dd0a00a0f4e2eb0782d80b0`.
+Exact post-merge push [CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498)
+SUCCESS, python/web SUCCESS;2,978 tests;358 definitions;schema0015 /85 domain tables.
+The [parent completion review](POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md) concludes **A: MTR-040 COMPLETE against its canonical
+acceptance; COMPLETION REVIEW — PASS; ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE**.
 
-The [approved design](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
-now has one additive pure consumer, recursive frozen child/source replay, same-member full-ledger
-coherence, cross-cut immutable typed fact checks and separate exact inherited coordinates.
-It adds nine definitions (349 →358); no persistence, migration0016, production rows/defaults or
-planner authority. Schema stays **0015 /85 domain tables**. Original2,807 test identities are retained.
+This is **REVIEW ONLY — NO IMPLEMENTATION AUTHORIZED**. Current tracking stays **PARTIAL /
+closure approval pending**, and issue #41 stays **OPEN**. No issue checkbox/closure or parent
+COMPLETE status is applied by this PR. The review proposes those exact changes for a separate
+approval gate; it identifies no required implementation gap or MTR-039 prerequisite for parent040.
 
-Hierarchy SOURCE remains separately **FROZEN / APPROVED** at
-`ee8a4de1b1c71ccbd56ea565e111718660711fa8` (PR #104), with successful exact push
-[CI40432057006](https://github.com/thedusk4203/Menuto/actions/runs/40432057006).
-Its [freeze receipt](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md) and
-[dependency review](POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md) preserve those historical gates.
-The source remains unchanged; consumer completion does not claim a populated production corpus.
+Member-owned direct affinity/strength, reviewed prior compatibility/shrinkage and one-hop
+mapped-explicit hierarchy provide the audited profile capability through existing typed sources
+and pure views. No new aggregate/table, inherited strength formula, recursive/multi-parent engine,
+behavioral router or production corpus is required by this acceptance. Broader attributed learning
+still needs separate MTR-039/observation-consumer work; it is not declared implemented here.
 
-040C must use recomputed mapped-explicit member evidence only, never blended/prior-only/inherited
-parents; preserve direct/NEUTRAL/retracted destination precedence, semantic mapping before exact
-attenuation, one-hop/no parent aggregation, distinct scoped inherited coordinate and zero IO.
-It mints or propagates no EvidenceStrength. All frozen040A/B,041A–F,046A, prior source, PR #100
-and hierarchy-source contracts/semantics remain unchanged. No extra041 or MTR-039 implementation
-is a prerequisite for this bounded design; broader learned preference still needs attribution.
+All frozen semantics and unavailable/not-performed flags remain unchanged. Full041/046 PARTIAL;
+039 OPEN;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED;
+planner_ready=False,activation_ready=False. No downstream work starts.
+Earlier delivery-stage status/authorization statements below remain historical; the canonical
+freeze receipt and this review supersede current-status wording only.
 
-Full040/041/046 remain PARTIAL. Parent MTR-040/issue #41 stays OPEN until a separate post-040C
-completion review. MTR-039 remains OPEN;024/020B/021 BLOCKED; Execution NOT STARTED;
-PRECOMMIT FAIL-CLOSED;`planner_ready=False`, `activation_ready=False`. No downstream implementation.
-Earlier design/delivery authorization statements below are historical; this receipt/review
-supersedes only current-status interpretation, not frozen requirements or old implementation facts.
 
 ## Historical PR #100 freeze receipt
 
