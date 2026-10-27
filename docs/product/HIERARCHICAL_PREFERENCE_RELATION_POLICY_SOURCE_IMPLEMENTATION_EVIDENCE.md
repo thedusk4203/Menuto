@@ -1,6 +1,17 @@
 # Hierarchical preference relation / transfer-policy source — implementation evidence
 
-Status: **IMPLEMENTED / NOT FROZEN / IMPLEMENTATION REVIEW PENDING — NOT MERGED**.
+
+Current canonical status: **FROZEN / APPROVED**, per the user's post-merge freeze declaration.
+[Freeze receipt](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md): PR #104 merged at
+`ee8a4de1b1c71ccbd56ea565e111718660711fa8`; exact push CI40432057006 SUCCESS, python/web,
+2807 tests;0015 /85;349 definitions. The [post-freeze review](POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md)
+selects MTR-040C detailed DESIGN only. This evidence preserves the original implementation delivery
+record below, including then-current PR/authorization status and the original46-file inventory.
+Those historical status statements do not leave the SOURCE unfrozen. Runtime/receipts/acceptance
+semantics remain unchanged; no detailed consumer contract or implementation is authorized here.
+
+
+Historical delivery status: **IMPLEMENTED / NOT FROZEN / IMPLEMENTATION REVIEW PENDING — NOT MERGED**.
 Prepared 2026-10-27. SOURCE ONLY; milestone number unassigned; this is not MTR-040C.
 
 ## Authorization and exact baseline
@@ -8,7 +19,7 @@ Prepared 2026-10-27. SOURCE ONLY; milestone number unassigned; this is not MTR-0
 The user approved the combination of the [source design](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md)
 and [neutral-anchor correction](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_NEUTRAL_ANCHOR_CORRECTION.md),
 then separately authorized this implementation and additive migration0015. The correction supersedes
-only stricter finite-map semantics. The current instruction explicitly requires an open implementation
+only stricter finite-map semantics. The implementation-stage instruction explicitly required an open implementation
 PR: green CI does not authorize merge, freeze or a consumer implementation.
 
 | Receipt | Value |
