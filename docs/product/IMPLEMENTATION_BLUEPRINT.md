@@ -1,33 +1,33 @@
 # Milestone 0/1 — entry checklist V1.3
 
-## Hierarchy relation/policy source — implementation review candidate
+## Hierarchy SOURCE — FROZEN; MTR-040C — design-ready only
 
-The user approved the [source design](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md)
-together with the [neutral-anchor correction](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_NEUTRAL_ANCHOR_CORRECTION.md)
-and separately authorized **SOURCE ONLY** implementation from exact canonical main
-`4ad3f682554b7feee9f333eca1f1f5c258852f5e` (push CI40386371459 SUCCESS).
-The [implementation evidence](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md) records **IMPLEMENTED / NOT FROZEN / REVIEW PENDING**.
-This review candidate adds migration0015 and seven empty source tables:78→85 domain tables;
-318 unchanged definitions +31 additive =349. Canonical frozen baseline remains0014 /78 until
-this PR is reviewed and merged. The implementation PR must remain **OPEN / NOT MERGED**.
+**Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation is
+FROZEN / APPROVED**, per the user's post-freeze review. [Freeze receipt](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md): PR #104,
+implementation head `4263bf5f14f0aa2b65ba646891f3acf548826f1f`, merge/freeze
+`ee8a4de1b1c71ccbd56ea565e111718660711fa8`; exact push
+[CI40432057006](https://github.com/thedusk4203/Menuto/actions/runs/40432057006) SUCCESS, python/web
+SUCCESS;2,807 tests;349 definitions;schema0015 /85 domain tables. Seven source tables were empty
+after test migration; no production provider/grant/relation/direction/coefficient is seeded.
 
-Hierarchy publication/capture has a separate PostgreSQL SCRAM trust root, provider grants,
-immutable revisions/tombstones, exact owner-controlled support pins, coherent capture and pure
-source replay. Classification is not transfer authority. The complete25-cell policy is authored;
-semantic NEUTRAL maps only to0/1, with no missing-row zero or sign-flipped anti-correlation.
-Durable storage holds owner references/fingerprints, not capture snapshots or member results.
-No provider, principal, grant, relation, enabled direction or numeric production value is seeded.
+The [post-freeze dependency/readiness review](POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md) is PASS and selects
+**MTR-040C — One-hop Hierarchical Member Preference Consumer Foundation**, **READY FOR DETAILED
+ARCHITECTURE/DESIGN**. The source foundation remains separate and unnumbered. Detailed consumer
+design is the next gate; recording this review does not approve a detailed contract or authorize
+runtime implementation, new migration or production transfer content.
 
-Source readiness requires implementation review/freeze. The pure hierarchy consumer is absent:
-no inherited member affinity, strength propagation, MemberBehaviorProfile, shrinkage extension,
-recursive traversal or parent aggregation.040A/B,041A–F,046A, prior source, PR #100 and migrations
-0001–0014 retain frozen semantics. Full040/041/046 remain PARTIAL;039 and040C NOT AUTHORIZED /
-040C NOT ASSIGNED;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED;
-`planner_ready=False`, `activation_ready=False`. No next slice is authorized.
+040C must use recomputed mapped-explicit member evidence only, never blended/prior-only/inherited
+parents; preserve direct/NEUTRAL/retracted destination precedence, semantic mapping before exact
+attenuation, one-hop/no parent aggregation, distinct scoped inherited coordinate and zero IO.
+It mints or propagates no EvidenceStrength. All frozen040A/B,041A–F,046A, prior source, PR #100
+and hierarchy-source contracts/semantics remain unchanged. No extra041 or MTR-039 implementation
+is a prerequisite for this bounded design; broader learned preference still needs attribution.
 
-Earlier design-stage authorization/status statements below are historical and are superseded
-only by this source-only implementation authorization; their semantic restrictions remain binding.
-
+Full040/041/046 remain PARTIAL. Parent MTR-040/issue #41 stays OPEN until a separate post-040C
+completion review. MTR-039 remains OPEN;024/020B/021 BLOCKED; Execution NOT STARTED;
+PRECOMMIT FAIL-CLOSED;`planner_ready=False`, `activation_ready=False`. No downstream implementation.
+Earlier design/delivery authorization statements below are historical; this receipt/review
+supersedes only current-status interpretation, not frozen requirements or old implementation facts.
 
 Đây là checklist theo §23.5. [Blueprint M0/M1 và phần nền tảng đã triển khai](IMPLEMENTATION_BLUEPRINT_M0_M1.md) là tài liệu chi tiết; checklist chưa đạt toàn bộ tiêu chí cho các workflow ở milestones sau.
 

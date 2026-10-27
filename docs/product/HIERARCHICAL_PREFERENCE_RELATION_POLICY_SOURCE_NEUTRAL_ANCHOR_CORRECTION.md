@@ -1,14 +1,15 @@
 # Hierarchical Preference Relation / Policy Source — Neutral Anchor Correction
 
-Status: **DESIGN APPROVED — SOURCE IMPLEMENTATION AUTHORIZED; IMPLEMENTATION REVIEW PENDING**.
+Status: **FROZEN / APPROVED — SOURCE FOUNDATION; CONSUMER IMPLEMENTATION NOT AUTHORIZED**.
 
-Current authorization: the user approved this design/correction pair at canonical
-`4ad3f682554b7feee9f333eca1f1f5c258852f5e` and authorized SOURCE ONLY implementation,
-including additive0015. See [implementation evidence](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md).
-The implementation PR remains OPEN / NOT MERGED; source readiness awaits review/freeze.
-Pure consumer, MTR-040C and downstream work remain unauthorized. The original review-stage
-baseline, delivery receipts and stop statements below are historical; no approved semantic
-requirement is relaxed. The correction supersedes only stricter finite-map semantics.
+Current status: the user froze the SOURCE at exact implementation merge
+`ee8a4de1b1c71ccbd56ea565e111718660711fa8` after PR #104 approval and successful exact push
+CI40432057006. [Canonical freeze receipt](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md) records
+the implementation and regression receipts. The [post-freeze review](POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md)
+assigns MTR-040C to the next bounded pure-consumer detailed DESIGN only; runtime is not authorized.
+The source foundation itself remains unnumbered. Original design/delivery baseline and stop
+statements below are historical; the receipt supersedes only current status. No approved semantic
+requirement is changed. The correction supersedes only stricter finite-map semantics.
 
 
 Reviewed against canonical `main`:

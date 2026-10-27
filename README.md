@@ -12,7 +12,7 @@ Menuto giúp cá nhân/hộ gia đình tối ưu kế hoạch ăn và mua sắm 
 - [Glossary](docs/product/GLOSSARY.md), [kiến trúc](docs/product/ARCHITECTURE.md), [trạng thái/bằng chứng](docs/product/FOUNDATION_STATUS.md).
 - [Backlog V1.3 MTR-001 → MTR-050](docs/product/BACKLOG.md).
 - [Chuyển mã V1.2 → V1.3](docs/product/BASELINE_MIGRATION_V1_3.md), [entry checklist Milestone 0/1](docs/product/IMPLEMENTATION_BLUEPRINT.md).
-- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): candidate migration đến `0015`, tổng85 bảng (baseline frozen0014 /78); M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và net cooking yield theo ingredient path. Handoff planning/validation/grounded culinary input vẫn draft. [Correction evidence M1.2](docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md), [hướng dẫn database/tests](apps/backend/README.md).
+- [Implementation Blueprint M0/M1](docs/product/IMPLEMENTATION_BLUEPRINT_M0_M1.md): migration đến `0015`, tổng85 bảng; hierarchy SOURCE đã FROZEN; M1.1 Retail đã freeze, M1.2 bổ sung immutable RecipeVersion, authored rules/tiers/envelopes và net cooking yield theo ingredient path. Handoff planning/validation/grounded culinary input vẫn draft. [Correction evidence M1.2](docs/product/M1_2_CULINARY_BINDING_CORRECTIONS.md), [hướng dẫn database/tests](apps/backend/README.md).
 
 V1.3 là baseline duy nhất đang hiệu lực. V1.2 chỉ còn trong lịch sử Git; mã invariant/backlog cũ không được diễn giải theo nghĩa V1.3. Các bản gốc người dùng đặt tại root được giữ ở máy và bỏ qua trong Git; `docs/` là bản chuẩn được quản lý.
 
@@ -49,7 +49,7 @@ Web: http://127.0.0.1:5173. API docs: http://127.0.0.1:8000/docs. Health chỉ k
 apps/backend/app/modules/   16 namespace theo V1.3 §16.4, gồm validation và learning
 apps/backend/app/domain/    Neutral units/provenance và draft handoff contracts
 apps/backend/app/persistence/ SQLAlchemy metadata/engine, chưa provision DB ứng dụng
-apps/backend/migrations/    Alembic 0001 → 0015, candidate85 bảng domain; baseline0014 /78
+apps/backend/migrations/    Alembic 0001 → 0015, 85 bảng domain; hierarchy SOURCE FROZEN
 apps/backend/app/shared/    Technical primitives và health contract
 apps/backend/tests/        Health, architecture/import và baseline consistency tests
 apps/backend/workers/      Chưa có worker
@@ -147,13 +147,20 @@ Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Scoped numeric equality không c�
 sở thích giữa hai exact targets, kể cả cùng kind và cùng policy.
 [Dependency review sau PR #100](docs/product/POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md)
 đã được APPROVED tại canonical `73b3b0b3bbe6571ca5e70c09442d394701c5adf8` (PR #101).
-Người dùng đã duyệt thiết kế nguồn hierarchy cùng correction neutral-anchor và cho phép riêng
-triển khai **SOURCE ONLY** từ `4ad3f682554b7feee9f333eca1f1f5c258852f5e`.
-[Bằng chứng triển khai](docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md) ghi trạng thái
-**IMPLEMENTED / NOT FROZEN / REVIEW PENDING — PR OPEN / NOT MERGED**.
-Candidate migration0015 thêm7 bảng nguồn rỗng,78→85 bảng;318 định nghĩa cũ +31 mới =349.
-Không seed provider, grant, relation hay production direction/coefficient. Nguồn có quyền SCRAM
-riêng, lịch sử bất biến, pin support chuẩn và capture/replay thuần; không tính affinity cho member.
-Nguồn chỉ ready sau review/freeze. Consumer hierarchy,039/040C và downstream chưa được phép;
-full040/041/046 chưa hoàn tất;024/020B/021 BLOCKED, Execution NOT STARTED,
-PRECOMMIT FAIL-CLOSED; planner_ready=False, activation_ready=False.
+Hierarchy SOURCE đã **FROZEN / APPROVED** tại
+`ee8a4de1b1c71ccbd56ea565e111718660711fa8` (PR #104; implementation head4263bf5;
+[push CI40432057006](https://github.com/thedusk4203/Menuto/actions/runs/40432057006) SUCCESS,
+python/web xanh;2.807 tests). [Freeze receipt](docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md)
+ghi schema0015 /85 bảng,349 definitions và7 bảng nguồn rỗng sau migration test; không seed production.
+[Evidence triển khai](docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md)
+giữ receipt lịch sử; runtime/contracts/frozen semantics không đổi.
+
+[Dependency/readiness review](docs/product/POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md) PASS, chọn
+**MTR-040C — One-hop Hierarchical Member Preference Consumer Foundation** cho **thiết kế chi tiết**.
+Chưa có thiết kế consumer được duyệt hoặc quyền runtime/migration/production transfer data.
+Consumer chỉ dùng mapped explicit, không truyền prior/blended/inherited values; direct/NEUTRAL/
+retraction ở đích được giữ ưu tiên, không mint EvidenceStrength hay gộp nhiều parent.
+Full040/041/046 vẫn PARTIAL; parent040/issue #41 vẫn OPEN chờ completion review sau040C.
+Không cần chèn thêm041 hoặc039 để thiết kế consumer này; broader learned preference vẫn cần039.
+024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED;
+planner_ready=False, activation_ready=False.

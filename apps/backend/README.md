@@ -98,7 +98,7 @@ No production PRECOMMIT issuer or cooking/meal execution. Database head0010; old
 Current prior-source status is [FROZEN](../../docs/product/PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md).
 The original source-only boundaries below remain unchanged; the later pure exact-target consumer
 has its own [freeze receipt](../../docs/product/EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md).
-Current hierarchy source implementation is a separate review candidate described below.
+Current hierarchy SOURCE is separately frozen; see its canonical receipt and design-only next gate below.
 
 The [approved design](../../docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) now has an
 [additive implementation](../../docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md).
@@ -143,13 +143,14 @@ the observed client address; existing regression roles/rules stay unchanged.
 Empty downgrade is supported; populated registry/enrollment/authority/source downgrade refuses
 data loss. Credential secrets and structural cluster-role lifecycle are not downgrade-managed.
 
-## Reviewed hierarchy relation/policy source (0015, review candidate)
+## Reviewed hierarchy relation/policy source (0015, FROZEN)
 
-The user authorized SOURCE ONLY from exact base `4ad3f682554b7feee9f333eca1f1f5c258852f5e`.
-[Implementation evidence](../../docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md)
-records **IMPLEMENTED / NOT FROZEN / NOT MERGED**. Candidate head0015 adds seven empty source
-tables,85 domain tables in total; migrations0001–0014 and frozen source semantics are unchanged.
-No provider, login enrollment, grant, relation, enabled direction or numeric coefficient is seeded.
+The user froze the SOURCE at `ee8a4de1b1c71ccbd56ea565e111718660711fa8` after approved
+PR #104 and successful exact post-merge CI40432057006 (python/web;2807 tests).
+[Canonical freeze receipt](../../docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md)
+supersedes historical pre-merge status in the implementation evidence. Head0015 has85 domain
+tables and349 definitions; all frozen semantics remain unchanged. No production provider, login
+enrollment, grant, relation, enabled direction or numeric coefficient is seeded.
 
 Structural hierarchy roles are independent: `menuto_hierarchy_admin` and `menuto_hierarchy_client`.
 Protected source/read-adapter owners are non-login roles; clients must never receive owner/admin
@@ -157,7 +158,7 @@ membership or direct source/owner-table mutation privileges. Credential provisio
 of band. The normal interface requires an actual SCRAM login with immutable database/login OID/name
 enrollment; prior-source grants, household roles, GUCs and actor UUIDs grant no hierarchy authority.
 Remote connections require verify-full TLS with trusted server identity. Deployment administrators
-are privileged trust roots, not application actors. Source readiness still awaits review/freeze.
+are privileged trust roots, not application actors. The SOURCE is frozen; the consumer is not implemented.
 
 Use the internal Preferences public facade: `register_hierarchy_provider`,
 `enroll_hierarchy_principal`, `change_hierarchy_authority`, `publish_hierarchy_source`,
@@ -183,4 +184,6 @@ Real-PG hierarchy tests use the same disposable SCRAM/TLS harness discipline abo
 eight hierarchy authentication tests alongside the retained eight prior-source smoke tests, then
 the complete suite. Empty downgrade→0014 is supported; any populated source registry/enrollment/
 history refuses destructive downgrade. Structural cluster roles/credentials remain deployment-owned.
-The hierarchy consumer,040C,039 and downstream work are not authorized by this source PR.
+The [post-freeze review](../../docs/product/POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md)
+selects MTR-040C for detailed consumer design only. No consumer runtime, new migration,039 or
+downstream implementation is authorized. This source freeze supplies no production taste coverage.
