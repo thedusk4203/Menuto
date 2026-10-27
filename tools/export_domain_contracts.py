@@ -189,6 +189,17 @@ from app.modules.preferences.contracts import (
     UnavailablePreferencePrior,
     UnavailableShrunkAffinity,
 )
+from app.modules.preferences.hierarchical_affinity_contracts import (
+    AvailableInheritedMemberPreference,
+    InheritedMemberPreferenceAmount,
+    InheritedMemberPreferenceCoordinate,
+    InheritedPreferenceTrace,
+    OneHopHierarchicalMemberPreferenceDraft,
+    OneHopHierarchicalMemberPreferenceInput,
+    ScopedInheritedMemberPreference,
+    SuppressedInheritedMemberPreference,
+    UnavailableInheritedMemberPreference,
+)
 from app.modules.preferences.hierarchy_contracts import (
     HierarchyAuthorityCommand,
     HierarchyAuthorityEvent,
@@ -349,6 +360,15 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    AvailableInheritedMemberPreference,
+    InheritedMemberPreferenceAmount,
+    InheritedMemberPreferenceCoordinate,
+    InheritedPreferenceTrace,
+    OneHopHierarchicalMemberPreferenceDraft,
+    OneHopHierarchicalMemberPreferenceInput,
+    ScopedInheritedMemberPreference,
+    SuppressedInheritedMemberPreference,
+    UnavailableInheritedMemberPreference,
     HierarchyAuthorityCommand,
     HierarchyAuthorityEvent,
     HierarchyCaptureRequest,

@@ -184,9 +184,19 @@ Real-PG hierarchy tests use the same disposable SCRAM/TLS harness discipline abo
 eight hierarchy authentication tests alongside the retained eight prior-source smoke tests, then
 the complete suite. Empty downgrade→0014 is supported; any populated source registry/enrollment/
 history refuses destructive downgrade. Structural cluster roles/credentials remain deployment-owned.
-The [post-freeze review](../../docs/product/POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md)
-selects MTR-040C for detailed consumer design only.
-[The separate design proposal](../../docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
-is READY FOR ARCHITECTURE REVIEW; its single pure interface and81 acceptance cases are proposed,
-not implemented or approved contracts. No consumer runtime, new migration,039 or
-downstream implementation is authorized. This source freeze supplies no production taste coverage.
+### MTR-040C pure one-hop consumer — implemented, not frozen
+
+The [approved design](../../docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
+is implemented through `derive_one_hop_hierarchical_member_preference(subject)` in Preferences.
+[Implementation evidence](../../docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_EVIDENCE.md)
+maps HC01–HC81 to real frozen child/source replay. It adds nine exports (349 →358), no persistence,
+IO, capture helper, migration or production defaults; schema remains0015 /85 domain tables.
+Parent/destination must share the complete member ledger (only its observation clock may differ).
+All repeated immutable typed owner facts across explicit/prior/hierarchy manifests must agree.
+Only mapped explicit lineage can transfer; raw semantic state determines the finite map, then
+exact authored attenuation applies in a separate inherited coordinate. Direct/retracted destination
+suppresses inheritance; destination prior output stays separate. Multiple incoming relations remain
+unavailable without aggregation. No EvidenceStrength is derived and no planner authority is granted.
+**ARCHITECTURE APPROVED; IMPLEMENTATION REVIEW / FREEZE REQUIRED. Implementation PR stays unmerged.**
+Issue #41 remains OPEN/full040 PARTIAL. No039,024/020B/021,Execution/PRECOMMIT implementation
+is authorized. Source freeze supplies no production taste coverage.
