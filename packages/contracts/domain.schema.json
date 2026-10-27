@@ -6472,6 +6472,1831 @@
       "title": "GroundingNutritionSelection",
       "type": "object"
     },
+    "HierarchyAuthorityCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "GRANT",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "capability": {
+          "enum": [
+            "REVIEW_PUBLISH",
+            "RETRACT",
+            "CAPTURE"
+          ],
+          "title": "Capability",
+          "type": "string"
+        },
+        "expected_authority_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Authority Generation",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "principal_id": {
+          "format": "uuid",
+          "title": "Principal Id",
+          "type": "string"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "principal_id",
+        "capability",
+        "action",
+        "expected_authority_generation",
+        "reason",
+        "idempotency_key"
+      ],
+      "title": "HierarchyAuthorityCommand",
+      "type": "object"
+    },
+    "HierarchyAuthorityEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/HierarchySessionFact"
+        },
+        "authority_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Authority Sequence",
+          "type": "integer"
+        },
+        "command": {
+          "$ref": "#/$defs/HierarchyAuthorityCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "fact_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Hash",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "mutation_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Mutation Sequence",
+          "type": "integer"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "administrator",
+        "recorded_at",
+        "authority_sequence",
+        "mutation_sequence",
+        "command_hash",
+        "fact_hash"
+      ],
+      "title": "HierarchyAuthorityEvent",
+      "type": "object"
+    },
+    "HierarchyCaptureRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "policy_id": {
+          "format": "uuid",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "requested_targets": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                "METHOD": "#/$defs/FeaturePreferenceTarget",
+                "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/IngredientPreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/RecipePreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/FeaturePreferenceTarget"
+              }
+            ]
+          },
+          "title": "Requested Targets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "provider_id",
+        "policy_id",
+        "requested_targets"
+      ],
+      "title": "HierarchyCaptureRequest",
+      "type": "object"
+    },
+    "HierarchyDestinationSource": {
+      "additionalProperties": false,
+      "properties": {
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/HierarchyRelationDiagnostic"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "policy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HierarchyRevisionFact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "NO_RELATION",
+                "RELATION_RETRACTED",
+                "DIRECTION_DENIED",
+                "POLICY_MISSING",
+                "POLICY_RETRACTED",
+                "POLICY_SUPERSEDED",
+                "MULTIPLE_INCOMING_RELATIONS",
+                "SUPPORT_UNRESOLVED",
+                "SUPPORT_SUPERSEDED",
+                "SUPPORT_RETRACTED",
+                "SUPPORT_REVIEWED_NONE",
+                "SUPPORT_REVIEWED_ABSENT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "relations": {
+          "items": {
+            "$ref": "#/$defs/HierarchyRevisionFact"
+          },
+          "title": "Relations",
+          "type": "array"
+        },
+        "selected_relation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HierarchyRevisionFact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ELIGIBLE_RELATION",
+            "UNAVAILABLE"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "support_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Support Reason"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "status",
+        "reason",
+        "policy",
+        "relations",
+        "selected_relation",
+        "support_reason",
+        "diagnostics"
+      ],
+      "title": "HierarchyDestinationSource",
+      "type": "object"
+    },
+    "HierarchyDirectionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "attenuation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HierarchyPolicyAmount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "destination_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Destination Kind",
+          "type": "string"
+        },
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/HierarchyTransferMapRow"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "source_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "support_modes": {
+          "items": {
+            "enum": [
+              "REVIEWED_EXACT_PAIR",
+              "CLASSIFICATION_BOUND_PAIR"
+            ],
+            "type": "string"
+          },
+          "title": "Support Modes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "source_kind",
+        "destination_kind",
+        "enabled",
+        "support_modes",
+        "rows",
+        "attenuation"
+      ],
+      "title": "HierarchyDirectionPolicy",
+      "type": "object"
+    },
+    "HierarchyFrontier": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Authority Generation",
+          "type": "integer"
+        },
+        "authority_head_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Authority Head Id"
+        },
+        "mutation_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Mutation Generation",
+          "type": "integer"
+        },
+        "mutation_head_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mutation Head Hash"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "source_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Source Generation",
+          "type": "integer"
+        },
+        "source_head_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Head Id"
+        }
+      },
+      "required": [
+        "provider_id",
+        "source_generation",
+        "authority_generation",
+        "mutation_generation",
+        "source_head_id",
+        "authority_head_id",
+        "mutation_head_hash"
+      ],
+      "title": "HierarchyFrontier",
+      "type": "object"
+    },
+    "HierarchyMappingLookup": {
+      "additionalProperties": false,
+      "properties": {
+        "row": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HierarchyTransferMapRow"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "AVAILABLE",
+            "SOURCE_VALUE_NOT_MAPPED",
+            "DIRECTION_DENIED"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "row"
+      ],
+      "title": "HierarchyMappingLookup",
+      "type": "object"
+    },
+    "HierarchyMutationFact": {
+      "additionalProperties": false,
+      "properties": {
+        "child_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Child Hash",
+          "type": "string"
+        },
+        "child_id": {
+          "format": "uuid",
+          "title": "Child Id",
+          "type": "string"
+        },
+        "journal_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Journal Hash",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "AUTHORITY",
+            "PUBLICATION"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "mutation_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Mutation Sequence",
+          "type": "integer"
+        },
+        "predecessor_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Hash"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "mutation_sequence",
+        "kind",
+        "child_id",
+        "child_hash",
+        "predecessor_hash",
+        "recorded_at",
+        "journal_hash"
+      ],
+      "title": "HierarchyMutationFact",
+      "type": "object"
+    },
+    "HierarchyOwnerManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Catalog Frontier",
+          "type": "integer"
+        },
+        "catalog_streams": {
+          "items": {
+            "$ref": "#/$defs/IngredientProteinStreamFact"
+          },
+          "title": "Catalog Streams",
+          "type": "array"
+        },
+        "identities": {
+          "items": {
+            "$ref": "#/$defs/HierarchyTargetIdentity"
+          },
+          "title": "Identities",
+          "type": "array"
+        },
+        "recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Recipe Frontier",
+          "type": "integer"
+        },
+        "recipes": {
+          "items": {
+            "$ref": "#/$defs/RecipeVersionSnapshot"
+          },
+          "title": "Recipes",
+          "type": "array"
+        },
+        "scopes": {
+          "items": {
+            "$ref": "#/$defs/CulinaryFeatureScopeFact"
+          },
+          "title": "Scopes",
+          "type": "array"
+        },
+        "terms": {
+          "items": {
+            "$ref": "#/$defs/AffinityFeatureTermFact"
+          },
+          "title": "Terms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "identities",
+        "catalog_frontier",
+        "catalog_streams",
+        "recipe_frontier",
+        "recipes",
+        "scopes",
+        "terms"
+      ],
+      "title": "HierarchyOwnerManifest",
+      "type": "object"
+    },
+    "HierarchyOwnerPin": {
+      "additionalProperties": false,
+      "properties": {
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "CATALOG_STREAM",
+            "RECIPE_VERSION",
+            "RECIPE_SCOPE",
+            "FEATURE_TERM"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "fingerprint"
+      ],
+      "title": "HierarchyOwnerPin",
+      "type": "object"
+    },
+    "HierarchyOwnerPins": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Catalog Frontier",
+          "type": "integer"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/HierarchyOwnerPin"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "recipe_frontier": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Recipe Frontier",
+          "type": "integer"
+        },
+        "targets": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                "METHOD": "#/$defs/FeaturePreferenceTarget",
+                "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/IngredientPreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/RecipePreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/FeaturePreferenceTarget"
+              }
+            ]
+          },
+          "title": "Targets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "catalog_frontier",
+        "recipe_frontier",
+        "targets",
+        "facts"
+      ],
+      "title": "HierarchyOwnerPins",
+      "type": "object"
+    },
+    "HierarchyPolicyAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "maximum": 2147483647,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 2147483647,
+          "minimum": -2147483647,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "HierarchyPolicyAmount",
+      "type": "object"
+    },
+    "HierarchyPrincipalCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role_name",
+        "idempotency_key"
+      ],
+      "title": "HierarchyPrincipalCommand",
+      "type": "object"
+    },
+    "HierarchyPrincipalFact": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/HierarchySessionFact"
+        },
+        "command": {
+          "$ref": "#/$defs/HierarchyPrincipalCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        },
+        "role_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Role Oid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "database_oid",
+        "database_name",
+        "role_oid",
+        "role_name",
+        "administrator",
+        "recorded_at",
+        "command_hash"
+      ],
+      "title": "HierarchyPrincipalFact",
+      "type": "object"
+    },
+    "HierarchyProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "external_record_id": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "title": "External Record Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "REVIEWED_REFERENCE",
+          "default": "REVIEWED_REFERENCE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "source_uri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Uri"
+        },
+        "source_version": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_system",
+        "external_record_id",
+        "source_version",
+        "content_hash",
+        "observed_at"
+      ],
+      "title": "HierarchyProvenance",
+      "type": "object"
+    },
+    "HierarchyProviderCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "remit": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Remit",
+          "type": "string"
+        },
+        "source_system": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source System",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "version",
+        "source_system",
+        "remit",
+        "idempotency_key"
+      ],
+      "title": "HierarchyProviderCommand",
+      "type": "object"
+    },
+    "HierarchyProviderFact": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/HierarchySessionFact"
+        },
+        "command": {
+          "$ref": "#/$defs/HierarchyProviderCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "administrator",
+        "recorded_at",
+        "command_hash"
+      ],
+      "title": "HierarchyProviderFact",
+      "type": "object"
+    },
+    "HierarchyPublicationCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_mutation_head_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Mutation Head Hash"
+        },
+        "expected_provider_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Provider Generation",
+          "type": "integer"
+        },
+        "expected_revision": {
+          "maximum": 2147483647,
+          "minimum": -1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/$defs/HierarchyStreamIdentity"
+        },
+        "operation": {
+          "enum": [
+            "REPLACE",
+            "RETRACT"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "policy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HierarchyTransferPolicy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "provenance": {
+          "$ref": "#/$defs/HierarchyProvenance"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "relation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HierarchyRelationBody"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "review_rationale": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Review Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "identity",
+        "operation",
+        "policy",
+        "relation",
+        "provenance",
+        "review_rationale",
+        "expected_provider_generation",
+        "expected_mutation_head_hash",
+        "expected_revision",
+        "predecessor_id",
+        "idempotency_key"
+      ],
+      "title": "HierarchyPublicationCommand",
+      "type": "object"
+    },
+    "HierarchyRecipeBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "endpoint": {
+          "enum": [
+            "SOURCE",
+            "DESTINATION"
+          ],
+          "title": "Endpoint",
+          "type": "string"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "FLAVOR": "#/$defs/CulinaryFeaturePathKey",
+                  "MAIN_PROTEIN": "#/$defs/CulinaryFeaturePathKey",
+                  "METHOD": "#/$defs/RecipeMethodContextKey"
+                },
+                "propertyName": "dimension"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/RecipeMethodContextKey"
+                },
+                {
+                  "$ref": "#/$defs/CulinaryFeaturePathKey"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Key"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FeatureSelectedPath"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpoint",
+        "recipe_version_id",
+        "key",
+        "path"
+      ],
+      "title": "HierarchyRecipeBinding",
+      "type": "object"
+    },
+    "HierarchyRelationBody": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_review_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Catalog Review Ids",
+          "type": "array"
+        },
+        "policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Policy Fingerprint",
+          "type": "string"
+        },
+        "policy_revision_id": {
+          "format": "uuid",
+          "title": "Policy Revision Id",
+          "type": "string"
+        },
+        "support_mode": {
+          "enum": [
+            "REVIEWED_EXACT_PAIR",
+            "CLASSIFICATION_BOUND_PAIR"
+          ],
+          "title": "Support Mode",
+          "type": "string"
+        },
+        "support_review_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Support Review Id"
+        }
+      },
+      "required": [
+        "policy_revision_id",
+        "policy_fingerprint",
+        "support_mode",
+        "support_review_id",
+        "catalog_review_ids"
+      ],
+      "title": "HierarchyRelationBody",
+      "type": "object"
+    },
+    "HierarchyRelationDiagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "policy_reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "POLICY_MISSING",
+                "POLICY_RETRACTED",
+                "POLICY_SUPERSEDED",
+                "DIRECTION_DENIED"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Policy Reason"
+        },
+        "publication_id": {
+          "format": "uuid",
+          "title": "Publication Id",
+          "type": "string"
+        },
+        "retracted": {
+          "title": "Retracted",
+          "type": "boolean"
+        },
+        "support_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Support Reason"
+        },
+        "support_status": {
+          "anyOf": [
+            {
+              "enum": [
+                "SUPPORT_UNRESOLVED",
+                "SUPPORT_SUPERSEDED",
+                "SUPPORT_RETRACTED",
+                "SUPPORT_REVIEWED_NONE",
+                "SUPPORT_REVIEWED_ABSENT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Support Status"
+        }
+      },
+      "required": [
+        "publication_id",
+        "retracted",
+        "policy_reason",
+        "support_status",
+        "support_reason"
+      ],
+      "title": "HierarchyRelationDiagnostic",
+      "type": "object"
+    },
+    "HierarchyRevisionFact": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Authority Generation",
+          "type": "integer"
+        },
+        "command": {
+          "$ref": "#/$defs/HierarchyPublicationCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "effective_at": {
+          "format": "date-time",
+          "title": "Effective At",
+          "type": "string"
+        },
+        "fact_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Hash",
+          "type": "string"
+        },
+        "grant_event_id": {
+          "format": "uuid",
+          "title": "Grant Event Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "mutation_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Mutation Sequence",
+          "type": "integer"
+        },
+        "owner_pins": {
+          "$ref": "#/$defs/HierarchyOwnerPins"
+        },
+        "owner_source": {
+          "$ref": "#/$defs/HierarchyOwnerManifest"
+        },
+        "principal_id": {
+          "format": "uuid",
+          "title": "Principal Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "revision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "session": {
+          "$ref": "#/$defs/HierarchySessionFact"
+        },
+        "source_sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Source Sequence",
+          "type": "integer"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "stream_id",
+        "command",
+        "owner_source",
+        "owner_pins",
+        "principal_id",
+        "session",
+        "grant_event_id",
+        "authority_generation",
+        "revision",
+        "source_sequence",
+        "mutation_sequence",
+        "recorded_at",
+        "effective_at",
+        "command_hash",
+        "fact_hash"
+      ],
+      "title": "HierarchyRevisionFact",
+      "type": "object"
+    },
+    "HierarchySessionFact": {
+      "additionalProperties": false,
+      "properties": {
+        "authenticated_identity": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Authenticated Identity",
+          "type": "string"
+        },
+        "authentication_method": {
+          "const": "scram-sha-256",
+          "default": "scram-sha-256",
+          "title": "Authentication Method",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        },
+        "role_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Role Oid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "database_oid",
+        "database_name",
+        "role_oid",
+        "role_name",
+        "authenticated_identity"
+      ],
+      "title": "HierarchySessionFact",
+      "type": "object"
+    },
+    "HierarchySourceSnapshotDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_events": {
+          "items": {
+            "$ref": "#/$defs/HierarchyAuthorityEvent"
+          },
+          "title": "Authority Events",
+          "type": "array"
+        },
+        "capture_completed_at": {
+          "format": "date-time",
+          "title": "Capture Completed At",
+          "type": "string"
+        },
+        "capture_started_at": {
+          "format": "date-time",
+          "title": "Capture Started At",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "hierarchy-source.v1-draft",
+          "default": "hierarchy-source.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "frontier": {
+          "$ref": "#/$defs/HierarchyFrontier"
+        },
+        "isolation": {
+          "enum": [
+            "REPEATABLE READ",
+            "SERIALIZABLE"
+          ],
+          "title": "Isolation",
+          "type": "string"
+        },
+        "mutations": {
+          "items": {
+            "$ref": "#/$defs/HierarchyMutationFact"
+          },
+          "title": "Mutations",
+          "type": "array"
+        },
+        "owner_source": {
+          "$ref": "#/$defs/HierarchyOwnerManifest"
+        },
+        "principals": {
+          "items": {
+            "$ref": "#/$defs/HierarchyPrincipalFact"
+          },
+          "title": "Principals",
+          "type": "array"
+        },
+        "provider": {
+          "$ref": "#/$defs/HierarchyProviderFact"
+        },
+        "publications": {
+          "items": {
+            "$ref": "#/$defs/HierarchyRevisionFact"
+          },
+          "title": "Publications",
+          "type": "array"
+        },
+        "read_only": {
+          "const": true,
+          "default": true,
+          "title": "Read Only",
+          "type": "boolean"
+        },
+        "reader_grant_id": {
+          "format": "uuid",
+          "title": "Reader Grant Id",
+          "type": "string"
+        },
+        "reader_principal_id": {
+          "format": "uuid",
+          "title": "Reader Principal Id",
+          "type": "string"
+        },
+        "reader_session": {
+          "$ref": "#/$defs/HierarchySessionFact"
+        },
+        "request": {
+          "$ref": "#/$defs/HierarchyCaptureRequest"
+        },
+        "streams": {
+          "items": {
+            "$ref": "#/$defs/HierarchyStreamFact"
+          },
+          "title": "Streams",
+          "type": "array"
+        }
+      },
+      "required": [
+        "request",
+        "provider",
+        "principals",
+        "authority_events",
+        "publications",
+        "mutations",
+        "streams",
+        "frontier",
+        "owner_source",
+        "reader_principal_id",
+        "reader_session",
+        "reader_grant_id",
+        "capture_started_at",
+        "capture_completed_at",
+        "isolation"
+      ],
+      "title": "HierarchySourceSnapshotDraft",
+      "type": "object"
+    },
+    "HierarchyStreamFact": {
+      "additionalProperties": false,
+      "properties": {
+        "head_id": {
+          "format": "uuid",
+          "title": "Head Id",
+          "type": "string"
+        },
+        "head_revision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Head Revision",
+          "type": "integer"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/$defs/HierarchyStreamIdentity"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "provider_id",
+        "identity",
+        "head_id",
+        "head_revision"
+      ],
+      "title": "HierarchyStreamFact",
+      "type": "object"
+    },
+    "HierarchyStreamIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "destination": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                  "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                  "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                  "METHOD": "#/$defs/FeaturePreferenceTarget",
+                  "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/IngredientPreferenceTarget"
+                },
+                {
+                  "$ref": "#/$defs/RecipePreferenceTarget"
+                },
+                {
+                  "$ref": "#/$defs/FeaturePreferenceTarget"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Destination"
+        },
+        "kind": {
+          "enum": [
+            "POLICY",
+            "RELATION"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "policy_id": {
+          "format": "uuid",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "recipe_bindings": {
+          "items": {
+            "$ref": "#/$defs/HierarchyRecipeBinding"
+          },
+          "title": "Recipe Bindings",
+          "type": "array"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                  "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                  "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                  "METHOD": "#/$defs/FeaturePreferenceTarget",
+                  "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/IngredientPreferenceTarget"
+                },
+                {
+                  "$ref": "#/$defs/RecipePreferenceTarget"
+                },
+                {
+                  "$ref": "#/$defs/FeaturePreferenceTarget"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source"
+        }
+      },
+      "required": [
+        "kind",
+        "policy_id",
+        "source",
+        "destination",
+        "recipe_bindings"
+      ],
+      "title": "HierarchyStreamIdentity",
+      "type": "object"
+    },
+    "HierarchyTargetIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IngredientIdentityFact"
+            },
+            {
+              "$ref": "#/$defs/RecipeFact"
+            },
+            {
+              "$ref": "#/$defs/AffinityFeatureTermFact"
+            }
+          ],
+          "title": "Identity"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "identity"
+      ],
+      "title": "HierarchyTargetIdentity",
+      "type": "object"
+    },
+    "HierarchyTransferMapRow": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_source_amount": {
+          "$ref": "#/$defs/ExplicitAffinityAmount"
+        },
+        "output_amount": {
+          "$ref": "#/$defs/HierarchyPolicyAmount"
+        },
+        "source_affinity_value": {
+          "enum": [
+            "LIKE",
+            "DISLIKE",
+            "NEUTRAL"
+          ],
+          "title": "Source Affinity Value",
+          "type": "string"
+        },
+        "source_descriptor": {
+          "$ref": "#/$defs/MemberProfileAffinityCoordinate"
+        }
+      },
+      "required": [
+        "source_descriptor",
+        "source_affinity_value",
+        "expected_source_amount",
+        "output_amount"
+      ],
+      "title": "HierarchyTransferMapRow",
+      "type": "object"
+    },
+    "HierarchyTransferPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "compatibility_policy": {
+          "$ref": "#/$defs/ExactTargetPriorCompatibilityPolicy"
+        },
+        "contract_version": {
+          "const": "hierarchy-transfer-policy.v1",
+          "default": "hierarchy-transfer-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "directions": {
+          "items": {
+            "$ref": "#/$defs/HierarchyDirectionPolicy"
+          },
+          "maxItems": 25,
+          "minItems": 25,
+          "title": "Directions",
+          "type": "array"
+        },
+        "explicit_policy": {
+          "$ref": "#/$defs/ExplicitTargetAffinityPolicy"
+        },
+        "multiple_parents": {
+          "const": "UNAVAILABLE_NO_AGGREGATION",
+          "default": "UNAVAILABLE_NO_AGGREGATION",
+          "title": "Multiple Parents",
+          "type": "string"
+        },
+        "policy_id": {
+          "format": "uuid",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_ownership": {
+          "const": "HIERARCHY_COMPATIBILITY_REPLAY_ONLY",
+          "default": "HIERARCHY_COMPATIBILITY_REPLAY_ONLY",
+          "title": "Policy Ownership",
+          "type": "string"
+        },
+        "policy_version": {
+          "exclusiveMinimum": 0,
+          "maximum": 2147483647,
+          "title": "Policy Version",
+          "type": "integer"
+        },
+        "precedence": {
+          "const": "DIRECT_DECLARATION_WINS_RETRACTION_SUPPRESSES",
+          "default": "DIRECT_DECLARATION_WINS_RETRACTION_SUPPRESSES",
+          "title": "Precedence",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/HierarchyProvenance"
+        },
+        "source_values": {
+          "const": "CURRENT_MAPPED_EXPLICIT_ONLY",
+          "default": "CURRENT_MAPPED_EXPLICIT_ONLY",
+          "title": "Source Values",
+          "type": "string"
+        },
+        "traversal": {
+          "const": "ONE_HOP_NO_INHERITED_PARENTS",
+          "default": "ONE_HOP_NO_INHERITED_PARENTS",
+          "title": "Traversal",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "explicit_policy",
+        "compatibility_policy",
+        "directions",
+        "provenance"
+      ],
+      "title": "HierarchyTransferPolicy",
+      "type": "object"
+    },
+    "HierarchyWriteReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "commit_status": {
+          "const": "CALLER_TRANSACTION_NOT_CERTIFIED",
+          "default": "CALLER_TRANSACTION_NOT_CERTIFIED",
+          "title": "Commit Status",
+          "type": "string"
+        },
+        "frontier": {
+          "$ref": "#/$defs/HierarchyFrontier"
+        },
+        "mutation": {
+          "$ref": "#/$defs/HierarchyMutationFact"
+        },
+        "publication": {
+          "$ref": "#/$defs/HierarchyRevisionFact"
+        }
+      },
+      "required": [
+        "publication",
+        "mutation",
+        "frontier"
+      ],
+      "title": "HierarchyWriteReceipt",
+      "type": "object"
+    },
     "Horizon": {
       "additionalProperties": false,
       "properties": {
@@ -16377,6 +18202,99 @@
         "idempotency_key"
       ],
       "title": "RetractMemberPreferenceCommand",
+      "type": "object"
+    },
+    "ReviewedHierarchySourceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "reviewed-hierarchy-source.v1-draft",
+          "default": "reviewed-hierarchy-source.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence_strength": {
+          "const": "NOT_DERIVED",
+          "default": "NOT_DERIVED",
+          "title": "Evidence Strength",
+          "type": "string"
+        },
+        "learned_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Learned Evidence",
+          "type": "string"
+        },
+        "member_affinity": {
+          "const": "NOT_DERIVED",
+          "default": "NOT_DERIVED",
+          "title": "Member Affinity",
+          "type": "string"
+        },
+        "member_preference_data": {
+          "const": "NOT_MODIFIED",
+          "default": "NOT_MODIFIED",
+          "title": "Member Preference Data",
+          "type": "string"
+        },
+        "parent_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Parent Aggregation",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "recursive_transfer": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Recursive Transfer",
+          "type": "string"
+        },
+        "result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/HierarchyDestinationSource"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "scope": {
+          "const": "ONE_PROVIDER_ONE_POLICY_EXACT_RELATIONS_ONLY",
+          "default": "ONE_PROVIDER_ONE_POLICY_EXACT_RELATIONS_ONLY",
+          "title": "Scope",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/HierarchySourceSnapshotDraft"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "rows",
+        "source_fingerprint",
+        "result_fingerprint"
+      ],
+      "title": "ReviewedHierarchySourceDraft",
       "type": "object"
     },
     "ReviewedReferencePriorDraft": {

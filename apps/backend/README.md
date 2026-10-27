@@ -93,7 +93,12 @@ MTR-019A: planning owns sealed culinary bindings; independent validation consume
 read-only culinary-validation-input.v1 companion. [Review/evidence](../../docs/product/MTR_019A_CULINARY_BINDING_EVIDENCE.md).
 No production PRECOMMIT issuer or cooking/meal execution. Database head0010; old migrations unchanged.
 
-## Reviewed reference prior source (0014, not frozen)
+## Reviewed reference prior source (0014, historical implementation notes)
+
+Current prior-source status is [FROZEN](../../docs/product/PREFERENCE_PRIOR_SOURCE_FREEZE_RECEIPT.md).
+The original source-only boundaries below remain unchanged; the later pure exact-target consumer
+has its own [freeze receipt](../../docs/product/EXACT_TARGET_PRIOR_SHRINKAGE_FREEZE_RECEIPT.md).
+Current hierarchy source implementation is a separate review candidate described below.
 
 The [approved design](../../docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_DESIGN.md) now has an
 [additive implementation](../../docs/product/PREFERENCE_PRIOR_SOURCE_FOUNDATION_EVIDENCE.md).
@@ -137,3 +142,45 @@ no exception from the runtime TLS check. HBA changes are limited to exact test l
 the observed client address; existing regression roles/rules stay unchanged.
 Empty downgrade is supported; populated registry/enrollment/authority/source downgrade refuses
 data loss. Credential secrets and structural cluster-role lifecycle are not downgrade-managed.
+
+## Reviewed hierarchy relation/policy source (0015, review candidate)
+
+The user authorized SOURCE ONLY from exact base `4ad3f682554b7feee9f333eca1f1f5c258852f5e`.
+[Implementation evidence](../../docs/product/HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md)
+records **IMPLEMENTED / NOT FROZEN / NOT MERGED**. Candidate head0015 adds seven empty source
+tables,85 domain tables in total; migrations0001–0014 and frozen source semantics are unchanged.
+No provider, login enrollment, grant, relation, enabled direction or numeric coefficient is seeded.
+
+Structural hierarchy roles are independent: `menuto_hierarchy_admin` and `menuto_hierarchy_client`.
+Protected source/read-adapter owners are non-login roles; clients must never receive owner/admin
+membership or direct source/owner-table mutation privileges. Credential provisioning remains out
+of band. The normal interface requires an actual SCRAM login with immutable database/login OID/name
+enrollment; prior-source grants, household roles, GUCs and actor UUIDs grant no hierarchy authority.
+Remote connections require verify-full TLS with trusted server identity. Deployment administrators
+are privileged trust roots, not application actors. Source readiness still awaits review/freeze.
+
+Use the internal Preferences public facade: `register_hierarchy_provider`,
+`enroll_hierarchy_principal`, `change_hierarchy_authority`, `publish_hierarchy_source`,
+`capture_hierarchy_sources`, `resolve_hierarchy_sources`. Registration/enrollment/grants require
+separate hierarchy administration. Publication/retraction requires the current provider capability,
+checked after the frontier lock and before any idempotent receipt. Writes require caller-owned
+read-write SERIALIZABLE transactions; callers handle serialization failures explicitly and own
+commit/rollback. A write receipt is not commit certification.
+
+Capture requires separate CAPTURE permission in a clean read-only RR/SERIALIZABLE transaction.
+The captured complete provider journal and canonical owner cuts are transient replay inputs;
+publication storage holds only owner IDs/fingerprints/frontier pins. Resolution has zero IO,
+returns exact source eligibility/diagnostics, and derives no member value. A snapshot/hash is
+not proof of canonical origin or a live authorization token.
+
+The closed25-cell policy and finite semantic mappings are explicitly reviewed. NEUTRAL→0/1
+is authored AVAILABLE zero; a missing semantic row stays SOURCE_VALUE_NOT_MAPPED. Catalog/Recipes
+classification cannot create a relation or publication permission. DIRECT_RECIPE always requires
+explicit RecipeVersion context. No automatic latest/default path, repinning, fallback, recursive
+propagation, parent aggregation or production content is introduced.
+
+Real-PG hierarchy tests use the same disposable SCRAM/TLS harness discipline above. CI runs the
+eight hierarchy authentication tests alongside the retained eight prior-source smoke tests, then
+the complete suite. Empty downgrade→0014 is supported; any populated source registry/enrollment/
+history refuses destructive downgrade. Structural cluster roles/credentials remain deployment-owned.
+The hierarchy consumer,040C,039 and downstream work are not authorized by this source PR.

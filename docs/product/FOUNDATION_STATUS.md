@@ -7,17 +7,34 @@
 Push CI40351934792 SUCCESS trên đúng SHA; python/web xanh;2597 tests;318 exports;0014 /78 bảng;
 không0015, persistence hoặc production/default policy values.040B cũ vẫn giữ prior/shrinkage UNAVAILABLE;
 PR #100 là consumer cộng thêm, planner_ready=False, activation_ready=False.
-[Dependency review](POST_EXACT_TARGET_PRIOR_SHRINKAGE_DEPENDENCY_REVIEW.md) xác nhận hierarchy còn
-NOT_PERFORMED. PR #101 đã APPROVED tại canonical73b3b0b3bbe6571ca5e70c09442d394701c5adf8;
-push CI40365344734 SUCCESS. User thu hẹp dedicated DESIGN thành
-[Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md):
-DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW. Preferences sở hữu semantics; quyền publication
-hierarchy tách khỏi member, prior publisher và curator. Consumer thuần chỉ là seam tương lai;
-source/consumer implementation chưa được phép. Không gán040C, reserve0015, bảng hoặc permission enum.
-Merge tài liệu không phải approval kiến trúc. Không thêm direction/coefficient production.
-Full040/041/046 chưa hoàn tất;039 implementation chưa được phép;024/020B/021 BLOCKED,
-Execution NOT STARTED, PRECOMMIT FAIL-CLOSED. Không cho phép migration0015 hoặc runtime mới.
-Các trạng thái delivery/next-slice trước đây bên dưới là lịch sử, không phải trạng thái canonical hiện tại.
+
+## Hierarchy relation/policy source — implementation review candidate
+
+The user approved the [source design](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md)
+together with the [neutral-anchor correction](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_NEUTRAL_ANCHOR_CORRECTION.md)
+and separately authorized **SOURCE ONLY** implementation from exact canonical main
+`4ad3f682554b7feee9f333eca1f1f5c258852f5e` (push CI40386371459 SUCCESS).
+The [implementation evidence](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md) records **IMPLEMENTED / NOT FROZEN / REVIEW PENDING**.
+This review candidate adds migration0015 and seven empty source tables:78→85 domain tables;
+318 unchanged definitions +31 additive =349. Canonical frozen baseline remains0014 /78 until
+this PR is reviewed and merged. The implementation PR must remain **OPEN / NOT MERGED**.
+
+Hierarchy publication/capture has a separate PostgreSQL SCRAM trust root, provider grants,
+immutable revisions/tombstones, exact owner-controlled support pins, coherent capture and pure
+source replay. Classification is not transfer authority. The complete25-cell policy is authored;
+semantic NEUTRAL maps only to0/1, with no missing-row zero or sign-flipped anti-correlation.
+Durable storage holds owner references/fingerprints, not capture snapshots or member results.
+No provider, principal, grant, relation, enabled direction or numeric production value is seeded.
+
+Source readiness requires implementation review/freeze. The pure hierarchy consumer is absent:
+no inherited member affinity, strength propagation, MemberBehaviorProfile, shrinkage extension,
+recursive traversal or parent aggregation.040A/B,041A–F,046A, prior source, PR #100 and migrations
+0001–0014 retain frozen semantics. Full040/041/046 remain PARTIAL;039 and040C NOT AUTHORIZED /
+040C NOT ASSIGNED;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED;
+`planner_ready=False`, `activation_ready=False`. No next slice is authorized.
+
+Earlier design-stage authorization/status statements below are historical and are superseded
+only by this source-only implementation authorization; their semantic restrictions remain binding.
 
 ## Đã có
 

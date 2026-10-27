@@ -1,6 +1,15 @@
 # Hierarchical Preference Relation / Policy Source — Neutral Anchor Correction
 
-Status: **DESIGN CORRECTION PROPOSAL — ARCHITECTURE RE-REVIEW REQUIRED; IMPLEMENTATION NOT AUTHORIZED**.
+Status: **DESIGN APPROVED — SOURCE IMPLEMENTATION AUTHORIZED; IMPLEMENTATION REVIEW PENDING**.
+
+Current authorization: the user approved this design/correction pair at canonical
+`4ad3f682554b7feee9f333eca1f1f5c258852f5e` and authorized SOURCE ONLY implementation,
+including additive0015. See [implementation evidence](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md).
+The implementation PR remains OPEN / NOT MERGED; source readiness awaits review/freeze.
+Pure consumer, MTR-040C and downstream work remain unauthorized. The original review-stage
+baseline, delivery receipts and stop statements below are historical; no approved semantic
+requirement is relaxed. The correction supersedes only stricter finite-map semantics.
+
 
 Reviewed against canonical `main`:
 

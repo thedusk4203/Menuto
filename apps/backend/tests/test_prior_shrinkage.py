@@ -619,7 +619,8 @@ def test_c54_c55_c56_frozen_files_migrations_and_299_definitions():
     for name, expected in pins["frozen_files"].items():
         assert sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
     migrations = sorted((ROOT / "apps/backend/migrations/versions").glob("*.py"))
-    assert len(migrations) == 14 and migrations[-1].name.startswith("0014_")
+    frozen_migrations = [m for m in migrations if m.name[:4] <= "0014"]
+    assert len(frozen_migrations) == 14 and frozen_migrations[-1].name.startswith("0014_")
 
 
 def test_c57_no_production_policy_values_and_retained_test_baseline():

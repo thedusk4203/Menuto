@@ -270,3 +270,19 @@ def derive_exact_target_prior_backed_affinity(subject):
     from app.modules.preferences.prior_affinity import derive_exact_target_prior_backed_affinity
 
     return derive_exact_target_prior_backed_affinity(subject)
+
+
+# Additive internal global source; no member preference or hierarchy consumer authority.
+from app.modules.preferences.hierarchy_sources import (  # noqa: E402,F401
+    capture_hierarchy_sources,
+    change_hierarchy_authority,
+    enroll_hierarchy_principal,
+    publish_hierarchy_source,
+    register_hierarchy_provider,
+)
+
+
+def resolve_hierarchy_sources(source):
+    from app.modules.preferences.hierarchy_resolution import resolve_hierarchy_sources
+
+    return resolve_hierarchy_sources(source)

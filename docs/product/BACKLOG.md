@@ -1,5 +1,34 @@
 # Backlog canonical V1.3 — MTR-001 → MTR-050
 
+## Hierarchy relation/policy source — implementation review candidate
+
+The user approved the [source design](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_DESIGN.md)
+together with the [neutral-anchor correction](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_NEUTRAL_ANCHOR_CORRECTION.md)
+and separately authorized **SOURCE ONLY** implementation from exact canonical main
+`4ad3f682554b7feee9f333eca1f1f5c258852f5e` (push CI40386371459 SUCCESS).
+The [implementation evidence](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_IMPLEMENTATION_EVIDENCE.md) records **IMPLEMENTED / NOT FROZEN / REVIEW PENDING**.
+This review candidate adds migration0015 and seven empty source tables:78→85 domain tables;
+318 unchanged definitions +31 additive =349. Canonical frozen baseline remains0014 /78 until
+this PR is reviewed and merged. The implementation PR must remain **OPEN / NOT MERGED**.
+
+Hierarchy publication/capture has a separate PostgreSQL SCRAM trust root, provider grants,
+immutable revisions/tombstones, exact owner-controlled support pins, coherent capture and pure
+source replay. Classification is not transfer authority. The complete25-cell policy is authored;
+semantic NEUTRAL maps only to0/1, with no missing-row zero or sign-flipped anti-correlation.
+Durable storage holds owner references/fingerprints, not capture snapshots or member results.
+No provider, principal, grant, relation, enabled direction or numeric production value is seeded.
+
+Source readiness requires implementation review/freeze. The pure hierarchy consumer is absent:
+no inherited member affinity, strength propagation, MemberBehaviorProfile, shrinkage extension,
+recursive traversal or parent aggregation.040A/B,041A–F,046A, prior source, PR #100 and migrations
+0001–0014 retain frozen semantics. Full040/041/046 remain PARTIAL;039 and040C NOT AUTHORIZED /
+040C NOT ASSIGNED;024/020B/021 BLOCKED; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED;
+`planner_ready=False`, `activation_ready=False`. No next slice is authorized.
+
+Earlier design-stage authorization/status statements below are historical and are superseded
+only by this source-only implementation authorization; their semantic restrictions remain binding.
+
+
 Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; số issue GitHub độc lập. Tất cả work items được giữ mở đến khi có implementation/kiểm chứng đủ; đây không phải bảng tuyên bố tiến độ hoàn thành.
 
 14 issue cũ được giữ theo chủ đề, cập nhật mã và criteria V1.3; tạo 36 issue còn thiếu. [Migration](BASELINE_MIGRATION_V1_3.md) ghi bảng chuyển mã và cách đọc lịch sử. GitHub là nguồn trạng thái thực tế.
@@ -45,7 +74,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-037](https://github.com/thedusk4203/Menuto/issues/38) | P1 | ExecutionImpactAnalyzer | NONE/LOCAL_REPAIR/REPLAN_RECOMMENDED/REPLAN_REQUIRED with local-first escalation. | OPEN — chưa chứng nhận |
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
-| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A/B, prior source and PR #100 exact-target consumer FROZEN (5728411); hierarchy design only; full profile/learning NOT COMPLETE;040C NOT ASSIGNED |
+| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A/B, prior source and PR #100 exact-target consumer FROZEN (5728411); hierarchy SOURCE implementation review pending (not frozen); consumer absent; full profile/learning NOT COMPLETE;040C NOT ASSIGNED |
 | [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D/E/F user FROZEN;F at63e6b9f; full041/history NOT COMPLETE; no global history or authority completion |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
