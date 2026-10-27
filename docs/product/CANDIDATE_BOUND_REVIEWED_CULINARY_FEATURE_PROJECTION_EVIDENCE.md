@@ -1,7 +1,8 @@
 # Candidate-bound Reviewed Culinary Feature Projection — Implementation Evidence
 
-Status: **IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE**.
-This is an implementation delivery receipt, not a freeze or parent completion declaration.
+Status: **FROZEN**. The [canonical freeze receipt](CANDIDATE_BOUND_REVIEWED_CULINARY_FEATURE_PROJECTION_FREEZE_RECEIPT.md)
+records the approved merge and exact post-merge verification. The delivery checks below remain
+historical evidence; this bounded freeze is not a parent milestone completion declaration.
 
 ## Approved design and exact entry gate
 
@@ -171,8 +172,10 @@ No member preference/EvidenceStrength, TasteFit join, SignalAttribution, novelty
 utility, role score, ranking, hard feasibility, safety certification, planner activation, Execution
 or PRECOMMIT is delivered or authorized here. No persistence, migration, cache, production rows,
 coefficients/defaults, materialized member profile or durable publication authority is introduced.
-The implementation PR must remain open for review. No implementation merge or self-freeze.
+The delivery-stage review gate was subsequently satisfied by formal implementation review and
+the separately authorized merge/freeze gate recorded in the canonical freeze receipt. No downstream
+design or implementation is authorized by that gate.
 
 ```text
-IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE
+Candidate-bound Reviewed Culinary Feature Projection Foundation — FROZEN
 ```

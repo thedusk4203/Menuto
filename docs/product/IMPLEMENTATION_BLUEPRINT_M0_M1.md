@@ -23,17 +23,20 @@ bounded candidate projection below grants no other downstream implementation.
 Earlier delivery/review-stage statements are historical;
 this closure receipt supersedes current-status wording only, never frozen behavior.
 
-## Candidate-bound reviewed feature projection — implementation review candidate
+## Candidate-bound reviewed feature projection — FROZEN
 
 [Design PR #111](https://github.com/thedusk4203/Menuto/pull/111) is APPROVED at
 `04dbbb012041be80fc86914b582777812ed32e59` and merged at
 `3efcd8c9594cbc0ae154d5bcac4e6315bf09d8f8`; exact post-merge push
 [CI 40507097863](https://github.com/thedusk4203/Menuto/actions/runs/40507097863) SUCCESS, python/web green.
-The separately authorized [bounded implementation](CANDIDATE_BOUND_REVIEWED_CULINARY_FEATURE_PROJECTION_EVIDENCE.md)
-is **IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE**, not frozen or parent-complete.
-It adds the approved four Planning contracts and three capture/replay/validation operations,
-with CFP01–CFP60 covered; exports **362 = 358 + 4**, schema **0015 / 85**, zero new persistence.
-The implementation PR must not auto-merge. No new MTR suffix assigned. MTR-040 remains COMPLETE /
+The separately reviewed [implementation PR #112](https://github.com/thedusk4203/Menuto/pull/112)
+is **FROZEN** at `8fffd634cd6a9be809defa7e41c911c6dd1c254c`, exactly the reviewed head's tree.
+Exact post-merge push [CI 40517159039](https://github.com/thedusk4203/Menuto/actions/runs/40517159039)
+SUCCESS; python/web SUCCESS; **3,104 passed, 0 skips**; CFP01–CFP60 covered.
+The [canonical freeze receipt](CANDIDATE_BOUND_REVIEWED_CULINARY_FEATURE_PROJECTION_FREEZE_RECEIPT.md)
+binds design, implementation, review and verification identities; exports **362 = 358 + 4**,
+schema **0015 / 85**, zero new persistence; planner_ready=False, activation_ready=False.
+This bounded freeze does not complete full MTR-046. No new MTR suffix assigned. MTR-040 remains COMPLETE /
 issue #41 CLOSED — COMPLETED; 039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED;
 Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No downstream implementation is authorized.
 
