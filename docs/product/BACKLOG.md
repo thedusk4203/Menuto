@@ -16,6 +16,12 @@ ARCHITECTURE/DESIGN**. The source foundation remains separate and unnumbered. De
 design is the next gate; recording this review does not approve a detailed contract or authorize
 runtime implementation, new migration or production transfer content.
 
+Detailed [MTR-040C design proposal](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md) is now **READY FOR ARCHITECTURE REVIEW** in
+a separate docs-only PR, as requested. It proposes one pure interface, complete frozen inputs,
+same-member ledger consistency, explicit suppression/unavailable branches, scoped semantic mapping
+and exact attenuation, plus81 future acceptance cases. These are proposed consumer decisions,
+not approved executable contracts. Runtime implementation/new migration remains NOT AUTHORIZED.
+
 040C must use recomputed mapped-explicit member evidence only, never blended/prior-only/inherited
 parents; preserve direct/NEUTRAL/retracted destination precedence, semantic mapping before exact
 attenuation, one-hop/no parent aggregation, distinct scoped inherited coordinate and zero IO.
@@ -74,7 +80,7 @@ Nguồn chuẩn: Development Spec V1.3 §21. Mã MTR là business identifier; s�
 | [MTR-037](https://github.com/thedusk4203/Menuto/issues/38) | P1 | ExecutionImpactAnalyzer | NONE/LOCAL_REPAIR/REPLAN_RECOMMENDED/REPLAN_REQUIRED with local-first escalation. | OPEN — chưa chứng nhận |
 | [MTR-038](https://github.com/thedusk4203/Menuto/issues/39) | P1 | HorizonBridgeResolver | Chronological projection of future commitments + scheduled exposure to next horizon without double-count. | OPEN — chưa chứng nhận |
 | [MTR-039](https://github.com/thedusk4203/Menuto/issues/40) | P1 | SignalAttributionRouter | DIRECT/CONTEXTUAL/INFERRED/PASSIVE → taste/context/exposure/retail/no-learn. | OPEN — chưa chứng nhận |
-| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A/B, prior source and PR #100 exact-target consumer FROZEN (5728411); hierarchy SOURCE FROZEN at ee8a4de;040C selected/design-ready only, runtime NOT AUTHORIZED; full profile/learning NOT COMPLETE; parent issue stays OPEN |
+| [MTR-040](https://github.com/thedusk4203/Menuto/issues/41) | P1 | MemberBehaviorProfile | Hierarchical feature/direct affinity + evidence strength + explicit ownership. | PARTIAL —040A/B, prior source and PR #100 exact-target consumer FROZEN (5728411); hierarchy SOURCE FROZEN at ee8a4de;040C design proposal READY FOR ARCHITECTURE REVIEW, runtime NOT AUTHORIZED; full profile/learning NOT COMPLETE; parent issue stays OPEN |
 | [MTR-041](https://github.com/thedusk4203/Menuto/issues/42) | P1 | RecentExposureModel | Cross-week multi-fingerprint repeat penalty; provisional vs confirmed exposure semantics. | PARTIAL —041A/B/C/D/E/F user FROZEN;F at63e6b9f; full041/history NOT COMPLETE; no global history or authority completion |
 | [MTR-042](https://github.com/thedusk4203/Menuto/issues/43) | P1 | Learned observations UX | Show/reset/invalidate/promote learned rules; never silent policy mutation. | OPEN — chưa chứng nhận |
 | [MTR-043](https://github.com/thedusk4203/Menuto/issues/44) | P1 | Price/provenance UX | Retail vs calibrated reference vs baseline clearly distinguished. | OPEN — chưa chứng nhận |
