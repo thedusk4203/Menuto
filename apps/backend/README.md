@@ -184,16 +184,15 @@ Real-PG hierarchy tests use the same disposable SCRAM/TLS harness discipline abo
 eight hierarchy authentication tests alongside the retained eight prior-source smoke tests, then
 the complete suite. Empty downgrade→0014 is supported; any populated source registry/enrollment/
 history refuses destructive downgrade. Structural cluster roles/credentials remain deployment-owned.
-### MTR-040C frozen; parent completion review pending approval
+### MTR-040 complete; issue #41 closed as completed
 
-MTR-040C is FROZEN at `69241affc2d85ee534ca682a0ff9a4d23a7c7862`, PR #107; exact push
-[CI40459191498](https://github.com/thedusk4203/Menuto/actions/runs/40459191498) SUCCESS, python/web;
-2,978 tests;358 definitions;schema0015 /85 domain tables. The pure consumer interface and its
-frozen one-hop/mapped-explicit/ownership/coordinate/zero-IO boundaries remain unchanged.
-[Parent completion review](../../docs/product/POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md)
-finds canonical MTR-040 acceptance satisfied: PASS / ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE.
-That is a review verdict, not closure approval: issue #41 stays OPEN and tracking stays PARTIAL /
-closure pending. No new aggregate, persistence, migration, inherited EvidenceStrength, recursive
-engine or behavioral-event admission is required by this acceptance. MTR-039 remains a separate
-requirement for broader attributed learning; no router or downstream integration is claimed.
-No planner utility, safety, Execution or PRECOMMIT authority is granted.
+The [accepted parent review and closure receipt](../../docs/product/POST_MTR_040C_PARENT_MTR_040_COMPLETION_REVIEW.md#12-approved-closure-receipt)
+record completion of canonical MTR-040 acceptance. PR #108 merged exact reviewed head
+`d30f9f610af937f2e59fb4eea5962478037ff414` at `959e7fa3488e0c379ab37044c25da74292c2d76b`;
+the merged tree is identical. Exact push [CI 40486320021](https://github.com/thedusk4203/Menuto/actions/runs/40486320021)
+SUCCESS, python/web SUCCESS; 2,978 tests; 358 definitions; schema 0015 / 85 domain tables.
+Issue #41 is CLOSED / COMPLETED. Frozen 040A/B/C, prior/shrinkage and hierarchy SOURCE semantics
+are unchanged; 040C remains frozen at `69241affc2d85ee534ca682a0ff9a4d23a7c7862`.
+No aggregate, persistence, migration 0016, recursive hierarchy, inherited EvidenceStrength,
+behavioral-event admission or production defaults are added. MTR-039 and broader learning remain
+separately gated. No planner utility, safety, Execution or PRECOMMIT authority is granted.

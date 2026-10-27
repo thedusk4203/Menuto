@@ -1,6 +1,8 @@
 # Post-MTR-040C — Parent MTR-040 Completion Review
 
-Status: **REVIEW ONLY — NO IMPLEMENTATION AUTHORIZED**.
+Status: **COMPLETION REVIEW APPROVED — MTR-040 COMPLETE; ISSUE #41 CLOSED / COMPLETED**.
+The separately authorized closure is recorded in §12. The original review remains documentation-only;
+no runtime or downstream implementation is authorized.
 Reviewed 2026-10-27 against canonical `69241affc2d85ee534ca682a0ff9a4d23a7c7862`.
 
 ## 1. Verdict and decision boundary
@@ -12,9 +14,9 @@ MTR-040 COMPLETION REVIEW — PASS
 MTR-040 ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE
 ```
 
-This is a completion-review recommendation, not approval to close the issue. **Issue #41 stays
-OPEN; the tracked parent status stays PARTIAL / closure approval pending in this PR.** The separate
-approval gate in §11 must accept the review before those administrative statuses change.
+At review time, PR #108 was a completion recommendation: issue #41 remained OPEN and tracking
+remained PARTIAL / closure approval pending. The user subsequently authorized the separate §11
+gate; after exact post-merge verification, §12 records the completed issue/status action.
 No remaining implementation slice or MTR-039 prerequisite is established by the audited acceptance.
 
 The conclusion covers member-owned hierarchical feature/direct preference and evidence strength,
@@ -308,8 +310,44 @@ No new implementation slice is recommended for the audited parent acceptance. Th
    PRECOMMIT FAIL-CLOSED, planner_ready=False and activation_ready=False. Do not infer readiness of
    any downstream milestone from closing a preference-domain acceptance item.
 
-**This PR performs none of steps2–3.** It must remain OPEN / NOT MERGED for review. It does not
-close issue #41, complete the wider learning loop, start a downstream design/implementation or
-modify frozen semantics. No new runtime code, tests, policies, migration or seeds are authorized.
+**PR #108 originally performed none of steps 2–3.** Its do-not-merge/closure-pending gate was
+subsequently superseded by explicit user approval and the verified closure in §12. This does not
+complete the wider learning loop, start downstream design/implementation or modify frozen semantics.
+No new runtime code, tests, policies, migration or seeds are authorized.
 
-**MTR-040 COMPLETION REVIEW — PASS — ELIGIBLE FOR COMPLETION / ISSUE #41 CLOSURE, PENDING SEPARATE APPROVAL.**
+**MTR-040 COMPLETION REVIEW — PASS. The separate closure approval and verification are complete below.**
+
+
+## 12. Approved closure receipt
+
+The user accepted the review in [comment 6436813145](https://github.com/thedusk4203/Menuto/pull/108#issuecomment-6436813145)
+and directly authorized merging the exact head, then closing issue #41 and synchronizing canonical
+status only after exact post-merge CI and scope verification. Those gates passed on 2026-10-27.
+
+| Closure gate | Verified receipt |
+| --- | --- |
+| PR #108 | MERGED from reviewed head `d30f9f610af937f2e59fb4eea5962478037ff414` |
+| Actual review merge/main SHA | `959e7fa3488e0c379ab37044c25da74292c2d76b`; fetched from main after merge, not a pre-merge prediction |
+| Merge parents | `69241affc2d85ee534ca682a0ff9a4d23a7c7862` and reviewed head `d30f9f610af937f2e59fb4eea5962478037ff414` |
+| Scope verification | Merged tree exactly equals reviewed head; exactly 10 Markdown files against reviewed base; no unrelated main delta |
+| Exact post-merge CI | [40486320021](https://github.com/thedusk4203/Menuto/actions/runs/40486320021), event=push, exact SHA above, SUCCESS; python/web SUCCESS |
+| Full verification | 2,978 pytest cases passed; SCRAM/TLS 16/16; synthetic benchmark 22/22; client 10/10; architecture/import/contracts/typecheck/build/OpenAPI/domain-export checks passed |
+| Exports / schema | 358 definitions; Alembic 0015 / 85 domain tables; no migration 0016 |
+| Issue #41 | [CLOSED / COMPLETED](https://github.com/thedusk4203/Menuto/issues/41), state_reason=completed; both canonical acceptance boxes checked |
+| Parent status | **MTR-040 — COMPLETE**, against the existing canonical acceptance only |
+
+This receipt's SHA identifies the review merge whose successful push CI authorized closure.
+The later status-only documentation commit does not replace the frozen implementation identity
+or imply additional runtime capability. Its own PR/merge checks are recorded in its delivery record.
+
+PR #108 introduced no runtime/contracts/tests/migrations or production hierarchy defaults,
+coefficients or rows: its full delta is Markdown only. Frozen 040A/B/C, prior source, PR #100 and
+hierarchy SOURCE are unchanged. No production database population/calibration is certified.
+No materialized profile, persistence expansion, recursive/multi-parent hierarchy, inherited
+EvidenceStrength or behavioral-event learning is added.
+
+Full 041/046 remain PARTIAL; MTR-039 OPEN; MTR-024/020B/021 BLOCKED; Execution NOT STARTED;
+PRECOMMIT FAIL-CLOSED; planner_ready=False; activation_ready=False. No next milestone, planner
+or learning-loop work is selected, authorized or started by this closure.
+
+**MTR-040 — COMPLETE. Issue #41 — CLOSED / COMPLETED.**
