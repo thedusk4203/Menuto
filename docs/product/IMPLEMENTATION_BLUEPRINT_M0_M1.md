@@ -22,6 +22,16 @@ PRECOMMIT FAIL-CLOSED; planner_ready=False, activation_ready=False. No downstrea
 implementation is authorized. Earlier delivery/review-stage status statements below are historical;
 this closure receipt supersedes current-status wording only, never frozen behavior.
 
+## Post-MTR-040 next-gate review — recommendation only
+
+The [next-milestone dependency review](POST_MTR_040_NEXT_MILESTONE_DEPENDENCY_REVIEW.md)
+recommends **Candidate-bound Reviewed Culinary Feature Projection Foundation** as **READY FOR
+DETAILED DESIGN**: an additive 019B/C + 046A candidate-input integration, with no MTR suffix assigned.
+This is a review recommendation, not detailed-design approval or implementation authorization.
+MTR-040 remains COMPLETE / issue #41 CLOSED — COMPLETED. Full 041/046 remain PARTIAL;
+020B/021/024 remain BLOCKED. No downstream work starts; the review PR must not auto-merge.
+
+
 
 Ngày: 2026-10-22. Chuẩn kiến trúc: [Development Spec V1.3](../MENUTO_DEVELOPMENT_SPEC_V1_3.md), [INV-001..030](../ARCHITECTURE_INVARIANTS.md), [ADR-001..011](../adr/). V1.2 là lịch sử; số MTR trong V1.3 không ánh xạ trực tiếp sang số issue GitHub đã tạo cho V1.2.
 
