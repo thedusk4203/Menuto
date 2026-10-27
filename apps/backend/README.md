@@ -185,5 +185,8 @@ eight hierarchy authentication tests alongside the retained eight prior-source s
 the complete suite. Empty downgrade→0014 is supported; any populated source registry/enrollment/
 history refuses destructive downgrade. Structural cluster roles/credentials remain deployment-owned.
 The [post-freeze review](../../docs/product/POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md)
-selects MTR-040C for detailed consumer design only. No consumer runtime, new migration,039 or
+selects MTR-040C for detailed consumer design only.
+[The separate design proposal](../../docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
+is READY FOR ARCHITECTURE REVIEW; its single pure interface and81 acceptance cases are proposed,
+not implemented or approved contracts. No consumer runtime, new migration,039 or
 downstream implementation is authorized. This source freeze supplies no production taste coverage.

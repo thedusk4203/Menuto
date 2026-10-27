@@ -16,6 +16,12 @@ ARCHITECTURE/DESIGN**. The source foundation remains separate and unnumbered. De
 design is the next gate; recording this review does not approve a detailed contract or authorize
 runtime implementation, new migration or production transfer content.
 
+Detailed [MTR-040C design proposal](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md) is now **READY FOR ARCHITECTURE REVIEW** in
+a separate docs-only PR, as requested. It proposes one pure interface, complete frozen inputs,
+same-member ledger consistency, explicit suppression/unavailable branches, scoped semantic mapping
+and exact attenuation, plus81 future acceptance cases. These are proposed consumer decisions,
+not approved executable contracts. Runtime implementation/new migration remains NOT AUTHORIZED.
+
 040C must use recomputed mapped-explicit member evidence only, never blended/prior-only/inherited
 parents; preserve direct/NEUTRAL/retracted destination precedence, semantic mapping before exact
 attenuation, one-hop/no parent aggregation, distinct scoped inherited coordinate and zero IO.

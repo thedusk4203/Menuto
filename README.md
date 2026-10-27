@@ -158,6 +158,9 @@ giữ receipt lịch sử; runtime/contracts/frozen semantics không đổi.
 [Dependency/readiness review](docs/product/POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md) PASS, chọn
 **MTR-040C — One-hop Hierarchical Member Preference Consumer Foundation** cho **thiết kế chi tiết**.
 Chưa có thiết kế consumer được duyệt hoặc quyền runtime/migration/production transfer data.
+[Thiết kế chi tiết MTR-040C](docs/product/MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
+được tách thành PR docs-only riêng: **READY FOR ARCHITECTURE REVIEW**,81 ca acceptance đề xuất;
+chưa có runtime/contracts/tests/exports/migration mới.
 Consumer chỉ dùng mapped explicit, không truyền prior/blended/inherited values; direct/NEUTRAL/
 retraction ở đích được giữ ưu tiên, không mint EvidenceStrength hay gộp nhiều parent.
 Full040/041/046 vẫn PARTIAL; parent040/issue #41 vẫn OPEN chờ completion review sau040C.
