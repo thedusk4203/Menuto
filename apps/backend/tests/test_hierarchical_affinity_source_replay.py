@@ -1,5 +1,6 @@
 """Consumer seam delegates real frozen policy/journal/context replay."""
 
+from datetime import timedelta
 from uuid import uuid4
 
 import pytest
@@ -13,6 +14,7 @@ from hierarchical_affinity_fixtures import (
     inputs,
     rebuild,
 )
+from preference_fixtures import NOW
 from test_hierarchical_affinity import rehashed_root
 
 
@@ -406,3 +408,31 @@ def test_hc71_edited_cached_hierarchy_rejects_even_rehashed(field):
 
     with pytest.raises(ValueError):
         c.OneHopHierarchicalMemberPreferenceDraft.model_validate(rehashed_root(result, edit))
+
+
+def test_hc76_policy_published_after_member_capture_is_versioned_replay():
+    subject = inputs()
+    policy = subject["hierarchy_source"].publications[0].command.policy
+    later = policy.model_copy(
+        update=dict(
+            provenance=policy.provenance.model_copy(
+                update=dict(observed_at=NOW + timedelta(days=2))
+            )
+        )
+    )
+    # All provider/enrollment/grant/publication/journal clocks move coherently;
+    # no forged temporal labels or mocked source resolution are used.
+    fresh = rebuild(subject, transfer=later, clock_offset=timedelta(days=3))
+    result = derive(fresh)
+    member_clock = result.parent_exact_target.subject.explicit.source.preferences.captured_at
+    assert later.provenance.observed_at > member_clock
+    assert result.hierarchy.source.publications[0].recorded_at > later.provenance.observed_at
+    assert result.hierarchy.source.capture_started_at > member_clock
+    assert result.parent_exact_target.subject == subject["parent"]
+    assert result.inherited.status == "AVAILABLE"
+    assert result.inherited.value.amount.model_dump() == dict(numerator=1, denominator=2)
+    assert result.interpretation_mode == "VERSIONED_CONSUMER_POLICY_REPLAY"
+    assert (
+        c.OneHopHierarchicalMemberPreferenceDraft.model_validate_json(result.model_dump_json())
+        == result
+    )

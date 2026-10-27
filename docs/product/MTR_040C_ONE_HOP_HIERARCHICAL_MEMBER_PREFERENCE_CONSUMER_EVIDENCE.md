@@ -64,8 +64,9 @@ Trace parsing itself performs no transfer arithmetic on untrusted cached operand
 | Initial local full Python/PostgreSQL regression | **2,975 passed**, one frozen export-namespace check failed; corrected without changing that frozen test; no errors/skips |
 | Real PostgreSQL regression | **1,070 passed**, including retained authority, migration and support replay cases |
 | Corrected frozen export / compatibility retry | **86 passed**; bundle `$id` retained at frozen foundation:20, all349 old definitions unchanged |
-| Final test inventory | **2,977 =2,807 retained +170 additive**; retained identities checked mechanically |
+| Final test inventory | **2,978 =2,807 retained +171 additive**; retained identities checked mechanically |
 | New consumer/interface replay suite |166 passed, then the final optional-parent boundary and additional distinct-target equality case passed in focused checks;3 new compatibility checks also passed |
+| HC76 later-published policy replay | **1 passed** with coherent full journal after the member capture; runtime unchanged |
 | SCRAM/TLS smoke | **16/16** real PostgreSQL tests |
 | Architecture/docs/import boundaries | PASS;30 invariants,11 ADRs,50 linked tasks,16 contexts |
 | OpenAPI/domain exports/synthetic fixtures | PASS;358 domain definitions,22 fixture scenarios |
@@ -75,7 +76,7 @@ Trace parsing itself performs no transfer arithmetic on untrusted cached operand
 
 The local full run collected before the final optional-parent omission checks and one additional
 HC60 distinct-target test were finalized. Those final boundary checks passed separately; the exact
-final-head GitHub CI runs the complete2,977-test inventory again. Its SHA/run/job receipt is recorded
+final-head GitHub CI runs the complete2,978-test inventory again. Its SHA/run/job receipt is recorded
 in the PR delivery record. Local smoke/full tests use a disposable loopback TLS PostgreSQL cluster;
 no production database is accessed. Focused tests exercise actual frozen child/source replay,
 including Catalog partial coverage/corrections and METHOD/FLAVOR/MAIN_PROTEIN pinned contexts.
@@ -183,7 +184,7 @@ hierarchy PostgreSQL/SCRAM/TLS regression suites remain present and run in the f
 | HC73 | [test_hierarchical_affinity_source_replay.py::test_hc23_hc73_invalid_source_not_masked_by_suppression](../../apps/backend/tests/test_hierarchical_affinity_source_replay.py) |
 | HC74 | [test_hierarchical_affinity.py::test_hc13_hc16_hc74_different_observation_clocks_preserved](../../apps/backend/tests/test_hierarchical_affinity.py)<br>[test_hierarchical_affinity.py::test_hc74_hc75_hc76_full_input_replay_not_visible_amount_hash](../../apps/backend/tests/test_hierarchical_affinity.py) |
 | HC75 | [test_hierarchical_affinity.py::test_hc74_hc75_hc76_full_input_replay_not_visible_amount_hash](../../apps/backend/tests/test_hierarchical_affinity.py) |
-| HC76 | [test_hierarchical_affinity.py::test_hc74_hc75_hc76_full_input_replay_not_visible_amount_hash](../../apps/backend/tests/test_hierarchical_affinity.py) |
+| HC76 | [test_hierarchical_affinity.py::test_hc74_hc75_hc76_full_input_replay_not_visible_amount_hash](../../apps/backend/tests/test_hierarchical_affinity.py)<br>[test_hierarchical_affinity_source_replay.py::test_hc76_policy_published_after_member_capture_is_versioned_replay](../../apps/backend/tests/test_hierarchical_affinity_source_replay.py) |
 | HC77 | [test_hierarchical_affinity.py::test_hc77_pure_entry_and_replay_without_io_clock_randomness](../../apps/backend/tests/test_hierarchical_affinity.py) |
 | HC78 | [test_hierarchical_affinity_compatibility.py::test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained](../../apps/backend/tests/test_hierarchical_affinity_compatibility.py)<br>[test_hierarchical_affinity_compatibility.py::test_hc78_hc80_pure_modules_cannot_import_persistence_or_downstream](../../apps/backend/tests/test_hierarchical_affinity_compatibility.py) |
 | HC79 | [test_hierarchical_affinity_compatibility.py::test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained](../../apps/backend/tests/test_hierarchical_affinity_compatibility.py)<br>[test_hierarchical_affinity_compatibility.py::test_hc79_retained_all2807_test_identities](../../apps/backend/tests/test_hierarchical_affinity_compatibility.py) |

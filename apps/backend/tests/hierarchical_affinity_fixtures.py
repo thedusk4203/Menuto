@@ -11,8 +11,11 @@ from prior_shrinkage_fixtures import compatibility, consumer_input, reference_so
 from target_affinity_fixtures import revision
 
 
-def hierarchy_cut(parent, destination, transfer, *, operations=None, owner=None):
+def hierarchy_cut(
+    parent, destination, transfer, *, operations=None, owner=None, clock_offset=timedelta(0)
+):
     """Build real frozen contracts/hashes/replay, never mock resolution output."""
+    observed = NOW + clock_offset
     admin = h.HierarchySessionFact(
         database_oid=42,
         database_name="synthetic",
@@ -34,7 +37,7 @@ def hierarchy_cut(parent, destination, transfer, *, operations=None, owner=None)
         id=uuid4(),
         command=cmd,
         administrator=admin,
-        recorded_at=NOW,
+        recorded_at=observed,
         command_hash=h.hierarchy_hash("hierarchy.provider-command.v1", cmd),
     )
     cmd = h.HierarchyPrincipalCommand(role_name="reader", idempotency_key="reader")
@@ -46,7 +49,7 @@ def hierarchy_cut(parent, destination, transfer, *, operations=None, owner=None)
         role_oid=2,
         role_name="reader",
         administrator=admin,
-        recorded_at=NOW,
+        recorded_at=observed,
         command_hash=h.hierarchy_hash("hierarchy.principal-command.v1", cmd),
     )
     terms = tuple(
@@ -97,7 +100,7 @@ def hierarchy_cut(parent, destination, transfer, *, operations=None, owner=None)
             id=uuid4(),
             command=cmd,
             administrator=admin,
-            recorded_at=NOW + timedelta(seconds=len(events) + 1),
+            recorded_at=observed + timedelta(seconds=len(events) + 1),
             authority_sequence=len(events) + 1,
             mutation_sequence=len(mutations) + 1,
             command_hash=h.hierarchy_hash("hierarchy.authority-command.v1", cmd),
@@ -201,7 +204,7 @@ def hierarchy_cut(parent, destination, transfer, *, operations=None, owner=None)
             predecessor_id=previous.id if previous else None,
             idempotency_key=f"pub.{len(pubs)}",
         )
-        clock = NOW + timedelta(seconds=10 + len(pubs))
+        clock = observed + timedelta(seconds=10 + len(pubs))
         fields = dict(
             id=uuid4(),
             stream_id=previous.stream_id if previous else uuid4(),
@@ -268,8 +271,8 @@ def hierarchy_cut(parent, destination, transfer, *, operations=None, owner=None)
         reader_principal_id=principal.id,
         reader_session=session,
         reader_grant_id=events[0].id,
-        capture_started_at=NOW + timedelta(hours=2),
-        capture_completed_at=NOW + timedelta(hours=2, seconds=1),
+        capture_started_at=observed + timedelta(hours=2),
+        capture_completed_at=observed + timedelta(hours=2, seconds=1),
         isolation="REPEATABLE READ",
     )
 
@@ -355,7 +358,7 @@ def inputs(
     return rebuild(subject, transfer=transfer)
 
 
-def rebuild(subject, *, transfer=None, operations=None, owner=None):
+def rebuild(subject, *, transfer=None, operations=None, owner=None, clock_offset=timedelta(0)):
     parent, dest = subject["parent"], subject["destination"]
     if transfer is None:
         transfer = subject["hierarchy_source"].publications[0].command.policy
@@ -394,7 +397,9 @@ def rebuild(subject, *, transfer=None, operations=None, owner=None):
         )
     return dict(
         subject,
-        hierarchy_source=hierarchy_cut(*endpoints, transfer, operations=operations, owner=owner),
+        hierarchy_source=hierarchy_cut(
+            *endpoints, transfer, operations=operations, owner=owner, clock_offset=clock_offset
+        ),
     )
 
 
