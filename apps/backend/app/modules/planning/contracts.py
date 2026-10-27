@@ -992,3 +992,62 @@ class CulinaryFeatureResolutionDraft(Contract):
         ):
             raise ValueError("Forged/cached resolution output")
         return self
+
+
+# Additive candidate projection shapes. Semantic replay lives outside contracts.
+from app.modules.recipes.contracts import FeatureSelectedPath  # noqa: E402
+
+
+class CandidateFeatureProjectionRequest(Contract):
+    contract_version: Literal["candidate-feature-projection-request.v1"] = (
+        "candidate-feature-projection-request.v1"
+    )
+    grounding_request: CandidateGroundingRequest
+    expected_grounding_fingerprint: Sha256
+    requested_dimensions: Annotated[tuple[FeatureDimension, ...], Field(min_length=1)]
+
+    @model_validator(mode="after")
+    def dimension_set(self):
+        object.__setattr__(self, "requested_dimensions", unique_sorted(self.requested_dimensions))
+        return self
+
+
+class CandidateFeatureProjectionSourceSnapshot(Contract):
+    """Replay input; parsing is not database-origin or semantic certification."""
+
+    contract_version: Literal["candidate-feature-projection-source.v1"] = (
+        "candidate-feature-projection-source.v1"
+    )
+    request: CandidateFeatureProjectionRequest
+    grounded_candidate: GroundedDishCandidate
+    grounding_issues: tuple[GroundingIssue, ...]
+    feature_input: CulinaryFeatureEvaluationInput
+    capture_started_at: AwareTime
+    capture_completed_at: AwareTime
+    capture_semantics: Literal["GROUNDING_AS_OF_AND_FEATURE_CAPTURE"] = (
+        "GROUNDING_AS_OF_AND_FEATURE_CAPTURE"
+    )
+    fingerprint: Sha256
+
+
+class CandidateFeatureBinding(Contract):
+    contract_version: Literal["candidate-feature-binding.v1"] = "candidate-feature-binding.v1"
+    grounding_fingerprint: Sha256
+    culinary_candidate_fingerprint: Sha256
+    recipe_id: UUID
+    recipe_version_id: UUID
+    recipe_source_hash: Sha256
+    path: FeatureSelectedPath
+
+
+class CandidateFeatureProjectionDraft(Contract):
+    """Use the public semantic validator before consuming an untrusted serialized result."""
+
+    contract_version: Literal["candidate-feature-projection.v1"] = "candidate-feature-projection.v1"
+    source: CandidateFeatureProjectionSourceSnapshot
+    binding: CandidateFeatureBinding
+    dimensions: tuple[FeatureDimensionDiscovery, ...]
+    status: Literal["DERIVED"] = "DERIVED"
+    planner_ready: Literal[False] = False
+    activation_ready: Literal[False] = False
+    fingerprint: Sha256

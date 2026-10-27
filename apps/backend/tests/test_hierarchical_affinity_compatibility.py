@@ -18,14 +18,22 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
     pins = json.loads((FIXTURES / "hierarchical_affinity_compatibility.json").read_text())
     assert pins["base"] == "b591464e3ca495909851217141f96a55faaa35cc"
     schema = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
-    assert len(pins["definitions"]) == 349 and len(schema) == 358
+    assert len(pins["definitions"]) == 349 and len(schema) == 362
     assert len(pins["frozen_files"]) == 123
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(schema[name], sort_keys=True).encode()).hexdigest() == digest
         ), name
+    additive = json.loads(
+        (FIXTURES / "candidate_feature_projection_compatibility.json").read_text()
+    )["append_only_files"]
     for name, digest in pins["frozen_files"].items():
-        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest, name
+        data = (ROOT / name).read_bytes()
+        if name in additive:
+            # Only these two approved additive surfaces may grow; every old byte stays pinned.
+            assert additive[name]["sha256"] == digest
+            data = data[: additive[name]["prefix_bytes"]]
+        assert hashlib.sha256(data).hexdigest() == digest, name
     public = (ROOT / "apps/backend/app/modules/preferences/public.py").read_bytes()
     assert (
         hashlib.sha256(public[: pins["public_prefix_bytes"]]).hexdigest()

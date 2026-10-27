@@ -387,3 +387,22 @@ def capture_feature_exposure_preview(session, request, *, actor_user_id):
     from app.modules.planning.feature_exposure_capture import capture_feature_exposure_sources
 
     return capture_feature_exposure_sources(session, request, actor_user_id=actor_user_id)
+
+
+# Additive candidate-only classification; no proposal, preference or activation authority.
+from uuid import UUID  # noqa: E402
+
+from app.modules.planning.candidate_feature_projection import (  # noqa: E402,F401
+    project_candidate_features,
+    validate_candidate_feature_projection,
+)
+
+
+def capture_candidate_feature_projection_sources(
+    session, request: c.CandidateFeatureProjectionRequest, *, actor_user_id: UUID
+) -> c.CandidateFeatureProjectionSourceSnapshot:
+    from app.modules.planning.candidate_feature_capture import (
+        capture_candidate_feature_projection_sources as capture,
+    )
+
+    return capture(session, request, actor_user_id=actor_user_id)

@@ -128,6 +128,10 @@ from app.modules.planning.contracts import (
     BoundPlanIntentGraph,
     BoundPlanProposalSnapshot,
     BoundPlanRevisionSnapshot,
+    CandidateFeatureBinding,
+    CandidateFeatureProjectionDraft,
+    CandidateFeatureProjectionRequest,
+    CandidateFeatureProjectionSourceSnapshot,
     CandidateGroundingRequest,
     CandidateGroundingResult,
     CandidateGroundingSources,
@@ -360,6 +364,10 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    CandidateFeatureBinding,
+    CandidateFeatureProjectionDraft,
+    CandidateFeatureProjectionRequest,
+    CandidateFeatureProjectionSourceSnapshot,
     AvailableInheritedMemberPreference,
     InheritedMemberPreferenceAmount,
     InheritedMemberPreferenceCoordinate,

@@ -1042,6 +1042,210 @@
       "title": "CalculatedQuantity",
       "type": "object"
     },
+    "CandidateFeatureBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "candidate-feature-binding.v1",
+          "default": "candidate-feature-binding.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "culinary_candidate_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Culinary Candidate Fingerprint",
+          "type": "string"
+        },
+        "grounding_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Grounding Fingerprint",
+          "type": "string"
+        },
+        "path": {
+          "$ref": "#/$defs/FeatureSelectedPath"
+        },
+        "recipe_id": {
+          "format": "uuid",
+          "title": "Recipe Id",
+          "type": "string"
+        },
+        "recipe_source_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Recipe Source Hash",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "grounding_fingerprint",
+        "culinary_candidate_fingerprint",
+        "recipe_id",
+        "recipe_version_id",
+        "recipe_source_hash",
+        "path"
+      ],
+      "title": "CandidateFeatureBinding",
+      "type": "object"
+    },
+    "CandidateFeatureProjectionDraft": {
+      "additionalProperties": false,
+      "description": "Use the public semantic validator before consuming an untrusted serialized result.",
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "binding": {
+          "$ref": "#/$defs/CandidateFeatureBinding"
+        },
+        "contract_version": {
+          "const": "candidate-feature-projection.v1",
+          "default": "candidate-feature-projection.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dimensions": {
+          "items": {
+            "$ref": "#/$defs/FeatureDimensionDiscovery"
+          },
+          "title": "Dimensions",
+          "type": "array"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "source": {
+          "$ref": "#/$defs/CandidateFeatureProjectionSourceSnapshot"
+        },
+        "status": {
+          "const": "DERIVED",
+          "default": "DERIVED",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "binding",
+        "dimensions",
+        "fingerprint"
+      ],
+      "title": "CandidateFeatureProjectionDraft",
+      "type": "object"
+    },
+    "CandidateFeatureProjectionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "candidate-feature-projection-request.v1",
+          "default": "candidate-feature-projection-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_grounding_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Expected Grounding Fingerprint",
+          "type": "string"
+        },
+        "grounding_request": {
+          "$ref": "#/$defs/CandidateGroundingRequest"
+        },
+        "requested_dimensions": {
+          "items": {
+            "enum": [
+              "METHOD",
+              "FLAVOR",
+              "MAIN_PROTEIN"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Requested Dimensions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "grounding_request",
+        "expected_grounding_fingerprint",
+        "requested_dimensions"
+      ],
+      "title": "CandidateFeatureProjectionRequest",
+      "type": "object"
+    },
+    "CandidateFeatureProjectionSourceSnapshot": {
+      "additionalProperties": false,
+      "description": "Replay input; parsing is not database-origin or semantic certification.",
+      "properties": {
+        "capture_completed_at": {
+          "format": "date-time",
+          "title": "Capture Completed At",
+          "type": "string"
+        },
+        "capture_semantics": {
+          "const": "GROUNDING_AS_OF_AND_FEATURE_CAPTURE",
+          "default": "GROUNDING_AS_OF_AND_FEATURE_CAPTURE",
+          "title": "Capture Semantics",
+          "type": "string"
+        },
+        "capture_started_at": {
+          "format": "date-time",
+          "title": "Capture Started At",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "candidate-feature-projection-source.v1",
+          "default": "candidate-feature-projection-source.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "feature_input": {
+          "$ref": "#/$defs/CulinaryFeatureEvaluationInput"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "grounded_candidate": {
+          "$ref": "#/$defs/GroundedDishCandidate"
+        },
+        "grounding_issues": {
+          "items": {
+            "$ref": "#/$defs/GroundingIssue"
+          },
+          "title": "Grounding Issues",
+          "type": "array"
+        },
+        "request": {
+          "$ref": "#/$defs/CandidateFeatureProjectionRequest"
+        }
+      },
+      "required": [
+        "request",
+        "grounded_candidate",
+        "grounding_issues",
+        "feature_input",
+        "capture_started_at",
+        "capture_completed_at",
+        "fingerprint"
+      ],
+      "title": "CandidateFeatureProjectionSourceSnapshot",
+      "type": "object"
+    },
     "CandidateGroundingRequest": {
       "additionalProperties": false,
       "properties": {
