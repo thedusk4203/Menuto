@@ -286,3 +286,12 @@ def resolve_hierarchy_sources(source):
     from app.modules.preferences.hierarchy_resolution import resolve_hierarchy_sources
 
     return resolve_hierarchy_sources(source)
+
+
+def derive_one_hop_hierarchical_member_preference(subject):
+    """Additive lazy pure consumer; no durable learning or planner authority."""
+    from app.modules.preferences.hierarchical_affinity import (
+        derive_one_hop_hierarchical_member_preference,
+    )
+
+    return derive_one_hop_hierarchical_member_preference(subject)

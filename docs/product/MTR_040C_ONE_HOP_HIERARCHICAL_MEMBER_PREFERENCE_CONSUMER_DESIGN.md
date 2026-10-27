@@ -1,8 +1,15 @@
 # MTR-040C — One-hop Hierarchical Member Preference Consumer Foundation
 
-Status: **DESIGN PROPOSAL / READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED**.
-Prepared 2026-10-27. Detailed design is in a separate PR, as requested by the user.
-Merging design documentation does not approve this architecture or authorize runtime work.
+Status: **ARCHITECTURE APPROVED — MTR-040C IMPLEMENTED / NOT FROZEN**.
+The user approved this architecture and separately authorized exactly the bounded implementation
+from `b591464e3ca495909851217141f96a55faaa35cc` (PR #106). The implementation PR must remain
+**OPEN / NOT MERGED**, pending implementation review and a separate freeze decision.
+See [implementation evidence](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_EVIDENCE.md).
+
+The design body below preserves its original proposal-stage wording and receipts; those historical
+authorization gates are superseded only by the explicit user authorization recorded here.
+HC81 covers all nested explicit and reference identity manifests and hierarchy owner/context cuts.
+No downstream milestone, production content, persistence or migration is authorized.
 
 ## 1. Canonical basis and authorization
 

@@ -1,26 +1,25 @@
 # Implementation Blueprint — Milestone 0/1
 
-## Hierarchy SOURCE — FROZEN; MTR-040C — design-ready only
+## Hierarchy SOURCE — FROZEN; MTR-040C — IMPLEMENTED / NOT FROZEN
 
-**Canonical Reviewed Hierarchical Preference Relation & Transfer-Policy Source Foundation is
-FROZEN / APPROVED**, per the user's post-freeze review. [Freeze receipt](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md): PR #104,
-implementation head `4263bf5f14f0aa2b65ba646891f3acf548826f1f`, merge/freeze
-`ee8a4de1b1c71ccbd56ea565e111718660711fa8`; exact push
-[CI40432057006](https://github.com/thedusk4203/Menuto/actions/runs/40432057006) SUCCESS, python/web
-SUCCESS;2,807 tests;349 definitions;schema0015 /85 domain tables. Seven source tables were empty
-after test migration; no production provider/grant/relation/direction/coefficient is seeded.
+MTR-040C architecture is **APPROVED** and the user separately authorized this bounded runtime
+implementation from canonical `b591464e3ca495909851217141f96a55faaa35cc` (PR #106).
+The [implementation evidence](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_EVIDENCE.md)
+records HC01–HC81, retained frozen dependencies and verification receipts.
+**IMPLEMENTATION REVIEW / FREEZE REQUIRED. The implementation PR must remain OPEN / NOT MERGED.**
 
-The [post-freeze dependency/readiness review](POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md) is PASS and selects
-**MTR-040C — One-hop Hierarchical Member Preference Consumer Foundation**, **READY FOR DETAILED
-ARCHITECTURE/DESIGN**. The source foundation remains separate and unnumbered. Detailed consumer
-design is the next gate; recording this review does not approve a detailed contract or authorize
-runtime implementation, new migration or production transfer content.
+The [approved design](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md)
+now has one additive pure consumer, recursive frozen child/source replay, same-member full-ledger
+coherence, cross-cut immutable typed fact checks and separate exact inherited coordinates.
+It adds nine definitions (349 →358); no persistence, migration0016, production rows/defaults or
+planner authority. Schema stays **0015 /85 domain tables**. Original2,807 test identities are retained.
 
-Detailed [MTR-040C design proposal](MTR_040C_ONE_HOP_HIERARCHICAL_MEMBER_PREFERENCE_CONSUMER_DESIGN.md) is now **READY FOR ARCHITECTURE REVIEW** in
-a separate docs-only PR, as requested. It proposes one pure interface, complete frozen inputs,
-same-member ledger consistency, explicit suppression/unavailable branches, scoped semantic mapping
-and exact attenuation, plus81 future acceptance cases. These are proposed consumer decisions,
-not approved executable contracts. Runtime implementation/new migration remains NOT AUTHORIZED.
+Hierarchy SOURCE remains separately **FROZEN / APPROVED** at
+`ee8a4de1b1c71ccbd56ea565e111718660711fa8` (PR #104), with successful exact push
+[CI40432057006](https://github.com/thedusk4203/Menuto/actions/runs/40432057006).
+Its [freeze receipt](HIERARCHICAL_PREFERENCE_RELATION_POLICY_SOURCE_FREEZE_RECEIPT.md) and
+[dependency review](POST_HIERARCHY_SOURCE_FREEZE_DEPENDENCY_REVIEW.md) preserve those historical gates.
+The source remains unchanged; consumer completion does not claim a populated production corpus.
 
 040C must use recomputed mapped-explicit member evidence only, never blended/prior-only/inherited
 parents; preserve direct/NEUTRAL/retracted destination precedence, semantic mapping before exact

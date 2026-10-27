@@ -328,6 +328,29 @@
       "title": "AvailableExplicitAffinity",
       "type": "object"
     },
+    "AvailableInheritedMemberPreference": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "const": "AVAILABLE",
+          "default": "AVAILABLE",
+          "title": "Status",
+          "type": "string"
+        },
+        "trace": {
+          "$ref": "#/$defs/InheritedPreferenceTrace"
+        },
+        "value": {
+          "$ref": "#/$defs/ScopedInheritedMemberPreference"
+        }
+      },
+      "required": [
+        "value",
+        "trace"
+      ],
+      "title": "AvailableInheritedMemberPreference",
+      "type": "object"
+    },
     "AvailableProposalLocalFeaturePenalty": {
       "additionalProperties": false,
       "properties": {
@@ -8923,6 +8946,153 @@
       "title": "IngredientTargetManifestEntry",
       "type": "object"
     },
+    "InheritedMemberPreferenceAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "maximum": 340282366920938463463374607431768211455,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 340282366920938463463374607431768211455,
+          "minimum": -340282366920938463463374607431768211455,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "InheritedMemberPreferenceAmount",
+      "type": "object"
+    },
+    "InheritedMemberPreferenceCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate_id": {
+          "const": "INHERITED_MEMBER_PREFERENCE",
+          "default": "INHERITED_MEMBER_PREFERENCE",
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "coordinate_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Coordinate Version",
+          "type": "integer"
+        },
+        "destination_target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Destination Target Kind",
+          "type": "string"
+        },
+        "scope": {
+          "const": "ONE_TRANSFER_POLICY_ONE_DESTINATION_KIND_BOUND_EXACT_RELATION",
+          "default": "ONE_TRANSFER_POLICY_ONE_DESTINATION_KIND_BOUND_EXACT_RELATION",
+          "title": "Scope",
+          "type": "string"
+        },
+        "transfer_policy_semantic_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Transfer Policy Semantic Fingerprint",
+          "type": "string"
+        },
+        "unit": {
+          "const": "REVIEWED_TRANSFER_POLICY_UNITS",
+          "default": "REVIEWED_TRANSFER_POLICY_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "destination_target_kind",
+        "transfer_policy_semantic_fingerprint"
+      ],
+      "title": "InheritedMemberPreferenceCoordinate",
+      "type": "object"
+    },
+    "InheritedPreferenceTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "attenuation": {
+          "$ref": "#/$defs/HierarchyPolicyAmount"
+        },
+        "mapped_explicit": {
+          "$ref": "#/$defs/ScopedMemberProfileAffinity"
+        },
+        "mapped_inherited": {
+          "$ref": "#/$defs/ScopedInheritedMemberPreference"
+        },
+        "mapping_row": {
+          "$ref": "#/$defs/HierarchyTransferMapRow"
+        },
+        "policy_revision_id": {
+          "format": "uuid",
+          "title": "Policy Revision Id",
+          "type": "string"
+        },
+        "policy_stream_id": {
+          "format": "uuid",
+          "title": "Policy Stream Id",
+          "type": "string"
+        },
+        "product": {
+          "$ref": "#/$defs/ScopedInheritedMemberPreference"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "relation_identity": {
+          "$ref": "#/$defs/HierarchyStreamIdentity"
+        },
+        "relation_revision_id": {
+          "format": "uuid",
+          "title": "Relation Revision Id",
+          "type": "string"
+        },
+        "relation_stream_id": {
+          "format": "uuid",
+          "title": "Relation Stream Id",
+          "type": "string"
+        },
+        "semantic_state": {
+          "enum": [
+            "LIKE",
+            "DISLIKE",
+            "NEUTRAL"
+          ],
+          "title": "Semantic State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "policy_stream_id",
+        "policy_revision_id",
+        "relation_stream_id",
+        "relation_revision_id",
+        "relation_identity",
+        "semantic_state",
+        "mapped_explicit",
+        "mapping_row",
+        "mapped_inherited",
+        "attenuation",
+        "product"
+      ],
+      "title": "InheritedPreferenceTrace",
+      "type": "object"
+    },
     "InventoryCandidateLot": {
       "additionalProperties": false,
       "properties": {
@@ -10760,6 +10930,254 @@
         "movement_ids"
       ],
       "title": "ObservedAcquisitionCoverageDraft",
+      "type": "object"
+    },
+    "OneHopHierarchicalMemberPreferenceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "candidate_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Candidate Aggregation",
+          "type": "string"
+        },
+        "contextual_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Contextual Evidence",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "one-hop-hierarchical-member-preference.v1-draft",
+          "default": "one-hop-hierarchical-member-preference.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "ONE_MEMBER_ONE_DESTINATION_ONE_HOP_ONLY",
+          "default": "ONE_MEMBER_ONE_DESTINATION_ONE_HOP_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "destination_exact_target": {
+          "$ref": "#/$defs/ExactTargetPriorBackedAffinityDraft"
+        },
+        "destination_target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Destination Target"
+        },
+        "evidence_strength": {
+          "const": "NOT_DERIVED",
+          "default": "NOT_DERIVED",
+          "title": "Evidence Strength",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "hierarchy": {
+          "$ref": "#/$defs/ReviewedHierarchySourceDraft"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "inherited": {
+          "discriminator": {
+            "mapping": {
+              "AVAILABLE": "#/$defs/AvailableInheritedMemberPreference",
+              "SUPPRESSED": "#/$defs/SuppressedInheritedMemberPreference",
+              "UNAVAILABLE": "#/$defs/UnavailableInheritedMemberPreference"
+            },
+            "propertyName": "status"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AvailableInheritedMemberPreference"
+            },
+            {
+              "$ref": "#/$defs/SuppressedInheritedMemberPreference"
+            },
+            {
+              "$ref": "#/$defs/UnavailableInheritedMemberPreference"
+            }
+          ],
+          "title": "Inherited"
+        },
+        "interpretation_mode": {
+          "const": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "default": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "learned_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Learned Evidence",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "member_ledger_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Member Ledger Fingerprint",
+          "type": "string"
+        },
+        "member_owner": {
+          "const": "PRESERVED",
+          "default": "PRESERVED",
+          "title": "Member Owner",
+          "type": "string"
+        },
+        "parent_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Parent Aggregation",
+          "type": "string"
+        },
+        "parent_exact_target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactTargetPriorBackedAffinityDraft"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parent_target": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                  "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                  "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                  "METHOD": "#/$defs/FeaturePreferenceTarget",
+                  "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/IngredientPreferenceTarget"
+                },
+                {
+                  "$ref": "#/$defs/RecipePreferenceTarget"
+                },
+                {
+                  "$ref": "#/$defs/FeaturePreferenceTarget"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Target"
+        },
+        "passive_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Passive Evidence",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "recursive_transfer": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Recursive Transfer",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/OneHopHierarchicalMemberPreferenceInput"
+        },
+        "taste_fit": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Taste Fit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "household_id",
+        "member_id",
+        "destination_target",
+        "parent_target",
+        "destination_exact_target",
+        "parent_exact_target",
+        "hierarchy",
+        "member_ledger_fingerprint",
+        "inherited",
+        "fingerprint"
+      ],
+      "title": "OneHopHierarchicalMemberPreferenceDraft",
+      "type": "object"
+    },
+    "OneHopHierarchicalMemberPreferenceInput": {
+      "additionalProperties": false,
+      "properties": {
+        "destination": {
+          "$ref": "#/$defs/ExactTargetPriorBackedAffinityInput"
+        },
+        "hierarchy_source": {
+          "$ref": "#/$defs/HierarchySourceSnapshotDraft"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactTargetPriorBackedAffinityInput"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "destination",
+        "hierarchy_source"
+      ],
+      "title": "OneHopHierarchicalMemberPreferenceInput",
       "type": "object"
     },
     "PackageFact": {
@@ -18546,6 +18964,23 @@
       "title": "ScalingPolicy",
       "type": "object"
     },
+    "ScopedInheritedMemberPreference": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/InheritedMemberPreferenceAmount"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/InheritedMemberPreferenceCoordinate"
+        }
+      },
+      "required": [
+        "coordinate",
+        "amount"
+      ],
+      "title": "ScopedInheritedMemberPreference",
+      "type": "object"
+    },
     "ScopedMemberProfileAffinity": {
       "additionalProperties": false,
       "properties": {
@@ -19039,6 +19474,30 @@
       "title": "StoreRegionFact",
       "type": "object"
     },
+    "SuppressedInheritedMemberPreference": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "enum": [
+            "MEMBER_RETRACTED",
+            "DESTINATION_DIRECT_DECLARATION"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "const": "SUPPRESSED",
+          "default": "SUPPRESSED",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "SuppressedInheritedMemberPreference",
+      "type": "object"
+    },
     "TierQuantity": {
       "additionalProperties": false,
       "properties": {
@@ -19121,6 +19580,60 @@
         "reason"
       ],
       "title": "UnavailableExplicitAffinity",
+      "type": "object"
+    },
+    "UnavailableInheritedMemberPreference": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "enum": [
+            "HIERARCHY_SOURCE_UNAVAILABLE",
+            "PARENT_MEMBER_RETRACTED",
+            "PARENT_PRIOR_ONLY_COLD_START",
+            "PARENT_UNDECLARED",
+            "INCOMPATIBLE_COORDINATE",
+            "SOURCE_VALUE_NOT_MAPPED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "source_reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "NO_RELATION",
+                "RELATION_RETRACTED",
+                "DIRECTION_DENIED",
+                "POLICY_MISSING",
+                "POLICY_RETRACTED",
+                "POLICY_SUPERSEDED",
+                "MULTIPLE_INCOMING_RELATIONS",
+                "SUPPORT_UNRESOLVED",
+                "SUPPORT_SUPERSEDED",
+                "SUPPORT_RETRACTED",
+                "SUPPORT_REVIEWED_NONE",
+                "SUPPORT_REVIEWED_ABSENT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Reason"
+        },
+        "status": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "UnavailableInheritedMemberPreference",
       "type": "object"
     },
     "UnavailablePreferencePrior": {
