@@ -4,6 +4,16 @@ Status: **DEPENDENCY REVIEW ONLY — RECOMMENDATION, NOT DETAILED DESIGN OR IMPL
 Reviewed on 2026-10-28 against canonical main
 `4e660d18ce636fa0bd4556141f3cc3aa358d3670`, after the exact post-merge CI gate below passed.
 
+Subsequent gate: the user approved this review at PR #118 head
+`67a2b05e804f32082233cad6ff46f89e73f84b3d` ([formal PASS6469738543](https://github.com/thedusk4203/Menuto/pull/118#issuecomment-6469738543)).
+It merged at `7dcb0b1b9b7f35b80b3f86c24064c920f1d8a2ec`, with an identical reviewed tree and
+one Markdown file only. Exact push [CI40693646450](https://github.com/thedusk4203/Menuto/actions/runs/40693646450)
+SUCCESS, Python/web green;3,396 tests/0 skips;384 exports;0015 /85;zero new persistence.
+Only afterward did the separately authorized [dedicated design](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_DESIGN.md)
+begin: DESIGN READY FOR ARCHITECTURE REVIEW, IMPLEMENTATION NOT AUTHORIZED.
+The original baseline/verdict below remains the dependency-review record; its stage-specific
+non-authorization wording is historical. No frozen semantics or downstream authority is changed.
+
 ## 1. Single recommended next gate
 
 ```text

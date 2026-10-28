@@ -62,7 +62,27 @@ shared-member reducer or global/current/default/production policy publication/se
 Frozen 040A/B/C, prior/shrinkage, hierarchy SOURCE,041A–F,046A and candidate projection remain unchanged.
 planner_ready=False; activation_ready=False. No MTR suffix assigned; MTR-040 COMPLETE /issue41 CLOSED — COMPLETED;
 039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
-This freeze records only the approved foundation. No next milestone is selected or authorized.
+This freeze itself grants no downstream implementation authority. The separately authorized design gate follows.
+
+## Shared-member exact-target TasteFit — detailed design / IMPLEMENTATION NOT AUTHORIZED
+
+[Dependency PR #118](https://github.com/thedusk4203/Menuto/pull/118), approved head
+`67a2b05e804f32082233cad6ff46f89e73f84b3d`, merged at
+`7dcb0b1b9b7f35b80b3f86c24064c920f1d8a2ec`; exact push
+[CI40693646450](https://github.com/thedusk4203/Menuto/actions/runs/40693646450) SUCCESS,
+Python/web green;3,396 tests/0 skips;384 exports;0015 /85;zero new persistence.
+The separately authorized [dedicated design](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_DESIGN.md)
+is **DESIGN READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED**.
+One canonical candidate × one exact typed target × exact participants only. Explicit finite
+child-policy/mapping bridges gate all arithmetic; positive rational member weights are fully
+authored, never inferred from portions, role, strength or history. Incomplete coverage withholds
+aggregate and denominator; direct dislike remains separate. Conditional policy input only;
+no global/default/production publication or selection.120 SMTF cases,36 real-PG obligations
+are future acceptance requirements, not tests already implemented. No0016 or persistence.
+Frozen TasteFit/040/041/046 semantics unchanged;039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;
+Execution NOT STARTED;PRECOMMIT FAIL-CLOSED;planner_ready=False;activation_ready=False.
+The design PR stays OPEN; no runtime, implementation, downstream milestone or automatic merge.
+
 
 
 
