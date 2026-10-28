@@ -1,6 +1,7 @@
 # Candidate × Member TasteFit Foundation — Implementation Evidence
 
-Status: **IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN**. No downstream gate is authorized.
+Status: **CANDIDATE × MEMBER TASTEFIT FOUNDATION — FROZEN** following the separately authorized exact-head merge and successful exact post-merge push CI.
+The [canonical freeze receipt](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_FREEZE_RECEIPT.md) records the reviewed head, actual merge and CI identities. No downstream gate is authorized.
 
 ## Approved entry gate
 
@@ -162,11 +163,16 @@ fixtures are test evidence, not production source/publication authority.
 | Client / build | **10/10 client**; contracts generation check, client typecheck and web typecheck/build SUCCESS |
 | Architecture / exports | Ruff,30-invariant/11-ADR baseline, import boundaries, OpenAPI/domain exports SUCCESS;51 documentation/architecture checks also passed |
 | Frozen compatibility |128 old runtime/migration Git blobs unchanged; all362 old definition hashes unchanged; no0016;0015 /85 |
-| Final exact-head CI | Required before final handoff; the implementation PR receipt identifies the final head/run and python/web results. This evidence does not substitute a local or earlier code-head run for that gate. |
+| Final exact-head CI | [40654562525](https://github.com/thedusk4203/Menuto/actions/runs/40654562525) SUCCESS on reviewed head `152dbe8a365790956d2f7bac1b40a09b7dbd9134`; python/web SUCCESS |
+| Actual implementation merge | `7ac0547b3df621fb19c614c27edaca268a901169`, exact reviewed tree; PR #116 merged with an exact-head guard |
+| Exact post-merge push CI | [40659094576](https://github.com/thedusk4203/Menuto/actions/runs/40659094576), event=push on that actual merge SHA; SUCCESS, python/web SUCCESS;3,396 passed,0 skips;16/16 SCRAM/TLS;22/22 benchmark;10/10 client |
+| Freeze decision | [Formal post-merge freeze receipt](https://github.com/thedusk4203/Menuto/pull/116#issuecomment-6468012284); FROZEN, zero new persistence; no downstream authorization |
 
 The full local suite executed every collected case, including all source-authentication smoke tests.
-The final GitHub exact-head full run is the authoritative receipt for the complete review tree,
-including evidence/status. The implementation PR must remain OPEN; this is not a freeze receipt.
+The final GitHub exact-head full run covers the complete review tree, including evidence/status.
+The separately authorized merge and exact post-merge push run above supersede the historical
+review-pending status only. Local checks remain historical local receipts; the dedicated freeze
+receipt records the final decision without changing the approved design or runtime semantics.
 
 ## TF01–TF132 concrete acceptance mapping
 
@@ -314,7 +320,7 @@ run must execute every obligation without skips. The mapping itself is not a sub
 
 | Work | Status |
 | --- | --- |
-| Candidate × Member TasteFit | IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE; NOT FROZEN; no milestone suffix assigned |
+| Candidate × Member TasteFit | FROZEN at `7ac0547b3df621fb19c614c27edaca268a901169`; exact push CI40659094576 SUCCESS; no milestone suffix assigned |
 | MTR-040 / issue41 | COMPLETE / CLOSED — COMPLETED; frozen semantics unchanged |
 | Candidate feature projection | FROZEN, unchanged |
 | MTR-039 | OPEN; no new learned/contextual/passive/behavioral-event admission |
@@ -327,5 +333,7 @@ run must execute every obligation without skips. The mapping itself is not a sub
 No learned/cooked/consumed/passive/friction/forced-choice signals, repeat/novelty/history, safety,
 nutrition, procurement or SPEND_LIMIT values become TasteFit operands or durable preference truth.
 No favorable fit can rescue failed grounding or certify hard feasibility. planner_ready=False and
-activation_ready=False. This task stops with a separate implementation PR left OPEN; no auto-merge,
-self-freeze, parent-issue closure or next-milestone selection is authorized.
+activation_ready=False. PR #116 is merged and the separately authorized post-merge freeze gate
+has passed. This documentation synchronization records that decision only. No parent-issue closure,
+next-milestone selection, detailed design or implementation is authorized. The documentation PR
+remains OPEN for review; its creation does not authorize another merge.
