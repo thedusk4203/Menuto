@@ -40,13 +40,17 @@ This bounded freeze does not complete full MTR-046. No new MTR suffix assigned. 
 issue #41 CLOSED — COMPLETED; 039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED;
 Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No downstream implementation is authorized.
 
-## Post-projection next-gate review — recommendation only
+## Candidate × Member TasteFit — detailed design ready for review
 
 The [dependency review](POST_CANDIDATE_FEATURE_PROJECTION_NEXT_GATE_REVIEW.md), baseline
 `5530da00df9f6c9d8510cb02ac5b5e5a04ba52dc` (PR #113; exact push CI40627254429 SUCCESS),
-recommends **Candidate × Member TasteFit Foundation — one candidate × one member** as
-**READY FOR DETAILED DESIGN**. This is a selection recommendation only: no detailed design,
-implementation or MTR suffix is authorized. Frozen status and all downstream blockers above remain.
+was approved at reviewed head `1452e72621f45d06d191a069c63785c00571eaee` and merged by PR #114
+at `622c108d2e8fe150ada521c645a643a362baa520`; exact push CI40632359346 SUCCESS, python/web
+green,3,104 tests; exports362; schema0015 /85. The user then separately authorized detailed design.
+The [Candidate × Member TasteFit design](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_DESIGN.md) is
+**DESIGN READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED**: structured exact-target
+fit for one candidate/member, explicit interpretation policy, no aggregate/comparison or persistence.
+No MTR suffix is assigned; frozen status and all downstream blockers above remain unchanged.
 
 
 
