@@ -40,6 +40,14 @@ This bounded freeze does not complete full MTR-046. No new MTR suffix assigned. 
 issue #41 CLOSED — COMPLETED; 039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED;
 Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No downstream implementation is authorized.
 
+## Post-projection next-gate review — recommendation only
+
+The [dependency review](POST_CANDIDATE_FEATURE_PROJECTION_NEXT_GATE_REVIEW.md), baseline
+`5530da00df9f6c9d8510cb02ac5b5e5a04ba52dc` (PR #113; exact push CI40627254429 SUCCESS),
+recommends **Candidate × Member TasteFit Foundation — one candidate × one member** as
+**READY FOR DETAILED DESIGN**. This is a selection recommendation only: no detailed design,
+implementation or MTR suffix is authorized. Frozen status and all downstream blockers above remain.
+
 
 
 Ngày: 2026-10-22. Chuẩn kiến trúc: [Development Spec V1.3](../MENUTO_DEVELOPMENT_SPEC_V1_3.md), [INV-001..030](../ARCHITECTURE_INVARIANTS.md), [ADR-001..011](../adr/). V1.2 là lịch sử; số MTR trong V1.3 không ánh xạ trực tiếp sang số issue GitHub đã tạo cho V1.2.
