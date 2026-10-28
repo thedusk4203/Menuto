@@ -64,24 +64,32 @@ planner_ready=False; activation_ready=False. No MTR suffix assigned; MTR-040 COM
 039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
 This freeze itself grants no downstream implementation authority. The separately authorized design gate follows.
 
-## Shared-member exact-target TasteFit — detailed design / IMPLEMENTATION NOT AUTHORIZED
+## Shared-member exact-target TasteFit — IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE
 
-[Dependency PR #118](https://github.com/thedusk4203/Menuto/pull/118), approved head
-`67a2b05e804f32082233cad6ff46f89e73f84b3d`, merged at
-`7dcb0b1b9b7f35b80b3f86c24064c920f1d8a2ec`; exact push
-[CI40693646450](https://github.com/thedusk4203/Menuto/actions/runs/40693646450) SUCCESS,
-Python/web green;3,396 tests/0 skips;384 exports;0015 /85;zero new persistence.
-The separately authorized [dedicated design](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_DESIGN.md)
-is **DESIGN READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED**.
-One canonical candidate × one exact typed target × exact participants only. Explicit finite
-child-policy/mapping bridges gate all arithmetic; positive rational member weights are fully
-authored, never inferred from portions, role, strength or history. Incomplete coverage withholds
-aggregate and denominator; direct dislike remains separate. Conditional policy input only;
-no global/default/production publication or selection.120 SMTF cases,36 real-PG obligations
-are future acceptance requirements, not tests already implemented. No0016 or persistence.
-Frozen TasteFit/040/041/046 semantics unchanged;039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;
-Execution NOT STARTED;PRECOMMIT FAIL-CLOSED;planner_ready=False;activation_ready=False.
-The design PR stays OPEN; no runtime, implementation, downstream milestone or automatic merge.
+[Design PR #119](https://github.com/thedusk4203/Menuto/pull/119), approved head
+`8295f19a705cc085471a9dab7948072cc3054534`, merged exactly at
+`f16508270ac159d07cc01757b3459aa4e4764f62`; its tree equals the reviewed design head.
+Exact post-merge push [CI40763687731](https://github.com/thedusk4203/Menuto/actions/runs/40763687731)
+SUCCESS, Python/web SUCCESS;3,396 baseline tests/0 skips;384 exports;0015 /85.
+Separate user authorization opened this implementation gate only after that receipt.
+The [approved design](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_DESIGN.md)
+is implemented at code head `2b343fa47ed5de059fa4919d4326ac8863153a78`;
+[implementation evidence](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_EVIDENCE.md)
+records the three-operation Planning Interface and SMTF01–SMTF120 mapping.
+**IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN**.
+3,638 tests in the final inventory =3,396 retained +242 additive;44 real PG cases cover36 obligations.
+The final complete execution receipt binds the documentation-inclusive head in the implementation PR.
+One canonical candidate × one exact typed target × entire canonical participant set only.
+Full frozen-child replay, exact owner/cohort coherence and explicit finite mapping bridges precede
+all new arithmetic. Required strictly positive authored weights use EXACT_POSITIVE_WEIGHTED_MEAN.
+Incomplete coverage withholds every new arithmetic field; direct dislike remains independent.
+Policy authority is EXPLICIT_INTERPRETATION_INPUT_ONLY: no global/current/default/production selector,
+registry, coefficients or seed. **403 exports =384 retained unchanged +19 additive**;
+**ZERO NEW PERSISTENCE**, schema **0015 /85**, no0016.
+Frozen child TasteFit/040/041/046 semantics remain unchanged; MTR-040 COMPLETE /issue41 CLOSED—COMPLETED;
+039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
+planner_ready=False;activation_ready=False. No new MTR suffix, downstream work or self-freeze.
+The separate implementation PR must remain OPEN for review; no automatic merge.
 
 
 
