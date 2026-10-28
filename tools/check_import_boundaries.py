@@ -82,6 +82,45 @@ PUBLIC_SURFACES = {"contracts", "public"}
 # V1.3 ADR-010/011: immutable facts may cross these seams; runtime facades may not.
 CONTRACT_ONLY_CONTEXTS = {"validation", "learning"}
 
+# Reviewed TasteFit companion seam: exact modules, not a new public namespace
+# exemption for private Preferences implementations or other Planning consumers.
+TASTEFIT_COMPANIONS = {
+    "app.modules.planning.tastefit": {
+        "app.modules.preferences.tastefit_contracts",
+        "app.modules.preferences.tastefit_public",
+    },
+    "app.modules.planning.tastefit_contracts": {
+        "app.modules.preferences.tastefit_contracts",
+    },
+    "app.modules.planning.tastefit_capture": {
+        "app.modules.preferences.tastefit_contracts",
+        "app.modules.preferences.tastefit_public",
+    },
+}
+TASTEFIT_PURE_IMPORTS = {
+    "pydantic", "app.domain.feature_identity", "app.domain.resolution",
+    "app.modules.planning.tastefit_contracts",
+    "app.modules.planning.candidate_feature_projection",
+    "app.modules.preferences.contracts", "app.modules.preferences.tastefit_contracts",
+    "app.modules.preferences.tastefit_public", "app.modules.recipes.contracts",
+}
+TASTEFIT_TRANSPORT_IMPORTS = {
+    "app.modules.planning.tastefit_contracts": {
+        "math", "typing", "uuid", "pydantic", "app.domain.contracts",
+        "app.domain.feature_identity", "app.domain.units", "app.modules.planning.contracts",
+        "app.modules.preferences.contracts", "app.modules.preferences.tastefit_contracts",
+        "app.modules.recipes.contracts",
+    },
+    "app.modules.preferences.tastefit_contracts": {
+        "typing", "uuid", "pydantic", "app.domain.contracts", "app.domain.feature_identity",
+        "app.modules.catalog.contracts", "app.modules.preferences.contracts",
+        "app.modules.preferences.hierarchical_affinity_contracts",
+        "app.modules.preferences.hierarchy_contracts",
+        "app.modules.preferences.prior_affinity_contracts",
+        "app.modules.recipes.contracts",
+    },
+}
+
 
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
@@ -91,8 +130,51 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     shared = module == "app.shared" or module.startswith("app.shared.")
     neutral = module == "app.domain" or module.startswith("app.domain.")
     errors = []
+    capture_import_lines = {
+        n.lineno for fn in tree.body if isinstance(fn, ast.FunctionDef)
+        and fn.name == "capture_tastefit_member_sources"
+        for n in ast.walk(fn) if isinstance(n, ast.ImportFrom)
+    }
 
     def audit(target, line):
+        if module in TASTEFIT_TRANSPORT_IMPORTS and not any(
+            target == p or target.startswith(p + ".")
+            for p in TASTEFIT_TRANSPORT_IMPORTS[module]
+        ):
+            errors.append(f"{line}: TASTEFIT_IMMUTABLE_TRANSPORT: {target}")
+        if module == "app.modules.preferences.tastefit_public":
+            pure = {
+                "app.domain.feature_identity", "app.modules.preferences.contracts",
+                "app.modules.preferences.hierarchical_affinity",
+                "app.modules.preferences.hierarchy_resolution",
+                "app.modules.preferences.prior_affinity",
+                "app.modules.preferences.profile_derivation",
+                "app.modules.preferences.tastefit_contracts",
+            }
+            lazy_capture = (
+                line in capture_import_lines
+                and target == ("app.modules.preferences.tastefit_sources."
+                               "capture_tastefit_member_sources")
+            )
+            if not lazy_capture and not any(
+                target == p or target.startswith(p + ".") for p in pure
+            ):
+                errors.append(f"{line}: TASTEFIT_MEMBER_PURE_REPLAY: {target}")
+        if module == "app.modules.planning.tastefit" and not any(
+            target == p or target.startswith(p + ".") for p in TASTEFIT_PURE_IMPORTS
+        ):
+            errors.append(f"{line}: TASTEFIT_PURE_CORE: {target}")
+        if module in {
+            "app.modules.planning.tastefit_contracts",
+            "app.modules.preferences.tastefit_contracts",
+        } and (
+            target.split(".")[0] in {
+                "sqlalchemy", "psycopg", "socket", "os", "pathlib", "datetime", "time",
+                "requests", "httpx", "subprocess", "ortools",
+            }
+            or target.startswith(("app.persistence", "app.shared.db"))
+        ):
+            errors.append(f"{line}: TASTEFIT_IMMUTABLE_TRANSPORT: {target}")
         if module == "app.modules.planning.candidate_feature_projection" and not any(
             target == allowed or target.startswith(allowed + ".")
             for allowed in {
@@ -249,6 +331,9 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             errors.append(f"{line}: FACT_READER_IMPORTS_IMPLEMENTATION: {target}")
             return
         if not tail or tail[0] not in PUBLIC_SURFACES:
+            if any(target == p or target.startswith(p + ".")
+                   for p in TASTEFIT_COMPANIONS.get(module, ())):
+                return
             errors.append(f"{line}: CROSS_CONTEXT_INTERNAL_IMPORT: {target}")
 
     for node in ast.walk(tree):
