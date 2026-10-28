@@ -162,6 +162,13 @@ from app.modules.planning.contracts import (
     ShortlistInputFailure,
     ShortlistPolicyDraft,
 )
+from app.modules.planning.tastefit_contracts import (
+    CandidateMemberTasteFitDraft,
+    CandidateMemberTasteFitRequest,
+    CandidateMemberTasteFitSources,
+    ScopedTargetTasteFit,
+    TasteFitInterpretationPolicy,
+)
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
 from app.modules.preferences.contracts import (
     AvailableExplicitAffinity,
@@ -283,6 +290,11 @@ from app.modules.preferences.reference_prior_contracts import (
     ReviewedReferencePriorDraft,
     UnavailableReviewedReferencePrior,
 )
+from app.modules.preferences.tastefit_contracts import (
+    TasteFitMemberCapturePlan,
+    TasteFitMemberInterpretationPlan,
+    TasteFitMemberSourceBundle,
+)
 from app.modules.recipes.contracts import (
     CulinaryCandidateDraft,
     CulinaryDemand,
@@ -364,6 +376,14 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    CandidateMemberTasteFitDraft,
+    CandidateMemberTasteFitRequest,
+    CandidateMemberTasteFitSources,
+    ScopedTargetTasteFit,
+    TasteFitInterpretationPolicy,
+    TasteFitMemberCapturePlan,
+    TasteFitMemberInterpretationPlan,
+    TasteFitMemberSourceBundle,
     CandidateFeatureBinding,
     CandidateFeatureProjectionDraft,
     CandidateFeatureProjectionRequest,

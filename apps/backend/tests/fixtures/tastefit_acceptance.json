@@ -1,0 +1,815 @@
+{
+  "TF01": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf01_real_canonical_capture_derive_validate_one_subject"
+    ]
+  },
+  "TF02": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf02_shared_subject_is_not_replaced_by_tracked_member"
+    ]
+  },
+  "TF03": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf03_unauthorized_actor_fails_before_preferences_read"
+    ]
+  },
+  "TF04": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf04_canonical_member_absent_from_candidate_not_added"
+    ]
+  },
+  "TF05": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf05_foreign_household_member_cannot_be_subject"
+    ]
+  },
+  "TF06": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf06_expected_grounding_pin_rejects_fresh_substitution"
+    ]
+  },
+  "TF07": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf07_projection_fingerprint_tamper_rehashed_outer_rejects"
+    ]
+  },
+  "TF08": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf08_other_recipe_version_cannot_reuse_subject"
+    ]
+  },
+  "TF09": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf09_other_authored_path_cannot_reuse_old_projection"
+    ]
+  },
+  "TF10": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf10_noncanonical_subject_selectors_reject"
+    ]
+  },
+  "TF11": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf11_actor_and_member_are_distinct_authenticated_read_subjects"
+    ]
+  },
+  "TF12": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf12_fresh_projection_identity_not_old_fp_pin"
+    ]
+  },
+  "TF13": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf13_direct_recipe_exact_identity_retains_outer_version"
+    ]
+  },
+  "TF14": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf14_selected_substitution_only_original_ingredient_absent"
+    ]
+  },
+  "TF15": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf15_main_protein_is_reviewed_exact_path_not_mass"
+    ]
+  },
+  "TF16": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf16_method_child_path_none_outer_path_retained"
+    ]
+  },
+  "TF17": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf17_flavor_admission_is_exact_reviewed_finite_term"
+    ]
+  },
+  "TF18": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf18_proven_but_disabled_kind_has_no_fit"
+    ]
+  },
+  "TF19": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf19_no_sixth_preference_kind"
+    ]
+  },
+  "TF20": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf20_nonselected_probes_absent_nonexistent_identity_fails"
+    ]
+  },
+  "TF21": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf21_exact_unresolved_feature_reason_preserved"
+    ]
+  },
+  "TF22": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf22_reviewed_none_is_finite_not_blanket_absence"
+    ]
+  },
+  "TF23": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf23_inferred_membership_flags_reject"
+    ]
+  },
+  "TF24": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf24_partial_positive_and_unknown_probe_remain_separate"
+    ]
+  },
+  "TF25": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf25_uncaptured_dimension_is_not_zero"
+    ]
+  },
+  "TF26": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf26_duplicate_ingredient_target_has_all_requirement_proofs"
+    ]
+  },
+  "TF27": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf27_probe_neither_trims_base_nor_expands_feature_cut"
+    ]
+  },
+  "TF28": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf28_catalog_support_correction_stales_reviewed_main_protein"
+    ]
+  },
+  "TF29": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf29_raw_like_has_one_exact_policy_mapping_per_target"
+    ]
+  },
+  "TF30": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf30_dislike_is_negative_soft_signal_not_safety"
+    ]
+  },
+  "TF31": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf31_nonzero_raw_neutral_requires_explicit_mapping"
+    ]
+  },
+  "TF32": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf32_undeclared_is_unavailable_not_neutral"
+    ]
+  },
+  "TF33": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf33_retraction_suppresses_retained_previous_like",
+      "test_candidate_member_tastefit.py::test_tf33_tf59_policy_cannot_override_retraction_even_for_disabled_kind"
+    ]
+  },
+  "TF34": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf34_available_like_zero_is_not_missing"
+    ]
+  },
+  "TF35": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf35_tf36_tf37_strength_is_lineage_not_another_multiplier"
+    ]
+  },
+  "TF36": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf35_tf36_tf37_strength_is_lineage_not_another_multiplier"
+    ]
+  },
+  "TF37": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf35_tf36_tf37_strength_is_lineage_not_another_multiplier"
+    ]
+  },
+  "TF38": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf38_prior_and_inherited_never_mint_destination_strength"
+    ]
+  },
+  "TF39": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf39_caller_strength_fields_reject"
+    ]
+  },
+  "TF40": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf40_retry_history_does_not_increase_strength_or_fit"
+    ]
+  },
+  "TF41": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf41_correction_changes_fresh_head_retained_capture_replays"
+    ]
+  },
+  "TF42": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf42_dislike_without_mapping_keeps_soft_signal"
+    ]
+  },
+  "TF43": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf43_negative_prior_is_not_direct_dislike",
+      "test_candidate_member_tastefit.py::test_tf43_inherited_semantic_preserved_without_direct_signal_or_strength"
+    ]
+  },
+  "TF44": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf44_other_participants_never_become_fit_subjects"
+    ]
+  },
+  "TF45": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf45_real_empty_prior_source_uses_frozen_explicit_only"
+    ]
+  },
+  "TF46": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf46_frozen_blend_mapped_once"
+    ]
+  },
+  "TF47": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf47_prior_only_cold_start_not_neutral"
+    ]
+  },
+  "TF48": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf48_real_empty_prior_selected_stays_unavailable"
+    ]
+  },
+  "TF49": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf49_prior_retraction_preserves_reason_and_explicit_only"
+    ]
+  },
+  "TF50": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf50_unmapped_reference_keeps_frozen_explicit_fallback"
+    ]
+  },
+  "TF51": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf51_policy_bindings_fail_before_lookup"
+    ]
+  },
+  "TF52": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf52_reference_provider_binding_never_falls_back"
+    ]
+  },
+  "TF53": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf53_required_prior_permission_failure_aborts_whole_capture"
+    ]
+  },
+  "TF54": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf54_effective_without_fit_mapping_does_not_use_raw"
+    ]
+  },
+  "TF55": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf55_raw_mode_needs_no_configured_global_provider"
+    ]
+  },
+  "TF56": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf56_only_shrinkage_provenance_changes_full_identity"
+    ]
+  },
+  "TF57": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf57_real_reviewed_one_hop_transfer_maps_parent_explicit"
+    ]
+  },
+  "TF58": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf58_destination_direct_wins_without_magnitude_comparison"
+    ]
+  },
+  "TF59": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf33_tf59_policy_cannot_override_retraction_even_for_disabled_kind",
+      "test_candidate_member_tastefit.py::test_tf59_retracted_destination_wins_even_prior_and_parent"
+    ]
+  },
+  "TF60": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf60_real_parent_retraction_no_destination_prior_fallback"
+    ]
+  },
+  "TF61": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf61_parent_prior_only_is_not_inherited_and_blend_is_not_operand"
+    ]
+  },
+  "TF62": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf62_real_hierarchy_unavailability_is_not_neutral"
+    ]
+  },
+  "TF63": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf63_multiple_incoming_relations_no_favorable_parent_filter"
+    ]
+  },
+  "TF64": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf64_recursive_parent_result_cannot_enter_primitives"
+    ]
+  },
+  "TF65": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf65_wrong_parent_target_rejects_even_matching_kind"
+    ]
+  },
+  "TF66": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf66_valid_other_recipe_context_unavailable_forged_binding_rejects"
+    ]
+  },
+  "TF67": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf67_different_source_recipe_is_valid_lineage"
+    ]
+  },
+  "TF68": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf68_prior_selected_inherited_not_selected"
+    ]
+  },
+  "TF69": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf69_inherited_selected_even_when_prior_larger"
+    ]
+  },
+  "TF70": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf70_unused_malformed_hierarchy_child_still_rejects"
+    ]
+  },
+  "TF71": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf71_exact_policy_pins_and_replay_determinism"
+    ]
+  },
+  "TF72": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf72_body_edit_without_independent_pin_rejects"
+    ]
+  },
+  "TF73": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf73_missing_policy_never_selects_default"
+    ]
+  },
+  "TF74": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf74_exact_version_only"
+    ]
+  },
+  "TF75": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf75_duplicate_semantic_keys_reject"
+    ]
+  },
+  "TF76": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf76_equal_value_under_unmapped_descriptor_is_not_selected"
+    ]
+  },
+  "TF77": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf77_mapping_for_another_kind_never_transfers"
+    ]
+  },
+  "TF78": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf78_admission_and_capture_selections_are_required"
+    ]
+  },
+  "TF79": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf79_reviewed_label_is_still_conditional_input"
+    ]
+  },
+  "TF80": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf80_complete_frozen_descriptors_retained"
+    ]
+  },
+  "TF81": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf81_no_declaration_neutral_and_zero_have_separate_keys"
+    ]
+  },
+  "TF82": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf82_exact_rational_miss_no_nearest_interpolation"
+    ]
+  },
+  "TF83": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf83_sets_and_equivalent_rationals_normalize_policy_identity"
+    ]
+  },
+  "TF84": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf84_semantic_choices_and_limits_cannot_be_omitted",
+      "test_candidate_member_tastefit.py::test_tf84_rational_components_strict_signed_unit_not_probability"
+    ]
+  },
+  "TF85": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf85_new_coherent_body_is_another_conditional_request"
+    ]
+  },
+  "TF86": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf86_authored_resource_overflow_rejects_without_partial_result"
+    ]
+  },
+  "TF87": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf87_scoped_numeric_equality_requires_entire_descriptor"
+    ]
+  },
+  "TF88": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf88_descriptor_semantics_reject_before_lookup",
+      "test_candidate_member_tastefit.py::test_tf88_forged_frozen_descriptor_never_enters_fit_lookup"
+    ]
+  },
+  "TF89": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf89_all_member_children_share_full_ledger_on_one_rr_cut"
+    ]
+  },
+  "TF90": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf90_wrong_member_parent_rejects"
+    ]
+  },
+  "TF91": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf91_wrong_household_even_with_matching_numeric_value"
+    ]
+  },
+  "TF92": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf92_independent_legal_owner_clocks_and_frontiers_not_common_mvcc"
+    ]
+  },
+  "TF93": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf93_feature_capture_after_grounding_asof_is_not_forced_historical_cut"
+    ]
+  },
+  "TF94": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf94_typed_immutable_fact_conflicts_any_depth_reject",
+      "test_candidate_member_tastefit.py::test_tf94_coherently_edited_member_term_still_conflicts_with_candidate"
+    ]
+  },
+  "TF95": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf95_mutable_ingredient_label_is_not_identity_conflict"
+    ]
+  },
+  "TF96": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf96_retained_all_owner_cuts_replay_after_live_corrections"
+    ]
+  },
+  "TF97": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf97_independent_hierarchy_capability_not_minted_by_prior_read"
+    ]
+  },
+  "TF98": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf98_offline_origin_and_auth_claims_cannot_be_minted"
+    ]
+  },
+  "TF99": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf99_revoked_capture_cannot_reuse_old_valid_child"
+    ]
+  },
+  "TF100": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf100_rr_owner_cut_is_coherent_during_concurrent_publication"
+    ]
+  },
+  "TF101": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf101_invalid_capture_transaction_rejected_without_commit",
+      "test_postgres_candidate_member_tastefit.py::test_tf101_dirty_session_rejected_and_wrong_database_is_not_spliced",
+      "test_postgres_candidate_member_tastefit.py::test_tf101_real_wrong_database_identity_aborts_before_owner_capture"
+    ]
+  },
+  "TF102": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf102_same_frontier_different_ledger_body_is_incoherent",
+      "test_candidate_member_tastefit.py::test_tf102_tf105_hidden_unrelated_ledger_history_changes_identity_not_fit"
+    ]
+  },
+  "TF103": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf103_identical_serialized_sources_have_identical_semantics"
+    ]
+  },
+  "TF104": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf104_new_set_order_normalizes_frozen_journals_stay_owned"
+    ]
+  },
+  "TF105": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf105_frame_provenance_changes_identity_without_fit",
+      "test_candidate_member_tastefit.py::test_tf102_tf105_hidden_unrelated_ledger_history_changes_identity_not_fit"
+    ]
+  },
+  "TF106": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf106_rehashed_cached_projection_does_not_override_sources"
+    ]
+  },
+  "TF107": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf107_cached_explicit_strength_cannot_override_ledger"
+    ]
+  },
+  "TF108": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf108_cached_blend_rehash_rejects"
+    ]
+  },
+  "TF109": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf109_cached_transfer_arithmetic_rehash_rejects"
+    ]
+  },
+  "TF110": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf110_all_semantic_output_fields_compared_not_only_hash"
+    ]
+  },
+  "TF111": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf111_model_construct_nested_policy_is_untrusted"
+    ]
+  },
+  "TF112": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf112_model_copy_bypass_reparsed"
+    ]
+  },
+  "TF113": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf113_scoped_descriptor_forgery_rejects"
+    ]
+  },
+  "TF114": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf114_pure_derivation_validation_zero_io",
+      "test_tastefit_architecture.py::test_tf114_tf117_tf121_tf122_pure_core_rejects_io_learning_history_utility",
+      "test_tastefit_architecture.py::test_tf114_member_replay_cannot_import_io_or_frozen_io_facade"
+    ]
+  },
+  "TF115": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf115_hashes_bind_complete_bodies_without_self_recursion"
+    ]
+  },
+  "TF116": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf116_validator_returns_new_recomputed_result"
+    ]
+  },
+  "TF117": {
+    "layer": "B/P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf117_learning_events_are_not_inputs",
+      "test_tastefit_architecture.py::test_tf114_tf117_tf121_tf122_pure_core_rejects_io_learning_history_utility"
+    ]
+  },
+  "TF118": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf118_behavioral_events_cannot_become_like"
+    ]
+  },
+  "TF119": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf119_operational_friction_is_not_taste"
+    ]
+  },
+  "TF120": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf120_passive_forced_assumptions_reject"
+    ]
+  },
+  "TF121": {
+    "layer": "B/P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf121_repeat_chain_cannot_be_input_or_multiplier",
+      "test_tastefit_architecture.py::test_tf114_tf117_tf121_tf122_pure_core_rejects_io_learning_history_utility"
+    ]
+  },
+  "TF122": {
+    "layer": "B/P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf122_no_history_or_novelty_substitution",
+      "test_tastefit_architecture.py::test_tf114_tf117_tf121_tf122_pure_core_rejects_io_learning_history_utility"
+    ]
+  },
+  "TF123": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf123_favorable_fit_cannot_override_unsafe_grounding"
+    ]
+  },
+  "TF124": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf124_no_feasibility_or_hidden_cost_weight"
+    ]
+  },
+  "TF125": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf125_main_protein_remains_preference_protein"
+    ]
+  },
+  "TF126": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf126_no_candidate_comparison_scalar_or_ranking"
+    ]
+  },
+  "TF127": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf127_no_household_reducer_or_other_member_copy"
+    ]
+  },
+  "TF128": {
+    "layer": "P",
+    "tests": [
+      "test_candidate_member_tastefit.py::test_tf128_non_authority_literals_cannot_be_promoted"
+    ]
+  },
+  "TF129": {
+    "layer": "PG",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf129_tf132_read_only_no_rows_frontiers_schema_or_production_defaults"
+    ]
+  },
+  "TF130": {
+    "layer": "B",
+    "tests": [
+      "test_tastefit_architecture.py::test_tf130_frozen_owner_runtime_and_migrations_byte_exact",
+      "test_tastefit_architecture.py::test_tf130_planning_cannot_import_private_preferences_even_from_new_modules",
+      "test_tastefit_architecture.py::test_tf130_companion_allowlist_does_not_extend_other_planning_modules",
+      "test_tastefit_architecture.py::test_tf130_validation_learning_contract_only_rules_unchanged",
+      "test_tastefit_architecture.py::test_tf130_exact_approved_companion_imports_work",
+      "test_tastefit_architecture.py::test_tf130_transport_accepts_only_immutable_owner_shapes"
+    ]
+  },
+  "TF131": {
+    "layer": "B",
+    "tests": [
+      "test_tastefit_architecture.py::test_tf131_all3104_baseline_test_identities_retained"
+    ]
+  },
+  "TF132": {
+    "layer": "PG/B",
+    "tests": [
+      "test_postgres_candidate_member_tastefit.py::test_tf129_tf132_read_only_no_rows_frontiers_schema_or_production_defaults",
+      "test_tastefit_architecture.py::test_tf132_all362_old_definitions_unchanged_exact_additive_export_set"
+    ]
+  }
+}

@@ -1439,6 +1439,297 @@
       "title": "CandidateGroundingSources",
       "type": "object"
     },
+    "CandidateMemberTasteFitDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "aggregate": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Aggregate",
+          "type": "string"
+        },
+        "candidate_comparison": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Candidate Comparison",
+          "type": "string"
+        },
+        "common_mvcc": {
+          "const": "NOT_CLAIMED",
+          "default": "NOT_CLAIMED",
+          "title": "Common Mvcc",
+          "type": "string"
+        },
+        "contextual_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Contextual Evidence",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "candidate-member-tastefit.v1-draft",
+          "default": "candidate-member-tastefit.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "EXACT_RETAINED_SCOPE_ONLY",
+          "default": "EXACT_RETAINED_SCOPE_ONLY",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "dimension_diagnostics": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Dimension Diagnostics",
+          "type": "array"
+        },
+        "dimensions": {
+          "items": {
+            "$ref": "#/$defs/FeatureDimensionDiscovery"
+          },
+          "title": "Dimensions",
+          "type": "array"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "default": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "learned_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Learned Evidence",
+          "type": "string"
+        },
+        "passive_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Passive Evidence",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_authority": {
+          "const": "EXPLICIT_INTERPRETATION_INPUT_ONLY",
+          "default": "EXPLICIT_INTERPRETATION_INPUT_ONLY",
+          "title": "Policy Authority",
+          "type": "string"
+        },
+        "shared_member_aggregation": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Shared Member Aggregation",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "RETAINED_EVIDENCE_NOT_OFFLINE_ORIGIN_PROOF",
+          "default": "RETAINED_EVIDENCE_NOT_OFFLINE_ORIGIN_PROOF",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "sources": {
+          "$ref": "#/$defs/CandidateMemberTasteFitSources"
+        },
+        "status": {
+          "const": "DERIVED",
+          "default": "DERIVED",
+          "title": "Status",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/TasteFitSubject"
+        },
+        "targets": {
+          "items": {
+            "$ref": "#/$defs/TasteFitTargetInterpretation"
+          },
+          "title": "Targets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "sources",
+        "subject",
+        "targets",
+        "dimensions",
+        "dimension_diagnostics",
+        "fingerprint"
+      ],
+      "title": "CandidateMemberTasteFitDraft",
+      "type": "object"
+    },
+    "CandidateMemberTasteFitRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "candidate-member-tastefit-request.v1",
+          "default": "candidate-member-tastefit-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "diagnostic_targets": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                "METHOD": "#/$defs/FeaturePreferenceTarget",
+                "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/IngredientPreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/RecipePreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/FeaturePreferenceTarget"
+              }
+            ]
+          },
+          "title": "Diagnostic Targets",
+          "type": "array"
+        },
+        "expected_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Expected Policy Fingerprint",
+          "type": "string"
+        },
+        "expected_policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Id",
+          "type": "string"
+        },
+        "expected_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "member_interpretation": {
+          "$ref": "#/$defs/TasteFitMemberInterpretationPlan"
+        },
+        "policy": {
+          "$ref": "#/$defs/TasteFitInterpretationPolicy"
+        },
+        "projection_mode": {
+          "const": "FRESH_CANONICAL_PROJECTION",
+          "title": "Projection Mode",
+          "type": "string"
+        },
+        "projection_request": {
+          "$ref": "#/$defs/CandidateFeatureProjectionRequest"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "projection_request",
+        "projection_mode",
+        "diagnostic_targets",
+        "expected_policy_id",
+        "expected_policy_version",
+        "expected_policy_fingerprint",
+        "policy",
+        "member_interpretation"
+      ],
+      "title": "CandidateMemberTasteFitRequest",
+      "type": "object"
+    },
+    "CandidateMemberTasteFitSources": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_frame": {
+          "$ref": "#/$defs/TasteFitCaptureFrame"
+        },
+        "capture_completed_at": {
+          "format": "date-time",
+          "title": "Capture Completed At",
+          "type": "string"
+        },
+        "capture_started_at": {
+          "format": "date-time",
+          "title": "Capture Started At",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "candidate-member-tastefit-sources.v1",
+          "default": "candidate-member-tastefit-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "member_sources": {
+          "$ref": "#/$defs/TasteFitMemberSourceBundle"
+        },
+        "projection": {
+          "$ref": "#/$defs/CandidateFeatureProjectionDraft"
+        },
+        "request": {
+          "$ref": "#/$defs/CandidateMemberTasteFitRequest"
+        }
+      },
+      "required": [
+        "request",
+        "projection",
+        "member_sources",
+        "candidate_frame",
+        "capture_started_at",
+        "capture_completed_at",
+        "fingerprint"
+      ],
+      "title": "CandidateMemberTasteFitSources",
+      "type": "object"
+    },
     "CanonicalMemberSafety": {
       "additionalProperties": false,
       "properties": {
@@ -9297,6 +9588,25 @@
       "title": "InheritedPreferenceTrace",
       "type": "object"
     },
+    "InheritedTasteFitSourceCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate": {
+          "$ref": "#/$defs/InheritedMemberPreferenceCoordinate"
+        },
+        "family": {
+          "const": "INHERITED",
+          "default": "INHERITED",
+          "title": "Family",
+          "type": "string"
+        }
+      },
+      "required": [
+        "coordinate"
+      ],
+      "title": "InheritedTasteFitSourceCoordinate",
+      "type": "object"
+    },
     "InventoryCandidateLot": {
       "additionalProperties": false,
       "properties": {
@@ -13699,6 +14009,25 @@
       "title": "ProductIngredientConversionFact",
       "type": "object"
     },
+    "ProfileTasteFitSourceCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate": {
+          "$ref": "#/$defs/MemberProfileAffinityCoordinate"
+        },
+        "family": {
+          "const": "PROFILE",
+          "default": "PROFILE",
+          "title": "Family",
+          "type": "string"
+        }
+      },
+      "required": [
+        "coordinate"
+      ],
+      "title": "ProfileTasteFitSourceCoordinate",
+      "type": "object"
+    },
     "ProposalExposureSource": {
       "additionalProperties": false,
       "properties": {
@@ -14312,6 +14641,73 @@
         "policy"
       ],
       "title": "QuantizationResult",
+      "type": "object"
+    },
+    "RawExplicitTasteFitCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "explicit_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Explicit Policy Fingerprint",
+          "type": "string"
+        },
+        "explicit_policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Explicit Policy Id",
+          "type": "string"
+        },
+        "explicit_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Explicit Policy Version",
+          "type": "string"
+        },
+        "family": {
+          "const": "FROZEN_040B_EXPLICIT",
+          "default": "FROZEN_040B_EXPLICIT",
+          "title": "Family",
+          "type": "string"
+        },
+        "scope": {
+          "const": "ONE_EXACT_CURRENT_DECLARATION",
+          "default": "ONE_EXACT_CURRENT_DECLARATION",
+          "title": "Scope",
+          "type": "string"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        },
+        "unit": {
+          "const": "POLICY_EXPLICIT_AFFINITY_UNITS",
+          "default": "POLICY_EXPLICIT_AFFINITY_UNITS",
+          "title": "Unit",
+          "type": "string"
+        },
+        "wrapper_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Wrapper Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "target_kind",
+        "explicit_policy_id",
+        "explicit_policy_version",
+        "explicit_policy_fingerprint"
+      ],
+      "title": "RawExplicitTasteFitCoordinate",
       "type": "object"
     },
     "RawIngredientAssetFact": {
@@ -19202,6 +19598,23 @@
       "title": "ScopedMemberProfileAffinity",
       "type": "object"
     },
+    "ScopedTargetTasteFit": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/TasteFitAmount"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/TasteFitCoordinate"
+        }
+      },
+      "required": [
+        "coordinate",
+        "amount"
+      ],
+      "title": "ScopedTargetTasteFit",
+      "type": "object"
+    },
     "SetMemberPreferenceCommand": {
       "additionalProperties": false,
       "properties": {
@@ -19700,6 +20113,1209 @@
         "reason"
       ],
       "title": "SuppressedInheritedMemberPreference",
+      "type": "object"
+    },
+    "TasteFitAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "TasteFitAmount",
+      "type": "object"
+    },
+    "TasteFitCaptureFrame": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "configured_host": {
+          "title": "Configured Host",
+          "type": "string"
+        },
+        "configured_port": {
+          "exclusiveMinimum": 0,
+          "title": "Configured Port",
+          "type": "integer"
+        },
+        "database_name": {
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "isolation": {
+          "enum": [
+            "REPEATABLE READ",
+            "SERIALIZABLE"
+          ],
+          "title": "Isolation",
+          "type": "string"
+        },
+        "owner": {
+          "enum": [
+            "CANDIDATE",
+            "MEMBER",
+            "PRIOR",
+            "HIERARCHY"
+          ],
+          "title": "Owner",
+          "type": "string"
+        },
+        "read_only": {
+          "const": true,
+          "title": "Read Only",
+          "type": "boolean"
+        },
+        "server_address": {
+          "title": "Server Address",
+          "type": "string"
+        },
+        "server_port": {
+          "exclusiveMinimum": 0,
+          "title": "Server Port",
+          "type": "integer"
+        },
+        "session_user": {
+          "title": "Session User",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "targets": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+                "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+                "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+                "METHOD": "#/$defs/FeaturePreferenceTarget",
+                "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/IngredientPreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/RecipePreferenceTarget"
+              },
+              {
+                "$ref": "#/$defs/FeaturePreferenceTarget"
+              }
+            ]
+          },
+          "title": "Targets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "owner",
+        "actor_user_id",
+        "targets",
+        "configured_host",
+        "configured_port",
+        "database_name",
+        "database_oid",
+        "server_address",
+        "server_port",
+        "session_user",
+        "isolation",
+        "read_only",
+        "started_at",
+        "completed_at"
+      ],
+      "title": "TasteFitCaptureFrame",
+      "type": "object"
+    },
+    "TasteFitCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate_id": {
+          "const": "CANDIDATE_MEMBER_TARGET_FIT",
+          "default": "CANDIDATE_MEMBER_TARGET_FIT",
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "coordinate_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Coordinate Version",
+          "type": "integer"
+        },
+        "grounding_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Grounding Fingerprint",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Policy Fingerprint",
+          "type": "string"
+        },
+        "projection_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Projection Fingerprint",
+          "type": "string"
+        },
+        "scope": {
+          "const": "ONE_POLICY_ONE_HOUSEHOLD_ONE_MEMBER_ONE_CANDIDATE_ONE_TARGET",
+          "default": "ONE_POLICY_ONE_HOUSEHOLD_ONE_MEMBER_ONE_CANDIDATE_ONE_TARGET",
+          "title": "Scope",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "unit": {
+          "const": "POLICY_TARGET_TASTEFIT_UNITS",
+          "default": "POLICY_TARGET_TASTEFIT_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_fingerprint",
+        "household_id",
+        "member_id",
+        "grounding_fingerprint",
+        "projection_fingerprint",
+        "target"
+      ],
+      "title": "TasteFitCoordinate",
+      "type": "object"
+    },
+    "TasteFitInterpretationPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "admitted_kinds": {
+          "items": {
+            "enum": [
+              "INGREDIENT",
+              "DIRECT_RECIPE",
+              "PROTEIN",
+              "METHOD",
+              "FLAVOR"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Admitted Kinds",
+          "type": "array"
+        },
+        "aggregation": {
+          "const": "NOT_PERFORMED",
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "candidate-member-tastefit-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "evidence_strength_effect": {
+          "const": "LINEAGE_ONLY",
+          "title": "Evidence Strength Effect",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "kind_policies": {
+          "items": {
+            "$ref": "#/$defs/TasteFitKindPolicy"
+          },
+          "minItems": 1,
+          "title": "Kind Policies",
+          "type": "array"
+        },
+        "max_policy_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Max Policy Bytes",
+          "type": "integer"
+        },
+        "max_source_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Max Source Bytes",
+          "type": "integer"
+        },
+        "max_targets": {
+          "exclusiveMinimum": 0,
+          "title": "Max Targets",
+          "type": "integer"
+        },
+        "operator": {
+          "const": "PER_TARGET_FINITE_EXACT_LOOKUP",
+          "title": "Operator",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "retraction": {
+          "const": "SUPPRESS",
+          "title": "Retraction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract_version",
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "interpretation_mode",
+        "admitted_kinds",
+        "kind_policies",
+        "operator",
+        "aggregation",
+        "evidence_strength_effect",
+        "retraction",
+        "max_targets",
+        "max_policy_bytes",
+        "max_source_bytes"
+      ],
+      "title": "TasteFitInterpretationPolicy",
+      "type": "object"
+    },
+    "TasteFitKindPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_mode": {
+          "enum": [
+            "EXPLICIT_ONLY",
+            "EXACT_TARGET",
+            "EXACT_TARGET_AND_ONE_HOP"
+          ],
+          "title": "Capture Mode",
+          "type": "string"
+        },
+        "declared_selection": {
+          "enum": [
+            "RAW_EXPLICIT",
+            "EXACT_TARGET_EFFECTIVE"
+          ],
+          "title": "Declared Selection",
+          "type": "string"
+        },
+        "mappings": {
+          "items": {
+            "$ref": "#/$defs/TasteFitMappingRow"
+          },
+          "title": "Mappings",
+          "type": "array"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        },
+        "undeclared_selection": {
+          "enum": [
+            "NO_EVIDENCE",
+            "PRIOR_ONLY",
+            "ONE_HOP_INHERITED"
+          ],
+          "title": "Undeclared Selection",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_kind",
+        "capture_mode",
+        "declared_selection",
+        "undeclared_selection",
+        "mappings"
+      ],
+      "title": "TasteFitKindPolicy",
+      "type": "object"
+    },
+    "TasteFitMappingRow": {
+      "additionalProperties": false,
+      "properties": {
+        "fit_amount": {
+          "$ref": "#/$defs/TasteFitAmount"
+        },
+        "semantic_state": {
+          "enum": [
+            "LIKE",
+            "DISLIKE",
+            "NEUTRAL",
+            "NO_DECLARATION"
+          ],
+          "title": "Semantic State",
+          "type": "string"
+        },
+        "source_amount": {
+          "$ref": "#/$defs/TasteFitAmount"
+        },
+        "source_coordinate": {
+          "discriminator": {
+            "mapping": {
+              "FROZEN_040B_EXPLICIT": "#/$defs/RawExplicitTasteFitCoordinate",
+              "INHERITED": "#/$defs/InheritedTasteFitSourceCoordinate",
+              "PROFILE": "#/$defs/ProfileTasteFitSourceCoordinate"
+            },
+            "propertyName": "family"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RawExplicitTasteFitCoordinate"
+            },
+            {
+              "$ref": "#/$defs/ProfileTasteFitSourceCoordinate"
+            },
+            {
+              "$ref": "#/$defs/InheritedTasteFitSourceCoordinate"
+            }
+          ],
+          "title": "Source Coordinate"
+        },
+        "source_mode": {
+          "enum": [
+            "RAW_EXPLICIT",
+            "EXACT_TARGET_EFFECTIVE",
+            "PRIOR_ONLY",
+            "ONE_HOP_INHERITED"
+          ],
+          "title": "Source Mode",
+          "type": "string"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_kind",
+        "source_mode",
+        "semantic_state",
+        "source_coordinate",
+        "source_amount",
+        "fit_amount"
+      ],
+      "title": "TasteFitMappingRow",
+      "type": "object"
+    },
+    "TasteFitMemberCapturePlan": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_recipe": {
+          "$ref": "#/$defs/RecipeVersionSnapshot"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "interpretation": {
+          "$ref": "#/$defs/TasteFitMemberInterpretationPlan"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "targets": {
+          "items": {
+            "$ref": "#/$defs/TasteFitMemberTargetPlan"
+          },
+          "title": "Targets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "interpretation",
+        "targets",
+        "candidate_recipe"
+      ],
+      "title": "TasteFitMemberCapturePlan",
+      "type": "object"
+    },
+    "TasteFitMemberInterpretationPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "compatibility_policy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactTargetPriorCompatibilityPolicy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expected_compatibility_policy_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Compatibility Policy Fingerprint"
+        },
+        "expected_explicit_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Expected Explicit Policy Fingerprint",
+          "type": "string"
+        },
+        "expected_explicit_policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Explicit Policy Id",
+          "type": "string"
+        },
+        "expected_explicit_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Explicit Policy Version",
+          "type": "string"
+        },
+        "expected_hierarchy_policy_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Hierarchy Policy Fingerprint"
+        },
+        "expected_shrinkage_policy_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Shrinkage Policy Fingerprint"
+        },
+        "explicit_policy": {
+          "$ref": "#/$defs/ExplicitTargetAffinityPolicy"
+        },
+        "hierarchy_policy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HierarchyTransferPolicy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hierarchy_provider_command_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Hierarchy Provider Command Hash"
+        },
+        "hierarchy_provider_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Hierarchy Provider Id"
+        },
+        "shrinkage_policy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactTargetShrinkagePolicy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "explicit_policy",
+        "expected_explicit_policy_id",
+        "expected_explicit_policy_version",
+        "expected_explicit_policy_fingerprint",
+        "compatibility_policy",
+        "expected_compatibility_policy_fingerprint",
+        "shrinkage_policy",
+        "expected_shrinkage_policy_fingerprint",
+        "hierarchy_provider_id",
+        "hierarchy_provider_command_hash",
+        "hierarchy_policy",
+        "expected_hierarchy_policy_fingerprint"
+      ],
+      "title": "TasteFitMemberInterpretationPlan",
+      "type": "object"
+    },
+    "TasteFitMemberSourceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/TasteFitMemberSourceEntry"
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "frames": {
+          "items": {
+            "$ref": "#/$defs/TasteFitCaptureFrame"
+          },
+          "title": "Frames",
+          "type": "array"
+        },
+        "plan": {
+          "$ref": "#/$defs/TasteFitMemberCapturePlan"
+        }
+      },
+      "required": [
+        "plan",
+        "entries",
+        "frames"
+      ],
+      "title": "TasteFitMemberSourceBundle",
+      "type": "object"
+    },
+    "TasteFitMemberSourceEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "exact_target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactTargetPriorBackedAffinityInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "explicit": {
+          "$ref": "#/$defs/ExplicitTargetAffinityInput"
+        },
+        "one_hop": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OneHopHierarchicalMemberPreferenceInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "explicit",
+        "exact_target",
+        "one_hop"
+      ],
+      "title": "TasteFitMemberSourceEntry",
+      "type": "object"
+    },
+    "TasteFitMemberTargetPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_mode": {
+          "enum": [
+            "EXPLICIT_ONLY",
+            "EXACT_TARGET",
+            "EXACT_TARGET_AND_ONE_HOP"
+          ],
+          "title": "Capture Mode",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "capture_mode"
+      ],
+      "title": "TasteFitMemberTargetPlan",
+      "type": "object"
+    },
+    "TasteFitMemberView": {
+      "additionalProperties": false,
+      "properties": {
+        "exact_target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactTargetPriorBackedAffinityDraft"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "explicit": {
+          "$ref": "#/$defs/DerivedTargetAffinity"
+        },
+        "one_hop": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OneHopHierarchicalMemberPreferenceDraft"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "target",
+        "explicit",
+        "exact_target",
+        "one_hop"
+      ],
+      "title": "TasteFitMemberView",
+      "type": "object"
+    },
+    "TasteFitSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "binding": {
+          "$ref": "#/$defs/CandidateFeatureBinding"
+        },
+        "grounding_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Grounding Fingerprint",
+          "type": "string"
+        },
+        "grounding_request": {
+          "$ref": "#/$defs/CandidateGroundingRequest"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "projection_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Projection Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "member_id",
+        "grounding_fingerprint",
+        "projection_fingerprint",
+        "binding",
+        "grounding_request"
+      ],
+      "title": "TasteFitSubject",
+      "type": "object"
+    },
+    "TasteFitTargetInterpretation": {
+      "additionalProperties": false,
+      "properties": {
+        "declaration_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Declaration Id"
+        },
+        "direct_signal": {
+          "enum": [
+            "NONE",
+            "DECLARED_LIKE",
+            "DECLARED_DISLIKE",
+            "DECLARED_NEUTRAL"
+          ],
+          "title": "Direct Signal",
+          "type": "string"
+        },
+        "evidence_strength": {
+          "$ref": "#/$defs/DerivedExplicitEvidenceStrength"
+        },
+        "mapping": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TasteFitMappingRow"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "member_views": {
+          "$ref": "#/$defs/TasteFitMemberView"
+        },
+        "policy_admission": {
+          "enum": [
+            "ADMITTED",
+            "NOT_ADMITTED"
+          ],
+          "title": "Policy Admission",
+          "type": "string"
+        },
+        "proof": {
+          "$ref": "#/$defs/TasteFitTargetProof"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "selected_mode": {
+          "anyOf": [
+            {
+              "enum": [
+                "RAW_EXPLICIT",
+                "EXACT_TARGET_EFFECTIVE",
+                "NO_EVIDENCE",
+                "PRIOR_ONLY",
+                "ONE_HOP_INHERITED"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Selected Mode"
+        },
+        "semantic_state": {
+          "anyOf": [
+            {
+              "enum": [
+                "LIKE",
+                "DISLIKE",
+                "NEUTRAL",
+                "NO_DECLARATION"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Semantic State"
+        },
+        "source_amount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TasteFitAmount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_coordinate": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "FROZEN_040B_EXPLICIT": "#/$defs/RawExplicitTasteFitCoordinate",
+                  "INHERITED": "#/$defs/InheritedTasteFitSourceCoordinate",
+                  "PROFILE": "#/$defs/ProfileTasteFitSourceCoordinate"
+                },
+                "propertyName": "family"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/RawExplicitTasteFitCoordinate"
+                },
+                {
+                  "$ref": "#/$defs/ProfileTasteFitSourceCoordinate"
+                },
+                {
+                  "$ref": "#/$defs/InheritedTasteFitSourceCoordinate"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Coordinate"
+        },
+        "source_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Reason"
+        },
+        "status": {
+          "enum": [
+            "AVAILABLE",
+            "UNAVAILABLE",
+            "SUPPRESSED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScopedTargetTasteFit"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "view_dispositions": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "enum": [
+                  "SELECTED",
+                  "NOT_SELECTED",
+                  "NOT_REQUESTED_BY_POLICY"
+                ],
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "View Dispositions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "proof",
+        "member_views",
+        "policy_admission",
+        "selected_mode",
+        "view_dispositions",
+        "status",
+        "reason",
+        "source_reason",
+        "direct_signal",
+        "declaration_id",
+        "evidence_strength",
+        "semantic_state",
+        "source_coordinate",
+        "source_amount",
+        "mapping",
+        "value"
+      ],
+      "title": "TasteFitTargetInterpretation",
+      "type": "object"
+    },
+    "TasteFitTargetProof": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_state": {
+          "enum": [
+            "PRESENT",
+            "ABSENT",
+            "UNRESOLVED"
+          ],
+          "title": "Candidate State",
+          "type": "string"
+        },
+        "dimension": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FeatureDimensionDiscovery"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "identity": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipeTargetManifestEntry",
+              "FLAVOR": "#/$defs/FeatureTargetManifestEntry",
+              "INGREDIENT": "#/$defs/IngredientTargetManifestEntry",
+              "METHOD": "#/$defs/FeatureTargetManifestEntry",
+              "PROTEIN": "#/$defs/FeatureTargetManifestEntry"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientTargetManifestEntry"
+            },
+            {
+              "$ref": "#/$defs/RecipeTargetManifestEntry"
+            },
+            {
+              "$ref": "#/$defs/FeatureTargetManifestEntry"
+            }
+          ],
+          "title": "Identity"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "requirement_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Requirement Ids",
+          "type": "array"
+        },
+        "role": {
+          "enum": [
+            "BASE",
+            "DIAGNOSTIC_ONLY"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "term_resolution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FeatureTermResolution"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "target",
+        "role",
+        "identity",
+        "candidate_state",
+        "reason",
+        "requirement_ids",
+        "term_resolution",
+        "dimension"
+      ],
+      "title": "TasteFitTargetProof",
       "type": "object"
     },
     "TierQuantity": {
