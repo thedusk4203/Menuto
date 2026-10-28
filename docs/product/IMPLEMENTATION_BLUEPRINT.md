@@ -38,19 +38,25 @@ binds design, implementation, review and verification identities; exports **362 
 schema **0015 / 85**, zero new persistence; planner_ready=False, activation_ready=False.
 This bounded freeze does not complete full MTR-046. No new MTR suffix assigned. MTR-040 remains COMPLETE /
 issue #41 CLOSED — COMPLETED; 039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED;
-Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No downstream implementation is authorized.
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. That projection freeze authorizes no other downstream implementation.
 
-## Candidate × Member TasteFit — detailed design ready for review
+## Candidate × Member TasteFit — implementation ready for review / NOT FROZEN
 
-The [dependency review](POST_CANDIDATE_FEATURE_PROJECTION_NEXT_GATE_REVIEW.md), baseline
-`5530da00df9f6c9d8510cb02ac5b5e5a04ba52dc` (PR #113; exact push CI40627254429 SUCCESS),
-was approved at reviewed head `1452e72621f45d06d191a069c63785c00571eaee` and merged by PR #114
-at `622c108d2e8fe150ada521c645a643a362baa520`; exact push CI40632359346 SUCCESS, python/web
-green,3,104 tests; exports362; schema0015 /85. The user then separately authorized detailed design.
-The [Candidate × Member TasteFit design](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_DESIGN.md) is
-**DESIGN READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED**: structured exact-target
-fit for one candidate/member, explicit interpretation policy, no aggregate/comparison or persistence.
-No MTR suffix is assigned; frozen status and all downstream blockers above remain unchanged.
+The [approved design](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_DESIGN.md), PR #115 head
+`676ff2aca51cf4c4870c15d830a2f8e9048d9f42`, was merged at
+`89320203d1f64c274585cbcee0d5cef9045eacd1`; exact post-merge push
+[CI40643470453](https://github.com/thedusk4203/Menuto/actions/runs/40643470453) SUCCESS,
+python/web SUCCESS,3,104 tests; exports362; schema0015 /85. Only then was implementation authorized.
+The [implementation evidence and TF01–TF132 mapping](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_EVIDENCE.md)
+record the additive Preferences companion and Planning capture/derive/validate seam:
+**IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN**. One canonical candidate × one participating member;
+structured per-target fit under an explicit versioned/body-pinned conditional policy. No aggregate,
+comparison/ranking, shared-member reducer or globally current/default/production policy authority.
+Local full verification:3,396 passed =3,104 retained +292 additive;42 real PostgreSQL TasteFit tests.
+Exports384 =362 retained +22 additive; schema0015 /85; zero new persistence and no0016.
+Final exact-head python/web CI is required on the implementation PR before handoff; no self-freeze.
+No MTR suffix assigned; MTR-040 COMPLETE /issue41 CLOSED — COMPLETED;039 OPEN;full041/046 PARTIAL;
+024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED. No downstream gate is authorized.
 
 
 
