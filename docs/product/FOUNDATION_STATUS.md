@@ -40,23 +40,29 @@ This bounded freeze does not complete full MTR-046. No new MTR suffix assigned. 
 issue #41 CLOSED — COMPLETED; 039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED;
 Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. That projection freeze authorizes no other downstream implementation.
 
-## Candidate × Member TasteFit — implementation ready for review / NOT FROZEN
+## Candidate × Member TasteFit — FROZEN
 
 The [approved design](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_DESIGN.md), PR #115 head
-`676ff2aca51cf4c4870c15d830a2f8e9048d9f42`, was merged at
-`89320203d1f64c274585cbcee0d5cef9045eacd1`; exact post-merge push
-[CI40643470453](https://github.com/thedusk4203/Menuto/actions/runs/40643470453) SUCCESS,
-python/web SUCCESS,3,104 tests; exports362; schema0015 /85. Only then was implementation authorized.
-The [implementation evidence and TF01–TF132 mapping](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_EVIDENCE.md)
-record the additive Preferences companion and Planning capture/derive/validate seam:
-**IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN**. One canonical candidate × one participating member;
-structured per-target fit under an explicit versioned/body-pinned conditional policy. No aggregate,
-comparison/ranking, shared-member reducer or globally current/default/production policy authority.
-Local full verification:3,396 passed =3,104 retained +292 additive;42 real PostgreSQL TasteFit tests.
-Exports384 =362 retained +22 additive; schema0015 /85; zero new persistence and no0016.
-Final exact-head python/web CI is required on the implementation PR before handoff; no self-freeze.
-No MTR suffix assigned; MTR-040 COMPLETE /issue41 CLOSED — COMPLETED;039 OPEN;full041/046 PARTIAL;
-024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED. No downstream gate is authorized.
+`676ff2aca51cf4c4870c15d830a2f8e9048d9f42`, remains unchanged. The separately reviewed
+[implementation PR #116](https://github.com/thedusk4203/Menuto/pull/116) is **FROZEN**:
+reviewed head `152dbe8a365790956d2f7bac1b40a09b7dbd9134`, actual merge / verified main
+`7ac0547b3df621fb19c614c27edaca268a901169`; the merged tree exactly equals the reviewed head.
+Exact post-merge push [CI40659094576](https://github.com/thedusk4203/Menuto/actions/runs/40659094576)
+**SUCCESS**, python/web SUCCESS; **3,396 passed, 0 skips** = 3,104 retained +292 additive.
+**TF01–TF132 covered**; **42 real PostgreSQL cases cover all35 required PG obligations**.
+SCRAM/TLS16/16; benchmark22/22; client10/10; guards/contracts/typecheck/build green.
+Exports **384 =362 retained unchanged +22 additive**; schema **0015 /85**, no0016;
+**ZERO NEW PERSISTENCE**, no production seed/default coefficients or policy publication/selection authority.
+The [canonical freeze receipt](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_FREEZE_RECEIPT.md)
+binds the review, exact merge and push-CI identities; the
+[implementation evidence](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_EVIDENCE.md) retains all acceptance mappings.
+One canonical candidate × one participating member; structured exact-target fit under a required,
+explicit versioned/body-pinned conditional interpretation policy. No aggregate, comparison/ranking,
+shared-member reducer or global/current/default/production policy publication/selection authority.
+Frozen 040A/B/C, prior/shrinkage, hierarchy SOURCE,041A–F,046A and candidate projection remain unchanged.
+planner_ready=False; activation_ready=False. No MTR suffix assigned; MTR-040 COMPLETE /issue41 CLOSED — COMPLETED;
+039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
+This freeze records only the approved foundation. No next milestone is selected or authorized.
 
 
 
