@@ -157,6 +157,7 @@ fixtures are test evidence, not production source/publication authority.
 | TF matrix | **TF01–TF132 mapped and executed**, including parameterized semantic branches; no collection-only PG substitutes |
 | Real SCRAM/TLS | **16/16 passed**, both frozen source roots; separate actual TasteFit prior/hierarchy principals/capabilities |
 | Resource preflight |14/14 focused input/pin/budget tests passed after early target-budget rejection was tightened; no malformed over-budget child is replayed |
+| Participant/source-selection strengthening |4/4 focused cases passed after final test review: two legal portion contexts, tracked LIKE versus undeclared SHARED subject, a genuinely blended parent versus mapped explicit, and destination prior1/1 versus inherited1/2. Runtime unchanged; final exact-head CI reruns the whole suite. |
 | Benchmark / fixtures | **22/22 scenarios**;22 synthetic fixtures unchanged and verified |
 | Client / build | **10/10 client**; contracts generation check, client typecheck and web typecheck/build SUCCESS |
 | Architecture / exports | Ruff,30-invariant/11-ADR baseline, import boundaries, OpenAPI/domain exports SUCCESS;51 documentation/architecture checks also passed |

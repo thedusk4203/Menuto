@@ -85,6 +85,8 @@ def test_tf01_real_canonical_capture_derive_validate_one_subject(tastefit_server
 
 def test_tf02_shared_subject_is_not_replaced_by_tracked_member(tastefit_server):
     s = prepare(tastefit_server)
+    target = capture(s).member_sources.entries[0].target
+    declare(s, target, value="LIKE")
     member = add_member(s)
     g = s["request"].projection_request.grounding_request
     from app.modules.households.contracts import MealParticipants
@@ -98,6 +100,7 @@ def test_tf02_shared_subject_is_not_replaced_by_tracked_member(tastefit_server):
     assert result.subject.member_id == member
     assert result.subject.grounding_request.tracked_member_id != member
     assert all(r.member_views.explicit.evidence_strength.level == "NONE" for r in result.targets)
+    assert all(r.direct_signal == "NONE" and r.value is None for r in result.targets)
 
 
 def test_tf03_unauthorized_actor_fails_before_preferences_read(tastefit_server):

@@ -415,10 +415,47 @@ def test_tf43_inherited_semantic_preserved_without_direct_signal_or_strength(sem
 
 
 def test_tf44_other_participants_never_become_fit_subjects(raw_source):
-    result = derive(raw_source)
-    assert all(r.value.coordinate.member_id == result.subject.member_id for r in result.targets)
-    assert not hasattr(result, "member_totals")
-    assert result.shared_member_aggregation == "NOT_PERFORMED"
+    from app.modules.households.contracts import HouseholdMemberIdentity, MealParticipants
+    from app.modules.nutrition.contracts import CanonicalMemberSafetySnapshot
+    from grounding_fixtures import setup
+
+    q, owners, _ = setup()
+    other_member = uuid4()
+    owners = owners.model_copy(
+        update=dict(
+            members=owners.members
+            + (HouseholdMemberIdentity(household_id=q.household_id, member_id=other_member),),
+            member_safety=owners.member_safety
+            + (
+                CanonicalMemberSafetySnapshot(
+                    household_id=q.household_id, member_id=other_member, constraints=()
+                ),
+            ),
+        )
+    )
+    results = []
+    for portion in ("0.5", "3"):
+        participants = MealParticipants(
+            participants=q.participants.participants
+            + (dict(member_id=other_member, portion_factor=portion, nutrition_role="SHARED"),)
+        )
+        context = q.model_copy(update=dict(participants=participants))
+        # Keep both authored policies identical across the two legal contexts.
+        source = make_sources(
+            projection_source=make_subject(grounding=(context, owners)),
+            explicit_policy=raw_source.request.member_interpretation.explicit_policy,
+        )
+        source = with_policy(source, raw_source.request.policy)
+        result = derive(source)
+        assert all(r.value.coordinate.member_id == q.tracked_member_id for r in result.targets)
+        assert len(result.subject.grounding_request.participants.participants) == 2
+        assert result.shared_member_aggregation == "NOT_PERFORMED"
+        assert not hasattr(result, "member_totals")
+        assert all(
+            r.value.amount == c.TasteFitAmount(numerator=1, denominator=2) for r in result.targets
+        )
+        results.append(result)
+    assert results[0].subject.grounding_fingerprint != results[1].subject.grounding_fingerprint
 
 
 def test_tf46_frozen_blend_mapped_once(blended_source):
@@ -543,14 +580,18 @@ def test_tf59_retracted_destination_wins_even_prior_and_parent():
     assert row.member_views.one_hop.inherited.reason == "MEMBER_RETRACTED"
 
 
-def test_tf61_parent_prior_only_is_not_inherited_and_blend_is_not_operand(inherited_source):
-    row = result_row(derive(inherited_source))
+def test_tf61_parent_prior_only_is_not_inherited_and_blend_is_not_operand():
+    blended_parent = with_member_modes(
+        make_sources(state="UNDECLARED"),
+        hierarchy=True,
+        undeclared="ONE_HOP_INHERITED",
+        prior_on_parent=True,
+    )
+    row = result_row(derive(blended_parent))
     parent = row.member_views.one_hop.parent_exact_target
     assert row.member_views.one_hop.inherited.trace.mapped_explicit == parent.mapped_explicit.value
-    assert (
-        parent.mapped_explicit.value != parent.effective.value
-        or parent.effective.mode == "EXPLICIT_ONLY"
-    )
+    assert parent.effective.mode == "BLENDED_EXPLICIT_AND_PRIOR"
+    assert parent.mapped_explicit.value != parent.effective.value
     source = with_member_modes(
         make_sources(state="UNDECLARED"),
         hierarchy=True,
@@ -610,8 +651,19 @@ def test_tf68_prior_selected_inherited_not_selected():
     assert ("ONE_HOP_INHERITED", "NOT_SELECTED") in row.view_dispositions
 
 
-def test_tf69_inherited_selected_even_when_prior_larger(inherited_source):
-    row = result_row(derive(inherited_source))
+def test_tf69_inherited_selected_even_when_prior_larger():
+    source = with_member_modes(
+        make_sources(state="UNDECLARED"),
+        hierarchy=True,
+        undeclared="ONE_HOP_INHERITED",
+        external_parent=True,
+        prior_amount=(1, 1),
+    )
+    row = result_row(derive(source))
+    prior = row.member_views.exact_target.effective.value.amount
+    inherited = row.member_views.one_hop.inherited.value.amount
+    assert prior.model_dump() == dict(numerator=1, denominator=1)
+    assert inherited.model_dump() == dict(numerator=1, denominator=2)
     assert row.selected_mode == "ONE_HOP_INHERITED" and row.value is not None
     assert ("PRIOR_ONLY", "NOT_SELECTED") in row.view_dispositions
 
