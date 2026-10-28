@@ -3,6 +3,15 @@
 Status: **DEPENDENCY REVIEW ONLY — RECOMMENDATION, NOT DESIGN OR IMPLEMENTATION APPROVAL**.
 Reviewed 2026-10-28 against canonical main `5530da00df9f6c9d8510cb02ac5b5e5a04ba52dc`.
 
+Subsequent gate: the user approved this selection at PR #114 head
+`1452e72621f45d06d191a069c63785c00571eaee` ([formal PASS](https://github.com/thedusk4203/Menuto/pull/114#issuecomment-6460614980)).
+It merged at `622c108d2e8fe150ada521c645a643a362baa520`; complete tree equals that head,
+five Markdown files only. Exact push [CI40632359346](https://github.com/thedusk4203/Menuto/actions/runs/40632359346)
+SUCCESS, python/web green;3,104 tests; exports362; schema0015 /85. Only then did the separately
+authorized [detailed design](CANDIDATE_MEMBER_TASTEFIT_FOUNDATION_DESIGN.md) begin. It is
+DESIGN READY FOR ARCHITECTURE REVIEW, not implementation-authorized. Findings below retain
+their original baseline and review-stage authorization wording; no frozen semantics are changed.
+
 ## 1. Single recommended next gate
 
 ```text
