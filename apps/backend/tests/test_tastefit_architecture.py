@@ -56,8 +56,11 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
     pins = json.loads((FIXTURES / "tastefit_compatibility.json").read_text())
     defs = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     assert len(pins["definitions"]) == 362
-    assert len(defs) == 384
-    assert sorted(set(defs) - set(pins["definitions"])) == pins["new_definitions"]
+    shared = json.loads((FIXTURES / "shared_target_tastefit_compatibility.json").read_text())
+    assert len(defs) == 384 + len(shared["new_definitions"])
+    assert sorted(set(defs) - set(pins["definitions"])) == sorted(
+        pins["new_definitions"] + shared["new_definitions"]
+    )
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(defs[name], sort_keys=True).encode()).hexdigest() == digest

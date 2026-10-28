@@ -1,0 +1,883 @@
+{
+  "design_head": "8295f19a705cc085471a9dab7948072cc3054534",
+  "cases": {
+    "SMTF01": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf01_actual_ingredient_cohort_distinct_member_declarations"
+      ]
+    },
+    "SMTF02": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf02_actual_recipe_version_source_and_path"
+      ]
+    },
+    "SMTF03": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf03_actual_reviewed_main_protein_support"
+      ]
+    },
+    "SMTF04": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf04_actual_method_version_wide_child_and_outer_path"
+      ]
+    },
+    "SMTF05": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf05_actual_flavor_exact_path_finite_coverage"
+      ]
+    },
+    "SMTF06": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf06_tracked_and_multiple_shared_never_copy_preferences"
+      ]
+    },
+    "SMTF07": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf07_single_actual_member_not_scope_copy"
+      ]
+    },
+    "SMTF08": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf08_denied_actor_before_preference_reads"
+      ]
+    },
+    "SMTF09": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf09_foreign_member_not_local_participant"
+      ]
+    },
+    "SMTF10": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf10_nonexistent_member_cannot_be_empty_preference"
+      ]
+    },
+    "SMTF11": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf11_invalid_caller_transaction_rejected_unchanged[dirty]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf11_invalid_caller_transaction_rejected_unchanged[read_committed]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf11_invalid_caller_transaction_rejected_unchanged[writable]"
+      ]
+    },
+    "SMTF12": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf12_actual_serializable_read_only_capture"
+      ]
+    },
+    "SMTF13": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf13_primary_rr_cut_during_actual_concurrent_correction"
+      ]
+    },
+    "SMTF14": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf14_actual_wrong_database_oid_not_same_label"
+      ]
+    },
+    "SMTF15": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf15_actual_denied_prior_reader_aborts"
+      ]
+    },
+    "SMTF16": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf16_prior_cannot_supply_hierarchy_capability"
+      ]
+    },
+    "SMTF17": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf17_actual_declared_and_prior_only_modes"
+      ]
+    },
+    "SMTF18": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf18_actual_one_hop_mapped_explicit_no_strength_propagation"
+      ]
+    },
+    "SMTF19": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf19_full_protected_journal_retains_hidden_publications"
+      ]
+    },
+    "SMTF20": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf20_actual_pre_post_review_cuts_cannot_splice"
+      ]
+    },
+    "SMTF21": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf21_actual_later_member_connection_failure_aborts_whole_capture"
+      ]
+    },
+    "SMTF22": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf22_actual_required_protected_db_failure_after_partial_read[hierarchy]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf22_actual_required_protected_db_failure_after_partial_read[prior]"
+      ]
+    },
+    "SMTF23": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf23_correction_fresh_trace_old_cohort_historical_replay"
+      ]
+    },
+    "SMTF24": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf24_current_retraction_withholds_no_resurrection"
+      ]
+    },
+    "SMTF25": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf25_actual_unmapped_dislike_remains_visible"
+      ]
+    },
+    "SMTF26": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf26_real_neutral_available_zero"
+      ]
+    },
+    "SMTF27": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf27_undeclared_diner_not_omitted_or_zero"
+      ]
+    },
+    "SMTF28": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf28_actual_known_absence_and_nonexistent_target"
+      ]
+    },
+    "SMTF29": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf29_actual_finite_feature_missingness_not_fit[partial]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf29_actual_finite_feature_missingness_not_fit[reviewed_none]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf29_actual_finite_feature_missingness_not_fit[uncaptured]"
+      ]
+    },
+    "SMTF30": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf30_different_actual_policies_require_own_bridges"
+      ]
+    },
+    "SMTF31": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf31_actual_unadmitted_policy_no_arithmetic"
+      ]
+    },
+    "SMTF32": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf32_full_retry_recaptures_every_actual_member"
+      ]
+    },
+    "SMTF33": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf33_actual_sql_read_only_no_transactions_connections_or_row_drift"
+      ]
+    },
+    "SMTF34": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf34_real_schema_0015_85_zero_persistence"
+      ]
+    },
+    "SMTF35": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf35_independent_real_frames_and_replay_after_revoke"
+      ]
+    },
+    "SMTF36": {
+      "required_layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[history]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[portion]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[role]",
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[strength]"
+      ]
+    },
+    "SMTF37": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf37_full_sources_and_numeric_coverage_separate"
+      ]
+    },
+    "SMTF38": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf38_duplicate_input_rejected_before_dictionary_collapse"
+      ]
+    },
+    "SMTF39": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf39_missing_required_input_or_child[children]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf39_missing_required_input_or_child[members]"
+      ]
+    },
+    "SMTF40": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf40_extra_favorable_child_rejects"
+      ]
+    },
+    "SMTF41": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf41_member_slot_request_subject_binding"
+      ]
+    },
+    "SMTF42": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf42_empty_participants_never_zero"
+      ]
+    },
+    "SMTF43": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf43_tracked_only_substitution_rejects"
+      ]
+    },
+    "SMTF44": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf44_context_tamper_not_coherent_candidate[nutrition_role-SHARED]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf44_context_tamper_not_coherent_candidate[portion_factor-4]"
+      ]
+    },
+    "SMTF45": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf45_other_candidate_same_amount_rejects"
+      ]
+    },
+    "SMTF46": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf46_version_source_path_binding_before_arithmetic[recipe_id]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf46_version_source_path_binding_before_arithmetic[recipe_version_id]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf46_version_source_path_binding_before_arithmetic[tier_id]"
+      ]
+    },
+    "SMTF47": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf47_exact_target_identity_not_uuid_only[identity]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf47_exact_target_identity_not_uuid_only[kind]"
+      ]
+    },
+    "SMTF48": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf48_five_independent_kinds[DIRECT_RECIPE]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf48_five_independent_kinds[FLAVOR]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf48_five_independent_kinds[INGREDIENT]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf48_five_independent_kinds[METHOD]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf48_five_independent_kinds[PROTEIN]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf48_no_sixth_main_protein_kind"
+      ]
+    },
+    "SMTF49": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf49_diagnostic_probe_cannot_mint_presence"
+      ]
+    },
+    "SMTF50": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf50_child_dimensions_must_equal_root_construction"
+      ]
+    },
+    "SMTF51": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf51_child_configuration_revalidated[expected_explicit_policy_fingerprint]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf51_child_configuration_revalidated[expected_policy_fingerprint]"
+      ]
+    },
+    "SMTF52": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf52_no_missing_policy_fallback"
+      ]
+    },
+    "SMTF53": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf53_exact_root_policy_pins[expected_policy_id]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf53_exact_root_policy_pins[expected_policy_version]"
+      ]
+    },
+    "SMTF54": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf54_changed_body_requires_independent_pin"
+      ]
+    },
+    "SMTF55": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf55_new_coherent_authored_policy_conditional_only"
+      ]
+    },
+    "SMTF56": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf56_unknown_contract_versions[child]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf56_unknown_contract_versions[policy]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf56_unknown_contract_versions[request]"
+      ]
+    },
+    "SMTF57": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf57_valid_unadmitted_policy_is_not_forgery"
+      ]
+    },
+    "SMTF58": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf58_equal_numeric_amount_different_policy_not_compatible",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf58_same_policy_id_version_different_full_body_not_compatible"
+      ]
+    },
+    "SMTF59": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf59_same_child_policy_body_still_needs_bridge"
+      ]
+    },
+    "SMTF60": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[semantic_state]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_amount]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_coordinate]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_mode]"
+      ]
+    },
+    "SMTF61": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[semantic_state]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_amount]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_coordinate]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_mode]"
+      ]
+    },
+    "SMTF62": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[semantic_state]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_amount]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_coordinate]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_mode]"
+      ]
+    },
+    "SMTF63": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[semantic_state]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_amount]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_coordinate]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf60_smtf61_smtf62_smtf63_complete_mapping_identity[source_mode]"
+      ]
+    },
+    "SMTF64": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf64_direct_signal_is_exact_bridge_key"
+      ]
+    },
+    "SMTF65": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf65_detached_mapping_rejected"
+      ]
+    },
+    "SMTF66": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf66_duplicate_or_contradictory_admission[False]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf66_duplicate_or_contradictory_admission[True]"
+      ]
+    },
+    "SMTF67": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf67_equivalent_fraction_duplicate_key"
+      ]
+    },
+    "SMTF68": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf68_no_first_or_last_rule_wins[id]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf68_no_first_or_last_rule_wins[key]"
+      ]
+    },
+    "SMTF69": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf69_policy_mapping_kind_exact"
+      ]
+    },
+    "SMTF70": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_DISLIKE-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_LIKE--1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_NEUTRAL-1]"
+      ]
+    },
+    "SMTF71": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_DISLIKE-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_LIKE--1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_NEUTRAL-1]"
+      ]
+    },
+    "SMTF72": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_DISLIKE-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_LIKE--1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf70_smtf71_smtf72_fit_sign_and_zero_preserved[DECLARED_NEUTRAL-1]"
+      ]
+    },
+    "SMTF73": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf73_no_interpolation_identity_or_zero_fallback"
+      ]
+    },
+    "SMTF74": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf74_independent_exact_rational_reference",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf74_weighted_products_unbounded_but_final_fit_bounded"
+      ]
+    },
+    "SMTF75": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf75_single_member_has_new_descriptor_and_bridge"
+      ]
+    },
+    "SMTF76": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf76_missing_weight_rejected_even_unavailable"
+      ]
+    },
+    "SMTF77": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf77_duplicate_extra_weights_reject[duplicate]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf77_duplicate_extra_weights_reject[extra]"
+      ]
+    },
+    "SMTF78": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_amounts_strict_and_bounded[0.1-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_amounts_strict_and_bounded[1-0]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_amounts_strict_and_bounded[1-False]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_amounts_strict_and_bounded[2-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_amounts_strict_and_bounded[True-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_amounts_strict_and_bounded[inf-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[-1-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[0-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[1--1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[1-0.5]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[1-0]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[1-False]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[1.0-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[True-1]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf78_strict_authored_rationals[inf-1]"
+      ]
+    },
+    "SMTF79": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[portion]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf79_smtf80_portions_and_roles_not_weights"
+      ]
+    },
+    "SMTF80": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[role]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf79_smtf80_portions_and_roles_not_weights"
+      ]
+    },
+    "SMTF81": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[strength]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf81_ordinal_strength_retained_not_multiplier"
+      ]
+    },
+    "SMTF82": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf36_actual_metadata_not_extra_member_weight[history]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf82_smtf105_history_changes_identity_not_member_influence"
+      ]
+    },
+    "SMTF83": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf83_smtf107_new_set_order_normalizes_frozen_order_preserved"
+      ]
+    },
+    "SMTF84": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf84_rescaled_weights_same_amount_different_scope"
+      ]
+    },
+    "SMTF85": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf85_cancellation_is_not_neutral_declaration"
+      ]
+    },
+    "SMTF86": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf86_available_zero_unavailable_none_wire_distinct"
+      ]
+    },
+    "SMTF87": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf87_all_zero_keeps_every_weight"
+      ]
+    },
+    "SMTF88": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf88_unavailable_member_no_new_subtotal"
+      ]
+    },
+    "SMTF89": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf89_smtf95_retraction_suppresses_not_neutral"
+      ]
+    },
+    "SMTF90": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf90_child_unmapped_is_distinct_from_bridge_unmapped"
+      ]
+    },
+    "SMTF91": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf91_all_required_ids_reasons_retained"
+      ]
+    },
+    "SMTF92": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf92_dislike_survives_every_aggregate_outcome[positive]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf92_dislike_survives_every_aggregate_outcome[unavailable]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf92_dislike_survives_every_aggregate_outcome[zero]"
+      ]
+    },
+    "SMTF93": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf93_smtf94_unfavorable_prior_inheritance_not_direct_dislike[False]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf93_smtf94_unfavorable_prior_inheritance_not_direct_dislike[True]"
+      ]
+    },
+    "SMTF94": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf93_smtf94_unfavorable_prior_inheritance_not_direct_dislike[False]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf93_smtf94_unfavorable_prior_inheritance_not_direct_dislike[True]"
+      ]
+    },
+    "SMTF95": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf89_smtf95_retraction_suppresses_not_neutral"
+      ]
+    },
+    "SMTF96": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf96_grounding_safety_cannot_be_favorable_fit_rescue"
+      ]
+    },
+    "SMTF97": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf97_only_current_direct_heads_retained"
+      ]
+    },
+    "SMTF98": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf98_full_unselected_child_replay_not_only_outer_row[direct_signal]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf98_full_unselected_child_replay_not_only_outer_row[evidence_strength]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf98_full_unselected_child_replay_not_only_outer_row[reason]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf98_full_unselected_child_replay_not_only_outer_row[value]"
+      ]
+    },
+    "SMTF99": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf99_construct_copy_are_untrusted"
+      ]
+    },
+    "SMTF100": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf100_candidate_and_member_frame_require_same_owner_session",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf100_rehashed_fiction_no_authority[common_mvcc-CLAIMED]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf100_rehashed_fiction_no_authority[policy_authority-GLOBAL]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf100_rehashed_fiction_no_authority[source_origin-CANONICAL_DATABASE]"
+      ]
+    },
+    "SMTF101": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf19_full_protected_journal_retains_hidden_publications",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf101_overlapping_owner_reader_conflict_rejects"
+      ]
+    },
+    "SMTF102": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf102_global_typed_identity_registry_ignores_mutable_ingredient_labels",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf102_individually_valid_children_conflicting_unselected_typed_term"
+      ]
+    },
+    "SMTF103": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf103_review_source_clock_cannot_be_normalized_away",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf103_smtf104_exact_read_clock_allowlist_changes_full_identity"
+      ]
+    },
+    "SMTF104": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf103_smtf104_exact_read_clock_allowlist_changes_full_identity"
+      ]
+    },
+    "SMTF105": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_postgres_shared_target_tastefit.py::test_smtf19_full_protected_journal_retains_hidden_publications",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf82_smtf105_history_changes_identity_not_member_influence"
+      ]
+    },
+    "SMTF106": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf106_unavailable_states_and_policy_full_identity"
+      ]
+    },
+    "SMTF107": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf83_smtf107_new_set_order_normalizes_frozen_order_preserved"
+      ]
+    },
+    "SMTF108": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[compatibility]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[coordinate]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[coverage]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[direct_signals]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[reasons]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[value]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[weight_total]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf108_complete_semantic_validation_returns_fresh[weighted_total]"
+      ]
+    },
+    "SMTF109": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf109_actual_public_interface_zero_io",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[app.modules.learning.contracts]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[app.modules.planning.shared_target_tastefit_capture]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[app.modules.planning.utility]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[datetime]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[httpx]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[os]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[pathlib]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[psycopg]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[socket]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[sqlalchemy]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[time]"
+      ]
+    },
+    "SMTF110": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf110_no_environment_policy_or_mutable_cache",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[app.modules.learning.contracts]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[app.modules.planning.shared_target_tastefit_capture]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[app.modules.planning.utility]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[datetime]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[httpx]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[os]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[pathlib]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[psycopg]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[socket]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[sqlalchemy]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf109_smtf110_pure_core_no_io_learning_or_policy_environment[time]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf110_policy_fields_required_no_numeric_defaults"
+      ]
+    },
+    "SMTF111": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf111_mismatch_before_new_reduction[bridge]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf111_mismatch_before_new_reduction[context]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf111_mismatch_before_new_reduction[coverage]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf111_mismatch_before_new_reduction[policy]"
+      ]
+    },
+    "SMTF112": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf112_complete_authored_resource_budgets[max_members]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf112_complete_authored_resource_budgets[max_policy_bytes]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf112_complete_authored_resource_budgets[max_result_bytes]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf112_complete_authored_resource_budgets[max_source_bytes]"
+      ]
+    },
+    "SMTF113": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf113_integer_and_intermediate_budget_no_truncation"
+      ]
+    },
+    "SMTF114": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf114_stripped_or_forged_descriptors_fail[aggregation_policy_fingerprint]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf114_stripped_or_forged_descriptors_fail[retained_cohort_fingerprint]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf114_stripped_or_forged_descriptors_fail[target]"
+      ]
+    },
+    "SMTF115": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf115_no_cross_target_kind_or_whole_candidate_scalar[candidate_rank]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf115_no_cross_target_kind_or_whole_candidate_scalar[overall_fit]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf115_no_cross_target_kind_or_whole_candidate_scalar[shared_meal_utility]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf115_no_cross_target_kind_or_whole_candidate_scalar[targets]"
+      ]
+    },
+    "SMTF116": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf116_equality_requires_complete_scope[aggregation_policy_fingerprint]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf116_equality_requires_complete_scope[household_id]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf116_equality_requires_complete_scope[participant_context_fingerprint]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf116_equality_requires_complete_scope[retained_cohort_fingerprint]"
+      ]
+    },
+    "SMTF117": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf117_no_mtr039_behavioral_operands[contextual_evidence]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf117_no_mtr039_behavioral_operands[cooked]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf117_no_mtr039_behavioral_operands[forced_tradeoff]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf117_no_mtr039_behavioral_operands[learned_events]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf117_no_mtr039_behavioral_operands[operational_friction]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf117_no_mtr039_behavioral_operands[passive_assumptions]"
+      ]
+    },
+    "SMTF118": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf118_history_and_novelty_never_operands[exposure_history]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf118_history_and_novelty_never_operands[novelty]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf118_history_and_novelty_never_operands[recency_multiplier]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf118_history_and_novelty_never_operands[repeat_penalty]"
+      ]
+    },
+    "SMTF119": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf119_non_authority_literals_cannot_promote[activation_ready-True]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf119_non_authority_literals_cannot_promote[common_mvcc-CLAIMED]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf119_non_authority_literals_cannot_promote[planner_ready-0]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf119_non_authority_literals_cannot_promote[planner_ready-True]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf119_non_authority_literals_cannot_promote[policy_authority-PRODUCTION]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf119_no_capture_access_from_learning_validation[learning]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf119_no_capture_access_from_learning_validation[validation]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf119_small_three_operation_public_surface_and_lazy_capture"
+      ]
+    },
+    "SMTF120": {
+      "required_layer": "P/B",
+      "tests": [
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_all3396_baseline_test_identities_retained",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_all384_definitions_unchanged_exact_new_exports",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_all_frozen_runtime_and_migrations_byte_exact",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_immutable_transport_no_runtime_facades[app.modules.households.public]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_immutable_transport_no_runtime_facades[app.modules.planning.shared_target_tastefit_public]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_immutable_transport_no_runtime_facades[app.modules.planning.tastefit_public]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_immutable_transport_no_runtime_facades[datetime]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_immutable_transport_no_runtime_facades[sqlalchemy]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[hierarchy_sources-shared_target_tastefit]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[hierarchy_sources-shared_target_tastefit_capture]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[hierarchy_sources-shared_target_tastefit_contracts]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[profile_derivation-shared_target_tastefit]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[profile_derivation-shared_target_tastefit_capture]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[profile_derivation-shared_target_tastefit_contracts]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[reference_priors-shared_target_tastefit]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[reference_priors-shared_target_tastefit_capture]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[reference_priors-shared_target_tastefit_contracts]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[tastefit_contracts-shared_target_tastefit]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[tastefit_contracts-shared_target_tastefit_capture]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[tastefit_contracts-shared_target_tastefit_contracts]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[tastefit_public-shared_target_tastefit]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[tastefit_public-shared_target_tastefit_capture]",
+        "apps/backend/tests/test_shared_target_tastefit_architecture.py::test_smtf120_no_new_preferences_companion_or_private_access[tastefit_public-shared_target_tastefit_contracts]"
+      ]
+    }
+  }
+}

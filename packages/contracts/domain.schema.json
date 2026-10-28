@@ -19598,6 +19598,23 @@
       "title": "ScopedMemberProfileAffinity",
       "type": "object"
     },
+    "ScopedSharedMemberTargetTasteFit": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/SharedTargetTasteFitAmount"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/SharedMemberTargetTasteFitCoordinate"
+        }
+      },
+      "required": [
+        "coordinate",
+        "amount"
+      ],
+      "title": "ScopedSharedMemberTargetTasteFit",
+      "type": "object"
+    },
     "ScopedTargetTasteFit": {
       "additionalProperties": false,
       "properties": {
@@ -19751,6 +19768,1243 @@
         "idempotency_key"
       ],
       "title": "SetMemberPreferenceCommand",
+      "type": "object"
+    },
+    "SharedMemberTargetTasteFitCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Aggregation Policy Fingerprint",
+          "type": "string"
+        },
+        "binding": {
+          "$ref": "#/$defs/CandidateFeatureBinding"
+        },
+        "coordinate_id": {
+          "const": "SHARED_MEMBER_EXACT_TARGET_TASTEFIT",
+          "default": "SHARED_MEMBER_EXACT_TARGET_TASTEFIT",
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "coordinate_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Coordinate Version",
+          "type": "integer"
+        },
+        "grounding_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Grounding Fingerprint",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "participant_context_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Participant Context Fingerprint",
+          "type": "string"
+        },
+        "retained_cohort_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Retained Cohort Fingerprint",
+          "type": "string"
+        },
+        "scope": {
+          "const": "ONE_CANDIDATE_ONE_TARGET_EXACT_PARTICIPANTS_ONE_POLICY_ONE_RETAINED_COHORT",
+          "default": "ONE_CANDIDATE_ONE_TARGET_EXACT_PARTICIPANTS_ONE_POLICY_ONE_RETAINED_COHORT",
+          "title": "Scope",
+          "type": "string"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "unit": {
+          "const": "POLICY_SHARED_EXACT_TARGET_TASTEFIT_UNITS",
+          "default": "POLICY_SHARED_EXACT_TARGET_TASTEFIT_UNITS",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "binding",
+        "grounding_fingerprint",
+        "target",
+        "participant_context_fingerprint",
+        "aggregation_policy_fingerprint",
+        "retained_cohort_fingerprint"
+      ],
+      "title": "SharedMemberTargetTasteFitCoordinate",
+      "type": "object"
+    },
+    "SharedMemberTargetTasteFitDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "aggregate_availability": {
+          "enum": [
+            "AVAILABLE",
+            "UNAVAILABLE"
+          ],
+          "title": "Aggregate Availability",
+          "type": "string"
+        },
+        "candidate_comparison": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Candidate Comparison",
+          "type": "string"
+        },
+        "cohort": {
+          "$ref": "#/$defs/SharedTasteFitCohortProof"
+        },
+        "common_mvcc": {
+          "const": "NOT_CLAIMED",
+          "default": "NOT_CLAIMED",
+          "title": "Common Mvcc",
+          "type": "string"
+        },
+        "compatibility": {
+          "$ref": "#/$defs/SharedTasteFitCompatibilityDecision"
+        },
+        "contextual_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Contextual Evidence",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "candidate-shared-member-target-tastefit.v1-draft",
+          "default": "candidate-shared-member-target-tastefit.v1-draft",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "contributions": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitMemberContribution"
+          },
+          "title": "Contributions",
+          "type": "array"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/SharedMemberTargetTasteFitCoordinate"
+        },
+        "coverage": {
+          "$ref": "#/$defs/SharedTasteFitCoverage"
+        },
+        "cross_kind_reduction": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Kind Reduction",
+          "type": "string"
+        },
+        "cross_target_reduction": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Cross Target Reduction",
+          "type": "string"
+        },
+        "direct_dislikes": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitDirectSignalTrace"
+          },
+          "title": "Direct Dislikes",
+          "type": "array"
+        },
+        "direct_signals": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitDirectSignalTrace"
+          },
+          "title": "Direct Signals",
+          "type": "array"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "default": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "learned_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Learned Evidence",
+          "type": "string"
+        },
+        "novelty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Novelty",
+          "type": "string"
+        },
+        "operator": {
+          "const": "EXACT_POSITIVE_WEIGHTED_MEAN",
+          "default": "EXACT_POSITIVE_WEIGHTED_MEAN",
+          "title": "Operator",
+          "type": "string"
+        },
+        "passive_evidence": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Passive Evidence",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_authority": {
+          "const": "EXPLICIT_INTERPRETATION_INPUT_ONLY",
+          "default": "EXPLICIT_INTERPRETATION_INPUT_ONLY",
+          "title": "Policy Authority",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "repeat_penalty": {
+          "const": "UNAVAILABLE",
+          "default": "UNAVAILABLE",
+          "title": "Repeat Penalty",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "RETAINED_EVIDENCE_NOT_OFFLINE_ORIGIN_PROOF",
+          "default": "RETAINED_EVIDENCE_NOT_OFFLINE_ORIGIN_PROOF",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "sources": {
+          "$ref": "#/$defs/SharedMemberTargetTasteFitSources"
+        },
+        "status": {
+          "const": "DERIVED",
+          "default": "DERIVED",
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScopedSharedMemberTargetTasteFit"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weight_total": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SharedTasteFitRationalTrace"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weighted_total": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SharedTasteFitRationalTrace"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "whole_candidate_scalar": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Whole Candidate Scalar",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sources",
+        "cohort",
+        "compatibility",
+        "coverage",
+        "contributions",
+        "direct_signals",
+        "direct_dislikes",
+        "coordinate",
+        "value",
+        "weight_total",
+        "weighted_total",
+        "aggregate_availability",
+        "reasons",
+        "fingerprint"
+      ],
+      "title": "SharedMemberTargetTasteFitDraft",
+      "type": "object"
+    },
+    "SharedMemberTargetTasteFitPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "bridge_rules": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitBridgeRule"
+          },
+          "minItems": 1,
+          "title": "Bridge Rules",
+          "type": "array"
+        },
+        "compatibility": {
+          "const": "FINITE_PINNED_CHILD_MAPPING_BRIDGES",
+          "title": "Compatibility",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "candidate-shared-member-target-tastefit-policy.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "direct_signal_effect": {
+          "const": "RETAIN_SEPARATELY_NO_IMPLICIT_VETO_OR_WEIGHT",
+          "title": "Direct Signal Effect",
+          "type": "string"
+        },
+        "evidence_strength_effect": {
+          "const": "LINEAGE_ONLY",
+          "title": "Evidence Strength Effect",
+          "type": "string"
+        },
+        "incomplete_coverage": {
+          "const": "WITHHOLD_AGGREGATE",
+          "title": "Incomplete Coverage",
+          "type": "string"
+        },
+        "interpretation_mode": {
+          "const": "VERSIONED_CONSUMER_POLICY_REPLAY",
+          "title": "Interpretation Mode",
+          "type": "string"
+        },
+        "max_integer_bits": {
+          "exclusiveMinimum": 0,
+          "title": "Max Integer Bits",
+          "type": "integer"
+        },
+        "max_members": {
+          "exclusiveMinimum": 0,
+          "title": "Max Members",
+          "type": "integer"
+        },
+        "max_policy_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Max Policy Bytes",
+          "type": "integer"
+        },
+        "max_result_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Max Result Bytes",
+          "type": "integer"
+        },
+        "max_source_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Max Source Bytes",
+          "type": "integer"
+        },
+        "member_weights": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitMemberWeight"
+          },
+          "minItems": 1,
+          "title": "Member Weights",
+          "type": "array"
+        },
+        "operator": {
+          "const": "EXACT_POSITIVE_WEIGHTED_MEAN",
+          "title": "Operator",
+          "type": "string"
+        },
+        "participant_scope": {
+          "const": "EXACT_CANONICAL_PARTICIPANTS",
+          "title": "Participant Scope",
+          "type": "string"
+        },
+        "policy_admissions": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitPolicyAdmission"
+          },
+          "minItems": 1,
+          "title": "Policy Admissions",
+          "type": "array"
+        },
+        "policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract_version",
+        "policy_id",
+        "policy_version",
+        "provenance",
+        "interpretation_mode",
+        "target_kind",
+        "participant_scope",
+        "compatibility",
+        "policy_admissions",
+        "bridge_rules",
+        "member_weights",
+        "operator",
+        "incomplete_coverage",
+        "direct_signal_effect",
+        "evidence_strength_effect",
+        "max_members",
+        "max_policy_bytes",
+        "max_source_bytes",
+        "max_result_bytes",
+        "max_integer_bits"
+      ],
+      "title": "SharedMemberTargetTasteFitPolicy",
+      "type": "object"
+    },
+    "SharedMemberTargetTasteFitRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "candidate-shared-member-target-tastefit-request.v1",
+          "default": "candidate-shared-member-target-tastefit-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Expected Policy Fingerprint",
+          "type": "string"
+        },
+        "expected_policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Id",
+          "type": "string"
+        },
+        "expected_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Version",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitMemberInput"
+          },
+          "minItems": 1,
+          "title": "Members",
+          "type": "array"
+        },
+        "policy": {
+          "$ref": "#/$defs/SharedMemberTargetTasteFitPolicy"
+        },
+        "projection_mode": {
+          "const": "FRESH_CANONICAL_CHILD_CAPTURE",
+          "title": "Projection Mode",
+          "type": "string"
+        },
+        "projection_request": {
+          "$ref": "#/$defs/CandidateFeatureProjectionRequest"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "household_id",
+        "projection_request",
+        "target",
+        "members",
+        "projection_mode",
+        "policy",
+        "expected_policy_id",
+        "expected_policy_version",
+        "expected_policy_fingerprint"
+      ],
+      "title": "SharedMemberTargetTasteFitRequest",
+      "type": "object"
+    },
+    "SharedMemberTargetTasteFitSources": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_completed_at": {
+          "format": "date-time",
+          "title": "Capture Completed At",
+          "type": "string"
+        },
+        "capture_started_at": {
+          "format": "date-time",
+          "title": "Capture Started At",
+          "type": "string"
+        },
+        "children": {
+          "items": {
+            "$ref": "#/$defs/CandidateMemberTasteFitDraft"
+          },
+          "title": "Children",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "candidate-shared-member-target-tastefit-sources.v1",
+          "default": "candidate-shared-member-target-tastefit-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        },
+        "owner_frames": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "$ref": "#/$defs/TasteFitCaptureFrame"
+                },
+                "type": "array"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Owner Frames",
+          "type": "array"
+        },
+        "request": {
+          "$ref": "#/$defs/SharedMemberTargetTasteFitRequest"
+        }
+      },
+      "required": [
+        "request",
+        "children",
+        "owner_frames",
+        "capture_started_at",
+        "capture_completed_at",
+        "fingerprint"
+      ],
+      "title": "SharedMemberTargetTasteFitSources",
+      "type": "object"
+    },
+    "SharedTargetTasteFitAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "SharedTargetTasteFitAmount",
+      "type": "object"
+    },
+    "SharedTasteFitBridgeRule": {
+      "additionalProperties": false,
+      "properties": {
+        "admission": {
+          "$ref": "#/$defs/SharedTasteFitPolicyAdmission"
+        },
+        "direct_signal": {
+          "enum": [
+            "NONE",
+            "DECLARED_LIKE",
+            "DECLARED_DISLIKE",
+            "DECLARED_NEUTRAL"
+          ],
+          "title": "Direct Signal",
+          "type": "string"
+        },
+        "mapped_amount": {
+          "$ref": "#/$defs/SharedTargetTasteFitAmount"
+        },
+        "mapping": {
+          "$ref": "#/$defs/TasteFitMappingRow"
+        },
+        "rule_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "target_kind": {
+          "enum": [
+            "INGREDIENT",
+            "DIRECT_RECIPE",
+            "PROTEIN",
+            "METHOD",
+            "FLAVOR"
+          ],
+          "title": "Target Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "admission",
+        "target_kind",
+        "mapping",
+        "direct_signal",
+        "mapped_amount"
+      ],
+      "title": "SharedTasteFitBridgeRule",
+      "type": "object"
+    },
+    "SharedTasteFitCohortProof": {
+      "additionalProperties": false,
+      "properties": {
+        "binding": {
+          "$ref": "#/$defs/CandidateFeatureBinding"
+        },
+        "child_identities": {
+          "items": {
+            "maxItems": 4,
+            "minItems": 4,
+            "prefixItems": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Child Identities",
+          "type": "array"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "integrity_projection_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Integrity Projection Fingerprint",
+          "type": "string"
+        },
+        "participant_context_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Participant Context Fingerprint",
+          "type": "string"
+        },
+        "participants": {
+          "$ref": "#/$defs/MealParticipants"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        },
+        "tracked_member_id": {
+          "format": "uuid",
+          "title": "Tracked Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "household_id",
+        "binding",
+        "target",
+        "participants",
+        "tracked_member_id",
+        "participant_context_fingerprint",
+        "integrity_projection_fingerprint",
+        "child_identities"
+      ],
+      "title": "SharedTasteFitCohortProof",
+      "type": "object"
+    },
+    "SharedTasteFitCompatibilityDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "compatible_member_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Compatible Member Ids",
+          "type": "array"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/SharedTasteFitMemberDiagnostic"
+          },
+          "title": "Members",
+          "type": "array"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "COMPATIBLE",
+            "INCOMPATIBLE",
+            "NOT_EVALUABLE"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "members",
+        "compatible_member_ids",
+        "reasons"
+      ],
+      "title": "SharedTasteFitCompatibilityDecision",
+      "type": "object"
+    },
+    "SharedTasteFitCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "available_count": {
+          "minimum": 0,
+          "title": "Available Count",
+          "type": "integer"
+        },
+        "available_member_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Available Member Ids",
+          "type": "array"
+        },
+        "captured_count": {
+          "exclusiveMinimum": 0,
+          "title": "Captured Count",
+          "type": "integer"
+        },
+        "captured_member_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Captured Member Ids",
+          "type": "array"
+        },
+        "compatible_count": {
+          "minimum": 0,
+          "title": "Compatible Count",
+          "type": "integer"
+        },
+        "compatible_member_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Compatible Member Ids",
+          "type": "array"
+        },
+        "numeric_coverage": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE"
+          ],
+          "title": "Numeric Coverage",
+          "type": "string"
+        },
+        "required_count": {
+          "exclusiveMinimum": 0,
+          "title": "Required Count",
+          "type": "integer"
+        },
+        "required_member_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Required Member Ids",
+          "type": "array"
+        },
+        "source_coverage": {
+          "const": "COMPLETE",
+          "default": "COMPLETE",
+          "title": "Source Coverage",
+          "type": "string"
+        }
+      },
+      "required": [
+        "numeric_coverage",
+        "required_member_ids",
+        "captured_member_ids",
+        "available_member_ids",
+        "compatible_member_ids",
+        "required_count",
+        "captured_count",
+        "available_count",
+        "compatible_count"
+      ],
+      "title": "SharedTasteFitCoverage",
+      "type": "object"
+    },
+    "SharedTasteFitDirectSignalTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "child_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Child Fingerprint",
+          "type": "string"
+        },
+        "declaration_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Declaration Id"
+        },
+        "direct_signal": {
+          "enum": [
+            "NONE",
+            "DECLARED_LIKE",
+            "DECLARED_DISLIKE",
+            "DECLARED_NEUTRAL"
+          ],
+          "title": "Direct Signal",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "row": {
+          "$ref": "#/$defs/TasteFitTargetInterpretation"
+        },
+        "target": {
+          "discriminator": {
+            "mapping": {
+              "DIRECT_RECIPE": "#/$defs/RecipePreferenceTarget",
+              "FLAVOR": "#/$defs/FeaturePreferenceTarget",
+              "INGREDIENT": "#/$defs/IngredientPreferenceTarget",
+              "METHOD": "#/$defs/FeaturePreferenceTarget",
+              "PROTEIN": "#/$defs/FeaturePreferenceTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IngredientPreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/RecipePreferenceTarget"
+            },
+            {
+              "$ref": "#/$defs/FeaturePreferenceTarget"
+            }
+          ],
+          "title": "Target"
+        }
+      },
+      "required": [
+        "member_id",
+        "target",
+        "direct_signal",
+        "declaration_id",
+        "child_fingerprint",
+        "row"
+      ],
+      "title": "SharedTasteFitDirectSignalTrace",
+      "type": "object"
+    },
+    "SharedTasteFitMemberContribution": {
+      "additionalProperties": false,
+      "properties": {
+        "authored_weight": {
+          "$ref": "#/$defs/SharedTasteFitMemberWeight"
+        },
+        "common_operand": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScopedSharedMemberTargetTasteFit"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "diagnostic": {
+          "$ref": "#/$defs/SharedTasteFitMemberDiagnostic"
+        },
+        "original_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScopedTargetTasteFit"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "selected_bridge": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SharedTasteFitBridgeRule"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weighted_contribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SharedTasteFitRationalTrace"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "diagnostic",
+        "selected_bridge",
+        "original_value",
+        "authored_weight",
+        "common_operand",
+        "weighted_contribution"
+      ],
+      "title": "SharedTasteFitMemberContribution",
+      "type": "object"
+    },
+    "SharedTasteFitMemberDiagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "child_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Child Fingerprint",
+          "type": "string"
+        },
+        "compatibility": {
+          "enum": [
+            "COMPATIBLE",
+            "INCOMPATIBLE",
+            "NOT_EVALUABLE"
+          ],
+          "title": "Compatibility",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "row": {
+          "$ref": "#/$defs/TasteFitTargetInterpretation"
+        }
+      },
+      "required": [
+        "member_id",
+        "child_fingerprint",
+        "row",
+        "compatibility",
+        "reasons"
+      ],
+      "title": "SharedTasteFitMemberDiagnostic",
+      "type": "object"
+    },
+    "SharedTasteFitMemberInput": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Expected Policy Fingerprint",
+          "type": "string"
+        },
+        "expected_policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Id",
+          "type": "string"
+        },
+        "expected_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Version",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "member_interpretation": {
+          "$ref": "#/$defs/TasteFitMemberInterpretationPlan"
+        },
+        "policy": {
+          "$ref": "#/$defs/TasteFitInterpretationPolicy"
+        }
+      },
+      "required": [
+        "policy",
+        "expected_policy_id",
+        "expected_policy_version",
+        "expected_policy_fingerprint",
+        "member_id",
+        "member_interpretation"
+      ],
+      "title": "SharedTasteFitMemberInput",
+      "type": "object"
+    },
+    "SharedTasteFitMemberWeight": {
+      "additionalProperties": false,
+      "properties": {
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "weight": {
+          "$ref": "#/$defs/SharedTasteFitWeight"
+        }
+      },
+      "required": [
+        "member_id",
+        "weight"
+      ],
+      "title": "SharedTasteFitMemberWeight",
+      "type": "object"
+    },
+    "SharedTasteFitPolicyAdmission": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_policy_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Expected Policy Fingerprint",
+          "type": "string"
+        },
+        "expected_policy_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Id",
+          "type": "string"
+        },
+        "expected_policy_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Expected Policy Version",
+          "type": "string"
+        },
+        "policy": {
+          "$ref": "#/$defs/TasteFitInterpretationPolicy"
+        }
+      },
+      "required": [
+        "policy",
+        "expected_policy_id",
+        "expected_policy_version",
+        "expected_policy_fingerprint"
+      ],
+      "title": "SharedTasteFitPolicyAdmission",
+      "type": "object"
+    },
+    "SharedTasteFitRationalTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate": {
+          "$ref": "#/$defs/SharedMemberTargetTasteFitCoordinate"
+        },
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "title": "Numerator",
+          "type": "integer"
+        },
+        "unit": {
+          "enum": [
+            "MEMBER_INFLUENCE",
+            "MEMBER_INFLUENCE_X_SHARED_TARGET_FIT"
+          ],
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator",
+        "coordinate",
+        "unit"
+      ],
+      "title": "SharedTasteFitRationalTrace",
+      "type": "object"
+    },
+    "SharedTasteFitWeight": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "SharedTasteFitWeight",
       "type": "object"
     },
     "ShoppingDemandContributionIntent": {

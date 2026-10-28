@@ -121,6 +121,29 @@ TASTEFIT_TRANSPORT_IMPORTS = {
     },
 }
 
+# Additive shared-target Modules consume frozen Planning children only. These
+# exact guards do not extend TASTEFIT_COMPANIONS or any existing context grant.
+SHARED_TARGET_IMPORTS = {
+    "app.modules.planning.shared_target_tastefit_contracts": {
+        "math", "typing", "uuid", "pydantic", "app.domain.contracts",
+        "app.domain.feature_identity", "app.domain.units", "app.modules.households.contracts",
+        "app.modules.planning.contracts", "app.modules.planning.tastefit_contracts",
+    },
+    "app.modules.planning.shared_target_tastefit": {
+        "fractions", "math", "pydantic", "app.domain.feature_identity", "app.domain.resolution",
+        "app.modules.planning.shared_target_tastefit_contracts",
+        "app.modules.planning.tastefit_contracts", "app.modules.planning.tastefit_public",
+    },
+    "app.modules.planning.shared_target_tastefit_capture": {
+        "sqlalchemy", "app.domain.resolution",
+        "app.modules.planning.candidate_feature_capture",
+        "app.modules.planning.candidate_feature_projection",
+        "app.modules.planning.shared_target_tastefit",
+        "app.modules.planning.shared_target_tastefit_contracts",
+        "app.modules.planning.tastefit_public",
+    },
+}
+
 
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
@@ -137,6 +160,27 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     }
 
     def audit(target, line):
+        if module in SHARED_TARGET_IMPORTS and not any(
+            target == p or target.startswith(p + ".") for p in SHARED_TARGET_IMPORTS[module]
+        ):
+            errors.append(f"{line}: SHARED_TARGET_TASTEFIT_BOUNDARY: {target}")
+        if module == "app.modules.planning.shared_target_tastefit_public":
+            functions = {
+                fn.name for fn in tree.body if isinstance(fn, ast.FunctionDef)
+                for n in ast.walk(fn) if isinstance(n, ast.ImportFrom) and n.lineno == line
+            }
+            capture = target == (
+                "app.modules.planning.shared_target_tastefit_capture."
+                "capture_shared_member_target_tastefit_sources"
+            ) and functions == {"capture_shared_member_target_tastefit_sources"}
+            pure = target in {
+                "app.modules.planning.shared_target_tastefit.derive_shared_member_target_tastefit",
+                "app.modules.planning.shared_target_tastefit.validate_shared_member_target_tastefit",
+            } and functions <= {
+                "derive_shared_member_target_tastefit", "validate_shared_member_target_tastefit"
+            } and bool(functions)
+            if not capture and not pure:
+                errors.append(f"{line}: SHARED_TARGET_TASTEFIT_PUBLIC: {target}")
         if module in TASTEFIT_TRANSPORT_IMPORTS and not any(
             target == p or target.startswith(p + ".")
             for p in TASTEFIT_TRANSPORT_IMPORTS[module]
