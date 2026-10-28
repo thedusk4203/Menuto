@@ -414,6 +414,16 @@ def test_smtf74_weighted_products_unbounded_but_final_fit_bounded(source):
     assert all(v.weighted_contribution.coordinate == r.coordinate for v in r.contributions)
 
 
+def test_smtf74_positive_fractional_weights_keep_exact_nonunit_total(source):
+    body = policy_body(source)
+    for weight, (n, d) in zip(body["member_weights"], ((3, 7), (2, 5)), strict=True):
+        weight["weight"] = dict(numerator=n, denominator=d)
+    s = replace_policy(source, c.SharedMemberTargetTasteFitPolicy.model_validate(body))
+    r = derive(s)
+    assert Fraction(r.weight_total.numerator, r.weight_total.denominator) == Fraction(29, 35)
+    test_smtf74_independent_exact_rational_reference(s)
+
+
 def test_smtf75_single_member_has_new_descriptor_and_bridge():
     s = make_cohort(states=("LIKE",))
     r = derive(s)
@@ -923,6 +933,22 @@ def test_smtf113_integer_and_intermediate_budget_no_truncation(source):
     bad(raw, code="RESOURCE_LIMIT")
     with pytest.raises(ResolutionError, match="product budget"):
         core._multiply(Fraction((1 << 40) - 1, 1), Fraction((1 << 39) - 1, (1 << 40) - 3), 64)
+
+
+def test_smtf113_huge_authored_bit_budget_tiny_operands_no_huge_allocation(source):
+    changed = policy_source(source, max_integer_bits=10**12)
+    assert derive(changed).value.amount == derive(source).value.amount
+
+
+@pytest.mark.parametrize(
+    "a,b,expected", [(127, 128, 255), (128, 128, None), (-128, 128, 0), (-128, -128, None)]
+)
+def test_smtf113_exact_carry_budget_and_cancellation(a, b, expected):
+    if expected is None:
+        with pytest.raises(ResolutionError, match="sum budget"):
+            core._add(Fraction(a), Fraction(b), 8)
+    else:
+        assert core._add(Fraction(a), Fraction(b), 8) == Fraction(expected)
 
 
 @pytest.mark.parametrize(

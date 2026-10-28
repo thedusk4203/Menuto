@@ -486,6 +486,7 @@
       "required_layer": "P/B",
       "tests": [
         "apps/backend/tests/test_shared_target_tastefit.py::test_smtf74_independent_exact_rational_reference",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf74_positive_fractional_weights_keep_exact_nonunit_total",
         "apps/backend/tests/test_shared_target_tastefit.py::test_smtf74_weighted_products_unbounded_but_final_fit_bounded"
       ]
     },
@@ -789,6 +790,11 @@
     "SMTF113": {
       "required_layer": "P/B",
       "tests": [
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf113_exact_carry_budget_and_cancellation[-128--128-None]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf113_exact_carry_budget_and_cancellation[-128-128-0]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf113_exact_carry_budget_and_cancellation[127-128-255]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf113_exact_carry_budget_and_cancellation[128-128-None]",
+        "apps/backend/tests/test_shared_target_tastefit.py::test_smtf113_huge_authored_bit_budget_tiny_operands_no_huge_allocation",
         "apps/backend/tests/test_shared_target_tastefit.py::test_smtf113_integer_and_intermediate_budget_no_truncation"
       ]
     },

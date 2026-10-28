@@ -347,7 +347,14 @@ def _add(a, b, limit):
     divisor = gcd(a.denominator, b.denominator)
     left = _multiply_int(a.numerator, b.denominator // divisor, limit)
     right = _multiply_int(b.numerator, a.denominator // divisor, limit)
-    if left and right and (left > 0) == (right > 0):
+    # Only materialize the carry threshold when the actual operands can reach
+    # that budget. A huge authored limit with tiny operands must stay cheap.
+    if (
+        left
+        and right
+        and (left > 0) == (right > 0)
+        and max(abs(left).bit_length(), abs(right).bit_length()) + 1 > limit
+    ):
         if abs(left) > ((1 << limit) - 1) - abs(right):
             _fail("RESOURCE_LIMIT", "Arithmetic sum budget exceeded")
     numerator = _integer(left + right, limit)
