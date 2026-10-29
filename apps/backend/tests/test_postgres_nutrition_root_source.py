@@ -179,6 +179,57 @@ def test_nrc04_unsafe_graph_rechecked_before_old_receipt(nrc_server, unsafe):
     assert append(s, "self", s["goal"].command).id == s["goal"].id
 
 
+def test_nrc04_global_server_privileges_and_unscoped_reads_are_not_source_authority(nrc_server):
+    s = prepare_nrc(nrc_server)
+    role = s["names"]["self"]
+    groups = (
+        "pg_read_all_data",
+        "pg_write_all_data",
+        "pg_read_server_files",
+        "pg_write_server_files",
+        "pg_execute_server_program",
+        "pg_maintain",
+    )
+    for group in groups:
+        with s["engines"]["root"].begin() as root:
+            with root.connection.driver_connection.cursor() as cur:
+                cur.execute(
+                    sql.SQL("GRANT {} TO {}").format(sql.Identifier(group), sql.Identifier(role))
+                )
+        try:
+            with pytest.raises(DBAPIError, match="Unsafe"):
+                append(s, "self", s["goal"].command)
+            with reader(s, "self") as db, pytest.raises(DBAPIError, match="Unsafe"):
+                capture_nutrition_root_sources(db, root_request(s))
+        finally:
+            with s["engines"]["root"].begin() as root:
+                with root.connection.driver_connection.cursor() as cur:
+                    cur.execute(
+                        sql.SQL("REVOKE {} FROM {}").format(
+                            sql.Identifier(group), sql.Identifier(role)
+                        )
+                    )
+    with s["engines"]["root"].begin() as root:
+        with root.connection.driver_connection.cursor() as cur:
+            cur.execute(
+                sql.SQL("GRANT SELECT ON public.nutrition_goal_revisions TO {}").format(
+                    sql.Identifier(role)
+                )
+            )
+    try:
+        with pytest.raises(DBAPIError, match="unscoped source reads"):
+            append(s, "self", s["goal"].command)
+    finally:
+        with s["engines"]["root"].begin() as root:
+            with root.connection.driver_connection.cursor() as cur:
+                cur.execute(
+                    sql.SQL("REVOKE SELECT ON public.nutrition_goal_revisions FROM {}").format(
+                        sql.Identifier(role)
+                    )
+                )
+    assert append(s, "self", s["goal"].command).id == s["goal"].id
+
+
 def test_nrc05_provider_household_and_foreign_source_grants_do_not_transfer(nrc_server):
     a = prepare_nrc(nrc_server)
     b = prepare_nrc(nrc_server)

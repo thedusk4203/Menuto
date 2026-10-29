@@ -178,7 +178,7 @@ def test_nrc78_all3638_baseline_test_identities_retained():
     for case, proof in acceptance.items():
         assert proof["tests"] and all("test_" + case.lower() + "_" in t for t in proof["tests"])
         assert not set(map(normalized, proof["tests"])) - set(map(normalized, actual)), case
-    assert sum(len(p["tests"]) for p in acceptance.values() if p["layer"] == "PG") == 65
+    assert sum(len(p["tests"]) for p in acceptance.values() if p["layer"] == "PG") == 66
 
 
 def test_nrc79_test_fixtures_do_not_approve_production_content():

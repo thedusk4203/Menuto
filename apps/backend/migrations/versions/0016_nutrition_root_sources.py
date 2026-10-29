@@ -409,6 +409,8 @@ DECLARE r record; dbowner oid; BEGIN
  IF r.oid IS NULL OR NOT r.rolcanlogin OR r.oid=dbowner OR
   EXISTS (SELECT FROM pg_catalog.pg_roles x WHERE
    (x.rolsuper OR x.rolcreaterole OR x.rolcreatedb OR x.rolreplication OR x.rolbypassrls OR x.oid=dbowner
+    OR x.rolname IN ('pg_read_all_data','pg_write_all_data','pg_read_server_files','pg_write_server_files',
+      'pg_execute_server_program','pg_signal_backend','pg_maintain','pg_checkpoint','pg_create_subscription')
     OR x.rolname ~ '^menuto_.*_owner$' OR (x.rolname ~ '^menuto_.*_admin$' AND (NOT admin_mode OR x.rolname<>'menuto_nutrition_admin')))
    AND pg_catalog.pg_has_role(r.oid,x.oid,'MEMBER')) OR
   has_schema_privilege(login,'menuto_nutrition','CREATE') THEN
@@ -419,8 +421,8 @@ DECLARE r record; dbowner oid; BEGIN
     ('nutrition_source_providers','nutrition_source_principals','nutrition_source_streams','nutrition_source_receipts',
      'nutrition_source_authority','nutrition_guideline_drafts','nutrition_guideline_reviews','nutrition_guideline_publications',
      'nutrition_member_delegations','nutrition_physiology_revisions','nutrition_eligibility_revisions','nutrition_goal_revisions','nutrition_source_evidence_artifacts')
-   AND (has_table_privilege(login,c.oid,'INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') OR c.relowner=r.oid)) THEN
-  RAISE EXCEPTION 'Source login has direct mutation privileges' USING ERRCODE='42501';
+   AND (has_table_privilege(login,c.oid,'SELECT,INSERT,UPDATE,DELETE,TRUNCATE,TRIGGER') OR c.relowner=r.oid)) THEN
+  RAISE EXCEPTION 'Source login has direct mutation privileges or unscoped source reads' USING ERRCODE='42501';
  END IF;
 END $$;
 CREATE FUNCTION menuto_nutrition.session_fact(admin_mode boolean) RETURNS jsonb LANGUAGE plpgsql STABLE

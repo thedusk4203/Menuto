@@ -92,7 +92,7 @@ Nutrition owner receives only the specifically required legacy member/profile SE
 
 `system_user` reconstructs SCRAM-authenticated identity from the actual session. The path rejects
 trust/missing/wrong credentials, SET ROLE as authorship, shared-login actor claims, superuser,
-database/source owner, admin-as-runtime, unsafe role membership/ownership/direct-DML graphs and
+database/source owner, admin-as-runtime, unsafe role membership/ownership/direct-DML/unscoped-SELECT graphs, privileged global data/server-file/program roles and
 writable-schema/temp-shadow escalation. Remote adapters require verify-full TLS; actual certificate
 verification, password rotation and drop/recreated-role OID isolation are integration-tested.
 
@@ -209,7 +209,7 @@ Protected SQL inventory: five callable entry points above, plus55 private helper
 ## 8. Executed acceptance matrix — NRC01–NRC80
 
 The machine-readable [acceptance map](../../apps/backend/tests/fixtures/nutrition_root_acceptance.json)
-pins all80 cases to parameter-expanded test IDs. **143 additive executions**: PG65, pure replay31,
+pins all80 cases to parameter-expanded test IDs. **144 additive executions**: PG66, pure replay31,
 independent Validation25, architecture/compatibility22. **All32 mandatory real PG obligations** run
 against actual protected PostgreSQL paths with real SCRAM actors, committed/concurrent mutation,
 recapture, certificate checks and physical migration/restore; no mocked or collection-only PG proof.
@@ -221,7 +221,7 @@ retained semantic consistency, not a currently trusted database or live credenti
 | NRC01 | PG | 1 | Empty enrollment/source installation grants nobody publication or default content; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
 | NRC02 | PG | 3 | Real SCRAM success; missing/wrong credential and trust authentication denied; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
 | NRC03 | PG | 1 | Actual database/role identity binding; SET ROLE, forged actor/session data rejected; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
-| NRC04 | PG | 5 | Unsafe/elevated/direct-DML privilege graphs rejected and rechecked after enrollment; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
+| NRC04 | PG | 6 | Unsafe/elevated/direct-DML privilege graphs rejected and rechecked after enrollment; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
 | NRC05 | PG | 1 | Guideline provider/remit capability isolation; prior/hierarchy/household grants do not transfer; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
 | NRC06 | PG | 1 | Actual guideline REVIEW with scientific evidence body/version pin; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
 | NRC07 | PG | 1 | PUBLISH requires current publisher plus exact active content-review receipt; [test_postgres_nutrition_root_source.py](../../apps/backend/tests/test_postgres_nutrition_root_source.py) |
@@ -307,10 +307,13 @@ legacy current-head metadata/append-only composition assertions failed. Those si
 mechanically (new bundle/migration/table/export inventory and exact old composition prefix), then
 **all six passed**. A subsequent103-test compatibility/architecture/SCRAM-TLS gate passed.
 The final single-run combined regression gate is the **exact implementation-head Foundation CI**;
-its run ID/result/full3,781 count must be pinned in the implementation PR verification receipt
-before this candidate is presented as ready. No different-SHA or pre-final CI is substituted.
+its run ID/result/full3,782 count must be pinned in the implementation PR verification receipt
+before this candidate is presented as ready. A final real PG privilege-graph regression adds one
+execution after that initial corpus:144 additive cases,3,782 combined. Global read/write, server-file,
+server-program and maintenance roles, plus direct unscoped source SELECT, are rejected before an
+old receipt or capture can be returned. No different-SHA or pre-final CI is substituted.
 
-The acceptance run passed143/143 with65 real PG executions and zero skips. Frozen baseline
+The acceptance run passed144/144 with66 real PG executions and zero skips. Frozen baseline
 identity guard retains all3,638 test IDs. Existing test edits only synchronize current migration/
 table/export totals; old test identities/assertions about frozen feature semantics remain.
 Source definition pins retain **all403 old bodies/hashes** and add44: **447 total exports**.

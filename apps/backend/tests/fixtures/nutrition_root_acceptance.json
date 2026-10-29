@@ -29,7 +29,8 @@
         "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[source-owner]",
         "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[superuser]",
         "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[db-owner]",
-        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[direct-write]"
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[direct-write]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_global_server_privileges_and_unscoped_reads_are_not_source_authority"
       ]
     },
     "NRC05": {
