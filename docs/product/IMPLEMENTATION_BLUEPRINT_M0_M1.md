@@ -64,32 +64,34 @@ planner_ready=False; activation_ready=False. No MTR suffix assigned; MTR-040 COM
 039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
 This freeze itself grants no downstream implementation authority. The separately authorized design gate follows.
 
-## Shared-member exact-target TasteFit — IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE
+## Shared-member exact-target TasteFit — FROZEN; Planner Convergence review
 
-[Design PR #119](https://github.com/thedusk4203/Menuto/pull/119), approved head
-`8295f19a705cc085471a9dab7948072cc3054534`, merged exactly at
-`f16508270ac159d07cc01757b3459aa4e4764f62`; its tree equals the reviewed design head.
-Exact post-merge push [CI40763687731](https://github.com/thedusk4203/Menuto/actions/runs/40763687731)
-SUCCESS, Python/web SUCCESS;3,396 baseline tests/0 skips;384 exports;0015 /85.
-Separate user authorization opened this implementation gate only after that receipt.
-The [approved design](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_DESIGN.md)
-is implemented at code head `2b343fa47ed5de059fa4919d4326ac8863153a78`;
-[implementation evidence](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_EVIDENCE.md)
-records the three-operation Planning Interface and SMTF01–SMTF120 mapping.
-**IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN**.
-3,638 tests in the final inventory =3,396 retained +242 additive;44 real PG cases cover36 obligations.
-The final complete execution receipt binds the documentation-inclusive head in the implementation PR.
-One canonical candidate × one exact typed target × entire canonical participant set only.
-Full frozen-child replay, exact owner/cohort coherence and explicit finite mapping bridges precede
-all new arithmetic. Required strictly positive authored weights use EXACT_POSITIVE_WEIGHTED_MEAN.
-Incomplete coverage withholds every new arithmetic field; direct dislike remains independent.
-Policy authority is EXPLICIT_INTERPRETATION_INPUT_ONLY: no global/current/default/production selector,
-registry, coefficients or seed. **403 exports =384 retained unchanged +19 additive**;
-**ZERO NEW PERSISTENCE**, schema **0015 /85**, no0016.
-Frozen child TasteFit/040/041/046 semantics remain unchanged; MTR-040 COMPLETE /issue41 CLOSED—COMPLETED;
-039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
-planner_ready=False;activation_ready=False. No new MTR suffix, downstream work or self-freeze.
-The separate implementation PR must remain OPEN for review; no automatic merge.
+The [canonical freeze receipt](CANDIDATE_SHARED_MEMBER_EXACT_TARGET_TASTEFIT_AGGREGATION_FREEZE_RECEIPT.md)
+records reviewed implementation head `ea77d0476ce95db1c349c652312de9883ec00824`,
+actual PR #120 merge/main `dc7a964c4acecb0ee8995f1705f176b164e50221` (same reviewed tree),
+and exact post-merge push [CI40800756796](https://github.com/thedusk4203/Menuto/actions/runs/40800756796)
+**SUCCESS**, Python/web and all required guards SUCCESS; **3,638 passed /0 skips**
+=3,396 retained +242 additive; SMTF01–SMTF120;44 actual PG executions /36 required obligations.
+SCRAM/TLS16/16;benchmark22/22;client10/10. **403 exports =384 unchanged +19 additive**;
+**schema0015 /85;no0016;ZERO NEW PERSISTENCE**. Formal freeze comment
+[6485815770](https://github.com/thedusk4203/Menuto/pull/120#issuecomment-6485815770).
+
+One canonical candidate × one exact typed target × entire canonical participant set.
+Compatibility and complete numeric coverage precede EXACT_POSITIVE_WEIGHTED_MEAN with authored
+positive exact rational weights; incomplete coverage withholds every new arithmetic field.
+Direct dislike stays independently observable, without hard veto. Policy authority remains
+EXPLICIT_INTERPRETATION_INPUT_ONLY; no production/default policy authority or rows.
+Frozen child TasteFit/040/041/046 semantics remain unchanged; planner_ready=False;activation_ready=False.
+
+This ends the current preference-abstraction branch. The separately requested
+[Planner Convergence dependency review](POST_PR_120_PLANNER_CONVERGENCE_REVIEW.md) asks for the
+shortest path to a non-activating Validated Plan Preview and recommends a bounded nutrition-root /
+supported-eligibility design gate, not another TasteFit adapter. **REVIEW ONLY — awaiting approval**;
+no detailed design, implementation, workflow change or downstream authorization in this PR.
+MTR040 COMPLETE /issue41 CLOSED—COMPLETED;039 OPEN;full041/046 PARTIAL;
+024/020B/021 remain BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
+Historical implementation-stage NOT FROZEN/open-PR wording is superseded only as to status.
+
 
 
 
