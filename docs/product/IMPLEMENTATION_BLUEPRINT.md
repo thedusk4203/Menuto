@@ -83,11 +83,21 @@ Direct dislike stays independently observable, without hard veto. Policy authori
 EXPLICIT_INTERPRETATION_INPUT_ONLY; no production/default policy authority or rows.
 Frozen child TasteFit/040/041/046 semantics remain unchanged; planner_ready=False;activation_ready=False.
 
-This ends the current preference-abstraction branch. The separately requested
-[Planner Convergence dependency review](POST_PR_120_PLANNER_CONVERGENCE_REVIEW.md) asks for the
-shortest path to a non-activating Validated Plan Preview and recommends a bounded nutrition-root /
-supported-eligibility design gate, not another TasteFit adapter. **REVIEW ONLY — awaiting approval**;
-no detailed design, implementation, workflow change or downstream authorization in this PR.
+This ends the current preference-abstraction branch. The
+[Planner Convergence dependency review](POST_PR_120_PLANNER_CONVERGENCE_REVIEW.md) is APPROVED
+at head `fb81de8942cc681f8efa4ab358d8528749c3465b`, formal review6487151566;
+PR #121 merged at `d4167537a7347b686b1edc273b5ac9d4f5145d62` (same reviewed tree).
+Exact post-merge push [CI40812998898](https://github.com/thedusk4203/Menuto/actions/runs/40812998898)
+SUCCESS, Python/web/all guards green;3,638 passed /0 skips;403 exports;0015 /85;no0016.
+Only after that gate, separate user authorization opened the
+[Nutrition Root Contract & Supported-Eligibility detailed design](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_DESIGN.md).
+**DESIGN READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED.**
+Nutrition owns reviewed guideline publication semantics; physiology/goals remain member-owned;
+separate scope-qualified eligibility evidence is required. PostgreSQL-owned durable source journals
+are proposed, not implemented; no migration number/table count or production nutrition content
+is reserved/approved. Root source completeness is not full MTR006 synthesis or MTR008 resolution.
+The bounded020A all-survivor preview option remains unchanged; no020B implementation.
+No runtime/contracts/tests/tooling/migration/data change or downstream authorization in this PR.
 MTR040 COMPLETE /issue41 CLOSED—COMPLETED;039 OPEN;full041/046 PARTIAL;
 024/020B/021 remain BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
 Historical implementation-stage NOT FROZEN/open-PR wording is superseded only as to status.
