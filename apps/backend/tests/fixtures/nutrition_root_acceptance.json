@@ -1,0 +1,549 @@
+{
+  "design_head": "e090bf788bd6a257d7bba0f3e88d6b5fec12bc44",
+  "baseline": "cb66f462f3ea7e8cf6e63a3cbe2d75db0d19a682",
+  "cases": {
+    "NRC01": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc01_empty_installation_and_real_schema"
+      ]
+    },
+    "NRC02": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc02_actual_scram_credential_and_trust_denial[wrong]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc02_actual_scram_credential_and_trust_denial[missing]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc02_actual_scram_credential_and_trust_denial[trust]"
+      ]
+    },
+    "NRC03": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc03_actual_session_db_role_binding_and_set_role_spoof"
+      ]
+    },
+    "NRC04": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[admin]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[source-owner]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[superuser]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[db-owner]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc04_unsafe_graph_rechecked_before_old_receipt[direct-write]"
+      ]
+    },
+    "NRC05": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc05_provider_household_and_foreign_source_grants_do_not_transfer"
+      ]
+    },
+    "NRC06": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc06_review_binds_actual_full_evidence_body"
+      ]
+    },
+    "NRC07": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc07_publisher_and_complete_active_review_are_required"
+      ]
+    },
+    "NRC08": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc08_same_verified_human_two_logins_cannot_publish_own_review"
+      ]
+    },
+    "NRC09": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc09_any_reviewed_semantic_change_requires_fresh_review[body]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc09_any_reviewed_semantic_change_requires_fresh_review[unit]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc09_any_reviewed_semantic_change_requires_fresh_review[applicability]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc09_any_reviewed_semantic_change_requires_fresh_review[evidence]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc09_any_reviewed_semantic_change_requires_fresh_review[protocol]"
+      ]
+    },
+    "NRC10": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc10_revocation_precedes_idempotency_receipt_lookup[reviewer-GUIDELINE_REVIEW]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc10_revocation_precedes_idempotency_receipt_lookup[publisher-GUIDELINE_PUBLISH]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc10_revocation_precedes_idempotency_receipt_lookup[self-MEMBER_GOAL_WRITE]"
+      ]
+    },
+    "NRC11": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc11_raw_sql_cannot_bypass_structural_root_semantics[root_type]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc11_raw_sql_cannot_bypass_structural_root_semantics[unit]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc11_raw_sql_cannot_bypass_structural_root_semantics[interval]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc11_raw_sql_cannot_bypass_structural_root_semantics[manifest]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc11_raw_sql_cannot_bypass_structural_root_semantics[float]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc11_raw_sql_cannot_bypass_structural_root_semantics[denominator]"
+      ]
+    },
+    "NRC12": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc12_concurrent_publication_cas_is_atomic"
+      ]
+    },
+    "NRC13": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc13_exact_retry_only_changed_same_key_rejected"
+      ]
+    },
+    "NRC14": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc14_publication_future_supersession_retire_retract_append_only"
+      ]
+    },
+    "NRC15": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc15_member_self_is_actual_authenticated_account_to_subject"
+      ]
+    },
+    "NRC16": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc16_representative_needs_exact_operation_delegation"
+      ]
+    },
+    "NRC17": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc17_delegation_expiry_revoke_and_retry_order"
+      ]
+    },
+    "NRC18": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc18_cross_member_goal_copy_and_service_authorship_denied"
+      ]
+    },
+    "NRC19": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc19_goal_valid_time_future_correction_retraction_history"
+      ]
+    },
+    "NRC20": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc20_member_goal_concurrency_and_cross_subject_idempotency"
+      ]
+    },
+    "NRC21": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc21_observation_legacy_conflict_requires_explicit_reconciliation"
+      ]
+    },
+    "NRC22": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc22_legacy_and_observation_changes_require_new_assessment"
+      ]
+    },
+    "NRC23": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc23_exact_assessor_protocol_capability_separate_from_publisher"
+      ]
+    },
+    "NRC24": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc24_assessment_requires_complete_canonical_observations[partial]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc24_assessment_requires_complete_canonical_observations[value]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc24_assessment_requires_complete_canonical_observations[revision]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc24_assessment_requires_complete_canonical_observations[legacy_anchor]"
+      ]
+    },
+    "NRC25": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc25_actual_supported_assertion_capture_and_replay[ADMITTED-SUPPORTED]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc25_actual_supported_assertion_capture_and_replay[OUT_OF_SCOPE-UNSUPPORTED]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc25_actual_supported_assertion_capture_and_replay[EXCLUDED-INELIGIBLE]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc25_actual_supported_assertion_capture_and_replay[UNDETERMINED-UNKNOWN]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc25_proven_exclusion_keeps_unrelated_missing_evidence_observable"
+      ]
+    },
+    "NRC26": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc26_reader_validator_scopes_are_distinct_no_partial_capture"
+      ]
+    },
+    "NRC27": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc27_actual_same_session_clean_readonly_capture[REPEATABLE READ-True-False-True]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc27_actual_same_session_clean_readonly_capture[SERIALIZABLE-True-False-True]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc27_actual_same_session_clean_readonly_capture[READ COMMITTED-True-False-False]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc27_actual_same_session_clean_readonly_capture[REPEATABLE READ-False-False-False]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc27_actual_same_session_clean_readonly_capture[REPEATABLE READ-True-True-False]"
+      ]
+    },
+    "NRC28": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc28_mvcc_cut_does_not_splice_concurrent_correction_or_revoke"
+      ]
+    },
+    "NRC29": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc29_full_source_tombstones_frontiers_and_absence_witnesses"
+      ]
+    },
+    "NRC30": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc30_actual_tls_verification_password_rotation_and_role_recreation"
+      ]
+    },
+    "NRC31": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc31_raw_sql_exact_nearby_rationals_no_rounding",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc31_server_owned_command_limits_and_content_environment[bytes]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc31_server_owned_command_limits_and_content_environment[integer]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc31_server_owned_command_limits_and_content_environment[evidence_manifest]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc31_server_owned_command_limits_and_content_environment[environment]",
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc31_server_history_depth_rejects_overflow_without_truncation"
+      ]
+    },
+    "NRC32": {
+      "layer": "PG",
+      "tests": [
+        "apps/backend/tests/test_postgres_nutrition_root_source.py::test_nrc32_loss_refusal_no_read_drift_and_restored_db_binding"
+      ]
+    },
+    "NRC33": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc33_exact_guideline_provider_version_pin"
+      ]
+    },
+    "NRC34": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc34_labels_hashes_and_reviewer_identity_cannot_replace_authority"
+      ]
+    },
+    "NRC35": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc35_duplicate_immutable_id_conflicting_body_rejected"
+      ]
+    },
+    "NRC36": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc36_absent_publication_differs_from_wrong_applicability"
+      ]
+    },
+    "NRC37": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc37_absent_assessment_never_becomes_supported"
+      ]
+    },
+    "NRC38": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc38_positive_negative_and_unknown_assertions_distinct[OUT_OF_SCOPE-UNSUPPORTED]",
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc38_positive_negative_and_unknown_assertions_distinct[EXCLUDED-INELIGIBLE]",
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc38_positive_negative_and_unknown_assertions_distinct[UNDETERMINED-UNKNOWN]"
+      ]
+    },
+    "NRC39": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc39_mass_height_and_goal_do_not_infer_healthy_population"
+      ]
+    },
+    "NRC40": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc40_assessed_observation_value_and_version_are_exact"
+      ]
+    },
+    "NRC41": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc41_jurisdiction_and_edition_require_explicit_source_meaning"
+      ]
+    },
+    "NRC42": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc42_metric_unit_mismatch_before_comparison"
+      ]
+    },
+    "NRC43": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc43_finite_supported_measurements_only[metric-TEST_ONLY_UNKNOWN_NUTRIENT]",
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc43_finite_supported_measurements_only[unit-KJ]"
+      ]
+    },
+    "NRC44": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc44_strict_canonical_rationals_and_range_shape[bad0]",
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc44_strict_canonical_rationals_and_range_shape[bad1]",
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc44_strict_canonical_rationals_and_range_shape[bad2]",
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc44_strict_canonical_rationals_and_range_shape[bad3]",
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc44_strict_canonical_rationals_and_range_shape[bad4]"
+      ]
+    },
+    "NRC45": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc45_target_center_does_not_author_hard_interval"
+      ]
+    },
+    "NRC46": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc46_whole_interval_required_without_source_stitching"
+      ]
+    },
+    "NRC47": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc47_daily_weekly_periods_never_implicitly_scale"
+      ]
+    },
+    "NRC48": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc48_absent_goal_is_not_maintain"
+      ]
+    },
+    "NRC49": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc49_retracted_goal_does_not_resurrect_old_declarations"
+      ]
+    },
+    "NRC50": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc50_recorded_frontier_order_is_not_authored_valid_time"
+      ]
+    },
+    "NRC51": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc51_reordered_sets_replay_deterministically"
+      ]
+    },
+    "NRC52": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc52_entire_capture_frame_affects_identity"
+      ]
+    },
+    "NRC53": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc53_cached_constructed_copied_results_recomputed"
+      ]
+    },
+    "NRC54": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc54_retained_replay_does_not_claim_current_authorization"
+      ]
+    },
+    "NRC55": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc55_absence_requires_a_complete_authorized_frontier"
+      ]
+    },
+    "NRC56": {
+      "layer": "P",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_replay.py::test_nrc56_absolute_structural_budgets_before_recursive_parsing"
+      ]
+    },
+    "NRC57": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc57_source_reconstruction_never_calls_producer"
+      ]
+    },
+    "NRC58": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc58_forged_eligibility_goal_authorship_rejected"
+      ]
+    },
+    "NRC59": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc59_effective_cut_and_source_frontier_checked"
+      ]
+    },
+    "NRC60": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc60_exact_range_containment_and_boundaries[7-13-CONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc60_exact_range_containment_and_boundaries[8-12-CONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc60_exact_range_containment_and_boundaries[6-13-INCONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc60_exact_range_containment_and_boundaries[7-14-INCONSISTENT]"
+      ]
+    },
+    "NRC61": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_one_sided_bounds_without_invented_opposites[MINIMUM-7-7-CONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_one_sided_bounds_without_invented_opposites[MINIMUM-7-6-INCONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_one_sided_bounds_without_invented_opposites[MAXIMUM-13-13-CONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_one_sided_bounds_without_invented_opposites[MAXIMUM-13-14-INCONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_target_is_only_a_center_inside_explicit_protected_range[7-CONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_target_is_only_a_center_inside_explicit_protected_range[10-CONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_target_is_only_a_center_inside_explicit_protected_range[13-CONSISTENT]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc61_target_is_only_a_center_inside_explicit_protected_range[14-INCONSISTENT]"
+      ]
+    },
+    "NRC62": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc62_goal_intent_is_not_numeric_protection_authority"
+      ]
+    },
+    "NRC63": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc63_cost_budget_cannot_weaken_roots[CostPreference]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc63_cost_budget_cannot_weaken_roots[Budget]"
+      ]
+    },
+    "NRC64": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc64_effort_convenience_cannot_weaken_roots[KitchenEffort]",
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc64_effort_convenience_cannot_weaken_roots[convenience]"
+      ]
+    },
+    "NRC65": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc65_tastefit_cannot_create_or_replace_nutrition_truth"
+      ]
+    },
+    "NRC66": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc66_nutrition_precision_does_not_mint_root_truth"
+      ]
+    },
+    "NRC67": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc67_temporal_identity_checked_before_any_containment_arithmetic"
+      ]
+    },
+    "NRC68": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc68_required_derived_claims_not_vacuously_accepted"
+      ]
+    },
+    "NRC69": {
+      "layer": "V",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_independent_validation.py::test_nrc69_rehashed_wrong_claim_rejected_and_source_only_scope_honest"
+      ]
+    },
+    "NRC70": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc70_pure_resolver_guards_reject_io_and_live_clocks[import sqlalchemy]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc70_pure_resolver_guards_reject_io_and_live_clocks[import os]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc70_pure_resolver_guards_reject_io_and_live_clocks[import pathlib]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc70_pure_resolver_guards_reject_io_and_live_clocks[import socket]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc70_pure_resolver_guards_reject_io_and_live_clocks[import httpx]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc70_pure_resolver_guards_reject_io_and_live_clocks[open('TEST_ONLY')]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc70_pure_resolver_guards_reject_io_and_live_clocks[datetime.now()]"
+      ]
+    },
+    "NRC71": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc71_independent_validation_only_immutable_companion[root_resolution]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc71_independent_validation_only_immutable_companion[root_public]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc71_independent_validation_only_immutable_companion[root_sources]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc71_independent_validation_only_immutable_companion[root_admin]",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc71_independent_validation_only_immutable_companion[models]"
+      ]
+    },
+    "NRC72": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc72_empty_ddl_no_production_content_seeding"
+      ]
+    },
+    "NRC73": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc73_no_environment_numeric_or_metabolic_safety_authority"
+      ]
+    },
+    "NRC74": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc74_no_preferences_learning_or_foreign_authority_reuse"
+      ]
+    },
+    "NRC75": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc75_no_http_planner_activation_or_full_policy_completion"
+      ]
+    },
+    "NRC76": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc76_all_frozen_preference_learning_feature_definitions_unchanged"
+      ]
+    },
+    "NRC77": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc77_old_inventory_recipe_validation_and_migration_bytes_unchanged"
+      ]
+    },
+    "NRC78": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc78_all403_definition_hashes_retained_exact_additive_exports",
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc78_all3638_baseline_test_identities_retained"
+      ]
+    },
+    "NRC79": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc79_test_fixtures_do_not_approve_production_content"
+      ]
+    },
+    "NRC80": {
+      "layer": "A",
+      "tests": [
+        "apps/backend/tests/test_nutrition_root_architecture.py::test_nrc80_no_downstream_or_heuristic_pool_implementation"
+      ]
+    }
+  }
+}

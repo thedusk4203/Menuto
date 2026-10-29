@@ -73,8 +73,8 @@ def hierarchy_server():
         with engine.connect() as conn:
             config.attributes["connection"] = conn
             command.upgrade(config, "head")
-            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0015"
-            assert len(inspect(conn).get_table_names()) == 86
+            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
+            assert len(inspect(conn).get_table_names()) == 99
             for table in (
                 "providers",
                 "principals",

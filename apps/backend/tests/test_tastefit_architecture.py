@@ -19,13 +19,21 @@ CHECK = runpy.run_path(str(ROOT / "tools/check_import_boundaries.py"))["check_so
 
 def test_tf130_frozen_owner_runtime_and_migrations_byte_exact():
     pins = json.loads((FIXTURES / "tastefit_compatibility.json").read_text())
+    nutrition = json.loads((FIXTURES / "nutrition_root_compatibility.json").read_text())[
+        "append_only_files"
+    ]
     for path, digest in pins["frozen_files"].items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == digest, path
+        data = (ROOT / path).read_bytes()
+        if path in nutrition:
+            assert nutrition[path]["sha256"] == digest
+            assert data[nutrition[path]["prefix_bytes"] :] == nutrition[path]["suffix"].encode()
+            data = data[: nutrition[path]["prefix_bytes"]]
+        assert hashlib.sha256(data).hexdigest() == digest, path
     assert sorted(
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{n:04}" for n in range(1, 16)]
+    ) == [f"{n:04}" for n in range(1, 17)]
 
 
 def test_tf131_all3104_baseline_test_identities_retained():
@@ -57,9 +65,10 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
     defs = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     assert len(pins["definitions"]) == 362
     shared = json.loads((FIXTURES / "shared_target_tastefit_compatibility.json").read_text())
-    assert len(defs) == 384 + len(shared["new_definitions"])
+    nutrition = json.loads((FIXTURES / "nutrition_root_compatibility.json").read_text())
+    assert len(defs) == 384 + len(shared["new_definitions"]) + len(nutrition["new_definitions"])
     assert sorted(set(defs) - set(pins["definitions"])) == sorted(
-        pins["new_definitions"] + shared["new_definitions"]
+        pins["new_definitions"] + shared["new_definitions"] + nutrition["new_definitions"]
     )
     for name, digest in pins["definitions"].items():
         assert (

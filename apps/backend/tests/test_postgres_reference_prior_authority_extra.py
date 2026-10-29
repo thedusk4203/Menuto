@@ -153,4 +153,4 @@ def test_m01_populated_downgrade_refuses_registry_and_audit_loss(source_server):
             command.downgrade(config, "0013")
         conn.rollback()
         assert conn.scalar(text("SELECT count(*) FROM reference_prior_principals")) == before
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0015"
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0016"

@@ -97,8 +97,9 @@ def test_canonical_source_roundtrip_and_no_side_effects(postgres_engine):
     assert result.facts[0].source_kind == "PROPOSAL_PREVIEW"
     with postgres_engine.connect() as conn:
         assert {t: conn.scalar(text(f"SELECT count(*) FROM {t}")) for t in before} == before
-        assert len(inspect(conn).get_table_names()) == 86  # 85 domain + Alembic
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0015"
+        # 98 domain tables + Alembic; Nutrition adds 13 source tables.
+        assert len(inspect(conn).get_table_names()) == 99
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
 
 
 def test_replay_has_zero_live_queries(postgres_engine):

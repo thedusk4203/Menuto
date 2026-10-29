@@ -725,7 +725,7 @@ def test_tf129_tf132_read_only_no_rows_frontiers_schema_or_production_defaults(t
     def inventory():
         with engine.connect() as conn:
             tables = inspect(conn).get_table_names()
-            assert len(tables) == 86
+            assert len(tables) == 99
             return {t: conn.scalar(text('SELECT count(*) FROM "' + t + '"')) for t in tables}
 
     before = inventory()
@@ -743,5 +743,5 @@ def test_tf129_tf132_read_only_no_rows_frontiers_schema_or_production_defaults(t
     assert all(sql.lstrip().split()[0].upper() in {"SHOW", "SELECT"} for sql in statements)
     assert not any("tastefit" in t.lower() for t in before)
     with engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0015"
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
     assert validate(derive(source)).sources == source

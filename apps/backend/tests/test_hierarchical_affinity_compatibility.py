@@ -18,7 +18,7 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
     pins = json.loads((FIXTURES / "hierarchical_affinity_compatibility.json").read_text())
     assert pins["base"] == "b591464e3ca495909851217141f96a55faaa35cc"
     schema = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
-    assert len(pins["definitions"]) == 349 and len(schema) == 403
+    assert len(pins["definitions"]) == 349 and len(schema) == 447
     assert len(pins["frozen_files"]) == 123
     for name, digest in pins["definitions"].items():
         assert (
@@ -27,8 +27,15 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
     additive = json.loads(
         (FIXTURES / "candidate_feature_projection_compatibility.json").read_text()
     )["append_only_files"]
+    nutrition = json.loads((FIXTURES / "nutrition_root_compatibility.json").read_text())[
+        "append_only_files"
+    ]
     for name, digest in pins["frozen_files"].items():
         data = (ROOT / name).read_bytes()
+        if name in nutrition:
+            assert nutrition[name]["sha256"] == digest
+            assert data[nutrition[name]["prefix_bytes"] :] == nutrition[name]["suffix"].encode()
+            data = data[: nutrition[name]["prefix_bytes"]]
         if name in additive:
             # Only these two approved additive surfaces may grow; every old byte stays pinned.
             assert additive[name]["sha256"] == digest
@@ -43,7 +50,7 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{n:04}" for n in range(1, 16)]
+    ) == [f"{n:04}" for n in range(1, 17)]
 
 
 def test_hc79_retained_all2807_test_identities():
