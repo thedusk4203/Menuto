@@ -162,6 +162,14 @@ from app.modules.planning.contracts import (
     ShortlistInputFailure,
     ShortlistPolicyDraft,
 )
+from app.modules.planning.shared_target_tastefit_contracts import (
+    ScopedSharedMemberTargetTasteFit,
+    SharedMemberTargetTasteFitCoordinate,
+    SharedMemberTargetTasteFitDraft,
+    SharedMemberTargetTasteFitPolicy,
+    SharedMemberTargetTasteFitRequest,
+    SharedMemberTargetTasteFitSources,
+)
 from app.modules.planning.tastefit_contracts import (
     CandidateMemberTasteFitDraft,
     CandidateMemberTasteFitRequest,
@@ -376,6 +384,12 @@ from app.modules.validation.contracts import (
 from pydantic.json_schema import models_json_schema
 
 CONTRACTS = (
+    ScopedSharedMemberTargetTasteFit,
+    SharedMemberTargetTasteFitCoordinate,
+    SharedMemberTargetTasteFitDraft,
+    SharedMemberTargetTasteFitPolicy,
+    SharedMemberTargetTasteFitRequest,
+    SharedMemberTargetTasteFitSources,
     CandidateMemberTasteFitDraft,
     CandidateMemberTasteFitRequest,
     CandidateMemberTasteFitSources,
