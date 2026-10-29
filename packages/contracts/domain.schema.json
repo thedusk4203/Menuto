@@ -11241,6 +11241,711 @@
       "title": "MutationFixtureDraft",
       "type": "object"
     },
+    "NutritionAuthorityCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "GRANT",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "capability": {
+          "enum": [
+            "GUIDELINE_REVIEW",
+            "GUIDELINE_PUBLISH",
+            "GUIDELINE_WITHDRAW",
+            "ELIGIBILITY_ATTEST",
+            "MEMBER_OBSERVATION_WRITE",
+            "MEMBER_GOAL_WRITE",
+            "ROOT_SOURCE_READ",
+            "VALIDATOR_SOURCE_READ"
+          ],
+          "title": "Capability",
+          "type": "string"
+        },
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "expected_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Generation",
+          "type": "integer"
+        },
+        "fact_key": {
+          "anyOf": [
+            {
+              "enum": [
+                "BODY_MASS",
+                "HEIGHT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fact Key"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "principal_id": {
+          "format": "uuid",
+          "title": "Principal Id",
+          "type": "string"
+        },
+        "protocol_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Protocol Fingerprint"
+        },
+        "qualification_evidence": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "scope": {
+          "$ref": "#/$defs/NutritionAuthorityScope"
+        }
+      },
+      "required": [
+        "principal_id",
+        "scope",
+        "capability",
+        "protocol_fingerprint",
+        "fact_key",
+        "action",
+        "effective",
+        "qualification_evidence",
+        "expected_generation",
+        "predecessor_id",
+        "idempotency_key"
+      ],
+      "title": "NutritionAuthorityCommand",
+      "type": "object"
+    },
+    "NutritionAuthorityFact": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/NutritionSourceSession"
+        },
+        "command": {
+          "$ref": "#/$defs/NutritionAuthorityCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "fact_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Hash",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "previous_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Hash"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "recorded_order": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Recorded Order",
+          "type": "integer"
+        },
+        "sequence": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "stream_key": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Stream Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "recorded_order",
+        "command",
+        "stream_key",
+        "sequence",
+        "previous_hash",
+        "administrator",
+        "recorded_at",
+        "command_hash",
+        "fact_hash"
+      ],
+      "title": "NutritionAuthorityFact",
+      "type": "object"
+    },
+    "NutritionAuthorityScope": {
+      "additionalProperties": false,
+      "properties": {
+        "family_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Family Id"
+        },
+        "household_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Household Id"
+        },
+        "member_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Member Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Id"
+        }
+      },
+      "required": [
+        "provider_id",
+        "family_id",
+        "household_id",
+        "member_id"
+      ],
+      "title": "NutritionAuthorityScope",
+      "type": "object"
+    },
+    "NutritionCaptureFrame": {
+      "additionalProperties": false,
+      "properties": {
+        "absence_stream_keys": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "title": "Absence Stream Keys",
+          "type": "array"
+        },
+        "backend_pid": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Backend Pid",
+          "type": "integer"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "endpoint": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Endpoint",
+          "type": "string"
+        },
+        "isolation": {
+          "enum": [
+            "REPEATABLE READ",
+            "SERIALIZABLE"
+          ],
+          "title": "Isolation",
+          "type": "string"
+        },
+        "mvcc_snapshot": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Mvcc Snapshot",
+          "type": "string"
+        },
+        "provider_enrollment_id": {
+          "format": "uuid",
+          "title": "Provider Enrollment Id",
+          "type": "string"
+        },
+        "read_only": {
+          "const": true,
+          "title": "Read Only",
+          "type": "boolean"
+        },
+        "reader_grant_id": {
+          "format": "uuid",
+          "title": "Reader Grant Id",
+          "type": "string"
+        },
+        "reader_principal_id": {
+          "format": "uuid",
+          "title": "Reader Principal Id",
+          "type": "string"
+        },
+        "reader_subject_witness": {
+          "$ref": "#/$defs/NutritionSubjectWitness"
+        },
+        "row_count": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Row Count",
+          "type": "integer"
+        },
+        "session": {
+          "$ref": "#/$defs/NutritionSourceSession"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "transaction_id": {
+          "const": "UNASSIGNED_READ_ONLY",
+          "title": "Transaction Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "session",
+        "reader_principal_id",
+        "reader_subject_witness",
+        "reader_grant_id",
+        "endpoint",
+        "backend_pid",
+        "mvcc_snapshot",
+        "transaction_id",
+        "isolation",
+        "read_only",
+        "started_at",
+        "completed_at",
+        "provider_enrollment_id",
+        "row_count",
+        "absence_stream_keys"
+      ],
+      "title": "NutritionCaptureFrame",
+      "type": "object"
+    },
+    "NutritionDelegationRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "GRANT",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "authorization_evidence": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "grantee_principal_id": {
+          "format": "uuid",
+          "title": "Grantee Principal Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "DELEGATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "operation_scope": {
+          "enum": [
+            "MEMBER_GOAL_WRITE",
+            "BODY_MASS_WRITE",
+            "HEIGHT_WRITE"
+          ],
+          "title": "Operation Scope",
+          "type": "string"
+        },
+        "previous_grant_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Grant Id"
+        }
+      },
+      "required": [
+        "kind",
+        "action",
+        "grantee_principal_id",
+        "operation_scope",
+        "effective",
+        "authorization_evidence",
+        "previous_grant_id"
+      ],
+      "title": "NutritionDelegationRevision",
+      "type": "object"
+    },
+    "NutritionDerivedContainmentClaim": {
+      "additionalProperties": false,
+      "description": "Later-policy claim carrier; its content is not new policy/source authority.",
+      "properties": {
+        "baseline_evidence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionSourceEvidence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "claim_kind": {
+          "enum": [
+            "PROTECTED",
+            "COMFORT",
+            "GOAL_PROTECTION"
+          ],
+          "title": "Claim Kind",
+          "type": "string"
+        },
+        "constraint": {
+          "discriminator": {
+            "mapping": {
+              "MAXIMUM": "#/$defs/NutritionMaximum",
+              "MINIMUM": "#/$defs/NutritionMinimum",
+              "RANGE": "#/$defs/NutritionRange",
+              "TARGET": "#/$defs/NutritionTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/NutritionRange"
+            },
+            {
+              "$ref": "#/$defs/NutritionMinimum"
+            },
+            {
+              "$ref": "#/$defs/NutritionMaximum"
+            },
+            {
+              "$ref": "#/$defs/NutritionTarget"
+            }
+          ],
+          "title": "Constraint"
+        },
+        "goal_revision_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Goal Revision Id"
+        },
+        "policy_evidence": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "root": {
+          "$ref": "#/$defs/NutritionResolvedRoot"
+        }
+      },
+      "required": [
+        "root",
+        "constraint",
+        "claim_kind",
+        "policy_evidence",
+        "goal_revision_id",
+        "baseline_evidence"
+      ],
+      "title": "NutritionDerivedContainmentClaim",
+      "type": "object"
+    },
+    "NutritionEligibilityProtocol": {
+      "additionalProperties": false,
+      "properties": {
+        "admitted": {
+          "$ref": "#/$defs/NutritionEvidenceRequirements"
+        },
+        "environment": {
+          "enum": [
+            "TEST_ONLY",
+            "REVIEWED_PRODUCTION"
+          ],
+          "title": "Environment",
+          "type": "string"
+        },
+        "excluded": {
+          "$ref": "#/$defs/NutritionEvidenceRequirements"
+        },
+        "meaning": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "out_of_scope": {
+          "$ref": "#/$defs/NutritionEvidenceRequirements"
+        },
+        "protocol_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Protocol Id",
+          "type": "string"
+        },
+        "scope_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Id",
+          "type": "string"
+        },
+        "scope_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Version",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_id",
+        "version",
+        "scope_id",
+        "scope_version",
+        "environment",
+        "meaning",
+        "admitted",
+        "excluded",
+        "out_of_scope"
+      ],
+      "title": "NutritionEligibilityProtocol",
+      "type": "object"
+    },
+    "NutritionEligibilityRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/NutritionSourceEvidence"
+          },
+          "maxItems": 32,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "guideline_body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Guideline Body Fingerprint",
+          "type": "string"
+        },
+        "guideline_revision_id": {
+          "format": "uuid",
+          "title": "Guideline Revision Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "ASSESSMENT",
+          "title": "Kind",
+          "type": "string"
+        },
+        "missing_evidence_slots": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Missing Evidence Slots",
+          "type": "array"
+        },
+        "missing_observations": {
+          "items": {
+            "enum": [
+              "BODY_MASS",
+              "HEIGHT"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "title": "Missing Observations",
+          "type": "array"
+        },
+        "observations": {
+          "items": {
+            "$ref": "#/$defs/NutritionObservationReference"
+          },
+          "maxItems": 2,
+          "title": "Observations",
+          "type": "array"
+        },
+        "operation": {
+          "enum": [
+            "CREATE",
+            "REPLACE",
+            "CORRECT",
+            "RETRACT"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "ADMITTED",
+            "OUT_OF_SCOPE",
+            "EXCLUDED",
+            "UNDETERMINED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "protocol_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Protocol Fingerprint",
+          "type": "string"
+        },
+        "replaces": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 64,
+          "title": "Replaces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "operation",
+        "guideline_revision_id",
+        "guideline_body_fingerprint",
+        "protocol_fingerprint",
+        "outcome",
+        "observations",
+        "evidence",
+        "missing_observations",
+        "missing_evidence_slots",
+        "effective",
+        "replaces"
+      ],
+      "title": "NutritionEligibilityRevision",
+      "type": "object"
+    },
+    "NutritionEvidenceRequirements": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_slots": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Evidence Slots",
+          "type": "array"
+        },
+        "observations": {
+          "items": {
+            "enum": [
+              "BODY_MASS",
+              "HEIGHT"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "title": "Observations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "observations",
+        "evidence_slots"
+      ],
+      "title": "NutritionEvidenceRequirements",
+      "type": "object"
+    },
     "NutritionFact": {
       "additionalProperties": false,
       "properties": {
@@ -11277,6 +11982,1122 @@
       "title": "NutritionFact",
       "type": "object"
     },
+    "NutritionGoalRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "anyOf": [
+            {
+              "enum": [
+                "CUT",
+                "MAINTAIN",
+                "GAIN"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Direction"
+        },
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "goal_id": {
+          "format": "uuid",
+          "title": "Goal Id",
+          "type": "string"
+        },
+        "goal_type": {
+          "const": "ENERGY_DIRECTION",
+          "title": "Goal Type",
+          "type": "string"
+        },
+        "kind": {
+          "const": "GOAL",
+          "title": "Kind",
+          "type": "string"
+        },
+        "operation": {
+          "enum": [
+            "CREATE",
+            "REPLACE",
+            "CORRECT",
+            "RETRACT"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "replaces": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 64,
+          "title": "Replaces",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "operation",
+        "goal_id",
+        "goal_type",
+        "direction",
+        "effective",
+        "replaces",
+        "provenance"
+      ],
+      "title": "NutritionGoalRevision",
+      "type": "object"
+    },
+    "NutritionGuidelineBody": {
+      "additionalProperties": false,
+      "properties": {
+        "clauses": {
+          "items": {
+            "$ref": "#/$defs/NutritionGuidelineClause"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Clauses",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "nutrition-guideline-body.v1",
+          "default": "nutrition-guideline-body.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "edition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Edition",
+          "type": "string"
+        },
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "environment": {
+          "enum": [
+            "TEST_ONLY",
+            "REVIEWED_PRODUCTION"
+          ],
+          "title": "Environment",
+          "type": "string"
+        },
+        "evidence_manifest": {
+          "items": {
+            "$ref": "#/$defs/NutritionSourceEvidence"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Evidence Manifest",
+          "type": "array"
+        },
+        "family_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Family Id",
+          "type": "string"
+        },
+        "guideline_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Guideline Id",
+          "type": "string"
+        },
+        "guideline_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Guideline Version",
+          "type": "string"
+        },
+        "jurisdiction": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Jurisdiction"
+        },
+        "jurisdiction_status": {
+          "enum": [
+            "REVIEWED_SPECIFIED",
+            "SOURCE_NOT_SPECIFIED"
+          ],
+          "title": "Jurisdiction Status",
+          "type": "string"
+        },
+        "mandatory_hard_roots": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Mandatory Hard Roots",
+          "type": "array"
+        },
+        "protocol": {
+          "$ref": "#/$defs/NutritionEligibilityProtocol"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "revision_id": {
+          "format": "uuid",
+          "title": "Revision Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "revision_id",
+        "provider_id",
+        "family_id",
+        "guideline_id",
+        "guideline_version",
+        "edition",
+        "jurisdiction",
+        "jurisdiction_status",
+        "environment",
+        "effective",
+        "protocol",
+        "evidence_manifest",
+        "clauses",
+        "mandatory_hard_roots"
+      ],
+      "title": "NutritionGuidelineBody",
+      "type": "object"
+    },
+    "NutritionGuidelineClause": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint": {
+          "discriminator": {
+            "mapping": {
+              "MAXIMUM": "#/$defs/NutritionMaximum",
+              "MINIMUM": "#/$defs/NutritionMinimum",
+              "RANGE": "#/$defs/NutritionRange",
+              "TARGET": "#/$defs/NutritionTarget"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/NutritionRange"
+            },
+            {
+              "$ref": "#/$defs/NutritionMinimum"
+            },
+            {
+              "$ref": "#/$defs/NutritionMaximum"
+            },
+            {
+              "$ref": "#/$defs/NutritionTarget"
+            }
+          ],
+          "title": "Constraint"
+        },
+        "descriptor": {
+          "$ref": "#/$defs/NutritionRootDescriptor"
+        },
+        "interpretation": {
+          "enum": [
+            "GUIDELINE_HARD",
+            "REFERENCE_CENTER"
+          ],
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "root_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Root Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "root_key",
+        "descriptor",
+        "interpretation",
+        "constraint"
+      ],
+      "title": "NutritionGuidelineClause",
+      "type": "object"
+    },
+    "NutritionGuidelineDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "guideline": {
+          "$ref": "#/$defs/NutritionGuidelineBody"
+        },
+        "kind": {
+          "const": "DRAFT",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "guideline"
+      ],
+      "title": "NutritionGuidelineDraft",
+      "type": "object"
+    },
+    "NutritionGuidelinePublication": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "PUBLISH",
+            "SUPERSEDE",
+            "RETIRE",
+            "RETRACT"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Body Fingerprint",
+          "type": "string"
+        },
+        "draft_revision_id": {
+          "format": "uuid",
+          "title": "Draft Revision Id",
+          "type": "string"
+        },
+        "effective_at": {
+          "format": "date-time",
+          "title": "Effective At",
+          "type": "string"
+        },
+        "kind": {
+          "const": "PUBLICATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "prior_publication_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prior Publication Id"
+        },
+        "rationale": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "review_event_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Review Event Id"
+        }
+      },
+      "required": [
+        "kind",
+        "action",
+        "draft_revision_id",
+        "body_fingerprint",
+        "review_event_id",
+        "prior_publication_id",
+        "effective_at",
+        "rationale"
+      ],
+      "title": "NutritionGuidelinePublication",
+      "type": "object"
+    },
+    "NutritionGuidelineReview": {
+      "additionalProperties": false,
+      "properties": {
+        "body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Body Fingerprint",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "APPROVE",
+            "CANCEL"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "draft_revision_id": {
+          "format": "uuid",
+          "title": "Draft Revision Id",
+          "type": "string"
+        },
+        "evidence_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Evidence Fingerprint",
+          "type": "string"
+        },
+        "kind": {
+          "const": "REVIEW",
+          "title": "Kind",
+          "type": "string"
+        },
+        "prior_review_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prior Review Id"
+        },
+        "protocol_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Protocol Fingerprint",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "draft_revision_id",
+        "body_fingerprint",
+        "evidence_fingerprint",
+        "protocol_fingerprint",
+        "decision",
+        "prior_review_id",
+        "rationale"
+      ],
+      "title": "NutritionGuidelineReview",
+      "type": "object"
+    },
+    "NutritionLegacyAnchor": {
+      "additionalProperties": false,
+      "properties": {
+        "body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Body Fingerprint",
+          "type": "string"
+        },
+        "profile": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionLegacyProfile"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "subject",
+        "profile",
+        "body_fingerprint"
+      ],
+      "title": "NutritionLegacyAnchor",
+      "type": "object"
+    },
+    "NutritionLegacyProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "body_mass_kg": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "pattern": "^[0-9]+(?:\\.[0-9]+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Body Mass Kg"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "created_by_user_id": {
+          "format": "uuid",
+          "title": "Created By User Id",
+          "type": "string"
+        },
+        "height_cm": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "pattern": "^[0-9]+(?:\\.[0-9]+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Height Cm"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "member_id": {
+          "format": "uuid",
+          "title": "Member Id",
+          "type": "string"
+        },
+        "row_version": {
+          "exclusiveMinimum": 0,
+          "title": "Row Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "household_id",
+        "member_id",
+        "row_version",
+        "body_mass_kg",
+        "height_cm",
+        "created_by_user_id",
+        "created_at"
+      ],
+      "title": "NutritionLegacyProfile",
+      "type": "object"
+    },
+    "NutritionMaximum": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "MAXIMUM",
+          "title": "Kind",
+          "type": "string"
+        },
+        "upper": {
+          "$ref": "#/$defs/NutritionRootAmount"
+        }
+      },
+      "required": [
+        "kind",
+        "upper"
+      ],
+      "title": "NutritionMaximum",
+      "type": "object"
+    },
+    "NutritionMinimum": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "MINIMUM",
+          "title": "Kind",
+          "type": "string"
+        },
+        "lower": {
+          "$ref": "#/$defs/NutritionRootAmount"
+        }
+      },
+      "required": [
+        "kind",
+        "lower"
+      ],
+      "title": "NutritionMinimum",
+      "type": "object"
+    },
+    "NutritionObservationReference": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Hash",
+          "type": "string"
+        },
+        "fact_key": {
+          "enum": [
+            "BODY_MASS",
+            "HEIGHT"
+          ],
+          "title": "Fact Key",
+          "type": "string"
+        },
+        "legacy_anchor_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Legacy Anchor Fingerprint",
+          "type": "string"
+        },
+        "revision_id": {
+          "format": "uuid",
+          "title": "Revision Id",
+          "type": "string"
+        },
+        "unit": {
+          "enum": [
+            "KG",
+            "CM"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/NutritionRootAmount"
+        }
+      },
+      "required": [
+        "fact_key",
+        "revision_id",
+        "fact_hash",
+        "value",
+        "unit",
+        "legacy_anchor_fingerprint"
+      ],
+      "title": "NutritionObservationReference",
+      "type": "object"
+    },
+    "NutritionObservationRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "fact_key": {
+          "enum": [
+            "BODY_MASS",
+            "HEIGHT"
+          ],
+          "title": "Fact Key",
+          "type": "string"
+        },
+        "kind": {
+          "const": "OBSERVATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "operation": {
+          "enum": [
+            "CREATE",
+            "REPLACE",
+            "CORRECT",
+            "RETRACT"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "replaces": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 64,
+          "title": "Replaces",
+          "type": "array"
+        },
+        "unit": {
+          "enum": [
+            "KG",
+            "CM"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionRootAmount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "operation",
+        "fact_key",
+        "value",
+        "unit",
+        "observed_at",
+        "provenance",
+        "effective",
+        "replaces"
+      ],
+      "title": "NutritionObservationRevision",
+      "type": "object"
+    },
+    "NutritionPrincipalEnrollment": {
+      "additionalProperties": false,
+      "properties": {
+        "delegation_registrar": {
+          "title": "Delegation Registrar",
+          "type": "boolean"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "identity_evidence": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        },
+        "service_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Service Id"
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Id"
+        },
+        "verified_human_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Verified Human Id"
+        }
+      },
+      "required": [
+        "role_name",
+        "verified_human_id",
+        "user_id",
+        "service_id",
+        "delegation_registrar",
+        "identity_evidence",
+        "idempotency_key"
+      ],
+      "title": "NutritionPrincipalEnrollment",
+      "type": "object"
+    },
+    "NutritionPrincipalFact": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/NutritionSourceSession"
+        },
+        "command": {
+          "$ref": "#/$defs/NutritionPrincipalEnrollment"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "role_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Role Oid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "database_oid",
+        "database_name",
+        "role_oid",
+        "administrator",
+        "recorded_at",
+        "command_hash"
+      ],
+      "title": "NutritionPrincipalFact",
+      "type": "object"
+    },
+    "NutritionProviderEnrollment": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_evidence": {
+          "$ref": "#/$defs/NutritionSourceEvidence"
+        },
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "environment": {
+          "enum": [
+            "TEST_ONLY",
+            "REVIEWED_PRODUCTION"
+          ],
+          "title": "Environment",
+          "type": "string"
+        },
+        "expected_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Generation",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "previous_enrollment_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Enrollment Id"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "remit": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Remit",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id",
+        "code",
+        "version",
+        "remit",
+        "environment",
+        "authority_evidence",
+        "expected_generation",
+        "previous_enrollment_id",
+        "idempotency_key"
+      ],
+      "title": "NutritionProviderEnrollment",
+      "type": "object"
+    },
+    "NutritionProviderFact": {
+      "additionalProperties": false,
+      "properties": {
+        "administrator": {
+          "$ref": "#/$defs/NutritionSourceSession"
+        },
+        "command": {
+          "$ref": "#/$defs/NutritionProviderEnrollment"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Generation",
+          "type": "integer"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "command",
+        "generation",
+        "administrator",
+        "recorded_at",
+        "command_hash"
+      ],
+      "title": "NutritionProviderFact",
+      "type": "object"
+    },
+    "NutritionRange": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "RANGE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "lower": {
+          "$ref": "#/$defs/NutritionRootAmount"
+        },
+        "upper": {
+          "$ref": "#/$defs/NutritionRootAmount"
+        }
+      },
+      "required": [
+        "kind",
+        "lower",
+        "upper"
+      ],
+      "title": "NutritionRange",
+      "type": "object"
+    },
+    "NutritionRecordedSource": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/NutritionSourceSession"
+        },
+        "authority_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Authority Generation",
+          "type": "integer"
+        },
+        "command": {
+          "$ref": "#/$defs/NutritionSourceCommand"
+        },
+        "command_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Hash",
+          "type": "string"
+        },
+        "delegation_event_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Delegation Event Id"
+        },
+        "fact_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Hash",
+          "type": "string"
+        },
+        "grant_event_id": {
+          "format": "uuid",
+          "title": "Grant Event Id",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "legacy_anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionLegacyAnchor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "previous_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Hash"
+        },
+        "principal_id": {
+          "format": "uuid",
+          "title": "Principal Id",
+          "type": "string"
+        },
+        "provider_enrollment_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Enrollment Id"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "recorded_order": {
+          "exclusiveMinimum": 0,
+          "maximum": 9223372036854775807,
+          "title": "Recorded Order",
+          "type": "integer"
+        },
+        "sequence": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "stream_key": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Stream Key",
+          "type": "string"
+        },
+        "subject_witness": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionSubjectWitness"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "recorded_order",
+        "command",
+        "stream_key",
+        "sequence",
+        "previous_hash",
+        "principal_id",
+        "grant_event_id",
+        "authority_generation",
+        "provider_enrollment_id",
+        "author",
+        "subject_witness",
+        "delegation_event_id",
+        "legacy_anchor",
+        "recorded_at",
+        "command_hash",
+        "fact_hash"
+      ],
+      "title": "NutritionRecordedSource",
+      "type": "object"
+    },
     "NutritionReferenceFact": {
       "additionalProperties": false,
       "properties": {
@@ -11300,6 +13121,1087 @@
         "fact"
       ],
       "title": "NutritionReferenceFact",
+      "type": "object"
+    },
+    "NutritionResolvedRoot": {
+      "additionalProperties": false,
+      "properties": {
+        "clause": {
+          "$ref": "#/$defs/NutritionGuidelineClause"
+        },
+        "guideline_body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Guideline Body Fingerprint",
+          "type": "string"
+        },
+        "guideline_revision_id": {
+          "format": "uuid",
+          "title": "Guideline Revision Id",
+          "type": "string"
+        },
+        "publication_event_id": {
+          "format": "uuid",
+          "title": "Publication Event Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "publication_event_id",
+        "guideline_revision_id",
+        "guideline_body_fingerprint",
+        "clause"
+      ],
+      "title": "NutritionResolvedRoot",
+      "type": "object"
+    },
+    "NutritionRootAmount": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "maximum": 170141183460469231731687303715884105727,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "maximum": 170141183460469231731687303715884105727,
+          "minimum": 0,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "NutritionRootAmount",
+      "type": "object"
+    },
+    "NutritionRootContract": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "availability": {
+          "enum": [
+            "AVAILABLE",
+            "UNAVAILABLE"
+          ],
+          "title": "Availability",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "nutrition-root-contract.v1",
+          "default": "nutrition-root-contract.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "current_authorization": {
+          "const": "NOT_CLAIMED",
+          "default": "NOT_CLAIMED",
+          "title": "Current Authorization",
+          "type": "string"
+        },
+        "eligibility": {
+          "enum": [
+            "SUPPORTED",
+            "UNSUPPORTED",
+            "INELIGIBLE",
+            "UNKNOWN"
+          ],
+          "title": "Eligibility",
+          "type": "string"
+        },
+        "goal_direction": {
+          "anyOf": [
+            {
+              "enum": [
+                "CUT",
+                "MAINTAIN",
+                "GAIN"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Goal Direction"
+        },
+        "goal_revision_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Goal Revision Id"
+        },
+        "goal_state": {
+          "enum": [
+            "PRESENT",
+            "ABSENT",
+            "RETRACTED",
+            "AMBIGUOUS"
+          ],
+          "title": "Goal State",
+          "type": "string"
+        },
+        "numeric_goal_protection": {
+          "const": "NOT_SYNTHESIZED",
+          "default": "NOT_SYNTHESIZED",
+          "title": "Numeric Goal Protection",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_synthesis": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Policy Synthesis",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "roots": {
+          "items": {
+            "$ref": "#/$defs/NutritionResolvedRoot"
+          },
+          "title": "Roots",
+          "type": "array"
+        },
+        "scientific_correctness": {
+          "const": "NOT_CERTIFIED",
+          "default": "NOT_CERTIFIED",
+          "title": "Scientific Correctness",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "RETAINED_SELF_CONSISTENCY_NOT_OFFLINE_DATABASE_PROOF",
+          "default": "RETAINED_SELF_CONSISTENCY_NOT_OFFLINE_DATABASE_PROOF",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "sources": {
+          "$ref": "#/$defs/NutritionRootSourceSnapshot"
+        }
+      },
+      "required": [
+        "sources",
+        "availability",
+        "eligibility",
+        "goal_state",
+        "goal_revision_id",
+        "goal_direction",
+        "roots",
+        "reasons",
+        "source_fingerprint",
+        "result_fingerprint"
+      ],
+      "title": "NutritionRootContract",
+      "type": "object"
+    },
+    "NutritionRootDescriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "enum": [
+            "ENERGY",
+            "PROTEIN",
+            "FAT",
+            "CARBOHYDRATE"
+          ],
+          "title": "Metric",
+          "type": "string"
+        },
+        "protocol_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Protocol Fingerprint",
+          "type": "string"
+        },
+        "scope_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Id",
+          "type": "string"
+        },
+        "scope_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Version",
+          "type": "string"
+        },
+        "temporal": {
+          "$ref": "#/$defs/NutritionTemporalScope"
+        },
+        "unit": {
+          "enum": [
+            "KCAL",
+            "G"
+          ],
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric",
+        "unit",
+        "scope_id",
+        "scope_version",
+        "protocol_fingerprint",
+        "temporal"
+      ],
+      "title": "NutritionRootDescriptor",
+      "type": "object"
+    },
+    "NutritionRootRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "nutrition-root-request.v1",
+          "default": "nutrition-root-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "environment": {
+          "enum": [
+            "TEST_ONLY",
+            "REVIEWED_PRODUCTION"
+          ],
+          "title": "Environment",
+          "type": "string"
+        },
+        "family_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Family Id",
+          "type": "string"
+        },
+        "goal_type": {
+          "const": "ENERGY_DIRECTION",
+          "title": "Goal Type",
+          "type": "string"
+        },
+        "guideline_body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Guideline Body Fingerprint",
+          "type": "string"
+        },
+        "guideline_revision_id": {
+          "format": "uuid",
+          "title": "Guideline Revision Id",
+          "type": "string"
+        },
+        "protocol_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Protocol Fingerprint",
+          "type": "string"
+        },
+        "provider_id": {
+          "format": "uuid",
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "purpose": {
+          "enum": [
+            "ROOT",
+            "VALIDATOR"
+          ],
+          "title": "Purpose",
+          "type": "string"
+        },
+        "scope_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Id",
+          "type": "string"
+        },
+        "scope_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Version",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        },
+        "temporal": {
+          "$ref": "#/$defs/NutritionTemporalScope"
+        }
+      },
+      "required": [
+        "subject",
+        "provider_id",
+        "family_id",
+        "guideline_revision_id",
+        "guideline_body_fingerprint",
+        "protocol_fingerprint",
+        "scope_id",
+        "scope_version",
+        "temporal",
+        "environment",
+        "purpose",
+        "goal_type"
+      ],
+      "title": "NutritionRootRequest",
+      "type": "object"
+    },
+    "NutritionRootSourceSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "items": {
+            "$ref": "#/$defs/NutritionAuthorityFact"
+          },
+          "maxItems": 4096,
+          "title": "Authority",
+          "type": "array"
+        },
+        "capture": {
+          "$ref": "#/$defs/NutritionCaptureFrame"
+        },
+        "contract_version": {
+          "const": "nutrition-root-sources.v1",
+          "default": "nutrition-root-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "current_legacy_anchor": {
+          "$ref": "#/$defs/NutritionLegacyAnchor"
+        },
+        "principals": {
+          "items": {
+            "$ref": "#/$defs/NutritionPrincipalFact"
+          },
+          "maxItems": 512,
+          "minItems": 1,
+          "title": "Principals",
+          "type": "array"
+        },
+        "provider_enrollments": {
+          "items": {
+            "$ref": "#/$defs/NutritionProviderFact"
+          },
+          "maxItems": 64,
+          "minItems": 1,
+          "title": "Provider Enrollments",
+          "type": "array"
+        },
+        "request": {
+          "$ref": "#/$defs/NutritionRootRequest"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/NutritionRecordedSource"
+          },
+          "maxItems": 4096,
+          "title": "Sources",
+          "type": "array"
+        },
+        "streams": {
+          "items": {
+            "$ref": "#/$defs/NutritionStreamManifest"
+          },
+          "maxItems": 512,
+          "title": "Streams",
+          "type": "array"
+        }
+      },
+      "required": [
+        "request",
+        "provider_enrollments",
+        "principals",
+        "authority",
+        "sources",
+        "streams",
+        "current_legacy_anchor",
+        "capture",
+        "source_fingerprint"
+      ],
+      "title": "NutritionRootSourceSnapshot",
+      "type": "object"
+    },
+    "NutritionRootValidationInput": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "nutrition-root-validation-input.v1",
+          "default": "nutrition-root-validation-input.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "enum": [
+            "ROOT_SOURCE_CONSISTENCY_ONLY",
+            "ROOT_AND_DERIVED_CONTAINMENT"
+          ],
+          "title": "Coverage",
+          "type": "string"
+        },
+        "derived_claims": {
+          "items": {
+            "$ref": "#/$defs/NutritionDerivedContainmentClaim"
+          },
+          "maxItems": 32,
+          "title": "Derived Claims",
+          "type": "array"
+        },
+        "root": {
+          "$ref": "#/$defs/NutritionRootContract"
+        }
+      },
+      "required": [
+        "root",
+        "coverage",
+        "derived_claims"
+      ],
+      "title": "NutritionRootValidationInput",
+      "type": "object"
+    },
+    "NutritionRootValidationReport": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "canonical_database_origin": {
+          "const": "NOT_PROVED_OFFLINE",
+          "default": "NOT_PROVED_OFFLINE",
+          "title": "Canonical Database Origin",
+          "type": "string"
+        },
+        "containment_checked": {
+          "title": "Containment Checked",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "nutrition-root-validation-report.v1",
+          "default": "nutrition-root-validation-report.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "enum": [
+            "ROOT_SOURCE_CONSISTENCY_ONLY",
+            "ROOT_AND_DERIVED_CONTAINMENT"
+          ],
+          "title": "Coverage",
+          "type": "string"
+        },
+        "current_authorization": {
+          "const": "NOT_CLAIMED",
+          "default": "NOT_CLAIMED",
+          "title": "Current Authorization",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "CONSISTENT",
+            "INCONSISTENT",
+            "UNSUPPORTED"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_business_correctness": {
+          "const": "NOT_EVALUATED",
+          "default": "NOT_EVALUATED",
+          "title": "Policy Business Correctness",
+          "type": "string"
+        },
+        "root_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Root Fingerprint",
+          "type": "string"
+        },
+        "scientific_correctness": {
+          "const": "NOT_CERTIFIED",
+          "default": "NOT_CERTIFIED",
+          "title": "Scientific Correctness",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "coverage",
+        "decision",
+        "findings",
+        "source_fingerprint",
+        "root_fingerprint",
+        "containment_checked"
+      ],
+      "title": "NutritionRootValidationReport",
+      "type": "object"
+    },
+    "NutritionSourceCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "body": {
+          "discriminator": {
+            "mapping": {
+              "ASSESSMENT": "#/$defs/NutritionEligibilityRevision",
+              "DELEGATION": "#/$defs/NutritionDelegationRevision",
+              "DRAFT": "#/$defs/NutritionGuidelineDraft",
+              "GOAL": "#/$defs/NutritionGoalRevision",
+              "OBSERVATION": "#/$defs/NutritionObservationRevision",
+              "PUBLICATION": "#/$defs/NutritionGuidelinePublication",
+              "REVIEW": "#/$defs/NutritionGuidelineReview"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/NutritionGuidelineDraft"
+            },
+            {
+              "$ref": "#/$defs/NutritionGuidelineReview"
+            },
+            {
+              "$ref": "#/$defs/NutritionGuidelinePublication"
+            },
+            {
+              "$ref": "#/$defs/NutritionObservationRevision"
+            },
+            {
+              "$ref": "#/$defs/NutritionEligibilityRevision"
+            },
+            {
+              "$ref": "#/$defs/NutritionGoalRevision"
+            },
+            {
+              "$ref": "#/$defs/NutritionDelegationRevision"
+            }
+          ],
+          "title": "Body"
+        },
+        "contract_version": {
+          "const": "nutrition-source-command.v1",
+          "default": "nutrition-source-command.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/$defs/NutritionStreamIdentity"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "revision_id": {
+          "format": "uuid",
+          "title": "Revision Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "revision_id",
+        "identity",
+        "body",
+        "expected_revision",
+        "predecessor_id",
+        "idempotency_key"
+      ],
+      "title": "NutritionSourceCommand",
+      "type": "object"
+    },
+    "NutritionSourceEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "body": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Body",
+          "type": "string"
+        },
+        "body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Body Fingerprint",
+          "type": "string"
+        },
+        "environment": {
+          "enum": [
+            "TEST_ONLY",
+            "REVIEWED_PRODUCTION"
+          ],
+          "title": "Environment",
+          "type": "string"
+        },
+        "evidence_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "purpose": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Purpose",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "version",
+        "environment",
+        "purpose",
+        "body",
+        "body_fingerprint"
+      ],
+      "title": "NutritionSourceEvidence",
+      "type": "object"
+    },
+    "NutritionSourceInterval": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "NutritionSourceInterval",
+      "type": "object"
+    },
+    "NutritionSourceSession": {
+      "additionalProperties": false,
+      "properties": {
+        "authenticated_identity": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Authenticated Identity",
+          "type": "string"
+        },
+        "authentication_method": {
+          "const": "scram-sha-256",
+          "title": "Authentication Method",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+          "title": "Role Name",
+          "type": "string"
+        },
+        "role_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Role Oid",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "database_oid",
+        "database_name",
+        "role_oid",
+        "role_name",
+        "authentication_method",
+        "authenticated_identity"
+      ],
+      "title": "NutritionSourceSession",
+      "type": "object"
+    },
+    "NutritionStreamIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Code",
+          "type": "string"
+        },
+        "family_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Family Id"
+        },
+        "household_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Household Id"
+        },
+        "kind": {
+          "enum": [
+            "GUIDELINE",
+            "OBSERVATION",
+            "GOAL",
+            "ASSESSMENT",
+            "DELEGATION"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "member_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Member Id"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Id"
+        }
+      },
+      "required": [
+        "kind",
+        "provider_id",
+        "family_id",
+        "household_id",
+        "member_id",
+        "code"
+      ],
+      "title": "NutritionStreamIdentity",
+      "type": "object"
+    },
+    "NutritionStreamManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_scope": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionAuthorityScope"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "head_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Head Hash"
+        },
+        "head_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Head Id"
+        },
+        "revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "source_identity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionStreamIdentity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stream_key": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Stream Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stream_key",
+        "source_identity",
+        "authority_scope",
+        "revision",
+        "head_id",
+        "head_hash"
+      ],
+      "title": "NutritionStreamManifest",
+      "type": "object"
+    },
+    "NutritionSubjectWitness": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_member_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actor Member Id"
+        },
+        "actor_user_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actor User Id"
+        },
+        "membership_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Membership Id"
+        },
+        "role": {
+          "anyOf": [
+            {
+              "enum": [
+                "OWNER",
+                "EDITOR",
+                "VIEWER"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Role"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "subject",
+        "actor_user_id",
+        "membership_id",
+        "actor_member_id",
+        "role"
+      ],
+      "title": "NutritionSubjectWitness",
+      "type": "object"
+    },
+    "NutritionTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "center": {
+          "$ref": "#/$defs/NutritionRootAmount"
+        },
+        "kind": {
+          "const": "TARGET",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "center"
+      ],
+      "title": "NutritionTarget",
+      "type": "object"
+    },
+    "NutritionTemporalScope": {
+      "additionalProperties": false,
+      "properties": {
+        "calendar": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Calendar",
+          "type": "string"
+        },
+        "interval": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "kind": {
+          "enum": [
+            "EXACT_INTERVAL",
+            "DAY",
+            "WEEK"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "period_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Period Id",
+          "type": "string"
+        },
+        "timezone": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "period_id",
+        "calendar",
+        "timezone",
+        "interval"
+      ],
+      "title": "NutritionTemporalScope",
       "type": "object"
     },
     "NutritionValues": {
@@ -23669,8 +26571,8 @@
       "type": "object"
     }
   },
-  "$id": "urn:menuto:domain:foundation:20",
+  "$id": "urn:menuto:domain:foundation:21",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; repeat penalty v1-draft uses exact proposal-local policy units, not global history; explicit target affinity v1-draft interprets canonical requested targets only; no prior/shrinkage, inferred evidence, candidate utility or activation; feature repeat v1-draft interprets one proposal-local term with explicit policies; unresolved/empty occurrences are unavailable, no cross-dimension utility or history; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone.",
+  "description": "Bundle of named definitions; select a $defs reference to validate a document. Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; production authority is absent and reports cannot authorize activation. Planner, validation and mutation handoffs are m0 drafts. Retail facts use retail-v2; reference calibration and price pairs remain DRAFT. Recipe authored snapshots use recipe-v1; culinary grounded inputs remain DRAFT. V1 substitutions are mass-only; preparation yield is net and path-specific. Plan intent v1/v2 unchanged; v3 sealed authoritative culinary intent; independent grounding companion; culinary generation v1 expands authored demand only, no downstream grounding/ranking; candidate grounding v1 resolves supported primitives, not feasibility/authority; Pareto shortlist v1-draft compares exact optional supply coverage only, not full portfolio/ranking or global feasibility; explicit preferences v1 record raw member assertions, no EvidenceStrength or utility; exposure preview v1 captures selected current proposals only, not consumption history; recipe cooldown v1-draft assesses one proposal using explicit policy, not global safety; decay trace v1-draft interprets eligible witnesses AS_OF_CAPTURE, no aggregate utility; repeat penalty v1-draft uses exact proposal-local policy units, not global history; explicit target affinity v1-draft interprets canonical requested targets only; no prior/shrinkage, inferred evidence, candidate utility or activation; feature repeat v1-draft interprets one proposal-local term with explicit policies; unresolved/empty occurrences are unavailable, no cross-dimension utility or history; PRECOMMIT authority not installed. No production activation or full independent validation is provided. Inventory-v1 physical commands/facts are explicit confirmation only; no projections. Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. Cross-field semantic guards run in Python, not JSON Schema alone. Nutrition root v1 adds authenticated append-only structural sources and independent source/containment companions, not production nutrition content or policy synthesis.",
   "title": "Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints"
 }

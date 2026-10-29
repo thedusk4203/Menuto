@@ -89,15 +89,23 @@ at head `fb81de8942cc681f8efa4ab358d8528749c3465b`, formal review6487151566;
 PR #121 merged at `d4167537a7347b686b1edc273b5ac9d4f5145d62` (same reviewed tree).
 Exact post-merge push [CI40812998898](https://github.com/thedusk4203/Menuto/actions/runs/40812998898)
 SUCCESS, Python/web/all guards green;3,638 passed /0 skips;403 exports;0015 /85;no0016.
-Only after that gate, separate user authorization opened the
-[Nutrition Root Contract & Supported-Eligibility detailed design](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_DESIGN.md).
-**DESIGN READY FOR ARCHITECTURE REVIEW — IMPLEMENTATION NOT AUTHORIZED.**
-Nutrition owns reviewed guideline publication semantics; physiology/goals remain member-owned;
-separate scope-qualified eligibility evidence is required. PostgreSQL-owned durable source journals
-are proposed, not implemented; no migration number/table count or production nutrition content
-is reserved/approved. Root source completeness is not full MTR006 synthesis or MTR008 resolution.
+The [Nutrition Root Contract & Supported-Eligibility design](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_DESIGN.md)
+is **APPROVED** at `e090bf788bd6a257d7bba0f3e88d6b5fec12bc44`, review6491096716.
+PR #122 merged at `cb66f462f3ea7e8cf6e63a3cbe2d75db0d19a682`, exactly the reviewed tree;
+exact post-merge push [CI40839789573](https://github.com/thedusk4203/Menuto/actions/runs/40839789573)
+SUCCESS, Python/web/all guards green;3,638 passed /0 skips;403 exports;0015 /85.
+Only after that gate, separately authorized **structural implementation** is now
+**IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN**;
+[implementation evidence](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_EVIDENCE.md).
+It adds migration0016 and13 Nutrition-owned source tables:85→98 domain tables;
+447 exported definitions =403 unchanged +44 additive. Provider/publication authority remains
+independent; physiology/goals remain member-owned; eligibility needs exact qualified attestation.
+Fresh installation has zero provider/principal/grant/content/assessment/goal rows.
+**PRODUCTION NUMERICAL/CLINICAL CONTENT NOT AUTHORIZED**; isolated TEST_ONLY fixtures are not content approval.
+Root availability is complete applicable source input, not policy synthesis, safety certification,
+MTR006/008 completion, independent full-plan validation or planner readiness.
 The bounded020A all-survivor preview option remains unchanged; no020B implementation.
-No runtime/contracts/tests/tooling/migration/data change or downstream authorization in this PR.
+No implementation merge/freeze or downstream work is authorized by this status record.
 MTR040 COMPLETE /issue41 CLOSED—COMPLETED;039 OPEN;full041/046 PARTIAL;
 024/020B/021 remain BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
 Historical implementation-stage NOT FROZEN/open-PR wording is superseded only as to status.

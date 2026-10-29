@@ -120,6 +120,21 @@ from app.modules.nutrition.contracts import (
     ResolvedNutrients,
     ResolvedNutritionPortion,
 )
+from app.modules.nutrition.root_contracts import (
+    NutritionAuthorityCommand,
+    NutritionAuthorityFact,
+    NutritionPrincipalEnrollment,
+    NutritionPrincipalFact,
+    NutritionProviderEnrollment,
+    NutritionProviderFact,
+    NutritionRecordedSource,
+    NutritionRootContract,
+    NutritionRootRequest,
+    NutritionRootSourceSnapshot,
+    NutritionRootValidationInput,
+    NutritionRootValidationReport,
+    NutritionSourceCommand,
+)
 from app.modules.planning.contracts import (
     ActivePlanSnapshot,
     BoundActivePlanSnapshot,
@@ -728,13 +743,22 @@ CONTRACTS = (
 )
 
 
+CONTRACTS += (
+    NutritionAuthorityCommand, NutritionAuthorityFact, NutritionPrincipalEnrollment,
+    NutritionPrincipalFact, NutritionProviderEnrollment, NutritionProviderFact,
+    NutritionRecordedSource, NutritionRootContract, NutritionRootRequest,
+    NutritionRootSourceSnapshot, NutritionRootValidationInput, NutritionRootValidationReport,
+    NutritionSourceCommand,
+)
+
+
 def export() -> str:
     _, schema = models_json_schema(
         [(model, "validation") for model in CONTRACTS],
         title="Menuto M0 domain contracts — draft handoffs, no business HTTP endpoints",
     )
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    schema["$id"] = "urn:menuto:domain:foundation:20"
+    schema["$id"] = "urn:menuto:domain:foundation:21"
     schema["description"] = (
         "Bundle of named definitions; select a $defs reference to validate a document. "
         "Validation subject/report v1-foundation are partial self-contained inputs/diagnostics; "
@@ -763,6 +787,8 @@ def export() -> str:
         "Inventory-v1 physical commands/facts are explicit confirmation only; no projections. "
         "Physical snapshot and batch-flow handoffs remain DRAFT, not activation-ready. "
         "Cross-field semantic guards run in Python, not JSON Schema alone."
+        " Nutrition root v1 adds authenticated append-only structural sources and independent "
+        "source/containment companions, not production nutrition content or policy synthesis."
     )
     return json.dumps(schema, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
 

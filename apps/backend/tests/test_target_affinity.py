@@ -515,6 +515,7 @@ def test_all_frozen_040a_041abcde_046a_definitions_and_migrations_retained():
     assert {p.as_posix() for p in directory.glob("*.py")} == set(receipt["released_migrations"]) | {
         "apps/backend/migrations/versions/0014_reviewed_reference_prior_source.py",
         "apps/backend/migrations/versions/0015_reviewed_hierarchy_source.py",
+        "apps/backend/migrations/versions/0016_nutrition_root_sources.py",
     }
 
 

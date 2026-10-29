@@ -1,0 +1,1597 @@
+{
+  "authority": [
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "ROOT_SOURCE_READ",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 0,
+        "fact_key": null,
+        "idempotency_key": "1a96d1f50932467ab11de4e9a931a543",
+        "predecessor_id": null,
+        "principal_id": "97e2865e-9d69-423e-889c-8563ecca8694",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant ROOT_SOURCE_READ",
+          "body_fingerprint": "1cd27a2bc85f0824d1e031461d045eed68be28a748a47394b79082ee698b2f73",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_ad1a860992104d86b7880db0f8c431a7",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant ROOT_SOURCE_READ",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        }
+      },
+      "command_hash": "0f981f76cbade616c6366f9b4a4fb0531619983be3a36d7528f15bbdad42b14a",
+      "fact_hash": "845d63f2c1373a244ee349cb00e0cb318ba45c4268d30e6b987303b47bdbd209",
+      "id": "d4e7b82f-55ab-4c9e-9fde-e3decb9ba133",
+      "previous_hash": null,
+      "recorded_at": "2026-10-29T10:01:06.760039Z",
+      "recorded_order": 4,
+      "sequence": 1,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "VALIDATOR_SOURCE_READ",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 1,
+        "fact_key": null,
+        "idempotency_key": "63a57c6adfdc4fcab7c67b4ebebfa91a",
+        "predecessor_id": "d4e7b82f-55ab-4c9e-9fde-e3decb9ba133",
+        "principal_id": "8d50be43-4c02-4c3e-9538-bdedac0dc093",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant VALIDATOR_SOURCE_READ",
+          "body_fingerprint": "a4e4e458634e160618e4e9f243d47bfb24e886242cddfa96c74abe58a5301208",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_48d64d7c5f6f4d79b750f57024184093",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant VALIDATOR_SOURCE_READ",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        }
+      },
+      "command_hash": "f9a60bd7eb46c9596b1f5e1cc09f805cb3aa16ddc551eb1ede59e1b8b3e970dc",
+      "fact_hash": "47d12307d9b8913aa4fa121cfb3c754d0d974e952b1803aa18ef860e8cae2437",
+      "id": "a6281e46-4bb7-4dd9-9d26-52552bb3105c",
+      "previous_hash": "845d63f2c1373a244ee349cb00e0cb318ba45c4268d30e6b987303b47bdbd209",
+      "recorded_at": "2026-10-29T10:01:06.772698Z",
+      "recorded_order": 5,
+      "sequence": 2,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "MEMBER_GOAL_WRITE",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 2,
+        "fact_key": null,
+        "idempotency_key": "f8ee108772c14aaaa6625615aa72bb56",
+        "predecessor_id": "a6281e46-4bb7-4dd9-9d26-52552bb3105c",
+        "principal_id": "844e6e63-4ba5-4b15-8603-6dfe78e69799",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+          "body_fingerprint": "138c9cd99c52d13a004615f886a32fa8fd9bdae849a87fdc0cf227a5a64ef2d1",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_e0250c0142f44f4e8607f6143af14a88",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        }
+      },
+      "command_hash": "f8a35958d3776e103c785784f2383cc68d445c3a680acc9404329ac3c752828b",
+      "fact_hash": "ad04990f48068c3a0cdfe84954389cc17681a9a65c01d93c8e9697864f09c9c5",
+      "id": "9cfdf63e-9201-4314-b618-7714eac0abb2",
+      "previous_hash": "47d12307d9b8913aa4fa121cfb3c754d0d974e952b1803aa18ef860e8cae2437",
+      "recorded_at": "2026-10-29T10:01:06.786057Z",
+      "recorded_order": 6,
+      "sequence": 3,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "MEMBER_OBSERVATION_WRITE",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 3,
+        "fact_key": "BODY_MASS",
+        "idempotency_key": "49d1fe6ab9534393bc7873c4d9b77030",
+        "predecessor_id": "9cfdf63e-9201-4314-b618-7714eac0abb2",
+        "principal_id": "844e6e63-4ba5-4b15-8603-6dfe78e69799",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_1d9abd5ea80e4a819e1ea93590e47d62",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        }
+      },
+      "command_hash": "649f306056df644b08890951120deac4a30c2e65d476f93fdc2f06eb581cdf7a",
+      "fact_hash": "d24d63e0e400893a54802cc11e7488c5682fb8be0d3fdaf8fb26e4a9a68ff6f3",
+      "id": "899f5195-3073-4440-a696-75daff1a5466",
+      "previous_hash": "ad04990f48068c3a0cdfe84954389cc17681a9a65c01d93c8e9697864f09c9c5",
+      "recorded_at": "2026-10-29T10:01:06.797845Z",
+      "recorded_order": 7,
+      "sequence": 4,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "MEMBER_OBSERVATION_WRITE",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 4,
+        "fact_key": "HEIGHT",
+        "idempotency_key": "5ff743f6526a4360b92789358a2cee4f",
+        "predecessor_id": "899f5195-3073-4440-a696-75daff1a5466",
+        "principal_id": "844e6e63-4ba5-4b15-8603-6dfe78e69799",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_3fbd524ff4204529a05d025c750bcb1f",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        }
+      },
+      "command_hash": "8baf0f077b09a4f914cec226b04598942e7172638ed68d097638482782254f60",
+      "fact_hash": "10a84542add0590f99e80e8db5d4641701d9a7a92b88b25bb3c531b6a904a140",
+      "id": "efe08498-72a2-4a7f-92c6-208d63911c93",
+      "previous_hash": "d24d63e0e400893a54802cc11e7488c5682fb8be0d3fdaf8fb26e4a9a68ff6f3",
+      "recorded_at": "2026-10-29T10:01:06.809464Z",
+      "recorded_order": 8,
+      "sequence": 5,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "MEMBER_GOAL_WRITE",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 5,
+        "fact_key": null,
+        "idempotency_key": "ece11c69ff314ab4b9cdd91a7881396d",
+        "predecessor_id": "efe08498-72a2-4a7f-92c6-208d63911c93",
+        "principal_id": "82a5422e-08ff-4f93-8257-42941713e5bd",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+          "body_fingerprint": "138c9cd99c52d13a004615f886a32fa8fd9bdae849a87fdc0cf227a5a64ef2d1",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_b9e912919922413292c51f33d6b5fea9",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        }
+      },
+      "command_hash": "21302efabf4374aab21e71c2df7ab5e5225e1528b1426098b8d5753f1fad4d6c",
+      "fact_hash": "2b519bd9d9d5976c5c73fea25e37e2d623c9ab4b42b25088a43d258b7d991496",
+      "id": "c6819826-4f69-40e3-8211-b95e8910bec1",
+      "previous_hash": "10a84542add0590f99e80e8db5d4641701d9a7a92b88b25bb3c531b6a904a140",
+      "recorded_at": "2026-10-29T10:01:06.820787Z",
+      "recorded_order": 9,
+      "sequence": 6,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "MEMBER_OBSERVATION_WRITE",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 6,
+        "fact_key": "BODY_MASS",
+        "idempotency_key": "660662f1475e401f9185caecbca14419",
+        "predecessor_id": "c6819826-4f69-40e3-8211-b95e8910bec1",
+        "principal_id": "82a5422e-08ff-4f93-8257-42941713e5bd",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_18d089968ac04aa49fcb9c8f2cd4c591",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        }
+      },
+      "command_hash": "0d54ae88d2d197cc9e946110a1ee27ec5c2588e3c094ae619041dc4cacf1a7e7",
+      "fact_hash": "b29b7a2f97b41ef71e1a0f1a95e20c8bfe07cbf4b36bfed66eb96e844f9506e0",
+      "id": "6f673fec-13ee-457f-8fae-e4ab6e81f39a",
+      "previous_hash": "2b519bd9d9d5976c5c73fea25e37e2d623c9ab4b42b25088a43d258b7d991496",
+      "recorded_at": "2026-10-29T10:01:06.831903Z",
+      "recorded_order": 10,
+      "sequence": 7,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "MEMBER_OBSERVATION_WRITE",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 7,
+        "fact_key": "HEIGHT",
+        "idempotency_key": "924ac8f91eb24792920a3c8491b55d0b",
+        "predecessor_id": "6f673fec-13ee-457f-8fae-e4ab6e81f39a",
+        "principal_id": "82a5422e-08ff-4f93-8257-42941713e5bd",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_dee475fae8a74eb399a1f927adcff036",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        }
+      },
+      "command_hash": "7ad929919e8eea7cfa9bd1b21b3b7ca7918e5102d0ceade899e411b03631fd0d",
+      "fact_hash": "3caabc46b547102221ff4ee9c95fb5ca393f34249ffd79d788aa5b9e1de21b5c",
+      "id": "6f812d22-f2e8-4a28-8180-005804b8d60f",
+      "previous_hash": "b29b7a2f97b41ef71e1a0f1a95e20c8bfe07cbf4b36bfed66eb96e844f9506e0",
+      "recorded_at": "2026-10-29T10:01:06.842339Z",
+      "recorded_order": 11,
+      "sequence": 8,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "ELIGIBILITY_ATTEST",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 8,
+        "fact_key": null,
+        "idempotency_key": "e564ccd99d494f7283872b963f862b3f",
+        "predecessor_id": "6f812d22-f2e8-4a28-8180-005804b8d60f",
+        "principal_id": "50947233-f1a9-4b1c-8556-eb0a6f315dd0",
+        "protocol_fingerprint": "ce50b19a3fa729fccff3cf02024e6deebbc4c3e0caa11ad777e4fc0c3fd1ae37",
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant ELIGIBILITY_ATTEST",
+          "body_fingerprint": "42a5b2b12c9bf634ff338543d8e911d20f3dc3542dbffc572f58d5fa06e5676d",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_3c4db2e597d340979c3bcfdf97ae6eb1",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant ELIGIBILITY_ATTEST",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        }
+      },
+      "command_hash": "5bd4f92713587ea3f757d4d7de64c2ae15ed66a0edc5672d229058d55a78ced4",
+      "fact_hash": "5674f3d8fffd85b67f5772d19f34424084905228b900cb28204a339ff75a0328",
+      "id": "a54af2e2-9239-4f86-82b5-73f9ef5855aa",
+      "previous_hash": "3caabc46b547102221ff4ee9c95fb5ca393f34249ffd79d788aa5b9e1de21b5c",
+      "recorded_at": "2026-10-29T10:01:07.048907Z",
+      "recorded_order": 15,
+      "sequence": 9,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "GUIDELINE_REVIEW",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 0,
+        "fact_key": null,
+        "idempotency_key": "86c5d9419ce042939be2e48aefbf05c2",
+        "predecessor_id": null,
+        "principal_id": "846cd572-e70c-4d79-a4f2-7c6980414472",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant GUIDELINE_REVIEW",
+          "body_fingerprint": "6813b465c0c22fdc3fd03915a17723fbd148ea78d88d1e6bb180dfe181d9230d",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_0fd56d9fe5d94be599b4db9f060ab3a3",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant GUIDELINE_REVIEW",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": null,
+          "member_id": null,
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        }
+      },
+      "command_hash": "623bfe615a0bf3e08e1a8780aa6ffb29b212d5738faaf0afa97f386e061c01e9",
+      "fact_hash": "04dfe3457395a496fc7379d55c5e79d16736dd2aeb45aa81bbd983e83a271972",
+      "id": "0190598f-8e79-4aca-801f-152f6d1ff7b7",
+      "previous_hash": null,
+      "recorded_at": "2026-10-29T10:01:06.711947Z",
+      "recorded_order": 1,
+      "sequence": 1,
+      "stream_key": "d7b8ac1b5fb5790d7065f88d606872ee59bd4bc7a950c3f338ba9161df6844a6"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "GUIDELINE_PUBLISH",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 1,
+        "fact_key": null,
+        "idempotency_key": "2aba6fdec8b5448da67973dc3c8e7ead",
+        "predecessor_id": "0190598f-8e79-4aca-801f-152f6d1ff7b7",
+        "principal_id": "8f0deea0-bf05-473a-a8ed-5ad940433bdb",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant GUIDELINE_PUBLISH",
+          "body_fingerprint": "f2a20fcf18a3496d22a4b56cadd288fa1b94c089e5e0bee4c04ffe8182cc395c",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_88ddedb03dbf4b6e99e626cee11ea7a0",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant GUIDELINE_PUBLISH",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": null,
+          "member_id": null,
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        }
+      },
+      "command_hash": "f6169e5b1ce99f206f363ce63f1978baa115ce2a674725f7202dcea7cd233eb3",
+      "fact_hash": "fca828333a4a27217721cf7f3bc1aff2e25d07982da3113424fb89e451e2afbc",
+      "id": "80c9aba5-8861-465c-b31c-e58c2fd8bfa3",
+      "previous_hash": "04dfe3457395a496fc7379d55c5e79d16736dd2aeb45aa81bbd983e83a271972",
+      "recorded_at": "2026-10-29T10:01:06.732739Z",
+      "recorded_order": 2,
+      "sequence": 2,
+      "stream_key": "d7b8ac1b5fb5790d7065f88d606872ee59bd4bc7a950c3f338ba9161df6844a6"
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "action": "GRANT",
+        "capability": "GUIDELINE_WITHDRAW",
+        "effective": {
+          "end": "2100-01-01T00:00:00.000000Z",
+          "start": "2020-01-01T00:00:00.000000Z"
+        },
+        "expected_generation": 2,
+        "fact_key": null,
+        "idempotency_key": "e229d51b87ec4cb8a42b816789a74094",
+        "predecessor_id": "80c9aba5-8861-465c-b31c-e58c2fd8bfa3",
+        "principal_id": "8f0deea0-bf05-473a-a8ed-5ad940433bdb",
+        "protocol_fingerprint": null,
+        "qualification_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant GUIDELINE_WITHDRAW",
+          "body_fingerprint": "1c771b3f87b269361aa135f45eadd86078a4159904675e74a4da3328ce320fad",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_3019109173604283bc322faf3dbefe9d",
+          "purpose": "TEST_ONLY TEST_ONLY exact scope grant GUIDELINE_WITHDRAW",
+          "version": "TEST_ONLY_v1"
+        },
+        "scope": {
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": null,
+          "member_id": null,
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        }
+      },
+      "command_hash": "0c30178fbe103b7cb07de3dc3d0f5cc9e1a3e422873b00006bf6fcdfad772042",
+      "fact_hash": "a31953d8a95b330e99a7f1632bf046a4625115f030fe1f41919e1fb6efee6ec9",
+      "id": "1ba84ea3-cb6a-4cf5-8189-c566f5c3a772",
+      "previous_hash": "fca828333a4a27217721cf7f3bc1aff2e25d07982da3113424fb89e451e2afbc",
+      "recorded_at": "2026-10-29T10:01:06.745399Z",
+      "recorded_order": 3,
+      "sequence": 3,
+      "stream_key": "d7b8ac1b5fb5790d7065f88d606872ee59bd4bc7a950c3f338ba9161df6844a6"
+    }
+  ],
+  "capture": {
+    "absence_stream_keys": [],
+    "backend_pid": 21500,
+    "completed_at": "2026-10-29T10:01:07.444668Z",
+    "endpoint": "127.0.0.1:55444",
+    "isolation": "REPEATABLE READ",
+    "mvcc_snapshot": "1087:1087:",
+    "provider_enrollment_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+    "read_only": true,
+    "reader_grant_id": "d4e7b82f-55ab-4c9e-9fde-e3decb9ba133",
+    "reader_principal_id": "97e2865e-9d69-423e-889c-8563ecca8694",
+    "reader_subject_witness": {
+      "actor_member_id": null,
+      "actor_user_id": null,
+      "membership_id": null,
+      "role": null,
+      "subject": {
+        "contract_version": "household-member-identity.v1",
+        "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+        "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+      }
+    },
+    "row_count": 34,
+    "session": {
+      "authenticated_identity": "nrc_reader_edca389c8c1b",
+      "authentication_method": "scram-sha-256",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "role_name": "nrc_reader_edca389c8c1b",
+      "role_oid": 40977
+    },
+    "started_at": "2026-10-29T10:01:07.424796Z",
+    "transaction_id": "UNASSIGNED_READ_ONLY"
+  },
+  "contract_version": "nutrition-root-sources.v1",
+  "current_legacy_anchor": {
+    "body_fingerprint": "b4667f22b017ce524d0ccf96f019ab96bfcb034cfeeaee1dde0df768f85cc7f1",
+    "profile": null,
+    "subject": {
+      "contract_version": "household-member-identity.v1",
+      "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+      "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+    }
+  },
+  "principals": [
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "delegation_registrar": false,
+        "idempotency_key": "d2db8f4272af487489257de6e009d3fc",
+        "identity_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment assessor",
+          "body_fingerprint": "99c88c97d2d118f7ebe90d58dcf0d48fdaaca6051cffce01ac59a9863b3995aa",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_a414481be76f41249cad2e0dbfeeaec6",
+          "purpose": "TEST_ONLY TEST_ONLY enrollment assessor",
+          "version": "TEST_ONLY_v1"
+        },
+        "role_name": "nrc_assessor_05a730c10dd2",
+        "service_id": null,
+        "user_id": null,
+        "verified_human_id": "bfa5548a-fa45-4f41-b461-cff51c3dc230"
+      },
+      "command_hash": "983b9b0a45305e6d06d15b8978a642805700cccfcf11a5d6ea70c4fff9952c47",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "id": "50947233-f1a9-4b1c-8556-eb0a6f315dd0",
+      "recorded_at": "2026-10-29T10:01:06.273334Z",
+      "role_oid": 40974
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "delegation_registrar": false,
+        "idempotency_key": "a25c4aff95b643d1a33d78229a6ae0dd",
+        "identity_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY canonical member actor",
+          "body_fingerprint": "500f973b33907726fb6225d7498402e9028c9fc0390719daa295d354991f193b",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_e1ac1565f4a14c49a89575b1d8902c29",
+          "purpose": "TEST_ONLY TEST_ONLY canonical member actor",
+          "version": "TEST_ONLY_v1"
+        },
+        "role_name": "nrc_rep_e7fcea12b9_9265c489e46e",
+        "service_id": null,
+        "user_id": "a7b8e88c-2551-4ef1-983f-624a605de59f",
+        "verified_human_id": "97af2e34-b487-4ae9-8c0b-cff4bb49f863"
+      },
+      "command_hash": "282863709d54247d0b5392f036eb57f1f74e4c603464844fa5d9eab09c08018a",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "id": "82a5422e-08ff-4f93-8257-42941713e5bd",
+      "recorded_at": "2026-10-29T10:01:06.689820Z",
+      "role_oid": 40995
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "delegation_registrar": false,
+        "idempotency_key": "b0ff9d985234439b839ae2bd5fd6d944",
+        "identity_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY canonical member actor",
+          "body_fingerprint": "500f973b33907726fb6225d7498402e9028c9fc0390719daa295d354991f193b",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_dbe5e1a54e7747e69b87449b84d65da4",
+          "purpose": "TEST_ONLY TEST_ONLY canonical member actor",
+          "version": "TEST_ONLY_v1"
+        },
+        "role_name": "nrc_self_e7fcea12b9_f75d4cf84e14",
+        "service_id": null,
+        "user_id": "6723e2d2-8158-4402-bc85-aab5953776d7",
+        "verified_human_id": "61221208-1e33-422c-81be-b9738b4f7c22"
+      },
+      "command_hash": "e1665905d4499bd7f1375686c5f6f969064b6a3b5e12a2a5583315f4e41cbea7",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "id": "844e6e63-4ba5-4b15-8603-6dfe78e69799",
+      "recorded_at": "2026-10-29T10:01:06.516446Z",
+      "role_oid": 40992
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "delegation_registrar": false,
+        "idempotency_key": "b6f0a0cb43364db29b812b28f051d13d",
+        "identity_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment reviewer",
+          "body_fingerprint": "6d172a3a24b69cced88bf29231dc5fd27b49d1447530aab2839c9be26b77fc03",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_9284f262e3d74251af68246af395c0dd",
+          "purpose": "TEST_ONLY TEST_ONLY enrollment reviewer",
+          "version": "TEST_ONLY_v1"
+        },
+        "role_name": "nrc_reviewer_1ab353ef456d",
+        "service_id": null,
+        "user_id": null,
+        "verified_human_id": "99250fdf-dfb2-4543-99ef-79d35b12c06b"
+      },
+      "command_hash": "77e5f84050caa19d62dbaf5898988eb8a4079c8072ae3171e8484050e31652e1",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "id": "846cd572-e70c-4d79-a4f2-7c6980414472",
+      "recorded_at": "2026-10-29T10:01:06.263465Z",
+      "role_oid": 40968
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "delegation_registrar": false,
+        "idempotency_key": "eafb2a6d5f8e4aafadac57ef16f7f05c",
+        "identity_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment validator",
+          "body_fingerprint": "aad58de80941a6e1783ccb21e331f29d97b4a59dd09df3a86c493b7f7c4af2d9",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_abc63a484a924bf2928a25a70c5c3aaa",
+          "purpose": "TEST_ONLY TEST_ONLY enrollment validator",
+          "version": "TEST_ONLY_v1"
+        },
+        "role_name": "nrc_validator_886879d20e7a",
+        "service_id": "TEST_ONLY_validator",
+        "user_id": null,
+        "verified_human_id": null
+      },
+      "command_hash": "c56ce2341b6a6112bde5acbed3d624ef33141bed9600e045e528a446455a5b45",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "id": "8d50be43-4c02-4c3e-9538-bdedac0dc093",
+      "recorded_at": "2026-10-29T10:01:06.280772Z",
+      "role_oid": 40980
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "delegation_registrar": false,
+        "idempotency_key": "c1e9065b56744d0fbb91281bab1eccda",
+        "identity_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment publisher",
+          "body_fingerprint": "6b7c83af649be4015e712760803016f20f85333abfc3eb8038358551b8585ebc",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_4057816e6bdb4d208dd6299f28367bab",
+          "purpose": "TEST_ONLY TEST_ONLY enrollment publisher",
+          "version": "TEST_ONLY_v1"
+        },
+        "role_name": "nrc_publisher_97acc6584772",
+        "service_id": null,
+        "user_id": null,
+        "verified_human_id": "de4b2475-a343-4cb0-a561-40609996bfe9"
+      },
+      "command_hash": "3a0c11d81c22464c2b487bc36c6cc65c6f02e875450b69fd0916ebb445ca3518",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "id": "8f0deea0-bf05-473a-a8ed-5ad940433bdb",
+      "recorded_at": "2026-10-29T10:01:06.269546Z",
+      "role_oid": 40971
+    },
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "delegation_registrar": false,
+        "idempotency_key": "b630b77366684c5094c1ad2c4cc01c88",
+        "identity_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment reader",
+          "body_fingerprint": "a277a2b823282de6233ac2192057b08da972907f67b560ffcf6e4f046387a9b5",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_d2c74ba0eb6a433f922c5d4ce2c198bb",
+          "purpose": "TEST_ONLY TEST_ONLY enrollment reader",
+          "version": "TEST_ONLY_v1"
+        },
+        "role_name": "nrc_reader_edca389c8c1b",
+        "service_id": "TEST_ONLY_reader",
+        "user_id": null,
+        "verified_human_id": null
+      },
+      "command_hash": "adce2226acb7ae11a5243fe5951f322a6fab8a0652361ca60df09d62f4634ea2",
+      "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+      "database_oid": 36244,
+      "id": "97e2865e-9d69-423e-889c-8563ecca8694",
+      "recorded_at": "2026-10-29T10:01:06.276875Z",
+      "role_oid": 40977
+    }
+  ],
+  "provider_enrollments": [
+    {
+      "administrator": {
+        "authenticated_identity": "nrc_admin_2dde87337b74",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_admin_2dde87337b74",
+        "role_oid": 40965
+      },
+      "command": {
+        "authority_evidence": {
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY provider enrollment",
+          "body_fingerprint": "b86433ec02ef460d2b88a218438c95ad7e9541997a0660fc3f7c1e576dbf8dc4",
+          "environment": "TEST_ONLY",
+          "evidence_id": "TEST_ONLY_16f6f4eebaa343c4bde37c9991c81f07",
+          "purpose": "TEST_ONLY TEST_ONLY provider enrollment",
+          "version": "TEST_ONLY_v1"
+        },
+        "code": "TEST_ONLY_1504612b987149dd8baad4ddc5f8f4b2",
+        "environment": "TEST_ONLY",
+        "expected_generation": 0,
+        "idempotency_key": "f0ec01cbb5414683a225dc67cd1ba5a3",
+        "previous_enrollment_id": null,
+        "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+        "remit": "TEST_ONLY structural source",
+        "version": "TEST_ONLY_v1"
+      },
+      "command_hash": "8143e26b1bb89eafd97c2c6a683379ec33effdb4d9688772e8fb34037696ea34",
+      "generation": 1,
+      "id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+      "recorded_at": "2026-10-29T10:01:06.696267Z"
+    }
+  ],
+  "request": {
+    "contract_version": "nutrition-root-request.v1",
+    "environment": "TEST_ONLY",
+    "family_id": "TEST_ONLY_family_823205902736",
+    "goal_type": "ENERGY_DIRECTION",
+    "guideline_body_fingerprint": "0aa16107bf8124cbc495470cb9b054dd74984d6aa777010b3c5c64a8e87dd755",
+    "guideline_revision_id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced",
+    "protocol_fingerprint": "ce50b19a3fa729fccff3cf02024e6deebbc4c3e0caa11ad777e4fc0c3fd1ae37",
+    "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+    "purpose": "ROOT",
+    "scope_id": "TEST_ONLY_scope_d8bdb7f1b9b24867",
+    "scope_version": "TEST_ONLY_v1",
+    "subject": {
+      "contract_version": "household-member-identity.v1",
+      "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+      "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+    },
+    "temporal": {
+      "calendar": "TEST_ONLY_calendar",
+      "interval": {
+        "end": "2026-09-02T00:00:00.000000Z",
+        "start": "2026-09-01T00:00:00.000000Z"
+      },
+      "kind": "DAY",
+      "period_id": "TEST_ONLY_day",
+      "timezone": "UTC"
+    }
+  },
+  "source_fingerprint": "11eb07ea38064aada40c10a75bb468f2de11da681cb992bc2b86e5903034600f",
+  "sources": [
+    {
+      "author": {
+        "authenticated_identity": "nrc_self_e7fcea12b9_f75d4cf84e14",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_self_e7fcea12b9_f75d4cf84e14",
+        "role_oid": 40992
+      },
+      "authority_generation": 9,
+      "command": {
+        "body": {
+          "direction": "MAINTAIN",
+          "effective": {
+            "end": "2026-09-02T00:00:00.000000Z",
+            "start": "2026-09-01T00:00:00.000000Z"
+          },
+          "goal_id": "095f5747-4c59-4cc7-b655-50b663dbe492",
+          "goal_type": "ENERGY_DIRECTION",
+          "kind": "GOAL",
+          "operation": "CREATE",
+          "provenance": {
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY member intent",
+            "body_fingerprint": "4af34f702b36db713ae569a0ed42e2cfe912a8aa351a20c155adf816480fb4e0",
+            "environment": "TEST_ONLY",
+            "evidence_id": "TEST_ONLY_9e6ab934da454d46b7d9845aeb2a742b",
+            "purpose": "TEST_ONLY TEST_ONLY member intent",
+            "version": "TEST_ONLY_v1"
+          },
+          "replaces": []
+        },
+        "contract_version": "nutrition-source-command.v1",
+        "expected_revision": 0,
+        "idempotency_key": "68cfd9a90bef4fb995833a5bd5f30298",
+        "identity": {
+          "code": "ENERGY_DIRECTION",
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "kind": "GOAL",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        },
+        "predecessor_id": null,
+        "revision_id": "095f5747-4c59-4cc7-b655-50b663dbe492"
+      },
+      "command_hash": "97cc6bb9a31c7c6e09302dea6bc0e8a8b7cf55bed5dedc0d1645a0ff40587350",
+      "delegation_event_id": null,
+      "fact_hash": "ff174b41285c481494eb59b5a7fa9ed890739bb723fb2fea41b51299aafe9d7e",
+      "grant_event_id": "9cfdf63e-9201-4314-b618-7714eac0abb2",
+      "id": "095f5747-4c59-4cc7-b655-50b663dbe492",
+      "legacy_anchor": null,
+      "previous_hash": null,
+      "principal_id": "844e6e63-4ba5-4b15-8603-6dfe78e69799",
+      "provider_enrollment_id": null,
+      "recorded_at": "2026-10-29T10:01:07.161684Z",
+      "recorded_order": 18,
+      "sequence": 1,
+      "stream_key": "1072e5a008f22960aef85d1606581a8ba13e09ee9bdae055da4a20e884cb97c9",
+      "subject_witness": {
+        "actor_member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "actor_user_id": "6723e2d2-8158-4402-bc85-aab5953776d7",
+        "membership_id": "3ead7aab-9a6c-49bf-95c8-cd6c60313803",
+        "role": "OWNER",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+        }
+      }
+    },
+    {
+      "author": {
+        "authenticated_identity": "nrc_reviewer_1ab353ef456d",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_reviewer_1ab353ef456d",
+        "role_oid": 40968
+      },
+      "authority_generation": 3,
+      "command": {
+        "body": {
+          "guideline": {
+            "clauses": [
+              {
+                "constraint": {
+                  "kind": "RANGE",
+                  "lower": {
+                    "denominator": 1,
+                    "numerator": 7
+                  },
+                  "upper": {
+                    "denominator": 1,
+                    "numerator": 13
+                  }
+                },
+                "descriptor": {
+                  "metric": "ENERGY",
+                  "protocol_fingerprint": "ce50b19a3fa729fccff3cf02024e6deebbc4c3e0caa11ad777e4fc0c3fd1ae37",
+                  "scope_id": "TEST_ONLY_scope_d8bdb7f1b9b24867",
+                  "scope_version": "TEST_ONLY_v1",
+                  "temporal": {
+                    "calendar": "TEST_ONLY_calendar",
+                    "interval": {
+                      "end": "2026-09-02T00:00:00.000000Z",
+                      "start": "2026-09-01T00:00:00.000000Z"
+                    },
+                    "kind": "DAY",
+                    "period_id": "TEST_ONLY_day",
+                    "timezone": "UTC"
+                  },
+                  "unit": "KCAL"
+                },
+                "interpretation": "GUIDELINE_HARD",
+                "root_key": "TEST_ONLY_energy"
+              }
+            ],
+            "contract_version": "nutrition-guideline-body.v1",
+            "edition": "TEST_ONLY invented edition; no nutritional evidence",
+            "effective": {
+              "end": "2026-09-02T00:00:00.000000Z",
+              "start": "2026-09-01T00:00:00.000000Z"
+            },
+            "environment": "TEST_ONLY",
+            "evidence_manifest": [
+              {
+                "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY symbolic root manifest",
+                "body_fingerprint": "971d8eed0bf2e6f3eb80312a810f30d02644b80600c2e3afe1d4448d1beae74a",
+                "environment": "TEST_ONLY",
+                "evidence_id": "TEST_ONLY_fa725da642f543b2ab0cbd9b5f7e3d39",
+                "purpose": "TEST_ONLY TEST_ONLY symbolic root manifest",
+                "version": "TEST_ONLY_v1"
+              }
+            ],
+            "family_id": "TEST_ONLY_family_823205902736",
+            "guideline_id": "TEST_ONLY_guideline",
+            "guideline_version": "TEST_ONLY_v1",
+            "jurisdiction": null,
+            "jurisdiction_status": "SOURCE_NOT_SPECIFIED",
+            "mandatory_hard_roots": [
+              "TEST_ONLY_energy"
+            ],
+            "protocol": {
+              "admitted": {
+                "evidence_slots": [
+                  "TEST_ONLY_admission_d8bdb7f1b9b24867"
+                ],
+                "observations": [
+                  "BODY_MASS",
+                  "HEIGHT"
+                ]
+              },
+              "environment": "TEST_ONLY",
+              "excluded": {
+                "evidence_slots": [
+                  "TEST_ONLY_exclusion_d8bdb7f1b9b24867"
+                ],
+                "observations": [
+                  "BODY_MASS"
+                ]
+              },
+              "meaning": {
+                "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthetic assertion protocol; not a population definition",
+                "body_fingerprint": "1cda890fc6829984181286766d761d3bccddb40b88895e1e851cd43ddf0bd9b8",
+                "environment": "TEST_ONLY",
+                "evidence_id": "TEST_ONLY_fd63cdf3333a43ea99312549ca01dd9f",
+                "purpose": "TEST_ONLY TEST_ONLY synthetic assertion protocol; not a population definition",
+                "version": "TEST_ONLY_v1"
+              },
+              "out_of_scope": {
+                "evidence_slots": [
+                  "TEST_ONLY_out_of_scope_d8bdb7f1b9b24867"
+                ],
+                "observations": [
+                  "BODY_MASS"
+                ]
+              },
+              "protocol_id": "TEST_ONLY_protocol_d8bdb7f1b9b24867",
+              "scope_id": "TEST_ONLY_scope_d8bdb7f1b9b24867",
+              "scope_version": "TEST_ONLY_v1",
+              "version": "TEST_ONLY_v1"
+            },
+            "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+            "revision_id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced"
+          },
+          "kind": "DRAFT"
+        },
+        "contract_version": "nutrition-source-command.v1",
+        "expected_revision": 0,
+        "idempotency_key": "d99337a18c7746569ddb4409c9034045",
+        "identity": {
+          "code": "FAMILY",
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": null,
+          "kind": "GUIDELINE",
+          "member_id": null,
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        },
+        "predecessor_id": null,
+        "revision_id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced"
+      },
+      "command_hash": "34aae125cb2b651bfb41d55be19f86c69e23be180e06fb5d9a4ea619ec3c075f",
+      "delegation_event_id": null,
+      "fact_hash": "29dd1b03489365f095851d127cb9909e9aa7b360e6357282e289ed42d34d76f9",
+      "grant_event_id": "0190598f-8e79-4aca-801f-152f6d1ff7b7",
+      "id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced",
+      "legacy_anchor": null,
+      "previous_hash": null,
+      "principal_id": "846cd572-e70c-4d79-a4f2-7c6980414472",
+      "provider_enrollment_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+      "recorded_at": "2026-10-29T10:01:06.924507Z",
+      "recorded_order": 12,
+      "sequence": 1,
+      "stream_key": "391658525035ecec646b77798a6589af2257f588596cd9f19f1789173c811709",
+      "subject_witness": null
+    },
+    {
+      "author": {
+        "authenticated_identity": "nrc_reviewer_1ab353ef456d",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_reviewer_1ab353ef456d",
+        "role_oid": 40968
+      },
+      "authority_generation": 3,
+      "command": {
+        "body": {
+          "body_fingerprint": "0aa16107bf8124cbc495470cb9b054dd74984d6aa777010b3c5c64a8e87dd755",
+          "decision": "APPROVE",
+          "draft_revision_id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced",
+          "evidence_fingerprint": "28fafa3e981c35635767ee8189581c0f159d14b86fa7b1c0798e7e20eb548079",
+          "kind": "REVIEW",
+          "prior_review_id": null,
+          "protocol_fingerprint": "ce50b19a3fa729fccff3cf02024e6deebbc4c3e0caa11ad777e4fc0c3fd1ae37",
+          "rationale": "TEST_ONLY reviewed synthetic structure"
+        },
+        "contract_version": "nutrition-source-command.v1",
+        "expected_revision": 1,
+        "idempotency_key": "53c45e1be79e4fb2b1b1af2002cb58a1",
+        "identity": {
+          "code": "FAMILY",
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": null,
+          "kind": "GUIDELINE",
+          "member_id": null,
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        },
+        "predecessor_id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced",
+        "revision_id": "c2d550c2-8dd2-469f-99e7-13c5e12a8e97"
+      },
+      "command_hash": "60cce0e442bb72b282f9201410bb64aa331cc58464bce395c6f0b19619c97873",
+      "delegation_event_id": null,
+      "fact_hash": "f75b8af08672d1d585063439a80712ee3295d9ecd69942448c571999b61c9c84",
+      "grant_event_id": "0190598f-8e79-4aca-801f-152f6d1ff7b7",
+      "id": "c2d550c2-8dd2-469f-99e7-13c5e12a8e97",
+      "legacy_anchor": null,
+      "previous_hash": "29dd1b03489365f095851d127cb9909e9aa7b360e6357282e289ed42d34d76f9",
+      "principal_id": "846cd572-e70c-4d79-a4f2-7c6980414472",
+      "provider_enrollment_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+      "recorded_at": "2026-10-29T10:01:06.956453Z",
+      "recorded_order": 13,
+      "sequence": 2,
+      "stream_key": "391658525035ecec646b77798a6589af2257f588596cd9f19f1789173c811709",
+      "subject_witness": null
+    },
+    {
+      "author": {
+        "authenticated_identity": "nrc_publisher_97acc6584772",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_publisher_97acc6584772",
+        "role_oid": 40971
+      },
+      "authority_generation": 3,
+      "command": {
+        "body": {
+          "action": "PUBLISH",
+          "body_fingerprint": "0aa16107bf8124cbc495470cb9b054dd74984d6aa777010b3c5c64a8e87dd755",
+          "draft_revision_id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced",
+          "effective_at": "2026-09-01T00:00:00.000000Z",
+          "kind": "PUBLICATION",
+          "prior_publication_id": null,
+          "rationale": "TEST_ONLY publication; NO PRODUCTION NUTRITION CONTENT",
+          "review_event_id": "c2d550c2-8dd2-469f-99e7-13c5e12a8e97"
+        },
+        "contract_version": "nutrition-source-command.v1",
+        "expected_revision": 2,
+        "idempotency_key": "d815617570da42b09ef97b94e9a4c209",
+        "identity": {
+          "code": "FAMILY",
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": null,
+          "kind": "GUIDELINE",
+          "member_id": null,
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        },
+        "predecessor_id": "c2d550c2-8dd2-469f-99e7-13c5e12a8e97",
+        "revision_id": "c2e8032e-f3c8-46cf-99be-5a8d7c8a614f"
+      },
+      "command_hash": "53318b3b8d4f9920aae469e122ece33071aa055f23773eee4d713b9a2d1b5af3",
+      "delegation_event_id": null,
+      "fact_hash": "5e80e2e848cc71b4eaaf3b18f8fb429e1067baaf1f1cb18506c6dcb6c3f9f1e9",
+      "grant_event_id": "80c9aba5-8861-465c-b31c-e58c2fd8bfa3",
+      "id": "c2e8032e-f3c8-46cf-99be-5a8d7c8a614f",
+      "legacy_anchor": null,
+      "previous_hash": "f75b8af08672d1d585063439a80712ee3295d9ecd69942448c571999b61c9c84",
+      "principal_id": "8f0deea0-bf05-473a-a8ed-5ad940433bdb",
+      "provider_enrollment_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+      "recorded_at": "2026-10-29T10:01:07.027718Z",
+      "recorded_order": 14,
+      "sequence": 3,
+      "stream_key": "391658525035ecec646b77798a6589af2257f588596cd9f19f1789173c811709",
+      "subject_witness": null
+    },
+    {
+      "author": {
+        "authenticated_identity": "nrc_assessor_05a730c10dd2",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_assessor_05a730c10dd2",
+        "role_oid": 40974
+      },
+      "authority_generation": 9,
+      "command": {
+        "body": {
+          "effective": {
+            "end": "2026-09-02T00:00:00.000000Z",
+            "start": "2026-09-01T00:00:00.000000Z"
+          },
+          "evidence": [
+            {
+              "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY assessment proof TEST_ONLY_admission_d8bdb7f1b9b24867",
+              "body_fingerprint": "f9d4a18a901a81c8753586db9f63612bb87158daabb47911d313995a6842b472",
+              "environment": "TEST_ONLY",
+              "evidence_id": "TEST_ONLY_admission_d8bdb7f1b9b24867",
+              "purpose": "TEST_ONLY TEST_ONLY assessment proof TEST_ONLY_admission_d8bdb7f1b9b24867",
+              "version": "TEST_ONLY_v1"
+            },
+            {
+              "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY assessment proof TEST_ONLY_exclusion_d8bdb7f1b9b24867",
+              "body_fingerprint": "2bd5063a235830c80256d1acbc9e0b90423aeb8730a4e0c521cad92ea6411e54",
+              "environment": "TEST_ONLY",
+              "evidence_id": "TEST_ONLY_exclusion_d8bdb7f1b9b24867",
+              "purpose": "TEST_ONLY TEST_ONLY assessment proof TEST_ONLY_exclusion_d8bdb7f1b9b24867",
+              "version": "TEST_ONLY_v1"
+            },
+            {
+              "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY assessment proof TEST_ONLY_out_of_scope_d8bdb7f1b9b24867",
+              "body_fingerprint": "b845baf1099795237292bcec936d2f3c791d705cb94f9575891fc84cebd062ab",
+              "environment": "TEST_ONLY",
+              "evidence_id": "TEST_ONLY_out_of_scope_d8bdb7f1b9b24867",
+              "purpose": "TEST_ONLY TEST_ONLY assessment proof TEST_ONLY_out_of_scope_d8bdb7f1b9b24867",
+              "version": "TEST_ONLY_v1"
+            }
+          ],
+          "guideline_body_fingerprint": "0aa16107bf8124cbc495470cb9b054dd74984d6aa777010b3c5c64a8e87dd755",
+          "guideline_revision_id": "1f0a2e84-005e-4c4b-8da6-aa1270c3fced",
+          "kind": "ASSESSMENT",
+          "missing_evidence_slots": [],
+          "missing_observations": [],
+          "observations": [
+            {
+              "fact_hash": "77f1f63d12fd1ce4e0b1d4b11f3d5ff4a392ec148a523e544f1b549d04ea9c91",
+              "fact_key": "BODY_MASS",
+              "legacy_anchor_fingerprint": "b4667f22b017ce524d0ccf96f019ab96bfcb034cfeeaee1dde0df768f85cc7f1",
+              "revision_id": "9ac477c1-1c7c-480c-9115-a401e7aa812f",
+              "unit": "KG",
+              "value": {
+                "denominator": 2,
+                "numerator": 7
+              }
+            },
+            {
+              "fact_hash": "80e2cff596beda4156420de3d70ffabf799cea702ff5d80e27f58bf22a82906d",
+              "fact_key": "HEIGHT",
+              "legacy_anchor_fingerprint": "b4667f22b017ce524d0ccf96f019ab96bfcb034cfeeaee1dde0df768f85cc7f1",
+              "revision_id": "d3c2f0f7-add5-4ceb-a96d-09c90e270b7d",
+              "unit": "CM",
+              "value": {
+                "denominator": 1,
+                "numerator": 19
+              }
+            }
+          ],
+          "operation": "CREATE",
+          "outcome": "ADMITTED",
+          "protocol_fingerprint": "ce50b19a3fa729fccff3cf02024e6deebbc4c3e0caa11ad777e4fc0c3fd1ae37",
+          "replaces": []
+        },
+        "contract_version": "nutrition-source-command.v1",
+        "expected_revision": 0,
+        "idempotency_key": "ae2da5bda13241269921f74009b87278",
+        "identity": {
+          "code": "ce50b19a3fa729fccff3cf02024e6deebbc4c3e0caa11ad777e4fc0c3fd1ae37",
+          "family_id": "TEST_ONLY_family_823205902736",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "kind": "ASSESSMENT",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+        },
+        "predecessor_id": null,
+        "revision_id": "dfe99476-f78a-4134-a02c-97f1f7d42a7a"
+      },
+      "command_hash": "bbbeb5925b134cac5f21710d213fd3ec70da8b2a5286642c5f861014f8eebf7f",
+      "delegation_event_id": null,
+      "fact_hash": "77533fc26850cb180901b1faff3350c7a3a11bc2e9359eab1d90f61e7f87f0ed",
+      "grant_event_id": "a54af2e2-9239-4f86-82b5-73f9ef5855aa",
+      "id": "dfe99476-f78a-4134-a02c-97f1f7d42a7a",
+      "legacy_anchor": {
+        "body_fingerprint": "b4667f22b017ce524d0ccf96f019ab96bfcb034cfeeaee1dde0df768f85cc7f1",
+        "profile": null,
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+        }
+      },
+      "previous_hash": null,
+      "principal_id": "50947233-f1a9-4b1c-8556-eb0a6f315dd0",
+      "provider_enrollment_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818",
+      "recorded_at": "2026-10-29T10:01:07.359326Z",
+      "recorded_order": 19,
+      "sequence": 1,
+      "stream_key": "4ce0ea963c87d8acae88feb71a4a178bc282e587b4ed8d48e9a4bac65c1e826c",
+      "subject_witness": {
+        "actor_member_id": null,
+        "actor_user_id": null,
+        "membership_id": null,
+        "role": null,
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+        }
+      }
+    },
+    {
+      "author": {
+        "authenticated_identity": "nrc_self_e7fcea12b9_f75d4cf84e14",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_self_e7fcea12b9_f75d4cf84e14",
+        "role_oid": 40992
+      },
+      "authority_generation": 9,
+      "command": {
+        "body": {
+          "effective": {
+            "end": "2026-09-02T00:00:00.000000Z",
+            "start": "2026-09-01T00:00:00.000000Z"
+          },
+          "fact_key": "BODY_MASS",
+          "kind": "OBSERVATION",
+          "observed_at": "2026-08-01T00:00:00.000000Z",
+          "operation": "CREATE",
+          "provenance": {
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY physiological observation BODY_MASS",
+            "body_fingerprint": "24895a83ccee5748d5be8d8ecfdc9cabe0e1eb0959f3ba1e262e26ba52701a30",
+            "environment": "TEST_ONLY",
+            "evidence_id": "TEST_ONLY_38d3615ccb7c451a87ca3193e4017b9c",
+            "purpose": "TEST_ONLY TEST_ONLY physiological observation BODY_MASS",
+            "version": "TEST_ONLY_v1"
+          },
+          "replaces": [],
+          "unit": "KG",
+          "value": {
+            "denominator": 2,
+            "numerator": 7
+          }
+        },
+        "contract_version": "nutrition-source-command.v1",
+        "expected_revision": 0,
+        "idempotency_key": "7a5ae24ac639449aab1465ac6f79f861",
+        "identity": {
+          "code": "BODY_MASS",
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "kind": "OBSERVATION",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        },
+        "predecessor_id": null,
+        "revision_id": "9ac477c1-1c7c-480c-9115-a401e7aa812f"
+      },
+      "command_hash": "c73ba3ad1bcce05c24f7663a26a847975e5612abc92b1201ded5191f980fae13",
+      "delegation_event_id": null,
+      "fact_hash": "77f1f63d12fd1ce4e0b1d4b11f3d5ff4a392ec148a523e544f1b549d04ea9c91",
+      "grant_event_id": "899f5195-3073-4440-a696-75daff1a5466",
+      "id": "9ac477c1-1c7c-480c-9115-a401e7aa812f",
+      "legacy_anchor": {
+        "body_fingerprint": "b4667f22b017ce524d0ccf96f019ab96bfcb034cfeeaee1dde0df768f85cc7f1",
+        "profile": null,
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+        }
+      },
+      "previous_hash": null,
+      "principal_id": "844e6e63-4ba5-4b15-8603-6dfe78e69799",
+      "provider_enrollment_id": null,
+      "recorded_at": "2026-10-29T10:01:07.118038Z",
+      "recorded_order": 16,
+      "sequence": 1,
+      "stream_key": "d4d34c03a95d24ff981ae96adb38d36cdbd430959d1eb7ca2a8cf9cd51bfcfad",
+      "subject_witness": {
+        "actor_member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "actor_user_id": "6723e2d2-8158-4402-bc85-aab5953776d7",
+        "membership_id": "3ead7aab-9a6c-49bf-95c8-cd6c60313803",
+        "role": "OWNER",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+        }
+      }
+    },
+    {
+      "author": {
+        "authenticated_identity": "nrc_self_e7fcea12b9_f75d4cf84e14",
+        "authentication_method": "scram-sha-256",
+        "database_name": "nrc_test_b98da68859ea43bfb6b70dadb257bc6f",
+        "database_oid": 36244,
+        "role_name": "nrc_self_e7fcea12b9_f75d4cf84e14",
+        "role_oid": 40992
+      },
+      "authority_generation": 9,
+      "command": {
+        "body": {
+          "effective": {
+            "end": "2026-09-02T00:00:00.000000Z",
+            "start": "2026-09-01T00:00:00.000000Z"
+          },
+          "fact_key": "HEIGHT",
+          "kind": "OBSERVATION",
+          "observed_at": "2026-08-01T00:00:00.000000Z",
+          "operation": "CREATE",
+          "provenance": {
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY physiological observation HEIGHT",
+            "body_fingerprint": "effa5e7f417d43e6f1bb6a1793a4c4ca57ea5c1da6f0905d3d8672cd4b579d25",
+            "environment": "TEST_ONLY",
+            "evidence_id": "TEST_ONLY_78e58d51cc044af4b0db5d4a9c354169",
+            "purpose": "TEST_ONLY TEST_ONLY physiological observation HEIGHT",
+            "version": "TEST_ONLY_v1"
+          },
+          "replaces": [],
+          "unit": "CM",
+          "value": {
+            "denominator": 1,
+            "numerator": 19
+          }
+        },
+        "contract_version": "nutrition-source-command.v1",
+        "expected_revision": 0,
+        "idempotency_key": "ceee6ff25b5e44dc95ee840511d88e51",
+        "identity": {
+          "code": "HEIGHT",
+          "family_id": null,
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "kind": "OBSERVATION",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+          "provider_id": null
+        },
+        "predecessor_id": null,
+        "revision_id": "d3c2f0f7-add5-4ceb-a96d-09c90e270b7d"
+      },
+      "command_hash": "0d131c4c80a869b62f13de7f0de3a6254ba1a62f83ba68515b57ce8225538c03",
+      "delegation_event_id": null,
+      "fact_hash": "80e2cff596beda4156420de3d70ffabf799cea702ff5d80e27f58bf22a82906d",
+      "grant_event_id": "efe08498-72a2-4a7f-92c6-208d63911c93",
+      "id": "d3c2f0f7-add5-4ceb-a96d-09c90e270b7d",
+      "legacy_anchor": {
+        "body_fingerprint": "b4667f22b017ce524d0ccf96f019ab96bfcb034cfeeaee1dde0df768f85cc7f1",
+        "profile": null,
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+        }
+      },
+      "previous_hash": null,
+      "principal_id": "844e6e63-4ba5-4b15-8603-6dfe78e69799",
+      "provider_enrollment_id": null,
+      "recorded_at": "2026-10-29T10:01:07.143617Z",
+      "recorded_order": 17,
+      "sequence": 1,
+      "stream_key": "e6c8f58300b217af428a13d63448620cd522a64daed42a9aac893e3b7606b3b3",
+      "subject_witness": {
+        "actor_member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "actor_user_id": "6723e2d2-8158-4402-bc85-aab5953776d7",
+        "membership_id": "3ead7aab-9a6c-49bf-95c8-cd6c60313803",
+        "role": "OWNER",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+          "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60"
+        }
+      }
+    }
+  ],
+  "streams": [
+    {
+      "authority_scope": null,
+      "head_hash": "ff174b41285c481494eb59b5a7fa9ed890739bb723fb2fea41b51299aafe9d7e",
+      "head_id": "095f5747-4c59-4cc7-b655-50b663dbe492",
+      "revision": 1,
+      "source_identity": {
+        "code": "ENERGY_DIRECTION",
+        "family_id": null,
+        "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+        "kind": "GOAL",
+        "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "provider_id": null
+      },
+      "stream_key": "1072e5a008f22960aef85d1606581a8ba13e09ee9bdae055da4a20e884cb97c9"
+    },
+    {
+      "authority_scope": null,
+      "head_hash": "5e80e2e848cc71b4eaaf3b18f8fb429e1067baaf1f1cb18506c6dcb6c3f9f1e9",
+      "head_id": "c2e8032e-f3c8-46cf-99be-5a8d7c8a614f",
+      "revision": 3,
+      "source_identity": {
+        "code": "FAMILY",
+        "family_id": "TEST_ONLY_family_823205902736",
+        "household_id": null,
+        "kind": "GUIDELINE",
+        "member_id": null,
+        "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+      },
+      "stream_key": "391658525035ecec646b77798a6589af2257f588596cd9f19f1789173c811709"
+    },
+    {
+      "authority_scope": null,
+      "head_hash": "77533fc26850cb180901b1faff3350c7a3a11bc2e9359eab1d90f61e7f87f0ed",
+      "head_id": "dfe99476-f78a-4134-a02c-97f1f7d42a7a",
+      "revision": 1,
+      "source_identity": {
+        "code": "ce50b19a3fa729fccff3cf02024e6deebbc4c3e0caa11ad777e4fc0c3fd1ae37",
+        "family_id": "TEST_ONLY_family_823205902736",
+        "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+        "kind": "ASSESSMENT",
+        "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+      },
+      "stream_key": "4ce0ea963c87d8acae88feb71a4a178bc282e587b4ed8d48e9a4bac65c1e826c"
+    },
+    {
+      "authority_scope": {
+        "family_id": null,
+        "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+        "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "provider_id": null
+      },
+      "head_hash": "5674f3d8fffd85b67f5772d19f34424084905228b900cb28204a339ff75a0328",
+      "head_id": "a54af2e2-9239-4f86-82b5-73f9ef5855aa",
+      "revision": 9,
+      "source_identity": null,
+      "stream_key": "5bbae5d6e41b04056d8e2dc9e106458fa1711a4b228ab4dbd97e59cedbba85b4"
+    },
+    {
+      "authority_scope": null,
+      "head_hash": "77f1f63d12fd1ce4e0b1d4b11f3d5ff4a392ec148a523e544f1b549d04ea9c91",
+      "head_id": "9ac477c1-1c7c-480c-9115-a401e7aa812f",
+      "revision": 1,
+      "source_identity": {
+        "code": "BODY_MASS",
+        "family_id": null,
+        "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+        "kind": "OBSERVATION",
+        "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "provider_id": null
+      },
+      "stream_key": "d4d34c03a95d24ff981ae96adb38d36cdbd430959d1eb7ca2a8cf9cd51bfcfad"
+    },
+    {
+      "authority_scope": {
+        "family_id": "TEST_ONLY_family_823205902736",
+        "household_id": null,
+        "member_id": null,
+        "provider_id": "c6b1b347-48d4-45ff-82b6-bf35b69fb818"
+      },
+      "head_hash": "a31953d8a95b330e99a7f1632bf046a4625115f030fe1f41919e1fb6efee6ec9",
+      "head_id": "1ba84ea3-cb6a-4cf5-8189-c566f5c3a772",
+      "revision": 3,
+      "source_identity": null,
+      "stream_key": "d7b8ac1b5fb5790d7065f88d606872ee59bd4bc7a950c3f338ba9161df6844a6"
+    },
+    {
+      "authority_scope": null,
+      "head_hash": "80e2cff596beda4156420de3d70ffabf799cea702ff5d80e27f58bf22a82906d",
+      "head_id": "d3c2f0f7-add5-4ceb-a96d-09c90e270b7d",
+      "revision": 1,
+      "source_identity": {
+        "code": "HEIGHT",
+        "family_id": null,
+        "household_id": "14c0e436-63bb-4202-bd14-b2fbcd5eaf15",
+        "kind": "OBSERVATION",
+        "member_id": "7edeb20b-390d-42b4-b154-740e928c4d60",
+        "provider_id": null
+      },
+      "stream_key": "e6c8f58300b217af428a13d63448620cd522a64daed42a9aac893e3b7606b3b3"
+    }
+  ]
+}

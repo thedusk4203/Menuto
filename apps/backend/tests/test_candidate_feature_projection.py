@@ -723,7 +723,7 @@ def test_cfp60_retained_baseline_contracts_files_and_no_new_persistence():
         ).read_text()
     )
     definitions = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
-    assert len(pins["definitions"]) == 358 and len(definitions) == 403
+    assert len(pins["definitions"]) == 358 and len(definitions) == 447
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(definitions[name], sort_keys=True).encode()).hexdigest()
@@ -740,7 +740,7 @@ def test_cfp60_retained_baseline_contracts_files_and_no_new_persistence():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{n:04}" for n in range(1, 16)]
+    ) == [f"{n:04}" for n in range(1, 17)]
     tree = ast.parse(
         (ROOT / "apps/backend/app/modules/planning/candidate_feature_projection.py").read_text()
     )

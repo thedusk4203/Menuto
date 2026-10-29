@@ -144,6 +144,24 @@ SHARED_TARGET_IMPORTS = {
     },
 }
 
+# Approved NRC companion: one immutable Nutrition handoff to one independent
+# Validation implementation. This does not widen existing public surfaces.
+NUTRITION_ROOT_PURE_IMPORTS = {
+    "app.modules.nutrition.root_resolution": {
+        "fractions", "app.domain.feature_identity", "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.root_limits",
+    },
+    "app.modules.nutrition.root_contracts": {
+        "math", "typing", "uuid", "pydantic", "app.domain.contracts",
+        "app.domain.feature_identity", "app.modules.households.contracts",
+        "app.modules.nutrition.root_limits",
+    },
+    "app.modules.nutrition.root_limits": {"datetime", "uuid", "pydantic"},
+    "app.modules.validation.nutrition_roots": {
+        "fractions", "app.domain.feature_identity", "app.modules.nutrition.root_contracts",
+    },
+}
+
 
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
@@ -160,6 +178,15 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     }
 
     def audit(target, line):
+        nrc_transport = module == "app.modules.validation.nutrition_roots" and (
+            target == "app.modules.nutrition.root_contracts"
+            or target.startswith("app.modules.nutrition.root_contracts.")
+        )
+        if module in NUTRITION_ROOT_PURE_IMPORTS and not any(
+            target == p or target.startswith(p + ".")
+            for p in NUTRITION_ROOT_PURE_IMPORTS[module]
+        ):
+            errors.append(f"{line}: NUTRITION_ROOT_PURE_OR_INDEPENDENT_BOUNDARY: {target}")
         if module in SHARED_TARGET_IMPORTS and not any(
             target == p or target.startswith(p + ".") for p in SHARED_TARGET_IMPORTS[module]
         ):
@@ -329,7 +356,7 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 errors.append(f"{line}: VALIDATION_INDEPENDENCE: {target}")
             if target.startswith("app.modules.") and target.split(".")[2] != "validation":
                 tail = target.split(".")[3:]
-                if not tail or tail[0] != "contracts":
+                if (not tail or tail[0] != "contracts") and not nrc_transport:
                     errors.append(f"{line}: VALIDATION_CONTRACTS_ONLY: {target}")
         if neutral and target.startswith(("app.modules", "app.persistence", "app.shared.db")):
             errors.append(f"{line}: NEUTRAL_DOMAIN_IMPORTS_IMPLEMENTATION: {target}")
@@ -371,10 +398,16 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
         if destination not in ALLOWED[context]:
             errors.append(f"{line}: FORBIDDEN_DIRECTION: {context} -> {destination}")
             return
-        if context in CONTRACT_ONLY_CONTEXTS and (not tail or tail[0] != "contracts"):
+        if (
+            context in CONTRACT_ONLY_CONTEXTS
+            and (not tail or tail[0] != "contracts")
+            and not nrc_transport
+        ):
             errors.append(f"{line}: FACT_READER_IMPORTS_IMPLEMENTATION: {target}")
             return
         if not tail or tail[0] not in PUBLIC_SURFACES:
+            if nrc_transport:
+                return
             if any(target == p or target.startswith(p + ".")
                    for p in TASTEFIT_COMPANIONS.get(module, ())):
                 return
@@ -398,10 +431,17 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 if item.name == "*" and context:
                     errors.append(f"{node.lineno}: WILDCARD_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            if module in NUTRITION_ROOT_PURE_IMPORTS and node.func.id in {"open", "input", "print"}:
+                errors.append(f"{node.lineno}: NUTRITION_ROOT_PURE_IO")
             if context == "validation" and node.func.id == "open":
                 errors.append(f"{node.lineno}: VALIDATION_INDEPENDENCE: file IO")
             if context and node.func.id in {"__import__", "eval", "exec"}:
                 errors.append(f"{node.lineno}: DYNAMIC_IMPORT_REQUIRES_REVIEW")
+        elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            if module in NUTRITION_ROOT_PURE_IMPORTS and node.func.attr in {
+                "now", "utcnow", "today", "time", "getenv",
+            }:
+                errors.append(f"{node.lineno}: NUTRITION_ROOT_PURE_CLOCK_OR_ENVIRONMENT")
     return sorted(set(errors))
 
 
