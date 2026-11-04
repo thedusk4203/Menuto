@@ -630,9 +630,9 @@ def test_smtf34_real_schema_0015_85_zero_persistence(tastefit_server):
     s = prepared_group(tastefit_server)
     before = inventory(s)
     with s["engines"]["root"].connect() as db:
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
         names = inspect(db).get_table_names()
-        assert len(set(names) - {"alembic_version"}) == 98
+        assert len(set(names) - {"alembic_version"}) == 108
         assert not any("shared_target_tastefit" in name for name in names)
     validate(derive(shared_capture(s)))
     assert before == inventory(s)

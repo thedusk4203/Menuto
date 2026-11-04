@@ -285,6 +285,16 @@ def test_empty_upgrade_downgrade_upgrade_and_metadata_drift(legacy_database):
         assert set(inspect(conn).get_table_names()) == old | set(m.TABLES) | set(plan_tables) | set(
             cooking_tables
         ) | set(shopping_tables) | {t.name for t in NUTRITION_ROOT_TABLES} | {
+            "nutrition_synthesis_providers",
+            "nutrition_synthesis_principals",
+            "nutrition_synthesis_principal_frontiers",
+            "nutrition_synthesis_grants",
+            "nutrition_synthesis_streams",
+            "nutrition_synthesis_receipts",
+            "nutrition_synthesis_drafts",
+            "nutrition_synthesis_reviews",
+            "nutrition_synthesis_publications",
+            "nutrition_synthesis_evidence",
             "inventory_lots",
             "inventory_lot_balances",
             "inventory_movements",

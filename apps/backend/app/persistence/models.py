@@ -164,3 +164,7 @@ from app.modules.recipes.feature_models import (  # noqa: E402,F401
 # isort: split
 # Independently versioned Nutrition source metadata; no legacy model changes.
 from app.modules.nutrition.root_models import NUTRITION_ROOT_TABLES  # noqa: E402,F401
+
+# isort: split
+# Additive synthesis-rule authority; no root or legacy model changes.
+from app.modules.nutrition import synthesis_models  # noqa: E402,F401

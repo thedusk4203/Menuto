@@ -120,8 +120,8 @@ def nrc_server():
         with engines["root"].connect() as db:
             config.attributes["connection"] = db
             command.upgrade(config, "head")
-            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
-            assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 98
+            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+            assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 108
             empty = {
                 t.name: db.scalar(text('SELECT count(*) FROM "' + t.name + '"'))
                 for t in NUTRITION_ROOT_TABLES

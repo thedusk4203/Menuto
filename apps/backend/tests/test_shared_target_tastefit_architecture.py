@@ -24,7 +24,9 @@ def test_smtf120_all384_definitions_unchanged_exact_new_exports():
     defs = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     # NRC adds a separate source surface; retain the exact original SMTF export delta.
     nutrition = json.loads((FIXTURES / "nutrition_root_compatibility.json").read_text())
-    defs = {name: body for name, body in defs.items() if name not in nutrition["new_definitions"]}
+    synthesis = json.loads((FIXTURES / "nutrition_synthesis_compatibility.json").read_text())
+    later = set(nutrition["new_definitions"]) | set(synthesis["new_definitions"])
+    defs = {name: body for name, body in defs.items() if name not in later}
     assert len(pins["definitions"]) == 384
     assert len(defs) == 384 + len(pins["new_definitions"]) == 403
     assert sorted(set(defs) - set(pins["definitions"])) == pins["new_definitions"]
@@ -40,7 +42,7 @@ def test_smtf120_all_frozen_runtime_and_migrations_byte_exact():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{i:04}" for i in range(1, 17)]
+    ) == [f"{i:04}" for i in range(1, 18)]
 
 
 def test_smtf120_all3396_baseline_test_identities_retained():

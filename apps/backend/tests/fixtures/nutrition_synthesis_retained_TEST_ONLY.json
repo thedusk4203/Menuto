@@ -1,0 +1,3521 @@
+{
+  "contract_version": "nutrition-policy.v1",
+  "inputs": {
+    "contract_version": "nutrition-synthesis-sources.v1",
+    "request": {
+      "root": {
+        "contract_version": "nutrition-root-contract.v1",
+        "sources": {
+          "contract_version": "nutrition-root-sources.v1",
+          "request": {
+            "contract_version": "nutrition-root-request.v1",
+            "subject": {
+              "contract_version": "household-member-identity.v1",
+              "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+              "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+            },
+            "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+            "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+            "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+            "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+            "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+            "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+            "scope_version": "TEST_ONLY_v1",
+            "temporal": {
+              "kind": "DAY",
+              "period_id": "TEST_ONLY_day",
+              "calendar": "TEST_ONLY_calendar",
+              "timezone": "UTC",
+              "interval": {
+                "start": "2026-09-01T00:00:00.000000Z",
+                "end": "2026-09-02T00:00:00.000000Z"
+              }
+            },
+            "environment": "TEST_ONLY",
+            "purpose": "ROOT",
+            "goal_type": "ENERGY_DIRECTION"
+          },
+          "provider_enrollments": [
+            {
+              "id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+              "command": {
+                "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                "code": "TEST_ONLY_a337ef002e9d4ffb981eb117c938f957",
+                "version": "TEST_ONLY_v1",
+                "remit": "TEST_ONLY structural source",
+                "environment": "TEST_ONLY",
+                "authority_evidence": {
+                  "evidence_id": "TEST_ONLY_1feed36e6bf94c2b868820acd0c43621",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY provider enrollment",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY provider enrollment",
+                  "body_fingerprint": "b86433ec02ef460d2b88a218438c95ad7e9541997a0660fc3f7c1e576dbf8dc4"
+                },
+                "expected_generation": 0,
+                "previous_enrollment_id": null,
+                "idempotency_key": "c622214816e54c5b8e5716d717dfc390"
+              },
+              "generation": 1,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.301445Z",
+              "command_hash": "ce6488b7cc1c1c0adcdff8ec2c98a00503d345deef42fdbfe7f8eadda036cdec"
+            }
+          ],
+          "principals": [
+            {
+              "id": "271d5910-de79-465b-8847-3d8db7fd91fc",
+              "command": {
+                "role_name": "nrc_reviewer_14d10588f9d0",
+                "verified_human_id": "0a233fa2-9e12-4268-b257-4319c5317476",
+                "user_id": null,
+                "service_id": null,
+                "delegation_registrar": false,
+                "identity_evidence": {
+                  "evidence_id": "TEST_ONLY_d1215111630f4c919a200e0f76359067",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY enrollment reviewer",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment reviewer",
+                  "body_fingerprint": "6d172a3a24b69cced88bf29231dc5fd27b49d1447530aab2839c9be26b77fc03"
+                },
+                "idempotency_key": "335e3755cc0048fbad8af6a9ad2da985"
+              },
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151463,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:16.877681Z",
+              "command_hash": "0a6391d0555e6a755eb6a2073a397a4d0b56634bc8ec4390b4c9fe6e10d9b2b3"
+            },
+            {
+              "id": "5a27d8ca-6be0-4ab4-905f-7195b95aad33",
+              "command": {
+                "role_name": "nrc_rep_f1e655c63d_75a3c382cb40",
+                "verified_human_id": "cb3698ea-3cf6-4720-92cc-cbdbe4a9ff03",
+                "user_id": "493ef646-2d4a-4d8e-83ab-997d5a5ae0c6",
+                "service_id": null,
+                "delegation_registrar": false,
+                "identity_evidence": {
+                  "evidence_id": "TEST_ONLY_b722292265104f478d81ff79bd816a81",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY canonical member actor",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY canonical member actor",
+                  "body_fingerprint": "500f973b33907726fb6225d7498402e9028c9fc0390719daa295d354991f193b"
+                },
+                "idempotency_key": "7755da61da574baba63ba1ffbf79e051"
+              },
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151490,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.295264Z",
+              "command_hash": "eb68fb767f39a61cf9c561f2f166754cfb39bdf2908f3254c6f09ddfccccebc4"
+            },
+            {
+              "id": "5b152034-09f4-4805-8644-8b154d95e678",
+              "command": {
+                "role_name": "nrc_assessor_2f8ce177aa3d",
+                "verified_human_id": "f1037ffc-3b18-47eb-a747-78f7e9deb8f7",
+                "user_id": null,
+                "service_id": null,
+                "delegation_registrar": false,
+                "identity_evidence": {
+                  "evidence_id": "TEST_ONLY_ad1f05f1bfc74aefb72dc1e78d18edcf",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY enrollment assessor",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment assessor",
+                  "body_fingerprint": "99c88c97d2d118f7ebe90d58dcf0d48fdaaca6051cffce01ac59a9863b3995aa"
+                },
+                "idempotency_key": "3ff4f0a6ded740da8f5ab6ad86d6aa6d"
+              },
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151469,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:16.889233Z",
+              "command_hash": "853ca2516f67de930f44bf3e53379dbcbb0cdd2d4c1e4991da4c42c1ecc7ab34"
+            },
+            {
+              "id": "7ee12202-e8a1-418f-bb1d-13d53b79c195",
+              "command": {
+                "role_name": "nrc_publisher_19ee7674ac61",
+                "verified_human_id": "be6381d2-92c0-48d4-ae1c-b394afc563dc",
+                "user_id": null,
+                "service_id": null,
+                "delegation_registrar": false,
+                "identity_evidence": {
+                  "evidence_id": "TEST_ONLY_fc11757de20b4a778e5fbdfe7201b392",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY enrollment publisher",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment publisher",
+                  "body_fingerprint": "6b7c83af649be4015e712760803016f20f85333abfc3eb8038358551b8585ebc"
+                },
+                "idempotency_key": "14c139dd47044062b7d54cb306928635"
+              },
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151466,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:16.884912Z",
+              "command_hash": "e273d941961c250e856ea8664cd892a7a006dc5c5256da01c2a50fdff4a4761f"
+            },
+            {
+              "id": "98920497-cdb5-4ab3-8552-be3249cdb37a",
+              "command": {
+                "role_name": "nrc_validator_51577677307b",
+                "verified_human_id": null,
+                "user_id": null,
+                "service_id": "TEST_ONLY_validator",
+                "delegation_registrar": false,
+                "identity_evidence": {
+                  "evidence_id": "TEST_ONLY_4a2d9d6c7dbb400f8ebd95f891c6b247",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY enrollment validator",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment validator",
+                  "body_fingerprint": "aad58de80941a6e1783ccb21e331f29d97b4a59dd09df3a86c493b7f7c4af2d9"
+                },
+                "idempotency_key": "9a7d2734ceb04d1383269394d51221b0"
+              },
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151475,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:16.897080Z",
+              "command_hash": "f314e00b7cd48ac164038d1a8112777316ecd449283090411252afc7f652518a"
+            },
+            {
+              "id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+              "command": {
+                "role_name": "nrc_self_f1e655c63d_789413c443c0",
+                "verified_human_id": "91426e0a-2eb2-4a4a-8b48-1cc471cb7555",
+                "user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+                "service_id": null,
+                "delegation_registrar": false,
+                "identity_evidence": {
+                  "evidence_id": "TEST_ONLY_f9ed1e48879a4d3a8dbcd4b1704f9f3c",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY canonical member actor",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY canonical member actor",
+                  "body_fingerprint": "500f973b33907726fb6225d7498402e9028c9fc0390719daa295d354991f193b"
+                },
+                "idempotency_key": "64b9b8cbc2c141db9be8aaed39c8f455"
+              },
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151487,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.127371Z",
+              "command_hash": "6cf3ef8e324b84a402e63486bb67c9044b9c5b6632c63ba2b8b8554f74eb0dac"
+            },
+            {
+              "id": "eb3c6530-961b-4e69-a377-7a785a8fb8af",
+              "command": {
+                "role_name": "nrc_reader_34270f617d31",
+                "verified_human_id": null,
+                "user_id": null,
+                "service_id": "TEST_ONLY_reader",
+                "delegation_registrar": false,
+                "identity_evidence": {
+                  "evidence_id": "TEST_ONLY_9dfcbf96e9c24664998f9d6047d18ce5",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY enrollment reader",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY enrollment reader",
+                  "body_fingerprint": "a277a2b823282de6233ac2192057b08da972907f67b560ffcf6e4f046387a9b5"
+                },
+                "idempotency_key": "185371de67c849dea4e9bb26728034a0"
+              },
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151472,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:16.893449Z",
+              "command_hash": "f9944d224b405dc42e682dadbb662671e1ad510d42f8a8b0fb152afd558c9d51"
+            }
+          ],
+          "authority": [
+            {
+              "id": "1d3b2515-ecd7-48ec-a649-805b6f38af7e",
+              "recorded_order": 4,
+              "command": {
+                "principal_id": "eb3c6530-961b-4e69-a377-7a785a8fb8af",
+                "scope": {
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "ROOT_SOURCE_READ",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_c99fd2a3febc49bd929725083d8ed6ff",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant ROOT_SOURCE_READ",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant ROOT_SOURCE_READ",
+                  "body_fingerprint": "1cd27a2bc85f0824d1e031461d045eed68be28a748a47394b79082ee698b2f73"
+                },
+                "expected_generation": 0,
+                "predecessor_id": null,
+                "idempotency_key": "ea85043dd6b84cfdb0c5a9b1019ffb28"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 1,
+              "previous_hash": null,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.362630Z",
+              "command_hash": "5be04b54b7d5799c8a49ca2b045f005b2e39e158197f971d2e1b143b161ccf64",
+              "fact_hash": "1cc63e9345b1e329bbd24f65df2b54fd5cfd7e479bded3bac24543488a37610c"
+            },
+            {
+              "id": "94b30941-f65e-4dec-8601-30e4f19d5f67",
+              "recorded_order": 5,
+              "command": {
+                "principal_id": "98920497-cdb5-4ab3-8552-be3249cdb37a",
+                "scope": {
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "VALIDATOR_SOURCE_READ",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_9bdc219b1e1d49a08a1166c4cf670835",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant VALIDATOR_SOURCE_READ",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant VALIDATOR_SOURCE_READ",
+                  "body_fingerprint": "a4e4e458634e160618e4e9f243d47bfb24e886242cddfa96c74abe58a5301208"
+                },
+                "expected_generation": 1,
+                "predecessor_id": "1d3b2515-ecd7-48ec-a649-805b6f38af7e",
+                "idempotency_key": "5ddc398e75ef4cd9ae7688febbd36e8a"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 2,
+              "previous_hash": "1cc63e9345b1e329bbd24f65df2b54fd5cfd7e479bded3bac24543488a37610c",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.373294Z",
+              "command_hash": "b540a7f4cc460fa301cd0268b84d4cd439bd441ff37c1ea507fc0900bb28e3ad",
+              "fact_hash": "fe3fed9b228c7421fd7db60a9c85d71e74f38a13d0b337353c7a27d057b98a21"
+            },
+            {
+              "id": "146ee68e-64fd-4781-91f4-d25d8a9a2ffa",
+              "recorded_order": 6,
+              "command": {
+                "principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+                "scope": {
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "MEMBER_GOAL_WRITE",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_bbbfbbcc26924ad2a585b0b802c5f5a7",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+                  "body_fingerprint": "138c9cd99c52d13a004615f886a32fa8fd9bdae849a87fdc0cf227a5a64ef2d1"
+                },
+                "expected_generation": 2,
+                "predecessor_id": "94b30941-f65e-4dec-8601-30e4f19d5f67",
+                "idempotency_key": "c117d383410d4cd8a1b8d18fe2605ccc"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 3,
+              "previous_hash": "fe3fed9b228c7421fd7db60a9c85d71e74f38a13d0b337353c7a27d057b98a21",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.384680Z",
+              "command_hash": "908130fc3375c4d03c0193a09ef70eda9843d48ee466e2ffc5f9e5f5443ccc45",
+              "fact_hash": "338f43cfc0077c498040e869a0c88ecc967fbec92edd223f9f41a77407b59e3a"
+            },
+            {
+              "id": "e4eb6929-4988-4298-a782-eaaee26b1268",
+              "recorded_order": 7,
+              "command": {
+                "principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+                "scope": {
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "MEMBER_OBSERVATION_WRITE",
+                "protocol_fingerprint": null,
+                "fact_key": "BODY_MASS",
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_5de6e854fe50496399819eab7effcccc",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0"
+                },
+                "expected_generation": 3,
+                "predecessor_id": "146ee68e-64fd-4781-91f4-d25d8a9a2ffa",
+                "idempotency_key": "e57a964919544ea6ad62e417f4e056b2"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 4,
+              "previous_hash": "338f43cfc0077c498040e869a0c88ecc967fbec92edd223f9f41a77407b59e3a",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.394536Z",
+              "command_hash": "ecf3ee9c7c824b3c53f8c55ead54faa31fc2bb8bd2e4af603112296c0063a2ae",
+              "fact_hash": "e1060691978e74b9c2565af8350067af7b3d5b21ece620bdc4493e10e16a7839"
+            },
+            {
+              "id": "46baa814-e9dc-4652-a651-380fdebc2c1a",
+              "recorded_order": 8,
+              "command": {
+                "principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+                "scope": {
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "MEMBER_OBSERVATION_WRITE",
+                "protocol_fingerprint": null,
+                "fact_key": "HEIGHT",
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_ffb2a5359afe42d8a232548f5ea58bbb",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0"
+                },
+                "expected_generation": 4,
+                "predecessor_id": "e4eb6929-4988-4298-a782-eaaee26b1268",
+                "idempotency_key": "d836c381d53a4063a4d1227cc53b7ad5"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 5,
+              "previous_hash": "e1060691978e74b9c2565af8350067af7b3d5b21ece620bdc4493e10e16a7839",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.403419Z",
+              "command_hash": "009febcc7798fa1b8aa19678f3a250bbe1742446cae9521f605f9986e17c27f9",
+              "fact_hash": "7311c3e115ddf1b9abd6deb85cd419eedc6537e3083d894b4df820ec87d871ea"
+            },
+            {
+              "id": "89dca492-dfa3-416f-a0cc-f29ecaa0749b",
+              "recorded_order": 9,
+              "command": {
+                "principal_id": "5a27d8ca-6be0-4ab4-905f-7195b95aad33",
+                "scope": {
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "MEMBER_GOAL_WRITE",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_22ad938a1fd84a7ca716a7367fe29db3",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_GOAL_WRITE",
+                  "body_fingerprint": "138c9cd99c52d13a004615f886a32fa8fd9bdae849a87fdc0cf227a5a64ef2d1"
+                },
+                "expected_generation": 5,
+                "predecessor_id": "46baa814-e9dc-4652-a651-380fdebc2c1a",
+                "idempotency_key": "902fbe6b09b3400d850a8303d932ac66"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 6,
+              "previous_hash": "7311c3e115ddf1b9abd6deb85cd419eedc6537e3083d894b4df820ec87d871ea",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.411584Z",
+              "command_hash": "4be444397cd9239cff721972c241cdeda30eb287e5ced2fe42920776379900fc",
+              "fact_hash": "531f5a039a29961223d68dbfa98d0af6d449913f37cdd7adde961514fcec6a52"
+            },
+            {
+              "id": "037eba67-a52b-4046-a342-a739cf141481",
+              "recorded_order": 10,
+              "command": {
+                "principal_id": "5a27d8ca-6be0-4ab4-905f-7195b95aad33",
+                "scope": {
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "MEMBER_OBSERVATION_WRITE",
+                "protocol_fingerprint": null,
+                "fact_key": "BODY_MASS",
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_748e4e6b3dc24a699fc2ab150b9c2d97",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0"
+                },
+                "expected_generation": 6,
+                "predecessor_id": "89dca492-dfa3-416f-a0cc-f29ecaa0749b",
+                "idempotency_key": "1f62c7eb4e3c44049e9b72c5faba9745"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 7,
+              "previous_hash": "531f5a039a29961223d68dbfa98d0af6d449913f37cdd7adde961514fcec6a52",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.419122Z",
+              "command_hash": "de979327beaef79d5ed93d2adde49863c008d629a6ed87e5bb0bf644c454fbc9",
+              "fact_hash": "d18ec9deb0c0568f0e299b6ce7cdaa20d3e9af56d8081c67a358e09ec31ee2b9"
+            },
+            {
+              "id": "312d3a61-3703-455d-9457-448709e94459",
+              "recorded_order": 11,
+              "command": {
+                "principal_id": "5a27d8ca-6be0-4ab4-905f-7195b95aad33",
+                "scope": {
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "MEMBER_OBSERVATION_WRITE",
+                "protocol_fingerprint": null,
+                "fact_key": "HEIGHT",
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_d6e79089d36b49ccba4d6c71daf965e2",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant MEMBER_OBSERVATION_WRITE",
+                  "body_fingerprint": "cda5b68cb4ad668145f566533857a4679db954f5f7583034d66726e78b203de0"
+                },
+                "expected_generation": 7,
+                "predecessor_id": "037eba67-a52b-4046-a342-a739cf141481",
+                "idempotency_key": "307eb07a550b48d0992265eebefb12f2"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 8,
+              "previous_hash": "d18ec9deb0c0568f0e299b6ce7cdaa20d3e9af56d8081c67a358e09ec31ee2b9",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.427392Z",
+              "command_hash": "d4a6947ec74832628d412c73da7adc93c5d08c2e09245d8ec1778278af9120bb",
+              "fact_hash": "a16edc10b1b38e582680969cca0126e4aeebef42963366d6a31772d809307953"
+            },
+            {
+              "id": "a7a9ba54-ae64-48de-8cf7-27c8ea62b6f6",
+              "recorded_order": 15,
+              "command": {
+                "principal_id": "5b152034-09f4-4805-8644-8b154d95e678",
+                "scope": {
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "ELIGIBILITY_ATTEST",
+                "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_d998b05b82da4d99961b0685f78121f2",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant ELIGIBILITY_ATTEST",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant ELIGIBILITY_ATTEST",
+                  "body_fingerprint": "42a5b2b12c9bf634ff338543d8e911d20f3dc3542dbffc572f58d5fa06e5676d"
+                },
+                "expected_generation": 8,
+                "predecessor_id": "312d3a61-3703-455d-9457-448709e94459",
+                "idempotency_key": "dec64cc58aaf40dabba779254b5d9cf9"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 9,
+              "previous_hash": "a16edc10b1b38e582680969cca0126e4aeebef42963366d6a31772d809307953",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.706635Z",
+              "command_hash": "761eea58f9668f55b1c4214e38c3d5980deb2de592861a4c2a30671cc325a631",
+              "fact_hash": "2b1a0ef0ea85ceeac3208844972c09163ad57973420ce9d23405972b14bfbd28"
+            },
+            {
+              "id": "13448df2-c7a0-43f7-a700-45c8359ce3ea",
+              "recorded_order": 20,
+              "command": {
+                "principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+                "scope": {
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "capability": "ROOT_SOURCE_READ",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_90fb81894bce473ea43cb3f7ad37d083",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant ROOT_SOURCE_READ",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant ROOT_SOURCE_READ",
+                  "body_fingerprint": "1cd27a2bc85f0824d1e031461d045eed68be28a748a47394b79082ee698b2f73"
+                },
+                "expected_generation": 9,
+                "predecessor_id": "a7a9ba54-ae64-48de-8cf7-27c8ea62b6f6",
+                "idempotency_key": "8761ac6d353b4d1cb0ac69420c523e22"
+              },
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "sequence": 10,
+              "previous_hash": "2b1a0ef0ea85ceeac3208844972c09163ad57973420ce9d23405972b14bfbd28",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.895136Z",
+              "command_hash": "9bdbae1fbaa5ad62c8eb5a039ab5893326d6e1d175da25ec194cc5d50a9fe5f9",
+              "fact_hash": "04e799442183c09aa033e4209b29e0bef4610a04b1c6b19b020cb84c7eca7766"
+            },
+            {
+              "id": "c8b9256f-7a94-4561-aba9-9e77ffc5b1c1",
+              "recorded_order": 1,
+              "command": {
+                "principal_id": "271d5910-de79-465b-8847-3d8db7fd91fc",
+                "scope": {
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": null,
+                  "member_id": null
+                },
+                "capability": "GUIDELINE_REVIEW",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_d664be90802b4488ae317f2ad85586f7",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant GUIDELINE_REVIEW",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant GUIDELINE_REVIEW",
+                  "body_fingerprint": "6813b465c0c22fdc3fd03915a17723fbd148ea78d88d1e6bb180dfe181d9230d"
+                },
+                "expected_generation": 0,
+                "predecessor_id": null,
+                "idempotency_key": "0be88dde3a944bfeb9a064098d895093"
+              },
+              "stream_key": "4cd60adf0fff78d867106d239b8f47300cc5bc04886520ef8cdb4dd05be8f3ec",
+              "sequence": 1,
+              "previous_hash": null,
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.316700Z",
+              "command_hash": "4e20147d8c69a078ba0b7ddc8d953678270bf4b8f562c774a231dd0c219f0055",
+              "fact_hash": "1b77f059c54aa9528b1d528fb44271538842a0c726e2c9d0a98dfd9c0ef02d0d"
+            },
+            {
+              "id": "88db1a27-89e5-4882-9e8e-eb834b15742c",
+              "recorded_order": 2,
+              "command": {
+                "principal_id": "7ee12202-e8a1-418f-bb1d-13d53b79c195",
+                "scope": {
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": null,
+                  "member_id": null
+                },
+                "capability": "GUIDELINE_PUBLISH",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_6219484f0e0b4b16a5134ce476a346ad",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant GUIDELINE_PUBLISH",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant GUIDELINE_PUBLISH",
+                  "body_fingerprint": "f2a20fcf18a3496d22a4b56cadd288fa1b94c089e5e0bee4c04ffe8182cc395c"
+                },
+                "expected_generation": 1,
+                "predecessor_id": "c8b9256f-7a94-4561-aba9-9e77ffc5b1c1",
+                "idempotency_key": "53dc727cba9640dcad9d39af60d2774d"
+              },
+              "stream_key": "4cd60adf0fff78d867106d239b8f47300cc5bc04886520ef8cdb4dd05be8f3ec",
+              "sequence": 2,
+              "previous_hash": "1b77f059c54aa9528b1d528fb44271538842a0c726e2c9d0a98dfd9c0ef02d0d",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.336893Z",
+              "command_hash": "f1603b6e40990da25f1429914543bc40e27ac842ffb38ceb401178b1b6db04ba",
+              "fact_hash": "707cd3a32d50614857b3b75c65f23982a77d874e04b499e5965f4c6e82bf0d77"
+            },
+            {
+              "id": "01ed2e7d-e646-4eed-9f22-b0135cd76aee",
+              "recorded_order": 3,
+              "command": {
+                "principal_id": "7ee12202-e8a1-418f-bb1d-13d53b79c195",
+                "scope": {
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": null,
+                  "member_id": null
+                },
+                "capability": "GUIDELINE_WITHDRAW",
+                "protocol_fingerprint": null,
+                "fact_key": null,
+                "action": "GRANT",
+                "effective": {
+                  "start": "2020-01-01T00:00:00.000000Z",
+                  "end": "2100-01-01T00:00:00.000000Z"
+                },
+                "qualification_evidence": {
+                  "evidence_id": "TEST_ONLY_0e81f3a7b2074185b018cde4220c084d",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY exact scope grant GUIDELINE_WITHDRAW",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY exact scope grant GUIDELINE_WITHDRAW",
+                  "body_fingerprint": "1c771b3f87b269361aa135f45eadd86078a4159904675e74a4da3328ce320fad"
+                },
+                "expected_generation": 2,
+                "predecessor_id": "88db1a27-89e5-4882-9e8e-eb834b15742c",
+                "idempotency_key": "960d112e47494cda9fcd504800ec2ac9"
+              },
+              "stream_key": "4cd60adf0fff78d867106d239b8f47300cc5bc04886520ef8cdb4dd05be8f3ec",
+              "sequence": 3,
+              "previous_hash": "707cd3a32d50614857b3b75c65f23982a77d874e04b499e5965f4c6e82bf0d77",
+              "administrator": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151460,
+                "role_name": "nrc_admin_f865e6e8eb6c",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_admin_f865e6e8eb6c"
+              },
+              "recorded_at": "2026-11-04T18:33:17.349670Z",
+              "command_hash": "f38253174f8f8a3f4edca95d6798ad9299b6d6efa1bebc44fb8f72323e2b8919",
+              "fact_hash": "cf5eb6ac92eea5e70d890365404d30691fb1d5d7b875d5f33dd13de0d20097d0"
+            }
+          ],
+          "sources": [
+            {
+              "id": "a17aac37-c832-4002-8ce5-209bcef651dc",
+              "recorded_order": 19,
+              "command": {
+                "contract_version": "nutrition-source-command.v1",
+                "revision_id": "a17aac37-c832-4002-8ce5-209bcef651dc",
+                "identity": {
+                  "kind": "ASSESSMENT",
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                  "code": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea"
+                },
+                "body": {
+                  "kind": "ASSESSMENT",
+                  "operation": "CREATE",
+                  "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+                  "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+                  "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+                  "outcome": "ADMITTED",
+                  "observations": [
+                    {
+                      "fact_key": "BODY_MASS",
+                      "revision_id": "b47469ac-d251-4733-a720-2eb737d1a3f5",
+                      "fact_hash": "5bd65bb6a69ab1bdb548cbc50624abf1336804775479d2974838f09e62c4b3bc",
+                      "value": {
+                        "numerator": 7,
+                        "denominator": 2
+                      },
+                      "unit": "KG",
+                      "legacy_anchor_fingerprint": "d2ef0ed6444312bea683497307b134540dd9ccc319f54caf9ca8dd4a00b71cff"
+                    },
+                    {
+                      "fact_key": "HEIGHT",
+                      "revision_id": "82e7b7e7-ac2f-4f78-b6fa-0f9e0f9c8ff0",
+                      "fact_hash": "bb2637d9bcb02424624428fd065ebc6f68ad62d773a2a81a6e96f804b7ac4891",
+                      "value": {
+                        "numerator": 19,
+                        "denominator": 1
+                      },
+                      "unit": "CM",
+                      "legacy_anchor_fingerprint": "d2ef0ed6444312bea683497307b134540dd9ccc319f54caf9ca8dd4a00b71cff"
+                    }
+                  ],
+                  "evidence": [
+                    {
+                      "evidence_id": "TEST_ONLY_admission_a820f5af25764dff",
+                      "version": "TEST_ONLY_v1",
+                      "environment": "TEST_ONLY",
+                      "purpose": "TEST_ONLY TEST_ONLY assessment proof TEST_ONLY_admission_a820f5af25764dff",
+                      "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY assessment proof TEST_ONLY_admission_a820f5af25764dff",
+                      "body_fingerprint": "76306eacad9e6568a216e64b35e87239b01ef19f4471a5ea263d7c07866b563d"
+                    },
+                    {
+                      "evidence_id": "TEST_ONLY_exclusion_a820f5af25764dff",
+                      "version": "TEST_ONLY_v1",
+                      "environment": "TEST_ONLY",
+                      "purpose": "TEST_ONLY TEST_ONLY assessment proof TEST_ONLY_exclusion_a820f5af25764dff",
+                      "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY assessment proof TEST_ONLY_exclusion_a820f5af25764dff",
+                      "body_fingerprint": "c3228a94e69f52b2e0df143e27c8345ce94888fb22bf3c8f7a0addaef217c2d6"
+                    },
+                    {
+                      "evidence_id": "TEST_ONLY_out_of_scope_a820f5af25764dff",
+                      "version": "TEST_ONLY_v1",
+                      "environment": "TEST_ONLY",
+                      "purpose": "TEST_ONLY TEST_ONLY assessment proof TEST_ONLY_out_of_scope_a820f5af25764dff",
+                      "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY assessment proof TEST_ONLY_out_of_scope_a820f5af25764dff",
+                      "body_fingerprint": "c85e008c2b92ec0a8b4cd0044f303949757de43a5adcb2b2456549ba60099994"
+                    }
+                  ],
+                  "missing_observations": [],
+                  "missing_evidence_slots": [],
+                  "effective": {
+                    "start": "2026-09-01T00:00:00.000000Z",
+                    "end": "2026-09-02T00:00:00.000000Z"
+                  },
+                  "replaces": []
+                },
+                "expected_revision": 0,
+                "predecessor_id": null,
+                "idempotency_key": "428dbc4b64a24c6ea4a4961f4ba59ab9"
+              },
+              "stream_key": "0f8f4c8c0165e022754b81cf1def001326a2f3775d83e74ec6059c69da2c4e8f",
+              "sequence": 1,
+              "previous_hash": null,
+              "principal_id": "5b152034-09f4-4805-8644-8b154d95e678",
+              "grant_event_id": "a7a9ba54-ae64-48de-8cf7-27c8ea62b6f6",
+              "authority_generation": 9,
+              "provider_enrollment_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+              "author": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151469,
+                "role_name": "nrc_assessor_2f8ce177aa3d",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_assessor_2f8ce177aa3d"
+              },
+              "subject_witness": {
+                "subject": {
+                  "contract_version": "household-member-identity.v1",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "actor_user_id": null,
+                "membership_id": null,
+                "actor_member_id": null,
+                "role": null
+              },
+              "delegation_event_id": null,
+              "legacy_anchor": {
+                "subject": {
+                  "contract_version": "household-member-identity.v1",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "profile": null,
+                "body_fingerprint": "d2ef0ed6444312bea683497307b134540dd9ccc319f54caf9ca8dd4a00b71cff"
+              },
+              "recorded_at": "2026-11-04T18:33:17.874016Z",
+              "command_hash": "734ae3fe68ee18e81b1faacd86c06f46c60157266a445f75f93c8ed8ec9518d7",
+              "fact_hash": "22c6ef6d327f7c7f49aefb14ad96732c9e6ba7e660f9432c75a99dee01f32902"
+            },
+            {
+              "id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+              "recorded_order": 12,
+              "command": {
+                "contract_version": "nutrition-source-command.v1",
+                "revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+                "identity": {
+                  "kind": "GUIDELINE",
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": null,
+                  "member_id": null,
+                  "code": "FAMILY"
+                },
+                "body": {
+                  "kind": "DRAFT",
+                  "guideline": {
+                    "contract_version": "nutrition-guideline-body.v1",
+                    "revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+                    "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                    "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                    "guideline_id": "TEST_ONLY_guideline",
+                    "guideline_version": "TEST_ONLY_v1",
+                    "edition": "TEST_ONLY invented edition; no nutritional evidence",
+                    "jurisdiction": null,
+                    "jurisdiction_status": "SOURCE_NOT_SPECIFIED",
+                    "environment": "TEST_ONLY",
+                    "effective": {
+                      "start": "2026-09-01T00:00:00.000000Z",
+                      "end": "2026-09-02T00:00:00.000000Z"
+                    },
+                    "protocol": {
+                      "protocol_id": "TEST_ONLY_protocol_a820f5af25764dff",
+                      "version": "TEST_ONLY_v1",
+                      "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+                      "scope_version": "TEST_ONLY_v1",
+                      "environment": "TEST_ONLY",
+                      "meaning": {
+                        "evidence_id": "TEST_ONLY_3c7f98d71fd94a19a62b236b061b0806",
+                        "version": "TEST_ONLY_v1",
+                        "environment": "TEST_ONLY",
+                        "purpose": "TEST_ONLY TEST_ONLY synthetic assertion protocol; not a population definition",
+                        "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthetic assertion protocol; not a population definition",
+                        "body_fingerprint": "1cda890fc6829984181286766d761d3bccddb40b88895e1e851cd43ddf0bd9b8"
+                      },
+                      "admitted": {
+                        "observations": [
+                          "BODY_MASS",
+                          "HEIGHT"
+                        ],
+                        "evidence_slots": [
+                          "TEST_ONLY_admission_a820f5af25764dff"
+                        ]
+                      },
+                      "excluded": {
+                        "observations": [
+                          "BODY_MASS"
+                        ],
+                        "evidence_slots": [
+                          "TEST_ONLY_exclusion_a820f5af25764dff"
+                        ]
+                      },
+                      "out_of_scope": {
+                        "observations": [
+                          "BODY_MASS"
+                        ],
+                        "evidence_slots": [
+                          "TEST_ONLY_out_of_scope_a820f5af25764dff"
+                        ]
+                      }
+                    },
+                    "evidence_manifest": [
+                      {
+                        "evidence_id": "TEST_ONLY_df7631ff4c7541d09503fd05ffaa9660",
+                        "version": "TEST_ONLY_v1",
+                        "environment": "TEST_ONLY",
+                        "purpose": "TEST_ONLY TEST_ONLY symbolic root manifest",
+                        "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY symbolic root manifest",
+                        "body_fingerprint": "971d8eed0bf2e6f3eb80312a810f30d02644b80600c2e3afe1d4448d1beae74a"
+                      }
+                    ],
+                    "clauses": [
+                      {
+                        "root_key": "TEST_ONLY_energy",
+                        "descriptor": {
+                          "metric": "ENERGY",
+                          "unit": "KCAL",
+                          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+                          "scope_version": "TEST_ONLY_v1",
+                          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+                          "temporal": {
+                            "kind": "DAY",
+                            "period_id": "TEST_ONLY_day",
+                            "calendar": "TEST_ONLY_calendar",
+                            "timezone": "UTC",
+                            "interval": {
+                              "start": "2026-09-01T00:00:00.000000Z",
+                              "end": "2026-09-02T00:00:00.000000Z"
+                            }
+                          }
+                        },
+                        "interpretation": "GUIDELINE_HARD",
+                        "constraint": {
+                          "kind": "RANGE",
+                          "lower": {
+                            "numerator": 7,
+                            "denominator": 1
+                          },
+                          "upper": {
+                            "numerator": 13,
+                            "denominator": 1
+                          }
+                        }
+                      }
+                    ],
+                    "mandatory_hard_roots": [
+                      "TEST_ONLY_energy"
+                    ]
+                  }
+                },
+                "expected_revision": 0,
+                "predecessor_id": null,
+                "idempotency_key": "054461d2269a480e98c0c1dfe4894b03"
+              },
+              "stream_key": "41dc24fab767fb431f6d65b30540c59e9acec86e3a04b610115a7873545ee9db",
+              "sequence": 1,
+              "previous_hash": null,
+              "principal_id": "271d5910-de79-465b-8847-3d8db7fd91fc",
+              "grant_event_id": "c8b9256f-7a94-4561-aba9-9e77ffc5b1c1",
+              "authority_generation": 3,
+              "provider_enrollment_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+              "author": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151463,
+                "role_name": "nrc_reviewer_14d10588f9d0",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_reviewer_14d10588f9d0"
+              },
+              "subject_witness": null,
+              "delegation_event_id": null,
+              "legacy_anchor": null,
+              "recorded_at": "2026-11-04T18:33:17.494258Z",
+              "command_hash": "ae6a13cfba2b226c51921034f52883ab5c0347e3fa835b0cad859cf8c8720a5e",
+              "fact_hash": "a82c3a1e615f2a15f09ca08cd4b86ff08810b9dd9a7e2e40504abe112aa08fa4"
+            },
+            {
+              "id": "c5aaf99b-b140-487f-b6f9-cd7d314dcb65",
+              "recorded_order": 13,
+              "command": {
+                "contract_version": "nutrition-source-command.v1",
+                "revision_id": "c5aaf99b-b140-487f-b6f9-cd7d314dcb65",
+                "identity": {
+                  "kind": "GUIDELINE",
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": null,
+                  "member_id": null,
+                  "code": "FAMILY"
+                },
+                "body": {
+                  "kind": "REVIEW",
+                  "draft_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+                  "body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+                  "evidence_fingerprint": "c1e852a25726046aedce7fba30c1775399820e8f980108709aeec917a0052909",
+                  "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+                  "decision": "APPROVE",
+                  "prior_review_id": null,
+                  "rationale": "TEST_ONLY reviewed synthetic structure"
+                },
+                "expected_revision": 1,
+                "predecessor_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+                "idempotency_key": "699ed31c7b3f4c1c9a6afda6f58f2cbf"
+              },
+              "stream_key": "41dc24fab767fb431f6d65b30540c59e9acec86e3a04b610115a7873545ee9db",
+              "sequence": 2,
+              "previous_hash": "a82c3a1e615f2a15f09ca08cd4b86ff08810b9dd9a7e2e40504abe112aa08fa4",
+              "principal_id": "271d5910-de79-465b-8847-3d8db7fd91fc",
+              "grant_event_id": "c8b9256f-7a94-4561-aba9-9e77ffc5b1c1",
+              "authority_generation": 3,
+              "provider_enrollment_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+              "author": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151463,
+                "role_name": "nrc_reviewer_14d10588f9d0",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_reviewer_14d10588f9d0"
+              },
+              "subject_witness": null,
+              "delegation_event_id": null,
+              "legacy_anchor": null,
+              "recorded_at": "2026-11-04T18:33:17.521126Z",
+              "command_hash": "36cb974f7850ae65f13c3328ba1e4f9b4b2ecf28efb6674d17694556e6076815",
+              "fact_hash": "7c8e7bf7f814de3b2709e6c77b6a9c289e8bda1ba639685f8901d2dae790418d"
+            },
+            {
+              "id": "3595e5e4-d5a2-447b-9f57-39c48d1bbca4",
+              "recorded_order": 14,
+              "command": {
+                "contract_version": "nutrition-source-command.v1",
+                "revision_id": "3595e5e4-d5a2-447b-9f57-39c48d1bbca4",
+                "identity": {
+                  "kind": "GUIDELINE",
+                  "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                  "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                  "household_id": null,
+                  "member_id": null,
+                  "code": "FAMILY"
+                },
+                "body": {
+                  "kind": "PUBLICATION",
+                  "action": "PUBLISH",
+                  "draft_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+                  "body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+                  "review_event_id": "c5aaf99b-b140-487f-b6f9-cd7d314dcb65",
+                  "prior_publication_id": null,
+                  "effective_at": "2026-09-01T00:00:00.000000Z",
+                  "rationale": "TEST_ONLY publication; NO PRODUCTION NUTRITION CONTENT"
+                },
+                "expected_revision": 2,
+                "predecessor_id": "c5aaf99b-b140-487f-b6f9-cd7d314dcb65",
+                "idempotency_key": "4ea4e5fe505a48ad80348aa5a4782257"
+              },
+              "stream_key": "41dc24fab767fb431f6d65b30540c59e9acec86e3a04b610115a7873545ee9db",
+              "sequence": 3,
+              "previous_hash": "7c8e7bf7f814de3b2709e6c77b6a9c289e8bda1ba639685f8901d2dae790418d",
+              "principal_id": "7ee12202-e8a1-418f-bb1d-13d53b79c195",
+              "grant_event_id": "88db1a27-89e5-4882-9e8e-eb834b15742c",
+              "authority_generation": 3,
+              "provider_enrollment_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+              "author": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151466,
+                "role_name": "nrc_publisher_19ee7674ac61",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_publisher_19ee7674ac61"
+              },
+              "subject_witness": null,
+              "delegation_event_id": null,
+              "legacy_anchor": null,
+              "recorded_at": "2026-11-04T18:33:17.689397Z",
+              "command_hash": "830d1b51aa3786dfde1e733b87dcfb030f06e130fcc9eca7dbdb5e066dfab4ed",
+              "fact_hash": "97db4dfbb96b41f63865e8b119c926b1b896cd93e9d800efa981d2934e4ba89a"
+            },
+            {
+              "id": "82e7b7e7-ac2f-4f78-b6fa-0f9e0f9c8ff0",
+              "recorded_order": 17,
+              "command": {
+                "contract_version": "nutrition-source-command.v1",
+                "revision_id": "82e7b7e7-ac2f-4f78-b6fa-0f9e0f9c8ff0",
+                "identity": {
+                  "kind": "OBSERVATION",
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                  "code": "HEIGHT"
+                },
+                "body": {
+                  "kind": "OBSERVATION",
+                  "operation": "CREATE",
+                  "fact_key": "HEIGHT",
+                  "value": {
+                    "numerator": 19,
+                    "denominator": 1
+                  },
+                  "unit": "CM",
+                  "observed_at": "2026-08-01T00:00:00.000000Z",
+                  "provenance": {
+                    "evidence_id": "TEST_ONLY_91c10fbb2a8e491ebeea33539d35e606",
+                    "version": "TEST_ONLY_v1",
+                    "environment": "TEST_ONLY",
+                    "purpose": "TEST_ONLY TEST_ONLY physiological observation HEIGHT",
+                    "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY physiological observation HEIGHT",
+                    "body_fingerprint": "effa5e7f417d43e6f1bb6a1793a4c4ca57ea5c1da6f0905d3d8672cd4b579d25"
+                  },
+                  "effective": {
+                    "start": "2026-09-01T00:00:00.000000Z",
+                    "end": "2026-09-02T00:00:00.000000Z"
+                  },
+                  "replaces": []
+                },
+                "expected_revision": 0,
+                "predecessor_id": null,
+                "idempotency_key": "39e8a71483d64335b2792941dc2da4c0"
+              },
+              "stream_key": "5b11cccd49af8b31a78f0e97051e8614db16a712aacb06b1952098efe01e4a2c",
+              "sequence": 1,
+              "previous_hash": null,
+              "principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+              "grant_event_id": "46baa814-e9dc-4652-a651-380fdebc2c1a",
+              "authority_generation": 9,
+              "provider_enrollment_id": null,
+              "author": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151487,
+                "role_name": "nrc_self_f1e655c63d_789413c443c0",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_self_f1e655c63d_789413c443c0"
+              },
+              "subject_witness": {
+                "subject": {
+                  "contract_version": "household-member-identity.v1",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "actor_user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+                "membership_id": "7ef6b299-cbce-442b-8cbb-e5d7001862cb",
+                "actor_member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                "role": "OWNER"
+              },
+              "delegation_event_id": null,
+              "legacy_anchor": {
+                "subject": {
+                  "contract_version": "household-member-identity.v1",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "profile": null,
+                "body_fingerprint": "d2ef0ed6444312bea683497307b134540dd9ccc319f54caf9ca8dd4a00b71cff"
+              },
+              "recorded_at": "2026-11-04T18:33:17.787533Z",
+              "command_hash": "87ea583b986d9fbe345d910753140e72ef53fd296f5cb752f50a1646fb7060c1",
+              "fact_hash": "bb2637d9bcb02424624428fd065ebc6f68ad62d773a2a81a6e96f804b7ac4891"
+            },
+            {
+              "id": "26518239-d6b2-49a7-b456-f3eff57dc989",
+              "recorded_order": 18,
+              "command": {
+                "contract_version": "nutrition-source-command.v1",
+                "revision_id": "26518239-d6b2-49a7-b456-f3eff57dc989",
+                "identity": {
+                  "kind": "GOAL",
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                  "code": "ENERGY_DIRECTION"
+                },
+                "body": {
+                  "kind": "GOAL",
+                  "operation": "CREATE",
+                  "goal_id": "26518239-d6b2-49a7-b456-f3eff57dc989",
+                  "goal_type": "ENERGY_DIRECTION",
+                  "direction": "MAINTAIN",
+                  "effective": {
+                    "start": "2026-09-01T00:00:00.000000Z",
+                    "end": "2026-09-02T00:00:00.000000Z"
+                  },
+                  "replaces": [],
+                  "provenance": {
+                    "evidence_id": "TEST_ONLY_3647c73dbee84c308f5b2114c6226c0b",
+                    "version": "TEST_ONLY_v1",
+                    "environment": "TEST_ONLY",
+                    "purpose": "TEST_ONLY TEST_ONLY member intent",
+                    "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY member intent",
+                    "body_fingerprint": "4af34f702b36db713ae569a0ed42e2cfe912a8aa351a20c155adf816480fb4e0"
+                  }
+                },
+                "expected_revision": 0,
+                "predecessor_id": null,
+                "idempotency_key": "e6608d90404a437fa9b30ed804e673be"
+              },
+              "stream_key": "b128c6b591022afc5b835e7e589558e60294cced99d80b58c8184647b99b7c11",
+              "sequence": 1,
+              "previous_hash": null,
+              "principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+              "grant_event_id": "146ee68e-64fd-4781-91f4-d25d8a9a2ffa",
+              "authority_generation": 9,
+              "provider_enrollment_id": null,
+              "author": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151487,
+                "role_name": "nrc_self_f1e655c63d_789413c443c0",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_self_f1e655c63d_789413c443c0"
+              },
+              "subject_witness": {
+                "subject": {
+                  "contract_version": "household-member-identity.v1",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "actor_user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+                "membership_id": "7ef6b299-cbce-442b-8cbb-e5d7001862cb",
+                "actor_member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                "role": "OWNER"
+              },
+              "delegation_event_id": null,
+              "legacy_anchor": null,
+              "recorded_at": "2026-11-04T18:33:17.802852Z",
+              "command_hash": "9c017322e2fe0ab1d36b12b899cf6655aa527150e5287dd32e70c51c28e6b58a",
+              "fact_hash": "96c31dbe35eca79893c028c50475e23cc9466608968f6d3bc97f34653e365a2b"
+            },
+            {
+              "id": "b47469ac-d251-4733-a720-2eb737d1a3f5",
+              "recorded_order": 16,
+              "command": {
+                "contract_version": "nutrition-source-command.v1",
+                "revision_id": "b47469ac-d251-4733-a720-2eb737d1a3f5",
+                "identity": {
+                  "kind": "OBSERVATION",
+                  "provider_id": null,
+                  "family_id": null,
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                  "code": "BODY_MASS"
+                },
+                "body": {
+                  "kind": "OBSERVATION",
+                  "operation": "CREATE",
+                  "fact_key": "BODY_MASS",
+                  "value": {
+                    "numerator": 7,
+                    "denominator": 2
+                  },
+                  "unit": "KG",
+                  "observed_at": "2026-08-01T00:00:00.000000Z",
+                  "provenance": {
+                    "evidence_id": "TEST_ONLY_71122f0cf2e0476cb3070c42d2e04f94",
+                    "version": "TEST_ONLY_v1",
+                    "environment": "TEST_ONLY",
+                    "purpose": "TEST_ONLY TEST_ONLY physiological observation BODY_MASS",
+                    "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY physiological observation BODY_MASS",
+                    "body_fingerprint": "24895a83ccee5748d5be8d8ecfdc9cabe0e1eb0959f3ba1e262e26ba52701a30"
+                  },
+                  "effective": {
+                    "start": "2026-09-01T00:00:00.000000Z",
+                    "end": "2026-09-02T00:00:00.000000Z"
+                  },
+                  "replaces": []
+                },
+                "expected_revision": 0,
+                "predecessor_id": null,
+                "idempotency_key": "ee70f9a47a7a488eabbb3e5fbc3c35c1"
+              },
+              "stream_key": "e7f40b7e176154e948621056e3a4f7b9ac8731ee0c01939df17adc2750969c71",
+              "sequence": 1,
+              "previous_hash": null,
+              "principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+              "grant_event_id": "e4eb6929-4988-4298-a782-eaaee26b1268",
+              "authority_generation": 9,
+              "provider_enrollment_id": null,
+              "author": {
+                "database_oid": 1146059,
+                "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+                "role_oid": 1151487,
+                "role_name": "nrc_self_f1e655c63d_789413c443c0",
+                "authentication_method": "scram-sha-256",
+                "authenticated_identity": "nrc_self_f1e655c63d_789413c443c0"
+              },
+              "subject_witness": {
+                "subject": {
+                  "contract_version": "household-member-identity.v1",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "actor_user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+                "membership_id": "7ef6b299-cbce-442b-8cbb-e5d7001862cb",
+                "actor_member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                "role": "OWNER"
+              },
+              "delegation_event_id": null,
+              "legacy_anchor": {
+                "subject": {
+                  "contract_version": "household-member-identity.v1",
+                  "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                  "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+                },
+                "profile": null,
+                "body_fingerprint": "d2ef0ed6444312bea683497307b134540dd9ccc319f54caf9ca8dd4a00b71cff"
+              },
+              "recorded_at": "2026-11-04T18:33:17.764059Z",
+              "command_hash": "6a0a80ab751044fc8de6e9c8afe2f1972b09b7b439e833ae21a3da4e02967b68",
+              "fact_hash": "5bd65bb6a69ab1bdb548cbc50624abf1336804775479d2974838f09e62c4b3bc"
+            }
+          ],
+          "streams": [
+            {
+              "stream_key": "0f8f4c8c0165e022754b81cf1def001326a2f3775d83e74ec6059c69da2c4e8f",
+              "source_identity": {
+                "kind": "ASSESSMENT",
+                "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                "code": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea"
+              },
+              "authority_scope": null,
+              "revision": 1,
+              "head_id": "a17aac37-c832-4002-8ce5-209bcef651dc",
+              "head_hash": "22c6ef6d327f7c7f49aefb14ad96732c9e6ba7e660f9432c75a99dee01f32902"
+            },
+            {
+              "stream_key": "41dc24fab767fb431f6d65b30540c59e9acec86e3a04b610115a7873545ee9db",
+              "source_identity": {
+                "kind": "GUIDELINE",
+                "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                "household_id": null,
+                "member_id": null,
+                "code": "FAMILY"
+              },
+              "authority_scope": null,
+              "revision": 3,
+              "head_id": "3595e5e4-d5a2-447b-9f57-39c48d1bbca4",
+              "head_hash": "97db4dfbb96b41f63865e8b119c926b1b896cd93e9d800efa981d2934e4ba89a"
+            },
+            {
+              "stream_key": "45a46a8e9430131823fc6bff945932d09f2b279e942b6c9a681ec4180a61f2f9",
+              "source_identity": null,
+              "authority_scope": {
+                "provider_id": null,
+                "family_id": null,
+                "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+              },
+              "revision": 10,
+              "head_id": "13448df2-c7a0-43f7-a700-45c8359ce3ea",
+              "head_hash": "04e799442183c09aa033e4209b29e0bef4610a04b1c6b19b020cb84c7eca7766"
+            },
+            {
+              "stream_key": "4cd60adf0fff78d867106d239b8f47300cc5bc04886520ef8cdb4dd05be8f3ec",
+              "source_identity": null,
+              "authority_scope": {
+                "provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                "family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                "household_id": null,
+                "member_id": null
+              },
+              "revision": 3,
+              "head_id": "01ed2e7d-e646-4eed-9f22-b0135cd76aee",
+              "head_hash": "cf5eb6ac92eea5e70d890365404d30691fb1d5d7b875d5f33dd13de0d20097d0"
+            },
+            {
+              "stream_key": "5b11cccd49af8b31a78f0e97051e8614db16a712aacb06b1952098efe01e4a2c",
+              "source_identity": {
+                "kind": "OBSERVATION",
+                "provider_id": null,
+                "family_id": null,
+                "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                "code": "HEIGHT"
+              },
+              "authority_scope": null,
+              "revision": 1,
+              "head_id": "82e7b7e7-ac2f-4f78-b6fa-0f9e0f9c8ff0",
+              "head_hash": "bb2637d9bcb02424624428fd065ebc6f68ad62d773a2a81a6e96f804b7ac4891"
+            },
+            {
+              "stream_key": "b128c6b591022afc5b835e7e589558e60294cced99d80b58c8184647b99b7c11",
+              "source_identity": {
+                "kind": "GOAL",
+                "provider_id": null,
+                "family_id": null,
+                "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                "code": "ENERGY_DIRECTION"
+              },
+              "authority_scope": null,
+              "revision": 1,
+              "head_id": "26518239-d6b2-49a7-b456-f3eff57dc989",
+              "head_hash": "96c31dbe35eca79893c028c50475e23cc9466608968f6d3bc97f34653e365a2b"
+            },
+            {
+              "stream_key": "e7f40b7e176154e948621056e3a4f7b9ac8731ee0c01939df17adc2750969c71",
+              "source_identity": {
+                "kind": "OBSERVATION",
+                "provider_id": null,
+                "family_id": null,
+                "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+                "code": "BODY_MASS"
+              },
+              "authority_scope": null,
+              "revision": 1,
+              "head_id": "b47469ac-d251-4733-a720-2eb737d1a3f5",
+              "head_hash": "5bd65bb6a69ab1bdb548cbc50624abf1336804775479d2974838f09e62c4b3bc"
+            }
+          ],
+          "current_legacy_anchor": {
+            "subject": {
+              "contract_version": "household-member-identity.v1",
+              "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+              "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+            },
+            "profile": null,
+            "body_fingerprint": "d2ef0ed6444312bea683497307b134540dd9ccc319f54caf9ca8dd4a00b71cff"
+          },
+          "capture": {
+            "session": {
+              "database_oid": 1146059,
+              "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+              "role_oid": 1151487,
+              "role_name": "nrc_self_f1e655c63d_789413c443c0",
+              "authentication_method": "scram-sha-256",
+              "authenticated_identity": "nrc_self_f1e655c63d_789413c443c0"
+            },
+            "reader_principal_id": "ea404066-9c4d-437e-b343-4dbbb5c48a1e",
+            "reader_subject_witness": {
+              "subject": {
+                "contract_version": "household-member-identity.v1",
+                "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+                "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+              },
+              "actor_user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+              "membership_id": "7ef6b299-cbce-442b-8cbb-e5d7001862cb",
+              "actor_member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+              "role": "OWNER"
+            },
+            "reader_grant_id": "13448df2-c7a0-43f7-a700-45c8359ce3ea",
+            "endpoint": "127.0.0.1:55444",
+            "backend_pid": 17968,
+            "mvcc_snapshot": "37152:37152:",
+            "transaction_id": "UNASSIGNED_READ_ONLY",
+            "isolation": "REPEATABLE READ",
+            "read_only": true,
+            "started_at": "2026-11-04T18:33:18.378466Z",
+            "completed_at": "2026-11-04T18:33:18.382532Z",
+            "provider_enrollment_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+            "row_count": 35,
+            "absence_stream_keys": []
+          },
+          "source_fingerprint": "5fe450d93bb83f664574dd15a0f8718981299b7ab2bbb31d2b71a5c912a4221e"
+        },
+        "availability": "AVAILABLE",
+        "eligibility": "SUPPORTED",
+        "goal_state": "PRESENT",
+        "goal_revision_id": "26518239-d6b2-49a7-b456-f3eff57dc989",
+        "goal_direction": "MAINTAIN",
+        "roots": [
+          {
+            "publication_event_id": "3595e5e4-d5a2-447b-9f57-39c48d1bbca4",
+            "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+            "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+            "clause": {
+              "root_key": "TEST_ONLY_energy",
+              "descriptor": {
+                "metric": "ENERGY",
+                "unit": "KCAL",
+                "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+                "scope_version": "TEST_ONLY_v1",
+                "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+                "temporal": {
+                  "kind": "DAY",
+                  "period_id": "TEST_ONLY_day",
+                  "calendar": "TEST_ONLY_calendar",
+                  "timezone": "UTC",
+                  "interval": {
+                    "start": "2026-09-01T00:00:00.000000Z",
+                    "end": "2026-09-02T00:00:00.000000Z"
+                  }
+                }
+              },
+              "interpretation": "GUIDELINE_HARD",
+              "constraint": {
+                "kind": "RANGE",
+                "lower": {
+                  "numerator": 7,
+                  "denominator": 1
+                },
+                "upper": {
+                  "numerator": 13,
+                  "denominator": 1
+                }
+              }
+            }
+          }
+        ],
+        "reasons": [],
+        "source_fingerprint": "5fe450d93bb83f664574dd15a0f8718981299b7ab2bbb31d2b71a5c912a4221e",
+        "result_fingerprint": "3a186cca7a40213fe13f815832a222afd29361be64183b2284df886d43df55a2",
+        "policy_synthesis": "NOT_PERFORMED",
+        "numeric_goal_protection": "NOT_SYNTHESIZED",
+        "planner_ready": false,
+        "activation_ready": false,
+        "source_origin": "RETAINED_SELF_CONSISTENCY_NOT_OFFLINE_DATABASE_PROOF",
+        "current_authorization": "NOT_CLAIMED",
+        "scientific_correctness": "NOT_CERTIFIED"
+      },
+      "selection": {
+        "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+        "family_id": "TEST_ONLY_rules_8168994b4f",
+        "revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+        "publication_id": "64b57a05-e22e-4dac-83b5-3452bef4161c",
+        "body_fingerprint": "8dab9e5e748db1118db8d4fa9855b8ea8938cd5d1d498cd22d5fb3f1a4ed7c8e",
+        "evidence_fingerprint": "1b73f9983a8be7922aba84fe770ebbd86ad8dde028da5fb281d429ac8e834731",
+        "selection_version": "EXACT_SINGLE_CASE_V1",
+        "language_version": "FINITE_EXACT_V1"
+      },
+      "precision": {
+        "value": "STANDARD",
+        "source": "REQUEST_EXPLICIT",
+        "version": "TEST_ONLY_v1",
+        "actor_user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "evidence": {
+          "evidence_id": "TEST_ONLY_0e2e32da43f44d449e2505b72c7d4e4c",
+          "version": "TEST_ONLY_v1",
+          "environment": "TEST_ONLY",
+          "purpose": "TEST_ONLY TEST_ONLY explicit planning precision",
+          "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY explicit planning precision",
+          "body_fingerprint": "b55eef7c00d4c6abcc862e56c5ff05540407c185cc8eba6374a4fc2c1b92ca43"
+        }
+      },
+      "purpose": "BOUNDED_COMPLETE_POLICY_V1",
+      "required_claims": []
+    },
+    "provider_facts": [
+      {
+        "id": "f8330e6f-dfcb-433c-963b-b0bb3614b892",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "code": "TEST_ONLY_378666de987b4cc3a6dc74f71f2185b5",
+          "version": "TEST_ONLY_v1",
+          "remit": "TEST_ONLY finite algebra, no clinical content",
+          "environment": "TEST_ONLY",
+          "evidence": {
+            "evidence_id": "TEST_ONLY_371c8a057f03483f83e68f3f3db51603",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY synthesis provider",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthesis provider",
+            "body_fingerprint": "d4be4004d0143bb29e8c7d4378d455dcb7982b9535d31b9cb08be375ae4a5e14"
+          },
+          "expected_generation": 0,
+          "predecessor_id": null,
+          "idempotency_key": "854966a4a11d409db7cf5107c8bc53b3"
+        },
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.228532Z",
+        "recorded_order": 6,
+        "command_hash": "5dbff9e4906a1b34766cc7029afe95b0f84942ce74e8d515c0073d494392a1c8"
+      }
+    ],
+    "principal_facts": [
+      {
+        "id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "command": {
+          "role_name": "nrc_reviewer_14d10588f9d0",
+          "verified_human_id": "0a233fa2-9e12-4268-b257-4319c5317476",
+          "user_id": null,
+          "service_id": null,
+          "evidence": {
+            "evidence_id": "TEST_ONLY_d1cd62f900284a26948dc27bd281217e",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY independent synthesis enrollment",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY independent synthesis enrollment",
+            "body_fingerprint": "d3c135f848243875e237ce40ceea45f2cf998f4c8e137500869476ecdbbe2bfa"
+          },
+          "idempotency_key": "a169c72b13164d1095bdcdcfd6024b99",
+          "expected_generation": 0,
+          "previous_enrollment_id": null
+        },
+        "database_oid": 1146059,
+        "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+        "role_oid": 1151463,
+        "enrollment_root_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.199970Z",
+        "recorded_order": 1,
+        "command_hash": "a5b551ee01ee4138ffb6b740d76a6f00acbfc729ad4a76830e7d1006e997baea"
+      },
+      {
+        "id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "command": {
+          "role_name": "nrc_publisher_19ee7674ac61",
+          "verified_human_id": "be6381d2-92c0-48d4-ae1c-b394afc563dc",
+          "user_id": null,
+          "service_id": null,
+          "evidence": {
+            "evidence_id": "TEST_ONLY_4be20dac2ef64c7488c2019071508c51",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY independent synthesis enrollment",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY independent synthesis enrollment",
+            "body_fingerprint": "d3c135f848243875e237ce40ceea45f2cf998f4c8e137500869476ecdbbe2bfa"
+          },
+          "idempotency_key": "1289bc8414a64d17b100da09cebb24c8",
+          "expected_generation": 0,
+          "previous_enrollment_id": null
+        },
+        "database_oid": 1146059,
+        "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+        "role_oid": 1151466,
+        "enrollment_root_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.208744Z",
+        "recorded_order": 2,
+        "command_hash": "b4fb828f20c96b8fd5c59f9e800c76e12cac68b576f1853b8dfaaea616788e05"
+      },
+      {
+        "id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "command": {
+          "role_name": "nrc_reader_34270f617d31",
+          "verified_human_id": null,
+          "user_id": null,
+          "service_id": "TEST_ONLY_reader",
+          "evidence": {
+            "evidence_id": "TEST_ONLY_c9183704359742859d7c95d4f06b1acb",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY independent synthesis enrollment",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY independent synthesis enrollment",
+            "body_fingerprint": "d3c135f848243875e237ce40ceea45f2cf998f4c8e137500869476ecdbbe2bfa"
+          },
+          "idempotency_key": "0cedc69f54c94868b5fae408edb24c20",
+          "expected_generation": 0,
+          "previous_enrollment_id": null
+        },
+        "database_oid": 1146059,
+        "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+        "role_oid": 1151472,
+        "enrollment_root_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.218319Z",
+        "recorded_order": 4,
+        "command_hash": "f7de17ab2819ca90a0966600e45b64be1dd81383f206f31b1654fccde65c1636"
+      },
+      {
+        "id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "command": {
+          "role_name": "nrc_self_f1e655c63d_789413c443c0",
+          "verified_human_id": "91426e0a-2eb2-4a4a-8b48-1cc471cb7555",
+          "user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+          "service_id": null,
+          "evidence": {
+            "evidence_id": "TEST_ONLY_495ac8d805494a1fb5bf7ffa445893a4",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY independent synthesis enrollment",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY independent synthesis enrollment",
+            "body_fingerprint": "d3c135f848243875e237ce40ceea45f2cf998f4c8e137500869476ecdbbe2bfa"
+          },
+          "idempotency_key": "ccc3302722494b139f2aa7f0ac6a4df0",
+          "expected_generation": 0,
+          "previous_enrollment_id": null
+        },
+        "database_oid": 1146059,
+        "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+        "role_oid": 1151487,
+        "enrollment_root_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.223117Z",
+        "recorded_order": 5,
+        "command_hash": "24553df8fbfd289c0bd78c90f14da7715f8649401ad7ec10932f0afe6389f9e7"
+      }
+    ],
+    "principal_frontiers": [
+      {
+        "enrollment_root_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "revision": 1,
+        "head_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "head_hash": "bbb1204216e989e4368908aa1287ade75b72cb514df9d137f599a0717005bd48"
+      },
+      {
+        "enrollment_root_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "revision": 1,
+        "head_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "head_hash": "4e7f65804ca584288abbf22fcb28db21ac8060b42abafa9bd9c8f67ccfc8110f"
+      },
+      {
+        "enrollment_root_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "revision": 1,
+        "head_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "head_hash": "127adb9cd1fb6dbb45b7875cb9e4a4614e56b0b84a595677d5498a57ebbbfe83"
+      },
+      {
+        "enrollment_root_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "revision": 1,
+        "head_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "head_hash": "df6e3a058ef94859e3891f43c570adee51ed58378f312384425e5d18c7740bb5"
+      }
+    ],
+    "grant_facts": [
+      {
+        "id": "06c54db1-98e0-4698-bb71-faf9af4ef867",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+          "capability": "SYNTHESIS_RULE_REVIEW",
+          "action": "GRANT",
+          "applicability": {
+            "root_provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+            "root_family_id": "TEST_ONLY_family_1074ce4a1b0c",
+            "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+            "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+            "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+            "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+            "scope_version": "TEST_ONLY_v1",
+            "temporal": {
+              "kind": "DAY",
+              "period_id": "TEST_ONLY_day",
+              "calendar": "TEST_ONLY_calendar",
+              "timezone": "UTC",
+              "interval": {
+                "start": "2026-09-01T00:00:00.000000Z",
+                "end": "2026-09-02T00:00:00.000000Z"
+              }
+            }
+          },
+          "effective": {
+            "start": "2020-01-01T00:00:00.000000Z",
+            "end": "2100-01-01T00:00:00.000000Z"
+          },
+          "evidence": {
+            "evidence_id": "TEST_ONLY_1fdcf2ba9cff4ac49113b0afe1e03d40",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY synthesis authority, no production qualifications",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthesis authority, no production qualifications",
+            "body_fingerprint": "7fd6c1ed51626a172b36d54464466547d7bab928104e905b3bb92b72f286b698"
+          },
+          "expected_generation": 0,
+          "predecessor_id": null,
+          "idempotency_key": "f6c5c0c08ed84f03a5aa349f01a35bd7"
+        },
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.239292Z",
+        "recorded_order": 7,
+        "command_hash": "60d677236d9080f30952ad3b9b5b76c9d2b01c439230d2ef66af2d4c21f81ef7"
+      },
+      {
+        "id": "07810d17-4d19-4792-9363-01e1e50b91f4",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+          "capability": "SYNTHESIS_RULE_PUBLISH",
+          "action": "GRANT",
+          "applicability": {
+            "root_provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+            "root_family_id": "TEST_ONLY_family_1074ce4a1b0c",
+            "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+            "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+            "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+            "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+            "scope_version": "TEST_ONLY_v1",
+            "temporal": {
+              "kind": "DAY",
+              "period_id": "TEST_ONLY_day",
+              "calendar": "TEST_ONLY_calendar",
+              "timezone": "UTC",
+              "interval": {
+                "start": "2026-09-01T00:00:00.000000Z",
+                "end": "2026-09-02T00:00:00.000000Z"
+              }
+            }
+          },
+          "effective": {
+            "start": "2020-01-01T00:00:00.000000Z",
+            "end": "2100-01-01T00:00:00.000000Z"
+          },
+          "evidence": {
+            "evidence_id": "TEST_ONLY_3d0f5072702249fe8cb0dd1e9e0829bb",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY synthesis authority, no production qualifications",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthesis authority, no production qualifications",
+            "body_fingerprint": "7fd6c1ed51626a172b36d54464466547d7bab928104e905b3bb92b72f286b698"
+          },
+          "expected_generation": 0,
+          "predecessor_id": null,
+          "idempotency_key": "c1a2c1b1d942457fb46d2cf755e17647"
+        },
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.247071Z",
+        "recorded_order": 8,
+        "command_hash": "725b9759fc22171aae89ebc9a55b2eb2ebafef00ce1bec1a5af0bd9ee18e01b0"
+      },
+      {
+        "id": "181e96c6-08b6-4eae-9ced-894b404fc1e6",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+          "capability": "SYNTHESIS_RULE_WITHDRAW",
+          "action": "GRANT",
+          "applicability": {
+            "root_provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+            "root_family_id": "TEST_ONLY_family_1074ce4a1b0c",
+            "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+            "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+            "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+            "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+            "scope_version": "TEST_ONLY_v1",
+            "temporal": {
+              "kind": "DAY",
+              "period_id": "TEST_ONLY_day",
+              "calendar": "TEST_ONLY_calendar",
+              "timezone": "UTC",
+              "interval": {
+                "start": "2026-09-01T00:00:00.000000Z",
+                "end": "2026-09-02T00:00:00.000000Z"
+              }
+            }
+          },
+          "effective": {
+            "start": "2020-01-01T00:00:00.000000Z",
+            "end": "2100-01-01T00:00:00.000000Z"
+          },
+          "evidence": {
+            "evidence_id": "TEST_ONLY_ad68718e8ee54b9896498004bfdfd3b5",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY synthesis authority, no production qualifications",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthesis authority, no production qualifications",
+            "body_fingerprint": "7fd6c1ed51626a172b36d54464466547d7bab928104e905b3bb92b72f286b698"
+          },
+          "expected_generation": 0,
+          "predecessor_id": null,
+          "idempotency_key": "37b1e05188a044d9b11ae618a7fee4b9"
+        },
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.252516Z",
+        "recorded_order": 9,
+        "command_hash": "f401fec87d65d9c749077d64361ee3249a83424ea0cefa07ab7a007393262386"
+      },
+      {
+        "id": "b24b2536-7696-4e90-902c-222130db00fa",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "principal_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+          "capability": "SYNTHESIS_SOURCE_READ",
+          "action": "GRANT",
+          "applicability": {
+            "root_provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+            "root_family_id": "TEST_ONLY_family_1074ce4a1b0c",
+            "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+            "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+            "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+            "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+            "scope_version": "TEST_ONLY_v1",
+            "temporal": {
+              "kind": "DAY",
+              "period_id": "TEST_ONLY_day",
+              "calendar": "TEST_ONLY_calendar",
+              "timezone": "UTC",
+              "interval": {
+                "start": "2026-09-01T00:00:00.000000Z",
+                "end": "2026-09-02T00:00:00.000000Z"
+              }
+            }
+          },
+          "effective": {
+            "start": "2020-01-01T00:00:00.000000Z",
+            "end": "2100-01-01T00:00:00.000000Z"
+          },
+          "evidence": {
+            "evidence_id": "TEST_ONLY_8c01026dfe274832b86b9700e57c48c7",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY synthesis authority, no production qualifications",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthesis authority, no production qualifications",
+            "body_fingerprint": "7fd6c1ed51626a172b36d54464466547d7bab928104e905b3bb92b72f286b698"
+          },
+          "expected_generation": 0,
+          "predecessor_id": null,
+          "idempotency_key": "9aa98305904d4c9ebdb5586c6c0241bc"
+        },
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.258136Z",
+        "recorded_order": 10,
+        "command_hash": "1cc10a77ca8a0b9598762583e375276e7a825cbf66c4575ba430555f807e4b8b"
+      },
+      {
+        "id": "10127d07-669b-4f1a-9f81-7691690b1bcf",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "principal_id": "6e5ea612-edab-486b-80d6-102db122923d",
+          "capability": "SYNTHESIS_SOURCE_READ",
+          "action": "GRANT",
+          "applicability": {
+            "root_provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+            "root_family_id": "TEST_ONLY_family_1074ce4a1b0c",
+            "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+            "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+            "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+            "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+            "scope_version": "TEST_ONLY_v1",
+            "temporal": {
+              "kind": "DAY",
+              "period_id": "TEST_ONLY_day",
+              "calendar": "TEST_ONLY_calendar",
+              "timezone": "UTC",
+              "interval": {
+                "start": "2026-09-01T00:00:00.000000Z",
+                "end": "2026-09-02T00:00:00.000000Z"
+              }
+            }
+          },
+          "effective": {
+            "start": "2020-01-01T00:00:00.000000Z",
+            "end": "2100-01-01T00:00:00.000000Z"
+          },
+          "evidence": {
+            "evidence_id": "TEST_ONLY_d45852a7e19643db8fe822746fe3a84e",
+            "version": "TEST_ONLY_v1",
+            "environment": "TEST_ONLY",
+            "purpose": "TEST_ONLY TEST_ONLY synthesis authority, no production qualifications",
+            "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY synthesis authority, no production qualifications",
+            "body_fingerprint": "7fd6c1ed51626a172b36d54464466547d7bab928104e905b3bb92b72f286b698"
+          },
+          "expected_generation": 0,
+          "predecessor_id": null,
+          "idempotency_key": "c9715cbfdb1d4ceeb33182e9cefddc1b"
+        },
+        "generation": 1,
+        "administrator": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151493,
+          "role_name": "nrc_synthesis_admin_8daf0d34b557",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_synthesis_admin_8daf0d34b557"
+        },
+        "recorded_at": "2026-11-04T18:33:18.263308Z",
+        "recorded_order": 11,
+        "command_hash": "e0b76924f211953b54fa6d5e8156c85c68e4e765c175e9d55dee711058d04baf"
+      }
+    ],
+    "authority_frontiers": [
+      {
+        "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "capability": "SYNTHESIS_RULE_PUBLISH",
+        "revision": 1,
+        "head_id": "07810d17-4d19-4792-9363-01e1e50b91f4",
+        "head_hash": "013f041142e002207fd50d109c30ad5c0299d72c14da7c0209a3ad5b1d496b22"
+      },
+      {
+        "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "capability": "SYNTHESIS_RULE_REVIEW",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "capability": "SYNTHESIS_RULE_WITHDRAW",
+        "revision": 1,
+        "head_id": "181e96c6-08b6-4eae-9ced-894b404fc1e6",
+        "head_hash": "59f640666ba0da811ed00496027c3c9337ad10c288c67af664565a8cfeb5c1a1"
+      },
+      {
+        "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "capability": "SYNTHESIS_SOURCE_READ",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "capability": "SYNTHESIS_VALIDATOR_READ",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "capability": "SYNTHESIS_RULE_PUBLISH",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "capability": "SYNTHESIS_RULE_REVIEW",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "capability": "SYNTHESIS_RULE_WITHDRAW",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "capability": "SYNTHESIS_SOURCE_READ",
+        "revision": 1,
+        "head_id": "10127d07-669b-4f1a-9f81-7691690b1bcf",
+        "head_hash": "1e152ed3efffb7f4ca62d0e207c980dc1f6909e6411f2ed23512ffaa6ceb0da3"
+      },
+      {
+        "principal_id": "6e5ea612-edab-486b-80d6-102db122923d",
+        "capability": "SYNTHESIS_VALIDATOR_READ",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "capability": "SYNTHESIS_RULE_PUBLISH",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "capability": "SYNTHESIS_RULE_REVIEW",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "capability": "SYNTHESIS_RULE_WITHDRAW",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "capability": "SYNTHESIS_SOURCE_READ",
+        "revision": 1,
+        "head_id": "b24b2536-7696-4e90-902c-222130db00fa",
+        "head_hash": "daa7c03b5158ad5c359b9e0d2946ccf169fccca12906d4e0a72cfbed176fe69d"
+      },
+      {
+        "principal_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+        "capability": "SYNTHESIS_VALIDATOR_READ",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "capability": "SYNTHESIS_RULE_PUBLISH",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "capability": "SYNTHESIS_RULE_REVIEW",
+        "revision": 1,
+        "head_id": "06c54db1-98e0-4698-bb71-faf9af4ef867",
+        "head_hash": "5c5633b83d673d8a4f30e15184fefd2dbcf2bc68c9bda7e73def4a10b702639b"
+      },
+      {
+        "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "capability": "SYNTHESIS_RULE_WITHDRAW",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "capability": "SYNTHESIS_SOURCE_READ",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      },
+      {
+        "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "capability": "SYNTHESIS_VALIDATOR_READ",
+        "revision": 0,
+        "head_id": null,
+        "head_hash": null
+      }
+    ],
+    "records": [
+      {
+        "id": "a77708ea-2666-4ac2-91eb-3fe91fef2a9f",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "event_id": "a77708ea-2666-4ac2-91eb-3fe91fef2a9f",
+          "expected_revision": 0,
+          "predecessor_id": null,
+          "idempotency_key": "22d866b4cc074744a35c34d0303da304",
+          "body": {
+            "kind": "DRAFT",
+            "rule": {
+              "contract_version": "nutrition-synthesis-rule.v1",
+              "revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+              "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+              "family_id": "TEST_ONLY_rules_8168994b4f",
+              "authored_version": "TEST_ONLY_v1",
+              "language_version": "FINITE_EXACT_V1",
+              "purpose": "BOUNDED_COMPLETE_POLICY_V1",
+              "environment": "TEST_ONLY",
+              "effective": {
+                "start": "2026-09-01T00:00:00.000000Z",
+                "end": "2026-09-02T00:00:00.000000Z"
+              },
+              "applicability": {
+                "root_provider_id": "7e5ee429-0cc6-45a3-a08a-2f7cac6a7c43",
+                "root_family_id": "TEST_ONLY_family_1074ce4a1b0c",
+                "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+                "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+                "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+                "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+                "scope_version": "TEST_ONLY_v1",
+                "temporal": {
+                  "kind": "DAY",
+                  "period_id": "TEST_ONLY_day",
+                  "calendar": "TEST_ONLY_calendar",
+                  "timezone": "UTC",
+                  "interval": {
+                    "start": "2026-09-01T00:00:00.000000Z",
+                    "end": "2026-09-02T00:00:00.000000Z"
+                  }
+                }
+              },
+              "evidence": [
+                {
+                  "evidence_id": "TEST_ONLY_algebra",
+                  "version": "TEST_ONLY_v1",
+                  "environment": "TEST_ONLY",
+                  "purpose": "TEST_ONLY TEST_ONLY finite algebra",
+                  "body": "TEST_ONLY STRUCTURAL FIXTURE; NO CLINICAL MEANING: TEST_ONLY finite algebra",
+                  "body_fingerprint": "2622396489919eadde2cde3af47b21c26d3ab60e34dedeae7ce08a2fe8a28831"
+                }
+              ],
+              "calendar_evidence_id": "TEST_ONLY_algebra",
+              "calendar_cells": [
+                {
+                  "kind": "DAY",
+                  "period_id": "TEST_ONLY_day",
+                  "calendar": "TEST_ONLY_calendar",
+                  "timezone": "UTC",
+                  "interval": {
+                    "start": "2026-09-01T00:00:00.000000Z",
+                    "end": "2026-09-02T00:00:00.000000Z"
+                  }
+                }
+              ],
+              "cases": [
+                {
+                  "id": "TEST_ONLY_maintain",
+                  "direction": "MAINTAIN",
+                  "operations": [
+                    {
+                      "id": "lower",
+                      "kind": "COPY_REFERENCE",
+                      "inputs": [],
+                      "root_key": "TEST_ONLY_energy",
+                      "endpoint": "lower",
+                      "reference_role": "TEST_ONLY_endpoint",
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": null,
+                      "layer": null,
+                      "temporal": null,
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "upper",
+                      "kind": "COPY_REFERENCE",
+                      "inputs": [],
+                      "root_key": "TEST_ONLY_energy",
+                      "endpoint": "upper",
+                      "reference_role": "TEST_ONLY_reference",
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": null,
+                      "layer": null,
+                      "temporal": null,
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "goal",
+                      "kind": "MAKE_CONSTRAINT",
+                      "inputs": [
+                        "lower",
+                        "upper"
+                      ],
+                      "root_key": "TEST_ONLY_energy",
+                      "endpoint": null,
+                      "reference_role": null,
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": "RANGE",
+                      "layer": "GOAL_PROTECTION",
+                      "temporal": {
+                        "kind": "DAY",
+                        "period_id": "TEST_ONLY_day",
+                        "calendar": "TEST_ONLY_calendar",
+                        "timezone": "UTC",
+                        "interval": {
+                          "start": "2026-09-01T00:00:00.000000Z",
+                          "end": "2026-09-02T00:00:00.000000Z"
+                        }
+                      },
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "daily",
+                      "kind": "MAKE_CONSTRAINT",
+                      "inputs": [
+                        "lower",
+                        "upper"
+                      ],
+                      "root_key": "TEST_ONLY_energy",
+                      "endpoint": null,
+                      "reference_role": null,
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": "RANGE",
+                      "layer": "DAILY_PROTECTION",
+                      "temporal": {
+                        "kind": "DAY",
+                        "period_id": "TEST_ONLY_day",
+                        "calendar": "TEST_ONLY_calendar",
+                        "timezone": "UTC",
+                        "interval": {
+                          "start": "2026-09-01T00:00:00.000000Z",
+                          "end": "2026-09-02T00:00:00.000000Z"
+                        }
+                      },
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "relaxed",
+                      "kind": "MAKE_CONSTRAINT",
+                      "inputs": [
+                        "lower",
+                        "upper"
+                      ],
+                      "root_key": "TEST_ONLY_energy",
+                      "endpoint": null,
+                      "reference_role": null,
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": "RANGE",
+                      "layer": "COMFORT",
+                      "temporal": {
+                        "kind": "DAY",
+                        "period_id": "TEST_ONLY_day",
+                        "calendar": "TEST_ONLY_calendar",
+                        "timezone": "UTC",
+                        "interval": {
+                          "start": "2026-09-01T00:00:00.000000Z",
+                          "end": "2026-09-02T00:00:00.000000Z"
+                        }
+                      },
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "standard",
+                      "kind": "MAKE_CONSTRAINT",
+                      "inputs": [
+                        "lower",
+                        "upper"
+                      ],
+                      "root_key": "TEST_ONLY_energy",
+                      "endpoint": null,
+                      "reference_role": null,
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": "RANGE",
+                      "layer": "COMFORT",
+                      "temporal": {
+                        "kind": "DAY",
+                        "period_id": "TEST_ONLY_day",
+                        "calendar": "TEST_ONLY_calendar",
+                        "timezone": "UTC",
+                        "interval": {
+                          "start": "2026-09-01T00:00:00.000000Z",
+                          "end": "2026-09-02T00:00:00.000000Z"
+                        }
+                      },
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "precise",
+                      "kind": "MAKE_CONSTRAINT",
+                      "inputs": [
+                        "lower",
+                        "upper"
+                      ],
+                      "root_key": "TEST_ONLY_energy",
+                      "endpoint": null,
+                      "reference_role": null,
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": "RANGE",
+                      "layer": "COMFORT",
+                      "temporal": {
+                        "kind": "DAY",
+                        "period_id": "TEST_ONLY_day",
+                        "calendar": "TEST_ONLY_calendar",
+                        "timezone": "UTC",
+                        "interval": {
+                          "start": "2026-09-01T00:00:00.000000Z",
+                          "end": "2026-09-02T00:00:00.000000Z"
+                        }
+                      },
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "direction",
+                      "kind": "CHECK_DIRECTION",
+                      "inputs": [
+                        "goal",
+                        "upper"
+                      ],
+                      "root_key": null,
+                      "endpoint": null,
+                      "reference_role": null,
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": null,
+                      "layer": null,
+                      "temporal": null,
+                      "coefficients": [],
+                      "comparator": "CONTAINS",
+                      "evidence_id": "TEST_ONLY_algebra"
+                    },
+                    {
+                      "id": "precision",
+                      "kind": "SELECT_PRECISION_CASE",
+                      "inputs": [
+                        "relaxed",
+                        "standard",
+                        "precise"
+                      ],
+                      "root_key": null,
+                      "endpoint": null,
+                      "reference_role": null,
+                      "coefficient": null,
+                      "offset": null,
+                      "constraint_kind": null,
+                      "layer": null,
+                      "temporal": null,
+                      "coefficients": [],
+                      "comparator": null,
+                      "evidence_id": "TEST_ONLY_algebra"
+                    }
+                  ],
+                  "required_claims": [
+                    "goal",
+                    "daily",
+                    "precision"
+                  ],
+                  "daily_root_keys": [
+                    "TEST_ONLY_energy"
+                  ],
+                  "comfort_root_keys": [
+                    "TEST_ONLY_energy"
+                  ],
+                  "weekly": "NOT_APPLICABLE"
+                }
+              ]
+            }
+          }
+        },
+        "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "grant_id": "06c54db1-98e0-4698-bb71-faf9af4ef867",
+        "session": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151463,
+          "role_name": "nrc_reviewer_14d10588f9d0",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_reviewer_14d10588f9d0"
+        },
+        "sequence": 1,
+        "previous_hash": null,
+        "recorded_at": "2026-11-04T18:33:18.297727Z",
+        "recorded_order": 12,
+        "command_hash": "1a1e6dde4062b40b15dfee5aa4e6468db50ed3b401a9885d0be6c3248a942d4a",
+        "event_hash": "d2e1ac441b5f0dd95a668a97460160f3192fd6f0aba5b6f73891bae91ce4e4c9"
+      },
+      {
+        "id": "b521a834-c5dd-4240-a74f-e06f1a427d79",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "event_id": "b521a834-c5dd-4240-a74f-e06f1a427d79",
+          "expected_revision": 1,
+          "predecessor_id": "a77708ea-2666-4ac2-91eb-3fe91fef2a9f",
+          "idempotency_key": "7be7e9aa3f0c4ed990f927373c2574b6",
+          "body": {
+            "kind": "REVIEW",
+            "revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+            "body_fingerprint": "8dab9e5e748db1118db8d4fa9855b8ea8938cd5d1d498cd22d5fb3f1a4ed7c8e",
+            "evidence_fingerprint": "1b73f9983a8be7922aba84fe770ebbd86ad8dde028da5fb281d429ac8e834731",
+            "decision": "APPROVE",
+            "prior_review_id": null
+          }
+        },
+        "principal_id": "ef2c937c-915e-4e38-adc8-5d2a986d220c",
+        "grant_id": "06c54db1-98e0-4698-bb71-faf9af4ef867",
+        "session": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151463,
+          "role_name": "nrc_reviewer_14d10588f9d0",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_reviewer_14d10588f9d0"
+        },
+        "sequence": 2,
+        "previous_hash": "d2e1ac441b5f0dd95a668a97460160f3192fd6f0aba5b6f73891bae91ce4e4c9",
+        "recorded_at": "2026-11-04T18:33:18.324392Z",
+        "recorded_order": 13,
+        "command_hash": "ab991b39cdce3fa81178c8ef30991b6c89458f0d3b5ed9ec863d0aa3a0d06d1e",
+        "event_hash": "1b50754d6aed58389e51ec2d80fba44ab72db44a6a7c61773f57226e633be4cf"
+      },
+      {
+        "id": "64b57a05-e22e-4dac-83b5-3452bef4161c",
+        "command": {
+          "provider_id": "ec89e5bb-1c14-4b10-8e77-013e3dc9780d",
+          "family_id": "TEST_ONLY_rules_8168994b4f",
+          "event_id": "64b57a05-e22e-4dac-83b5-3452bef4161c",
+          "expected_revision": 2,
+          "predecessor_id": "b521a834-c5dd-4240-a74f-e06f1a427d79",
+          "idempotency_key": "ed056a9eeb04478181d3278b7d606d87",
+          "body": {
+            "kind": "PUBLICATION",
+            "revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+            "body_fingerprint": "8dab9e5e748db1118db8d4fa9855b8ea8938cd5d1d498cd22d5fb3f1a4ed7c8e",
+            "action": "PUBLISH",
+            "review_id": "b521a834-c5dd-4240-a74f-e06f1a427d79",
+            "predecessor_publication_id": null,
+            "effective_at": "2026-09-01T00:00:00.000000Z"
+          }
+        },
+        "principal_id": "31e3ac63-5f41-407e-b80f-f8b1dbbd410d",
+        "grant_id": "07810d17-4d19-4792-9363-01e1e50b91f4",
+        "session": {
+          "database_oid": 1146059,
+          "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+          "role_oid": 1151466,
+          "role_name": "nrc_publisher_19ee7674ac61",
+          "authentication_method": "scram-sha-256",
+          "authenticated_identity": "nrc_publisher_19ee7674ac61"
+        },
+        "sequence": 3,
+        "previous_hash": "1b50754d6aed58389e51ec2d80fba44ab72db44a6a7c61773f57226e633be4cf",
+        "recorded_at": "2026-11-04T18:33:18.341685Z",
+        "recorded_order": 14,
+        "command_hash": "69c90149252fc34e808421328bccf9898cce82a1de4af3799c753a0d598a92bc",
+        "event_hash": "da555394d45edf9d5a62ab58ba3b6b13ef059358ba4a13b63fb5f971aa71ea97"
+      }
+    ],
+    "frame": {
+      "session": {
+        "database_oid": 1146059,
+        "database_name": "nrc_test_8ad3137cde404821a2a10567c1a4ef83",
+        "role_oid": 1151487,
+        "role_name": "nrc_self_f1e655c63d_789413c443c0",
+        "authentication_method": "scram-sha-256",
+        "authenticated_identity": "nrc_self_f1e655c63d_789413c443c0"
+      },
+      "reader_principal_id": "b789c9e5-7999-4226-9bcb-95bce4cbe790",
+      "reader_subject_witness": {
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "actor_user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+        "membership_id": "7ef6b299-cbce-442b-8cbb-e5d7001862cb",
+        "actor_member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+        "role": "OWNER"
+      },
+      "reader_grant_id": "b24b2536-7696-4e90-902c-222130db00fa",
+      "endpoint": "127.0.0.1:55444",
+      "backend_pid": 17968,
+      "mvcc_snapshot": "37152:37152:",
+      "transaction_id": "UNASSIGNED_READ_ONLY",
+      "isolation": "REPEATABLE READ",
+      "read_only": true,
+      "started_at": "2026-11-04T18:33:18.473617Z",
+      "completed_at": "2026-11-04T18:33:18.485274Z",
+      "provider_enrollment_id": "f8330e6f-dfcb-433c-963b-b0bb3614b892",
+      "row_count": 37,
+      "absence_stream_keys": []
+    },
+    "frontier_revision": 3,
+    "frontier_id": "64b57a05-e22e-4dac-83b5-3452bef4161c",
+    "frontier_hash": "da555394d45edf9d5a62ab58ba3b6b13ef059358ba4a13b63fb5f971aa71ea97",
+    "precision_witness": {
+      "subject": {
+        "contract_version": "household-member-identity.v1",
+        "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+        "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+      },
+      "actor_user_id": "c1908610-b2f9-469c-bb82-7a2542d935ae",
+      "membership_id": "7ef6b299-cbce-442b-8cbb-e5d7001862cb",
+      "actor_member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff",
+      "role": "OWNER"
+    },
+    "source_fingerprint": "cf0ad420297497ea9272c2d836d1c56cbca5cc3624daa0b312b452a5dc0babd6"
+  },
+  "resolution": {
+    "requirements_fingerprint": "d97349f893aab3fad1866026845ffb110b049f4a0ce9dc8f36c5bc8ac8436c45",
+    "pool_fingerprint": "afe33c0993aa053d8b1ad8621b19cb81e0a5b943e3ee75bb0c8b9d29dd680bce",
+    "complete_pool": true,
+    "estimator_version": "TEST_ONLY_fixture_v1",
+    "environment": "TEST_ONLY",
+    "evidence": {
+      "evidence_id": "TEST_ONLY_resolution_fixture",
+      "version": "TEST_ONLY_v1",
+      "environment": "TEST_ONLY",
+      "purpose": "TEST_ONLY interface fixture, NOT MTR-007 or scientific evidence",
+      "body": "{\"estimator_version\":\"TEST_ONLY_fixture_v1\",\"facts\":[{\"candidate_id\":\"TEST_ONLY_complete_candidate\",\"descriptor\":{\"metric\":\"ENERGY\",\"protocol_fingerprint\":\"7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea\",\"scope_id\":\"TEST_ONLY_scope_a820f5af25764dff\",\"scope_version\":\"TEST_ONLY_v1\",\"temporal\":{\"calendar\":\"TEST_ONLY_calendar\",\"interval\":{\"end\":\"2026-09-02T00:00:00.000000Z\",\"start\":\"2026-09-01T00:00:00.000000Z\"},\"kind\":\"DAY\",\"period_id\":\"TEST_ONLY_day\",\"timezone\":\"UTC\"},\"unit\":\"KCAL\"},\"discrete_unit\":\"TEST_ONLY_discrete_unit\",\"expected_step\":{\"denominator\":1,\"numerator\":1},\"ingredient_amounts\":[{\"denominator\":1,\"numerator\":1}],\"portion_step\":{\"denominator\":1,\"numerator\":1},\"primitive_fingerprint\":\"95648462c7383b65dc3c8db97e686eeb5eaed5e01ae5dbe62336e52e36e370d8\",\"recipe_version_id\":\"a2f5b16f-71b2-4c24-9949-1bb73aaf26d7\",\"root_key\":\"TEST_ONLY_energy\",\"source_nutrients\":[{\"denominator\":1,\"numerator\":1}]}],\"kind\":\"TEST_ONLY_RESOLUTION_FIXTURE_V1\"}",
+      "body_fingerprint": "4410fee0de1b16368d1ae5b27555528a31feef6c0639d55cd1bbee59a82e0dd7"
+    },
+    "availability": "AVAILABLE",
+    "facts": [
+      {
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "candidate_id": "TEST_ONLY_complete_candidate",
+        "recipe_version_id": "a2f5b16f-71b2-4c24-9949-1bb73aaf26d7",
+        "portion_step": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "discrete_unit": "TEST_ONLY_discrete_unit",
+        "ingredient_amounts": [
+          {
+            "numerator": 1,
+            "denominator": 1
+          }
+        ],
+        "source_nutrients": [
+          {
+            "numerator": 1,
+            "denominator": 1
+          }
+        ],
+        "expected_step": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "primitive_fingerprint": "95648462c7383b65dc3c8db97e686eeb5eaed5e01ae5dbe62336e52e36e370d8"
+      }
+    ]
+  },
+  "outcome": "AVAILABLE",
+  "environment": "TEST_ONLY",
+  "hard_roots": [
+    {
+      "publication_event_id": "3595e5e4-d5a2-447b-9f57-39c48d1bbca4",
+      "guideline_revision_id": "faf26213-ae79-4dda-b0f3-9c6650a9e2b4",
+      "guideline_body_fingerprint": "3fc7964073fd19a06b645da5d21975ba7e29c5afb05abf7c2a4c1bed914f8843",
+      "clause": {
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "interpretation": "GUIDELINE_HARD",
+        "constraint": {
+          "kind": "RANGE",
+          "lower": {
+            "numerator": 7,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 13,
+            "denominator": 1
+          }
+        }
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "goal",
+      "subject": {
+        "contract_version": "household-member-identity.v1",
+        "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+        "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+      },
+      "root_key": "TEST_ONLY_energy",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "layer": "GOAL_PROTECTION",
+      "constraint": {
+        "kind": "RANGE",
+        "lower": {
+          "numerator": 7,
+          "denominator": 1
+        },
+        "upper": {
+          "numerator": 13,
+          "denominator": 1
+        }
+      },
+      "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+      "evidence_id": "TEST_ONLY_algebra"
+    },
+    {
+      "id": "daily",
+      "subject": {
+        "contract_version": "household-member-identity.v1",
+        "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+        "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+      },
+      "root_key": "TEST_ONLY_energy",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "layer": "DAILY_PROTECTION",
+      "constraint": {
+        "kind": "RANGE",
+        "lower": {
+          "numerator": 7,
+          "denominator": 1
+        },
+        "upper": {
+          "numerator": 13,
+          "denominator": 1
+        }
+      },
+      "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+      "evidence_id": "TEST_ONLY_algebra"
+    },
+    {
+      "id": "standard",
+      "subject": {
+        "contract_version": "household-member-identity.v1",
+        "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+        "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+      },
+      "root_key": "TEST_ONLY_energy",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "layer": "COMFORT",
+      "constraint": {
+        "kind": "RANGE",
+        "lower": {
+          "numerator": 7,
+          "denominator": 1
+        },
+        "upper": {
+          "numerator": 13,
+          "denominator": 1
+        }
+      },
+      "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+      "evidence_id": "TEST_ONLY_algebra"
+    }
+  ],
+  "trace": [
+    {
+      "operation_id": "lower",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": {
+        "numerator": 7,
+        "denominator": 1
+      },
+      "claim": null,
+      "passed": null
+    },
+    {
+      "operation_id": "upper",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": {
+        "numerator": 13,
+        "denominator": 1
+      },
+      "claim": null,
+      "passed": null
+    },
+    {
+      "operation_id": "goal",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": null,
+      "claim": {
+        "id": "goal",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "layer": "GOAL_PROTECTION",
+        "constraint": {
+          "kind": "RANGE",
+          "lower": {
+            "numerator": 7,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 13,
+            "denominator": 1
+          }
+        },
+        "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+        "evidence_id": "TEST_ONLY_algebra"
+      },
+      "passed": null
+    },
+    {
+      "operation_id": "daily",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": null,
+      "claim": {
+        "id": "daily",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "layer": "DAILY_PROTECTION",
+        "constraint": {
+          "kind": "RANGE",
+          "lower": {
+            "numerator": 7,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 13,
+            "denominator": 1
+          }
+        },
+        "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+        "evidence_id": "TEST_ONLY_algebra"
+      },
+      "passed": null
+    },
+    {
+      "operation_id": "relaxed",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": null,
+      "claim": {
+        "id": "relaxed",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "layer": "COMFORT",
+        "constraint": {
+          "kind": "RANGE",
+          "lower": {
+            "numerator": 7,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 13,
+            "denominator": 1
+          }
+        },
+        "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+        "evidence_id": "TEST_ONLY_algebra"
+      },
+      "passed": null
+    },
+    {
+      "operation_id": "standard",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": null,
+      "claim": {
+        "id": "standard",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "layer": "COMFORT",
+        "constraint": {
+          "kind": "RANGE",
+          "lower": {
+            "numerator": 7,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 13,
+            "denominator": 1
+          }
+        },
+        "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+        "evidence_id": "TEST_ONLY_algebra"
+      },
+      "passed": null
+    },
+    {
+      "operation_id": "precise",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": null,
+      "claim": {
+        "id": "precise",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "layer": "COMFORT",
+        "constraint": {
+          "kind": "RANGE",
+          "lower": {
+            "numerator": 7,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 13,
+            "denominator": 1
+          }
+        },
+        "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+        "evidence_id": "TEST_ONLY_algebra"
+      },
+      "passed": null
+    },
+    {
+      "operation_id": "direction",
+      "descriptor": null,
+      "amount": null,
+      "claim": null,
+      "passed": true
+    },
+    {
+      "operation_id": "precision",
+      "descriptor": {
+        "metric": "ENERGY",
+        "unit": "KCAL",
+        "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+        "scope_version": "TEST_ONLY_v1",
+        "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+        "temporal": {
+          "kind": "DAY",
+          "period_id": "TEST_ONLY_day",
+          "calendar": "TEST_ONLY_calendar",
+          "timezone": "UTC",
+          "interval": {
+            "start": "2026-09-01T00:00:00.000000Z",
+            "end": "2026-09-02T00:00:00.000000Z"
+          }
+        }
+      },
+      "amount": null,
+      "claim": {
+        "id": "standard",
+        "subject": {
+          "contract_version": "household-member-identity.v1",
+          "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+          "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+        },
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        },
+        "layer": "COMFORT",
+        "constraint": {
+          "kind": "RANGE",
+          "lower": {
+            "numerator": 7,
+            "denominator": 1
+          },
+          "upper": {
+            "numerator": 13,
+            "denominator": 1
+          }
+        },
+        "rule_revision_id": "102b8b57-11d4-4469-82da-fecdb9ad2590",
+        "evidence_id": "TEST_ONLY_algebra"
+      },
+      "passed": null
+    }
+  ],
+  "reasons": [],
+  "requirements": {
+    "subject": {
+      "contract_version": "household-member-identity.v1",
+      "household_id": "e0f5dc1f-dc59-47bb-91da-fdf19cfb4a27",
+      "member_id": "81817ba5-62e1-4baa-9c3f-1af03218c8ff"
+    },
+    "root_fingerprint": "3a186cca7a40213fe13f815832a222afd29361be64183b2284df886d43df55a2",
+    "rule_body_fingerprint": "8dab9e5e748db1118db8d4fa9855b8ea8938cd5d1d498cd22d5fb3f1a4ed7c8e",
+    "case_id": "TEST_ONLY_maintain",
+    "temporal": {
+      "kind": "DAY",
+      "period_id": "TEST_ONLY_day",
+      "calendar": "TEST_ONLY_calendar",
+      "timezone": "UTC",
+      "interval": {
+        "start": "2026-09-01T00:00:00.000000Z",
+        "end": "2026-09-02T00:00:00.000000Z"
+      }
+    },
+    "root_keys": [
+      "TEST_ONLY_energy"
+    ],
+    "measurements": [
+      {
+        "root_key": "TEST_ONLY_energy",
+        "descriptor": {
+          "metric": "ENERGY",
+          "unit": "KCAL",
+          "scope_id": "TEST_ONLY_scope_a820f5af25764dff",
+          "scope_version": "TEST_ONLY_v1",
+          "protocol_fingerprint": "7537e8e158148640cfc2c5c3d3a73c58e3dc805fc6c365b6bcfa305e0c073bea",
+          "temporal": {
+            "kind": "DAY",
+            "period_id": "TEST_ONLY_day",
+            "calendar": "TEST_ONLY_calendar",
+            "timezone": "UTC",
+            "interval": {
+              "start": "2026-09-01T00:00:00.000000Z",
+              "end": "2026-09-02T00:00:00.000000Z"
+            }
+          }
+        }
+      }
+    ],
+    "environment": "TEST_ONLY",
+    "fingerprint": "d97349f893aab3fad1866026845ffb110b049f4a0ce9dc8f36c5bc8ac8436c45"
+  },
+  "result_fingerprint": "f9b56cfc2e7fe1d5c6b8dd85c5413df3938e67894ef16d3513a16c2e821bb00b",
+  "scientific_correctness": "NOT_CERTIFIED",
+  "canonical_database_origin": "NOT_PROVED_OFFLINE",
+  "current_authorization": "NOT_CLAIMED",
+  "planner_ready": false,
+  "activation_ready": false
+}
