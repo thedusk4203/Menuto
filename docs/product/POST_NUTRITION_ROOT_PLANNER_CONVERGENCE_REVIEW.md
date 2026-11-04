@@ -130,37 +130,57 @@ designed in parallel, never used to manufacture B. If policy design cannot expre
 science-dependent decisions as independently reviewed content/rules, it must STOP instead of
 inventing constants or claiming provisional production nutrition.
 
+**TEST_ONLY contamination guard (future design obligation).** The frozen source discriminator
+is `NrcEnvironment = TEST_ONLY | REVIEWED_PRODUCTION` on the root request and retained source
+records; it is not an invented `authority_scope=PRODUCTION` grant. Future NutritionPolicy,
+ResolvedPlanPolicy, preview subject and result must preserve and verify all contributing
+environment/provenance identities. Any TEST_ONLY dependency forces an explicitly isolated
+TEST_ONLY/research result and must be rejected by production preview admission. The
+`REVIEWED_PRODUCTION` label by itself also confers no scientific/clinical approval; complete
+independent content review, publication authority and member eligibility remain required.
+An isolated structural test that passes independent checks is **not** a production-validated
+plan, and must not be presented to users as an ordinary Validated Plan Preview.
+
 ## 5. Updated capability DAG
 
 ~~~mermaid
 flowchart TD
-    R[Frozen Nutrition root machinery plus retained sources] --> N[MTR-006 bounded policy synthesis and containment]
-    E[TEST_ONLY authorized isolated fixture inputs] --> N
-    C[Separate nutrition content evidence qualification gate - CLOSED] -. required for production use .-> PROD[Production applicable supported root]
-    PROD --> N
-    N --> NR[MTR-007 source bound portion resolution]
+    R[Frozen Nutrition root machinery with retained source identity] --> N[MTR-006 source-bound synthesis and containment]
+    T[Isolated TEST_ONLY inputs for engineering] --> N
+    C[Production nutrition evidence qualification gate CLOSED] -. separate approval required .-> PR[Production-applicable supported source]
+    PR -. production source admission only .-> N
+    B[Frozen households 019A/B/C 020A inventory retail sources] --> NR[MTR-007 finite catalog and portion resolution evidence]
+    N -. approved comfort and resolution contract .-> NR
     N --> P[MTR-008 versioned orthogonal ResolvedPlanPolicy]
-    NR --> P
-    B[Frozen households 019A/B/C 020A inventory and retail facts] --> POOL[Finite complete all-survivor candidate pool]
+    B --> POOL[Complete bounded all-020A-survivor pool]
+    S[Reviewed restriction safety role equipment availability facts] --> POOL
     P --> POOL
-    S[Required reviewed safety role time equipment context] --> POOL
-    B --> ECO[Checkout quantity basket scenarios budget pressure]
-    P --> ECO
-    POOL --> FLOW[Planned purchase requirement batch and member allocation]
-    ECO --> FLOW
-    P --> V[MTR-021 feasibility with insufficiency != infeasible]
-    FLOW --> V
-    POOL --> V
-    V --> O[MTR-022 Stage1 global comfort economics]
-    U[Versioned multidimensional MTR-024 utility boundary] --> Z[MTR-024 Stage2 respecting Stage1 tolerances]
+    B --> E[Source-pinned checkout offers package inventory scenario inputs]
+    P --> E
+    B --> F[Planned material and batch conservation rules and opening state]
+    POOL --> V[MTR-021 feasibility and evidence completeness diagnostics]
+    P --> V
+    NR --> V
+    S --> V
+    E --> V
+    F --> V
+    N --> V
+    V --> O[MTR-022 Stage1 joint global solve]
+    E --> O
+    F --> O
+    U[Versioned separable MTR-024 utility input and policy boundary] --> Z[MTR-024 Stage2 within Stage1 hard feasible tolerance envelope]
     O --> Z
-    Z --> Q[MTR-025 additive complete preview subject]
+    Z --> D[Solver-selected basket batch material flow and member allocations]
+    D --> Q[MTR-025 complete additive preview subject]
     P --> Q
-    FLOW --> Q
-    Q --> I[MTR-026 independent required preview validation]
+    E --> Q
+    F --> Q
+    NR --> Q
+    Q --> I[MTR-026 independent complete preview checks]
     N --> I
-    I --> A[MTR-027 non activating preview API auth ingress limits]
-    A --> PV[VALIDATED PLAN PREVIEW]
+    S --> I
+    I --> A[MTR-027 non activating API with auth and ingress limits]
+    A --> PV[VALIDATED PLAN PREVIEW with complete supported authority]
     H[History novelty and full 020B portfolio] -. optional richer path .-> POOL
 ~~~
 
@@ -169,6 +189,15 @@ production content are jointly required for a single policy instance. TEST_ONLY 
 structural behavior only; production use instead requires complete, externally approved
 production sources. The root contract and its exact retained pins are shared machinery.
 Nodes beyond R remain incomplete. A dependency arrow is not implementation authorization.
+The graph separates **upstream** procurement offers, opening inventory, safety, and
+causal material/batch *rules* from the **downstream** solver-selected purchase basket, batch
+schedule, material ledger and member allocations. Feasibility can reason about the existence of
+solutions using canonical inputs but cannot require the final chosen plan as a prerequisite.
+Stage1/Stage2 construct or select the actual plan; MTR-025/026 check those chosen outputs
+independently. MTR-007 has an independent supply-side input branch and coordinates
+policy-dependent resolution semantics with MTR-006; its entire implementation is not a
+prerequisite to *designing* MTR-006. The root gate's frozen `REVIEWED_PRODUCTION` label
+does not itself authorize production nutrition.
 
 ## 6. Candidate-gate comparison and choice
 
@@ -228,6 +257,42 @@ reviewed population flags, formulas/rates, qualification records or production f
 There is no global/current/default guideline selector, environment-based policy,
 synthetic-production promotion or hidden "reasonable" calorie range.
 
+**Explicit synthesis-rule authority.** The next design must define immutable, version-pinned
+rule bodies, exact applicability, complete evidence/publication source identity and environment
+(`TEST_ONLY` or `REVIEWED_PRODUCTION` as the frozen root source vocabulary), and independently
+checked rule selection. Numeric transformation coefficients, goal-energy calculations and
+comfort/weekly rule content must never be hard-coded as unversioned scientific authority.
+Missing or ambiguous rule authority blocks synthesis with a typed reason. A fingerprint,
+`REVIEWED_PRODUCTION` tag or user-authored coefficient is not sufficient publication/evidence
+authority. The source strategy for rules must be explicitly reviewed; this review does not
+authorize a new table, registry, migration or production seed.
+
+**Finite composition and empty-set semantics.** The frozen single-guideline contract rejects
+duplicate `(metric, temporal, interpretation)` clauses in one bundle. It does **not** currently
+authorize combining arbitrary second clinical guidelines, cross-metric addition or unsupported
+clinical overrides. Any future combination of multiple compatible hard constraints must first
+prove same member, metric, measurement basis, unit, scope, temporal frame and authorized source
+selection; conflicting or empty intersections are **BLOCKED/INFEASIBLE POLICY**, never a reason
+to widen a hard root. The design must decide how authoritatively specified goal and comfort
+claims are admitted within hard constraints and when conflict fails; automatic clipping or
+direction-preserving fallbacks are **not** authorized by this review. Any maintenance reference
+point or directional test also requires independently reviewed rule evidence.
+
+**Temporal safety without invented floors.** Every independently authored daily hard limit must
+hold for every applicable day, even when a separate authorized weekly goal/centering objective
+exists. Weekly averages never override applicable daily hard roots. Conversely, a WEEK-only
+source does not create an unreviewed DAY hard floor; missing required daily authority blocks
+that supported policy scope. Temporal conversion, rolling-window assembly and calendar/timezone
+consistency require explicit reviewed rules and independent verification.
+
+**Member boundary.** The first bounded preview has **one explicitly tracked nutrition member**
+with a member-owned NutritionPolicy, plus exact participating household members whose applicable
+ingredient/allergen/diet safety constraints remain mandatory. No nutrition hard/goal targets may
+be summed, averaged, or borrowed between members, and frozen shared-member TasteFit may not
+supply physiological policy. Future multi-member nutrition planning requires separately
+authorized per-member NutritionPolicy and exact serving allocations; this is not silently
+required by the one-tracked-member preview.
+
 Independent Validation must replay/check underlying frozen root authority and separately
 verify the **derived policy business claims**, not rely on a producer-compiled envelope or
 the producer's semantic validator as its oracle. Existing
@@ -261,14 +326,23 @@ The following is a proposed subsequent partial order, **not** work authorized by
 4. Resolve supported participant safety, recipe role/effort/equipment and household context.
    Missing allergen/diet classifications **block** those enabled restrictions. "No classification"
    cannot mean safe. Tested exclusion-only scope is not evidence of universal safety.
-5. Resolve real quantity-specific procurement costs/scenarios, approved loss/fragility policy,
-   planned requirement→inventory/checkout→batch→member-serving causal flow. Planned shopping
-   does not create physical stock; existing reservations remain binding.
+5. Define source-pinned real quantity-specific procurement offers and scenarios, opening
+   physical inventory with reservations, approved loss/fragility policy, and complete
+   requirement→acquisition→batch→serving **conservation rules** as Feasibility/Stage1 inputs.
+   Stage1/Stage2 must construct or select an actual planned procurement basket, batch
+   transformations, chronological material flow and exact member-serving allocation as
+   **solver output**. Preview validation checks the output against independently retained
+   inputs/rules; the chosen plan is not a prerequisite to running the solver. Planned shopping
+   creates no physical stock, and reservations stay binding.
 6. MTR-021 complete-scope feasibility (data insufficiency != infeasible) → MTR-022 Stage1 →
-   MTR-024 Stage2 under a versioned **multidimensional** utility policy. Distinguish taste,
+   MTR-024 Stage2 under a versioned **multidimensional** utility policy. Stage1 must pass
+   an explicit hard-feasible, goal-protected lexicographic/tolerance envelope (not merely an
+   unconstrained one-point score). Stage2 may optimize only within that authorized envelope;
+   it must not trade away hard constraints or silently expand tolerance. Distinguish taste,
    time, equipment, complexity, repeat and novelty availability. Exact-target shared TasteFit
-   alone is **not candidate utility**; history/novelty may be explicitly disabled by a
-   reviewed first policy, not fake-zero imputed. Stage2 cannot weaken Stage1 hard constraints.
+   alone is **not candidate utility**; a required but missing dimension blocks, whereas
+   history/novelty may be explicitly **DISABLED/NOT_USED** by an approved first policy,
+   not fake-zero imputed.
 7. Add complete preview primitive/source/scenario/flow pins to frozen MTR-025 by additive
    version/companion. Independent MTR-026 must verify *all required preview coverage* with
    exact root, member nutrition, economics, planned causal conservation and source coherence;
@@ -292,6 +366,8 @@ not candidates for another generic adapter, reimplementation or parent auto-clos
 | Ingredient safety classification, role/time/equipment sources | Catalog/Recipe/Nutrition/Household owners with reviewed applicability | **INCOMPLETE** |
 | Planned allocations and robust basket/economics | Planning/Retail/Cooking/Inventory distinct owned primitives and predicted causal flow | **INCOMPLETE** |
 | Full independent preview coverage and public ingress security | Validation and application/auth/ops owners | **INCOMPLETE** |
+| Rule publication/selection and TEST_ONLY taint propagation | Nutrition/Policy source authority and Validation; versioned rule bodies, independently checked environment/provenance and complete mandatory policy claims | **NOT AUTHORIZED / DESIGN REQUIRED** |
+| No arbitrary clinical multi-root combination | Nutrition source owners; current root bundle only, exact same-descriptor future combination if separately designed and approved | **CURRENTLY UNSUPPORTED** |
 
 Nothing in this review changes the mandatory content gate; a docs review, tests using
 `TEST_ONLY` sources, PostgreSQL capabilities, hash matching, or the exact-head CI
