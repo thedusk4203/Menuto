@@ -122,13 +122,20 @@ MTR040 COMPLETE /issue41 CLOSED—COMPLETED;039 OPEN;full041/046 PARTIAL;
 024/020B/021 remain BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
 Historical implementation-stage NOT FROZEN/open-PR wording is superseded only as to status.
 
-The [post-Nutrition-root Planner Convergence dependency review](POST_NUTRITION_ROOT_PLANNER_CONVERGENCE_REVIEW.md)
-is a **documentation-only proposed next-gate review awaiting architecture approval**.
-It recommends bounded **MTR-006 source-bound NutritionPolicy synthesis/containment detailed design**
-with isolated TEST_ONLY inputs; it does **not** authorize that design or any implementation.
-The separate production nutrition/evidence/qualification authority gate remains CLOSED and
-is a hard prerequisite for a real supported Validated Plan Preview. No MTR-006/008 completion,
-parent-issue closure, activation, Execution or PRECOMMIT transition is implied.
+The [post-Nutrition-root dependency review](POST_NUTRITION_ROOT_PLANNER_CONVERGENCE_REVIEW.md)
+was approved in [review 6630817744](https://github.com/thedusk4203/Menuto/pull/125#issuecomment-6630817744).
+PR #125 merged at `4a7ddac883a777270cfd1d2460f9b953332b6673`; exact post-merge push
+[CI 41831629205](https://github.com/thedusk4203/Menuto/actions/runs/41831629205) SUCCESS;
+[completion 6631661206](https://github.com/thedusk4203/Menuto/pull/125#issuecomment-6631661206).
+The separately authorized [bounded MTR-006 detailed-design proposal](MTR_006_SOURCE_BOUND_NUTRITION_POLICY_SYNTHESIS_CONTAINMENT_DESIGN.md)
+is now **READY FOR ARCHITECTURE REVIEW — NOT APPROVED / NOT IMPLEMENTED**.
+It proposes explicit rule-source authority, pure synthesis and independent containment; it adds
+no runtime, contract, test, migration, tooling or data. Any future durable rule source requires
+separate design approval and implementation authorization; no migration number is reserved.
+Nutrition Root remains structurally FROZEN; production nutrition/evidence/qualification content
+gate remains CLOSED. MTR-006/007/008 remain incomplete; no parent issue is closed.
+Baseline: 3,782 tests / 0 skips, 447 exports, 0016 / 98 tables; no 0017.
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED; planner_ready=False; activation_ready=False.
 
 
 
