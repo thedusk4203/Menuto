@@ -94,18 +94,30 @@ is **APPROVED** at `e090bf788bd6a257d7bba0f3e88d6b5fec12bc44`, review6491096716.
 PR #122 merged at `cb66f462f3ea7e8cf6e63a3cbe2d75db0d19a682`, exactly the reviewed tree;
 exact post-merge push [CI40839789573](https://github.com/thedusk4203/Menuto/actions/runs/40839789573)
 SUCCESS, Python/web/all guards green;3,638 passed /0 skips;403 exports;0015 /85.
-Only after that gate, separately authorized **structural implementation** is now
-**IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN**;
-[implementation evidence](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_EVIDENCE.md).
-It adds migration0016 and13 Nutrition-owned source tables:85→98 domain tables;
-447 exported definitions =403 unchanged +44 additive. Provider/publication authority remains
-independent; physiology/goals remain member-owned; eligibility needs exact qualified attestation.
-Fresh installation has zero provider/principal/grant/content/assessment/goal rows.
-**PRODUCTION NUMERICAL/CLINICAL CONTENT NOT AUTHORIZED**; isolated TEST_ONLY fixtures are not content approval.
-Root availability is complete applicable source input, not policy synthesis, safety certification,
-MTR006/008 completion, independent full-plan validation or planner readiness.
-The bounded020A all-survivor preview option remains unchanged; no020B implementation.
-No implementation merge/freeze or downstream work is authorized by this status record.
+**NUTRITION ROOT CONTRACT & SUPPORTED-ELIGIBILITY FOUNDATION — FROZEN**;
+[canonical repository freeze receipt](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_FREEZE_RECEIPT.md)
+and [implementation evidence](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_EVIDENCE.md).
+PR #123 reviewed head `7953e74c64ce0d2db06d802a9213c0b0ad27dd1d`, review6500572389;
+actual merge/main `6a77575fcb0ecf7a02493dae935fab88e94d09f1`, identical reviewed tree.
+Exact post-merge push [CI40931231875](https://github.com/thedusk4203/Menuto/actions/runs/40931231875)
+SUCCESS, Python/web/all guards green; canonical [freeze6506156639](https://github.com/thedusk4203/Menuto/pull/123#issuecomment-6506156639).
+3,782 passed /0 skips =3,638 retained +144 additive; NRC01–NRC80;
+66 actual PostgreSQL executions /32 obligations;SCRAM/TLS16/16;benchmark22/22;client10/10.
+Schema0016 /98 domain tables;13 source/authority tables +1 sequence;
+60 protected SQL functions =5 entry points +55 helpers/triggers.
+447 exported definitions =403 retained unchanged +44 additive; earlier frozen semantics unchanged.
+Fresh-install production nutrition/provider/enrollment/seed/default counts remain0.
+**STRUCTURAL FREEZE ONLY — PRODUCTION NUTRITION/CLINICAL CONTENT NOT AUTHORIZED**.
+**PRODUCTION NUTRITION/CLINICAL CONTENT GATE — CLOSED**: no real calorie/nutrient values,
+clinical thresholds, BMR/TDEE policy, supported populations, exclusion/eligibility protocols,
+provider authority, reviewer/assessor qualifications, guideline editions, member clinical eligibility,
+production defaults or seeds approved. Isolated TEST_ONLY fixtures are not content approval.
+Provider/publication authority stays independent; physiology/goals remain member-owned;
+eligibility requires exact qualified attestation. Root availability is complete applicable source input,
+not safety certification, policy synthesis or independent full-plan validation.
+`policy_synthesis=NOT_PERFORMED`;`planner_ready=False`;`activation_ready=False`;
+full MTR-006 and MTR-008 remain incomplete. The bounded020A all-survivor preview option is unchanged.
+No new dependency gate, next-gate selection, design, implementation or downstream authorization.
 MTR040 COMPLETE /issue41 CLOSED—COMPLETED;039 OPEN;full041/046 PARTIAL;
 024/020B/021 remain BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
 Historical implementation-stage NOT FROZEN/open-PR wording is superseded only as to status.

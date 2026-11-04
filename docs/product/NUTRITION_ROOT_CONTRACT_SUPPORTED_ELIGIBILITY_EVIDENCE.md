@@ -1,8 +1,23 @@
 # Nutrition Root Contract & Supported-Eligibility — implementation evidence
 
-NUTRITION ROOT CONTRACT & SUPPORTED-ELIGIBILITY FOUNDATION
+**NUTRITION ROOT CONTRACT & SUPPORTED-ELIGIBILITY FOUNDATION — FROZEN**
 
-IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN
+**STRUCTURAL FREEZE ONLY — PRODUCTION NUTRITION/CLINICAL CONTENT NOT AUTHORIZED**
+
+**PRODUCTION NUTRITION/CLINICAL CONTENT GATE — CLOSED**
+
+Canonical [repository freeze receipt](NUTRITION_ROOT_CONTRACT_SUPPORTED_ELIGIBILITY_FREEZE_RECEIPT.md):
+PR #123 reviewed head `7953e74c64ce0d2db06d802a9213c0b0ad27dd1d`, review6500572389;
+actual merge/main `6a77575fcb0ecf7a02493dae935fab88e94d09f1`, tree
+`3b2f7a210ebd75bc8e81555cab3d0e55a8b05ccf`, identical to the reviewed implementation.
+Exact post-merge push [CI40931231875](https://github.com/thedusk4203/Menuto/actions/runs/40931231875)
+SUCCESS, Python/web/all guards green; canonical [freeze6506156639](https://github.com/thedusk4203/Menuto/pull/123#issuecomment-6506156639).
+3,782 passed /0 skips =3,638 retained +144 additive; NRC01–NRC80;
+66 actual PostgreSQL executions /32 obligations; SCRAM/TLS16/16;benchmark22/22;client10/10.
+447 exports =403 retained unchanged +44 additive; schema0016 /98 domain tables;
+13 source/authority tables +1 sequence;60 protected SQL functions =5 entry points +55 helpers/triggers.
+Fresh-install production nutrition/provider/enrollment/seed/default counts remain0.
+This status sync records the existing structural freeze and authorizes no production content or next gate.
 
 ## 1. Approved design and verified entry gate
 
@@ -25,7 +40,10 @@ Only after this gate did the separate structural implementation branch begin.
 
 This receipt approves no production nutrition/clinical content, numerical references, supported
 population definitions, qualification records or actual member eligibility assertions.
-Implementation remains a separate OPEN review candidate. No self-freeze or implementation merge.
+Historical delivery-stage status before the separately authorized merge/freeze was
+"IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN", with PR #123 OPEN.
+That delivery status is superseded by the canonical structural freeze above; the approved design
+and implementation semantics remain unchanged.
 
 ## 2. Durable physical schema
 
@@ -302,6 +320,13 @@ retained semantic consistency, not a currently trusted database or live credenti
 
 ## 9. Verification receipts and frozen compatibility
 
+Final canonical regression is exact post-merge push CI40931231875 SUCCESS on
+`6a77575fcb0ecf7a02493dae935fab88e94d09f1`:3,782 passed /0 skips, Python/web/all guards green.
+The implementation-head CI40883176488 also succeeded on `7953e74c64ce0d2db06d802a9213c0b0ad27dd1d`;
+it is historical delivery evidence, not a substitute for the verified push gate.
+
+### Historical implementation-delivery verification
+
 The complete local corpus executed **3,781 tests, 0 skips**:3,775 initially passed and six
 legacy current-head metadata/append-only composition assertions failed. Those six were corrected
 mechanically (new bundle/migration/table/export inventory and exact old composition prefix), then
@@ -330,7 +355,7 @@ No workflow/CI coverage reduction or two-level gate implementation occurs here.
 
 ## 10. Production-content stop and downstream status
 
-**PRODUCTION NUMERICAL/CLINICAL CONTENT GATE: CLOSED / NOT AUTHORIZED.**
+**PRODUCTION NUTRITION/CLINICAL CONTENT GATE — CLOSED**
 All structural fixtures/evidence are unmistakably TEST_ONLY in disposable sources. TEST_ONLY
 provider/principal/evidence environments cannot become production source state through selection.
 No thresholds, percentages, BMR/TDEE safety authority, clinical cutoffs, goal rates, population/
@@ -345,8 +370,9 @@ It is not full NutritionPolicy, a safe plan, general medical eligibility or inde
 validation. MTR006 synthesis and MTR008 resolution remain incomplete and are not implemented here.
 MTR040 COMPLETE/issue41 CLOSED;039 OPEN;full041/046 PARTIAL;024/020B/021 BLOCKED;
 Execution NOT STARTED;PRECOMMIT FAIL-CLOSED;planner activation disabled.
-No downstream work, issue closure, implementation merge or self-freeze is authorized by this receipt.
+This status synchronization authorizes no downstream work, issue closure, new implementation,
+production content, dependency review or next-gate selection. The existing structural freeze is final.
 
-NUTRITION ROOT CONTRACT & SUPPORTED-ELIGIBILITY FOUNDATION
+**NUTRITION ROOT CONTRACT & SUPPORTED-ELIGIBILITY FOUNDATION — FROZEN**
 
-IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE
+**PRODUCTION NUTRITION/CLINICAL CONTENT GATE — CLOSED**
