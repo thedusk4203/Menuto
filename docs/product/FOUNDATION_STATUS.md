@@ -122,6 +122,14 @@ MTR040 COMPLETE /issue41 CLOSED—COMPLETED;039 OPEN;full041/046 PARTIAL;
 024/020B/021 remain BLOCKED;Execution NOT STARTED;PRECOMMIT FAIL-CLOSED.
 Historical implementation-stage NOT FROZEN/open-PR wording is superseded only as to status.
 
+The [post-Nutrition-root Planner Convergence dependency review](POST_NUTRITION_ROOT_PLANNER_CONVERGENCE_REVIEW.md)
+is a **documentation-only proposed next-gate review awaiting architecture approval**.
+It recommends bounded **MTR-006 source-bound NutritionPolicy synthesis/containment detailed design**
+with isolated TEST_ONLY inputs; it does **not** authorize that design or any implementation.
+The separate production nutrition/evidence/qualification authority gate remains CLOSED and
+is a hard prerequisite for a real supported Validated Plan Preview. No MTR-006/008 completion,
+parent-issue closure, activation, Execution or PRECOMMIT transition is implied.
+
 
 
 
