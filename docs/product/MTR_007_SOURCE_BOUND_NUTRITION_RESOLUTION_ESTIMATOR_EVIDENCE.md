@@ -32,9 +32,9 @@ No frozen Root, MTR-006 v1, preference, inventory or recipe-grounding semantics 
 | Planning `nutrition_resolution_capture.py` | One authenticated actual PostgreSQL reader, coherent cut, owner reads, complete capture/absence witnesses and TEST_ONLY deployment binding |
 | Validation `nutrition_resolution_authority.py` | Additive independent reconstruction of retained synthesis-rule enrollment, grants, review, publication, selection and effective-time history |
 | Validation `nutrition_resolution.py` | Independent root/requirement/source verification, separately implemented ingredient fold and period sumset, fresh handoff verification |
-| Catalog `public.py` addition | Count-before-materialize bounded reads of exact ingredient identities and **all** their nutrition-reference rows |
-| Recipes `public.py` addition | Explicit version/child/seal counts and immutable owner snapshot reconstruction |
-| Households `public.py` addition | Exact actor membership and planning-subject witness; no member-goal or clinical authorship authority |
+| Catalog `resolution_public.py` companion | Count-before-materialize bounded reads of exact ingredient identities and **all** their nutrition-reference rows |
+| Recipes `resolution_public.py` companion | Explicit version/child/seal counts and immutable owner snapshot reconstruction |
+| Households `resolution_public.py` companion | Exact actor membership and planning-subject witness; no member-goal or clinical authorship authority |
 | `tools/check_import_boundaries.py` addition | Closed per-file NRE companion import lists; independent checker cannot import estimator, synthesis business implementation or live-source adapters |
 | `tools/export_domain_contracts.py` / domain schema | Additive export registration; all 480 baseline definition bodies remain unchanged |
 
@@ -70,7 +70,8 @@ permits bounded planning intent, never guideline publication or another member's
 
 Capture requires one clean caller-owned ordinary, single-Engine SQLAlchemy Session, read-only
 REPEATABLE READ or SERIALIZABLE. It rejects cached ORM identities, mapper-bind maps and custom
-routing Session subclasses: one Session object alone does not prove one actual connection/cut,
+routing Session subclasses and Session/Engine schema translation: one Session object alone
+does not prove one actual connection/cut or canonical owner namespace,
 and old identity-map objects cannot replace fresh owner reads. It does not flush, commit, roll
 back, change isolation or combine separate sessions.
 The retained frame binds endpoint/database/login, backend PID, native MVCC snapshot, root/rule
@@ -184,8 +185,15 @@ policy_integration=NOT_AUTHORIZED     production_admission=CLOSED
 - **No new persistence, migration, table, protected SQL function, role or durable authority.**
 - Migration remains **0017**; domain tables remain **108**; no **0018**.
 - **503 exported definitions = 480 retained + 23 additive**. The compatibility fixture stores
-  canonical hashes of all 480 baseline definitions, 33 frozen source/migration files and the
+  canonical hashes of all 480 baseline definitions, 36 frozen source/migration files and the
   complete 3,912 baseline test identity multiset. NRE094/095 verify their retention.
+- All three existing owner `public.py` files remain byte-exact. The additive owner reads live
+  in separate NRE companions; no frozen runtime hash/pin or accepted behavior is changed.
+- Six existing compatibility tests receive mechanical export-frontier updates for exactly
+  the 23 named additions. Original definition hashes, frozen file pins, original slice deltas
+  and all 3,912 test identities remain intact. NRE094 additionally requires the entire schema
+  name set to equal the pinned 480 baseline names plus the explicit 23-name addition registry;
+  unknown additions or removals still fail.
 - Fresh-install NRE020 executes actual migrations and inventories all 108 tables. All content
   tables are empty. Only the two unchanged 0013 zero-generation structural frontier sentinels
   exist (`ingredient_protein_frontier`, `culinary_feature_frontier`); they are not nutrition
@@ -213,6 +221,11 @@ recorded in the implementation PR verification receipt/body after CI completes. 
 putting a circular final-head SHA inside its own commit. No earlier-head/design CI or a collected
 node list substitutes for that final-head execution. Until that receipt is SUCCESS, this
 candidate is not verified or eligible for independent implementation acceptance.
+
+Local acceptance rerun: **135 passed /0 skips** (36 actual PostgreSQL executions plus 99 pure
+cases). The fourteen previously failing frozen-byte/export-frontier compatibility cases were
+rerun after companion relocation and mechanical registry updates: **14 passed**. No frozen
+hash was changed to obtain that result. Final whole-corpus success remains an exact-head CI gate.
 
 Reproduction (with the disposable PostgreSQL test URL configured):
 

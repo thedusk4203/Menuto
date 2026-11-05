@@ -144,10 +144,11 @@ def test_nrc78_all403_definition_hashes_retained_exact_additive_exports():
     schema = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     assert len(pins["definitions"]) == 403
     synthesis = json.loads((FIXTURES / "nutrition_synthesis_compatibility.json").read_text())
-    assert len(schema) == 480 and len(pins["new_definitions"]) == 44
+    resolution = json.loads((FIXTURES / "nutrition_resolution_compatibility.json").read_text())
+    assert len(schema) == 503 and len(pins["new_definitions"]) == 44
     assert set(schema) - set(pins["definitions"]) == set(pins["new_definitions"]) | set(
         synthesis["new_definitions"]
-    )
+    ) | set(resolution["new_definitions"])
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(schema[name], sort_keys=True).encode()).hexdigest() == digest

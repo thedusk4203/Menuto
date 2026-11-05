@@ -299,6 +299,17 @@ def test_nre010_multiple_sessions_and_foreign_endpoint_not_one_cut(nre_case):  #
     with CustomRoutingSession(s["engines"]["self"]) as routed:
         with pytest.raises(ValueError, match="SOURCE_CUT_UNSUPPORTED"):
             capture_nutrition_resolution_sources(routed, s["nre_context"], s["nre_scope"])
+    for level in ("session", "engine"):
+        engine = s["engines"]["self"].execution_options(
+            isolation_level="REPEATABLE READ", postgresql_readonly=True
+        )
+        options = {"schema_translate_map": {None: "pg_temp"}}
+        if level == "engine":
+            engine = engine.execution_options(**options)
+            options = {}
+        with Session(engine, execution_options=options) as translated:
+            with pytest.raises(ValueError, match="SOURCE_CUT_UNSUPPORTED"):
+                capture_nutrition_resolution_sources(translated, s["nre_context"], s["nre_scope"])
     ordinary_factory = sessionmaker(
         s["engines"]["self"].execution_options(
             isolation_level="REPEATABLE READ", postgresql_readonly=True

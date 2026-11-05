@@ -930,6 +930,8 @@ def test_nre094_480_export_hashes_and_frozen_files_remain_identical():
         ).hexdigest()
         assert actual == expected, name
     assert len(proof["baseline_definitions"]) == 480
+    assert len(proof["new_definitions"]) == 23
+    assert set(schema) == set(proof["baseline_definitions"]) | set(proof["new_definitions"])
     for path, expected in proof["frozen_files"].items():
         assert hashlib.sha256((ROOT / path).read_text().encode()).hexdigest() == expected, path
 

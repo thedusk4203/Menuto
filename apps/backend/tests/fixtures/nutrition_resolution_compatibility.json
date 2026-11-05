@@ -4397,6 +4397,9 @@
     "benchmark/tests/test_harness.py::test_duplicate_candidate_id_rejected"
   ],
   "frozen_files": {
+    "apps/backend/app/modules/catalog/public.py": "34904f7c5c62e6af6c630ec3237124cf2536bc23ed5193ce3c29571839502a6e",
+    "apps/backend/app/modules/households/public.py": "05d29b4fc9d900a7edaaa545da22b9f135859d58378c6e59987c4165f94a13f9",
+    "apps/backend/app/modules/recipes/public.py": "24c27f2e4ffc42a2ea1a4406019c3b338bebc7735bcc407932957a8f4a5aaf50",
     "apps/backend/app/modules/nutrition/root_admin.py": "aad335365f02c165964d2d13f0c9891998a6eb63a0afeb1074302b141573e5f0",
     "apps/backend/app/modules/nutrition/root_contracts.py": "51c05d6b346e9247b9d43ad5c44f510dabb0173857cee8cae1b97c8702ff883d",
     "apps/backend/app/modules/nutrition/root_limits.py": "09691ca5b6d3a931fad070c3d3bf25959a43e595b5e148a53e5f18f23f603065",
@@ -4430,5 +4433,30 @@
     "apps/backend/migrations/versions/0015_reviewed_hierarchy_source.py": "0a9fb5685d6a27591fc566f86fb9adfc73803d7d684fb889f0ec73b862e18ad6",
     "apps/backend/migrations/versions/0016_nutrition_root_sources.py": "3fcbfdbeb9e34f583f8d52348269fb07c3fd9e0a188629d2c2fe89a622732ce3",
     "apps/backend/migrations/versions/0017_nutrition_synthesis_sources.py": "2197b87e31f3076a87d44bcdc0b308185a03b4cd2bae2093d96c0f2a69849da9"
-  }
+  },
+  "new_definitions": [
+    "NreCaptureFrame",
+    "NreDelta",
+    "NreFixtureFact",
+    "NreIngredientContribution",
+    "NreOwnerAbsence",
+    "NrePeriodVectors",
+    "NreRational",
+    "NreReachableVector",
+    "NreRecipeSeal",
+    "NreRecipeSelection",
+    "NreReferenceSelection",
+    "NreResolutionGap",
+    "NreResourceProfile",
+    "NreServingDeclaration",
+    "NreSlot",
+    "NutritionResolutionCheckV1",
+    "NutritionResolutionEstimateV1",
+    "NutritionResolutionHandoffV2",
+    "NutritionResolutionScopeRequestV1",
+    "NutritionResolutionScopeV1",
+    "NutritionResolutionSourcesV1",
+    "ResolutionConfigurationV1",
+    "ResolutionMeasurementV1"
+  ]
 }

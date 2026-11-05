@@ -7,8 +7,8 @@ from time import monotonic
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.modules.catalog.public import capture_resolution_catalog
-from app.modules.households.public import capture_resolution_member
+from app.modules.catalog.resolution_public import capture_resolution_catalog
+from app.modules.households.resolution_public import capture_resolution_member
 from app.modules.nutrition import root_public
 from app.modules.nutrition.resolution_contracts import (
     NreCaptureFrame,
@@ -29,7 +29,7 @@ from app.modules.nutrition.resolution_limits import (
 from app.modules.nutrition.synthesis import nutrition_policy_requirements
 from app.modules.nutrition.synthesis_contracts import NutritionSynthesisRequest
 from app.modules.nutrition.synthesis_sources import capture_nutrition_synthesis_sources
-from app.modules.recipes.public import capture_resolution_recipes
+from app.modules.recipes.resolution_public import capture_resolution_recipes
 
 READ_RELATIONS = (
     "households",
@@ -106,6 +106,7 @@ def capture_nutrition_resolution_sources(session, authenticated_context, scope):
         not isinstance(session, Session)
         or getattr(session.get_bind, "__func__", None) is not Session.get_bind
         or getattr(session, "binds", None) != {}
+        or session.execution_options.get("schema_translate_map")
         or not hasattr(session.bind, "url")
         or session.identity_map
         or session.new
@@ -131,7 +132,8 @@ def capture_nutrition_resolution_sources(session, authenticated_context, scope):
                 raise PermissionError("AUTHORIZATION_DENIED: serving subject/slot binding")
     connection = session.connection()
     if (
-        connection.dialect.name != "postgresql"
+        connection.get_execution_options().get("schema_translate_map")
+        or connection.dialect.name != "postgresql"
         or connection.get_isolation_level() not in {"REPEATABLE READ", "SERIALIZABLE"}
         or session.scalar(text("SHOW transaction_read_only")) != "on"
     ):

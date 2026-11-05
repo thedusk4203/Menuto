@@ -216,8 +216,8 @@ NUTRITION_RESOLUTION_IMPORTS = {
         "app.modules.validation.nutrition_roots",
     },
     "app.modules.planning.nutrition_resolution_capture": {
-        "dataclasses", "threading", "time", "sqlalchemy", "app.modules.catalog.public",
-        "app.modules.households.public", "app.modules.recipes.public",
+        "dataclasses", "threading", "time", "sqlalchemy", "app.modules.catalog.resolution_public",
+        "app.modules.households.resolution_public", "app.modules.recipes.resolution_public",
         "app.modules.nutrition.root_public", "app.modules.nutrition.resolution_contracts",
         "app.modules.nutrition.resolution_limits", "app.modules.nutrition.synthesis",
         "app.modules.nutrition.synthesis_contracts", "app.modules.nutrition.synthesis_sources",
