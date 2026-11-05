@@ -1,5 +1,20 @@
 # Milestone 0/1 — entry checklist V1.3
 
+## Post-MTR-006 structural freeze: proposed next dependency gate
+
+The [MTR-007 vs MTR-008 dependency review](POST_MTR_006_SYNTHESIS_RESOLUTION_PLAN_POLICY_DEPENDENCY_REVIEW.md)
+is a **docs-only proposal pending independent architecture approval**. Exact main entry
+45ed430ff3306939366bf82e232d02054475b360 follows [PR #127 structural freeze](https://github.com/thedusk4203/Menuto/pull/127#issuecomment-6649728687):
+[push CI 41963344853](https://github.com/thedusk4203/Menuto/actions/runs/41963344853)
+SUCCESS, 3,912 tests /0 skips, 480 exports, migration 0017/108, no 0018.
+**Proposed next gate: MTR-007 source-bound NutritionResolutionEstimator — bounded detailed
+design**, before full MTR-008 runtime policy compilation. Upstream explicit NutritionPrecision
+source selection is separate from downstream ResolvedPlanPolicy. Neither design nor implementation
+is authorized. Nutrition Root and MTR-006 synthesis structural foundations remain FROZEN;
+full MTR-006/007/008 incomplete; production Nutrition/clinical content gate CLOSED.
+Historical older proposal/open-candidate wording is not the current structural freeze status.
+planner_ready=False; activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+
 ## MTR-040 — COMPLETE; issue #41 — CLOSED / COMPLETED
 
 The separately approved closure gate has passed. [PR #108](https://github.com/thedusk4203/Menuto/pull/108)
