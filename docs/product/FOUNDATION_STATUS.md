@@ -1,19 +1,29 @@
 # Trạng thái foundation V1.3 và bằng chứng
 
-## Post-MTR-006 structural freeze: proposed next dependency gate
+## MTR-007 — bounded detailed design pending architecture review
 
-The [MTR-007 vs MTR-008 dependency review](POST_MTR_006_SYNTHESIS_RESOLUTION_PLAN_POLICY_DEPENDENCY_REVIEW.md)
-is a **docs-only proposal pending independent architecture approval**. Exact main entry
-45ed430ff3306939366bf82e232d02054475b360 follows [PR #127 structural freeze](https://github.com/thedusk4203/Menuto/pull/127#issuecomment-6649728687):
-[push CI 41963344853](https://github.com/thedusk4203/Menuto/actions/runs/41963344853)
-SUCCESS, 3,912 tests /0 skips, 480 exports, migration 0017/108, no 0018.
-**Proposed next gate: MTR-007 source-bound NutritionResolutionEstimator — bounded detailed
-design**, before full MTR-008 runtime policy compilation. Upstream explicit NutritionPrecision
-source selection is separate from downstream ResolvedPlanPolicy. Neither design nor implementation
-is authorized. Nutrition Root and MTR-006 synthesis structural foundations remain FROZEN;
-full MTR-006/007/008 incomplete; production Nutrition/clinical content gate CLOSED.
-Historical older proposal/open-candidate wording is not the current structural freeze status.
+The [MTR-007 Source-Bound NutritionResolutionEstimator design](MTR_007_SOURCE_BOUND_NUTRITION_RESOLUTION_ESTIMATOR_DESIGN.md)
+is **DESIGN READY FOR INDEPENDENT ARCHITECTURE REVIEW; IMPLEMENTATION NOT AUTHORIZED**.
+Exact base `8b148bada6747aae823a0e843390d114258d243a` follows approved dependency
+[PR #128 / architecture PASS 6652121048](https://github.com/thedusk4203/Menuto/pull/128#issuecomment-6652121048)
+and [merge completion 6653072598](https://github.com/thedusk4203/Menuto/pull/128#issuecomment-6653072598).
+Exact main push [CI 41987606796](https://github.com/thedusk4203/Menuto/actions/runs/41987606796)
+SUCCESS: 3,912 tests /0 skips, 480 frozen exports, schema 0017/108, no 0018.
+Design only: authenticated complete declared finite source scope, explicit single-member whole-tier
+planned serving, exact reachable contribution vectors, independent primitive replay and a distinct
+V2 handoff. Frozen MTR-006 v1 remains fixture-only; canonical MTR-007 output cannot be relabeled
+as TEST_ONLY fixture evidence. Planned ingredient input is not confirmed intake or automatic
+physiological measurement-basis authority. Production content/basis approval and additive policy
+integration remain separate gates. Proposed NRE001–NRE096 include 20 future real PostgreSQL
+obligations; they are not implemented/executed by this docs-only PR.
+
+Nutrition Root and bounded MTR-006 structural foundations remain FROZEN. Production Nutrition/clinical
+content gate CLOSED; full MTR-006/007/008 incomplete, parent issues OPEN. No new persistence or
+migration is proposed. MTR-040 COMPLETE; MTR-039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED.
 planner_ready=False; activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+This notice supersedes earlier pending-dependency/design-not-authorized wording for the current
+design gate only; all historical receipts and frozen semantics remain unchanged. No implementation,
+self-approval, merge, production publication or MTR-008 start is authorized by this design PR.
 
 ## MTR-040 — COMPLETE; issue #41 — CLOSED / COMPLETED
 
