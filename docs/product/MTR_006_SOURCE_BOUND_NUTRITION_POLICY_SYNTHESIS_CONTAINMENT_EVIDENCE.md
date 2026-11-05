@@ -158,6 +158,8 @@ estimator fixture protocol is explicitly TEST_ONLY, retains primitive preimages 
 independent expected results, and is version-pinned. No production estimator/capture/verifier
 or canonical candidate-pool scan is claimed. MTR-008 receives a full pinned policy/report/
 precision reference only; no defaults/week precedence or ResolvedPlanPolicy is fabricated.
+Reference assembly and consumer revalidation are Validation-owned as described in R-127-01
+below. A serialized report is never independent-validation proof.
 
 ## Independent Validation
 
@@ -334,8 +336,9 @@ this evidence file does not substitute a previous-head or baseline CI run.
 
 ## Verification receipt
 
-The candidate retains **3,782 baseline tests** and adds **120 NPS cases**, for **3,902**
-complete-suite cases. The local full invocation executed all 3,902 with **0 skips**:
+The candidate retains **3,782 baseline tests**, **120 NPS cases** and **10 R-127-01 regression cases**,
+for **3,912** complete-suite cases. The original pre-correction full-suite total was 3,902.
+The original local full invocation executed all 3,902 with **0 skips**:
 3,901 passed and one old migration allowlist still omitted the new 0017 filename.
 That inventory-only receipt was corrected; its complete Target Affinity test file and
 all 22 Nutrition Root architecture cases then passed. No behavior or hash assertion was
@@ -375,6 +378,67 @@ head. Its run ID, head SHA and job/guard results are recorded in the implementat
 verification receipt after completion, without changing the tested head. No PR CI is
 claimed as post-merge evidence. No freeze, architecture approval, merge or downstream
 authorization is claimed by this file.
+
+## R-127-01 — independent-reference trust boundary correction
+
+Review [6647718371](https://github.com/thedusk4203/Menuto/pull/127#issuecomment-6647718371)
+correctly identified that the old Nutrition-owned factory accepted a fabricated CONSISTENT
+report with matching public fingerprints. Its producer self-check could not establish that
+Validation had executed. A dedicated regression was run before the fix and failed with
+`DID NOT RAISE ValueError`, reproducing the exact matching-fingerprint forgery.
+
+The former `nutrition.synthesis_public.nutrition_policy_reference(value, report)` now always
+rejects caller-provided reports. It remains only as a fail-closed compatibility entry point;
+it imports no Validation implementation and provides no reference fallback.
+
+`validation.nutrition_policy.nutrition_policy_reference(value)` now assembles the handoff
+only after calling `validate_nutrition_policy_independently` afresh. It accepts the complete
+policy only, never a caller-supplied report. No producer replay/evaluator/validator is used as
+its correctness oracle. An INCONSISTENT or UNSUPPORTED independent result raises instead of
+returning a consumable reference.
+
+`validation.nutrition_policy.validate_nutrition_policy_reference_independently(value)` is the
+required consumer admission boundary for retained/serialized references. It ignores the
+attached verdict as an authority, reconstructs a fresh independent result from the complete
+policy/source primitives, and then checks all outer pins and the attached report against that
+fresh result. Even an exact forged CONSISTENT report cannot skip the checker. A malformed or
+rehashed semantically invalid policy fails; detached environment/precision/report pins fail.
+A future MTR-008 consumer must use this Validation-owned boundary, not parse a report and
+check its decision. No MTR-008 implementation is added here.
+
+`NutritionPolicyReference.validation_authority` is fixed to `UNVERIFIED_TRANSPORT`. This
+explicitly applies to every serialized reference, including one originally assembled by
+Validation: neither object construction, serialization, matching hashes nor a previously
+successful report is a transferable attestation. Each consuming trust boundary must recheck.
+Fresh checking proves retained semantic consistency only; scientific correctness, database
+origin, current authorization, production admission, planner readiness and activation remain
+unproven/unavailable as before. No signature, secret token, registry or claimed issuance
+provenance is invented.
+
+The ten executed regression categories in
+`apps/backend/tests/test_nutrition_policy_reference_boundary.py` cover:
+
+| Category | Executed cases |
+| --- | --- |
+| Former Nutrition entry point rejects forged CONSISTENT report with matching fingerprints | 1 |
+| Validation assembly runs the checker and refuses a caller report argument | 1 |
+| Serialized matching-fingerprint fabricated report still triggers a fresh checker call | 1 |
+| Rehashed policy semantic tampering is rejected by the real independent checker | 1 |
+| Detached environment and precision pins rejected | 2 |
+| Transport cannot claim verified report authority | 1 |
+| Fresh INCONSISTENT and UNSUPPORTED verdicts override attached CONSISTENT | 2 |
+| Nutrition/Validation business import boundaries stay closed | 1 |
+
+NPS090 now exercises the Validation-owned assembly/consumer boundary and retains its
+mismatched-report rejection; NPS107 retains TEST_ONLY handoff propagation. All NPS001–NPS120
+identities/obligations, all 3,782 baseline test identities and the 32 real-PG obligations remain.
+The focused correction run passed **98 tests** (88 pure NPS + 10 new regressions);
+the expanded run also passed all 22 retained Root architecture cases, **120/120** total.
+Only the proposed, not-yet-frozen NutritionPolicyReference definition is amended; the 447
+frozen exported-definition hashes stay unchanged. Export count remains **480**. Migration
+0017 / 108 tables, SQL source objects and fresh-install zero-content state are unchanged by
+this correction. The new exact-head full Actions run/result is recorded in the PR receipt;
+previous-head run 41948835535 is not current-head delivery evidence.
 
 ## Explicit non-authorizations
 

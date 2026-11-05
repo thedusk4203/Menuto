@@ -513,8 +513,13 @@ class NutritionPolicyValidationReport(n._NutritionRootTransport):
 
 
 class NutritionPolicyReference(n._NutritionRootTransport):
-    """Pinned handoff only; no MTR-008 precedence or ResolvedPlanPolicy is synthesized."""
+    """Untrusted transport pin; its report is not an attestation or reusable proof.
 
+    Consumers must freshly revalidate through the Validation-owned reference boundary.
+    No MTR-008 precedence, ResolvedPlanPolicy or scientific authority is synthesized.
+    """
+
+    validation_authority: Literal["UNVERIFIED_TRANSPORT"] = "UNVERIFIED_TRANSPORT"
     policy: NutritionPolicy
     validation: NutritionPolicyValidationReport
     environment: n.NrcEnvironment

@@ -12900,7 +12900,7 @@
     },
     "NutritionPolicyReference": {
       "additionalProperties": false,
-      "description": "Pinned handoff only; no MTR-008 precedence or ResolvedPlanPolicy is synthesized.",
+      "description": "Untrusted transport pin; its report is not an attestation or reusable proof.\n\nConsumers must freshly revalidate through the Validation-owned reference boundary.\nNo MTR-008 precedence, ResolvedPlanPolicy or scientific authority is synthesized.",
       "properties": {
         "activation_ready": {
           "const": false,
@@ -12930,6 +12930,12 @@
         },
         "validation": {
           "$ref": "#/$defs/NutritionPolicyValidationReport"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "default": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
         }
       },
       "required": [

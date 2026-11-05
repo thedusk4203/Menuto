@@ -557,13 +557,18 @@ def test_source_bound_nutrition_acceptance(case):
         assert synthesize_nutrition_policy(s, raw).outcome != "AVAILABLE"
         assert "TEST_ONLY" in p.resolution.estimator_version
     elif case == "NPS090":
-        from app.modules.nutrition.synthesis_public import nutrition_policy_reference
+        from app.modules.validation.nutrition_policy import nutrition_policy_reference
 
-        handoff = nutrition_policy_reference(p, independent(p))
+        handoff = nutrition_policy_reference(p)
         assert handoff.policy == p and handoff.validation.policy_fingerprint == p.result_fingerprint
-        wrong = canonical(independent(p)) | dict(policy_fingerprint="f" * 64)
+        from app.modules.validation.nutrition_policy import (
+            validate_nutrition_policy_reference_independently,
+        )
+
+        wrong = canonical(handoff)
+        wrong["validation"]["policy_fingerprint"] = "f" * 64
         with pytest.raises(ValueError):
-            nutrition_policy_reference(p, wrong)
+            validate_nutrition_policy_reference_independently(wrong)
     elif case == "NPS091":
         raw = canonical(s)
         raw["request"]["precision"]["source"] = "DEFAULT_STANDARD"
@@ -641,9 +646,9 @@ def test_source_bound_nutrition_acceptance(case):
             and report.scientific_correctness == "NOT_CERTIFIED"
         )
     elif case == "NPS107":
-        from app.modules.nutrition.synthesis_public import nutrition_policy_reference
+        from app.modules.validation.nutrition_policy import nutrition_policy_reference
 
-        handoff = nutrition_policy_reference(p, independent(p))
+        handoff = nutrition_policy_reference(p)
         assert handoff.environment == handoff.policy.environment == "TEST_ONLY"
     elif case == "NPS108":
         with pytest.raises(ValueError, match="GATE_CLOSED"):

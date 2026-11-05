@@ -1,7 +1,5 @@
 """Bounded policy capability. No enrollment, production content or planner authority."""
 
-from app.domain.feature_identity import canonical
-from app.modules.nutrition import synthesis_contracts as c
 from app.modules.nutrition.synthesis import (
     admit_production_nutrition_policy,
     nutrition_policy_requirements,
@@ -28,19 +26,12 @@ def capture_nutrition_synthesis_sources(session, value):
 
 
 def nutrition_policy_reference(value, report):
-    policy = validate_nutrition_policy(value)
-    report = c.NutritionPolicyValidationReport.model_validate(canonical(report))
-    if (
-        policy.outcome != "AVAILABLE"
-        or report.decision != "CONSISTENT"
-        or report.policy_fingerprint != policy.result_fingerprint
-        or report.source_fingerprint != policy.inputs.source_fingerprint
-        or policy.inputs.request.precision is None
-    ):
-        raise ValueError("Exact complete policy and independent report required")
-    return c.NutritionPolicyReference(
-        policy=policy,
-        validation=report,
-        environment=policy.environment,
-        precision=policy.inputs.request.precision,
+    """Fail closed for the former producer-owned report-acceptance entry point.
+
+    Validation owns reference assembly and consumer revalidation. A serialized report
+    is a caller claim, even when its public fingerprints match the complete policy.
+    """
+    raise ValueError(
+        "Caller-provided reports are not independent validation proof; "
+        "use the Validation-owned nutrition_policy_reference boundary"
     )

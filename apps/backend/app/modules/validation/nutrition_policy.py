@@ -880,3 +880,38 @@ def validate_nutrition_policy_independently(value):
         policy_fingerprint=policy.result_fingerprint,
         source_fingerprint=policy.inputs.source_fingerprint,
     )
+
+
+def nutrition_policy_reference(value):
+    """Assemble a pin only after a fresh independent policy pass at this boundary.
+
+    No caller-supplied report is accepted. The returned transport is not a transferable
+    attestation; another consumer must call validate_nutrition_policy_reference_independently.
+    """
+    policy = c.NutritionPolicy.model_validate(canonical(value))
+    report = validate_nutrition_policy_independently(
+        c.NutritionPolicyValidationInput(
+            policy=policy, coverage="SYNTHESIS_SOURCE_AND_POLICY_SEMANTICS"
+        )
+    )
+    if report.decision != "CONSISTENT" or policy.inputs.request.precision is None:
+        raise ValueError("Fresh independent validation of a complete policy is required")
+    return c.NutritionPolicyReference(
+        policy=policy,
+        validation=report,
+        environment=policy.environment,
+        precision=policy.inputs.request.precision,
+    )
+
+
+def validate_nutrition_policy_reference_independently(value):
+    """Revalidate serialized handoffs; attached reports never bypass fresh checking.
+
+    This is the required admission boundary for a future MTR-008 consumer. It proves
+    retained semantic consistency only, with the same offline/scientific non-authority.
+    """
+    claimed = c.NutritionPolicyReference.model_validate(canonical(value))
+    fresh = nutrition_policy_reference(claimed.policy)
+    if canonical(claimed) != canonical(fresh):
+        raise ValueError("Reference pins or attached report disagree with fresh validation")
+    return fresh
