@@ -25,7 +25,9 @@ def test_smtf120_all384_definitions_unchanged_exact_new_exports():
     # NRC adds a separate source surface; retain the exact original SMTF export delta.
     nutrition = json.loads((FIXTURES / "nutrition_root_compatibility.json").read_text())
     synthesis = json.loads((FIXTURES / "nutrition_synthesis_compatibility.json").read_text())
-    later = set(nutrition["new_definitions"]) | set(synthesis["new_definitions"])
+    resolution = json.loads((FIXTURES / "nutrition_resolution_compatibility.json").read_text())
+    later = (set(nutrition["new_definitions"]) | set(synthesis["new_definitions"])
+             | set(resolution["new_definitions"]))
     defs = {name: body for name, body in defs.items() if name not in later}
     assert len(pins["definitions"]) == 384
     assert len(defs) == 384 + len(pins["new_definitions"]) == 403

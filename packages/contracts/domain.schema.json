@@ -11241,6 +11241,764 @@
       "title": "MutationFixtureDraft",
       "type": "object"
     },
+    "NreCaptureFrame": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "default": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "fixture_database_name": {
+          "title": "Fixture Database Name",
+          "type": "string"
+        },
+        "fixture_database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Fixture Database Oid",
+          "type": "integer"
+        },
+        "fixture_food_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fixture Food Fingerprint",
+          "type": "string"
+        },
+        "fixture_manifest": {
+          "items": {
+            "$ref": "#/$defs/NreFixtureFact"
+          },
+          "maxItems": 1568,
+          "title": "Fixture Manifest",
+          "type": "array"
+        },
+        "fixture_manifest_authority": {
+          "const": "SERVER_OWNED_ISOLATED_TEST_ONLY_CONTEXT",
+          "default": "SERVER_OWNED_ISOLATED_TEST_ONLY_CONTEXT",
+          "title": "Fixture Manifest Authority",
+          "type": "string"
+        },
+        "member_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Member Id"
+        },
+        "membership_id": {
+          "format": "uuid",
+          "title": "Membership Id",
+          "type": "string"
+        },
+        "membership_role": {
+          "enum": [
+            "OWNER",
+            "EDITOR"
+          ],
+          "title": "Membership Role",
+          "type": "string"
+        },
+        "owner_frontiers": {
+          "const": "NO_NATIVE_FRONTIER",
+          "default": "NO_NATIVE_FRONTIER",
+          "title": "Owner Frontiers",
+          "type": "string"
+        },
+        "owner_relations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Owner Relations",
+          "type": "array"
+        },
+        "owner_row_count": {
+          "maximum": 8192,
+          "minimum": 0,
+          "title": "Owner Row Count",
+          "type": "integer"
+        },
+        "source_frame": {
+          "$ref": "#/$defs/NutritionCaptureFrame"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "source_frame",
+        "actor_user_id",
+        "subject",
+        "membership_id",
+        "membership_role",
+        "member_id",
+        "started_at",
+        "completed_at",
+        "owner_row_count",
+        "owner_relations",
+        "fixture_database_oid",
+        "fixture_database_name",
+        "fixture_food_fingerprint",
+        "fixture_manifest"
+      ],
+      "title": "NreCaptureFrame",
+      "type": "object"
+    },
+    "NreDelta": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMaximum": 115792089237316195423570985008687907853269984665640564039457584007913129639936,
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "exclusiveMaximum": 115792089237316195423570985008687907853269984665640564039457584007913129639936,
+          "exclusiveMinimum": -115792089237316195423570985008687907853269984665640564039457584007913129639936,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "NreDelta",
+      "type": "object"
+    },
+    "NreFixtureFact": {
+      "additionalProperties": false,
+      "properties": {
+        "body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Body Fingerprint",
+          "type": "string"
+        },
+        "identity": {
+          "format": "uuid",
+          "title": "Identity",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ingredient Id"
+        },
+        "owner": {
+          "enum": [
+            "Recipe",
+            "Ingredient",
+            "Reference"
+          ],
+          "title": "Owner",
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "identity",
+        "ingredient_id",
+        "body_fingerprint"
+      ],
+      "title": "NreFixtureFact",
+      "type": "object"
+    },
+    "NreIngredientContribution": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/NreRational"
+        },
+        "basis": {
+          "enum": [
+            "EP_RAW_G",
+            "COOKED_G"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "delta": {
+          "$ref": "#/$defs/NreDelta"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "nutrients": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            }
+          ],
+          "title": "Nutrients",
+          "type": "array"
+        },
+        "reference_id": {
+          "format": "uuid",
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "requirement_id": {
+          "format": "uuid",
+          "title": "Requirement Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "ingredient_id",
+        "reference_id",
+        "basis",
+        "amount",
+        "delta",
+        "nutrients"
+      ],
+      "title": "NreIngredientContribution",
+      "type": "object"
+    },
+    "NreOwnerAbsence": {
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "title": "Identity",
+          "type": "string"
+        },
+        "owner": {
+          "enum": [
+            "Recipes",
+            "Catalog",
+            "Households"
+          ],
+          "title": "Owner",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "identity",
+        "reason"
+      ],
+      "title": "NreOwnerAbsence",
+      "type": "object"
+    },
+    "NrePeriodVectors": {
+      "additionalProperties": false,
+      "properties": {
+        "slot_ids": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Slot Ids",
+          "type": "array"
+        },
+        "temporal": {
+          "$ref": "#/$defs/NutritionTemporalScope"
+        },
+        "vectors": {
+          "items": {
+            "$ref": "#/$defs/NreReachableVector"
+          },
+          "maxItems": 16384,
+          "title": "Vectors",
+          "type": "array"
+        }
+      },
+      "required": [
+        "temporal",
+        "slot_ids",
+        "vectors"
+      ],
+      "title": "NrePeriodVectors",
+      "type": "object"
+    },
+    "NreRational": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMaximum": 115792089237316195423570985008687907853269984665640564039457584007913129639936,
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "numerator": {
+          "exclusiveMaximum": 115792089237316195423570985008687907853269984665640564039457584007913129639936,
+          "minimum": 0,
+          "title": "Numerator",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "NreRational",
+      "type": "object"
+    },
+    "NreReachableVector": {
+      "additionalProperties": false,
+      "properties": {
+        "configurations": {
+          "items": {
+            "items": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "maxItems": 65536,
+          "title": "Configurations",
+          "type": "array"
+        },
+        "nutrients": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            }
+          ],
+          "title": "Nutrients",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nutrients",
+        "configurations"
+      ],
+      "title": "NreReachableVector",
+      "type": "object"
+    },
+    "NreRecipeSeal": {
+      "additionalProperties": false,
+      "properties": {
+        "body_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Body Fingerprint",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "sealed": {
+          "const": true,
+          "title": "Sealed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "recipe_version_id",
+        "sealed",
+        "body_fingerprint"
+      ],
+      "title": "NreRecipeSeal",
+      "type": "object"
+    },
+    "NreRecipeSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "rule_selections": {
+          "items": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "maxItems": 16,
+          "title": "Rule Selections",
+          "type": "array"
+        },
+        "tier_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 16,
+          "title": "Tier Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "recipe_version_id",
+        "tier_ids",
+        "rule_selections"
+      ],
+      "title": "NreRecipeSelection",
+      "type": "object"
+    },
+    "NreReferenceSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": [
+            "EP_RAW_G",
+            "COOKED_G",
+            "COUNT"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "ingredient_id": {
+          "format": "uuid",
+          "title": "Ingredient Id",
+          "type": "string"
+        },
+        "reference_id": {
+          "format": "uuid",
+          "title": "Reference Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ingredient_id",
+        "basis",
+        "reference_id"
+      ],
+      "title": "NreReferenceSelection",
+      "type": "object"
+    },
+    "NreResolutionGap": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/NreRational"
+        },
+        "lower": {
+          "$ref": "#/$defs/NreRational"
+        },
+        "lower_witnesses": {
+          "items": {
+            "items": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Lower Witnesses",
+          "type": "array"
+        },
+        "upper": {
+          "$ref": "#/$defs/NreRational"
+        },
+        "upper_witnesses": {
+          "items": {
+            "items": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Upper Witnesses",
+          "type": "array"
+        }
+      },
+      "required": [
+        "lower",
+        "upper",
+        "amount",
+        "lower_witnesses",
+        "upper_witnesses"
+      ],
+      "title": "NreResolutionGap",
+      "type": "object"
+    },
+    "NreResourceProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "alternatives": {
+          "const": 64,
+          "default": 64,
+          "title": "Alternatives",
+          "type": "integer"
+        },
+        "bits": {
+          "const": 256,
+          "default": 256,
+          "title": "Bits",
+          "type": "integer"
+        },
+        "deltas": {
+          "const": 64,
+          "default": 64,
+          "title": "Deltas",
+          "type": "integer"
+        },
+        "depth": {
+          "const": 32,
+          "default": 32,
+          "title": "Depth",
+          "type": "integer"
+        },
+        "ingredients": {
+          "const": 32,
+          "default": 32,
+          "title": "Ingredients",
+          "type": "integer"
+        },
+        "operation_seconds": {
+          "const": 60,
+          "default": 60,
+          "title": "Operation Seconds",
+          "type": "integer"
+        },
+        "owner_rows": {
+          "const": 8192,
+          "default": 8192,
+          "title": "Owner Rows",
+          "type": "integer"
+        },
+        "periods": {
+          "const": 32,
+          "default": 32,
+          "title": "Periods",
+          "type": "integer"
+        },
+        "recipes": {
+          "const": 32,
+          "default": 32,
+          "title": "Recipes",
+          "type": "integer"
+        },
+        "references": {
+          "const": 512,
+          "default": 512,
+          "title": "References",
+          "type": "integer"
+        },
+        "request_bytes": {
+          "const": 262144,
+          "default": 262144,
+          "title": "Request Bytes",
+          "type": "integer"
+        },
+        "rule_sets": {
+          "const": 16,
+          "default": 16,
+          "title": "Rule Sets",
+          "type": "integer"
+        },
+        "slots": {
+          "const": 14,
+          "default": 14,
+          "title": "Slots",
+          "type": "integer"
+        },
+        "source_bytes": {
+          "const": 16777216,
+          "default": 16777216,
+          "title": "Source Bytes",
+          "type": "integer"
+        },
+        "statement_seconds": {
+          "const": 15,
+          "default": 15,
+          "title": "Statement Seconds",
+          "type": "integer"
+        },
+        "states": {
+          "const": 16384,
+          "default": 16384,
+          "title": "States",
+          "type": "integer"
+        },
+        "string_characters": {
+          "const": 100000,
+          "default": 100000,
+          "title": "String Characters",
+          "type": "integer"
+        },
+        "tiers": {
+          "const": 16,
+          "default": 16,
+          "title": "Tiers",
+          "type": "integer"
+        },
+        "version": {
+          "const": "NRE_STRUCTURAL_LIMITS_V1",
+          "default": "NRE_STRUCTURAL_LIMITS_V1",
+          "title": "Version",
+          "type": "string"
+        },
+        "witnesses": {
+          "const": 65536,
+          "default": 65536,
+          "title": "Witnesses",
+          "type": "integer"
+        },
+        "work": {
+          "const": 1000000,
+          "default": 1000000,
+          "title": "Work",
+          "type": "integer"
+        }
+      },
+      "title": "NreResourceProfile",
+      "type": "object"
+    },
+    "NreServingDeclaration": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "WHOLE_TIER_TO_SINGLE_TRACKED_MEMBER_V1",
+          "title": "Kind",
+          "type": "string"
+        },
+        "nutrition_role": {
+          "const": "TRACKED",
+          "default": "TRACKED",
+          "title": "Nutrition Role",
+          "type": "string"
+        },
+        "recipe_version_id": {
+          "format": "uuid",
+          "title": "Recipe Version Id",
+          "type": "string"
+        },
+        "rule_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        },
+        "serving_definition": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Serving Definition",
+          "type": "string"
+        },
+        "slot_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Slot Id",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        },
+        "tier_id": {
+          "format": "uuid",
+          "title": "Tier Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "subject",
+        "actor_user_id",
+        "slot_id",
+        "recipe_version_id",
+        "tier_id",
+        "rule_ids",
+        "serving_definition"
+      ],
+      "title": "NreServingDeclaration",
+      "type": "object"
+    },
+    "NreSlot": {
+      "additionalProperties": false,
+      "properties": {
+        "alternatives": {
+          "items": {
+            "$ref": "#/$defs/NreServingDeclaration"
+          },
+          "maxItems": 64,
+          "title": "Alternatives",
+          "type": "array"
+        },
+        "interval": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "slot_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Slot Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "slot_id",
+        "interval",
+        "alternatives"
+      ],
+      "title": "NreSlot",
+      "type": "object"
+    },
     "NutritionAuthorityCommand": {
       "additionalProperties": false,
       "properties": {
@@ -13669,6 +14427,255 @@
       "title": "NutritionReferenceFact",
       "type": "object"
     },
+    "NutritionResolutionCheckV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "checker_version": {
+          "const": "INDEPENDENT_FINITE_RESOLUTION_V1",
+          "default": "INDEPENDENT_FINITE_RESOLUTION_V1",
+          "title": "Checker Version",
+          "type": "string"
+        },
+        "current_authorization": {
+          "const": "NOT_CLAIMED",
+          "default": "NOT_CLAIMED",
+          "title": "Current Authorization",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "CONSISTENT",
+            "INCONSISTENT"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "numerical_use": {
+          "enum": [
+            "AVAILABLE_RETAINED_ONLY",
+            "NOT_ADMITTED"
+          ],
+          "title": "Numerical Use",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "reconstructed_result_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reconstructed Result Fingerprint"
+        },
+        "scientific_correctness": {
+          "const": "NOT_CERTIFIED",
+          "default": "NOT_CERTIFIED",
+          "title": "Scientific Correctness",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "RETAINED_CONSISTENCY_NOT_DATABASE_PROOF",
+          "default": "RETAINED_CONSISTENCY_NOT_DATABASE_PROOF",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "default": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision",
+        "numerical_use",
+        "findings",
+        "source_fingerprint",
+        "reconstructed_result_fingerprint"
+      ],
+      "title": "NutritionResolutionCheckV1",
+      "type": "object"
+    },
+    "NutritionResolutionEstimateV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "availability": {
+          "enum": [
+            "AVAILABLE",
+            "UNAVAILABLE",
+            "UNSUPPORTED",
+            "REJECTED",
+            "RESOURCE_EXCEEDED"
+          ],
+          "title": "Availability",
+          "type": "string"
+        },
+        "configurations": {
+          "items": {
+            "$ref": "#/$defs/ResolutionConfigurationV1"
+          },
+          "maxItems": 16384,
+          "title": "Configurations",
+          "type": "array"
+        },
+        "consumption": {
+          "const": "NOT_ASSERTED",
+          "default": "NOT_ASSERTED",
+          "title": "Consumption",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "nutrition-resolution-estimate.v1",
+          "default": "nutrition-resolution-estimate.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "default": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "estimator_version": {
+          "const": "EXACT_FINITE_RESOLUTION_V1",
+          "default": "EXACT_FINITE_RESOLUTION_V1",
+          "title": "Estimator Version",
+          "type": "string"
+        },
+        "hard_policy_feasibility": {
+          "const": "NOT_EVALUATED",
+          "default": "NOT_EVALUATED",
+          "title": "Hard Policy Feasibility",
+          "type": "string"
+        },
+        "measurement_basis": {
+          "const": "PLANNED_INGREDIENT_INPUT_V1",
+          "default": "PLANNED_INGREDIENT_INPUT_V1",
+          "title": "Measurement Basis",
+          "type": "string"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/ResolutionMeasurementV1"
+          },
+          "maxItems": 64,
+          "title": "Measurements",
+          "type": "array"
+        },
+        "periods": {
+          "items": {
+            "$ref": "#/$defs/NrePeriodVectors"
+          },
+          "maxItems": 32,
+          "title": "Periods",
+          "type": "array"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_synthesis": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Policy Synthesis",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "requirements_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Requirements Fingerprint",
+          "type": "string"
+        },
+        "result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "scope_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Scope Fingerprint",
+          "type": "string"
+        },
+        "solver_infeasibility": {
+          "const": "NOT_PROVEN",
+          "default": "NOT_PROVEN",
+          "title": "Solver Infeasibility",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "work_used": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Work Used",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "source_fingerprint",
+        "scope_fingerprint",
+        "requirements_fingerprint",
+        "availability",
+        "reasons",
+        "configurations",
+        "periods",
+        "measurements",
+        "work_used",
+        "result_fingerprint"
+      ],
+      "title": "NutritionResolutionEstimateV1",
+      "type": "object"
+    },
     "NutritionResolutionFact": {
       "additionalProperties": false,
       "properties": {
@@ -13744,6 +14751,65 @@
         "primitive_fingerprint"
       ],
       "title": "NutritionResolutionFact",
+      "type": "object"
+    },
+    "NutritionResolutionHandoffV2": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "nutrition-resolution-handoff.v2",
+          "default": "nutrition-resolution-handoff.v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "estimate": {
+          "$ref": "#/$defs/NutritionResolutionEstimateV1"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_integration": {
+          "const": "NOT_AUTHORIZED",
+          "default": "NOT_AUTHORIZED",
+          "title": "Policy Integration",
+          "type": "string"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "default": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "protocol": {
+          "const": "CANONICAL_FINITE_RESOLUTION_V2",
+          "default": "CANONICAL_FINITE_RESOLUTION_V2",
+          "title": "Protocol",
+          "type": "string"
+        },
+        "sources": {
+          "$ref": "#/$defs/NutritionResolutionSourcesV1"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "default": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sources",
+        "estimate"
+      ],
+      "title": "NutritionResolutionHandoffV2",
       "type": "object"
     },
     "NutritionResolutionInput": {
@@ -13832,6 +14898,339 @@
         "descriptor"
       ],
       "title": "NutritionResolutionRequirement",
+      "type": "object"
+    },
+    "NutritionResolutionScopeRequestV1": {
+      "additionalProperties": false,
+      "description": "Selection-only ingress. A fresh capture fingerprint cannot be precomputed by a caller.",
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "nutrition-resolution-scope-request.v1",
+          "default": "nutrition-resolution-scope-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXACT_DECLARED_RECIPE_VERSION_SET_V1",
+          "title": "Kind",
+          "type": "string"
+        },
+        "max_states": {
+          "default": 16384,
+          "exclusiveMinimum": 0,
+          "maximum": 16384,
+          "title": "Max States",
+          "type": "integer"
+        },
+        "max_work": {
+          "default": 1000000,
+          "exclusiveMinimum": 0,
+          "maximum": 1000000,
+          "title": "Max Work",
+          "type": "integer"
+        },
+        "measurement_basis": {
+          "const": "PLANNED_INGREDIENT_INPUT_V1",
+          "default": "PLANNED_INGREDIENT_INPUT_V1",
+          "title": "Measurement Basis",
+          "type": "string"
+        },
+        "precision": {
+          "$ref": "#/$defs/NutritionPrecisionSelection"
+        },
+        "profile": {
+          "$ref": "#/$defs/NreResourceProfile",
+          "default": {
+            "alternatives": 64,
+            "bits": 256,
+            "deltas": 64,
+            "depth": 32,
+            "ingredients": 32,
+            "operation_seconds": 60,
+            "owner_rows": 8192,
+            "periods": 32,
+            "recipes": 32,
+            "references": 512,
+            "request_bytes": 262144,
+            "rule_sets": 16,
+            "slots": 14,
+            "source_bytes": 16777216,
+            "statement_seconds": 15,
+            "states": 16384,
+            "string_characters": 100000,
+            "tiers": 16,
+            "version": "NRE_STRUCTURAL_LIMITS_V1",
+            "witnesses": 65536,
+            "work": 1000000
+          }
+        },
+        "recipes": {
+          "items": {
+            "$ref": "#/$defs/NreRecipeSelection"
+          },
+          "maxItems": 32,
+          "title": "Recipes",
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/NreReferenceSelection"
+          },
+          "maxItems": 512,
+          "title": "References",
+          "type": "array"
+        },
+        "root_request": {
+          "$ref": "#/$defs/NutritionRootRequest"
+        },
+        "selection": {
+          "$ref": "#/$defs/NutritionSynthesisSelection"
+        },
+        "slots": {
+          "items": {
+            "$ref": "#/$defs/NreSlot"
+          },
+          "maxItems": 14,
+          "title": "Slots",
+          "type": "array"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "kind",
+        "subject",
+        "actor_user_id",
+        "root_request",
+        "selection",
+        "precision",
+        "recipes",
+        "references",
+        "slots",
+        "environment"
+      ],
+      "title": "NutritionResolutionScopeRequestV1",
+      "type": "object"
+    },
+    "NutritionResolutionScopeV1": {
+      "additionalProperties": false,
+      "description": "Capture-bound immutable scope, pinned by the canonical adapter after fresh projection.",
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "nutrition-resolution-scope.v1",
+          "default": "nutrition-resolution-scope.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXACT_DECLARED_RECIPE_VERSION_SET_V1",
+          "title": "Kind",
+          "type": "string"
+        },
+        "max_states": {
+          "default": 16384,
+          "exclusiveMinimum": 0,
+          "maximum": 16384,
+          "title": "Max States",
+          "type": "integer"
+        },
+        "max_work": {
+          "default": 1000000,
+          "exclusiveMinimum": 0,
+          "maximum": 1000000,
+          "title": "Max Work",
+          "type": "integer"
+        },
+        "measurement_basis": {
+          "const": "PLANNED_INGREDIENT_INPUT_V1",
+          "default": "PLANNED_INGREDIENT_INPUT_V1",
+          "title": "Measurement Basis",
+          "type": "string"
+        },
+        "precision": {
+          "$ref": "#/$defs/NutritionPrecisionSelection"
+        },
+        "profile": {
+          "$ref": "#/$defs/NreResourceProfile",
+          "default": {
+            "alternatives": 64,
+            "bits": 256,
+            "deltas": 64,
+            "depth": 32,
+            "ingredients": 32,
+            "operation_seconds": 60,
+            "owner_rows": 8192,
+            "periods": 32,
+            "recipes": 32,
+            "references": 512,
+            "request_bytes": 262144,
+            "rule_sets": 16,
+            "slots": 14,
+            "source_bytes": 16777216,
+            "statement_seconds": 15,
+            "states": 16384,
+            "string_characters": 100000,
+            "tiers": 16,
+            "version": "NRE_STRUCTURAL_LIMITS_V1",
+            "witnesses": 65536,
+            "work": 1000000
+          }
+        },
+        "recipes": {
+          "items": {
+            "$ref": "#/$defs/NreRecipeSelection"
+          },
+          "maxItems": 32,
+          "title": "Recipes",
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/NreReferenceSelection"
+          },
+          "maxItems": 512,
+          "title": "References",
+          "type": "array"
+        },
+        "requirement_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Requirement Fingerprint",
+          "type": "string"
+        },
+        "root_request": {
+          "$ref": "#/$defs/NutritionRootRequest"
+        },
+        "selection": {
+          "$ref": "#/$defs/NutritionSynthesisSelection"
+        },
+        "slots": {
+          "items": {
+            "$ref": "#/$defs/NreSlot"
+          },
+          "maxItems": 14,
+          "title": "Slots",
+          "type": "array"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "kind",
+        "subject",
+        "actor_user_id",
+        "root_request",
+        "selection",
+        "precision",
+        "recipes",
+        "references",
+        "slots",
+        "environment",
+        "requirement_fingerprint"
+      ],
+      "title": "NutritionResolutionScopeV1",
+      "type": "object"
+    },
+    "NutritionResolutionSourcesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "absences": {
+          "items": {
+            "$ref": "#/$defs/NreOwnerAbsence"
+          },
+          "title": "Absences",
+          "type": "array"
+        },
+        "contract_version": {
+          "const": "nutrition-resolution-sources.v1",
+          "default": "nutrition-resolution-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "frame": {
+          "$ref": "#/$defs/NreCaptureFrame"
+        },
+        "ingredients": {
+          "items": {
+            "$ref": "#/$defs/IngredientIdentityFact"
+          },
+          "maxItems": 1024,
+          "title": "Ingredients",
+          "type": "array"
+        },
+        "recipe_seals": {
+          "items": {
+            "$ref": "#/$defs/NreRecipeSeal"
+          },
+          "maxItems": 32,
+          "title": "Recipe Seals",
+          "type": "array"
+        },
+        "recipes": {
+          "items": {
+            "$ref": "#/$defs/RecipeVersionSnapshot"
+          },
+          "maxItems": 32,
+          "title": "Recipes",
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/NutritionReferenceFact"
+          },
+          "maxItems": 512,
+          "title": "References",
+          "type": "array"
+        },
+        "requirements": {
+          "$ref": "#/$defs/NutritionPolicyRequirementSpec"
+        },
+        "scope": {
+          "$ref": "#/$defs/NutritionResolutionScopeV1"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "synthesis_sources": {
+          "$ref": "#/$defs/NutritionSynthesisSourceSnapshot"
+        }
+      },
+      "required": [
+        "scope",
+        "synthesis_sources",
+        "requirements",
+        "recipes",
+        "recipe_seals",
+        "ingredients",
+        "references",
+        "absences",
+        "frame",
+        "source_fingerprint"
+      ],
+      "title": "NutritionResolutionSourcesV1",
       "type": "object"
     },
     "NutritionResolvedRoot": {
@@ -23552,6 +24951,141 @@
         "purpose"
       ],
       "title": "ReserveInventoryCommand",
+      "type": "object"
+    },
+    "ResolutionConfigurationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "configuration_id": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Configuration Id",
+          "type": "string"
+        },
+        "ingredients": {
+          "items": {
+            "$ref": "#/$defs/NreIngredientContribution"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Ingredients",
+          "type": "array"
+        },
+        "nutrients": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "$ref": "#/$defs/NreRational"
+            }
+          ],
+          "title": "Nutrients",
+          "type": "array"
+        },
+        "recipe_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Recipe Fingerprint",
+          "type": "string"
+        },
+        "scope_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Scope Fingerprint",
+          "type": "string"
+        },
+        "serving": {
+          "$ref": "#/$defs/NreServingDeclaration"
+        }
+      },
+      "required": [
+        "configuration_id",
+        "scope_fingerprint",
+        "serving",
+        "recipe_fingerprint",
+        "ingredients",
+        "nutrients"
+      ],
+      "title": "ResolutionConfigurationV1",
+      "type": "object"
+    },
+    "ResolutionMeasurementV1": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "const": "PLANNED_INGREDIENT_INPUT_V1",
+          "default": "PLANNED_INGREDIENT_INPUT_V1",
+          "title": "Basis",
+          "type": "string"
+        },
+        "descriptor": {
+          "$ref": "#/$defs/NutritionRootDescriptor"
+        },
+        "gaps": {
+          "items": {
+            "$ref": "#/$defs/NreResolutionGap"
+          },
+          "title": "Gaps",
+          "type": "array"
+        },
+        "maximum_gap": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NreRational"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "root_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Root Key",
+          "type": "string"
+        },
+        "scope_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Scope Fingerprint",
+          "type": "string"
+        },
+        "step_state": {
+          "enum": [
+            "EXACT_FINITE_GAPS",
+            "NO_ADJACENT_STEP"
+          ],
+          "title": "Step State",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/NreRational"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "subject",
+        "scope_fingerprint",
+        "root_key",
+        "descriptor",
+        "values",
+        "gaps",
+        "maximum_gap",
+        "step_state"
+      ],
+      "title": "ResolutionMeasurementV1",
       "type": "object"
     },
     "ResolvedNutrients": {
