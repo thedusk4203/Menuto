@@ -186,6 +186,48 @@ NUTRITION_SYNTHESIS_PURE_IMPORTS = {
 }
 
 
+# NRE additions are exact companion seams, not new cross-context grants. Existing
+# NRC/NPS allowlists and frozen producer/checker import constraints are unchanged.
+NUTRITION_RESOLUTION_IMPORTS = {
+    "app.modules.nutrition.resolution_contracts": {
+        "math", "typing", "uuid", "pydantic", "app.domain.contracts",
+        "app.domain.feature_identity", "app.modules.catalog.contracts",
+        "app.modules.households.contracts", "app.modules.recipes.contracts",
+        "app.modules.nutrition.root_contracts", "app.modules.nutrition.synthesis_contracts",
+        "app.modules.nutrition.resolution_limits",
+    },
+    "app.modules.nutrition.resolution_estimator": {
+        "fractions", "itertools", "app.domain.feature_identity",
+        "app.modules.nutrition.resolution_contracts", "app.modules.nutrition.resolution_limits",
+        "app.modules.nutrition.synthesis",
+    },
+    "app.modules.nutrition.resolution_limits": {
+        "json", "datetime", "decimal", "uuid", "pydantic",
+    },
+    "app.modules.validation.nutrition_resolution_authority": {
+        "app.domain.feature_identity", "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.synthesis_contracts",
+    },
+    "app.modules.validation.nutrition_resolution": {
+        "fractions", "itertools", "app.domain.feature_identity",
+        "app.modules.nutrition.resolution_contracts", "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.synthesis_contracts", "app.modules.nutrition.resolution_limits",
+        "app.modules.validation.nutrition_resolution_authority",
+        "app.modules.validation.nutrition_roots",
+    },
+    "app.modules.planning.nutrition_resolution_capture": {
+        "dataclasses", "threading", "time", "sqlalchemy", "app.modules.catalog.public",
+        "app.modules.households.public", "app.modules.recipes.public",
+        "app.modules.nutrition.root_public", "app.modules.nutrition.resolution_contracts",
+        "app.modules.nutrition.resolution_limits", "app.modules.nutrition.synthesis",
+        "app.modules.nutrition.synthesis_contracts", "app.modules.nutrition.synthesis_sources",
+    },
+    "app.modules.nutrition.resolution_public": {
+        "app.modules.nutrition.resolution_contracts", "app.modules.nutrition.resolution_estimator",
+    },
+}
+
+
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
     parts = module.split(".")
@@ -201,6 +243,13 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     }
 
     def audit(target, line):
+        if module in NUTRITION_RESOLUTION_IMPORTS:
+            if not any(target == p or target.startswith(p + ".")
+                       for p in NUTRITION_RESOLUTION_IMPORTS[module]):
+                errors.append(f"{line}: NRE_PURE_OR_INDEPENDENT_BOUNDARY: {target}")
+            # Exact, closed companion imports are checked above. Do not widen the
+            # general Nutrition->Recipes or Validation->producer grants below.
+            return
         nrc_transport = module == "app.modules.validation.nutrition_roots" and (
             target == "app.modules.nutrition.root_contracts"
             or target.startswith("app.modules.nutrition.root_contracts.")
@@ -466,6 +515,10 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 if item.name == "*" and context:
                     errors.append(f"{node.lineno}: WILDCARD_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            if module in NUTRITION_RESOLUTION_IMPORTS and node.func.id in {
+                "open", "input", "eval", "exec", "__import__"
+            }:
+                errors.append(f"{node.lineno}: NRE_NO_DYNAMIC_OR_FILE_IO")
             if module in NUTRITION_ROOT_PURE_IMPORTS and node.func.id in {"open", "input", "print"}:
                 errors.append(f"{node.lineno}: NUTRITION_ROOT_PURE_IO")
             if context == "validation" and node.func.id == "open":
@@ -473,6 +526,10 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             if context and node.func.id in {"__import__", "eval", "exec"}:
                 errors.append(f"{node.lineno}: DYNAMIC_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            if (module in NUTRITION_RESOLUTION_IMPORTS
+                and module != "app.modules.planning.nutrition_resolution_capture"
+                and node.func.attr in {"now", "utcnow", "today", "time", "getenv", "monotonic"}):
+                errors.append(f"{node.lineno}: NRE_NO_CLOCK_OR_ENVIRONMENT")
             if module in NUTRITION_ROOT_PURE_IMPORTS and node.func.attr in {
                 "now", "utcnow", "today", "time", "getenv",
             }:

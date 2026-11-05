@@ -1,29 +1,33 @@
 # Implementation Blueprint — Milestone 0/1
 
-## MTR-007 — bounded detailed design pending architecture review
+## MTR-007 — bounded structural implementation candidate
 
-The [MTR-007 Source-Bound NutritionResolutionEstimator design](MTR_007_SOURCE_BOUND_NUTRITION_RESOLUTION_ESTIMATOR_DESIGN.md)
-is **DESIGN READY FOR INDEPENDENT ARCHITECTURE REVIEW; IMPLEMENTATION NOT AUTHORIZED**.
-Exact base `8b148bada6747aae823a0e843390d114258d243a` follows approved dependency
-[PR #128 / architecture PASS 6652121048](https://github.com/thedusk4203/Menuto/pull/128#issuecomment-6652121048)
-and [merge completion 6653072598](https://github.com/thedusk4203/Menuto/pull/128#issuecomment-6653072598).
-Exact main push [CI 41987606796](https://github.com/thedusk4203/Menuto/actions/runs/41987606796)
-SUCCESS: 3,912 tests /0 skips, 480 frozen exports, schema 0017/108, no 0018.
-Design only: authenticated complete declared finite source scope, explicit single-member whole-tier
-planned serving, exact reachable contribution vectors, independent primitive replay and a distinct
-V2 handoff. Frozen MTR-006 v1 remains fixture-only; canonical MTR-007 output cannot be relabeled
-as TEST_ONLY fixture evidence. Planned ingredient input is not confirmed intake or automatic
-physiological measurement-basis authority. Production content/basis approval and additive policy
-integration remain separate gates. Proposed NRE001–NRE096 include 20 future real PostgreSQL
-obligations; they are not implemented/executed by this docs-only PR.
+The [approved bounded design](MTR_007_SOURCE_BOUND_NUTRITION_RESOLUTION_ESTIMATOR_DESIGN.md)
+was merged through [PR #129](https://github.com/thedusk4203/Menuto/pull/129), with
+[architecture PASS 6655233374](https://github.com/thedusk4203/Menuto/pull/129#issuecomment-6655233374).
+Implementation base is `88440a270602aed78e2d28ee9bc9a1be049b267e`; exact main push
+[CI 42014306050](https://github.com/thedusk4203/Menuto/actions/runs/42014306050) SUCCESS:
+3,912 tests /0 skips, 480 frozen exports, schema 0017/108.
 
-Nutrition Root and bounded MTR-006 structural foundations remain FROZEN. Production Nutrition/clinical
-content gate CLOSED; full MTR-006/007/008 incomplete, parent issues OPEN. No new persistence or
-migration is proposed. MTR-040 COMPLETE; MTR-039 OPEN; full 041/046 PARTIAL; 020B/021/024 BLOCKED.
-planner_ready=False; activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-This notice supersedes earlier pending-dependency/design-not-authorized wording for the current
-design gate only; all historical receipts and frozen semantics remain unchanged. No implementation,
-self-approval, merge, production publication or MTR-008 start is authorized by this design PR.
+The separately authorized structural implementation adds authenticated coherent source capture,
+exact finite planned ingredient-input vectors and witnesses, independent primitive verification
+and terminal NutritionResolutionHandoffV2. The [implementation evidence](MTR_007_SOURCE_BOUND_NUTRITION_RESOLUTION_ESTIMATOR_EVIDENCE.md)
+records the executed NRE001–NRE096 matrix, source-permission inventory and regression receipts.
+Status: **IMPLEMENTATION CANDIDATE — NOT REVIEWED / NOT FROZEN**; implementation PR remains
+OPEN, auto-merge OFF, pending independent review. Final exact-head CI is required for delivery.
+
+Exports are additive (503 = 480 retained +23); all 480 frozen bodies/hashes are preserved.
+Schema remains 0017/108, no 0018 or new persistence. Frozen MTR-006 v1 stays fixture-only;
+the separate policy-integration v2 companion is NOT implemented. Planned offered composition
+does not assert consumption or establish physiological measurement-basis applicability.
+
+Nutrition Root and bounded MTR-006 structural foundations remain FROZEN. Production
+Nutrition/clinical content gate CLOSED; no production content/providers/qualifications/seeds/defaults.
+Full MTR-006/007/008 remain INCOMPLETE, parent issues OPEN. MTR-040 COMPLETE; MTR-039 OPEN;
+full 041/046 PARTIAL; 020B/021/024 BLOCKED. planner_ready=False; activation_ready=False;
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No self-approval, merge, freeze, policy integration,
+production publication or downstream start is authorized by this implementation candidate.
+This notice supersedes earlier current-gate status wording only; historical receipts remain unchanged.
 
 ## MTR-040 — COMPLETE; issue #41 — CLOSED / COMPLETED
 

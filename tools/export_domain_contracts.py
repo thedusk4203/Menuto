@@ -120,6 +120,14 @@ from app.modules.nutrition.contracts import (
     ResolvedNutrients,
     ResolvedNutritionPortion,
 )
+from app.modules.nutrition.resolution_contracts import (
+    NutritionResolutionCheckV1,
+    NutritionResolutionEstimateV1,
+    NutritionResolutionHandoffV2,
+    NutritionResolutionScopeRequestV1,
+    NutritionResolutionScopeV1,
+    NutritionResolutionSourcesV1,
+)
 from app.modules.nutrition.root_contracts import (
     NutritionAuthorityCommand,
     NutritionAuthorityFact,
@@ -768,6 +776,12 @@ CONTRACTS += (
     NutritionPolicyValidationReport, NutritionSynthesisCaptureCommand,
     NutritionSynthesisCommand, NutritionSynthesisGrant, NutritionSynthesisPrincipalEnrollment,
     NutritionSynthesisProviderEnrollment, NutritionSynthesisRecorded,
+)
+
+CONTRACTS += (
+    NutritionResolutionCheckV1, NutritionResolutionEstimateV1,
+    NutritionResolutionHandoffV2, NutritionResolutionScopeRequestV1,
+    NutritionResolutionScopeV1, NutritionResolutionSourcesV1,
 )
 
 
