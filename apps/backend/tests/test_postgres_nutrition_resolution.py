@@ -34,7 +34,7 @@ from nutrition_synthesis_postgres_fixtures import (
 from psycopg import sql
 from sqlalchemy import text
 from sqlalchemy.exc import DBAPIError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 from test_postgres_foundation import postgres_engine as postgres_engine  # noqa: F401
 
 pytestmark = pytest.mark.postgres
@@ -212,13 +212,16 @@ def test_nre006_actual_transaction_mode_must_be_read_only_repeatable(nre_case, i
         capture_nre(nre_case, isolation=isolation, readonly=readonly)
 
 
-@pytest.mark.parametrize("pending", ["new", "dirty", "deleted"])
+@pytest.mark.parametrize("pending", ["new", "dirty", "deleted", "cached"])
 def test_nre007_dirty_session_never_flushed(nre_case, pending):  # noqa: F811
     s = nre_case
     before = fingerprint_rows(s)
     with reader(s, "self") as db:
         if pending == "new":
             db.add(Ingredient(name="TEST_ONLY never flushed"))
+        elif pending == "cached":
+            record = db.get(Ingredient, s["nre_references"][0].fact.ingredient_id)
+            assert record is not None and db.identity_map
         else:
             record = (
                 db.query(Membership)
@@ -280,6 +283,34 @@ def test_nre010_multiple_sessions_and_foreign_endpoint_not_one_cut(nre_case):  #
         )
         with pytest.raises(PermissionError, match="database"):
             capture_nutrition_resolution_sources(a, ctx, s["nre_scope"])
+    with Session(
+        s["engines"]["self"].execution_options(
+            isolation_level="REPEATABLE READ", postgresql_readonly=True
+        ),
+        binds={Ingredient: s["engines"]["root"]},
+    ) as routed:
+        with pytest.raises(ValueError, match="SOURCE_CUT_UNSUPPORTED"):
+            capture_nutrition_resolution_sources(routed, s["nre_context"], s["nre_scope"])
+
+    class CustomRoutingSession(Session):
+        def get_bind(self, *args, **kwargs):
+            return s["engines"]["root"]
+
+    with CustomRoutingSession(s["engines"]["self"]) as routed:
+        with pytest.raises(ValueError, match="SOURCE_CUT_UNSUPPORTED"):
+            capture_nutrition_resolution_sources(routed, s["nre_context"], s["nre_scope"])
+    ordinary_factory = sessionmaker(
+        s["engines"]["self"].execution_options(
+            isolation_level="REPEATABLE READ", postgresql_readonly=True
+        )
+    )
+    with ordinary_factory() as ordinary:
+        assert (
+            estimate(
+                capture_nutrition_resolution_sources(ordinary, s["nre_context"], s["nre_scope"])
+            ).availability
+            == "AVAILABLE"
+        )
 
 
 @pytest.mark.parametrize("missing", ["version", "tier", "reference"])

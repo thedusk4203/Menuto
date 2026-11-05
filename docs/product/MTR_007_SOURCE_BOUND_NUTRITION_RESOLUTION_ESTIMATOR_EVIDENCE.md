@@ -68,8 +68,11 @@ root/rule authority is still checked by the frozen protected PostgreSQL paths ag
 authenticated database/login OIDs, role membership and privilege graphs. Household OWNER/EDITOR
 permits bounded planning intent, never guideline publication or another member's goal authorship.
 
-Capture requires one clean caller-owned SQLAlchemy Session, read-only REPEATABLE READ or
-SERIALIZABLE. It does not flush, commit, roll back, change isolation or combine separate sessions.
+Capture requires one clean caller-owned ordinary, single-Engine SQLAlchemy Session, read-only
+REPEATABLE READ or SERIALIZABLE. It rejects cached ORM identities, mapper-bind maps and custom
+routing Session subclasses: one Session object alone does not prove one actual connection/cut,
+and old identity-map objects cannot replace fresh owner reads. It does not flush, commit, roll
+back, change isolation or combine separate sessions.
 The retained frame binds endpoint/database/login, backend PID, native MVCC snapshot, root/rule
 frontiers and grants, exact membership/subject, observed capture interval and all owner rows.
 Concurrent catalog commits and authority revocations are tested using separate real connections.
@@ -197,13 +200,13 @@ The final executed-test matrix and measured receipts are recorded below once ver
 completes. Exact implementation-head CI is a required implementation-PR gate; it is not
 substituted with the approved design CI or an earlier implementation head.
 
-The matrix binds **NRE001–NRE096** to **134 additive executions: 35 real PostgreSQL
+The matrix binds **NRE001–NRE096** to **135 additive executions: 36 real PostgreSQL
 tests and 99 pure/adversarial/compatibility tests**. The first twenty obligations are executed
 against real authenticated PostgreSQL protected/owner reads; collection or mocks do not satisfy
 them. Parameterized node names below identify each execution, including real concurrent commits,
 actual privilege failures, source limits, blocked-read cancellation and fresh installation.
 
-The full implementation gate is **4,046 tests = 3,912 retained +134 additive, with 0 skips**.
+The full implementation gate is **4,047 tests = 3,912 retained +135 additive, with 0 skips**.
 The exact implementation head, full-suite execution result, actual PostgreSQL count, separate
 16/16 SCRAM/TLS smoke, 22/22 benchmarks, 10/10 client tests and Python/web guard receipts are
 recorded in the implementation PR verification receipt/body after CI completes. This avoids
@@ -243,7 +246,7 @@ cover several IDs, while parameterization expands individual executions.
 | NRE004 | PG | `test_nre004_independent_reader_grants_required[ROOT]`<br>`test_nre004_independent_reader_grants_required[SYNTHESIS]` |
 | NRE005 | PG | `test_nre005_unsafe_actual_postgres_identity_rejected[superuser]`<br>`test_nre005_unsafe_actual_postgres_identity_rejected[set_role]`<br>`test_nre005_unsafe_actual_postgres_identity_rejected[source_owner]`<br>`test_nre005_nre016_temp_shadowing_does_not_change_canonical_owner_reads` |
 | NRE006 | PG | `test_nre006_actual_transaction_mode_must_be_read_only_repeatable[READ COMMITTED-True]`<br>`test_nre006_actual_transaction_mode_must_be_read_only_repeatable[REPEATABLE READ-False]` |
-| NRE007 | PG | `test_nre007_dirty_session_never_flushed[new]`<br>`test_nre007_dirty_session_never_flushed[dirty]`<br>`test_nre007_dirty_session_never_flushed[deleted]` |
+| NRE007 | PG | `test_nre007_dirty_session_never_flushed[new]`<br>`test_nre007_dirty_session_never_flushed[dirty]`<br>`test_nre007_dirty_session_never_flushed[deleted]`<br>`test_nre007_dirty_session_never_flushed[cached]` |
 | NRE008 | PG | `test_nre008_concurrent_catalog_commit_cannot_mix_snapshot` |
 | NRE009 | PG | `test_nre009_concurrent_rule_revoke_respects_retained_knowledge_cut` |
 | NRE010 | PG | `test_nre010_multiple_sessions_and_foreign_endpoint_not_one_cut` |

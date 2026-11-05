@@ -97,7 +97,21 @@ def capture_nutrition_resolution_sources(session, authenticated_context, scope):
     ctx = authenticated_context
     if type(ctx) is not NutritionResolutionCaptureContext or ctx.seal is not _CONTEXT_SEAL:
         raise PermissionError("ENVIRONMENT_MISMATCH: trusted capture context required")
-    if not isinstance(session, Session) or session.new or session.dirty or session.deleted:
+    # A clean identity map is necessary: ORM get()/relationship reads can otherwise
+    # reuse objects from a previous transaction. One Session also need not mean one
+    # connection when mapper binds/custom routing are configured. This V1 adapter
+    # supports only the ordinary, single-Engine Session shape proved by PG tests.
+    # Pinned SQLAlchemy 2.1 exposes the mapper-bind map; unsupported shapes fail closed.
+    if (
+        not isinstance(session, Session)
+        or getattr(session.get_bind, "__func__", None) is not Session.get_bind
+        or getattr(session, "binds", None) != {}
+        or not hasattr(session.bind, "url")
+        or session.identity_map
+        or session.new
+        or session.dirty
+        or session.deleted
+    ):
         raise ValueError("SOURCE_CUT_UNSUPPORTED: one clean actual Session required")
     request_scope = NutritionResolutionScopeRequestV1.model_validate(ingest(scope, REQUEST_BYTES))
     scope = request_scope
