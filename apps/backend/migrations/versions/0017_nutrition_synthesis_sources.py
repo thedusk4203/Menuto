@@ -213,6 +213,15 @@ REVOKE ALL ON SCHEMA menuto_nutrition_synthesis FROM PUBLIC;
 GRANT USAGE ON SCHEMA menuto_nutrition_synthesis TO menuto_nutrition_synthesis_admin,menuto_nutrition_synthesis_client;
 GRANT USAGE ON SCHEMA public TO menuto_nutrition_synthesis_owner;
 GRANT SELECT ON public.users,public.households,public.household_members,public.memberships TO menuto_nutrition_synthesis_owner;
+DO $$ DECLARE ns name; BEGIN
+ IF NOT EXISTS (SELECT FROM pg_catalog.pg_extension WHERE extname='sslinfo') THEN
+  CREATE EXTENSION sslinfo WITH SCHEMA menuto_nutrition_synthesis;
+ END IF;
+ SELECT n.nspname INTO STRICT ns FROM pg_catalog.pg_extension e JOIN pg_catalog.pg_namespace n ON n.oid=e.extnamespace WHERE e.extname='sslinfo';
+ EXECUTE format('GRANT USAGE ON SCHEMA %I TO menuto_nutrition_synthesis_owner',ns);
+ EXECUTE format('GRANT EXECUTE ON FUNCTION %I.ssl_is_used() TO menuto_nutrition_synthesis_owner',ns);
+ EXECUTE format('CREATE FUNCTION menuto_nutrition_synthesis.backend_tls() RETURNS boolean LANGUAGE sql STABLE SET search_path=pg_catalog,menuto_nutrition_synthesis,pg_temp BEGIN ATOMIC SELECT %I.ssl_is_used(); END',ns);
+END $$;
 
 CREATE FUNCTION menuto_nutrition_synthesis.utc(t timestamptz) RETURNS text LANGUAGE sql IMMUTABLE
 SET search_path=pg_catalog,menuto_nutrition_synthesis,pg_temp AS $$
@@ -345,8 +354,7 @@ SET search_path=pg_catalog,menuto_nutrition_synthesis,pg_temp AS $$
 DECLARE r record; d record; BEGIN
  IF system_user IS DISTINCT FROM ('scram-sha-256:'||session_user) OR current_setting('role')<>'none'
   OR inet_client_addr() IS NULL THEN RAISE EXCEPTION 'Authenticated un-switched SCRAM login required' USING ERRCODE='28000'; END IF;
- IF inet_client_addr() NOT IN ('127.0.0.1'::inet,'::1'::inet) AND NOT EXISTS(
-  SELECT FROM pg_stat_ssl WHERE pid=pg_backend_pid() AND ssl) THEN RAISE EXCEPTION 'Remote TLS required' USING ERRCODE='28000'; END IF;
+ IF inet_client_addr() NOT IN ('127.0.0.1'::inet,'::1'::inet) AND NOT menuto_nutrition_synthesis.backend_tls() THEN RAISE EXCEPTION 'Remote TLS required' USING ERRCODE='28000'; END IF;
  PERFORM menuto_nutrition_synthesis.safe_role(session_user,admin_mode);
  IF admin_mode AND NOT pg_has_role(session_user,'menuto_nutrition_synthesis_admin','MEMBER') THEN
   RAISE EXCEPTION 'Separate synthesis registrar required' USING ERRCODE='42501'; END IF;

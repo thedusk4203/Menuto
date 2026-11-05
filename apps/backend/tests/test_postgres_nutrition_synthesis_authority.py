@@ -209,6 +209,7 @@ def test_real_synthesis_authority_obligation(case, nrc_server):  # noqa: F811
             "UPDATE nutrition_synthesis_streams SET revision=0",
             "TRUNCATE nutrition_synthesis_receipts",
             "SELECT menuto_nutrition_synthesis.permission(NULL,NULL,NULL,NULL,now())",
+            "SELECT menuto_nutrition_synthesis.backend_tls()",
         ):
             with Session(s["engines"]["reviewer"]) as db, pytest.raises(DBAPIError):
                 db.execute(text(statement))
@@ -222,6 +223,13 @@ def test_real_synthesis_authority_obligation(case, nrc_server):  # noqa: F811
             )
         return
     if case == "NPS008":
+        # Statistics redact another login's SSL columns under a NOLOGIN definer.
+        # The private primitive must inspect the actual backend even in that role.
+        with s["engines"]["root"].connect() as db:
+            assert db.scalar(text("SELECT ssl FROM pg_stat_ssl WHERE pid=pg_backend_pid()")) is True
+            db.execute(text("SET LOCAL ROLE menuto_nutrition_synthesis_owner"))
+            assert db.scalar(text("SELECT current_user")) == "menuto_nutrition_synthesis_owner"
+            assert db.scalar(text("SELECT menuto_nutrition_synthesis.backend_tls()")) is True
         with Session(s["engines"]["reviewer"]) as db:
             db.execute(text("CREATE TEMP TABLE nutrition_synthesis_grants (forged text)"))
             record = db.scalar(

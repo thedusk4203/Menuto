@@ -71,6 +71,13 @@ and direct source-table/sequence rights. Fixed search paths and qualified table/
 references defeat temp/schema shadowing. PUBLIC has no execute on protected helpers.
 Clients have no source DML/SELECT/ownership.
 
+Remote TLS is observed through a private, OID-bound `sslinfo.ssl_is_used()` primitive,
+following the established source pattern. `pg_stat_ssl` is not an authorization oracle:
+its columns are redacted when a SECURITY DEFINER's NOLOGIN owner differs from the login.
+No `pg_read_all_stats` privilege or unrelated source capability is granted. NPS007 tests
+that the primitive remains private; NPS008 checks a real encrypted backend under the
+NOLOGIN owner as well as temp-shadow resistance.
+
 Provider/frontier locks precede current authorization. Principal frontier locks are acquired
 in a fixed global order. Exact reviewer qualification, enrolled human separation,
 review cancellation, complete body/evidence/applicability and current grant identity are
@@ -88,12 +95,12 @@ Historical publication truth is not a claim of a publisher's present permission.
 
 ## Protected SQL inventory
 
-There are **32 functions** in `menuto_nutrition_synthesis`: five execute-only entry points
+There are **33 functions** in `menuto_nutrition_synthesis`: five execute-only entry points
 (`register_provider`, `enroll_principal`, `change_authority`, `append`, `capture`) and
-27 private helpers/triggers. All are frozen directly into migration 0017; historical
+28 private helpers/triggers. All are frozen directly into migration 0017; historical
 installation imports no mutable application models or live schemas.
 
-`append`, `apply_publication`, `bounds`, `canonical`, `capture`, `change_authority`, `check_command`, `check_rule`, `check_tree`, `coherent`, `covers`, `deadline`, `enroll_principal`, `evidence`, `fact`, `hash`, `immutable`, `interval_ok`, `lock_provider`, `permission`, `principal`, `publication_timeline`, `record_fact`, `register_provider`, `retain_evidence`, `safe_role`, `session_fact`, `touch_principals`, `utc`, `uuid`, `validate_json`, `write_guard`.
+`append`, `apply_publication`, `backend_tls`, `bounds`, `canonical`, `capture`, `change_authority`, `check_command`, `check_rule`, `check_tree`, `coherent`, `covers`, `deadline`, `enroll_principal`, `evidence`, `fact`, `hash`, `immutable`, `interval_ok`, `lock_provider`, `permission`, `principal`, `publication_timeline`, `record_fact`, `register_provider`, `retain_evidence`, `safe_role`, `session_fact`, `touch_principals`, `utc`, `uuid`, `validate_json`, `write_guard`.
 
 ## Module and interface inventory
 
@@ -351,6 +358,17 @@ source downgrade-refusal obligation also executed successfully.
 All **447 old export-definition hashes** and frozen runtime/migration pins passed; **33 new
 exports** bring the total to **480**. The only old test edits are current-head inventory
 receipts, not behavioral assertions or coverage removal.
+
+The first exact-head CI, [41901612193](https://github.com/thedusk4203/Menuto/actions/runs/41901612193),
+executed all cases: **3,871 passed / 31 failed / 0 skips**. All 3,782 retained baseline
+cases passed. The 31 failures shared one setup cause: remote TLS detection read the
+redacted `pg_stat_ssl` view under the NOLOGIN definer. The fix changes the observation
+primitive, not TLS requirements, source authority, scientific content or frozen code.
+It adds the NPS007/008 assertions described above and retains the same 120 NPS identities.
+The focused final-tree run passed **142 tests / 0 skips**: all 120 NPS cases,
+including 32 real PostgreSQL executions, and 22 retained Nutrition Root architecture
+checks. Fresh installation was reverified with 33 functions and empty source tables.
+The subsequent exact-head full run is the final delivery gate.
 
 Delivery additionally requires SUCCESS from GitHub Actions on the exact implementation
 head. Its run ID, head SHA and job/guard results are recorded in the implementation PR
