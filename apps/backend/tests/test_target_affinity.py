@@ -516,6 +516,7 @@ def test_all_frozen_040a_041abcde_046a_definitions_and_migrations_retained():
         "apps/backend/migrations/versions/0014_reviewed_reference_prior_source.py",
         "apps/backend/migrations/versions/0015_reviewed_hierarchy_source.py",
         "apps/backend/migrations/versions/0016_nutrition_root_sources.py",
+        "apps/backend/migrations/versions/0017_nutrition_synthesis_sources.py",
     }
 
 

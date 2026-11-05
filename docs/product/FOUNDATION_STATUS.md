@@ -127,14 +127,23 @@ was approved in [review 6630817744](https://github.com/thedusk4203/Menuto/pull/1
 PR #125 merged at `4a7ddac883a777270cfd1d2460f9b953332b6673`; exact post-merge push
 [CI 41831629205](https://github.com/thedusk4203/Menuto/actions/runs/41831629205) SUCCESS;
 [completion 6631661206](https://github.com/thedusk4203/Menuto/pull/125#issuecomment-6631661206).
-The separately authorized [bounded MTR-006 detailed-design proposal](MTR_006_SOURCE_BOUND_NUTRITION_POLICY_SYNTHESIS_CONTAINMENT_DESIGN.md)
-is now **READY FOR ARCHITECTURE REVIEW — NOT APPROVED / NOT IMPLEMENTED**.
-It proposes explicit rule-source authority, pure synthesis and independent containment; it adds
-no runtime, contract, test, migration, tooling or data. Any future durable rule source requires
-separate design approval and implementation authorization; no migration number is reserved.
+The [bounded MTR-006 detailed design](MTR_006_SOURCE_BOUND_NUTRITION_POLICY_SYNTHESIS_CONTAINMENT_DESIGN.md)
+was approved in [review 6633481532](https://github.com/thedusk4203/Menuto/pull/126#issuecomment-6633481532).
+PR #126 merged at `4a39e8fbbf4b91ef02f39d210eeff89970ab2bb9`; exact push
+[CI 41852571668](https://github.com/thedusk4203/Menuto/actions/runs/41852571668) SUCCESS;
+[completion 6635044106](https://github.com/thedusk4203/Menuto/pull/126#issuecomment-6635044106).
+The separately authorized [structural implementation candidate](MTR_006_SOURCE_BOUND_NUTRITION_POLICY_SYNTHESIS_CONTAINMENT_EVIDENCE.md)
+adds dedicated rule-source authority, deterministic synthesis and independent policy semantics.
+**IMPLEMENTATION READY FOR REVIEW / FREEZE CANDIDATE — NOT FROZEN.**
+Its candidate tree has 3,902 tests (3,782 retained + 120 additive), all 120 NPS cases
+and 32/32 new real PostgreSQL obligations passed locally, 0017 / 108 domain tables and
+480 exports (447 retained + 33 additive). Full exact-head Actions evidence belongs to
+its implementation PR and is mandatory before delivery.
+The ten durable source tables install empty; no policy/profile cache or production content is added.
 Nutrition Root remains structurally FROZEN; production nutrition/evidence/qualification content
 gate remains CLOSED. MTR-006/007/008 remain incomplete; no parent issue is closed.
-Baseline: 3,782 tests / 0 skips, 447 exports, 0016 / 98 tables; no 0017.
+Canonical implementation base remains 3,782 tests / 0 skips, 447 exports, 0016 / 98 tables;
+the new candidate is not a merge or freeze receipt.
 Execution NOT STARTED; PRECOMMIT FAIL-CLOSED; planner_ready=False; activation_ready=False.
 
 

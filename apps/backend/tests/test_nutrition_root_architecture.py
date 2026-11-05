@@ -136,15 +136,18 @@ def test_nrc77_old_inventory_recipe_validation_and_migration_bytes_unchanged():
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
     )
-    assert files == [f"{i:04d}" for i in range(1, 17)]
+    assert files == [f"{i:04d}" for i in range(1, 18)]
 
 
 def test_nrc78_all403_definition_hashes_retained_exact_additive_exports():
     pins = json.loads((FIXTURES / "nutrition_root_compatibility.json").read_text())
     schema = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     assert len(pins["definitions"]) == 403
-    assert len(schema) == 447 and len(pins["new_definitions"]) == 44
-    assert set(schema) - set(pins["definitions"]) == set(pins["new_definitions"])
+    synthesis = json.loads((FIXTURES / "nutrition_synthesis_compatibility.json").read_text())
+    assert len(schema) == 480 and len(pins["new_definitions"]) == 44
+    assert set(schema) - set(pins["definitions"]) == set(pins["new_definitions"]) | set(
+        synthesis["new_definitions"]
+    )
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(schema[name], sort_keys=True).encode()).hexdigest() == digest

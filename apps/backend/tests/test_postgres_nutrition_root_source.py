@@ -48,8 +48,8 @@ def test_nrc01_empty_installation_and_real_schema(nrc_server):
     assert not any(nrc_server["empty_install"].values())
     assert len(nrc_server["empty_install"]) == 13
     with nrc_server["engines"]["root"].connect() as db:
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
-        assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 98
+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 108
         assert all(t.name in inspect(db).get_table_names() for t in NUTRITION_ROOT_TABLES)
 
 
@@ -978,7 +978,7 @@ def test_nrc32_loss_refusal_no_read_drift_and_restored_db_binding(nrc_server):
         with pytest.raises(DBAPIError, match="Refusing destructive downgrade"):
             command.downgrade(config, "0015")
         db.rollback()
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
         assert (
             db.scalar(
                 text(

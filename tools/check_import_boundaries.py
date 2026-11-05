@@ -162,6 +162,29 @@ NUTRITION_ROOT_PURE_IMPORTS = {
     },
 }
 
+# Approved NPS companion: immutable source transport and an independently owned
+# Validation implementation. Producer business logic is never a validation oracle.
+NUTRITION_SYNTHESIS_PURE_IMPORTS = {
+    "app.modules.nutrition.synthesis_contracts": {
+        "math", "typing", "uuid", "pydantic", "app.domain.contracts",
+        "app.modules.nutrition.root_contracts",
+    },
+    "app.modules.nutrition.synthesis_journal": {
+        "app.domain.feature_identity", "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.synthesis_contracts",
+    },
+    "app.modules.nutrition.synthesis": {
+        "json", "dataclasses", "fractions", "app.domain.feature_identity",
+        "app.modules.nutrition.root_contracts", "app.modules.nutrition.root_public",
+        "app.modules.nutrition.synthesis_contracts", "app.modules.nutrition.synthesis_journal",
+    },
+    "app.modules.validation.nutrition_policy": {
+        "json", "fractions", "app.domain.feature_identity",
+        "app.modules.nutrition.root_contracts", "app.modules.nutrition.synthesis_contracts",
+        "app.modules.validation.nutrition_roots",
+    },
+}
+
 
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
@@ -182,6 +205,18 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             target == "app.modules.nutrition.root_contracts"
             or target.startswith("app.modules.nutrition.root_contracts.")
         )
+        nrc_transport = nrc_transport or (
+            module == "app.modules.validation.nutrition_policy" and any(
+                target == p or target.startswith(p + ".")
+                for p in {"app.modules.nutrition.root_contracts",
+                          "app.modules.nutrition.synthesis_contracts"}
+            )
+        )
+        if module in NUTRITION_SYNTHESIS_PURE_IMPORTS and not any(
+            target == p or target.startswith(p + ".")
+            for p in NUTRITION_SYNTHESIS_PURE_IMPORTS[module]
+        ):
+            errors.append(f"{line}: NUTRITION_SYNTHESIS_PURE_OR_INDEPENDENT_BOUNDARY: {target}")
         if module in NUTRITION_ROOT_PURE_IMPORTS and not any(
             target == p or target.startswith(p + ".")
             for p in NUTRITION_ROOT_PURE_IMPORTS[module]

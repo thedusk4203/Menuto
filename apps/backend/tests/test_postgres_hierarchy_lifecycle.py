@@ -301,7 +301,7 @@ def test_s02_populated_source_downgrade_refuses_history_loss(hierarchy_source):
         with pytest.raises(DBAPIError, match="Refusing destructive"):
             alembic_command.downgrade(config, "0014")
         conn.rollback()
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
         assert (
             conn.scalar(
                 text("SELECT count(*) FROM hierarchy_source_revisions WHERE provider_id=:p"),

@@ -135,6 +135,18 @@ from app.modules.nutrition.root_contracts import (
     NutritionRootValidationReport,
     NutritionSourceCommand,
 )
+from app.modules.nutrition.synthesis_contracts import (
+    NutritionPolicy,
+    NutritionPolicyReference,
+    NutritionPolicyValidationInput,
+    NutritionPolicyValidationReport,
+    NutritionSynthesisCaptureCommand,
+    NutritionSynthesisCommand,
+    NutritionSynthesisGrant,
+    NutritionSynthesisPrincipalEnrollment,
+    NutritionSynthesisProviderEnrollment,
+    NutritionSynthesisRecorded,
+)
 from app.modules.planning.contracts import (
     ActivePlanSnapshot,
     BoundActivePlanSnapshot,
@@ -749,6 +761,13 @@ CONTRACTS += (
     NutritionRecordedSource, NutritionRootContract, NutritionRootRequest,
     NutritionRootSourceSnapshot, NutritionRootValidationInput, NutritionRootValidationReport,
     NutritionSourceCommand,
+)
+
+CONTRACTS += (
+    NutritionPolicy, NutritionPolicyReference, NutritionPolicyValidationInput,
+    NutritionPolicyValidationReport, NutritionSynthesisCaptureCommand,
+    NutritionSynthesisCommand, NutritionSynthesisGrant, NutritionSynthesisPrincipalEnrollment,
+    NutritionSynthesisProviderEnrollment, NutritionSynthesisRecorded,
 )
 
 

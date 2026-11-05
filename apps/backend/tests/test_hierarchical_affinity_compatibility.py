@@ -18,7 +18,7 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
     pins = json.loads((FIXTURES / "hierarchical_affinity_compatibility.json").read_text())
     assert pins["base"] == "b591464e3ca495909851217141f96a55faaa35cc"
     schema = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
-    assert len(pins["definitions"]) == 349 and len(schema) == 447
+    assert len(pins["definitions"]) == 349 and len(schema) == 480
     assert len(pins["frozen_files"]) == 123
     for name, digest in pins["definitions"].items():
         assert (
@@ -50,7 +50,7 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{n:04}" for n in range(1, 17)]
+    ) == [f"{n:04}" for n in range(1, 18)]
 
 
 def test_hc79_retained_all2807_test_identities():

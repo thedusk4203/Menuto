@@ -476,7 +476,7 @@ def test_cfp44_old_cut_remains_replayable_after_live_publication_changes(postgre
 def test_cfp60_capture_preserves_schema_owner_rows_and_migration_head(postgres_engine):
     actor, q, _, _ = prepared(postgres_engine)
     tables = inspect(postgres_engine).get_table_names()
-    assert len(tables) == 99
+    assert len(tables) == 109
     watched = [
         "culinary_feature_reviews",
         "ingredient_protein_reviews",
@@ -505,4 +505,4 @@ def test_cfp60_capture_preserves_schema_owner_rows_and_migration_head(postgres_e
     )
     assert all(s.lstrip().split()[0].upper() in {"SHOW", "SELECT"} for s in statements)
     with postgres_engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0016"
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
