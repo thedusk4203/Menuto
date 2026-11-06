@@ -1,5 +1,23 @@
 # Implementation Blueprint — Milestone 0/1
 
+## Post-MBA dependency review — READY FOR INDEPENDENT ARCHITECTURE REVIEW
+
+The [Post-MBA capability/dependency review](POST_MBA_POLICY_INTEGRATION_V2_DEPENDENCY_REVIEW.md)
+reviews exact main `066125e3828fcf18384ea9aefacd1bf0503a9d9a` after PR #134.
+Recommended next gate: **MTR-006 Policy Integration v2 — Bounded Detailed Design
+(STRUCTURAL / TEST_ONLY)**, **READY FOR DETAILED DESIGN**, subject to independent
+architecture review and separate design authorization. Detailed design is **NOT STARTED**;
+implementation is **NOT AUTHORIZED**. Existing explicit Policy-owned precision can be studied
+without completing MTR-008; no default/override precedence is invented. The review requires
+trusted retained capture, fresh independent NRE/MBA and integrated-policy reconstruction,
+full joint witnesses, exact original measurement meaning and TEST_ONLY containment.
+
+Frozen Root/MTR-006 v1/MTR-007/MBA and their implementation identities remain unchanged.
+Production Nutrition/clinical content gate **CLOSED**; full MTR-006/007/008 **INCOMPLETE**,
+parent issues OPEN; 4,183 tests,515 exports,503 historical hashes,53 frozen files,
+schema0017/108, no0018 or new persistence. `planner_ready=False`; `activation_ready=False`;
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No downstream work is authorized.
+
 ## Measurement-basis applicability — STRUCTURALLY FROZEN / TEST_ONLY
 
 [Approved design PR #132](https://github.com/thedusk4203/Menuto/pull/132), reviewed head
