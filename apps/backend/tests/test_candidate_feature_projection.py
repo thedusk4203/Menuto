@@ -723,7 +723,8 @@ def test_cfp60_retained_baseline_contracts_files_and_no_new_persistence():
         ).read_text()
     )
     definitions = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
-    assert len(pins["definitions"]) == 358 and len(definitions) == 503  # 480 +23 NRE.
+    assert len(pins["definitions"]) == 358
+    assert len(definitions) == 515  # 503 retained +12 additive MBA.
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(definitions[name], sort_keys=True).encode()).hexdigest()

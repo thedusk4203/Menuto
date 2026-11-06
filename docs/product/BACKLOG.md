@@ -1,35 +1,36 @@
 # Backlog canonical V1.3 — MTR-001 → MTR-050
 
-## Measurement-basis applicability — bounded detailed design candidate
+## Measurement-basis applicability — implementation review candidate
 
-The dependency recommendation in [PR #131](https://github.com/thedusk4203/Menuto/pull/131)
-is **ARCHITECTURE APPROVED AND MERGED**: [PASS 6675396778](https://github.com/thedusk4203/Menuto/pull/131#issuecomment-6675396778),
-[completion 6676086123](https://github.com/thedusk4203/Menuto/pull/131#issuecomment-6676086123).
-Canonical design base is `bd2ad5308a58138be0c58a40f3100e60305fca58`; exact main push
-[CI 42153146331](https://github.com/thedusk4203/Menuto/actions/runs/42153146331) SUCCESS:
-**4,047 tests / 0 skips**, 503 retained definitions, migration **0017 / 108**.
+[Approved design PR #132](https://github.com/thedusk4203/Menuto/pull/132), reviewed head
+`803f83791bd7f41acda614268098f35b72eaa729`, merged at
+`83025f158306e8cebc6357ac6d13fc3caac57809`; exact main push
+[42174230677 — SUCCESS](https://github.com/thedusk4203/Menuto/actions/runs/42174230677).
+[Architecture PASS](https://github.com/thedusk4203/Menuto/pull/132#issuecomment-6678583194)
+and [design completion](https://github.com/thedusk4203/Menuto/pull/132#issuecomment-6679271731)
+remain the governing reviewed design records.
 
-The separately authorized [bounded detailed design](MEASUREMENT_BASIS_APPLICABILITY_INDEPENDENT_EVIDENCE_CONTAINMENT_DESIGN.md)
-settles an additive **STRUCTURAL / TEST_ONLY** measurement-meaning companion, an immutable
-server-owned fixture source, complete pre-policy scope binding and independent Validation
-reconstruction. Only explicitly authored same-meaning planned-input TEST_ONLY assertions may
-be positive; no clinical identity conversion, intake inference or numerical transform exists.
-The proposed slice requires no new PostgreSQL persistence, migration, role or production grant.
+The separately authorized bounded implementation adds a **STRUCTURAL / TEST_ONLY**
+companion, private harness-issued immutable fixture registry, complete pre-policy anchor
+projection, one-session Planning capture, provisional Nutrition producer and independently
+reconstructing Validation checker. Only original source-authored same-meaning planned-input
+fixtures may be positive. There is no conversion, physiological inference or production authority.
 
-**DESIGN CANDIDATE — READY FOR INDEPENDENT ARCHITECTURE REVIEW. IMPLEMENTATION NOT AUTHORIZED.**
-MBA001–MBA080 are future implementation obligations: 12 real PostgreSQL integration cases
-and 68 pure/adversarial/compatibility cases, not tests implemented or executed by this PR.
-Scientific evidence, real qualification/publication authority and production applicability
-remain unresolved separate CLOSED gates. MTR-006 policy-integration v2 and full MTR-008
-remain separate downstream work, not authorized by this design.
+**IMPLEMENTATION READY FOR INDEPENDENT REVIEW / FREEZE CANDIDATE — NOT FROZEN.**
+[Implementation evidence](MEASUREMENT_BASIS_APPLICABILITY_INDEPENDENT_EVIDENCE_CONTAINMENT_EVIDENCE.md)
+records MBA001–MBA080 mappings, actual PostgreSQL executions, regression and compatibility
+receipts. The earlier design's future-test language describes its historical docs-only stage;
+this implementation evidence is the current execution record. Do not self-approve or merge.
 
-Nutrition Root, MTR-006 synthesis and MTR-007 estimator structural foundations remain
-**FROZEN**; full MTR-006/007/008 remain **INCOMPLETE**, parent issues OPEN.
-**PRODUCTION NUTRITION/CLINICAL CONTENT GATE CLOSED**; planner_ready=False,
-activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. Preserve all 4,047
-baseline tests and 503 frozen hashes; schema 0017/108, no 0018. Do not self-approve or merge.
-This current-gate notice supersedes earlier proposed/candidate status wording only;
-historical dependency reviews and freeze receipts remain unchanged.
+All 4,047 baseline tests and 503 frozen exported-definition hashes are retained. The bundle
+adds 12 definitions (515 total). Schema remains **0017 / 108**, no0018, zero new persistence,
+SQL objects, roles or grants. No production provider, qualification, publication, seed or default.
+Nutrition Root, MTR-006 synthesis and MTR-007 estimator structural foundations remain **FROZEN**.
+Full MTR-006/007/008 remain **INCOMPLETE**, parent issues OPEN. The **PRODUCTION
+NUTRITION/CLINICAL CONTENT GATE remains CLOSED**; planner_ready=False,
+activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+MTR-006 policy-integration v2 and MTR-008 remain separate unauthorized downstream gates.
+No scientific conversion, new clinical measurement source or downstream work is introduced.
 
 ## MTR-040 — COMPLETE; issue #41 — CLOSED / COMPLETED
 

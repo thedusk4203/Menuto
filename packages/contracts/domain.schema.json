@@ -428,6 +428,999 @@
       "title": "AvailableReviewedReferencePrior",
       "type": "object"
     },
+    "BasisApplicabilityCheckV1": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "enum": [
+            "CONSISTENT",
+            "INCONSISTENT"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "default": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "reconstructed_result_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reconstructed Result Fingerprint"
+        },
+        "scientific_correctness": {
+          "const": "NOT_CERTIFIED",
+          "default": "NOT_CERTIFIED",
+          "title": "Scientific Correctness",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "NOT_PROVED_OFFLINE",
+          "default": "NOT_PROVED_OFFLINE",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "default": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision",
+        "findings",
+        "reconstructed_result_fingerprint"
+      ],
+      "title": "BasisApplicabilityCheckV1",
+      "type": "object"
+    },
+    "BasisApplicabilityHandoffV1": {
+      "additionalProperties": false,
+      "properties": {
+        "policy_integration": {
+          "const": "NOT_AUTHORIZED",
+          "default": "NOT_AUTHORIZED",
+          "title": "Policy Integration",
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/$defs/BasisApplicabilityResultV1"
+        },
+        "sources": {
+          "$ref": "#/$defs/BasisApplicabilitySourcesV1"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "default": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sources",
+        "result"
+      ],
+      "title": "BasisApplicabilityHandoffV1",
+      "type": "object"
+    },
+    "BasisApplicabilityResultV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "default": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "consumption": {
+          "const": "NOT_ASSERTED",
+          "default": "NOT_ASSERTED",
+          "title": "Consumption",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "basis-applicability-result.v1",
+          "default": "basis-applicability-result.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "current_authorization": {
+          "const": "NOT_CLAIMED",
+          "default": "NOT_CLAIMED",
+          "title": "Current Authorization",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "default": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "hard_policy_feasibility": {
+          "const": "NOT_EVALUATED",
+          "default": "NOT_EVALUATED",
+          "title": "Hard Policy Feasibility",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "APPLICABLE_TEST_ONLY",
+            "NOT_APPLICABLE",
+            "UNAVAILABLE",
+            "UNSUPPORTED",
+            "REJECTED",
+            "RESOURCE_EXCEEDED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "default": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "policy_integration": {
+          "const": "NOT_AUTHORIZED",
+          "default": "NOT_AUTHORIZED",
+          "title": "Policy Integration",
+          "type": "string"
+        },
+        "policy_synthesis": {
+          "const": "NOT_PERFORMED",
+          "default": "NOT_PERFORMED",
+          "title": "Policy Synthesis",
+          "type": "string"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "default": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "required_anchor_fingerprints": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "title": "Required Anchor Fingerprints",
+          "type": "array"
+        },
+        "result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "scientific_correctness": {
+          "const": "NOT_CERTIFIED",
+          "default": "NOT_CERTIFIED",
+          "title": "Scientific Correctness",
+          "type": "string"
+        },
+        "solver_infeasibility": {
+          "const": "NOT_PROVEN",
+          "default": "NOT_PROVEN",
+          "title": "Solver Infeasibility",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "NOT_PROVED_OFFLINE",
+          "default": "NOT_PROVED_OFFLINE",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "default": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        },
+        "witnesses": {
+          "items": {
+            "$ref": "#/$defs/BasisComparisonWitnessV1"
+          },
+          "title": "Witnesses",
+          "type": "array"
+        }
+      },
+      "required": [
+        "outcome",
+        "reasons",
+        "required_anchor_fingerprints",
+        "witnesses",
+        "source_fingerprint",
+        "result_fingerprint"
+      ],
+      "title": "BasisApplicabilityResultV1",
+      "type": "object"
+    },
+    "BasisApplicabilitySourcesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "absences": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 256,
+          "title": "Absences",
+          "type": "array"
+        },
+        "anchors": {
+          "items": {
+            "$ref": "#/$defs/BasisClaimAnchorV1"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "title": "Anchors",
+          "type": "array"
+        },
+        "artifact": {
+          "$ref": "#/$defs/BasisFixtureArtifactV1"
+        },
+        "contract_version": {
+          "const": "basis-applicability-sources.v1",
+          "default": "basis-applicability-sources.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "frame": {
+          "$ref": "#/$defs/BasisCaptureFrameV1"
+        },
+        "nre": {
+          "$ref": "#/$defs/NutritionResolutionHandoffV2"
+        },
+        "selectors": {
+          "$ref": "#/$defs/BasisSelectorsV1"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "nre",
+        "artifact",
+        "selectors",
+        "anchors",
+        "frame",
+        "absences",
+        "source_fingerprint"
+      ],
+      "title": "BasisApplicabilitySourcesV1",
+      "type": "object"
+    },
+    "BasisAssertionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "default": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "material_reference_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Material Reference Fingerprint",
+          "type": "string"
+        },
+        "meanings": {
+          "items": {
+            "$ref": "#/$defs/MeasurementMeaningV1"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "title": "Meanings",
+          "type": "array"
+        },
+        "original_evidence": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "title": "Original Evidence",
+          "type": "array"
+        },
+        "original_sources": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "title": "Original Sources",
+          "type": "array"
+        },
+        "protocol_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Protocol Fingerprint",
+          "type": "string"
+        },
+        "required_keys": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "title": "Required Keys",
+          "type": "array"
+        },
+        "revision": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Revision",
+          "type": "string"
+        },
+        "scope_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Id",
+          "type": "string"
+        },
+        "scope_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope Version",
+          "type": "string"
+        },
+        "stable_scope_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Stable Scope Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "subject",
+        "scope_id",
+        "scope_version",
+        "protocol_fingerprint",
+        "stable_scope_fingerprint",
+        "original_sources",
+        "original_evidence",
+        "required_keys",
+        "meanings",
+        "material_reference_fingerprint",
+        "effective"
+      ],
+      "title": "BasisAssertionV1",
+      "type": "object"
+    },
+    "BasisCaptureFrameV1": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Artifact Fingerprint",
+          "type": "string"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "deployment": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Deployment",
+          "type": "string"
+        },
+        "issuer_epoch": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Issuer Epoch",
+          "type": "string"
+        },
+        "origin": {
+          "const": "RETAINED_NOT_OFFLINE_PROOF",
+          "default": "RETAINED_NOT_OFFLINE_PROOF",
+          "title": "Origin",
+          "type": "string"
+        },
+        "registry_coherence": {
+          "const": "PINNED_BEFORE_AFTER_NOT_SHARED_MVCC",
+          "default": "PINNED_BEFORE_AFTER_NOT_SHARED_MVCC",
+          "title": "Registry Coherence",
+          "type": "string"
+        },
+        "registry_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Registry Id",
+          "type": "string"
+        },
+        "registry_revision": {
+          "exclusiveMinimum": 0,
+          "title": "Registry Revision",
+          "type": "integer"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "registry_id",
+        "registry_revision",
+        "artifact_fingerprint",
+        "deployment",
+        "issuer_epoch",
+        "database_oid",
+        "database_name",
+        "started_at",
+        "completed_at"
+      ],
+      "title": "BasisCaptureFrameV1",
+      "type": "object"
+    },
+    "BasisClaimAnchorV1": {
+      "additionalProperties": false,
+      "properties": {
+        "anchor_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Anchor Fingerprint",
+          "type": "string"
+        },
+        "descriptor": {
+          "$ref": "#/$defs/NutritionRootDescriptor"
+        },
+        "evidence_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Evidence Fingerprint",
+          "type": "string"
+        },
+        "key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Key",
+          "type": "string"
+        },
+        "layer": {
+          "enum": [
+            "GUIDELINE_HARD",
+            "REFERENCE_CENTER",
+            "GOAL_PROTECTION",
+            "DAILY_PROTECTION",
+            "COMFORT",
+            "WEEKLY_GOAL",
+            "WEEKLY_CENTER"
+          ],
+          "title": "Layer",
+          "type": "string"
+        },
+        "meaning_preimage": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Meaning Preimage"
+        },
+        "nre_result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Nre Result Fingerprint",
+          "type": "string"
+        },
+        "nre_source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Nre Source Fingerprint",
+          "type": "string"
+        },
+        "original_source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Original Source Fingerprint",
+          "type": "string"
+        },
+        "requirement_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Requirement Fingerprint",
+          "type": "string"
+        },
+        "root_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Root Fingerprint",
+          "type": "string"
+        },
+        "root_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Root Key",
+          "type": "string"
+        },
+        "stable_scope_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Stable Scope Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "key",
+        "layer",
+        "root_key",
+        "descriptor",
+        "subject",
+        "original_source_fingerprint",
+        "evidence_fingerprint",
+        "meaning_preimage",
+        "stable_scope_fingerprint",
+        "root_fingerprint",
+        "requirement_fingerprint",
+        "nre_source_fingerprint",
+        "nre_result_fingerprint",
+        "anchor_fingerprint"
+      ],
+      "title": "BasisClaimAnchorV1",
+      "type": "object"
+    },
+    "BasisComparisonWitnessV1": {
+      "additionalProperties": false,
+      "properties": {
+        "anchor_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Anchor Fingerprint",
+          "type": "string"
+        },
+        "assertion_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Assertion Fingerprint",
+          "type": "string"
+        },
+        "component": {
+          "enum": [
+            "ENERGY",
+            "PROTEIN",
+            "FAT",
+            "CARBOHYDRATE"
+          ],
+          "title": "Component",
+          "type": "string"
+        },
+        "original_meaning_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Original Meaning Fingerprint",
+          "type": "string"
+        },
+        "period_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Period Fingerprint",
+          "type": "string"
+        },
+        "relation": {
+          "const": "SAME_DECLARED_PLANNED_INPUT_MEANING_V1",
+          "default": "SAME_DECLARED_PLANNED_INPUT_MEANING_V1",
+          "title": "Relation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "anchor_fingerprint",
+        "period_fingerprint",
+        "component",
+        "assertion_fingerprint",
+        "original_meaning_fingerprint"
+      ],
+      "title": "BasisComparisonWitnessV1",
+      "type": "object"
+    },
+    "BasisFixtureArtifactV1": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Artifact Fingerprint",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "deployment": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Deployment",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "default": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/BasisFixtureEventV1"
+          },
+          "maxItems": 256,
+          "minItems": 1,
+          "title": "Events",
+          "type": "array"
+        },
+        "issuer_epoch": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Issuer Epoch",
+          "type": "string"
+        },
+        "previous_artifact_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Artifact Fingerprint"
+        },
+        "registry_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Registry Id",
+          "type": "string"
+        },
+        "revision": {
+          "exclusiveMinimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "test-only.basis-artifact.v1",
+          "default": "test-only.basis-artifact.v1",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "registry_id",
+        "revision",
+        "previous_artifact_fingerprint",
+        "deployment",
+        "database_oid",
+        "database_name",
+        "issuer_epoch",
+        "events",
+        "artifact_fingerprint"
+      ],
+      "title": "BasisFixtureArtifactV1",
+      "type": "object"
+    },
+    "BasisFixtureEventV1": {
+      "additionalProperties": false,
+      "properties": {
+        "assertion": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BasisAssertionV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "assertion_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Assertion Fingerprint"
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "enum": [
+                "TEST_BASIS_REVIEW",
+                "TEST_BASIS_PUBLISH",
+                "TEST_BASIS_WITHDRAW",
+                "TEST_BASIS_SOURCE_READ"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Capability"
+        },
+        "effective": {
+          "$ref": "#/$defs/NutritionSourceInterval"
+        },
+        "event_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Event Hash",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "ENROLL",
+            "GRANT",
+            "REVOKE",
+            "QUALIFY",
+            "DISQUALIFY",
+            "REVIEW",
+            "PUBLISH",
+            "SUPERSEDE",
+            "RETIRE",
+            "WITHDRAW"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "predecessor_publication_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Publication Id"
+        },
+        "previous_hash": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Hash"
+        },
+        "principal": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Principal",
+          "type": "string"
+        },
+        "principal_subject": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Principal Subject"
+        },
+        "qualification": {
+          "anyOf": [
+            {
+              "const": "SYMBOLIC_TEST_ONLY_NOT_SCIENTIFIC",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Qualification"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "review_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Review Id"
+        },
+        "scope": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope",
+          "type": "string"
+        },
+        "sequence": {
+          "exclusiveMinimum": 0,
+          "maximum": 256,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "sequence",
+        "previous_hash",
+        "recorded_at",
+        "effective",
+        "kind",
+        "principal",
+        "principal_subject",
+        "capability",
+        "scope",
+        "qualification",
+        "assertion",
+        "assertion_fingerprint",
+        "review_id",
+        "predecessor_publication_id",
+        "event_hash"
+      ],
+      "title": "BasisFixtureEventV1",
+      "type": "object"
+    },
+    "BasisSelectorsV1": {
+      "additionalProperties": false,
+      "properties": {
+        "assertion_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Assertion Id",
+          "type": "string"
+        },
+        "assertion_revision": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Assertion Revision",
+          "type": "string"
+        },
+        "max_work": {
+          "default": 1000000,
+          "exclusiveMinimum": 0,
+          "maximum": 1000000,
+          "title": "Max Work",
+          "type": "integer"
+        },
+        "nre_scope": {
+          "$ref": "#/$defs/NutritionResolutionScopeRequestV1"
+        },
+        "publication_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Publication Id",
+          "type": "string"
+        },
+        "reader_principal": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Reader Principal",
+          "type": "string"
+        }
+      },
+      "required": [
+        "nre_scope",
+        "publication_id",
+        "assertion_id",
+        "assertion_revision",
+        "reader_principal"
+      ],
+      "title": "BasisSelectorsV1",
+      "type": "object"
+    },
     "BatchFlowLinkDraft": {
       "additionalProperties": false,
       "description": "Future orchestration seam only: not permission to create a physical batch.",
@@ -10734,6 +11727,86 @@
       ],
       "title": "MeasurementBasis",
       "type": "string"
+    },
+    "MeasurementMeaningV1": {
+      "additionalProperties": false,
+      "properties": {
+        "descriptor": {
+          "$ref": "#/$defs/NutritionRootDescriptor"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "default": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "estimator_version": {
+          "const": "EXACT_FINITE_RESOLUTION_V1",
+          "default": "EXACT_FINITE_RESOLUTION_V1",
+          "title": "Estimator Version",
+          "type": "string"
+        },
+        "interpretation_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Interpretation Id",
+          "type": "string"
+        },
+        "interpretation_version": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Interpretation Version",
+          "type": "string"
+        },
+        "material_bases": {
+          "items": {
+            "enum": [
+              "EP_RAW_G",
+              "COOKED_G"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Material Bases",
+          "type": "array"
+        },
+        "meaning": {
+          "enum": [
+            "PLANNED_INGREDIENT_INPUT_V1",
+            "PLANNED_OFFERED_FOOD_V1",
+            "OBSERVED_OFFERED_FOOD_V1",
+            "OBSERVED_CONSUMED_FOOD_V1",
+            "PHYSIOLOGICAL_INTAKE_V1",
+            "UNSPECIFIED_V1"
+          ],
+          "title": "Meaning",
+          "type": "string"
+        },
+        "nre_contract": {
+          "const": "nutrition-resolution-handoff.v2",
+          "default": "nutrition-resolution-handoff.v2",
+          "title": "Nre Contract",
+          "type": "string"
+        },
+        "vocabulary": {
+          "const": "measurement-meaning.v1",
+          "default": "measurement-meaning.v1",
+          "title": "Vocabulary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "meaning",
+        "interpretation_id",
+        "interpretation_version",
+        "material_bases",
+        "descriptor"
+      ],
+      "title": "MeasurementMeaningV1",
+      "type": "object"
     },
     "MemberNutritionProfileWrite": {
       "additionalProperties": false,
