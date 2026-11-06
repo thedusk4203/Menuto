@@ -112,6 +112,13 @@ from app.modules.learning.contracts import (
     RetentionMultiplier,
     UnavailableProposalLocalFeaturePenalty,
 )
+from app.modules.nutrition.basis_contracts import (
+    BasisApplicabilityCheckV1,
+    BasisApplicabilityHandoffV1,
+    BasisApplicabilityResultV1,
+    BasisApplicabilitySourcesV1,
+    BasisSelectorsV1,
+)
 from app.modules.nutrition.contracts import (
     CanonicalMemberSafetySnapshot,
     MemberNutritionProfileWrite,
@@ -782,6 +789,11 @@ CONTRACTS += (
     NutritionResolutionCheckV1, NutritionResolutionEstimateV1,
     NutritionResolutionHandoffV2, NutritionResolutionScopeRequestV1,
     NutritionResolutionScopeV1, NutritionResolutionSourcesV1,
+)
+
+CONTRACTS += (
+    BasisApplicabilityCheckV1, BasisApplicabilityHandoffV1, BasisApplicabilityResultV1,
+    BasisApplicabilitySourcesV1, BasisSelectorsV1,
 )
 
 

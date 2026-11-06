@@ -228,6 +228,45 @@ NUTRITION_RESOLUTION_IMPORTS = {
 }
 
 
+# MBA companion: exact additive imports only. No expansion of frozen NRE allowances.
+BASIS_COMPANION_IMPORTS = {
+    "app.modules.nutrition.basis_contracts": {
+        "typing", "pydantic", "app.domain.contracts", "app.domain.feature_identity",
+        "app.modules.households.contracts", "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.resolution_contracts", "app.modules.nutrition.resolution_limits",
+    },
+    "app.modules.nutrition.basis_projection": {
+        "json", "app.domain.feature_identity", "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.root_contracts", "app.modules.nutrition.synthesis",
+        "app.modules.nutrition.synthesis_journal",
+        "app.modules.nutrition.resolution_limits",
+    },
+    "app.modules.nutrition.basis_applicability": {
+        "app.domain.feature_identity", "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.basis_projection", "app.modules.nutrition.resolution_estimator",
+        "app.modules.nutrition.resolution_limits",
+    },
+    "app.modules.validation.basis_applicability": {
+        "json", "app.domain.feature_identity", "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.root_contracts", "app.modules.nutrition.resolution_limits",
+        "app.modules.validation.nutrition_resolution",
+        "app.modules.validation.nutrition_resolution_authority",
+    },
+    "app.modules.planning.basis_capture": {
+        "dataclasses", "threading", "time", "weakref", "sqlalchemy",
+        "app.domain.feature_identity", "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.basis_applicability", "app.modules.nutrition.basis_projection",
+        "app.modules.nutrition.resolution_contracts", "app.modules.nutrition.resolution_estimator",
+        "app.modules.nutrition.resolution_limits",
+        "app.modules.planning.nutrition_resolution_capture",
+    },
+    "app.modules.planning.basis_host": {
+        "concurrent.futures", "app.modules.nutrition.basis_applicability",
+        "app.modules.validation.basis_applicability",
+    },
+}
+
+
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
     parts = module.split(".")
@@ -243,6 +282,11 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     }
 
     def audit(target, line):
+        if module in BASIS_COMPANION_IMPORTS:
+            if not any(target == p or target.startswith(p + ".")
+                       for p in BASIS_COMPANION_IMPORTS[module]):
+                errors.append(f"{line}: MBA_INDEPENDENT_OR_PURE_BOUNDARY: {target}")
+            return
         if module in NUTRITION_RESOLUTION_IMPORTS:
             if not any(target == p or target.startswith(p + ".")
                        for p in NUTRITION_RESOLUTION_IMPORTS[module]):
@@ -515,6 +559,10 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 if item.name == "*" and context:
                     errors.append(f"{node.lineno}: WILDCARD_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            if module in BASIS_COMPANION_IMPORTS and node.func.id in {
+                "open", "input", "eval", "exec", "__import__"
+            }:
+                errors.append(f"{node.lineno}: MBA_NO_DYNAMIC_OR_FILE_IO")
             if module in NUTRITION_RESOLUTION_IMPORTS and node.func.id in {
                 "open", "input", "eval", "exec", "__import__"
             }:
@@ -526,6 +574,11 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             if context and node.func.id in {"__import__", "eval", "exec"}:
                 errors.append(f"{node.lineno}: DYNAMIC_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            if (module in BASIS_COMPANION_IMPORTS
+                and module not in {"app.modules.planning.basis_capture",
+                                   "app.modules.planning.basis_host"}
+                and node.func.attr in {"now", "utcnow", "today", "time", "getenv", "monotonic"}):
+                errors.append(f"{node.lineno}: MBA_NO_CLOCK_OR_ENVIRONMENT")
             if (module in NUTRITION_RESOLUTION_IMPORTS
                 and module != "app.modules.planning.nutrition_resolution_capture"
                 and node.func.attr in {"now", "utcnow", "today", "time", "getenv", "monotonic"}):

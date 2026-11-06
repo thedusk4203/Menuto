@@ -68,12 +68,14 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
     nutrition = json.loads((FIXTURES / "nutrition_root_compatibility.json").read_text())
     synthesis = json.loads((FIXTURES / "nutrition_synthesis_compatibility.json").read_text())
     resolution = json.loads((FIXTURES / "nutrition_resolution_compatibility.json").read_text())
+    basis = json.loads((FIXTURES / "basis_compatibility.json").read_text())
     assert len(defs) == (
         384
         + len(shared["new_definitions"])
         + len(nutrition["new_definitions"])
         + len(synthesis["new_definitions"])
         + len(resolution["new_definitions"])
+        + len(basis["new_definitions"])
     )
     assert sorted(set(defs) - set(pins["definitions"])) == sorted(
         pins["new_definitions"]
@@ -81,6 +83,7 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
         + nutrition["new_definitions"]
         + synthesis["new_definitions"]
         + resolution["new_definitions"]
+        + basis["new_definitions"]
     )
     for name, digest in pins["definitions"].items():
         assert (
