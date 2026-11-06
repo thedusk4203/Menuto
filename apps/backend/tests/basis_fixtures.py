@@ -286,3 +286,131 @@ def reauthor_meaning(source, change):
         data["frame"][name] = data["artifact"][name]
     data["frame"]["registry_revision"] = data["artifact"]["revision"]
     return rehash_sources(data)
+
+
+def weekly_basis_sources(include_week):
+    """Invented retained TEST_ONLY source, no canonical-origin/scientific claim."""
+    from datetime import timedelta
+
+    from app.modules.nutrition.resolution_contracts import NutritionResolutionHandoffV2
+    from app.modules.nutrition.resolution_estimator import estimate_nutrition_resolution
+    from nutrition_resolution_fixtures import rehash, sources
+    from nutrition_synthesis_fixtures import instruction
+    from nutrition_synthesis_pure_fixtures import reauthor_root, reauthor_rule, weekly_sources
+
+    old = retained()
+    synthesis = weekly_sources(old.nre.sources.synthesis_sources)
+
+    def original_root(data):
+        guideline = next(
+            r["command"]["body"]["guideline"]
+            for r in data["sources"]
+            if r["command"]["body"]["kind"] == "DRAFT"
+        )
+        guideline["evidence_manifest"] = [
+            canonical(
+                proof(
+                    [
+                        ("root:" + c["root_key"], meaning(c["descriptor"]))
+                        for c in guideline["clauses"]
+                    ]
+                )
+            )
+        ]
+        body_hash = b.n.nutrition_root_hash("nutrition.guideline-body.v1", guideline)
+        evidence_hash = b.n.nutrition_root_hash(
+            "nutrition.evidence-manifest.v1", guideline["evidence_manifest"]
+        )
+        data["request"]["guideline_body_fingerprint"] = body_hash
+        for record in data["sources"]:
+            value = record["command"]["body"]
+            if value["kind"] in {"REVIEW", "PUBLICATION"}:
+                value["body_fingerprint"] = body_hash
+                if value["kind"] == "REVIEW":
+                    value["evidence_fingerprint"] = evidence_hash
+            if value["kind"] == "ASSESSMENT":
+                value["guideline_body_fingerprint"] = body_hash
+
+    synthesis = reauthor_root(synthesis, original_root)
+    root = synthesis.request.root
+    if include_week:
+
+        def add_week(rule):
+            rule["cases"][0]["operations"].append(
+                canonical(
+                    instruction(
+                        "TEST_ONLY_week_comfort",
+                        "MAKE_CONSTRAINT",
+                        ("lower", "upper"),
+                        root_key=root.roots[0].clause.root_key,
+                        constraint_kind="RANGE",
+                        layer="COMFORT",
+                        temporal=root.sources.request.temporal,
+                    )
+                )
+            )
+
+        synthesis = reauthor_rule(synthesis, add_week)
+
+    def rule_meanings(rule):
+        original = [x for x in rule["evidence"] if x["evidence_id"] == rule["calendar_evidence_id"]]
+        clauses = {r.clause.root_key: r.clause for r in root.roots}
+        claims = []
+        for case in rule["cases"]:
+            for op in case["operations"]:
+                if op["kind"] == "MAKE_CONSTRAINT":
+                    desc = b.n.NutritionRootDescriptor.model_validate(
+                        canonical(clauses[op["root_key"]].descriptor) | {"temporal": op["temporal"]}
+                    )
+                    claims.append(("rule:" + case["id"] + ":" + op["id"], meaning(desc)))
+        evidence = original + [
+            canonical(proof(claims[i : i + 8])) for i in range(0, len(claims), 8)
+        ]
+        rule["evidence"] = sorted(evidence, key=lambda x: x["evidence_id"])
+
+    synthesis = reauthor_rule(synthesis, rule_meanings)
+    ns = canonical(sources(synthesis))
+    recipe = ns["recipes"][0]
+    recipe["ingredients"][0]["adjustment"] = dict(kind="NONE", min_delta="0", max_delta="0")
+    tier = recipe["portion_tiers"][0]["id"]
+    ns["scope"]["recipes"][0]["tier_ids"] = [tier]
+    template = next(x for x in ns["scope"]["slots"][0]["alternatives"] if x["tier_id"] == tier)
+    first = root.sources.request.temporal.interval.start
+    ns["scope"]["slots"] = [
+        dict(
+            slot_id=f"TEST_ONLY_day_{i}",
+            interval=dict(start=first + timedelta(days=i), end=first + timedelta(days=i + 1)),
+            alternatives=[template | {"slot_id": f"TEST_ONLY_day_{i}"}],
+        )
+        for i in range(7)
+    ]
+    ns = rehash(ns, food_manifest=True, counts=True)
+    nre = NutritionResolutionHandoffV2(sources=ns, estimate=estimate_nutrition_resolution(ns))
+    assert nre.estimate.availability == "AVAILABLE", nre.estimate.reasons
+    a = artifact(nre)
+    selectors = canonical(old.selectors)
+    selectors["nre_scope"] = canonical(ns.scope)
+    selectors["nre_scope"].pop("requirement_fingerprint")
+    selectors["nre_scope"]["contract_version"] = "nutrition-resolution-scope-request.v1"
+    frame = canonical(old.frame)
+    for key in (
+        "registry_id",
+        "artifact_fingerprint",
+        "deployment",
+        "issuer_epoch",
+        "database_oid",
+        "database_name",
+    ):
+        frame[key] = getattr(a, key)
+    frame["registry_revision"] = a.revision
+    return rehash_sources(
+        dict(
+            contract_version="basis-applicability-sources.v1",
+            nre=nre,
+            artifact=a,
+            selectors=selectors,
+            anchors=project_basis_anchors(nre),
+            frame=frame,
+            absences=(),
+        )
+    )

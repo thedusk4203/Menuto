@@ -104,12 +104,12 @@ cooperative rather than a hostile-Python sandbox. No HTTP ingress-security claim
 - Existing export-total/exact-set assertions are mechanically synchronized in six legacy test files.
   Original definition/file hash checks and all original test identities remain intact. No accepted runtime
   behavior or frozen compatibility receipt is changed.
-- Focused local execution: **89pure tests /0skips;26real PostgreSQL executions /0skips** covering all12
+- Focused local execution: **91pure tests /0skips;26real PostgreSQL executions /0skips** covering all12
   PG obligations. Additional parameterization is not counted as new numbered requirements.
 - Client contracts/typecheck/build: PASS; client10/10. Architecture/import/lint/OpenAPI/fixtures: PASS.
   Benchmark22/22. The complete full-regression and separate SCRAM/TLS16/16 evidence must be verified in
   the final exact-head PR CI receipt before delivery; earlier or collected-only evidence is insufficient.
-- Complete collected target: **4,162 tests =4,047 retained +115 additive**, zero skips required.
+- Complete collected target: **4,164 tests =4,047 retained +117 additive**, zero skips required.
 
 The fresh-install PostgreSQL obligation runs migration head on an empty database, checks108domain tables,
 no basis objects and zero production Nutrition source rows. Positive test setup is explicitly TEST_ONLY;
@@ -135,7 +135,7 @@ no installation/migration ships providers, qualifications, publications, scienti
 PG rows are actual authenticated PostgreSQL protected-path tests, not mocks or collection-only claims.
 Pure rows use retained synthetic source preimages and independently expected behavior. Parameterized
 functions spanning several IDs include distinct per-case inputs; each listed obligation is mandatory.
-Local JUnit receipts: `.local/mba-pure.xml` (89) and `.local/mba-pg.xml` (26); the final exact-head
+Local JUnit receipts: `.local/mba-pure.xml` (91) and `.local/mba-pg.xml` (26); the final exact-head
 GitHub Actions receipt independently binds the complete executed corpus to the submitted head.
 
 | ID | Class | Required behavior | Executed test(s), under `apps/backend/tests/` |
@@ -189,7 +189,7 @@ GitHub Actions receipt independently binds the complete executed corpus to the s
 | MBA047 | Pure | Retention/yield/loss/absorption coefficient or converter field is unsupported | `test_basis_applicability.py::test_mba047_converter_fields_forbidden` |
 | MBA048 | Pure | Shared/fractional serving or inferred member portion is unsupported | `test_basis_applicability.py::test_mba048_no_fractional_shared_serving` |
 | MBA049 | Pure | Root/rule/precision/requirement fingerprint pins are recomputed from complete primitives | `test_basis_applicability.py::test_mba049_pins_recomputed_not_public_hashes` |
-| MBA050 | Pure | Comfort-only frozen requirement is distinct from the complete anchor manifest; hard/goal/weekly anchors need existing exact period/component coverage | `test_basis_applicability.py::test_mba050_comfort_manifest_not_all_claims` |
+| MBA050 | Pure | Comfort-only frozen requirement is distinct from the complete anchor manifest; hard/goal/weekly anchors need existing exact period/component coverage | `test_basis_applicability.py::test_mba050_comfort_manifest_not_all_claims` <br>`test_basis_applicability.py::test_mba050_full_week_anchors_need_original_period` |
 | MBA051 | Pure | Ambiguous lineage/unsupported instruction/version/precision descriptor divergence fails closed | `test_basis_applicability.py::test_mba051_ambiguous_lineage_not_favorable_selection` |
 | MBA052 | Pure | No completed NutritionPolicy/ResolvedPlanPolicy is required or accepted as source truth | `test_basis_applicability.py::test_mba052_completed_policy_not_source_input` |
 | MBA053 | Pure | Missing, extra, duplicate or favorable-subset anchors prevent whole-result success | `test_basis_applicability.py::test_mba053_whole_manifest_required` |

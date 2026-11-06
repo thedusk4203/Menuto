@@ -272,6 +272,9 @@ def test_mba011_fresh_install_no_basis_objects_or_content(postgres_engine):  # n
         assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
         tables = inspect(db.connection()).get_table_names()
         assert len(tables) == 109 and not any("basis" in t for t in tables)
+        for name in tables:
+            if name.startswith("nutrition_"):
+                assert db.scalar(text('SELECT count(*) FROM public."' + name + '"')) == 0, name
         # Each other case uses a distinct synthetic provider; a separate fresh DB has no rows.
         assert (
             db.scalar(

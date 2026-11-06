@@ -134,6 +134,25 @@ def test_mba021_missing_original_meaning_legacy_unavailable():
 def test_mba022_external_cannot_override_original():
     s = assertion_edit(lambda a: a["meanings"][0].update(meaning="PHYSIOLOGICAL_INTAKE_V1"))
     no_positive(s, "ORIGINAL_MEANING_CONTRADICTION")
+    original = reauthor_meaning(
+        retained(),
+        lambda body: [
+            x["meaning"].update(meaning="PHYSIOLOGICAL_INTAKE_V1") for x in body["claims"]
+        ],
+    )
+
+    def override(events):
+        review = next(e for e in events if e["kind"] == "REVIEW")
+        for row in review["assertion"]["meanings"]:
+            row["meaning"] = "PLANNED_INGREDIENT_INPUT_V1"
+        fingerprint = b.basis_hash("assertion", review["assertion"])
+        for event in events:
+            if event["kind"] in {"REVIEW", "PUBLISH"}:
+                event["assertion_fingerprint"] = fingerprint
+
+    contradictory = edited_history(override, original)
+    no_positive(contradictory, "ORIGINAL_MEANING_CONTRADICTION")
+    assert check(contradictory, resolve(retained())).decision == "INCONSISTENT"
 
 
 def test_mba023_guideline_evidence_revision_exact():
@@ -521,11 +540,25 @@ def test_mba070_host_timeout_no_success():
 
     from app.modules.planning.basis_host import _run_bounded
 
-    def timeout(*args, **kwargs):
-        raise TimeoutError()
+    calls = []
+
+    class TimeoutExecutor:
+        def __init__(self, *, max_workers):
+            assert max_workers == 1
+
+        def submit(self, operation):
+            return self
+
+        def result(self, *, timeout):
+            assert timeout == 10
+            raise TimeoutError()
+
+        def shutdown(self, **kwargs):
+            calls.append(kwargs)
 
     with pytest.raises(ValueError, match="RESOURCE_EXCEEDED"):
-        _run_bounded(lambda: None, executor_factory=timeout)
+        _run_bounded(lambda: None, executor_factory=TimeoutExecutor)
+    assert calls == [{"wait": False, "cancel_futures": True}]
 
 
 def test_mba071_pure_modules_no_io_or_clock():
@@ -739,3 +772,19 @@ def test_mba037_future_authority_change_not_early(kind):
     future = edited_history(lambda es: es.append(old))
     assert resolve(future).outcome == "APPLICABLE_TEST_ONLY"
     assert check(future, resolve(future)).decision == "CONSISTENT"
+
+
+@pytest.mark.parametrize("complete_week", [False, True], ids=["missing-week", "retained-week"])
+def test_mba050_full_week_anchors_need_original_period(complete_week):
+    from basis_fixtures import weekly_basis_sources
+
+    s = weekly_basis_sources(complete_week)
+    r = resolve(s)
+    assert "WEEKLY_GOAL" in {a.layer for a in s.anchors}
+    if complete_week:
+        assert r.outcome == "APPLICABLE_TEST_ONLY", r.reasons
+        assert len(r.witnesses) == len(s.anchors) > 30
+    else:
+        assert r.outcome == "UNAVAILABLE" and r.reasons == ("TEMPORAL_COVERAGE_MISSING",), r
+        assert not r.witnesses
+    assert check(s, r).decision == "CONSISTENT"
