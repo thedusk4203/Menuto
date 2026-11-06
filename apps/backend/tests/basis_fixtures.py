@@ -31,7 +31,9 @@ def proof(claims):
         separators=(",", ":"),
     )
     return b.n.NutritionSourceEvidence(
-        evidence_id="TEST_ONLY_MBA_" + uuid4().hex,
+        # Frozen SQL checks canonical order using the database collation. A lowercase
+        # suffix after the existing "algebra" ID agrees with Python/C and en_US order.
+        evidence_id="TEST_ONLY_zmba_" + uuid4().hex,
         version="TEST_ONLY_v1",
         environment="TEST_ONLY",
         purpose="TEST_ONLY invented same-meaning fixture, NOT scientific evidence",

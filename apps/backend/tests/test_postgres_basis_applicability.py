@@ -16,7 +16,42 @@ pytestmark = pytest.mark.postgres
 
 
 def test_mba001_complete_ordinary_reader(mba_case):  # noqa: F811
+    from sqlalchemy import text
+
     sources = capture_basis(mba_case)
+    rule = next(
+        r.command.body.rule
+        for r in sources.nre.sources.synthesis_sources.records
+        if r.command.body.kind == "DRAFT"
+    )
+    evidence_ids = [e.evidence_id for e in rule.evidence]
+    with reader(mba_case, "self") as db:
+        ordered = db.scalar(
+            text("SELECT array_agg(id ORDER BY id) FROM unnest(CAST(:ids AS text[])) id"),
+            {"ids": evidence_ids},
+        )
+        for collation in ("C", "en-US-x-icu"):
+            exists = db.scalar(
+                text(
+                    "SELECT EXISTS(SELECT 1 FROM pg_catalog.pg_collation WHERE collname=:name "
+                    "AND collencoding IN (-1,pg_char_to_encoding('UTF8')))"
+                ),
+                {"name": collation},
+            )
+            if exists:
+                # Both names are fixed test constants; no request-selected SQL identifier.
+                assert (
+                    db.scalar(
+                        text(
+                            'SELECT array_agg(id ORDER BY id COLLATE "'
+                            + collation
+                            + '") FROM unnest(CAST(:ids AS text[])) id'
+                        ),
+                        {"ids": evidence_ids},
+                    )
+                    == evidence_ids
+                )
+    assert evidence_ids == sorted(evidence_ids) == ordered
     result = resolve_basis_applicability(sources)
     assert result.outcome == "APPLICABLE_TEST_ONLY", result.reasons
     assert check_basis_handoff_independently(basis_handoff(sources)).decision == "CONSISTENT"
