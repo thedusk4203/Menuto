@@ -1,6 +1,6 @@
 # Implementation Blueprint — Milestone 0/1
 
-## Measurement-basis applicability — implementation review candidate
+## Measurement-basis applicability — STRUCTURALLY FROZEN / TEST_ONLY
 
 [Approved design PR #132](https://github.com/thedusk4203/Menuto/pull/132), reviewed head
 `803f83791bd7f41acda614268098f35b72eaa729`, merged at
@@ -12,21 +12,36 @@ remain the governing reviewed design records.
 
 The separately authorized bounded implementation adds a **STRUCTURAL / TEST_ONLY**
 companion, private harness-issued immutable fixture registry, complete pre-policy anchor
-projection, one-session Planning capture, provisional Nutrition producer and independently
+projection, one-session Planning capture, pure Nutrition producer and independently
 reconstructing Validation checker. Only original source-authored same-meaning planned-input
 fixtures may be positive. There is no conversion, physiological inference or production authority.
 
-**IMPLEMENTATION READY FOR INDEPENDENT REVIEW / FREEZE CANDIDATE — NOT FROZEN.**
-[Implementation evidence](MEASUREMENT_BASIS_APPLICABILITY_INDEPENDENT_EVIDENCE_CONTAINMENT_EVIDENCE.md)
-records MBA001–MBA080 mappings, actual PostgreSQL executions, regression and compatibility
-receipts. The earlier design's future-test language describes its historical docs-only stage;
-this implementation evidence is the current execution record. Do not self-approve or merge.
+**SOURCE-BOUND MEASUREMENT-BASIS APPLICABILITY & INDEPENDENT EVIDENCE CONTAINMENT —
+STRUCTURALLY FROZEN / TEST_ONLY.**
+The [canonical freeze receipt](MEASUREMENT_BASIS_APPLICABILITY_INDEPENDENT_EVIDENCE_CONTAINMENT_FREEZE_RECEIPT.md)
+and [formal freeze 6688245300](https://github.com/thedusk4203/Menuto/pull/133#issuecomment-6688245300)
+pin [implementation PR #133](https://github.com/thedusk4203/Menuto/pull/133), reviewed head
+`a22d3c37697f7ac7d73ed29acbaa1d0b26c50b49`, to actual merge
+`9d3b580ce2a2d111223b37814612a4072dbfe6a2` and frozen tree
+`3a68035f9c33de152b3899a083d534a537c647e1`, identical to reviewed-head tree.
+Exact post-merge **push** [CI 42230659936 — SUCCESS](https://github.com/thedusk4203/Menuto/actions/runs/42230659936):
+Python/web and all guards SUCCESS; **4,183 passed /0 skips =4,047 retained +136 additive**.
+MBA001–MBA080; **110 pure +26 real PostgreSQL executions /12 mandatory PG obligations**;
+SCRAM/TLS16/16; benchmark22/22; client10/10. MBA-R133-01 is closed at the corrected head
+by [independent PASS 6685642216](https://github.com/thedusk4203/Menuto/pull/133#issuecomment-6685642216).
+Terminal carriers remain **UNVERIFIED_TRANSPORT**; no scientific or production acceptance.
+
+The [implementation evidence](MEASUREMENT_BASIS_APPLICABILITY_INDEPENDENT_EVIDENCE_CONTAINMENT_EVIDENCE.md)
+and approved design remain unchanged historical records. Their candidate/NOT FROZEN wording
+is superseded only as to current status, not rewritten. Documentation-sync commits do not
+replace the frozen implementation merge/tree. This freeze grants no downstream authorization.
 
 All 4,047 baseline tests and 503 frozen exported-definition hashes are retained. The bundle
-adds 12 definitions (515 total). Schema remains **0017 / 108**, no0018, zero new persistence,
+adds 12 definitions (515 total); all53 frozen source/migration files remain unchanged.
+Schema remains **0017 / 108**, no0018, zero new persistence,
 SQL objects, roles or grants. No production provider, qualification, publication, seed or default.
 Nutrition Root, MTR-006 synthesis and MTR-007 estimator structural foundations remain **FROZEN**.
-Full MTR-006/007/008 remain **INCOMPLETE**, parent issues OPEN. The **PRODUCTION
+Full MTR-006/007/008 remain **INCOMPLETE**, issues #5/#6/#7 OPEN. The **PRODUCTION
 NUTRITION/CLINICAL CONTENT GATE remains CLOSED**; planner_ready=False,
 activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
 MTR-006 policy-integration v2 and MTR-008 remain separate unauthorized downstream gates.
