@@ -304,6 +304,81 @@ def test_mba041_qualification_withdrawal_blocks_fresh_use():
     no_positive(edited_history(lambda es: es.append(e)), "SOURCE_UNQUALIFIED")
 
 
+def retrospective_publication(kind, expired=None, renewed=False):
+    """TEST_ONLY history: review precedes expiry, publication follows it."""
+    source = retained()
+    publication_time = source.frame.completed_at - timedelta(days=1)
+    review_time = publication_time - timedelta(days=1)
+    expiry = publication_time - timedelta(hours=12)
+
+    def edit(events):
+        for event in events:
+            event["recorded_at"] = (review_time - timedelta(days=1)).isoformat()
+        review, publication = events[-2:]
+        review["recorded_at"] = review_time.isoformat()
+        publication["recorded_at"] = publication_time.isoformat()
+        if kind == "SUPERSEDE":
+            predecessor = deepcopy(publication)
+            predecessor.update(
+                id="TEST_ONLY_prior_publication", recorded_at=review_time.isoformat()
+            )
+            publication.update(kind=kind, predecessor_publication_id=predecessor["id"])
+            events.insert(-1, predecessor)
+        if expired:
+            authority = next(
+                e for e in events if e["principal"] == review["principal"] and e["kind"] == expired
+            )
+            authority["effective"]["end"] = expiry.isoformat()
+            if renewed:
+                renewal = deepcopy(authority)
+                renewal.update(
+                    id="TEST_ONLY_later_renewal",
+                    recorded_at=(publication_time + timedelta(hours=1)).isoformat(),
+                )
+                # Backdated valid time does not change what publication's retained cut knew.
+                renewal["effective"]["end"] = "2100-01-01T00:00:00Z"
+                events.append(renewal)
+
+    return edited_history(edit, source)
+
+
+@pytest.mark.parametrize("kind", ["PUBLISH", "SUPERSEDE"])
+@pytest.mark.parametrize("expired", ["GRANT", "QUALIFY"])
+@pytest.mark.parametrize("renewed", [False, True], ids=["expired-only", "later-backdated-renewal"])
+def test_mba040_mba041_r133_01_producer_reviewer_expired_at_publication(kind, expired, renewed):
+    source = retrospective_publication(kind, expired, renewed)
+    assert not any(e.kind in {"REVOKE", "DISQUALIFY"} for e in source.artifact.events)
+    no_positive(source, "SOURCE_UNQUALIFIED")
+
+
+@pytest.mark.parametrize("kind", ["PUBLISH", "SUPERSEDE"])
+@pytest.mark.parametrize("expired", ["GRANT", "QUALIFY"])
+@pytest.mark.parametrize("renewed", [False, True], ids=["expired-only", "later-backdated-renewal"])
+def test_mba040_mba041_r133_01_independent_checker_rejects_positive(kind, expired, renewed):
+    valid = retrospective_publication(kind)
+    source = retrospective_publication(kind, expired, renewed)
+    # Supply a fully rehashed positive result without asking the producer about invalid history.
+    claimed = canonical(resolve(valid))
+    assert claimed["outcome"] == "APPLICABLE_TEST_ONLY" and claimed["witnesses"]
+    claimed.update(source_fingerprint=source.source_fingerprint)
+    claimed.pop("result_fingerprint")
+    claimed["result_fingerprint"] = b.basis_hash("result", claimed)
+    assert check(source, claimed).decision == "INCONSISTENT"
+    assert (
+        handoff_check({"sources": canonical(source), "result": claimed}).decision == "INCONSISTENT"
+    )
+
+
+@pytest.mark.parametrize("kind", ["PUBLISH", "SUPERSEDE"])
+def test_mba034_r133_01_authorized_retrospective_publication(kind):
+    source = retrospective_publication(kind)
+    publication = next(e for e in source.artifact.events if e.id == source.selectors.publication_id)
+    assert publication.effective.end < publication.recorded_at
+    result = resolve(source)
+    assert result.outcome == "APPLICABLE_TEST_ONLY" and result.witnesses
+    assert check(source, result).decision == "CONSISTENT"
+
+
 def test_mba042_selection_explicit_no_latest():
     no_positive(
         changed(lambda d: d["selectors"].update(publication_id="missing")), "PUBLICATION_MISSING"

@@ -93,11 +93,21 @@ def replay_basis_artifact(artifact, selection, at, interval, budget):
 
         def capable(principal, capability, period):
             g = head(grants, (principal, e.scope, capability), e.recorded_at)
-            return g is not None and g.kind == "GRANT" and _covers(g.effective, period)
+            return (
+                g is not None
+                and g.kind == "GRANT"
+                and g.effective.start <= e.recorded_at < g.effective.end
+                and _covers(g.effective, period)
+            )
 
         def qualification(principal, period):
             q = head(qualified, (principal, e.scope), e.recorded_at)
-            return q is not None and q.kind == "QUALIFY" and _covers(q.effective, period)
+            return (
+                q is not None
+                and q.kind == "QUALIFY"
+                and q.effective.start <= e.recorded_at < q.effective.end
+                and _covers(q.effective, period)
+            )
 
         _need(e.capability is None and e.qualification is None, "EVENT_SHAPE")
         cap = (

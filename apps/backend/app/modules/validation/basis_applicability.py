@@ -357,9 +357,11 @@ def _journal(s, work):
             _assert(
                 review_grant is not None
                 and review_grant.kind == "GRANT"
+                and review_grant.effective.start <= event.recorded_at < review_grant.effective.end
                 and covers(review_grant.effective, event.effective)
                 and review_qual is not None
                 and review_qual.kind == "QUALIFY"
+                and review_qual.effective.start <= event.recorded_at < review_qual.effective.end
                 and covers(review_qual.effective, event.effective),
                 "SOURCE_UNQUALIFIED",
                 "UNAVAILABLE",

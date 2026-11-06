@@ -15,6 +15,35 @@ The exact implementation head/base, final full-suite GitHub Actions run and resu
 in the implementation PR's final verification receipt. That external receipt avoids a self-referential
 commit SHA / CI-result edit loop. A collected test count or this document alone is not a CI-success proof.
 
+## MBA-R133-01 — publication-time reviewer authorization correction
+
+The independent [CHANGES REQUIRED receipt 6682831199](https://github.com/thedusk4203/Menuto/pull/133#issuecomment-6682831199)
+identified a retrospective-publication authorization gap. Covering an assertion's valid interval does
+not establish authorization at the publication's recorded time. The Nutrition journal replay now
+requires the original reviewer's scoped REVIEW grant and symbolic TEST_ONLY qualification to be
+active at each PUBLISH/SUPERSEDE `recorded_at`, as well as cover the complete assertion interval.
+Validation reconstructs these two checks independently from its own retained-history fold, without
+importing the producer predicate. Both folds inspect only authority events recorded before the
+publication; later backdated renewal or requalification cannot repair an unauthorized event.
+
+Eighteen additive regression executions exercise both PUBLISH and SUPERSEDE: eight producer cases,
+eight independently checked/rehashed positive-forgery cases, and two authorized retrospective
+controls. Grant and qualification expiry need no REVOKE/DISQUALIFY event; each is tested with and
+without a later backdated renewal. Invalid producer results expose no positive witnesses, and the
+independent checker rejects both forged results and handoffs even with matching public hashes.
+The existing future-effective supersession, withdrawal, retirement and retained-replay tests remain.
+
+Before correction, the focused command `pytest apps/backend/tests/test_basis_applicability.py
+-k r133_01` executed **12 failed /6 passed**: expired grants and later requalification could still
+produce positive results and independently accepted forgeries. This is executed reproduction,
+not solely static analysis. The correction changes no exported contract, frozen source, migration,
+database privilege, persistence, measurement meaning or production-content authority.
+
+The final exact-head CI and correction verification receipt must establish the complete new target
+of **4,183 tests =4,047 retained +136 additive**, including **110 pure MBA executions +26 real MBA
+PostgreSQL executions**, all80 requirements and all12 mandatory PostgreSQL obligations. A proposed
+or collected count is not successful execution evidence. No self-approval or freeze is asserted.
+
 ## Delivered boundary
 
 Nutrition owns a closed same-meaning companion, never a nutrient-value converter. Positive evidence
@@ -104,12 +133,12 @@ cooperative rather than a hostile-Python sandbox. No HTTP ingress-security claim
 - Existing export-total/exact-set assertions are mechanically synchronized in seven legacy test files.
   Original definition/file hash checks and all original test identities remain intact. No accepted runtime
   behavior or frozen compatibility receipt is changed.
-- Focused local execution: **92pure tests /0skips;26real PostgreSQL executions /0skips** covering all12
+- Focused local execution after MBA-R133-01: **110pure tests /0skips;26real PostgreSQL executions /0skips** covering all12
   PG obligations. Additional parameterization is not counted as new numbered requirements.
 - Client contracts/typecheck/build: PASS; client10/10. Architecture/import/lint/OpenAPI/fixtures: PASS.
   Benchmark22/22. The complete full-regression and separate SCRAM/TLS16/16 evidence must be verified in
   the final exact-head PR CI receipt before delivery; earlier or collected-only evidence is insufficient.
-- Complete collected target: **4,165 tests =4,047 retained +118 additive**, zero skips required.
+- Complete regression target after MBA-R133-01: **4,183 tests =4,047 retained +136 additive**, zero skips required.
 
 The fresh-install PostgreSQL obligation runs migration head on an empty database, checks108domain tables,
 no basis objects and zero production Nutrition source rows. Positive test setup is explicitly TEST_ONLY;
@@ -135,7 +164,8 @@ no installation/migration ships providers, qualifications, publications, scienti
 PG rows are actual authenticated PostgreSQL protected-path tests, not mocks or collection-only claims.
 Pure rows use retained synthetic source preimages and independently expected behavior. Parameterized
 functions spanning several IDs include distinct per-case inputs; each listed obligation is mandatory.
-Local JUnit receipts: `.local/mba-pure.xml` (92) and `.local/mba-pg.xml` (26); the final exact-head
+Correction JUnit receipts: `.local/mba-r133-pure.xml` (110) and `.local/mba-r133-pg-scram.xml`
+(26 MBA +16 SCRAM/TLS); the final exact-head
 GitHub Actions receipt independently binds the complete executed corpus to the submitted head.
 
 | ID | Class | Required behavior | Executed test(s), under `apps/backend/tests/` |
@@ -167,20 +197,20 @@ GitHub Actions receipt independently binds the complete executed corpus to the s
 | MBA025 | Pure | Exact subject identity required; no copied member/Household aggregate applicability | `test_basis_applicability.py::test_mba025_exact_subject_not_household_aggregate` |
 | MBA026 | Pure | Valid evidence with wrong population/supported scope is NOT_APPLICABLE | `test_basis_applicability.py::test_mba026_different_supported_population_not_applicable` |
 | MBA027 | Pure | Unqualified source/absent qualification produces no positive result | `test_basis_applicability.py::test_mba027_qualification_required` |
-| MBA028 | Pure | Reviewer/publisher missing exact scoped fixture capability cannot publish | `test_basis_applicability.py::test_mba028_scoped_capability_required` |
+| MBA028 | Pure | Reviewer/publisher need exact scoped capability at publication recorded time and over the complete assertion interval; expiry without revoke cannot authorize retrospective publication | `test_basis_applicability.py::test_mba028_scoped_capability_required`<br>`test_basis_applicability.py::test_mba040_mba041_r133_01_producer_reviewer_expired_at_publication`<br>`test_basis_applicability.py::test_mba040_mba041_r133_01_independent_checker_rejects_positive` |
 | MBA029 | Pure | Same principal-subject under different login aliases cannot review and publish | `test_basis_applicability.py::test_mba029_alias_logins_not_distinct_subjects` |
 | MBA030 | Pure | Changed body/evidence/protocol after review requires a new exact review | `test_basis_applicability.py::test_mba030_review_binding_exact_body` |
 | MBA031 | Pure | Root/NPS/Catalog/Household grants cannot become basis capabilities | `test_basis_applicability.py::test_mba031_unrelated_grants_not_basis_capability` |
 | MBA032 | Pure | A Git hash, reviewer string or REVIEWED label cannot enroll a fixture source | `test_basis_applicability.py::test_mba032_hash_reviewer_label_not_enrollment` |
 | MBA033 | Pure | Duplicate/edited/reordered/missing journal event or wrong predecessor rejects | `test_basis_applicability.py::test_mba033_journal_identity` |
-| MBA034 | Pure | Complete append-only publication and exact repeated retained selection replay deterministically | `test_basis_applicability.py::test_mba034_retained_replay_deterministic` <br>`test_basis_applicability.py::test_mba034_complete_multi_revision_lineage_not_ambiguity` |
+| MBA034 | Pure | Complete append-only publication and exact repeated retained selection replay deterministically; authorized retrospective publication/supersession remains valid | `test_basis_applicability.py::test_mba034_retained_replay_deterministic` <br>`test_basis_applicability.py::test_mba034_complete_multi_revision_lineage_not_ambiguity`<br>`test_basis_applicability.py::test_mba034_r133_01_authorized_retrospective_publication` |
 | MBA035 | Pure | Withdrawn publication blocks fresh applicability; old retained replay makes no current claim | `test_basis_applicability.py::test_mba035_withdrawn_blocks_fresh_retained_old_unchanged` |
 | MBA036 | Pure | Retired revision beyond admission cutoff blocks retrospective fresh admission | `test_basis_applicability.py::test_mba036_retired_blocks_retrospective_admission` |
 | MBA037 | Pure | Future-effective replacement preserves pre-boundary current semantics | `test_basis_applicability.py::test_mba037_future_replacement_not_early`<br>`test_basis_applicability.py::test_mba037_valid_future_supersession_preserves_old_cut`<br>`test_basis_applicability.py::test_mba037_future_authority_change_not_early` |
 | MBA038 | Pure | Cross-version request interval is unsupported; never stitched/clipped | `test_basis_applicability.py::test_mba038_cross_version_not_stitched` |
 | MBA039 | Pure | Retrospective correction cannot mutate an older retained snapshot | `test_basis_applicability.py::test_mba039_retro_correction_not_mutate_retained` |
-| MBA040 | Pure | Capability revocation blocks later publication actions without rewriting prior recorded events | `test_basis_applicability.py::test_mba040_revocation_blocks_subsequent_action_not_old_publication` |
-| MBA041 | Pure | Qualification withdrawal blocks dependent fresh applicability | `test_basis_applicability.py::test_mba041_qualification_withdrawal_blocks_fresh_use` |
+| MBA040 | Pure | Capability revocation or publication-time expiry blocks later actions; later backdated renewal cannot repair unauthorized publication | `test_basis_applicability.py::test_mba040_revocation_blocks_subsequent_action_not_old_publication`<br>`test_basis_applicability.py::test_mba040_mba041_r133_01_producer_reviewer_expired_at_publication`<br>`test_basis_applicability.py::test_mba040_mba041_r133_01_independent_checker_rejects_positive` |
+| MBA041 | Pure | Qualification withdrawal/expiry blocks applicability; later backdated requalification cannot repair unauthorized publication; both independent and producer paths withhold positive admission | `test_basis_applicability.py::test_mba041_qualification_withdrawal_blocks_fresh_use`<br>`test_basis_applicability.py::test_mba040_mba041_r133_01_producer_reviewer_expired_at_publication`<br>`test_basis_applicability.py::test_mba040_mba041_r133_01_independent_checker_rejects_positive` |
 | MBA042 | Pure | Missing/ambiguous explicit assertion selection has no latest/provider fallback | `test_basis_applicability.py::test_mba042_selection_explicit_no_latest`<br>`test_basis_applicability.py::test_mba042_competing_explicit_publications_rejected` |
 | MBA043 | Pure | Exact period ID/calendar/timezone/effective interval required | `test_basis_applicability.py::test_mba043_mba045_exact_descriptor` |
 | MBA044 | Pure | Daily/weekly metric/unit coincidence cannot substitute temporal semantics | `test_basis_applicability.py::test_mba043_mba045_exact_descriptor` |
