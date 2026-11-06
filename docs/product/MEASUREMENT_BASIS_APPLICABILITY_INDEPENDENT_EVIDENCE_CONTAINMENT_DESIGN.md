@@ -315,6 +315,15 @@ existing independent NRE authority reconstruction where appropriate, never Nutri
 producer projection as its correctness oracle. Shared immutable contracts and canonical
 measurement primitives are permitted; shared applicability/projection business logic is not.
 
+The diagram shows the consumer's evidence dependencies, not a Nutrition-to-Validation
+import. The pure Nutrition producer freshly replays the embedded NRE sources with the
+frozen Nutrition estimator and compares the supplied estimate; it must not import Validation
+or accept a caller's prevalidation flag/report. Its APPLICABLE_TEST_ONLY result is always
+provisional/unverified. Validation freshly checks NRE through its own independent checker
+and separately reconstructs basis applicability from the same primitives. Only the trusted
+consumer's completed conjunction of those checks satisfies the verified-applicability
+conditions below; no producer result claims that independent validation already occurred.
+
 This is the terminal measurement-meaning companion for the bounded v2 handoff. A future
 integrator consumes the original NRE values/witnesses plus independently established
 comparability; it must not create chains of scalar coordinate adapters or reinterpret a
@@ -393,6 +402,8 @@ is UNSUPPORTED, not stitched or silently clipped. A retired/withdrawn revision c
 freshly admitted after its admission cutoff even for a retrospective request; replay of a
 previously retained cut remains possible. Recorded sequence/time and valid/effective interval
 are separate. Retrospective correction appends a new revision and cannot alter an old snapshot.
+Intervals reuse the frozen aware half-open convention [start, end); exact boundary instants,
+calendar and timezone identity cannot be rounded or inferred from a period label.
 
 No live lookup, DB, filesystem, network, wall-clock or mutable global source access occurs
 inside pure replay or independent checking. Capture supplies explicit times and complete
@@ -567,7 +578,7 @@ claim a new PostgreSQL basis-authority implementation.
 | MBA059 | Pure | Self-consistent fabricated offline source may be retained-consistent but cannot prove trusted origin/admission |
 | MBA060 | Pure | Serialized context/authority stamp/report cannot be used as private harness capture credentials |
 | MBA061 | Pure | Producer/cache-constructed result is fully recomputed, including every non-authority flag |
-| MBA062 | Pure | Validation imports no applicability producer/projection, solver or future v2 producer oracle |
+| MBA062 | Pure | Validation imports no producer/projection/solver oracle; Nutrition imports no Validation and accepts no prevalidation report |
 | MBA063 | Pure | Fixture qualification never claims real human/scientific authority |
 | MBA064 | Pure | TEST_ONLY relabeling to production/mixed environment is rejected |
 | MBA065 | Pure | No fixture registry/default artifact exists in production deployment behavior |
