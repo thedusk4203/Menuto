@@ -387,11 +387,22 @@ def _journal(s, work):
             )
     _assert(selectors.publication_id in published, "PUBLICATION_MISSING", "UNAVAILABLE")
     chosen, assertion, reviewer = published[selectors.publication_id]
+
+    def predecessors(start):
+        found = set()
+        cursor = start
+        while cursor is not None:
+            work.charge()
+            _assert(cursor not in found and cursor in published, "PUBLICATION_LINEAGE")
+            found.add(cursor)
+            cursor = published[cursor][0].predecessor_publication_id
+        return found
+
+    retained_ancestors = predecessors(chosen.id)
     for identity, (other, alternative, _) in published.items():
         if (
-            identity != chosen.id
-            and other.predecessor_publication_id != chosen.id
-            and chosen.predecessor_publication_id != identity
+            identity not in retained_ancestors
+            and chosen.id not in predecessors(identity)
             and alternative.subject == assertion.subject
             and alternative.stable_scope_fingerprint == assertion.stable_scope_fingerprint
             and set(alternative.required_keys) & set(assertion.required_keys)

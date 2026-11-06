@@ -788,3 +788,35 @@ def test_mba050_full_week_anchors_need_original_period(complete_week):
         assert r.outcome == "UNAVAILABLE" and r.reasons == ("TEMPORAL_COVERAGE_MISSING",), r
         assert not r.witnesses
     assert check(s, r).decision == "CONSISTENT"
+
+
+def test_mba034_complete_multi_revision_lineage_not_ambiguity():
+    def chain(events):
+        review_template = deepcopy(next(e for e in events if e["kind"] == "REVIEW"))
+        previous = next(e for e in events if e["kind"] == "PUBLISH")
+        for revision in (2, 3):
+            review = deepcopy(review_template)
+            review["id"] = f"TEST_ONLY_review_{revision}"
+            review["assertion"]["revision"] = f"v{revision}"
+            review["assertion_fingerprint"] = b.basis_hash("assertion", review["assertion"])
+            publication = previous | dict(
+                id=f"TEST_ONLY_publication_{revision}",
+                kind="SUPERSEDE",
+                review_id=review["id"],
+                assertion_fingerprint=review["assertion_fingerprint"],
+                predecessor_publication_id=previous["id"],
+            )
+            events.extend([review, publication])
+            previous = publication
+
+    history = edited_history(chain)
+    no_positive(history, "PUBLICATION_RETIRED")  # v1 is not implicitly resurrected.
+    current = changed(
+        lambda d: d["selectors"].update(
+            publication_id="TEST_ONLY_publication_3", assertion_revision="v3"
+        ),
+        history,
+    )
+    result = resolve(current)
+    assert result.outcome == "APPLICABLE_TEST_ONLY", result.reasons
+    assert check(current, result).decision == "CONSISTENT"

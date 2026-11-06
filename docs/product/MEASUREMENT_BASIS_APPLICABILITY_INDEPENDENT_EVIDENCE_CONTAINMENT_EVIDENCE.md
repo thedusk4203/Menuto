@@ -101,15 +101,15 @@ cooperative rather than a hostile-Python sandbox. No HTTP ingress-security claim
   and53 frozen source/migration files** against the exact base.
 - **515 definitions =503 retained unchanged +12 additive**; the names are listed below.
 - Schema **0017 /108domain tables**, no0018; **ZERO NEW PERSISTENCE**.
-- Existing export-total/exact-set assertions are mechanically synchronized in six legacy test files.
+- Existing export-total/exact-set assertions are mechanically synchronized in seven legacy test files.
   Original definition/file hash checks and all original test identities remain intact. No accepted runtime
   behavior or frozen compatibility receipt is changed.
-- Focused local execution: **91pure tests /0skips;26real PostgreSQL executions /0skips** covering all12
+- Focused local execution: **92pure tests /0skips;26real PostgreSQL executions /0skips** covering all12
   PG obligations. Additional parameterization is not counted as new numbered requirements.
 - Client contracts/typecheck/build: PASS; client10/10. Architecture/import/lint/OpenAPI/fixtures: PASS.
   Benchmark22/22. The complete full-regression and separate SCRAM/TLS16/16 evidence must be verified in
   the final exact-head PR CI receipt before delivery; earlier or collected-only evidence is insufficient.
-- Complete collected target: **4,164 tests =4,047 retained +117 additive**, zero skips required.
+- Complete collected target: **4,165 tests =4,047 retained +118 additive**, zero skips required.
 
 The fresh-install PostgreSQL obligation runs migration head on an empty database, checks108domain tables,
 no basis objects and zero production Nutrition source rows. Positive test setup is explicitly TEST_ONLY;
@@ -135,7 +135,7 @@ no installation/migration ships providers, qualifications, publications, scienti
 PG rows are actual authenticated PostgreSQL protected-path tests, not mocks or collection-only claims.
 Pure rows use retained synthetic source preimages and independently expected behavior. Parameterized
 functions spanning several IDs include distinct per-case inputs; each listed obligation is mandatory.
-Local JUnit receipts: `.local/mba-pure.xml` (91) and `.local/mba-pg.xml` (26); the final exact-head
+Local JUnit receipts: `.local/mba-pure.xml` (92) and `.local/mba-pg.xml` (26); the final exact-head
 GitHub Actions receipt independently binds the complete executed corpus to the submitted head.
 
 | ID | Class | Required behavior | Executed test(s), under `apps/backend/tests/` |
@@ -173,7 +173,7 @@ GitHub Actions receipt independently binds the complete executed corpus to the s
 | MBA031 | Pure | Root/NPS/Catalog/Household grants cannot become basis capabilities | `test_basis_applicability.py::test_mba031_unrelated_grants_not_basis_capability` |
 | MBA032 | Pure | A Git hash, reviewer string or REVIEWED label cannot enroll a fixture source | `test_basis_applicability.py::test_mba032_hash_reviewer_label_not_enrollment` |
 | MBA033 | Pure | Duplicate/edited/reordered/missing journal event or wrong predecessor rejects | `test_basis_applicability.py::test_mba033_journal_identity` |
-| MBA034 | Pure | Complete append-only publication and exact repeated retained selection replay deterministically | `test_basis_applicability.py::test_mba034_retained_replay_deterministic` |
+| MBA034 | Pure | Complete append-only publication and exact repeated retained selection replay deterministically | `test_basis_applicability.py::test_mba034_retained_replay_deterministic` <br>`test_basis_applicability.py::test_mba034_complete_multi_revision_lineage_not_ambiguity` |
 | MBA035 | Pure | Withdrawn publication blocks fresh applicability; old retained replay makes no current claim | `test_basis_applicability.py::test_mba035_withdrawn_blocks_fresh_retained_old_unchanged` |
 | MBA036 | Pure | Retired revision beyond admission cutoff blocks retrospective fresh admission | `test_basis_applicability.py::test_mba036_retired_blocks_retrospective_admission` |
 | MBA037 | Pure | Future-effective replacement preserves pre-boundary current semantics | `test_basis_applicability.py::test_mba037_future_replacement_not_early`<br>`test_basis_applicability.py::test_mba037_valid_future_supersession_preserves_old_cut`<br>`test_basis_applicability.py::test_mba037_future_authority_change_not_early` |

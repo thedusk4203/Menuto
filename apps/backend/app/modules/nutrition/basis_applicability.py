@@ -171,11 +171,21 @@ def replay_basis_artifact(artifact, selection, at, interval, budget):
     selected = publications.get(selection.publication_id)
     _need(selected is not None, "PUBLICATION_MISSING", "UNAVAILABLE")
     pub, assertion, reviewer = selected
+
+    def ancestry(identity):
+        lineage = set()
+        while identity is not None:
+            budget.charge()
+            _need(identity in publications and identity not in lineage, "PUBLICATION_LINEAGE")
+            lineage.add(identity)
+            identity = publications[identity][0].predecessor_publication_id
+        return lineage
+
+    selected_lineage = ancestry(pub.id)
     for identity, (other, alternative, _) in publications.items():
         if (
-            identity != pub.id
-            and other.predecessor_publication_id != pub.id
-            and pub.predecessor_publication_id != identity
+            identity not in selected_lineage
+            and pub.id not in ancestry(identity)
             and alternative.subject == assertion.subject
             and alternative.stable_scope_fingerprint == assertion.stable_scope_fingerprint
             and set(alternative.required_keys) & set(assertion.required_keys)
