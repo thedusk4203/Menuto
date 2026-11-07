@@ -1,22 +1,29 @@
 # Milestone 0/1 — entry checklist V1.3
 
-## Post-MBA dependency review — READY FOR INDEPENDENT ARCHITECTURE REVIEW
+## MTR-006 Policy Integration v2 — DETAILED DESIGN CANDIDATE / TEST_ONLY
 
-The [Post-MBA capability/dependency review](POST_MBA_POLICY_INTEGRATION_V2_DEPENDENCY_REVIEW.md)
-reviews exact main `066125e3828fcf18384ea9aefacd1bf0503a9d9a` after PR #134.
-Recommended next gate: **MTR-006 Policy Integration v2 — Bounded Detailed Design
-(STRUCTURAL / TEST_ONLY)**, **READY FOR DETAILED DESIGN**, subject to independent
-architecture review and separate design authorization. Detailed design is **NOT STARTED**;
-implementation is **NOT AUTHORIZED**. Existing explicit Policy-owned precision can be studied
-without completing MTR-008; no default/override precedence is invented. The review requires
-trusted retained capture, fresh independent NRE/MBA and integrated-policy reconstruction,
-full joint witnesses, exact original measurement meaning and TEST_ONLY containment.
+The separately authorized [bounded detailed design](MTR_006_POLICY_INTEGRATION_V2_BOUNDED_DESIGN.md)
+starts at exact main `73a4c1c668516f6c719661c7225d84a758221450` after approved
+[dependency review PR #135](https://github.com/thedusk4203/Menuto/pull/135),
+[independent PASS6692295427](https://github.com/thedusk4203/Menuto/pull/135#issuecomment-6692295427)
+and [merge completion6693282259](https://github.com/thedusk4203/Menuto/pull/135#issuecomment-6693282259).
+Exact-main push [CI42271106826](https://github.com/thedusk4203/Menuto/actions/runs/42271106826)
+SUCCESS is baseline evidence, not CI for the new design PR.
 
-Frozen Root/MTR-006 v1/MTR-007/MBA and their implementation identities remain unchanged.
-Production Nutrition/clinical content gate **CLOSED**; full MTR-006/007/008 **INCOMPLETE**,
-parent issues OPEN; 4,183 tests,515 exports,503 historical hashes,53 frozen files,
-schema0017/108, no0018 or new persistence. `planner_ready=False`; `activation_ready=False`;
-Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. No downstream work is authorized.
+**MTR-006 V2 BOUNDED DETAILED DESIGN — READY FOR INDEPENDENT ARCHITECTURE REVIEW /
+IMPLEMENTATION NOT AUTHORIZED.** Design execution is now separately authorized; architecture
+approval, implementation, merge and freeze are not. The proposal specifies additive TEST_ONLY
+contracts, one-shot captured-cut admission, Policy-owned explicit precision, complete NRE/MBA
+source meaning and joint witnesses, independent full policy verification, all32 PIV-D families
+and exactly10 future real-PostgreSQL obligations. None of those future tests is claimed executed.
+
+No runtime/contracts/tests/tooling/CI/migration/data changes. Frozen Root/MTR-006 v1/MTR-007/MBA
+semantics and MBA implementation identity remain unchanged. Retain4183 tests,515 exports,
+503 historical hashes,53 frozen files and schema0017/108; no0018, persistence or DB privileges.
+Production Nutrition/clinical content gate CLOSED; full MTR-006/007/008 INCOMPLETE, issues OPEN;
+planner_ready=False,activation_ready=False, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
+No downstream implementation, scientific conversion, production qualification/publication,
+solver or issue closure is authorized. Keep the new design PR OPEN, auto-merge OFF.
 
 ## Measurement-basis applicability — STRUCTURALLY FROZEN / TEST_ONLY
 
