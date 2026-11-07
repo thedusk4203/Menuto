@@ -313,7 +313,7 @@ def check_coverage(root, rule, case, claims, trace, work):
         demand(not lows or not highs or max(lows) <= min(highs), "PROTECTED_INTERVAL_CONFLICT")
     if qscope.kind == "WEEK":
         roots = {}
-        maps = set()
+        maps = {}
         byid = {x.operation_id: x for x in trace}
         for op in case.operations:
             roots[op.id] = op.root_key or (roots.get(op.inputs[0]) if op.inputs else None)
@@ -326,13 +326,19 @@ def check_coverage(root, rule, case, claims, trace, work):
                     "UNSUPPORTED_TEMPORAL_MAP",
                     "UNSUPPORTED",
                 )
+                coefficients = tuple(q(value) for value in op.coefficients)
+                demand(
+                    key not in maps or maps[key] == coefficients,
+                    "UNSUPPORTED_TEMPORAL_MAP",
+                    "UNSUPPORTED",
+                )
+                maps[key] = coefficients
                 if key in case.daily_root_keys:
                     demand(
                         all(q(x) == 1 for x in op.coefficients),
                         "UNSUPPORTED_TEMPORAL_MAP",
                         "UNSUPPORTED",
                     )
-                    maps.add(key)
         for key in case.daily_root_keys:
             demand(key in maps, "CLAIM_COVERAGE_MISSING", "SOURCE_UNAVAILABLE")
             day_bounds = []

@@ -106,7 +106,10 @@ selected soft COMFORT predicates. Empty H and H-present/C-empty produce distinct
 non-success without numerical payload. Contradictory protected intervals are POLICY_CONFLICT.
 REFERENCE_CENTER/TARGET and weekly centering remain soft; missing opposite bounds stay
 absent. Authored period endpoint projections never scale food vectors. Required DAY→WEEK
-sums require explicit unit coefficients. No missing period is manufactured or stitched.
+sums require explicit unit coefficients. Every FINITE_PERIOD_SUM sharing an original
+root must have the same complete exact-rational coefficient vector, including roots
+outside daily_root_keys. Equal non-unit vectors remain allowed for non-daily roots.
+No missing period is manufactured or stitched.
 
 Server-owned caps retain32MiB input,2MiB artifact,16MiB NRE sources,8MiB result,48MiB
 handoff,256KiB check, depth32,1M nodes,100K string chars,256-bit rationals/1024-bit temporary
@@ -116,9 +119,12 @@ failure serialization. No overflow truncates history or releases a favorable pre
 
 ## 6. Executed PIV-D acceptance mapping
 
-All 32 families executed in the single177-case focused run and again in the complete4360-case
-regression. Counts below overlap where a case explicitly checks two families; do not sum
-them to obtain a test total. Exact parameterized execution IDs follow the matrix.
+All 32 families executed in the corrected single186-case focused run (141 pure +45 real
+PostgreSQL executions), including the nine PIV-R138-01 differential additions. Initial
+head 4b148213898bd4bacdb7ecc442e91aa2fdaeb48d had177 focused/4360 complete executions;
+those historical runs did not cover this finding. Corrected-head full regression and
+exact-head CI must be pinned separately in the PR completion receipt. Counts below
+overlap where a case checks two families; do not sum them. Exact IDs follow the matrix.
 
 | Family | Verified controls | Executed cases | Test functions |
 |---|---|---:|---|
@@ -148,7 +154,7 @@ them to obtain a test total. Exact parameterized execution IDs follow the matrix
 | PIV-D24 | Eight honest reviewer-expiry negatives and four rehashed forgery seams each | 12 | `test_piv_d04_d24_actual_rejected_history_is_not_honest_unavailable`<br>`test_piv_d24_honest_negative_and_forged_positive` |
 | PIV-D25 | Withdrawal/future effectiveness cannot rewrite historical retained replay | 5 | `test_piv_d23_d25_rule_withdrawal_time_is_not_early_or_rewritten`<br>`test_piv_d25_withdrawal_is_distinct_from_historical_replay` |
 | PIV-D26 | Private noncopyable lease; actual cut/lifetime/registry/race tests below | 1 | `test_piv_d26_lease_private_noncopyable_and_unissued_rejected` |
-| PIV-D27 | Only supported unit period sums; no manufactured missing week period | 2 | `test_piv_d14_d27_missing_retained_week_period_is_not_manufactured`<br>`test_piv_d27_nonunit_required_period_sum_is_not_food_conversion` |
+| PIV-D27 | Required daily unit maps; per-original-root vector equality, honest negative, rehashed forgery and equal-vector controls; no manufactured week period | 11 | `test_piv_d14_d27_missing_retained_week_period_is_not_manufactured`<br>`test_piv_d27_nonunit_required_period_sum_is_not_food_conversion`<br>`test_piv_d27_r138_conflicting_maps_rehashed_positive_rejected`<br>`test_piv_d27_r138_conflicting_nondaily_maps_faithful_negative`<br>`test_piv_d27_r138_equal_nondaily_map_vectors_remain_supported`<br>`test_piv_d27_r138_nonunit_daily_map_remains_unsupported` |
 | PIV-D28 | TEST_ONLY/closed/readiness literals reject retagging | 4 | `test_piv_d28_taint_closed_flags_reject_retagging` |
 | PIV-D29 | Independent imports and fresh whole-policy reconstruction | 4 | `test_piv_d29_independent_import_boundaries` |
 | PIV-D30 | Bytes/nodes/depth/integers/history/anchors/states/witnesses/work/worker cancellation | 25 | `test_piv_d30_canonical_rational_output_and_temporary_bit_boundaries`<br>`test_piv_d30_collection_limit_and_overflow`<br>`test_piv_d30_encoded_bytes_exact_boundary_and_plus_one`<br>`test_piv_d30_exact_structure_node_cap_and_plus_one`<br>`test_piv_d30_exact_work_and_integer_boundaries`<br>`test_piv_d30_frozen_history_and_anchor_caps_cannot_be_raised`<br>`test_piv_d30_parser_limits_before_arithmetic`<br>`test_piv_d30_spawn_environment_scrubbed_before_interpreter_start`<br>`test_piv_d30_spawned_worker_is_killed_joined_and_output_discarded`<br>`test_piv_d30_structure_integer_and_reserved_failure_output_boundaries` |
@@ -157,10 +163,11 @@ them to obtain a test total. Exact parameterized execution IDs follow the matrix
 
 ## 7. Real PostgreSQL — all10 obligations
 
-The focused177-case run includes **45 actual real-PG executions** below, all on the protected
-owner-source/ordinary-reader paths with verified TLS. The full4360-case run executes these
-same45 again alongside retained PG regression. These are separate complete runs; their
-counts are not added. Pure/collection-only tests do not satisfy the PG rows.
+The corrected focused186-case run includes **45 actual real-PG executions** below on the
+protected owner-source/ordinary-reader paths with verified TLS. All10 obligations and
+their exact execution mapping are retained. The complete corrected regression must
+execute these same45 alongside retained PG regression; its independent receipt is
+recorded on the PR. Separate runs are never added. Pure/collection does not satisfy PG.
 
 | Obligation | Actual proof | Executions |
 |---|---|---:|
@@ -362,6 +369,20 @@ apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d30_structure_integer
 apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d31_collected_baseline_ids_remain_exactly_available
 ```
 
+PIV-R138-01 additional executed pure IDs (also included in PIV-D27 above):
+
+```text
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_conflicting_maps_rehashed_positive_rejected[1-2]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_conflicting_maps_rehashed_positive_rejected[2-1]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_conflicting_nondaily_maps_faithful_negative[1-2]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_conflicting_nondaily_maps_faithful_negative[2-1]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_equal_nondaily_map_vectors_remain_supported[1]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_equal_nondaily_map_vectors_remain_supported[2]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_equal_nondaily_map_vectors_remain_supported[3]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_nonunit_daily_map_remains_unsupported[1-2]
+apps/backend/tests/test_policy_v2_adversarial.py::test_piv_d27_r138_nonunit_daily_map_remains_unsupported[2-1]
+```
+
 ## 8. Compatibility, migration and fresh install
 
 **528 = 515 unchanged legacy definitions + 13 exact additive names.** The new PIV-D31 guard
@@ -406,7 +427,12 @@ Fresh-install PG10 finds every nutrition_* table empty: **0 production content/p
 enrollments/qualifications/publications/seeds/defaults**. Synthetic test-authored records
 exist only in disposable test databases and private TEST_ONLY fixture contexts.
 
-## 9. Verification receipts
+## 9. Initial-head verification receipts
+
+The table below is the historical initial-head receipt for
+`4b148213898bd4bacdb7ecc442e91aa2fdaeb48d`, not proof of the corrected head.
+Its [CI 42365950677](https://github.com/thedusk4203/Menuto/actions/runs/42365950677)
+does not substitute for the new exact-head run required by PIV-R138-01.
 
 | Check | Actual result |
 |---|---|
@@ -514,3 +540,61 @@ Exactly 31 files in this bounded implementation:
 - `packages/contracts/domain.schema.json`
 - `tools/check_import_boundaries.py`
 - `tools/export_domain_contracts.py`
+
+## 12. PIV-R138-01 — independent period-map differential correction
+
+[Independent review 6706823011](https://github.com/thedusk4203/Menuto/pull/138#issuecomment-6706823011)
+identified a producer/checker divergence at initial head
+`4b148213898bd4bacdb7ecc442e91aa2fdaeb48d`. The producer already rejects different complete
+coefficient vectors for the same original root. Validation recorded only required daily
+root presence, so it missed conflicting maps for another root. The correction independently
+retains and compares exact rational vectors for every FINITE_PERIOD_SUM. It neither imports
+the producer evaluator nor changes producer semantics; daily unit and containment guards
+remain in place.
+
+The TEST_ONLY WEEK fixture authors a zero-valued PROTEIN reference center outside
+`case.daily_root_keys`, seven explicit period projections and two valid-shape sums of that
+same original root. The entire guideline/rule/review/publication/meaning source is reauthored
+and rehashed, with fresh NRE and MBA evidence. Frozen contracts accept the fixture unchanged.
+The zero reference makes conflicting maps numerically equal, isolating semantic consistency
+from arithmetic plausibility. These are symbolic test values, not nutritional content.
+
+| Differential control | Executions | Required and observed corrected result |
+|---|---:|---|
+| Conflicting same-origin non-daily vectors, integer/fraction | 2 | Producer UNSUPPORTED/UNSUPPORTED_TEMPORAL_MAP, payload=null; checker CONSISTENT/NOT_ADMITTED |
+| Fully rehashed favorable policy on the identical conflicting retained sources | 2 | Checker INCONSISTENT/NOT_ADMITTED; matching source/result/support hashes cannot authorize positive use |
+| Equal non-daily vectors, coefficient values 1, 2 and 3 | 3 | AVAILABLE_TEST_ONLY and independently CONSISTENT; no global unit-only restriction added |
+| Required daily map with integer/fraction non-unit coefficient | 2 | Producer UNSUPPORTED/UNSUPPORTED_TEMPORAL_MAP, payload=null; checker CONSISTENT/NOT_ADMITTED |
+
+Before correction, the nine-case run was **4 failed /5 passed**: both faithful negatives
+were wrongly INCONSISTENT and both rehashed favorable claims were wrongly CONSISTENT.
+After correction the same nine cases are **9 passed /0 skipped**. The unchanged existing
+daily-unit test separately passed. This reproduces and fixes the pure-checker semantic
+finding; it does not claim a demonstrated exploit through the trusted capture/lease host.
+The forged result uses a genuine equal-vector control and recomputes all changed source,
+basis, coverage, support and outer fingerprints without bypassing either producer or checker.
+Its helper reuses only joint-witness arithmetic to author the hostile claim, never a checker
+decision or the producer evaluator as a correctness oracle.
+
+The corrected focused run is **186 passed /0 skipped =141 pure +45 actual PostgreSQL**,
+covering all 32 PIV-D families and all 10 PIV-PG obligations. The seven historical metadata
+guards plus the exact additive compatibility guard separately passed (8/8). The corrected
+collection is 4369 = 4183 baseline +186 additive; collection is not a full-suite PASS.
+Dedicated SCRAM/TLS passed 16/16, benchmark 22/22, client 10/10, and architecture/import/
+export/OpenAPI/fixtures/Ruff/typecheck/web-build guards passed on this correction tree.
+Corrected-head full regression, dedicated SCRAM/TLS, benchmark, web/client and exact-head
+GitHub Actions status must be recorded in the new correction receipt on PR #138 after completion,
+not inferred from these focused runs or the initial-head receipt.
+
+Only three existing PR files change for this finding: the Validation-owned rules module,
+the additive adversarial test module and this evidence document. The original Nutrition
+producer, all historical fixtures/guards and frozen source/migration files remain untouched.
+515 legacy definition bodies plus the exact 13 additive names remain 528; all 503 historical
+hashes and 53 frozen source/migration files (plus 6 MBA companion pins) remain unchanged.
+Schema remains 0017/108, no 0018, no new persistence/SQL objects/roles/privileges. The protected
+original worktree's 19 dirty files retain their inventory and byte hashes.
+
+PR #138 must remain OPEN /auto-merge OFF for independent re-review. No self-approval,
+merge or structural freeze is recorded here. Production Nutrition/clinical content gate
+remains CLOSED; full MTR-006/007/008 INCOMPLETE, planner_ready=False, activation_ready=False,
+Execution NOT STARTED and PRECOMMIT FAIL-CLOSED. No downstream authorization is implied.

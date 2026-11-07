@@ -7,6 +7,7 @@ import re
 from collections import Counter
 from copy import deepcopy
 from fractions import Fraction
+from functools import lru_cache
 from pathlib import Path
 from threading import Event, Timer
 from time import monotonic, sleep
@@ -14,12 +15,15 @@ from time import monotonic, sleep
 import pytest
 from app.domain.feature_identity import canonical, canonical_bytes
 from app.modules.nutrition import policy_v2_contracts as v
+from app.modules.nutrition.basis_applicability import resolve_basis_applicability
 from app.modules.nutrition.policy_v2 import derive_policy_v2
 from app.modules.nutrition.policy_v2_limits import PolicyWork
 from app.modules.nutrition.resolution_limits import ingest, structure
 from app.modules.planning import policy_v2_capture as host
+from app.modules.validation.nutrition_policy_v2 import _assignments, check_policy_v2
 from basis_fixtures import rehash_sources, retained, weekly_basis_sources
-from policy_v2_fixtures import author_root, author_rule, compose, input_for
+from nutrition_synthesis_fixtures import instruction
+from policy_v2_fixtures import author_root, author_rule, compose, input_for, positive_week
 from test_policy_v2 import assert_negative, assert_positive
 
 
@@ -495,3 +499,164 @@ def stable_baseline_id(node):
         if node.startswith(prefix) and re.fullmatch(r"[0-9a-f-]{36}\]", node[len(prefix) :]):
             return prefix + "<GENERATED_UUID>]"
     return node
+
+
+@lru_cache
+def r138_week_reference_source():
+    """One retained source cut shared by every differential coefficient variant."""
+    return author_root(
+        positive_week(),
+        lambda body: add_clause(
+            body,
+            "PROTEIN",
+            dict(kind="TARGET", center=dict(numerator=0, denominator=1)),
+            "REFERENCE_CENTER",
+        ),
+    )
+
+
+@lru_cache
+def r138_week_period_maps(second_numerator=1, second_denominator=1, first_numerator=1):
+    """Source-authored symbolic zero reference; no physiological interpretation."""
+    source = r138_week_reference_source()
+
+    def author(rule):
+        for case in rule["cases"]:
+            assert "TEST_ONLY_protein" not in case["daily_root_keys"]
+            ops = [
+                instruction(
+                    "TEST_ONLY_r138_reference",
+                    "COPY_REFERENCE",
+                    root_key="TEST_ONLY_protein",
+                    endpoint="center",
+                    reference_role="TEST_ONLY_reference",
+                )
+            ]
+            for index, cell in enumerate(rule["calendar_cells"]):
+                ops.append(
+                    instruction(
+                        f"TEST_ONLY_r138_cell{index}",
+                        "REVIEWED_PERIOD_PROJECTION",
+                        ("TEST_ONLY_r138_reference",),
+                        coefficient=dict(numerator=1, denominator=1),
+                        offset=dict(numerator=0, denominator=1),
+                        temporal=cell,
+                    )
+                )
+            for name in ("first", "second"):
+                coefficients = [dict(numerator=first_numerator, denominator=1) for _ in range(7)]
+                if name == "second":
+                    coefficients[0] = dict(
+                        numerator=second_numerator, denominator=second_denominator
+                    )
+                ops.append(
+                    instruction(
+                        "TEST_ONLY_r138_" + name,
+                        "FINITE_PERIOD_SUM",
+                        tuple(f"TEST_ONLY_r138_cell{index}" for index in range(7)),
+                        coefficients=coefficients,
+                        temporal=rule["applicability"]["temporal"],
+                    )
+                )
+            case["operations"].extend(canonical(ops))
+
+    # This reauthors guideline/review/publication, rule/meaning evidence, NRE and MBA.
+    return input_for(author_rule(source, author))
+
+
+@pytest.mark.parametrize("numerator,denominator", [(2, 1), (1, 2)])
+def test_piv_d27_r138_conflicting_nondaily_maps_faithful_negative(numerator, denominator):
+    i = r138_week_period_maps(numerator, denominator)
+    result = derive_policy_v2(i)
+    assert result.outcome == "UNSUPPORTED" and result.payload is None, result.diagnostics
+    assert result.diagnostics[0].code == "UNSUPPORTED_TEMPORAL_MAP"
+    report = check_policy_v2(i, result)
+    assert report.decision == "CONSISTENT", report
+    assert report.numerical_use == "NOT_ADMITTED"
+
+
+def r138_favorable_claim(i):
+    """Forge a fully bound positive without changing or bypassing producer code.
+
+    Zero reference endpoints make both coefficient maps numerically identical.
+    Rebuild source/basis/coverage/joint fingerprints for the conflicting source;
+    no stale hashes or false origin assertion is needed to reach the checker.
+    """
+    control = derive_policy_v2(r138_week_period_maps())
+    assert control.outcome == "AVAILABLE_TEST_ONLY"
+    assert check_policy_v2(r138_week_period_maps(), control).decision == "CONSISTENT"
+    source = i.basis_sources
+    root = source.nre.sources.synthesis_sources.request.root
+    assert root.roots == control.payload.retained_roots
+    child = resolve_basis_applicability(source)
+    assert child.outcome == "APPLICABLE_TEST_ONLY"
+    witnesses = {x.anchor_fingerprint: x for x in child.witnesses}
+    coverage = {x.anchor_key: canonical(x) for x in control.payload.coverage}
+    for anchor in source.anchors:
+        witness = witnesses[anchor.anchor_fingerprint]
+        coverage[anchor.key].update(
+            anchor_fingerprint=anchor.anchor_fingerprint,
+            descriptor=canonical(anchor.descriptor),
+            meaning_fingerprint=witness.original_meaning_fingerprint,
+            basis_witness_fingerprint=v.policy_v2_hash("check", witness),
+        )
+    data = canonical(control)
+    data.update(
+        input_fingerprint=i.source_fingerprint,
+        identity_fingerprint=v.policy_v2_hash("identity", i.identity),
+    )
+    data["payload"].update(
+        coverage=[coverage[x.key] for x in source.anchors],
+        requirements=canonical(source.nre.sources.requirements),
+        reconstructed_basis_result=canonical(child),
+        # Only joint-witness arithmetic is reused to author the hostile claim;
+        # the real checker always runs its complete temporal reconstruction.
+        support=canonical(
+            _assignments(root, control.payload.claims, source.nre.estimate, PolicyWork())
+        ),
+    )
+    data.pop("result_fingerprint")
+    return v.NutritionPolicyResultV2(**data, result_fingerprint=v.policy_v2_hash("result", data))
+
+
+@pytest.mark.parametrize("numerator,denominator", [(2, 1), (1, 2)])
+def test_piv_d27_r138_conflicting_maps_rehashed_positive_rejected(numerator, denominator):
+    i = r138_week_period_maps(numerator, denominator)
+    forged = r138_favorable_claim(i)
+    assert forged.outcome == "AVAILABLE_TEST_ONLY" and forged.payload is not None
+    data = canonical(forged)
+    data.pop("result_fingerprint")
+    assert forged.result_fingerprint == v.policy_v2_hash("result", data)
+    report = check_policy_v2(i, forged)
+    assert report.decision == "INCONSISTENT", report
+    assert report.numerical_use == "NOT_ADMITTED"
+
+
+@pytest.mark.parametrize("coefficient", [1, 2, 3])
+def test_piv_d27_r138_equal_nondaily_map_vectors_remain_supported(coefficient):
+    i = r138_week_period_maps(coefficient, 1, coefficient)
+    result = assert_positive(i)
+    maps = [
+        x
+        for x in result.payload.trace
+        if x.operation_id in {"TEST_ONLY_r138_first", "TEST_ONLY_r138_second"}
+    ]
+    assert len(maps) == 2 and maps[0].amount == maps[1].amount
+
+
+@pytest.mark.parametrize("numerator,denominator", [(2, 1), (1, 2)])
+def test_piv_d27_r138_nonunit_daily_map_remains_unsupported(numerator, denominator):
+    def author(rule):
+        for case in rule["cases"]:
+            daily = next(x for x in case["operations"] if x["kind"] == "FINITE_PERIOD_SUM")
+            assert case["daily_root_keys"]
+            duplicate = deepcopy(daily)
+            duplicate["id"] = "TEST_ONLY_r138_daily_nonunit"
+            duplicate["coefficients"][0] = dict(numerator=numerator, denominator=denominator)
+            case["operations"].append(duplicate)
+
+    assert_negative(
+        input_for(author_rule(positive_week(), author)),
+        "UNSUPPORTED",
+        "UNSUPPORTED_TEMPORAL_MAP",
+    )
