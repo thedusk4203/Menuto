@@ -18,7 +18,7 @@ def test_s02_all318_definitions_and_frozen_dependencies_retained():
     assert pins["base"] == "4ad3f682554b7feee9f333eca1f1f5c258852f5e"
     schema = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     assert len(pins["definitions"]) == 318
-    assert len(schema) == 515  # 503 retained +12 additive MBA definitions.
+    assert len(schema) == 528  # 515 retained +13 additive policy v2 definitions.
     for name, expected in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(schema[name], sort_keys=True).encode()).hexdigest()

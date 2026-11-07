@@ -11128,6 +11128,87 @@
       "title": "InventoryValidationFacts",
       "type": "object"
     },
+    "JointPolicySupportV2": {
+      "additionalProperties": false,
+      "properties": {
+        "assignments": {
+          "items": {
+            "$ref": "#/$defs/PolicyAssignmentEvaluationV2"
+          },
+          "maxItems": 16384,
+          "minItems": 1,
+          "title": "Assignments",
+          "type": "array"
+        },
+        "center_deltas": {
+          "items": {
+            "$ref": "#/$defs/PolicyCenterDeltaV2"
+          },
+          "maxItems": 65536,
+          "title": "Center Deltas",
+          "type": "array"
+        },
+        "comfort_assignment_ids": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "maxItems": 16384,
+          "minItems": 1,
+          "title": "Comfort Assignment Ids",
+          "type": "array"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "protected_assignment_ids": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "maxItems": 16384,
+          "minItems": 1,
+          "title": "Protected Assignment Ids",
+          "type": "array"
+        },
+        "representative_comfort_assignment_id": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Representative Comfort Assignment Id",
+          "type": "string"
+        },
+        "slot_ids": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 14,
+          "minItems": 1,
+          "title": "Slot Ids",
+          "type": "array"
+        },
+        "support_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Support Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "slot_ids",
+        "assignments",
+        "protected_assignment_ids",
+        "comfort_assignment_ids",
+        "representative_comfort_assignment_id",
+        "center_deltas",
+        "support_fingerprint"
+      ],
+      "title": "JointPolicySupportV2",
+      "type": "object"
+    },
     "Lifecycle": {
       "enum": [
         "ACTIVE",
@@ -14643,6 +14724,259 @@
       "title": "NutritionPolicy",
       "type": "object"
     },
+    "NutritionPolicyBodyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/NutritionPolicyClaim"
+          },
+          "maxItems": 256,
+          "minItems": 1,
+          "title": "Claims",
+          "type": "array"
+        },
+        "coverage": {
+          "items": {
+            "$ref": "#/$defs/PolicyClaimCoverageV2"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "title": "Coverage",
+          "type": "array"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "reconstructed_basis_result": {
+          "$ref": "#/$defs/BasisApplicabilityResultV1"
+        },
+        "requirements": {
+          "$ref": "#/$defs/NutritionPolicyRequirementSpec"
+        },
+        "retained_roots": {
+          "items": {
+            "$ref": "#/$defs/NutritionResolvedRoot"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Retained Roots",
+          "type": "array"
+        },
+        "support": {
+          "$ref": "#/$defs/JointPolicySupportV2"
+        },
+        "trace": {
+          "items": {
+            "$ref": "#/$defs/NutritionPolicyTrace"
+          },
+          "maxItems": 256,
+          "minItems": 1,
+          "title": "Trace",
+          "type": "array"
+        }
+      },
+      "required": [
+        "environment",
+        "retained_roots",
+        "claims",
+        "trace",
+        "coverage",
+        "requirements",
+        "reconstructed_basis_result",
+        "support"
+      ],
+      "title": "NutritionPolicyBodyV2",
+      "type": "object"
+    },
+    "NutritionPolicyCheckV2": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "nutrition-policy-check.v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "coverage": {
+          "const": "FULL_V2_SOURCE_JOINT_POLICY_CONTAINMENT",
+          "title": "Coverage",
+          "type": "string"
+        },
+        "current_authorization": {
+          "const": "NOT_CLAIMED",
+          "title": "Current Authorization",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "CONSISTENT",
+            "INCONSISTENT"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "enum": [
+              "SOURCE_MISSING",
+              "GOAL_SOURCE_UNAVAILABLE",
+              "PRECISION_UNAUTHORIZED",
+              "SOURCE_MALFORMED",
+              "SOURCE_IDENTITY_MISMATCH",
+              "SOURCE_UNAUTHORIZED",
+              "SOURCE_WITHDRAWN",
+              "NRE_INCONSISTENT",
+              "MBA_INCONSISTENT",
+              "NRE_UNAVAILABLE",
+              "MBA_UNAVAILABLE",
+              "PERIOD_COVERAGE_MISSING",
+              "ANCHOR_COVERAGE_MISSING",
+              "CLAIM_COVERAGE_MISSING",
+              "DAILY_PROTECTION_MISSING",
+              "MBA_NOT_APPLICABLE",
+              "MEANING_MISMATCH",
+              "UNIT_OR_SCOPE_MISMATCH",
+              "UNSUPPORTED_TEMPORAL_MAP",
+              "PRECISION_IDENTITY_MISMATCH",
+              "SOURCE_CUT_INCOHERENT",
+              "REQUIREMENT_COVERAGE_MISSING",
+              "JOINT_WITNESS_MISMATCH",
+              "GAP_SUBSTITUTION",
+              "HARD_CONTAINMENT_FAILED",
+              "GOAL_DIRECTION_CONFLICT",
+              "PRECISION_NESTING_FAILED",
+              "PROTECTED_INTERVAL_CONFLICT",
+              "NO_PROTECTED_JOINT_WITNESS",
+              "NO_JOINT_COMFORT_SUPPORT",
+              "RESOURCE_LIMIT",
+              "ORIGIN_NOT_ESTABLISHED",
+              "REGISTRY_CHANGED",
+              "CAPTURE_EXPIRED",
+              "CONSUME_REPLAY",
+              "REPORT_NOT_AUTHORITY",
+              "ENVIRONMENT_MISMATCH",
+              "PRODUCTION_GATE_CLOSED",
+              "CAPTURE_FAILED",
+              "HOST_TIMEOUT",
+              "POLICY_SEMANTICS_INCONSISTENT"
+            ],
+            "type": "string"
+          },
+          "maxItems": 64,
+          "title": "Findings",
+          "type": "array"
+        },
+        "input_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Input Fingerprint"
+        },
+        "numerical_use": {
+          "enum": [
+            "AVAILABLE_RETAINED_ONLY",
+            "NOT_ADMITTED"
+          ],
+          "title": "Numerical Use",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "reconstructed_outcome": {
+          "anyOf": [
+            {
+              "enum": [
+                "AVAILABLE_TEST_ONLY",
+                "SOURCE_UNAVAILABLE",
+                "UNSUPPORTED",
+                "REJECTED",
+                "POLICY_CONFLICT",
+                "RESOLUTION_INSUFFICIENT",
+                "RESOURCE_EXCEEDED"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reconstructed Outcome"
+        },
+        "reconstructed_result_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reconstructed Result Fingerprint"
+        },
+        "scientific_correctness": {
+          "const": "NOT_CERTIFIED",
+          "title": "Scientific Correctness",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "NOT_PROVED_OFFLINE",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "contract_version",
+        "coverage",
+        "decision",
+        "reconstructed_outcome",
+        "numerical_use",
+        "findings",
+        "input_fingerprint",
+        "reconstructed_result_fingerprint",
+        "validation_authority",
+        "source_origin",
+        "current_authorization",
+        "scientific_correctness",
+        "production_admission",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "NutritionPolicyCheckV2",
+      "type": "object"
+    },
     "NutritionPolicyClaim": {
       "additionalProperties": false,
       "properties": {
@@ -14727,6 +15061,111 @@
         "evidence_id"
       ],
       "title": "NutritionPolicyClaim",
+      "type": "object"
+    },
+    "NutritionPolicyHandoffV2": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "nutrition-policy-handoff.v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#/$defs/NutritionPolicyIntegrationInputV2"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/$defs/NutritionPolicyResultV2"
+        },
+        "retained_check": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionPolicyCheckV2"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "contract_version",
+        "input",
+        "result",
+        "retained_check",
+        "validation_authority",
+        "production_admission",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "NutritionPolicyHandoffV2",
+      "type": "object"
+    },
+    "NutritionPolicyIntegrationInputV2": {
+      "additionalProperties": false,
+      "properties": {
+        "basis_sources": {
+          "$ref": "#/$defs/BasisApplicabilitySourcesV1"
+        },
+        "contract_version": {
+          "const": "nutrition-policy-integration-input.v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/$defs/PolicyIntegrationIdentityV2"
+        },
+        "profile": {
+          "const": "PIV2_SAME_MEANING_EXACT_PERIOD_SUM_V1",
+          "title": "Profile",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "contract_version",
+        "profile",
+        "basis_sources",
+        "identity",
+        "source_fingerprint"
+      ],
+      "title": "NutritionPolicyIntegrationInputV2",
       "type": "object"
     },
     "NutritionPolicyReference": {
@@ -14849,6 +15288,133 @@
         "fingerprint"
       ],
       "title": "NutritionPolicyRequirementSpec",
+      "type": "object"
+    },
+    "NutritionPolicyResultV2": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "nutrition-policy.v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "current_authorization": {
+          "const": "NOT_CLAIMED",
+          "title": "Current Authorization",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/PolicyDiagnosticV2"
+          },
+          "maxItems": 64,
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "identity_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Identity Fingerprint",
+          "type": "string"
+        },
+        "input_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Input Fingerprint",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "AVAILABLE_TEST_ONLY",
+            "SOURCE_UNAVAILABLE",
+            "UNSUPPORTED",
+            "REJECTED",
+            "POLICY_CONFLICT",
+            "RESOLUTION_INSUFFICIENT",
+            "RESOURCE_EXCEEDED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "payload": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NutritionPolicyBodyV2"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "plan_validation": {
+          "const": "NOT_PERFORMED",
+          "title": "Plan Validation",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "scientific_correctness": {
+          "const": "NOT_CERTIFIED",
+          "title": "Scientific Correctness",
+          "type": "string"
+        },
+        "solver_infeasibility": {
+          "const": "NOT_PROVEN",
+          "title": "Solver Infeasibility",
+          "type": "string"
+        },
+        "source_origin": {
+          "const": "NOT_PROVED_OFFLINE",
+          "title": "Source Origin",
+          "type": "string"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "contract_version",
+        "input_fingerprint",
+        "identity_fingerprint",
+        "outcome",
+        "diagnostics",
+        "payload",
+        "result_fingerprint",
+        "validation_authority",
+        "scientific_correctness",
+        "source_origin",
+        "current_authorization",
+        "production_admission",
+        "plan_validation",
+        "solver_infeasibility",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "NutritionPolicyResultV2",
       "type": "object"
     },
     "NutritionPolicyTrace": {
@@ -20793,6 +21359,643 @@
         "provenance"
       ],
       "title": "PlanningProcurementOptionDraft",
+      "type": "object"
+    },
+    "PolicyAssignmentEvaluationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "assignment_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Assignment Fingerprint",
+          "type": "string"
+        },
+        "comfort_violations": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 256,
+          "title": "Comfort Violations",
+          "type": "array"
+        },
+        "configuration_ids": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "maxItems": 14,
+          "minItems": 1,
+          "title": "Configuration Ids",
+          "type": "array"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "hard_violations": {
+          "items": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 256,
+          "title": "Hard Violations",
+          "type": "array"
+        },
+        "period_vector_fingerprints": {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Period Vector Fingerprints",
+          "type": "array"
+        }
+      },
+      "required": [
+        "environment",
+        "assignment_fingerprint",
+        "configuration_ids",
+        "period_vector_fingerprints",
+        "hard_violations",
+        "comfort_violations"
+      ],
+      "title": "PolicyAssignmentEvaluationV2",
+      "type": "object"
+    },
+    "PolicyCenterDeltaV2": {
+      "additionalProperties": false,
+      "properties": {
+        "amount_minus_center": {
+          "$ref": "#/$defs/NreDelta"
+        },
+        "assignment_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Assignment Fingerprint",
+          "type": "string"
+        },
+        "claim_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "descriptor": {
+          "$ref": "#/$defs/NutritionRootDescriptor"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "assignment_fingerprint",
+        "claim_id",
+        "descriptor",
+        "amount_minus_center"
+      ],
+      "title": "PolicyCenterDeltaV2",
+      "type": "object"
+    },
+    "PolicyClaimCoverageV2": {
+      "additionalProperties": false,
+      "properties": {
+        "anchor_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Anchor Fingerprint",
+          "type": "string"
+        },
+        "anchor_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Anchor Key",
+          "type": "string"
+        },
+        "basis_witness_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Basis Witness Fingerprint",
+          "type": "string"
+        },
+        "claim_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Claim Id"
+        },
+        "descriptor": {
+          "$ref": "#/$defs/NutritionRootDescriptor"
+        },
+        "disposition": {
+          "enum": [
+            "RETAINED_ROOT",
+            "ACTIVE_CLAIM",
+            "UNSELECTED_PRECISION_BRANCH"
+          ],
+          "title": "Disposition",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "layer": {
+          "enum": [
+            "GUIDELINE_HARD",
+            "REFERENCE_CENTER",
+            "GOAL_PROTECTION",
+            "DAILY_PROTECTION",
+            "COMFORT",
+            "WEEKLY_GOAL",
+            "WEEKLY_CENTER"
+          ],
+          "title": "Layer",
+          "type": "string"
+        },
+        "meaning_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Meaning Fingerprint",
+          "type": "string"
+        },
+        "operation_id": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Operation Id"
+        },
+        "root_key": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Root Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "anchor_key",
+        "anchor_fingerprint",
+        "root_key",
+        "operation_id",
+        "descriptor",
+        "layer",
+        "disposition",
+        "claim_id",
+        "meaning_fingerprint",
+        "basis_witness_fingerprint"
+      ],
+      "title": "PolicyClaimCoverageV2",
+      "type": "object"
+    },
+    "PolicyDiagnosticV2": {
+      "additionalProperties": false,
+      "properties": {
+        "child_outcome": {
+          "anyOf": [
+            {
+              "enum": [
+                "APPLICABLE_TEST_ONLY",
+                "NOT_APPLICABLE",
+                "UNAVAILABLE",
+                "UNSUPPORTED",
+                "REJECTED",
+                "RESOURCE_EXCEEDED"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Child Outcome"
+        },
+        "child_reason": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Child Reason"
+        },
+        "code": {
+          "enum": [
+            "SOURCE_MISSING",
+            "GOAL_SOURCE_UNAVAILABLE",
+            "PRECISION_UNAUTHORIZED",
+            "SOURCE_MALFORMED",
+            "SOURCE_IDENTITY_MISMATCH",
+            "SOURCE_UNAUTHORIZED",
+            "SOURCE_WITHDRAWN",
+            "NRE_INCONSISTENT",
+            "MBA_INCONSISTENT",
+            "NRE_UNAVAILABLE",
+            "MBA_UNAVAILABLE",
+            "PERIOD_COVERAGE_MISSING",
+            "ANCHOR_COVERAGE_MISSING",
+            "CLAIM_COVERAGE_MISSING",
+            "DAILY_PROTECTION_MISSING",
+            "MBA_NOT_APPLICABLE",
+            "MEANING_MISMATCH",
+            "UNIT_OR_SCOPE_MISMATCH",
+            "UNSUPPORTED_TEMPORAL_MAP",
+            "PRECISION_IDENTITY_MISMATCH",
+            "SOURCE_CUT_INCOHERENT",
+            "REQUIREMENT_COVERAGE_MISSING",
+            "JOINT_WITNESS_MISMATCH",
+            "GAP_SUBSTITUTION",
+            "HARD_CONTAINMENT_FAILED",
+            "GOAL_DIRECTION_CONFLICT",
+            "PRECISION_NESTING_FAILED",
+            "PROTECTED_INTERVAL_CONFLICT",
+            "NO_PROTECTED_JOINT_WITNESS",
+            "NO_JOINT_COMFORT_SUPPORT",
+            "RESOURCE_LIMIT",
+            "ORIGIN_NOT_ESTABLISHED",
+            "REGISTRY_CHANGED",
+            "CAPTURE_EXPIRED",
+            "CONSUME_REPLAY",
+            "REPORT_NOT_AUTHORITY",
+            "ENVIRONMENT_MISMATCH",
+            "PRODUCTION_GATE_CLOSED",
+            "CAPTURE_FAILED",
+            "HOST_TIMEOUT",
+            "POLICY_SEMANTICS_INCONSISTENT"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "hard_support": {
+          "enum": [
+            "NOT_EVALUATED",
+            "ABSENT_IN_DECLARED_UNIVERSE",
+            "PRESENT"
+          ],
+          "title": "Hard Support",
+          "type": "string"
+        },
+        "soft_support": {
+          "enum": [
+            "NOT_EVALUATED",
+            "SOFT_UNSUPPORTED",
+            "PRESENT"
+          ],
+          "title": "Soft Support",
+          "type": "string"
+        },
+        "stage": {
+          "enum": [
+            "PARSE",
+            "IDENTITY",
+            "SOURCE",
+            "NRE",
+            "MBA",
+            "RULE",
+            "COVERAGE",
+            "JOINT",
+            "CONSUMER"
+          ],
+          "title": "Stage",
+          "type": "string"
+        },
+        "subject_path": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_.:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Subject Path"
+        }
+      },
+      "required": [
+        "environment",
+        "stage",
+        "code",
+        "subject_path",
+        "child_outcome",
+        "child_reason",
+        "hard_support",
+        "soft_support"
+      ],
+      "title": "PolicyDiagnosticV2",
+      "type": "object"
+    },
+    "PolicyIntegrationIdentityV2": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "anchor_manifest_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Anchor Manifest Fingerprint",
+          "type": "string"
+        },
+        "basis_source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Basis Source Fingerprint",
+          "type": "string"
+        },
+        "calendar_cells": {
+          "items": {
+            "$ref": "#/$defs/NutritionTemporalScope"
+          },
+          "maxItems": 64,
+          "minItems": 1,
+          "title": "Calendar Cells",
+          "type": "array"
+        },
+        "database_name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "exclusiveMinimum": 0,
+          "maximum": 4294967295,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "deployment": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Deployment",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "horizon": {
+          "$ref": "#/$defs/NutritionTemporalScope"
+        },
+        "issuer_epoch": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Issuer Epoch",
+          "type": "string"
+        },
+        "nre_result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Nre Result Fingerprint",
+          "type": "string"
+        },
+        "nre_scope_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Nre Scope Fingerprint",
+          "type": "string"
+        },
+        "nre_source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Nre Source Fingerprint",
+          "type": "string"
+        },
+        "original_meaning_manifest_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Original Meaning Manifest Fingerprint",
+          "type": "string"
+        },
+        "precision": {
+          "$ref": "#/$defs/NutritionPrecisionSelection"
+        },
+        "precision_witness": {
+          "$ref": "#/$defs/NutritionSubjectWitness"
+        },
+        "registry_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Registry Id",
+          "type": "string"
+        },
+        "registry_revision": {
+          "exclusiveMinimum": 0,
+          "title": "Registry Revision",
+          "type": "integer"
+        },
+        "requirement_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Requirement Fingerprint",
+          "type": "string"
+        },
+        "root_request": {
+          "$ref": "#/$defs/NutritionRootRequest"
+        },
+        "root_result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Root Result Fingerprint",
+          "type": "string"
+        },
+        "root_source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Root Source Fingerprint",
+          "type": "string"
+        },
+        "rule_case_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Rule Case Id",
+          "type": "string"
+        },
+        "rule_selection": {
+          "$ref": "#/$defs/NutritionSynthesisSelection"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "environment",
+        "subject",
+        "actor_user_id",
+        "root_request",
+        "root_source_fingerprint",
+        "root_result_fingerprint",
+        "rule_selection",
+        "rule_case_id",
+        "requirement_fingerprint",
+        "nre_scope_fingerprint",
+        "precision",
+        "precision_witness",
+        "horizon",
+        "calendar_cells",
+        "nre_source_fingerprint",
+        "nre_result_fingerprint",
+        "anchor_manifest_fingerprint",
+        "original_meaning_manifest_fingerprint",
+        "registry_id",
+        "registry_revision",
+        "issuer_epoch",
+        "deployment",
+        "database_oid",
+        "database_name",
+        "basis_source_fingerprint"
+      ],
+      "title": "PolicyIntegrationIdentityV2",
+      "type": "object"
+    },
+    "PolicyV2CaptureFailure": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "nutrition-policy-capture-failure.v2",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/PolicyDiagnosticV2"
+          },
+          "maxItems": 64,
+          "minItems": 1,
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "input_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Input Fingerprint"
+        },
+        "outcome": {
+          "enum": [
+            "CAPTURE_REJECTED",
+            "ADMISSION_REJECTED",
+            "RESOURCE_EXCEEDED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "contract_version",
+        "outcome",
+        "diagnostics",
+        "input_fingerprint",
+        "production_admission",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "PolicyV2CaptureFailure",
+      "type": "object"
+    },
+    "PolicyV2Use": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "precision_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Precision Fingerprint",
+          "type": "string"
+        },
+        "purpose": {
+          "const": "STRUCTURAL_TEST_ONLY_INSPECTION",
+          "title": "Purpose",
+          "type": "string"
+        },
+        "selector_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Selector Fingerprint",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/HouseholdMemberIdentity"
+        }
+      },
+      "required": [
+        "environment",
+        "purpose",
+        "subject",
+        "actor_user_id",
+        "selector_fingerprint",
+        "precision_fingerprint"
+      ],
+      "title": "PolicyV2Use",
       "type": "object"
     },
     "PreferenceWriteCommand": {
