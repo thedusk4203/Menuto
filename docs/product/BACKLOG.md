@@ -1,29 +1,32 @@
 # Backlog canonical V1.3 — MTR-001 → MTR-050
 
-## MTR-006 Policy Integration v2 — DETAILED DESIGN CANDIDATE / TEST_ONLY
+## MTR-006 Policy Integration v2 — IMPLEMENTED / REVIEW CANDIDATE / TEST_ONLY
 
-The separately authorized [bounded detailed design](MTR_006_POLICY_INTEGRATION_V2_BOUNDED_DESIGN.md)
-starts at exact main `73a4c1c668516f6c719661c7225d84a758221450` after approved
-[dependency review PR #135](https://github.com/thedusk4203/Menuto/pull/135),
-[independent PASS6692295427](https://github.com/thedusk4203/Menuto/pull/135#issuecomment-6692295427)
-and [merge completion6693282259](https://github.com/thedusk4203/Menuto/pull/135#issuecomment-6693282259).
-Exact-main push [CI42271106826](https://github.com/thedusk4203/Menuto/actions/runs/42271106826)
-SUCCESS is baseline evidence, not CI for the new design PR.
+The separately authorized [bounded implementation/evidence](MTR_006_POLICY_INTEGRATION_V2_IMPLEMENTATION_EVIDENCE.md)
+starts at corrected main `5b9441d1c10e5ad010a10f9e1af415c1ef50bd5a`, following approved
+[design PR #136](https://github.com/thedusk4203/Menuto/pull/136) and
+[PIV-R136-01 corrigendum PR #137](https://github.com/thedusk4203/Menuto/pull/137).
+Owner implementation-resumption authorization and the two narrow seven-file export-metadata
+exceptions are separate from design approval and confer no merge/freeze authority.
 
-**MTR-006 V2 BOUNDED DETAILED DESIGN — READY FOR INDEPENDENT ARCHITECTURE REVIEW /
-IMPLEMENTATION NOT AUTHORIZED.** Design execution is now separately authorized; architecture
-approval, implementation, merge and freeze are not. The proposal specifies additive TEST_ONLY
-contracts, one-shot captured-cut admission, Policy-owned explicit precision, complete NRE/MBA
-source meaning and joint witnesses, independent full policy verification, all32 PIV-D families
-and exactly10 future real-PostgreSQL obligations. None of those future tests is claimed executed.
+**IMPLEMENTATION READY FOR INDEPENDENT REVIEW — NOT MERGED / NOT FROZEN.**
+All 32 PIV-D families and 10 real-PG obligations execute: 177 additive cases include 45 real PG.
+One complete regression records 4360 passed / 0 skips, retaining all 4183 baseline executions.
+Exports 528 = 515 unchanged bodies + 13 exact additions; 503 historical hashes and 53 frozen files
+remain intact. No historical fixture/hash baseline changed. Schema 0017/108; no 0018,
+new persistence, SQL objects, roles or runtime privileges. Exact-head CI is pinned separately
+in the implementation PR verification receipt, never inferred from baseline CI.
 
-No runtime/contracts/tests/tooling/CI/migration/data changes. Frozen Root/MTR-006 v1/MTR-007/MBA
-semantics and MBA implementation identity remain unchanged. Retain4183 tests,515 exports,
-503 historical hashes,53 frozen files and schema0017/108; no0018, persistence or DB privileges.
-Production Nutrition/clinical content gate CLOSED; full MTR-006/007/008 INCOMPLETE, issues OPEN;
-planner_ready=False,activation_ready=False, Execution NOT STARTED, PRECOMMIT FAIL-CLOSED.
-No downstream implementation, scientific conversion, production qualification/publication,
-solver or issue closure is authorized. Keep the new design PR OPEN, auto-merge OFF.
+PIV-R136-01 preserves faithful MBA UNAVAILABLE/SOURCE_UNQUALIFIED → parent
+SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED, null payload and CONSISTENT/NOT_ADMITTED;
+fully rehashed positive forgeries remain rejected independently. Root/MTR-006 v1/MTR-007/MBA
+frozen semantics/bytes and MBA implementation merge/tree are unchanged.
+
+Production Nutrition/clinical content gate CLOSED. Full MTR-006/007/008 INCOMPLETE;
+issues #5/#6/#7 OPEN, planner_ready=False, activation_ready=False, Execution NOT STARTED,
+PRECOMMIT FAIL-CLOSED. No production scientific/clinical authority, MTR-008, solver,
+activation, issue closure or downstream implementation is authorized. Keep the implementation
+PR OPEN, auto-merge OFF; stop for independent implementation review.
 
 ## Measurement-basis applicability — STRUCTURALLY FROZEN / TEST_ONLY
 

@@ -127,6 +127,21 @@ from app.modules.nutrition.contracts import (
     ResolvedNutrients,
     ResolvedNutritionPortion,
 )
+from app.modules.nutrition.policy_v2_contracts import (
+    JointPolicySupportV2,
+    NutritionPolicyBodyV2,
+    NutritionPolicyCheckV2,
+    NutritionPolicyHandoffV2,
+    NutritionPolicyIntegrationInputV2,
+    NutritionPolicyResultV2,
+    PolicyAssignmentEvaluationV2,
+    PolicyCenterDeltaV2,
+    PolicyClaimCoverageV2,
+    PolicyDiagnosticV2,
+    PolicyIntegrationIdentityV2,
+    PolicyV2CaptureFailure,
+    PolicyV2Use,
+)
 from app.modules.nutrition.resolution_contracts import (
     NutritionResolutionCheckV1,
     NutritionResolutionEstimateV1,
@@ -794,6 +809,22 @@ CONTRACTS += (
 CONTRACTS += (
     BasisApplicabilityCheckV1, BasisApplicabilityHandoffV1, BasisApplicabilityResultV1,
     BasisApplicabilitySourcesV1, BasisSelectorsV1,
+)
+
+CONTRACTS += (
+    PolicyIntegrationIdentityV2,
+    NutritionPolicyIntegrationInputV2,
+    PolicyClaimCoverageV2,
+    PolicyAssignmentEvaluationV2,
+    PolicyCenterDeltaV2,
+    JointPolicySupportV2,
+    NutritionPolicyBodyV2,
+    PolicyDiagnosticV2,
+    NutritionPolicyResultV2,
+    NutritionPolicyCheckV2,
+    NutritionPolicyHandoffV2,
+    PolicyV2Use,
+    PolicyV2CaptureFailure,
 )
 
 
