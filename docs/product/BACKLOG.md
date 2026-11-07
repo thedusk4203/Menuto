@@ -1,32 +1,46 @@
 # Backlog canonical V1.3 — MTR-001 → MTR-050
 
-## MTR-006 Policy Integration v2 — IMPLEMENTED / REVIEW CANDIDATE / TEST_ONLY
+## MTR-006 Policy Integration v2 — STRUCTURALLY FROZEN / TEST_ONLY
 
-The separately authorized [bounded implementation/evidence](MTR_006_POLICY_INTEGRATION_V2_IMPLEMENTATION_EVIDENCE.md)
-starts at corrected main `5b9441d1c10e5ad010a10f9e1af415c1ef50bd5a`, following approved
-[design PR #136](https://github.com/thedusk4203/Menuto/pull/136) and
-[PIV-R136-01 corrigendum PR #137](https://github.com/thedusk4203/Menuto/pull/137).
-Owner implementation-resumption authorization and the two narrow seven-file export-metadata
-exceptions are separate from design approval and confer no merge/freeze authority.
+[Approved design PR #136](https://github.com/thedusk4203/Menuto/pull/136), reviewed head
+`570098480335dbf7c731fcf0954dd4601a2ccb9d`, and
+[PIV-R136-01 corrigendum PR #137](https://github.com/thedusk4203/Menuto/pull/137), reviewed head
+`dcab0f41a8605bb82c4d6b85ce01d176dcbc1bee`, established the bounded detailed design from
+baseline `5b9441d1c10e5ad010a10f9e1af415c1ef50bd5a`.
+The separately authorized bounded implementation adds a structural, source-bound, independently
+verified NutritionPolicy v2 integration seam over frozen Root/rule, NRE and MBA primitives, with
+authenticated Policy-owned REQUEST_EXPLICIT precision.
 
-**IMPLEMENTATION READY FOR INDEPENDENT REVIEW — NOT MERGED / NOT FROZEN.**
-All 32 PIV-D families and 10 real-PG obligations execute: 177 additive cases include 45 real PG.
-One complete regression records 4360 passed / 0 skips, retaining all 4183 baseline executions.
-Exports 528 = 515 unchanged bodies + 13 exact additions; 503 historical hashes and 53 frozen files
-remain intact. No historical fixture/hash baseline changed. Schema 0017/108; no 0018,
-new persistence, SQL objects, roles or runtime privileges. Exact-head CI is pinned separately
-in the implementation PR verification receipt, never inferred from baseline CI.
+**MTR-006 POLICY INTEGRATION V2 — STRUCTURALLY FROZEN / TEST_ONLY.**
+The [canonical freeze receipt](MTR_006_POLICY_INTEGRATION_V2_FREEZE_RECEIPT.md) and
+[formal freeze 6710492789](https://github.com/thedusk4203/Menuto/pull/138#issuecomment-6710492789)
+pin implementation [PR #138](https://github.com/thedusk4203/Menuto/pull/138), reviewed head
+`1e9000cf5122964393cd1cb1343719d378a7f936`, to actual merge
+`45bb2677d3eb657dcf36aaf9fc5b9e146e8bf8fa` and frozen tree
+`19c97149aeaaf108894e7a3d01afd0db4558e9e9`, identical to reviewed-head tree.
+Exact post-merge **push** [CI 42389669892 — SUCCESS](https://github.com/thedusk4203/Menuto/actions/runs/42389669892):
+Python/web and all guards SUCCESS; **4,369 passed / 0 skips = 4,183 retained + 186 additive**.
+All **32 PIV-D families (PIV-D01–PIV-D32)** and **10 PIV-PG obligations (PIV-PG01–PIV-PG10)**
+execute, including **45 real PostgreSQL executions**; dedicated SCRAM/TLS 16/16, benchmark 22/22,
+client 10/10. PIV-R138-01 was closed at the reviewed head by
+[independent PASS 6709092185](https://github.com/thedusk4203/Menuto/pull/138#issuecomment-6709092185).
+Terminal carriers remain **UNVERIFIED_TRANSPORT**; no scientific or production acceptance.
 
-PIV-R136-01 preserves faithful MBA UNAVAILABLE/SOURCE_UNQUALIFIED → parent
-SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED, null payload and CONSISTENT/NOT_ADMITTED;
-fully rehashed positive forgeries remain rejected independently. Root/MTR-006 v1/MTR-007/MBA
-frozen semantics/bytes and MBA implementation merge/tree are unchanged.
+The [implementation evidence](MTR_006_POLICY_INTEGRATION_V2_IMPLEMENTATION_EVIDENCE.md) and
+approved designs remain unchanged historical records. Their candidate/NOT FROZEN wording describes
+historical review stages and is superseded only as to current status. Documentation-sync commits
+do not replace the frozen implementation merge/tree.
 
-Production Nutrition/clinical content gate CLOSED. Full MTR-006/007/008 INCOMPLETE;
-issues #5/#6/#7 OPEN, planner_ready=False, activation_ready=False, Execution NOT STARTED,
-PRECOMMIT FAIL-CLOSED. No production scientific/clinical authority, MTR-008, solver,
-activation, issue closure or downstream implementation is authorized. Keep the implementation
-PR OPEN, auto-merge OFF; stop for independent implementation review.
+Exports: **528 = 515 unchanged legacy definitions + exactly 13 additive v2 names**. All 503 historical
+definition hashes and 53 historical frozen files remain intact (59 total in v2 compatibility manifest,
+including 6 MBA companions). Schema remains **0017 / 108**, no 0018, zero new persistence,
+SQL objects, roles or runtime privileges. Fresh-install production Nutrition/clinical content,
+providers, qualifications, publications, seeds and defaults remain **0**.
+Nutrition Root, MTR-006 v1 synthesis, MTR-007 estimator, MBA applicability and MTR-006 v2 policy integration
+foundations remain **FROZEN**. Full MTR-006/007/008 remain **INCOMPLETE**, issues #5/#6/#7 OPEN.
+The **PRODUCTION NUTRITION/CLINICAL CONTENT GATE remains CLOSED**; planner_ready=False,
+activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+MTR-008 remains a separate unauthorized downstream gate. No scientific conversion or downstream work is introduced.
 
 ## Measurement-basis applicability — STRUCTURALLY FROZEN / TEST_ONLY
 
@@ -68,11 +82,11 @@ All 4,047 baseline tests and 503 frozen exported-definition hashes are retained.
 adds 12 definitions (515 total); all53 frozen source/migration files remain unchanged.
 Schema remains **0017 / 108**, no0018, zero new persistence,
 SQL objects, roles or grants. No production provider, qualification, publication, seed or default.
-Nutrition Root, MTR-006 synthesis and MTR-007 estimator structural foundations remain **FROZEN**.
+Nutrition Root, MTR-006 synthesis, MTR-007 estimator and MBA applicability foundations remain **FROZEN**.
 Full MTR-006/007/008 remain **INCOMPLETE**, issues #5/#6/#7 OPEN. The **PRODUCTION
 NUTRITION/CLINICAL CONTENT GATE remains CLOSED**; planner_ready=False,
 activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-MTR-006 policy-integration v2 and MTR-008 remain separate unauthorized downstream gates.
+MTR-006 policy-integration v2 is structurally frozen; MTR-008 remains a separate unauthorized downstream gate.
 No scientific conversion, new clinical measurement source or downstream work is introduced.
 
 ## MTR-040 — COMPLETE; issue #41 — CLOSED / COMPLETED
