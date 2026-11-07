@@ -1,0 +1,15 @@
+[
+  "PolicyIntegrationIdentityV2",
+  "NutritionPolicyIntegrationInputV2",
+  "PolicyClaimCoverageV2",
+  "PolicyAssignmentEvaluationV2",
+  "PolicyCenterDeltaV2",
+  "JointPolicySupportV2",
+  "NutritionPolicyBodyV2",
+  "PolicyDiagnosticV2",
+  "NutritionPolicyResultV2",
+  "NutritionPolicyCheckV2",
+  "NutritionPolicyHandoffV2",
+  "PolicyV2Use",
+  "PolicyV2CaptureFailure"
+]

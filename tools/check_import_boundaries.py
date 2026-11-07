@@ -267,6 +267,97 @@ BASIS_COMPANION_IMPORTS = {
 }
 
 
+# PIV2 exact additive companion seams; frozen allowlists remain unchanged.
+POLICY_V2_IMPORTS = {
+    "app.modules.nutrition.policy_v2": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.basis_applicability",
+        "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.policy_v2_contracts",
+        "app.modules.nutrition.policy_v2_limits",
+        "app.modules.nutrition.policy_v2_rules",
+        "app.modules.nutrition.resolution_contracts",
+        "app.modules.nutrition.root_public",
+        "app.modules.nutrition.synthesis",
+        "app.modules.nutrition.synthesis_journal",
+        "fractions",
+    },
+    "app.modules.nutrition.policy_v2_contracts": {
+        "app.domain.contracts",
+        "app.domain.feature_identity",
+        "app.modules.households.contracts",
+        "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.resolution_contracts",
+        "app.modules.nutrition.resolution_limits",
+        "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.synthesis_contracts",
+        "pydantic",
+        "typing",
+        "uuid",
+    },
+    "app.modules.nutrition.policy_v2_limits": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.resolution_limits",
+    },
+    "app.modules.nutrition.policy_v2_public": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.policy_v2",
+        "app.modules.nutrition.policy_v2_contracts",
+    },
+    "app.modules.nutrition.policy_v2_rules": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.synthesis_contracts",
+        "dataclasses",
+        "fractions",
+    },
+    "app.modules.planning.policy_v2_capture": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.policy_v2_contracts",
+        "app.modules.nutrition.policy_v2_public",
+        "app.modules.planning.basis_capture",
+        "app.modules.planning.policy_v2_worker",
+        "dataclasses",
+        "multiprocessing",
+        "os",
+        "sqlalchemy",
+        "threading",
+        "time",
+        "weakref",
+    },
+    "app.modules.planning.policy_v2_worker": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.policy_v2",
+        "app.modules.nutrition.policy_v2_contracts",
+        "app.modules.nutrition.resolution_limits",
+        "app.modules.validation.nutrition_policy_v2",
+    },
+    "app.modules.validation.nutrition_policy_v2": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.basis_contracts",
+        "app.modules.nutrition.policy_v2_contracts",
+        "app.modules.nutrition.policy_v2_limits",
+        "app.modules.nutrition.resolution_contracts",
+        "app.modules.nutrition.resolution_limits",
+        "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.synthesis_contracts",
+        "app.modules.validation.basis_applicability",
+        "app.modules.validation.nutrition_policy_v2_rules",
+        "app.modules.validation.nutrition_resolution",
+        "app.modules.validation.nutrition_resolution_authority",
+        "app.modules.validation.nutrition_roots",
+        "fractions",
+    },
+    "app.modules.validation.nutrition_policy_v2_rules": {
+        "app.domain.feature_identity",
+        "app.modules.nutrition.root_contracts",
+        "app.modules.nutrition.synthesis_contracts",
+        "fractions",
+    },
+}
+
+
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
     parts = module.split(".")
@@ -282,6 +373,12 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     }
 
     def audit(target, line):
+        if module in POLICY_V2_IMPORTS:
+            if not any(
+                target == p or target.startswith(p + ".") for p in POLICY_V2_IMPORTS[module]
+            ):
+                errors.append(f"{line}: POLICY_V2_PURE_OR_INDEPENDENT_BOUNDARY: {target}")
+            return
         if module in BASIS_COMPANION_IMPORTS:
             if not any(target == p or target.startswith(p + ".")
                        for p in BASIS_COMPANION_IMPORTS[module]):
@@ -559,6 +656,10 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 if item.name == "*" and context:
                     errors.append(f"{node.lineno}: WILDCARD_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            if module in POLICY_V2_IMPORTS and node.func.id in {
+                "open", "input", "eval", "exec", "__import__"
+            }:
+                errors.append(f"{node.lineno}: POLICY_V2_NO_DYNAMIC_OR_FILE_IO")
             if module in BASIS_COMPANION_IMPORTS and node.func.id in {
                 "open", "input", "eval", "exec", "__import__"
             }:
@@ -574,6 +675,10 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             if context and node.func.id in {"__import__", "eval", "exec"}:
                 errors.append(f"{node.lineno}: DYNAMIC_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            if (module in POLICY_V2_IMPORTS
+                and module != "app.modules.planning.policy_v2_capture"
+                and node.func.attr in {"now", "utcnow", "today", "time", "getenv", "monotonic"}):
+                errors.append(f"{node.lineno}: POLICY_V2_NO_CLOCK_OR_ENVIRONMENT")
             if (module in BASIS_COMPANION_IMPORTS
                 and module not in {"app.modules.planning.basis_capture",
                                    "app.modules.planning.basis_host"}

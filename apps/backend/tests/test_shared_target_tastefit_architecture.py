@@ -27,8 +27,9 @@ def test_smtf120_all384_definitions_unchanged_exact_new_exports():
     synthesis = json.loads((FIXTURES / "nutrition_synthesis_compatibility.json").read_text())
     resolution = json.loads((FIXTURES / "nutrition_resolution_compatibility.json").read_text())
     basis = json.loads((FIXTURES / "basis_compatibility.json").read_text())
+    policy_v2 = json.loads((FIXTURES / "policy_v2_export_names.json").read_text())
     later = (set(nutrition["new_definitions"]) | set(synthesis["new_definitions"])
-             | set(resolution["new_definitions"]) | set(basis["new_definitions"]))
+             | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2))
     defs = {name: body for name, body in defs.items() if name not in later}
     assert len(pins["definitions"]) == 384
     assert len(defs) == 384 + len(pins["new_definitions"]) == 403
