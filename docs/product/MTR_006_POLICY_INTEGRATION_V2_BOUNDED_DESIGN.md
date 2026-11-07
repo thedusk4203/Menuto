@@ -8,6 +8,17 @@ This document proposes additive contracts and future executable obligations. No 
 runtime, test, database object, privilege, scientific content or production path is implemented
 by this PR. Full MTR-006/007/008 remain INCOMPLETE; issues #5/#6/#7 remain OPEN.
 
+**Targeted corrigendum PIV-R136-01 — independent review pending.** The post-merge
+[finding 6701887643](https://github.com/thedusk4203/Menuto/pull/136#issuecomment-6701887643)
+identified an acceptance mismatch with frozen MBA. This docs-only correction distinguishes
+the faithful reviewer-expiry negative from a forged positive in §8/§9/PIV-D04/PIV-D24;
+it changes no frozen behavior or authority machinery. It is based on main
+`1679d6035dd6685118df6c95fa37628384cc961c`. Implementation remains paused until independent
+corrigendum PASS, separate owner merge authorization, verified actual merge and successful
+exact merged-main push CI, then a separate resumption instruction reconciling the unfinished
+local branch. The historical local 58-pass/1-fail diagnostic is not implementation evidence
+for this correction. No merge, implementation resumption or structural freeze is authorized here.
+
 ## 1. Authorization, exact baseline and primary evidence
 
 The maintainer's separate design authorization follows the accepted
@@ -566,10 +577,18 @@ branch makes one MBA reconstruction, so both retain the four-NRE-run host cap in
 Calling children alone cannot certify the parent rule/joint/containment semantics.
 The producer uses exactly one frozen MBA replay, which itself freshly reconstructs NRE; it
 does not add a redundant standalone NRE run. Neither branch uses the frozen MBA host helper,
-which would introduce an extra producer/checker pair. A source-invalid/REJECTED child cannot
-receive a consistent positive parent report: even when the parent's non-success is faithfully
-represented, the checker returns INCONSISTENT/NOT_ADMITTED for corrupted source history.
-Faithful non-success on otherwise valid unavailable/unsupported evidence may be CONSISTENT.
+which would introduce an extra producer/checker pair. A child actually classified REJECTED
+cannot receive a consistent positive parent report: even when the parent's non-success is
+faithfully represented, the checker returns INCONSISTENT/NOT_ADMITTED for that rejected
+source history. Do not relabel a frozen UNAVAILABLE child as REJECTED. In particular, original
+reviewer grant/qualification expiry at publication yields UNAVAILABLE/SOURCE_UNQUALIFIED,
+empty child witnesses and a CONSISTENT frozen check of the faithful negative. Its correctly
+reconstructed v2 parent is SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED with payload=null; the v2
+checker may return CONSISTENT, but numerical_use remains NOT_ADMITTED. Faithful unavailable/
+unsupported non-success is semantic agreement, not applicability or numerical-use authority.
+A fully rehashed forged positive child/witness/policy or forged CONSISTENT report on that same
+expired-authority history must instead fail fresh independent checking, with no usable policy
+payload or numerical admission. Preserve the child's actual (outcome, reason), as §9 specifies.
 
 Publication-time checks preserve MBA-R133-01: the original reviewer's exact grant and symbolic
 TEST_ONLY qualification must be valid at each publication recorded_at and for the full
@@ -594,13 +613,20 @@ original fields in `child_outcome/child_reason`; other-stage diagnostics set bot
 1. RESOURCE_EXCEEDED maps to parent RESOURCE_EXCEEDED/RESOURCE_LIMIT.
 2. REJECTED maps to parent REJECTED/MBA_INCONSISTENT (NRE_RESULT_FORGED maps instead to
    NRE_INCONSISTENT; ENVIRONMENT_MISMATCH retains that exact reason). It is never demoted to
-   benign unavailability or incompatibility. CAPABILITY_INVALID/QUALIFICATION_INVALID and
-   malformed enrollment/review/lineage remain source-integrity rejection.
+   benign unavailability or incompatibility. Actual REJECTED/CAPABILITY_INVALID,
+   REJECTED/QUALIFICATION_INVALID, REJECTED/CAPABILITY_UNAVAILABLE (including publisher-capability
+   failure), and rejected malformed enrollment/review/lineage/journal histories retain rejection.
 3. UNAVAILABLE with PUBLICATION_WITHDRAWN/PUBLICATION_RETIRED maps to SOURCE_UNAVAILABLE/
    SOURCE_WITHDRAWN; PUBLICATION_MISSING/MEANING_MISSING to MBA_UNAVAILABLE;
    REQUIRED_ANCHOR_MISSING to ANCHOR_COVERAGE_MISSING; TEMPORAL_COVERAGE_MISSING to
-   PERIOD_COVERAGE_MISSING; NRE_UNAVAILABLE to NRE_UNAVAILABLE. Other legitimate missing
-   authority/qualification maps to SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED.
+   PERIOD_COVERAGE_MISSING; NRE_UNAVAILABLE to NRE_UNAVAILABLE. Explicitly,
+   (UNAVAILABLE, SOURCE_UNQUALIFIED) maps to SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED, payload=null,
+   with no positive numerical use. This includes the eight original-reviewer grant/qualification
+   expiry variants in PIV-D24; the faithful negative may check CONSISTENT/NOT_ADMITTED. Other
+   legitimate missing authority/qualification follows that same parent unavailable classification.
+   This is not a global UNAVAILABLE mapping for authorization failures: publisher-capability,
+   malformed-authority and journal-integrity failures retain their actual frozen pair and the
+   precedence above. A forged positive is rejected independently, never admitted by this mapping.
 4. NOT_APPLICABLE with MATERIAL_BASIS_MISMATCH/POPULATION_SCOPE_MISMATCH maps to UNSUPPORTED/
    UNIT_OR_SCOPE_MISMATCH; other legitimate NOT_APPLICABLE maps to MBA_NOT_APPLICABLE.
 5. UNSUPPORTED with CONVERSION_NOT_SUPPORTED/MEANING_VERSION maps to UNSUPPORTED/MEANING_MISMATCH;
@@ -749,8 +775,9 @@ Every family includes K1/K4; the additional listed keys are explicit per-family 
 - Class: pure. Compatibility: K1/K2/K4.
 
 ### PIV-D04 — Forged MBA positive cannot mint applicability
-- P: reconstructs all source meaning/authority; missing or contradictory anchors withholds applicability. V: independently reconstructs journal/anchors, not supplied APPLICABLE_TEST_ONLY/CONSISTENT. A: burns lease after failed checking.
-- Fixtures: D+; X forges a favorable assertion/witness, missing original preimage or expired grant while rehashing all records. Evidence: original guideline/rule evidence and complete registry prefix. Expected: REJECTED/MBA_INCONSISTENT for a forged positive, or faithful SOURCE_UNAVAILABLE/MBA_UNAVAILABLE for missing evidence; no favorable partial witnesses.
+- P: reconstructs all source meaning/authority; missing or contradictory anchors withholds applicability. V: independently reconstructs journal/anchors, not supplied APPLICABLE_TEST_ONLY/CONSISTENT. A: burns the lease after failed checking or consumes/burns it on correctly checked non-success under §5; neither releases numbers.
+- Fixtures: D+; X separately supplies missing original evidence, the eight honest original-reviewer expiry negatives in PIV-D24, or a fully rehashed forged favorable assertion/witness/positive child or parent/report on the same expired-authority history. Evidence: original guideline/rule evidence and complete registry prefix.
+- Expected: missing evidence remains faithful SOURCE_UNAVAILABLE/MBA_UNAVAILABLE where §9 specifies. Honest child UNAVAILABLE/SOURCE_UNQUALIFIED yields SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED, null parent payload, empty child witnesses and CONSISTENT/NOT_ADMITTED when the negative is independently reconstructed. Forged positives fail fresh independent checking; actual REJECTED children or forged-positive child claims retain appropriate REJECTED/MBA_INCONSISTENT handling. Matching hashes or positive report labels supply no authority; no favorable partial witnesses or numerical admission.
 - Class: pure. Compatibility: K1/K2/K4.
 
 ### PIV-D05 — Whole-policy/check/reference forgery
@@ -850,8 +877,10 @@ Every family includes K1/K4; the additional listed keys are explicit per-family 
 - Class: pure plus PG06. Compatibility: K1/K2/K4.
 
 ### PIV-D24 — Publication-time reviewer/publisher authority
-- P/V: original reviewer and publisher scoped capability/symbolic qualification valid at PUBLISH/SUPERSEDE recorded_at and whole assertion interval, using that immutable prefix; correct distinct identities. A: does not repair failed source semantics.
-- Fixtures: legitimate retrospective L+; X grant or qualification expired before publication without REVOKE, with/without later backdated renewal/requalification, for PUBLISH and SUPERSEDE. Evidence: full authority/review/publication prefix and exact reviewed body. Expected: the unauthorized MBA publication is child REJECTED and parent REJECTED/MBA_INCONSISTENT, with exact child capability/qualification reason retained; V returns INCONSISTENT/NOT_ADMITTED even for a faithful rejection of corrupted source history. No partial witnesses.
+- Positive control: legitimate retrospective L+ requires original reviewer and publisher scoped capability/symbolic qualification valid at PUBLISH/SUPERSEDE recorded_at and across the whole assertion interval, reconstructed from that immutable prefix; verified identities remain distinct. Later renewal cannot repair publication-time authority.
+- **A — Honest negative authority outcome:** execute all eight PUBLISH/SUPERSEDE × original-reviewer REVIEW-grant/symbolic-qualification expiry × without/with later backdated renewal variants. Retain full authority/review/publication prefix and exact reviewed body. Frozen child is UNAVAILABLE/SOURCE_UNQUALIFIED with empty witnesses; its frozen independent checker is CONSISTENT for the faithful negative. P produces SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED with payload=null. V returns CONSISTENT only for that correctly reconstructed parent non-success, with numerical_use=NOT_ADMITTED. A releases no positive numerical use and consumes/burns the lease under the approved §5 lifecycle; no renewal, report or retry repairs the earlier prefix.
+- **B — Forged positive claim:** on each same expired-authority history, separately inject a fully rehashed positive child result, forged witness, positive parent policy or forged CONSISTENT report. Fresh independent checking rejects the forged positive as INCONSISTENT/NOT_ADMITTED; no usable policy payload or numerical admission. Actual REJECTED children and forged-positive child claims retain appropriate REJECTED/MBA_INCONSISTENT handling under §9. Matching fingerprints or favorable labels never establish authority. These forgeries do not share case A's expected outcome.
+- Publisher-capability, malformed-authority and journal-integrity failures remain classified by their actual frozen (outcome, reason); this reviewer-expiry correction neither generalizes all authorization failures to UNAVAILABLE nor adds parent authority machinery. No frozen producer/checker/test changes or positive partial witnesses.
 - Class: pure (MBA authority is not a new PG journal). Compatibility: K1/K2/K4; retains MBA-R133-01 behavior.
 
 ### PIV-D25 — Withdrawal, future succession and replay scope
