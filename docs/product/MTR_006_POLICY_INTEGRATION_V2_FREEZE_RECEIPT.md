@@ -10,9 +10,10 @@ This records the separately authorized structural freeze of the bounded, source-
 
 - Approved design: [PR #136](https://github.com/thedusk4203/Menuto/pull/136), reviewed head
   `570098480335dbf7c731fcf0954dd4601a2ccb9d`, merged at
-  `1679d6023253b34293f773dc164cff054fc21c32`.
-- [Architecture PASS 6701198539](https://github.com/thedusk4203/Menuto/pull/136#issuecomment-6701198539)
-  and [design completion 6701887643](https://github.com/thedusk4203/Menuto/pull/136#issuecomment-6701887643).
+  `1679d6035dd6685118df6c95fa37628384cc961c`.
+- [Architecture PASS 6700956749](https://github.com/thedusk4203/Menuto/pull/136#issuecomment-6700956749)
+  is retained with the subsequent [PIV-R136-01 finding 6701887643](https://github.com/thedusk4203/Menuto/pull/136#issuecomment-6701887643)
+  and its separately reviewed correction below.
 - Corrected design: [PR #137](https://github.com/thedusk4203/Menuto/pull/137) (PIV-R136-01), reviewed head
   `dcab0f41a8605bb82c4d6b85ce01d176dcbc1bee`, merged at
   `5b9441d1c10e5ad010a10f9e1af415c1ef50bd5a`.
@@ -42,7 +43,7 @@ for PIV-R138-01: independent WEEK period-map reconstruction was incomplete.
 
 Correction `1e9000cf5122964393cd1cb1343719d378a7f936` updated:
 `apps/backend/app/modules/validation/nutrition_policy_v2_rules.py`,
-`apps/backend/tests/test_policy_v2.py`, and
+`apps/backend/tests/test_policy_v2_adversarial.py`, and
 `docs/product/MTR_006_POLICY_INTEGRATION_V2_IMPLEMENTATION_EVIDENCE.md`.
 The independent checker enforces complete exact coefficient vectors per original root without importing
 the producer evaluator. Nine source-authored TEST_ONLY WEEK regressions cover:
@@ -51,9 +52,21 @@ the producer evaluator. Nine source-authored TEST_ONLY WEEK regressions cover:
 - Three equal-vector positives, including permitted non-unit non-daily coefficients.
 - Two non-unit daily rejections, retaining all daily unit protection.
 
-[Corrected-head CI 42385311029](https://github.com/thedusk4203/Menuto/actions/runs/42385311029) passed;
+[Corrected-head CI 42374472249](https://github.com/thedusk4203/Menuto/actions/runs/42374472249) passed;
 [independent re-review PASS 6709092185](https://github.com/thedusk4203/Menuto/pull/138#issuecomment-6709092185) closed
 PIV-R138-01 at that exact head. Both PIV-R136-01 and PIV-R138-01 are resolved in the reviewed/frozen implementation.
+
+PIV-R136-01 preserves the eight faithful reviewer-expiry variants: child
+`UNAVAILABLE/SOURCE_UNQUALIFIED`, empty positive witnesses and a CONSISTENT faithful child check;
+v2 parent `SOURCE_UNAVAILABLE/SOURCE_UNAUTHORIZED`, payload=null, and independent
+`CONSISTENT/NOT_ADMITTED`. Later renewal cannot repair publication-time authority.
+Fully rehashed positive child/witness/parent claims or forged CONSISTENT labels remain rejected
+independently. Actual rejected publisher-capability, malformed-authority and journal histories
+retain their own frozen outcome/reason and appropriate `REJECTED/MBA_INCONSISTENT` handling.
+
+The initial implementation head recorded 4,360 passing tests / 177 additive cases before
+PIV-R138-01. Its nine differential additions produce the frozen 4,369 / 186 additive total.
+Earlier evidence and stage labels are retained as historical records.
 
 The [post-merge completion receipt 6710291961](https://github.com/thedusk4203/Menuto/pull/138#issuecomment-6710291961)
 records the completed merge gate. The formal freeze supersedes only its freeze-pending disposition.

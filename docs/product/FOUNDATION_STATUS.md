@@ -5,7 +5,7 @@
 [Approved design PR #136](https://github.com/thedusk4203/Menuto/pull/136), reviewed head
 `570098480335dbf7c731fcf0954dd4601a2ccb9d`, and
 [PIV-R136-01 corrigendum PR #137](https://github.com/thedusk4203/Menuto/pull/137), reviewed head
-`dcab0f41a8605bb82c4d6b85ce01d176dcbc1bee`, established the bounded detailed design from
+`dcab0f41a8605bb82c4d6b85ce01d176dcbc1bee`, established the corrected bounded detailed design retained at
 baseline `5b9441d1c10e5ad010a10f9e1af415c1ef50bd5a`.
 The separately authorized bounded implementation adds a structural, source-bound, independently
 verified NutritionPolicy v2 integration seam over frozen Root/rule, NRE and MBA primitives, with
