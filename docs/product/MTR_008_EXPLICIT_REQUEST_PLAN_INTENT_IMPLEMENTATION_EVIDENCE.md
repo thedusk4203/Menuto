@@ -215,3 +215,14 @@ No merge, freeze, clinical publication, source capture, downstream work or paren
 Implementation PR must remain OPEN /auto-merge OFF for independent exact-head review.
 
 Machine-readable executed totals, fresh-install counts and artifact SHA256s: [execution receipt](MTR_008_EXPLICIT_INTENT_EXECUTION_RECEIPT.json).
+
+## CI portability correction — EPI028
+
+Initial PR run42476517519 on951dea7dd0e7714cfd9dedf8bf2fba2e60f5e2f2 failed only
+EPI028:4,610 passed/1 failed because the subprocess did not inherit pytest's tests-directory
+sys.path on Linux. Only the new replay test now supplies explicit backend/tests/project paths
+using os.pathsep; it still compares independent subprocess results under two hash seeds and
+malicious unrelated environment settings. No runtime, historical guard or fixture was changed.
+The corrected test passed with the parent PYTHONPATH containing only apps/backend; the entire
+focused242-case set was rerun under that clean parent environment. Final exact-head full CI
+must pass; the earlier failed run is not used as success evidence.

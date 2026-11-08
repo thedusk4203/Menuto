@@ -302,7 +302,19 @@ def test_epi028_replay_across_process_hash_seeds_and_environment():
         subprocess.check_output(
             [sys.executable, "-B", "-c", code],
             cwd=ROOT,
-            env={**os.environ, "PYTHONHASHSEED": seed, "NUTRITION_DEFAULT": "MALICIOUS"},
+            env={
+                **os.environ,
+                "PYTHONPATH": os.pathsep.join(
+                    (
+                        str(ROOT / "apps/backend"),
+                        str(ROOT / "apps/backend/tests"),
+                        str(ROOT),
+                        os.environ.get("PYTHONPATH", ""),
+                    )
+                ),
+                "PYTHONHASHSEED": seed,
+                "NUTRITION_DEFAULT": "MALICIOUS",
+            },
             text=True,
         )
         for seed in ("1", "987")

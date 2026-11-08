@@ -67,10 +67,27 @@
     "mtr008-full.xml": "681b97c3f76dd293ab24b8550665d93bf73ed4ff0ed547a57a7f770ab9542c67",
     "mtr008-full.log": "66037424a4d6ed7951e0f5d25aff748a5212b870544d6c23697eb7d909ad7a36",
     "mtr008-focused.xml": "2ac0a3b01cc178e139322b975195e2441d2ee4bd09303e4abee8e3836881704b",
-    "mtr008-scram.xml": "1ebc76f3e70a7085f3df29548f1dd2945e88d97494653074b8c92657d4dbafdb"
+    "mtr008-scram.xml": "1ebc76f3e70a7085f3df29548f1dd2945e88d97494653074b8c92657d4dbafdb",
+    "mtr008-focused-final.xml": "0ac090564938bf66c1b383a9fc7191328183c8bd646d388e7c786f5eabc336d7"
   },
   "production_gate": "CLOSED",
   "planner_ready": false,
   "activation_ready": false,
-  "exact_head_ci": "PENDING"
+  "exact_head_ci": "PENDING",
+  "ci_attempts": [
+    {
+      "run_id": 42476517519,
+      "head": "951dea7dd0e7714cfd9dedf8bf2fba2e60f5e2f2",
+      "result": "FAILURE",
+      "pytest_passed": 4610,
+      "pytest_failed": 1,
+      "finding": "EPI028 subprocess tests-directory import path; corrected new test only"
+    }
+  ],
+  "post_correction_focused": {
+    "passed": 242,
+    "skipped": 0,
+    "parent_pythonpath": "apps/backend only",
+    "full_local_run_was_before_test_harness_correction": true
+  }
 }
