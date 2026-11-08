@@ -1,5 +1,23 @@
 # Milestone 0/1 — entry checklist V1.3
 
+## MTR-008 explicit-request plan-intent — DETAILED DESIGN / REVIEW PENDING
+
+The owner authorized the [bounded detailed design](MTR_008_EXPLICIT_REQUEST_PLAN_INTENT_BOUNDED_DESIGN.md)
+after [PR #140 completion](https://github.com/thedusk4203/Menuto/pull/140#issuecomment-6718064942).
+Exact design base: `6df908d4295d2b96260eb633e936e35e49c2285d`; merged-main
+[CI 42449622472](https://github.com/thedusk4203/Menuto/actions/runs/42449622472) SUCCESS, 4,369 tests / 0 skips.
+The earlier dependency review is architecture/scope PASS and merged; its research-stage wording
+below is historical. Scope is **pure-only fully explicit four-axis interpretation and independent
+checking, STRUCTURAL / TEST_ONLY**. Authenticated capture, defaults/week/override precedence,
+numerical policy composition and consumer admission are excluded. No implementation authorized.
+
+Frozen PIV identity remains merge `45bb2677d3eb657dcf36aaf9fc5b9e146e8bf8fa` /
+tree `19c97149aeaaf108894e7a3d01afd0db4558e9e9`; all earlier frozen semantics remain intact.
+Current exports 528; 503 historical hashes / 53 historical frozen files (59 full PIV pins);
+schema 0017/108, no 0018, no new persistence/privileges. Full MTR-006/007/008 INCOMPLETE;
+issues #5/#6/#7 OPEN; production gate CLOSED; planner_ready=False; activation_ready=False;
+Execution NOT STARTED; PRECOMMIT FAIL-CLOSED. Design PR must remain OPEN / auto-merge OFF.
+
 ## Post-MTR-006 v2 dependency/readiness review — INDEPENDENT REVIEW PENDING
 
 The [post-freeze capability and dependency review](POST_MTR_006_POLICY_INTEGRATION_V2_DEPENDENCY_REVIEW.md)
