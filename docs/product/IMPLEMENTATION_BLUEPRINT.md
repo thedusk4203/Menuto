@@ -1,5 +1,18 @@
 # Milestone 0/1 — entry checklist V1.3
 
+## Post-MTR-006 v2 dependency/readiness review — INDEPENDENT REVIEW PENDING
+
+The [post-freeze capability and dependency review](POST_MTR_006_POLICY_INTEGRATION_V2_DEPENDENCY_REVIEW.md)
+examines exact main 4b1decc67124eafddb1626dfc6e796a8a77de943. Recommended candidate:
+**MTR-008 explicit-request orthogonal plan-intent resolution (STRUCTURAL / TEST_ONLY)**.
+This is a research recommendation only. The independent architect selects the next scope and
+finalizes its design; no new contract, precedence rule, design execution or implementation is authorized.
+
+Frozen Root/MTR-006 v1/MTR-007/MBA/MTR-006 v2 identities and semantics remain unchanged.
+Full MTR-006/007/008 INCOMPLETE; issues #5/#6/#7 OPEN; production Nutrition/clinical gate CLOSED.
+528 exports, 503 historical hashes, 53 historical frozen files (59 complete v2 pins), schema0017/108,
+no0018. planner_ready=False; activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+
 ## MTR-006 Policy Integration v2 — STRUCTURALLY FROZEN / TEST_ONLY
 
 [Approved design PR #136](https://github.com/thedusk4203/Menuto/pull/136), reviewed head
