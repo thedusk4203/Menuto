@@ -1,0 +1,59 @@
+{
+  "base": "b7992898698a8a8a3493b3c260939325cc494063",
+  "files": [
+    {
+      "path": "apps/backend/tests/test_candidate_feature_projection.py",
+      "before_sha256": "0c3d0787e0dbe0dd78952ad30b34bf9f187a1c64ec019d8ce4acc3520dda57b8",
+      "after_sha256": "02a7baf3c120f17faffafd239add233ba48ea3de89c5674e9bfb7f6eb4f95aac",
+      "blocks": 1
+    },
+    {
+      "path": "apps/backend/tests/test_hierarchical_affinity_compatibility.py",
+      "before_sha256": "bcf1ae452b0d93ec8e48915fe9b445007327aec0e814f10b418f4c19f6ae8c13",
+      "after_sha256": "064dd3308e11e46d1938b80fda0f3ed7dc6a54d58c74982b8d2251981720b60c",
+      "blocks": 1
+    },
+    {
+      "path": "apps/backend/tests/test_hierarchy_compatibility.py",
+      "before_sha256": "6e122b19bee1f0056c6fa4abfd518eb8f6e9335ac8108e7b766e3fce27e9d76a",
+      "after_sha256": "e32277e77c0b3373cdcbea32b1c7dc6bc8912a7cfcd819706bcf7909321a4a81",
+      "blocks": 1
+    },
+    {
+      "path": "apps/backend/tests/test_nutrition_resolution.py",
+      "before_sha256": "21f009f88f9cb432f27e50d7866f9973de2df818db6a6d4eaa0739688884a90d",
+      "after_sha256": "7f8cf34f53f69ba7074a8416e731e61c27e454acca86d0b07c9b5dd376979d6b",
+      "blocks": 2
+    },
+    {
+      "path": "apps/backend/tests/test_nutrition_root_architecture.py",
+      "before_sha256": "57bebdcf1865a6675dbe743ec1a7fd9b5fe56836fae0cde87fe49caf4dcd7307",
+      "after_sha256": "da2b1181d6771a4c90242e6bd24c379de324725bf63884d2dad64dd159909d18",
+      "blocks": 3
+    },
+    {
+      "path": "apps/backend/tests/test_tastefit_architecture.py",
+      "before_sha256": "1d323038b44669a5c513afe970fba951cc889fb96f5470ddc4f22e79ac815513",
+      "after_sha256": "f41fc5edf52d6ca07082fe5d60d250b2e2cfdaff956c3426372b8cf5b407d933",
+      "blocks": 4
+    },
+    {
+      "path": "apps/backend/tests/test_shared_target_tastefit_architecture.py",
+      "before_sha256": "0279b3036a8167e73b6ee3db82767216a17582c475503c73c0557ad2b2a8fa7c",
+      "after_sha256": "a1e8d0f5af35ef64f36a4687ad94fee99da6e3bd0bc1e14c1fe9be4a5224296e",
+      "blocks": 2
+    },
+    {
+      "path": "apps/backend/tests/test_policy_v2.py",
+      "before_sha256": "fdbecc8d69eda06dc1da634791218ad2f657186402ab0cb1401fbf658b0e564c",
+      "after_sha256": "0317656cb8db783b628707d5e3078b7e3ef93d2954ef135d4cd70f21577feb01",
+      "blocks": 3
+    },
+    {
+      "path": "tools/check_import_boundaries.py",
+      "before_sha256": "62f56abfc0147945d2e024d2afbdb6bfe8d88ee2d1cf8d97b9359877906d4a32",
+      "after_sha256": "5dd7e73e72d42918d140752fdd70a942b6238e07b77433dfdf67a8456bd4953b",
+      "blocks": "exact-nine-name import allowance"
+    }
+  ]
+}

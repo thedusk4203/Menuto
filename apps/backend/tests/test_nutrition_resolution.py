@@ -933,8 +933,12 @@ def test_nre094_480_export_hashes_and_frozen_files_remain_identical():
     assert len(proof["new_definitions"]) == 23
     basis = json.loads((COMPAT.parent / "basis_compatibility.json").read_text())
     policy_v2 = json.loads((COMPAT.parent / "policy_v2_export_names.json").read_text())
+    explicit_intent = json.loads(
+        (COMPAT.parent / "explicit_plan_intent_export_names.json").read_text()
+    )
     assert set(schema) == (set(proof["baseline_definitions"]) | set(proof["new_definitions"])
-                           | set(basis["new_definitions"]) | set(policy_v2))
+                           | set(basis["new_definitions"]) | set(policy_v2)
+                           | set(explicit_intent))
     for path, expected in proof["frozen_files"].items():
         assert hashlib.sha256((ROOT / path).read_text().encode()).hexdigest() == expected, path
 

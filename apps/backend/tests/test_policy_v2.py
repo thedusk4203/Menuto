@@ -625,9 +625,24 @@ def test_piv_d31_all_frozen_definition_bodies_files_and_schema():
         (ROOT / "apps/backend/tests/fixtures/policy_v2_export_names.json").read_text()
     )
     assert len(manifest) == 13 and set(manifest) == additions
-    assert len(additions) == 13 and len(defs) == 528
+    explicit_intent = json.loads(
+        (ROOT / "apps/backend/tests/fixtures/explicit_plan_intent_export_names.json").read_text()
+    )
+    assert len(explicit_intent) == len(set(explicit_intent)) == 9
+    assert set(explicit_intent) == {
+        'ExplicitPlanIntentContextV1',
+        'ExplicitPlanIntentBudgetV1',
+        'ExplicitPlanIntentRequestV1',
+        'ExplicitPlanIntentValuesV1',
+        'PlanIntentAxisEvidenceV1',
+        'ResolvedExplicitPlanIntentV1',
+        'PlanIntentDiagnosticV1',
+        'PlanIntentResolutionV1',
+        'PlanIntentCheckV1',
+    }
+    assert len(additions) == 13 and len(defs) == 537
     assert set(proof["definitions"]) <= set(defs)
-    assert set(defs) - set(proof["definitions"]) == additions
+    assert set(defs) - set(proof["definitions"]) == additions | set(explicit_intent)
     for name, expected in proof["definitions"].items():
         assert (
             hashlib.sha256(
@@ -754,6 +769,175 @@ def historical_test_preimage(path):
         ],
     }
     body = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
+    # Exact EPI metadata preimages precede the unchanged seven PIV exceptions.
+    epi_exceptions = {
+        'apps/backend/tests/test_candidate_feature_projection.py': [
+            (
+                (
+                    '    assert len(definitions) == 528  # 515 retained +'
+                    '13 additive policy v2.'
+                ),
+                (
+                    '    assert len(definitions) == 537  # 528 retained +'
+                    '9 additive explicit plan intent.'
+                ),
+            ),
+        ],
+        'apps/backend/tests/test_hierarchical_affinity_compatibility.py': [
+            (
+                (
+                    '    assert len(pins["definitions"]) == 349 and len(s'
+                    'chema) == 528  # 515 retained +13 policy v2.'
+                ),
+                (
+                    '    assert len(pins["definitions"]) == 349 and len(s'
+                    'chema) == 537  # 528 retained +9 intent.'
+                ),
+            ),
+        ],
+        'apps/backend/tests/test_hierarchy_compatibility.py': [
+            (
+                (
+                    '    assert len(schema) == 528  # 515 retained +13 ad'
+                    'ditive policy v2 definitions.'
+                ),
+                (
+                    '    assert len(schema) == 537  # 528 retained +9 add'
+                    'itive explicit intent definitions.'
+                ),
+            ),
+        ],
+        'apps/backend/tests/test_nutrition_resolution.py': [
+            (
+                (
+                    '    policy_v2 = json.loads((COMPAT.parent / "policy_'
+                    'v2_export_names.json").read_text())'
+                ),
+                (
+                    '    policy_v2 = json.loads((COMPAT.parent / "policy_'
+                    'v2_export_names.json").read_text())\n    explicit_int'
+                    'ent = json.loads(\n        (COMPAT.parent / "explicit'
+                    '_plan_intent_export_names.json").read_text()\n    )'
+                ),
+            ),
+            (
+                (
+                    '                           | set(basis["new_definiti'
+                    'ons"]) | set(policy_v2))'
+                ),
+                (
+                    '                           | set(basis["new_definiti'
+                    'ons"]) | set(policy_v2)\n                           |'
+                    ' set(explicit_intent))'
+                ),
+            ),
+        ],
+        'apps/backend/tests/test_nutrition_root_architecture.py': [
+            (
+                (
+                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
+                    'port_names.json").read_text())'
+                ),
+                (
+                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
+                    'port_names.json").read_text())\n    explicit_intent ='
+                    ' json.loads(\n        (FIXTURES / "explicit_plan_inte'
+                    'nt_export_names.json").read_text()\n    )'
+                ),
+            ),
+            (
+                (
+                    '    assert len(schema) == 528  # 515 retained +13 ad'
+                    'ditive policy v2 definitions.'
+                ),
+                (
+                    '    assert len(schema) == 537  # 528 retained +9 add'
+                    'itive explicit intent definitions.'
+                ),
+            ),
+            (
+                (
+                    '    ) | set(resolution["new_definitions"]) | set(bas'
+                    'is["new_definitions"]) | set(policy_v2)'
+                ),
+                (
+                    '    ) | set(resolution["new_definitions"]) | set(bas'
+                    'is["new_definitions"]) | set(policy_v2) | set(\n     '
+                    '   explicit_intent\n    )'
+                ),
+            ),
+        ],
+        'apps/backend/tests/test_tastefit_architecture.py': [
+            (
+                (
+                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
+                    'port_names.json").read_text())'
+                ),
+                (
+                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
+                    'port_names.json").read_text())\n    explicit_intent ='
+                    ' json.loads(\n        (FIXTURES / "explicit_plan_inte'
+                    'nt_export_names.json").read_text()\n    )'
+                ),
+            ),
+            (
+                (
+                    '    assert len(defs) == 528  # 515 retained +13 addi'
+                    'tive policy v2 definitions.'
+                ),
+                (
+                    '    assert len(defs) == 537  # 528 retained +9 addit'
+                    'ive explicit intent definitions.'
+                ),
+            ),
+            (
+                (
+                    '        + len(policy_v2)\n    )'
+                ),
+                (
+                    '        + len(policy_v2)\n        + len(explicit_inte'
+                    'nt)\n    )'
+                ),
+            ),
+            (
+                (
+                    '        + policy_v2\n    )'
+                ),
+                (
+                    '        + policy_v2\n        + explicit_intent\n    )'
+                ),
+            ),
+        ],
+        'apps/backend/tests/test_shared_target_tastefit_architecture.py': [
+            (
+                (
+                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
+                    'port_names.json").read_text())'
+                ),
+                (
+                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
+                    'port_names.json").read_text())\n    explicit_intent ='
+                    ' json.loads(\n        (FIXTURES / "explicit_plan_inte'
+                    'nt_export_names.json").read_text()\n    )'
+                ),
+            ),
+            (
+                (
+                    '             | set(resolution["new_definitions"]) | '
+                    'set(basis["new_definitions"]) | set(policy_v2))'
+                ),
+                (
+                    '             | set(resolution["new_definitions"]) | '
+                    'set(basis["new_definitions"]) | set(policy_v2)\n     '
+                    '        | set(explicit_intent))'
+                ),
+            ),
+        ],
+    }
+    for old_text, permitted_text in epi_exceptions.get(path, []):
+        old, permitted = old_text.encode(), permitted_text.encode()
+        assert body.count(permitted + b"\n") == 1, path
+        body = body.replace(permitted + b"\n", old + b"\n", 1)
     if path in exceptions:
         for old_text, permitted_text in exceptions[path]:
             old, permitted = old_text.encode(), permitted_text.encode()

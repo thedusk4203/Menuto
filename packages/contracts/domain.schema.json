@@ -4963,6 +4963,222 @@
       "title": "ExplicitMemberPreferenceSnapshot",
       "type": "object"
     },
+    "ExplicitPlanIntentBudgetV1": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Money"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "constraint": {
+          "enum": [
+            "NONE",
+            "TARGET",
+            "SPEND_LIMIT"
+          ],
+          "title": "Constraint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "constraint",
+        "amount"
+      ],
+      "title": "ExplicitPlanIntentBudgetV1",
+      "type": "object"
+    },
+    "ExplicitPlanIntentContextV1": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "declared_at": {
+          "format": "date-time",
+          "title": "Declared At",
+          "type": "string"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        },
+        "request_revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Request Revision",
+          "type": "integer"
+        },
+        "tracked_member_id": {
+          "format": "uuid",
+          "title": "Tracked Member Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_id",
+        "request_revision",
+        "household_id",
+        "actor_user_id",
+        "tracked_member_id",
+        "horizon",
+        "declared_at"
+      ],
+      "title": "ExplicitPlanIntentContextV1",
+      "type": "object"
+    },
+    "ExplicitPlanIntentRequestV1": {
+      "additionalProperties": false,
+      "properties": {
+        "budget": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExplicitPlanIntentBudgetV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "context": {
+          "$ref": "#/$defs/ExplicitPlanIntentContextV1"
+        },
+        "contract_version": {
+          "const": "explicit-plan-intent-request.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "cost_preference": {
+          "anyOf": [
+            {
+              "enum": [
+                "LOW",
+                "NORMAL",
+                "HIGH"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Preference"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "kitchen_effort": {
+          "anyOf": [
+            {
+              "enum": [
+                "MINIMAL",
+                "NORMAL",
+                "FLEXIBLE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Kitchen Effort"
+        },
+        "nutrition_precision": {
+          "anyOf": [
+            {
+              "enum": [
+                "RELAXED",
+                "STANDARD",
+                "PRECISION"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Nutrition Precision"
+        },
+        "source": {
+          "const": "REQUEST_EXPLICIT",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract_version",
+        "source",
+        "environment",
+        "context",
+        "nutrition_precision",
+        "cost_preference",
+        "kitchen_effort",
+        "budget"
+      ],
+      "title": "ExplicitPlanIntentRequestV1",
+      "type": "object"
+    },
+    "ExplicitPlanIntentValuesV1": {
+      "additionalProperties": false,
+      "properties": {
+        "budget": {
+          "$ref": "#/$defs/ExplicitPlanIntentBudgetV1"
+        },
+        "cost_preference": {
+          "enum": [
+            "LOW",
+            "NORMAL",
+            "HIGH"
+          ],
+          "title": "Cost Preference",
+          "type": "string"
+        },
+        "kitchen_effort": {
+          "enum": [
+            "MINIMAL",
+            "NORMAL",
+            "FLEXIBLE"
+          ],
+          "title": "Kitchen Effort",
+          "type": "string"
+        },
+        "nutrition_precision": {
+          "enum": [
+            "RELAXED",
+            "STANDARD",
+            "PRECISION"
+          ],
+          "title": "Nutrition Precision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "nutrition_precision",
+        "cost_preference",
+        "kitchen_effort",
+        "budget"
+      ],
+      "title": "ExplicitPlanIntentValuesV1",
+      "type": "object"
+    },
     "ExplicitProfileMappingRule": {
       "additionalProperties": false,
       "properties": {
@@ -20395,6 +20611,230 @@
       "title": "PhysicalInventorySnapshot",
       "type": "object"
     },
+    "PlanIntentAxisEvidenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "enum": [
+            "NUTRITION_PRECISION",
+            "COST_PREFERENCE",
+            "KITCHEN_EFFORT",
+            "BUDGET"
+          ],
+          "title": "Axis",
+          "type": "string"
+        },
+        "context_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Context Fingerprint",
+          "type": "string"
+        },
+        "input_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Input Fingerprint",
+          "type": "string"
+        },
+        "interpretation_version": {
+          "const": "EXPLICIT_IDENTITY_V1",
+          "title": "Interpretation Version",
+          "type": "string"
+        },
+        "source": {
+          "const": "REQUEST_EXPLICIT",
+          "title": "Source",
+          "type": "string"
+        },
+        "value_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Value Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "axis",
+        "source",
+        "input_fingerprint",
+        "context_fingerprint",
+        "value_fingerprint",
+        "interpretation_version"
+      ],
+      "title": "PlanIntentAxisEvidenceV1",
+      "type": "object"
+    },
+    "PlanIntentCheckV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "check_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Check Fingerprint",
+          "type": "string"
+        },
+        "claim_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Claim Fingerprint"
+        },
+        "contract_version": {
+          "const": "plan-intent-check.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "CONSISTENT",
+            "INCONSISTENT",
+            "NOT_CHECKABLE"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/PlanIntentDiagnosticV1"
+          },
+          "maxItems": 1,
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "numerical_use": {
+          "const": "NOT_ADMITTED",
+          "title": "Numerical Use",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "reconstructed_outcome": {
+          "anyOf": [
+            {
+              "enum": [
+                "AVAILABLE_TEST_ONLY",
+                "MISSING_INPUT",
+                "INVALID_INPUT",
+                "UNSUPPORTED",
+                "RESOURCE_EXCEEDED"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reconstructed Outcome"
+        },
+        "resolved_plan_policy_ready": {
+          "const": false,
+          "title": "Resolved Plan Policy Ready",
+          "type": "boolean"
+        },
+        "source_authority": {
+          "const": "UNAUTHENTICATED_DECLARATION",
+          "title": "Source Authority",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Fingerprint"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract_version",
+        "decision",
+        "reconstructed_outcome",
+        "source_fingerprint",
+        "claim_fingerprint",
+        "diagnostics",
+        "check_fingerprint",
+        "environment",
+        "source_authority",
+        "validation_authority",
+        "numerical_use",
+        "production_admission",
+        "resolved_plan_policy_ready",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "PlanIntentCheckV1",
+      "type": "object"
+    },
+    "PlanIntentDiagnosticV1": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "MISSING_FIELD",
+            "AXIS_UNDECLARED",
+            "MALFORMED_ENCODING",
+            "MALFORMED_SHAPE",
+            "DUPLICATE_KEY",
+            "UNKNOWN_FIELD",
+            "CONTEXT_INVALID",
+            "AXIS_INVALID",
+            "BUDGET_INVALID",
+            "VERSION_UNSUPPORTED",
+            "SOURCE_UNSUPPORTED",
+            "ENVIRONMENT_UNSUPPORTED",
+            "STRUCTURE_LIMIT",
+            "CLAIM_INVALID",
+            "CLAIM_MISMATCH",
+            "SOURCE_NOT_CHECKABLE",
+            "CHECK_RESOURCE_LIMIT"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "path": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": "^\\$[A-Za-z0-9_.]*$",
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "path"
+      ],
+      "title": "PlanIntentDiagnosticV1",
+      "type": "object"
+    },
     "PlanIntentGraph": {
       "additionalProperties": false,
       "properties": {
@@ -20482,6 +20922,126 @@
         "meals"
       ],
       "title": "PlanIntentGraph",
+      "type": "object"
+    },
+    "PlanIntentResolutionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "contract_version": {
+          "const": "plan-intent-resolution.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/PlanIntentDiagnosticV1"
+          },
+          "maxItems": 1,
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "input_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Input Fingerprint"
+        },
+        "interpretation_version": {
+          "const": "EXPLICIT_IDENTITY_V1",
+          "title": "Interpretation Version",
+          "type": "string"
+        },
+        "numerical_use": {
+          "const": "NOT_ADMITTED",
+          "title": "Numerical Use",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "AVAILABLE_TEST_ONLY",
+            "MISSING_INPUT",
+            "INVALID_INPUT",
+            "UNSUPPORTED",
+            "RESOURCE_EXCEEDED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "payload": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResolvedExplicitPlanIntentV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "production_admission": {
+          "const": "CLOSED",
+          "title": "Production Admission",
+          "type": "string"
+        },
+        "resolved_plan_policy_ready": {
+          "const": false,
+          "title": "Resolved Plan Policy Ready",
+          "type": "boolean"
+        },
+        "result_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Result Fingerprint",
+          "type": "string"
+        },
+        "source_authority": {
+          "const": "UNAUTHENTICATED_DECLARATION",
+          "title": "Source Authority",
+          "type": "string"
+        },
+        "validation_authority": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Validation Authority",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract_version",
+        "interpretation_version",
+        "outcome",
+        "payload",
+        "input_fingerprint",
+        "diagnostics",
+        "result_fingerprint",
+        "environment",
+        "source_authority",
+        "validation_authority",
+        "numerical_use",
+        "production_admission",
+        "resolved_plan_policy_ready",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "PlanIntentResolutionV1",
       "type": "object"
     },
     "PlanProposalSnapshot": {
@@ -27362,6 +27922,51 @@
         "step_state"
       ],
       "title": "ResolutionMeasurementV1",
+      "type": "object"
+    },
+    "ResolvedExplicitPlanIntentV1": {
+      "additionalProperties": false,
+      "properties": {
+        "axis_evidence": {
+          "items": {
+            "$ref": "#/$defs/PlanIntentAxisEvidenceV1"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "title": "Axis Evidence",
+          "type": "array"
+        },
+        "context": {
+          "$ref": "#/$defs/ExplicitPlanIntentContextV1"
+        },
+        "contract_version": {
+          "const": "resolved-explicit-plan-intent.v1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "semantic_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Semantic Fingerprint",
+          "type": "string"
+        },
+        "values": {
+          "$ref": "#/$defs/ExplicitPlanIntentValuesV1"
+        }
+      },
+      "required": [
+        "contract_version",
+        "context",
+        "values",
+        "axis_evidence",
+        "semantic_fingerprint",
+        "environment"
+      ],
+      "title": "ResolvedExplicitPlanIntentV1",
       "type": "object"
     },
     "ResolvedNutrients": {

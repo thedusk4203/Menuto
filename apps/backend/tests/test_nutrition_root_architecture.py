@@ -147,11 +147,16 @@ def test_nrc78_all403_definition_hashes_retained_exact_additive_exports():
     resolution = json.loads((FIXTURES / "nutrition_resolution_compatibility.json").read_text())
     basis = json.loads((FIXTURES / "basis_compatibility.json").read_text())
     policy_v2 = json.loads((FIXTURES / "policy_v2_export_names.json").read_text())
-    assert len(schema) == 528  # 515 retained +13 additive policy v2 definitions.
+    explicit_intent = json.loads(
+        (FIXTURES / "explicit_plan_intent_export_names.json").read_text()
+    )
+    assert len(schema) == 537  # 528 retained +9 additive explicit intent definitions.
     assert len(pins["new_definitions"]) == 44
     assert set(schema) - set(pins["definitions"]) == set(pins["new_definitions"]) | set(
         synthesis["new_definitions"]
-    ) | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2)
+    ) | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2) | set(
+        explicit_intent
+    )
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(schema[name], sort_keys=True).encode()).hexdigest() == digest

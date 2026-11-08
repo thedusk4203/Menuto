@@ -724,7 +724,7 @@ def test_cfp60_retained_baseline_contracts_files_and_no_new_persistence():
     )
     definitions = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     assert len(pins["definitions"]) == 358
-    assert len(definitions) == 528  # 515 retained +13 additive policy v2.
+    assert len(definitions) == 537  # 528 retained +9 additive explicit plan intent.
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(definitions[name], sort_keys=True).encode()).hexdigest()
