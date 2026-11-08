@@ -358,6 +358,13 @@ POLICY_V2_IMPORTS = {
 }
 
 
+EXPLICIT_INTENT_CONTRACT_NAMES = {
+    "ExplicitPlanIntentContextV1", "ExplicitPlanIntentBudgetV1", "ExplicitPlanIntentRequestV1",
+    "ExplicitPlanIntentValuesV1", "PlanIntentAxisEvidenceV1", "ResolvedExplicitPlanIntentV1",
+    "PlanIntentDiagnosticV1", "PlanIntentResolutionV1", "PlanIntentCheckV1",
+}
+
+
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
     parts = module.split(".")
@@ -373,6 +380,13 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     }
 
     def audit(target, line):
+        explicit_intent_contract = (
+            module == "app.modules.validation.explicit_plan_intent"
+            and target in {
+                "app.modules.policy.explicit_intent_contracts." + name
+                for name in EXPLICIT_INTENT_CONTRACT_NAMES
+            }
+        )
         if module in POLICY_V2_IMPORTS:
             if not any(
                 target == p or target.startswith(p + ".") for p in POLICY_V2_IMPORTS[module]
@@ -581,7 +595,8 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 errors.append(f"{line}: VALIDATION_INDEPENDENCE: {target}")
             if target.startswith("app.modules.") and target.split(".")[2] != "validation":
                 tail = target.split(".")[3:]
-                if (not tail or tail[0] != "contracts") and not nrc_transport:
+                if ((not tail or tail[0] != "contracts") and not nrc_transport
+                    and not explicit_intent_contract):
                     errors.append(f"{line}: VALIDATION_CONTRACTS_ONLY: {target}")
         if neutral and target.startswith(("app.modules", "app.persistence", "app.shared.db")):
             errors.append(f"{line}: NEUTRAL_DOMAIN_IMPORTS_IMPLEMENTATION: {target}")
@@ -627,10 +642,11 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             context in CONTRACT_ONLY_CONTEXTS
             and (not tail or tail[0] != "contracts")
             and not nrc_transport
+            and not explicit_intent_contract
         ):
             errors.append(f"{line}: FACT_READER_IMPORTS_IMPLEMENTATION: {target}")
             return
-        if not tail or tail[0] not in PUBLIC_SURFACES:
+        if (not tail or tail[0] not in PUBLIC_SURFACES) and not explicit_intent_contract:
             if nrc_transport:
                 return
             if any(target == p or target.startswith(p + ".")

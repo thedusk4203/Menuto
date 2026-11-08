@@ -235,6 +235,17 @@ from app.modules.planning.tastefit_contracts import (
     TasteFitInterpretationPolicy,
 )
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
+from app.modules.policy.explicit_intent_contracts import (
+    ExplicitPlanIntentBudgetV1,
+    ExplicitPlanIntentContextV1,
+    ExplicitPlanIntentRequestV1,
+    ExplicitPlanIntentValuesV1,
+    PlanIntentAxisEvidenceV1,
+    PlanIntentCheckV1,
+    PlanIntentDiagnosticV1,
+    PlanIntentResolutionV1,
+    ResolvedExplicitPlanIntentV1,
+)
 from app.modules.preferences.contracts import (
     AvailableExplicitAffinity,
     CanonicalPreferenceTargetManifest,
@@ -825,6 +836,13 @@ CONTRACTS += (
     NutritionPolicyHandoffV2,
     PolicyV2Use,
     PolicyV2CaptureFailure,
+)
+
+
+CONTRACTS += (
+    ExplicitPlanIntentContextV1, ExplicitPlanIntentBudgetV1, ExplicitPlanIntentRequestV1,
+    ExplicitPlanIntentValuesV1, PlanIntentAxisEvidenceV1, ResolvedExplicitPlanIntentV1,
+    PlanIntentDiagnosticV1, PlanIntentResolutionV1, PlanIntentCheckV1,
 )
 
 

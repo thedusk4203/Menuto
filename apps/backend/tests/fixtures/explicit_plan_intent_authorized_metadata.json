@@ -1,0 +1,123 @@
+{
+  "base": "b7992898698a8a8a3493b3c260939325cc494063",
+  "status": "OWNER_AUTHORIZED_METADATA_ONLY_APPLIED",
+  "files": {
+    "apps/backend/tests/test_candidate_feature_projection.py": {
+      "baseline_sha256": "0c3d0787e0dbe0dd78952ad30b34bf9f187a1c64ec019d8ce4acc3520dda57b8",
+      "edits": [
+        {
+          "before": "    assert len(definitions) == 528  # 515 retained +13 additive policy v2.",
+          "after": "    assert len(definitions) == 537  # 528 retained +9 additive explicit plan intent."
+        }
+      ],
+      "after_sha256": "02a7baf3c120f17faffafd239add233ba48ea3de89c5674e9bfb7f6eb4f95aac"
+    },
+    "apps/backend/tests/test_hierarchical_affinity_compatibility.py": {
+      "baseline_sha256": "bcf1ae452b0d93ec8e48915fe9b445007327aec0e814f10b418f4c19f6ae8c13",
+      "edits": [
+        {
+          "before": "    assert len(pins[\"definitions\"]) == 349 and len(schema) == 528  # 515 retained +13 policy v2.",
+          "after": "    assert len(pins[\"definitions\"]) == 349 and len(schema) == 537  # 528 retained +9 intent."
+        }
+      ],
+      "after_sha256": "064dd3308e11e46d1938b80fda0f3ed7dc6a54d58c74982b8d2251981720b60c"
+    },
+    "apps/backend/tests/test_hierarchy_compatibility.py": {
+      "baseline_sha256": "6e122b19bee1f0056c6fa4abfd518eb8f6e9335ac8108e7b766e3fce27e9d76a",
+      "edits": [
+        {
+          "before": "    assert len(schema) == 528  # 515 retained +13 additive policy v2 definitions.",
+          "after": "    assert len(schema) == 537  # 528 retained +9 additive explicit intent definitions."
+        }
+      ],
+      "after_sha256": "e32277e77c0b3373cdcbea32b1c7dc6bc8912a7cfcd819706bcf7909321a4a81"
+    },
+    "apps/backend/tests/test_nutrition_resolution.py": {
+      "baseline_sha256": "21f009f88f9cb432f27e50d7866f9973de2df818db6a6d4eaa0739688884a90d",
+      "edits": [
+        {
+          "before": "    policy_v2 = json.loads((COMPAT.parent / \"policy_v2_export_names.json\").read_text())",
+          "after": "    policy_v2 = json.loads((COMPAT.parent / \"policy_v2_export_names.json\").read_text())\n    explicit_intent = json.loads(\n        (COMPAT.parent / \"explicit_plan_intent_export_names.json\").read_text()\n    )"
+        },
+        {
+          "before": "                           | set(basis[\"new_definitions\"]) | set(policy_v2))",
+          "after": "                           | set(basis[\"new_definitions\"]) | set(policy_v2)\n                           | set(explicit_intent))"
+        }
+      ],
+      "after_sha256": "7f8cf34f53f69ba7074a8416e731e61c27e454acca86d0b07c9b5dd376979d6b"
+    },
+    "apps/backend/tests/test_nutrition_root_architecture.py": {
+      "baseline_sha256": "57bebdcf1865a6675dbe743ec1a7fd9b5fe56836fae0cde87fe49caf4dcd7307",
+      "edits": [
+        {
+          "before": "    policy_v2 = json.loads((FIXTURES / \"policy_v2_export_names.json\").read_text())",
+          "after": "    policy_v2 = json.loads((FIXTURES / \"policy_v2_export_names.json\").read_text())\n    explicit_intent = json.loads(\n        (FIXTURES / \"explicit_plan_intent_export_names.json\").read_text()\n    )"
+        },
+        {
+          "before": "    assert len(schema) == 528  # 515 retained +13 additive policy v2 definitions.",
+          "after": "    assert len(schema) == 537  # 528 retained +9 additive explicit intent definitions."
+        },
+        {
+          "before": "    ) | set(resolution[\"new_definitions\"]) | set(basis[\"new_definitions\"]) | set(policy_v2)",
+          "after": "    ) | set(resolution[\"new_definitions\"]) | set(basis[\"new_definitions\"]) | set(policy_v2) | set(\n        explicit_intent\n    )"
+        }
+      ],
+      "after_sha256": "da2b1181d6771a4c90242e6bd24c379de324725bf63884d2dad64dd159909d18"
+    },
+    "apps/backend/tests/test_tastefit_architecture.py": {
+      "baseline_sha256": "1d323038b44669a5c513afe970fba951cc889fb96f5470ddc4f22e79ac815513",
+      "edits": [
+        {
+          "before": "    policy_v2 = json.loads((FIXTURES / \"policy_v2_export_names.json\").read_text())",
+          "after": "    policy_v2 = json.loads((FIXTURES / \"policy_v2_export_names.json\").read_text())\n    explicit_intent = json.loads(\n        (FIXTURES / \"explicit_plan_intent_export_names.json\").read_text()\n    )"
+        },
+        {
+          "before": "    assert len(defs) == 528  # 515 retained +13 additive policy v2 definitions.",
+          "after": "    assert len(defs) == 537  # 528 retained +9 additive explicit intent definitions."
+        },
+        {
+          "before": "        + len(policy_v2)\n    )",
+          "after": "        + len(policy_v2)\n        + len(explicit_intent)\n    )"
+        },
+        {
+          "before": "        + policy_v2\n    )",
+          "after": "        + policy_v2\n        + explicit_intent\n    )"
+        }
+      ],
+      "after_sha256": "f41fc5edf52d6ca07082fe5d60d250b2e2cfdaff956c3426372b8cf5b407d933"
+    },
+    "apps/backend/tests/test_shared_target_tastefit_architecture.py": {
+      "baseline_sha256": "0279b3036a8167e73b6ee3db82767216a17582c475503c73c0557ad2b2a8fa7c",
+      "edits": [
+        {
+          "before": "    policy_v2 = json.loads((FIXTURES / \"policy_v2_export_names.json\").read_text())",
+          "after": "    policy_v2 = json.loads((FIXTURES / \"policy_v2_export_names.json\").read_text())\n    explicit_intent = json.loads(\n        (FIXTURES / \"explicit_plan_intent_export_names.json\").read_text()\n    )"
+        },
+        {
+          "before": "             | set(resolution[\"new_definitions\"]) | set(basis[\"new_definitions\"]) | set(policy_v2))",
+          "after": "             | set(resolution[\"new_definitions\"]) | set(basis[\"new_definitions\"]) | set(policy_v2)\n             | set(explicit_intent))"
+        }
+      ],
+      "after_sha256": "a1e8d0f5af35ef64f36a4687ad94fee99da6e3bd0bc1e14c1fe9be4a5224296e"
+    },
+    "apps/backend/tests/test_policy_v2.py": {
+      "baseline_sha256": "fdbecc8d69eda06dc1da634791218ad2f657186402ab0cb1401fbf658b0e564c",
+      "edits": [
+        {
+          "before": "    assert len(additions) == 13 and len(defs) == 528",
+          "after": "    explicit_intent = json.loads(\n        (ROOT / \"apps/backend/tests/fixtures/explicit_plan_intent_export_names.json\").read_text()\n    )\n    assert len(explicit_intent) == len(set(explicit_intent)) == 9\n    assert set(explicit_intent) == {\n        'ExplicitPlanIntentContextV1',\n        'ExplicitPlanIntentBudgetV1',\n        'ExplicitPlanIntentRequestV1',\n        'ExplicitPlanIntentValuesV1',\n        'PlanIntentAxisEvidenceV1',\n        'ResolvedExplicitPlanIntentV1',\n        'PlanIntentDiagnosticV1',\n        'PlanIntentResolutionV1',\n        'PlanIntentCheckV1',\n    }\n    assert len(additions) == 13 and len(defs) == 537"
+        },
+        {
+          "before": "    assert set(defs) - set(proof[\"definitions\"]) == additions",
+          "after": "    assert set(defs) - set(proof[\"definitions\"]) == additions | set(explicit_intent)"
+        },
+        {
+          "before": "    body = (ROOT / path).read_bytes().replace(b\"\\r\\n\", b\"\\n\")",
+          "after": "    body = (ROOT / path).read_bytes().replace(b\"\\r\\n\", b\"\\n\")\n    # Exact EPI metadata preimages precede the unchanged seven PIV exceptions.\n    epi_exceptions = {\n        'apps/backend/tests/test_candidate_feature_projection.py': [\n            (\n                (\n                    '    assert len(definitions) == 528  # 515 retained +'\n                    '13 additive policy v2.'\n                ),\n                (\n                    '    assert len(definitions) == 537  # 528 retained +'\n                    '9 additive explicit plan intent.'\n                ),\n            ),\n        ],\n        'apps/backend/tests/test_hierarchical_affinity_compatibility.py': [\n            (\n                (\n                    '    assert len(pins[\"definitions\"]) == 349 and len(s'\n                    'chema) == 528  # 515 retained +13 policy v2.'\n                ),\n                (\n                    '    assert len(pins[\"definitions\"]) == 349 and len(s'\n                    'chema) == 537  # 528 retained +9 intent.'\n                ),\n            ),\n        ],\n        'apps/backend/tests/test_hierarchy_compatibility.py': [\n            (\n                (\n                    '    assert len(schema) == 528  # 515 retained +13 ad'\n                    'ditive policy v2 definitions.'\n                ),\n                (\n                    '    assert len(schema) == 537  # 528 retained +9 add'\n                    'itive explicit intent definitions.'\n                ),\n            ),\n        ],\n        'apps/backend/tests/test_nutrition_resolution.py': [\n            (\n                (\n                    '    policy_v2 = json.loads((COMPAT.parent / \"policy_'\n                    'v2_export_names.json\").read_text())'\n                ),\n                (\n                    '    policy_v2 = json.loads((COMPAT.parent / \"policy_'\n                    'v2_export_names.json\").read_text())\\n    explicit_int'\n                    'ent = json.loads(\\n        (COMPAT.parent / \"explicit'\n                    '_plan_intent_export_names.json\").read_text()\\n    )'\n                ),\n            ),\n            (\n                (\n                    '                           | set(basis[\"new_definiti'\n                    'ons\"]) | set(policy_v2))'\n                ),\n                (\n                    '                           | set(basis[\"new_definiti'\n                    'ons\"]) | set(policy_v2)\\n                           |'\n                    ' set(explicit_intent))'\n                ),\n            ),\n        ],\n        'apps/backend/tests/test_nutrition_root_architecture.py': [\n            (\n                (\n                    '    policy_v2 = json.loads((FIXTURES / \"policy_v2_ex'\n                    'port_names.json\").read_text())'\n                ),\n                (\n                    '    policy_v2 = json.loads((FIXTURES / \"policy_v2_ex'\n                    'port_names.json\").read_text())\\n    explicit_intent ='\n                    ' json.loads(\\n        (FIXTURES / \"explicit_plan_inte'\n                    'nt_export_names.json\").read_text()\\n    )'\n                ),\n            ),\n            (\n                (\n                    '    assert len(schema) == 528  # 515 retained +13 ad'\n                    'ditive policy v2 definitions.'\n                ),\n                (\n                    '    assert len(schema) == 537  # 528 retained +9 add'\n                    'itive explicit intent definitions.'\n                ),\n            ),\n            (\n                (\n                    '    ) | set(resolution[\"new_definitions\"]) | set(bas'\n                    'is[\"new_definitions\"]) | set(policy_v2)'\n                ),\n                (\n                    '    ) | set(resolution[\"new_definitions\"]) | set(bas'\n                    'is[\"new_definitions\"]) | set(policy_v2) | set(\\n     '\n                    '   explicit_intent\\n    )'\n                ),\n            ),\n        ],\n        'apps/backend/tests/test_tastefit_architecture.py': [\n            (\n                (\n                    '    policy_v2 = json.loads((FIXTURES / \"policy_v2_ex'\n                    'port_names.json\").read_text())'\n                ),\n                (\n                    '    policy_v2 = json.loads((FIXTURES / \"policy_v2_ex'\n                    'port_names.json\").read_text())\\n    explicit_intent ='\n                    ' json.loads(\\n        (FIXTURES / \"explicit_plan_inte'\n                    'nt_export_names.json\").read_text()\\n    )'\n                ),\n            ),\n            (\n                (\n                    '    assert len(defs) == 528  # 515 retained +13 addi'\n                    'tive policy v2 definitions.'\n                ),\n                (\n                    '    assert len(defs) == 537  # 528 retained +9 addit'\n                    'ive explicit intent definitions.'\n                ),\n            ),\n            (\n                (\n                    '        + len(policy_v2)\\n    )'\n                ),\n                (\n                    '        + len(policy_v2)\\n        + len(explicit_inte'\n                    'nt)\\n    )'\n                ),\n            ),\n            (\n                (\n                    '        + policy_v2\\n    )'\n                ),\n                (\n                    '        + policy_v2\\n        + explicit_intent\\n    )'\n                ),\n            ),\n        ],\n        'apps/backend/tests/test_shared_target_tastefit_architecture.py': [\n            (\n                (\n                    '    policy_v2 = json.loads((FIXTURES / \"policy_v2_ex'\n                    'port_names.json\").read_text())'\n                ),\n                (\n                    '    policy_v2 = json.loads((FIXTURES / \"policy_v2_ex'\n                    'port_names.json\").read_text())\\n    explicit_intent ='\n                    ' json.loads(\\n        (FIXTURES / \"explicit_plan_inte'\n                    'nt_export_names.json\").read_text()\\n    )'\n                ),\n            ),\n            (\n                (\n                    '             | set(resolution[\"new_definitions\"]) | '\n                    'set(basis[\"new_definitions\"]) | set(policy_v2))'\n                ),\n                (\n                    '             | set(resolution[\"new_definitions\"]) | '\n                    'set(basis[\"new_definitions\"]) | set(policy_v2)\\n     '\n                    '        | set(explicit_intent))'\n                ),\n            ),\n        ],\n    }\n    for old_text, permitted_text in epi_exceptions.get(path, []):\n        old, permitted = old_text.encode(), permitted_text.encode()\n        assert body.count(permitted + b\"\\n\") == 1, path\n        body = body.replace(permitted + b\"\\n\", old + b\"\\n\", 1)"
+        }
+      ],
+      "after_sha256": "0317656cb8db783b628707d5e3078b7e3ef93d2954ef135d4cd70f21577feb01"
+    }
+  },
+  "authorization_attachment_sha256": "6762ad890e376592d4a52d1a1d65bbbe77eb86b9ba3b334586cedb63777f425e"
+}

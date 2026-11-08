@@ -1,0 +1,298 @@
+diff --git a/apps/backend/tests/test_candidate_feature_projection.py b/apps/backend/tests/test_candidate_feature_projection.py
+index 64d5102..253dfa8 100644
+--- a/apps/backend/tests/test_candidate_feature_projection.py
++++ b/apps/backend/tests/test_candidate_feature_projection.py
+@@ -727 +727 @@ def test_cfp60_retained_baseline_contracts_files_and_no_new_persistence():
+-    assert len(definitions) == 528  # 515 retained +13 additive policy v2.
++    assert len(definitions) == 537  # 528 retained +9 additive explicit plan intent.
+diff --git a/apps/backend/tests/test_hierarchical_affinity_compatibility.py b/apps/backend/tests/test_hierarchical_affinity_compatibility.py
+index d7f6e52..98b0a16 100644
+--- a/apps/backend/tests/test_hierarchical_affinity_compatibility.py
++++ b/apps/backend/tests/test_hierarchical_affinity_compatibility.py
+@@ -21 +21 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
+-    assert len(pins["definitions"]) == 349 and len(schema) == 528  # 515 retained +13 policy v2.
++    assert len(pins["definitions"]) == 349 and len(schema) == 537  # 528 retained +9 intent.
+diff --git a/apps/backend/tests/test_hierarchy_compatibility.py b/apps/backend/tests/test_hierarchy_compatibility.py
+index ffe3bb1..4d9012a 100644
+--- a/apps/backend/tests/test_hierarchy_compatibility.py
++++ b/apps/backend/tests/test_hierarchy_compatibility.py
+@@ -21 +21 @@ def test_s02_all318_definitions_and_frozen_dependencies_retained():
+-    assert len(schema) == 528  # 515 retained +13 additive policy v2 definitions.
++    assert len(schema) == 537  # 528 retained +9 additive explicit intent definitions.
+diff --git a/apps/backend/tests/test_nutrition_resolution.py b/apps/backend/tests/test_nutrition_resolution.py
+index f657ae8..997a458 100644
+--- a/apps/backend/tests/test_nutrition_resolution.py
++++ b/apps/backend/tests/test_nutrition_resolution.py
+@@ -935,0 +936,3 @@ def test_nre094_480_export_hashes_and_frozen_files_remain_identical():
++    explicit_intent = json.loads(
++        (COMPAT.parent / "explicit_plan_intent_export_names.json").read_text()
++    )
+@@ -937 +940,2 @@ def test_nre094_480_export_hashes_and_frozen_files_remain_identical():
+-                           | set(basis["new_definitions"]) | set(policy_v2))
++                           | set(basis["new_definitions"]) | set(policy_v2)
++                           | set(explicit_intent))
+diff --git a/apps/backend/tests/test_nutrition_root_architecture.py b/apps/backend/tests/test_nutrition_root_architecture.py
+index bc70a0e..d38cde2 100644
+--- a/apps/backend/tests/test_nutrition_root_architecture.py
++++ b/apps/backend/tests/test_nutrition_root_architecture.py
+@@ -150 +150,4 @@ def test_nrc78_all403_definition_hashes_retained_exact_additive_exports():
+-    assert len(schema) == 528  # 515 retained +13 additive policy v2 definitions.
++    explicit_intent = json.loads(
++        (FIXTURES / "explicit_plan_intent_export_names.json").read_text()
++    )
++    assert len(schema) == 537  # 528 retained +9 additive explicit intent definitions.
+@@ -154 +157,3 @@ def test_nrc78_all403_definition_hashes_retained_exact_additive_exports():
+-    ) | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2)
++    ) | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2) | set(
++        explicit_intent
++    )
+diff --git a/apps/backend/tests/test_policy_v2.py b/apps/backend/tests/test_policy_v2.py
+index 7590d22..0167e78 100644
+--- a/apps/backend/tests/test_policy_v2.py
++++ b/apps/backend/tests/test_policy_v2.py
+@@ -628 +628,16 @@ def test_piv_d31_all_frozen_definition_bodies_files_and_schema():
+-    assert len(additions) == 13 and len(defs) == 528
++    explicit_intent = json.loads(
++        (ROOT / "apps/backend/tests/fixtures/explicit_plan_intent_export_names.json").read_text()
++    )
++    assert len(explicit_intent) == len(set(explicit_intent)) == 9
++    assert set(explicit_intent) == {
++        'ExplicitPlanIntentContextV1',
++        'ExplicitPlanIntentBudgetV1',
++        'ExplicitPlanIntentRequestV1',
++        'ExplicitPlanIntentValuesV1',
++        'PlanIntentAxisEvidenceV1',
++        'ResolvedExplicitPlanIntentV1',
++        'PlanIntentDiagnosticV1',
++        'PlanIntentResolutionV1',
++        'PlanIntentCheckV1',
++    }
++    assert len(additions) == 13 and len(defs) == 537
+@@ -630 +645 @@ def test_piv_d31_all_frozen_definition_bodies_files_and_schema():
+-    assert set(defs) - set(proof["definitions"]) == additions
++    assert set(defs) - set(proof["definitions"]) == additions | set(explicit_intent)
+@@ -756,0 +772,169 @@ def historical_test_preimage(path):
++    # Exact EPI metadata preimages precede the unchanged seven PIV exceptions.
++    epi_exceptions = {
++        'apps/backend/tests/test_candidate_feature_projection.py': [
++            (
++                (
++                    '    assert len(definitions) == 528  # 515 retained +'
++                    '13 additive policy v2.'
++                ),
++                (
++                    '    assert len(definitions) == 537  # 528 retained +'
++                    '9 additive explicit plan intent.'
++                ),
++            ),
++        ],
++        'apps/backend/tests/test_hierarchical_affinity_compatibility.py': [
++            (
++                (
++                    '    assert len(pins["definitions"]) == 349 and len(s'
++                    'chema) == 528  # 515 retained +13 policy v2.'
++                ),
++                (
++                    '    assert len(pins["definitions"]) == 349 and len(s'
++                    'chema) == 537  # 528 retained +9 intent.'
++                ),
++            ),
++        ],
++        'apps/backend/tests/test_hierarchy_compatibility.py': [
++            (
++                (
++                    '    assert len(schema) == 528  # 515 retained +13 ad'
++                    'ditive policy v2 definitions.'
++                ),
++                (
++                    '    assert len(schema) == 537  # 528 retained +9 add'
++                    'itive explicit intent definitions.'
++                ),
++            ),
++        ],
++        'apps/backend/tests/test_nutrition_resolution.py': [
++            (
++                (
++                    '    policy_v2 = json.loads((COMPAT.parent / "policy_'
++                    'v2_export_names.json").read_text())'
++                ),
++                (
++                    '    policy_v2 = json.loads((COMPAT.parent / "policy_'
++                    'v2_export_names.json").read_text())\n    explicit_int'
++                    'ent = json.loads(\n        (COMPAT.parent / "explicit'
++                    '_plan_intent_export_names.json").read_text()\n    )'
++                ),
++            ),
++            (
++                (
++                    '                           | set(basis["new_definiti'
++                    'ons"]) | set(policy_v2))'
++                ),
++                (
++                    '                           | set(basis["new_definiti'
++                    'ons"]) | set(policy_v2)\n                           |'
++                    ' set(explicit_intent))'
++                ),
++            ),
++        ],
++        'apps/backend/tests/test_nutrition_root_architecture.py': [
++            (
++                (
++                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
++                    'port_names.json").read_text())'
++                ),
++                (
++                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
++                    'port_names.json").read_text())\n    explicit_intent ='
++                    ' json.loads(\n        (FIXTURES / "explicit_plan_inte'
++                    'nt_export_names.json").read_text()\n    )'
++                ),
++            ),
++            (
++                (
++                    '    assert len(schema) == 528  # 515 retained +13 ad'
++                    'ditive policy v2 definitions.'
++                ),
++                (
++                    '    assert len(schema) == 537  # 528 retained +9 add'
++                    'itive explicit intent definitions.'
++                ),
++            ),
++            (
++                (
++                    '    ) | set(resolution["new_definitions"]) | set(bas'
++                    'is["new_definitions"]) | set(policy_v2)'
++                ),
++                (
++                    '    ) | set(resolution["new_definitions"]) | set(bas'
++                    'is["new_definitions"]) | set(policy_v2) | set(\n     '
++                    '   explicit_intent\n    )'
++                ),
++            ),
++        ],
++        'apps/backend/tests/test_tastefit_architecture.py': [
++            (
++                (
++                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
++                    'port_names.json").read_text())'
++                ),
++                (
++                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
++                    'port_names.json").read_text())\n    explicit_intent ='
++                    ' json.loads(\n        (FIXTURES / "explicit_plan_inte'
++                    'nt_export_names.json").read_text()\n    )'
++                ),
++            ),
++            (
++                (
++                    '    assert len(defs) == 528  # 515 retained +13 addi'
++                    'tive policy v2 definitions.'
++                ),
++                (
++                    '    assert len(defs) == 537  # 528 retained +9 addit'
++                    'ive explicit intent definitions.'
++                ),
++            ),
++            (
++                (
++                    '        + len(policy_v2)\n    )'
++                ),
++                (
++                    '        + len(policy_v2)\n        + len(explicit_inte'
++                    'nt)\n    )'
++                ),
++            ),
++            (
++                (
++                    '        + policy_v2\n    )'
++                ),
++                (
++                    '        + policy_v2\n        + explicit_intent\n    )'
++                ),
++            ),
++        ],
++        'apps/backend/tests/test_shared_target_tastefit_architecture.py': [
++            (
++                (
++                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
++                    'port_names.json").read_text())'
++                ),
++                (
++                    '    policy_v2 = json.loads((FIXTURES / "policy_v2_ex'
++                    'port_names.json").read_text())\n    explicit_intent ='
++                    ' json.loads(\n        (FIXTURES / "explicit_plan_inte'
++                    'nt_export_names.json").read_text()\n    )'
++                ),
++            ),
++            (
++                (
++                    '             | set(resolution["new_definitions"]) | '
++                    'set(basis["new_definitions"]) | set(policy_v2))'
++                ),
++                (
++                    '             | set(resolution["new_definitions"]) | '
++                    'set(basis["new_definitions"]) | set(policy_v2)\n     '
++                    '        | set(explicit_intent))'
++                ),
++            ),
++        ],
++    }
++    for old_text, permitted_text in epi_exceptions.get(path, []):
++        old, permitted = old_text.encode(), permitted_text.encode()
++        assert body.count(permitted + b"\n") == 1, path
++        body = body.replace(permitted + b"\n", old + b"\n", 1)
+diff --git a/apps/backend/tests/test_shared_target_tastefit_architecture.py b/apps/backend/tests/test_shared_target_tastefit_architecture.py
+index 0a73e6f..289455a 100644
+--- a/apps/backend/tests/test_shared_target_tastefit_architecture.py
++++ b/apps/backend/tests/test_shared_target_tastefit_architecture.py
+@@ -30,0 +31,3 @@ def test_smtf120_all384_definitions_unchanged_exact_new_exports():
++    explicit_intent = json.loads(
++        (FIXTURES / "explicit_plan_intent_export_names.json").read_text()
++    )
+@@ -32 +35,2 @@ def test_smtf120_all384_definitions_unchanged_exact_new_exports():
+-             | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2))
++             | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2)
++             | set(explicit_intent))
+diff --git a/apps/backend/tests/test_tastefit_architecture.py b/apps/backend/tests/test_tastefit_architecture.py
+index 422ea8e..45d05bd 100644
+--- a/apps/backend/tests/test_tastefit_architecture.py
++++ b/apps/backend/tests/test_tastefit_architecture.py
+@@ -73 +73,4 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
+-    assert len(defs) == 528  # 515 retained +13 additive policy v2 definitions.
++    explicit_intent = json.loads(
++        (FIXTURES / "explicit_plan_intent_export_names.json").read_text()
++    )
++    assert len(defs) == 537  # 528 retained +9 additive explicit intent definitions.
+@@ -81,0 +85 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
++        + len(explicit_intent)
+@@ -90,0 +95 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
++        + explicit_intent
+diff --git a/tools/check_import_boundaries.py b/tools/check_import_boundaries.py
+index e66db65..db84904 100644
+--- a/tools/check_import_boundaries.py
++++ b/tools/check_import_boundaries.py
+@@ -360,0 +361,7 @@ POLICY_V2_IMPORTS = {
++EXPLICIT_INTENT_CONTRACT_NAMES = {
++    "ExplicitPlanIntentContextV1", "ExplicitPlanIntentBudgetV1", "ExplicitPlanIntentRequestV1",
++    "ExplicitPlanIntentValuesV1", "PlanIntentAxisEvidenceV1", "ResolvedExplicitPlanIntentV1",
++    "PlanIntentDiagnosticV1", "PlanIntentResolutionV1", "PlanIntentCheckV1",
++}
++
++
+@@ -375,0 +383,7 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
++        explicit_intent_contract = (
++            module == "app.modules.validation.explicit_plan_intent"
++            and target in {
++                "app.modules.policy.explicit_intent_contracts." + name
++                for name in EXPLICIT_INTENT_CONTRACT_NAMES
++            }
++        )
+@@ -584 +598,2 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
+-                if (not tail or tail[0] != "contracts") and not nrc_transport:
++                if ((not tail or tail[0] != "contracts") and not nrc_transport
++                    and not explicit_intent_contract):
+@@ -629,0 +645 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
++            and not explicit_intent_contract
+@@ -633 +649 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
+-        if not tail or tail[0] not in PUBLIC_SURFACES:
++        if (not tail or tail[0] not in PUBLIC_SURFACES) and not explicit_intent_contract:

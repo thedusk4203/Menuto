@@ -1,0 +1,341 @@
+{
+  "EPI001": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-LOW-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-NORMAL-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[RELAXED-HIGH-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-LOW-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-NORMAL-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[STANDARD-HIGH-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-LOW-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-NORMAL-FLEXIBLE-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-MINIMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-MINIMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-MINIMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-NORMAL-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-NORMAL-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-NORMAL-SPEND_LIMIT]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-FLEXIBLE-NONE]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-FLEXIBLE-TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi001_all_81_combinations[PRECISION-HIGH-FLEXIBLE-SPEND_LIMIT]"
+  ],
+  "EPI002": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi002_precision_orthogonal"
+  ],
+  "EPI003": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi003_cost_orthogonal"
+  ],
+  "EPI004": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi004_effort_orthogonal"
+  ],
+  "EPI005": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi005_budget_orthogonal"
+  ],
+  "EPI006": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi006_no_numerical_policy"
+  ],
+  "EPI007": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi007_none_not_zero_or_absence"
+  ],
+  "EPI008": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi008_target_is_intent_only"
+  ],
+  "EPI009": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi009_limit_not_feasibility"
+  ],
+  "EPI010": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi010_target_zero"
+  ],
+  "EPI011": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi011_limit_zero"
+  ],
+  "EPI012": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi012_none_with_amount_invalid[0]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi012_none_with_amount_invalid[1]"
+  ],
+  "EPI013": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi013_non_none_requires_amount[TARGET]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi013_non_none_requires_amount[SPEND_LIMIT]"
+  ],
+  "EPI014": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi014_integer_boundary"
+  ],
+  "EPI015": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi015_no_numeric_coercion[-1]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi015_no_numeric_coercion[True]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi015_no_numeric_coercion[1.0]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi015_no_numeric_coercion[1]"
+  ],
+  "EPI016": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi016_currency_exact[vnd]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi016_currency_exact[VN]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi016_currency_exact[VNDD]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi016_currency_exact[\\u20acUR]"
+  ],
+  "EPI017": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi017_currency_semantic_identity_not_support"
+  ],
+  "EPI018": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi018_null_axis_is_missing[nutrition_precision]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi018_null_axis_is_missing[cost_preference]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi018_null_axis_is_missing[kitchen_effort]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi018_null_axis_is_missing[budget]"
+  ],
+  "EPI019": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[contract_version]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[source]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[environment]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[context]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[nutrition_precision]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[cost_preference]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[kitchen_effort]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi019_absent_field_not_default[budget]"
+  ],
+  "EPI020": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi020_invalid_axis_not_missing[standard]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi020_invalid_axis_not_missing[UNKNOWN]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi020_invalid_axis_not_missing[1]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi020_invalid_axis_not_missing[True]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi020_invalid_axis_not_missing[value4]"
+  ],
+  "EPI021": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi021_context_invalid[request_id-bad]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi021_context_invalid[request_revision-True]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi021_context_invalid[request_revision--1]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi021_context_invalid[declared_at-2026-01-01]"
+  ],
+  "EPI022": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi022_horizon_and_offset_normalization"
+  ],
+  "EPI023": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi023_context_identity_changes[request_id]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi023_context_identity_changes[household_id]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi023_context_identity_changes[actor_user_id]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi023_context_identity_changes[tracked_member_id]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi023_context_identity_changes[request_revision]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi023_context_identity_changes[declared_at]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi023_context_identity_changes[horizon]"
+  ],
+  "EPI024": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi024_future_metadata_not_authentication"
+  ],
+  "EPI025": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi025_context_not_semantic_equality"
+  ],
+  "EPI026": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi026_full_source_identity"
+  ],
+  "EPI027": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi027_evidence_unique_order_before_hash"
+  ],
+  "EPI028": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi028_replay_across_process_hash_seeds_and_environment"
+  ],
+  "EPI029": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi029_json_spelling_not_identity"
+  ],
+  "EPI030": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi030_domain_separation_and_no_recursive_hash"
+  ],
+  "EPI031": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi031_strict_wire_parser[{\"source\":1,\"source\":2}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi031_strict_wire_parser[\\xff]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi031_strict_wire_parser[{\"x\":NaN}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi031_strict_wire_parser[{\"x\":Infinity}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi031_strict_wire_parser[{\"x\":1e3}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi031_strict_wire_parser[{\"x\":1.0}]"
+  ],
+  "EPI032": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi032_no_hidden_selection[PlanningMode]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi032_no_hidden_selection[preset]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi032_no_hidden_selection[defaults]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi032_no_hidden_selection[week]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi032_no_hidden_selection[overrides]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi032_no_hidden_selection[learned]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi032_no_hidden_selection[BudgetPressure]"
+  ],
+  "EPI033": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi033_unsupported_headers[contract_version]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi033_unsupported_headers[source]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi033_unsupported_headers[environment]"
+  ],
+  "EPI034": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi034_constructed_models_revalidated",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi034_claim_epoch_coercion_not_accepted"
+  ],
+  "EPI035": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi035_unsafe_objects_never_execute_hooks"
+  ],
+  "EPI036": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi036_encoded_byte_boundary"
+  ],
+  "EPI037": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_absolute_structure_limits[depth]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_absolute_structure_limits[nodes]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_absolute_structure_limits[container]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_absolute_structure_limits[string]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_absolute_structure_limits[key]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_absolute_structure_limits[integer]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_epi040_wire_resources_before_semantic_or_duplicate_errors[{\"x\":0,\"x\":1,\"later\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_epi040_wire_resources_before_semantic_or_duplicate_errors[{\"extra\":[[[[[[[[[0]]]]]]]]]}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_epi040_wire_resources_before_semantic_or_duplicate_errors[{\"extra\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_huge_integer_model_guard_before_stringification"
+  ],
+  "EPI038": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi038_work_budget_no_partial_success"
+  ],
+  "EPI039": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi039_claim_limit_is_not_checkable"
+  ],
+  "EPI040": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi040_deterministic_failure_precedence",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_epi040_wire_resources_before_semantic_or_duplicate_errors[{\"x\":0,\"x\":1,\"later\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_epi040_wire_resources_before_semantic_or_duplicate_errors[{\"extra\":[[[[[[[[[0]]]]]]]]]}]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi037_epi040_wire_resources_before_semantic_or_duplicate_errors[{\"extra\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}]"
+  ],
+  "EPI041": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi041_fresh_positive_independent_check"
+  ],
+  "EPI042": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi042_faithful_negative_consistent[missing]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi042_faithful_negative_consistent[invalid]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi042_faithful_negative_consistent[unsupported]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi042_faithful_negative_consistent[malformed]"
+  ],
+  "EPI043": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi043_rehashed_changed_axis_rejected"
+  ],
+  "EPI044": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi044_rehashed_budget_substitution[change0]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi044_rehashed_budget_substitution[change1]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi044_rehashed_budget_substitution[change2]"
+  ],
+  "EPI045": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi045_forged_context_and_evidence"
+  ],
+  "EPI046": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi046_tampered_hash_rejected"
+  ],
+  "EPI047": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi047_forged_positive_for_negative"
+  ],
+  "EPI048": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi048_forged_negative_for_positive"
+  ],
+  "EPI049": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi049_report_not_validation_proof"
+  ],
+  "EPI050": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi050_coherent_source_replacement_not_authority"
+  ],
+  "EPI051": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi051_absent_primitives_not_checkable"
+  ],
+  "EPI052": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi052_checker_never_calls_producer"
+  ],
+  "EPI053": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi053_static_direct_transitive_independence"
+  ],
+  "EPI054": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi054_no_taint_or_flag_promotion[environment-PRODUCTION]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi054_no_taint_or_flag_promotion[planner_ready-True]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi054_no_taint_or_flag_promotion[activation_ready-True]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi054_no_taint_or_flag_promotion[production_admission-OPEN]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi054_no_taint_or_flag_promotion[numerical_use-ADMITTED]",
+    "apps.backend.tests.test_explicit_plan_intent::test_epi054_no_taint_or_flag_promotion[planner_ready-0]"
+  ],
+  "EPI055": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi055_no_lease_or_numeric_policy"
+  ],
+  "EPI056": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi056_no_physiological_policy_claims"
+  ],
+  "EPI057": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi057_no_feasibility_or_activation"
+  ],
+  "EPI058": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi058_pure_modules_no_io_or_globals"
+  ],
+  "EPI059": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi059_all_528_bodies_and_exact_nine_delta"
+  ],
+  "EPI060": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi060_frozen_files_no_new_migration_or_persistence"
+  ],
+  "EPI061": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi061_all_retained_identities_and_metadata_integrity"
+  ],
+  "EPI062": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi062_no_content_or_authority_installation"
+  ],
+  "EPI063": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi063_governance_and_non_authority"
+  ],
+  "EPI064": [
+    "apps.backend.tests.test_explicit_plan_intent::test_epi064_exact_bounded_public_surface"
+  ]
+}

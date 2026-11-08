@@ -1,0 +1,11 @@
+[
+  "ExplicitPlanIntentContextV1",
+  "ExplicitPlanIntentBudgetV1",
+  "ExplicitPlanIntentRequestV1",
+  "ExplicitPlanIntentValuesV1",
+  "PlanIntentAxisEvidenceV1",
+  "ResolvedExplicitPlanIntentV1",
+  "PlanIntentDiagnosticV1",
+  "PlanIntentResolutionV1",
+  "PlanIntentCheckV1"
+]

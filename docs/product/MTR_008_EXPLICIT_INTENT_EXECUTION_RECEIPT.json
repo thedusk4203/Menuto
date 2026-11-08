@@ -1,0 +1,93 @@
+{
+  "base": "b7992898698a8a8a3493b3c260939325cc494063",
+  "full_suite": {
+    "passed": 4611,
+    "retained_baseline": 4369,
+    "additive": 242,
+    "skipped": 0,
+    "failed": 0,
+    "warnings": 4,
+    "elapsed_seconds": 5253.69,
+    "named_postgres_module_executions": 1384
+  },
+  "new_pg_obligations": 0,
+  "acceptance_families": 64,
+  "scram_tls": {
+    "passed": 16,
+    "skipped": 0
+  },
+  "benchmark": "22/22",
+  "client": "10/10",
+  "byte_mutation_diagnostic": {
+    "cases": 700,
+    "mismatches": 0,
+    "not_added_to_pytest_total": true
+  },
+  "exports": {
+    "total": 537,
+    "retained_unchanged": 528,
+    "additive": 9,
+    "legacy_hashes_retained": 515,
+    "historical_hashes_retained": 503,
+    "historical_frozen_files": 53,
+    "complete_piv_pins": 59
+  },
+  "fresh_install": {
+    "revision": "0017",
+    "domain_tables": 108,
+    "nutrition_tables": {
+      "nutrition_eligibility_revisions": 0,
+      "nutrition_goal_revisions": 0,
+      "nutrition_guideline_drafts": 0,
+      "nutrition_guideline_publications": 0,
+      "nutrition_guideline_reviews": 0,
+      "nutrition_member_delegations": 0,
+      "nutrition_physiology_revisions": 0,
+      "nutrition_source_authority": 0,
+      "nutrition_source_evidence_artifacts": 0,
+      "nutrition_source_principals": 0,
+      "nutrition_source_providers": 0,
+      "nutrition_source_receipts": 0,
+      "nutrition_source_streams": 0,
+      "nutrition_synthesis_drafts": 0,
+      "nutrition_synthesis_evidence": 0,
+      "nutrition_synthesis_grants": 0,
+      "nutrition_synthesis_principal_frontiers": 0,
+      "nutrition_synthesis_principals": 0,
+      "nutrition_synthesis_providers": 0,
+      "nutrition_synthesis_publications": 0,
+      "nutrition_synthesis_receipts": 0,
+      "nutrition_synthesis_reviews": 0,
+      "nutrition_synthesis_streams": 0
+    },
+    "production_content_rows": 0,
+    "new_migration": false
+  },
+  "artifacts_sha256": {
+    "mtr008-full.xml": "681b97c3f76dd293ab24b8550665d93bf73ed4ff0ed547a57a7f770ab9542c67",
+    "mtr008-full.log": "66037424a4d6ed7951e0f5d25aff748a5212b870544d6c23697eb7d909ad7a36",
+    "mtr008-focused.xml": "2ac0a3b01cc178e139322b975195e2441d2ee4bd09303e4abee8e3836881704b",
+    "mtr008-scram.xml": "1ebc76f3e70a7085f3df29548f1dd2945e88d97494653074b8c92657d4dbafdb",
+    "mtr008-focused-final.xml": "0ac090564938bf66c1b383a9fc7191328183c8bd646d388e7c786f5eabc336d7"
+  },
+  "production_gate": "CLOSED",
+  "planner_ready": false,
+  "activation_ready": false,
+  "exact_head_ci": "PENDING",
+  "ci_attempts": [
+    {
+      "run_id": 42476517519,
+      "head": "951dea7dd0e7714cfd9dedf8bf2fba2e60f5e2f2",
+      "result": "FAILURE",
+      "pytest_passed": 4610,
+      "pytest_failed": 1,
+      "finding": "EPI028 subprocess tests-directory import path; corrected new test only"
+    }
+  ],
+  "post_correction_focused": {
+    "passed": 242,
+    "skipped": 0,
+    "parent_pythonpath": "apps/backend only",
+    "full_local_run_was_before_test_harness_correction": true
+  }
+}

@@ -70,7 +70,10 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
     resolution = json.loads((FIXTURES / "nutrition_resolution_compatibility.json").read_text())
     basis = json.loads((FIXTURES / "basis_compatibility.json").read_text())
     policy_v2 = json.loads((FIXTURES / "policy_v2_export_names.json").read_text())
-    assert len(defs) == 528  # 515 retained +13 additive policy v2 definitions.
+    explicit_intent = json.loads(
+        (FIXTURES / "explicit_plan_intent_export_names.json").read_text()
+    )
+    assert len(defs) == 537  # 528 retained +9 additive explicit intent definitions.
     assert len(defs) == (
         384
         + len(shared["new_definitions"])
@@ -79,6 +82,7 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
         + len(resolution["new_definitions"])
         + len(basis["new_definitions"])
         + len(policy_v2)
+        + len(explicit_intent)
     )
     assert sorted(set(defs) - set(pins["definitions"])) == sorted(
         pins["new_definitions"]
@@ -88,6 +92,7 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
         + resolution["new_definitions"]
         + basis["new_definitions"]
         + policy_v2
+        + explicit_intent
     )
     for name, digest in pins["definitions"].items():
         assert (
