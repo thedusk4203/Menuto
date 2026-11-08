@@ -1,5 +1,38 @@
 # Trạng thái foundation V1.3 và bằng chứng
 
+## MTR-008 explicit-request plan-intent — STRUCTURALLY FROZEN / TEST_ONLY
+
+**Current bounded status:** [MTR-008 pure-only explicit-request orthogonal plan-intent resolution](MTR_008_EXPLICIT_REQUEST_PLAN_INTENT_FREEZE_RECEIPT.md)
+is **STRUCTURALLY FROZEN / TEST_ONLY**. This does not complete full MTR-008.
+Implementation [PR #143](https://github.com/thedusk4203/Menuto/pull/143), reviewed head
+`24a868a601b5c7060ac76af952fe5b33ca6f636f`, is pinned to actual implementation merge
+`40875d95f81390f3985cc0e2ad4600b1e494dacb` and frozen tree
+`a6f53925857898ce0d63c30f4da5b55890e7d374`, equal to the reviewed-head tree.
+[Independent PASS 6722974021](https://github.com/thedusk4203/Menuto/pull/143#issuecomment-6722974021),
+[verified post-merge receipt 6724098947](https://github.com/thedusk4203/Menuto/pull/143#issuecomment-6724098947)
+and [owner-authorized bounded freeze 6724106966](https://github.com/thedusk4203/Menuto/pull/143#issuecomment-6724106966)
+record the completed gates. Exact implementation-merge **push**
+[CI 42495459642 — SUCCESS](https://github.com/thedusk4203/Menuto/actions/runs/42495459642):
+**4,611 passed / 0 skips = 4,369 retained + 242 additive**; EPI001–EPI064 mapped and executed;
+SCRAM/TLS 16/16, benchmark 22/22, client 10/10, Python/web and all guards SUCCESS.
+
+**537 exports = 528 unchanged + 9 additive**; 515 legacy hashes, 503 historical hashes,
+53 historical frozen files and 59 complete PIV pins preserved. Schema **0017/108**, no 0018;
+zero new persistence, SQL objects, roles or privileges. Root/NPS/NRE/MBA/PIV frozen identities
+remain unchanged; the implementation identity above is not replaced by this docs-sync commit.
+
+Fully explicit four-axis interpretation and independent checking remain pure and TEST_ONLY:
+UNAUTHENTICATED_DECLARATION / UNVERIFIED_TRANSPORT; numerical use NOT_ADMITTED;
+resolved_plan_policy_ready=False, planner_ready=False, activation_ready=False.
+No authenticated capture, defaults/week/override precedence, numerical policy composition,
+PIV lease expansion, consumer admission, solver or planner activation is authorized.
+Full MTR-006/007/008 **INCOMPLETE**; issues #5/#6/#7 **OPEN**; production Nutrition/clinical gate
+**CLOSED**; Execution **NOT STARTED**; PRECOMMIT **FAIL-CLOSED**.
+
+This PR synchronizes documentation only and remains OPEN / auto-merge OFF for independent review.
+Earlier stage sections below retain historical design/research dispositions and then-current counts;
+the current status and authorization boundary are the frozen receipt and this section.
+
 ## MTR-008 explicit-request plan-intent — DETAILED DESIGN / REVIEW PENDING
 
 The owner authorized the [bounded detailed design](MTR_008_EXPLICIT_REQUEST_PLAN_INTENT_BOUNDED_DESIGN.md)
