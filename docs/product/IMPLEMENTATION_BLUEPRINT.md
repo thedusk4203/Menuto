@@ -1,23 +1,17 @@
 # Milestone 0/1 — entry checklist V1.3
 
-## Post-MTR-006 v2 dependency review — READY FOR INDEPENDENT ARCHITECTURE REVIEW
+## Post-MTR-006 v2 dependency/readiness review — INDEPENDENT REVIEW PENDING
 
-The [Post-MTR-006 v2 capability/dependency review](POST_MTR_006_POLICY_INTEGRATION_V2_DEPENDENCY_REVIEW.md)
-reviews exact main `4b1decc67124eafddb1626dfc6e796a8a77de943` after PR #139.
-Recommended next gate: **MTR-008 PlanPolicyResolver Foundation — Bounded Detailed Design
-(STRUCTURAL / TEST_ONLY)**, **READY FOR DETAILED DESIGN**, subject to independent
-architecture review and separate design authorization. Detailed design is **NOT STARTED**;
-implementation is **NOT AUTHORIZED**. The review examines remaining requirements of MTR-006,
-MTR-007 and MTR-008, maps cross-domain interfaces between Nutrition, Policy, Planning and
-Validation, records a formal blocker register separating technical gaps from closed clinical
-gates, and proposes a bounded orthogonal policy compilation seam without new persistence.
+The [post-freeze capability and dependency review](POST_MTR_006_POLICY_INTEGRATION_V2_DEPENDENCY_REVIEW.md)
+examines exact main 4b1decc67124eafddb1626dfc6e796a8a77de943. Recommended candidate:
+**MTR-008 explicit-request orthogonal plan-intent resolution (STRUCTURAL / TEST_ONLY)**.
+This is a research recommendation only. The independent architect selects the next scope and
+finalizes its design; no new contract, precedence rule, design execution or implementation is authorized.
 
-Frozen Root/MTR-006 v1/MTR-007/MBA/MTR-006 v2 structural foundations remain intact.
-Production Nutrition/clinical content gate **CLOSED**; full MTR-006/007/008 **INCOMPLETE**,
-parent issues #5/#6/#7 OPEN; 4,369 tests / 0 skips, 528 exports, 503 historical hashes,
-53 frozen files (59 in v2 manifest), schema 0017 / 108, no 0018, zero new persistence.
-`planner_ready=False`; `activation_ready=False`; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
-No downstream work is authorized.
+Frozen Root/MTR-006 v1/MTR-007/MBA/MTR-006 v2 identities and semantics remain unchanged.
+Full MTR-006/007/008 INCOMPLETE; issues #5/#6/#7 OPEN; production Nutrition/clinical gate CLOSED.
+528 exports, 503 historical hashes, 53 historical frozen files (59 complete v2 pins), schema0017/108,
+no0018. planner_ready=False; activation_ready=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
 
 ## MTR-006 Policy Integration v2 — STRUCTURALLY FROZEN / TEST_ONLY
 
