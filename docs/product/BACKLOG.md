@@ -1,5 +1,24 @@
 # Backlog canonical V1.3 — MTR-001 → MTR-050
 
+## Post-MTR-006 v2 dependency review — READY FOR INDEPENDENT ARCHITECTURE REVIEW
+
+The [Post-MTR-006 v2 capability/dependency review](POST_MTR_006_POLICY_INTEGRATION_V2_DEPENDENCY_REVIEW.md)
+reviews exact main `4b1decc67124eafddb1626dfc6e796a8a77de943` after PR #139.
+Recommended next gate: **MTR-008 PlanPolicyResolver Foundation — Bounded Detailed Design
+(STRUCTURAL / TEST_ONLY)**, **READY FOR DETAILED DESIGN**, subject to independent
+architecture review and separate design authorization. Detailed design is **NOT STARTED**;
+implementation is **NOT AUTHORIZED**. The review examines remaining requirements of MTR-006,
+MTR-007 and MTR-008, maps cross-domain interfaces between Nutrition, Policy, Planning and
+Validation, records a formal blocker register separating technical gaps from closed clinical
+gates, and proposes a bounded orthogonal policy compilation seam without new persistence.
+
+Frozen Root/MTR-006 v1/MTR-007/MBA/MTR-006 v2 structural foundations remain intact.
+Production Nutrition/clinical content gate **CLOSED**; full MTR-006/007/008 **INCOMPLETE**,
+parent issues #5/#6/#7 OPEN; 4,369 tests / 0 skips, 528 exports, 503 historical hashes,
+53 frozen files (59 in v2 manifest), schema 0017 / 108, no 0018, zero new persistence.
+`planner_ready=False`; `activation_ready=False`; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+No downstream work is authorized.
+
 ## MTR-006 Policy Integration v2 — STRUCTURALLY FROZEN / TEST_ONLY
 
 [Approved design PR #136](https://github.com/thedusk4203/Menuto/pull/136), reviewed head
