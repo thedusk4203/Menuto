@@ -1,5 +1,18 @@
 # Trạng thái foundation V1.3 và bằng chứng
 
+## Current design follow-up — Identity trust root (NOT IMPLEMENTED)
+
+The owner selected Identity-owned principal-to-User enrollment. The
+[bounded Identity/security design](IDENTITY_PRINCIPAL_USER_ENROLLMENT_BOUNDED_DESIGN.md),
+[19-contract proposal](IDENTITY_PRINCIPAL_USER_ENROLLMENT_CONTRACTS.md) and
+[96-obligation matrix](IDENTITY_PRINCIPAL_USER_ENROLLMENT_ACCEPTANCE.md) are submitted for independent
+review; implementation/migration/privileges are **NOT AUTHORIZED**. The
+[earlier blocker report](MTR_008_AUTHENTICATED_SOURCE_TRUST_ROOT_BLOCKER_REPORT.md) is preserved as a
+historical stage record; its missing source-direction decision has now been supplied, not implemented.
+The research-stage statement below is historical. Current runtime remains537 exports/schema0017/108;
+Root/NPS/NRE/MBA/PIV/EPI freezes remain unchanged. Full006/007/008 INCOMPLETE; #5/#6/#7 OPEN;
+production gate CLOSED; planner/activation=False; Execution NOT STARTED; PRECOMMIT FAIL-CLOSED.
+
 Research follow-up: the [post-EPI MTR-008 dependency/readiness review](POST_MTR_008_EXPLICIT_INTENT_FREEZE_DEPENDENCY_REVIEW.md)
 proposes authenticated explicit-request source capture/independent verification as one next bounded
 **detailed-design candidate**, pending independent architecture/scope selection and separate owner
