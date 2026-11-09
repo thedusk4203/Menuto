@@ -1,5 +1,11 @@
 # Trạng thái foundation V1.3 và bằng chứng
 
+Research follow-up: the [post-EPI MTR-008 dependency/readiness review](POST_MTR_008_EXPLICIT_INTENT_FREEZE_DEPENDENCY_REVIEW.md)
+proposes authenticated explicit-request source capture/independent verification as one next bounded
+**detailed-design candidate**, pending independent architecture/scope selection and separate owner
+design authorization. No detailed design or implementation is started. The frozen EPI status below
+and all closed production/downstream gates remain unchanged.
+
 ## MTR-008 explicit-request plan-intent — STRUCTURALLY FROZEN / TEST_ONLY
 
 **Current bounded status:** [MTR-008 pure-only explicit-request orthogonal plan-intent resolution](MTR_008_EXPLICIT_REQUEST_PLAN_INTENT_FREEZE_RECEIPT.md)
