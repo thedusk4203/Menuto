@@ -65,40 +65,40 @@ Every virtual postimage parses. Hashes below use UTF-8 LF text, matching histori
 | Path | Baseline SHA-256 | Proposed postimage SHA-256 |
 |---|---|---|
 | apps/backend/tests/explicit_plan_intent_architecture_checks.py | b1b2e22122acaad9f7c529ecb93828f0764c584849d6b1d9272a1b5f571ea7d5 | abd1b1306ac2fd8effb791a2f22212c5268d5298d0754f6e59bb5ebcaf366827 |
-| apps/backend/tests/hierarchy_postgres_fixtures.py | 39752ee435f898c9c677fd29897cf4aa9df3880cb7a8270299dfd6cf5ca81dc7 | e3bdd4da2f4e013924097173843c30ae60217dbbaae3b0e7ddb7aff3a9217ad4 |
-| apps/backend/tests/nutrition_root_postgres_fixtures.py | 331f7425c4b67f736e0418534f0636b314b9280b230ca03669b7e1cd4dcbf731 | b94a333a9a5d12669a9eb685b84448805f722dcd130992450c93ae4d6dec9061 |
+| apps/backend/tests/hierarchy_postgres_fixtures.py | 39752ee435f898c9c677fd29897cf4aa9df3880cb7a8270299dfd6cf5ca81dc7 | 0d9a48322320216fba4888593914b8b6cfeefd582f0c9963b1b8aa0c96172b9a |
+| apps/backend/tests/nutrition_root_postgres_fixtures.py | 331f7425c4b67f736e0418534f0636b314b9280b230ca03669b7e1cd4dcbf731 | 17580a9d99116ff638478e0104d3ab1a92ba82f9af193a720c04b3d2823b3212 |
 | apps/backend/tests/test_basis_applicability.py | d472d7b5935ea5e1dd05b14285a6d4c4c8da3aa19b42a8f184b5fbedeba2c60f | 06c07a41e0ab56fba13faddaa2471aa998d622c2051e0106962c060976ada222 |
 | apps/backend/tests/test_candidate_feature_projection.py | 02a7baf3c120f17faffafd239add233ba48ea3de89c5674e9bfb7f6eb4f95aac | df2ca3104394df8abdb563ff72e236f0d5789628b807be486afec71d7ad929bf |
 | apps/backend/tests/test_explicit_plan_intent.py | 4e758ec1b7bf448c336e5d222517d457d1f5bb114895a4fb94922c06219ad306 | 20dff38a04762c1b7f2dabfa0fa5ca50dc421cbb66f7149e6e66be29bf833413 |
 | apps/backend/tests/test_explicit_plan_intent_architecture.py | 6a01bf6c0852aae6688124da8613cf9f1cb7c43f485fd8c0e2c0dd544b4300fc | 382943c94ea1e8de85e38815c36ab212331b0baecc1ce1f38243cf54050ebd2e |
 | apps/backend/tests/test_explicit_plan_intent_preflight.py | f5068f542bcc4338d38c158704d7fae9dcecfd4c73270b754ac14dd5d3f7a99c | 158135d9e6423574008975065aab0b00df4830a7126dcba1ab41d4f05ab540c4 |
-| apps/backend/tests/test_foundation_migration.py | cf582976fc692cd0c99d9812d7902f582245ba00149f6072aee6f5c039bc01a7 | e24bd17135a69958fc106d7b114d1a39b3bad14f1ce084022bd08a3a74f1c09c |
+| apps/backend/tests/test_foundation_migration.py | cf582976fc692cd0c99d9812d7902f582245ba00149f6072aee6f5c039bc01a7 | 0f194ad449b01cbfe599be250f5d6133f1ff444088b76b295aad59416169751f |
 | apps/backend/tests/test_hierarchical_affinity_compatibility.py | 064dd3308e11e46d1938b80fda0f3ed7dc6a54d58c74982b8d2251981720b60c | f3ee75ab1a88f141522304189a5a253bea7c3fb04bd55f2131adb0d7c36aa1b9 |
 | apps/backend/tests/test_hierarchy_compatibility.py | e32277e77c0b3373cdcbea32b1c7dc6bc8912a7cfcd819706bcf7909321a4a81 | 141aa6ecfcc2ee8a80b0227a1da4e7eef954d807ce7b4fed3e19030f24e8a415 |
 | apps/backend/tests/test_nutrition_resolution.py | 7f8cf34f53f69ba7074a8416e731e61c27e454acca86d0b07c9b5dd376979d6b | 05407d2dcaf987fbb4683a316656e49c23b9168066be66746d488ff1a1c4c546 |
 | apps/backend/tests/test_nutrition_root_architecture.py | da2b1181d6771a4c90242e6bd24c379de324725bf63884d2dad64dd159909d18 | 4869826ba73bf7bb514b046395f8b0cacd08f345860c22bf800117ddeab012ad |
-| apps/backend/tests/test_policy_v2.py | 0317656cb8db783b628707d5e3078b7e3ef93d2954ef135d4cd70f21577feb01 | 44efc9154cbee3c9b57c8a41ac7c98e4acfcf31130e6fb52cb5eecc6b0da2d86 |
-| apps/backend/tests/test_postgres_basis_applicability.py | 7429183591e19057fc6f9d7d99422853be749760f877199dcfd64bb05005d6a9 | 81c0350e72a6db4f83dad4bbbe24ea6704f04147baceb4f390015413e35151df |
-| apps/backend/tests/test_postgres_candidate_feature_projection.py | 0dae34bebd3db0fbce2c6164968418938a63a3ac9a8fccafcd1257c7e676d215 | 48f51e6b5a92c8eb4480ea19c86dd231357374f49130f6bd9194b910488ed56f |
-| apps/backend/tests/test_postgres_candidate_member_tastefit.py | 7f65d9ce32384b1f7550310a223fdfa01d6e0baeedc96e8329118ee61166a0ab | 47c206bd20e0d789853e651bbc45968caf66a1dc72c66bcd78b8b23f6e5ba00a |
-| apps/backend/tests/test_postgres_exposure.py | 631409960ebfb3477a2f28ddfa1a7be193980bf46aa550970d5f0322899dcbdb | 481df0f2be0922dafd92010817bf1cd1cd93cb04648faaaa3c85aed907407b4e |
-| apps/backend/tests/test_postgres_feature_exposure.py | 4ab12d858c8d23f88f2d2584a5af335152e9987f01ae6875e1081e94a495c196 | 79f0c2362f1a3c8e35979dafa7e61c440cad074e35e26572ff1588009de4b9ac |
-| apps/backend/tests/test_postgres_feature_repeat.py | c640b92304a276aaa315e26218b76c8dffabcf29c589a26fe110f21adc54d5b4 | bf5396c2516b4fe0d69129f8a70017e10b8fd3e9cfc78f33614354720d9ad8e3 |
-| apps/backend/tests/test_postgres_hierarchy_lifecycle.py | 29de8c9ab38201cd129178ba75eb419c72c1610943874631ab38d1bb7e1ecd50 | 87fe4b5ed650ae04fa64c529202c4a5a8b8112be789eeec7e2e45a52aff58f75 |
-| apps/backend/tests/test_postgres_nutrition_resolution.py | 07d5e49ab5970e5d7b2a4b5bc468b98cf99bd6e40dadb0569f0653f2bfa50b72 | 2553ac8e480175623b8bc3b8d19331a2011a5251d2f236b435181223f1517329 |
-| apps/backend/tests/test_postgres_nutrition_root_source.py | 7dd52ae7858af073d3c5aa7a068224d48a8c973f56233b2f818ca2480e60e789 | 45057035f901731316a7f1a67a6a1e45ec3dde6419fa92e21baef3050d2c0153 |
-| apps/backend/tests/test_postgres_nutrition_synthesis_authority.py | 78957a6a5e1db3b1b4aec2b18ec7ad395b3be60d57e8b2354538fd57d3732893 | a86e706d44b404d15fbb3b733612db33fe0460e4855f8bcff8ff2139e0155598 |
-| apps/backend/tests/test_postgres_plans.py | 4583810d445ebd6851c33b4ae811cf4270f34141a49340da679dc290dc3fbd93 | cd420a5d5ce3d0b5e1e5fb6457af79324ec4b12b3d2460c12c2497ef15046160 |
-| apps/backend/tests/test_postgres_policy_v2.py | 1ad280d21cdcd330f8e36670743e95ec2a0c45e584954c7bf950fc069c760150 | 8a70941e6c0f3902626b0488f07bc8539179444411a7c74f88eec58a8c031b6a |
-| apps/backend/tests/test_postgres_reference_prior_authority_extra.py | c93a452887ce81f4379d362b0c511e0266672af6c00ccbb64d5acf5cc4c70e41 | 8256d30eca1a3d0a4ea48b96473ec4748fa7274866fcb2bbd1700abbb51ff0d1 |
-| apps/backend/tests/test_postgres_reference_priors.py | 2b30246b6e1894e31ae702b1f14172aac0f1ffbe748e37fcb63a0d2489bd1f24 | da5b3e0adebe4762e53ae379d8d2cbcf76202aaf961fcbbbb2fcb83ed60a4cab |
-| apps/backend/tests/test_postgres_retail.py | 3cccd34ee8a64a11273a50668c9952b9a0c7773d8b14a4db3d53bd23c4f9bfe0 | 8b895131c82b1d3c05163ea2cb6f8876e0b80027aea086b783b625fd288d4242 |
-| apps/backend/tests/test_postgres_shared_target_tastefit.py | 4ceeef872539ee99fb03a04d020e961b9a8e6588186f8b6e56eb63095aba3de9 | 14f7c6a789d091dbf961efb64fac2a73a9896d1e59f87c7c5333b85e58885232 |
-| apps/backend/tests/test_postgres_target_affinity.py | 907a368831f47df09e4706b63592df56881f4eb33d458bdc8899fedc4c3f947a | c7215c459fcd88439468d1a833dc35cd12b7d35f1d1769e9a8dcb0ab116bf9cf |
-| apps/backend/tests/test_postgres_validation.py | 60d984bab972d4c5c6ec58690ae40e9387056f71d359ce81bde7aad93cbca385 | a3535e73105a0fd7ff1b79135e943e567f3d23c42c5dd9148cd7175d6b9bc2a5 |
+| apps/backend/tests/test_policy_v2.py | 0317656cb8db783b628707d5e3078b7e3ef93d2954ef135d4cd70f21577feb01 | 8719a993431c0abdd6886bde7506ff7a678963866ccb93463400ae01360315f1 |
+| apps/backend/tests/test_postgres_basis_applicability.py | 7429183591e19057fc6f9d7d99422853be749760f877199dcfd64bb05005d6a9 | a903408b9123a6e363e8e044d978edf81324e4da902d694fb6ea35cd397df3d9 |
+| apps/backend/tests/test_postgres_candidate_feature_projection.py | 0dae34bebd3db0fbce2c6164968418938a63a3ac9a8fccafcd1257c7e676d215 | 609ba65fee5de016a9cba027f70c08d52eb3d4d79ae2b0ce4a7d86e1e98456f9 |
+| apps/backend/tests/test_postgres_candidate_member_tastefit.py | 7f65d9ce32384b1f7550310a223fdfa01d6e0baeedc96e8329118ee61166a0ab | a1033d615835493ab329defc638eb71993f4b40775dbc1e2a8f84d29f910a3d7 |
+| apps/backend/tests/test_postgres_exposure.py | 631409960ebfb3477a2f28ddfa1a7be193980bf46aa550970d5f0322899dcbdb | 809e7b97edffed2a3471a6aad98bd6562f728ca5fccbd21814b3c5ba05e65bb8 |
+| apps/backend/tests/test_postgres_feature_exposure.py | 4ab12d858c8d23f88f2d2584a5af335152e9987f01ae6875e1081e94a495c196 | dda47524fbd35731ad7a4d57e2fb10af435ec3b6df37cb0c5f470e5fd1e32c97 |
+| apps/backend/tests/test_postgres_feature_repeat.py | c640b92304a276aaa315e26218b76c8dffabcf29c589a26fe110f21adc54d5b4 | 1aed29a99518a20cfc6c19d6e0db197dd65c0623d9f3dc4636af0448095243cc |
+| apps/backend/tests/test_postgres_hierarchy_lifecycle.py | 29de8c9ab38201cd129178ba75eb419c72c1610943874631ab38d1bb7e1ecd50 | db818fc1546ce9c096ed6604ee511b67aed8fdfa224f3d2037d0de058d176e9c |
+| apps/backend/tests/test_postgres_nutrition_resolution.py | 07d5e49ab5970e5d7b2a4b5bc468b98cf99bd6e40dadb0569f0653f2bfa50b72 | d941c2e204e2f0660ecf3f69e35d5162bc087f5a891dd41d27fc0ef73d6c3b2c |
+| apps/backend/tests/test_postgres_nutrition_root_source.py | 7dd52ae7858af073d3c5aa7a068224d48a8c973f56233b2f818ca2480e60e789 | de5e33f8534a3098659d7ed7a6e33b4d34e9ad5d89bae41c27ce73fec0f8d5fe |
+| apps/backend/tests/test_postgres_nutrition_synthesis_authority.py | 78957a6a5e1db3b1b4aec2b18ec7ad395b3be60d57e8b2354538fd57d3732893 | fea38afbf42546fdb666a8bdae3106284463f9ef876fa4cffe6afe7e98e53603 |
+| apps/backend/tests/test_postgres_plans.py | 4583810d445ebd6851c33b4ae811cf4270f34141a49340da679dc290dc3fbd93 | 815726cf0bfd4c3a0e0079bcefcc5870aebf0e028169cf9af622d640a37d97e8 |
+| apps/backend/tests/test_postgres_policy_v2.py | 1ad280d21cdcd330f8e36670743e95ec2a0c45e584954c7bf950fc069c760150 | 30bdc45ef82a88e7aff3745ed1228b773df72913689c89cd453baf3bec623729 |
+| apps/backend/tests/test_postgres_reference_prior_authority_extra.py | c93a452887ce81f4379d362b0c511e0266672af6c00ccbb64d5acf5cc4c70e41 | 3e4d9c781f32f4f393a91e89c749685f4cb623a0cebb9a9661ef5fdc768f66b9 |
+| apps/backend/tests/test_postgres_reference_priors.py | 2b30246b6e1894e31ae702b1f14172aac0f1ffbe748e37fcb63a0d2489bd1f24 | 86857e4d28ae09256d1d5e1b205f15eabcf93a7a0cd668f877224a315bbd7780 |
+| apps/backend/tests/test_postgres_retail.py | 3cccd34ee8a64a11273a50668c9952b9a0c7773d8b14a4db3d53bd23c4f9bfe0 | 720beeb6d06b46205d5438d3bf40a886af47936eccfb7fc175a9654935bdc07a |
+| apps/backend/tests/test_postgres_shared_target_tastefit.py | 4ceeef872539ee99fb03a04d020e961b9a8e6588186f8b6e56eb63095aba3de9 | 2c609aa2994a169b766adf3d806d5de61a57613a091d4485c9d135a4a2c531ea |
+| apps/backend/tests/test_postgres_target_affinity.py | 907a368831f47df09e4706b63592df56881f4eb33d458bdc8899fedc4c3f947a | cc3cd3b673a91b9142f5c14d15095efec88c27dbf0711ed3511807c011949df3 |
+| apps/backend/tests/test_postgres_validation.py | 60d984bab972d4c5c6ec58690ae40e9387056f71d359ce81bde7aad93cbca385 | 278b396aa673b6d60ead58952c5fac9b2ab49b91ba90380486bd334cd3c67ed1 |
 | apps/backend/tests/test_shared_target_tastefit_architecture.py | a1e8d0f5af35ef64f36a4687ad94fee99da6e3bd0bc1e14c1fe9be4a5224296e | 8c1f2a75411593de635916dac255b728085c36fde903b0cb5c6d966513ae99fa |
 | apps/backend/tests/test_tastefit_architecture.py | f41fc5edf52d6ca07082fe5d60d250b2e2cfdaff956c3426372b8cf5b407d933 | ed41d87b36faccef46f856f7bbbba7cb0f4cf9037efbab4fa18ea0752ecb1f2b |
-| tools/check_import_boundaries.py | 5dd7e73e72d42918d140752fdd70a942b6238e07b77433dfdf67a8456bd4953b | 2e2cb7b49b70f55470caf23cb57b3e9bad3973d8ef7bfe9e8f2fb7888cb23194 |
+| tools/check_import_boundaries.py | 5dd7e73e72d42918d140752fdd70a942b6238e07b77433dfdf67a8456bd4953b | 98b8c1630e39adba53fcfd9b69457905e79b4a6d429de4b88f8c910e0b4d0971 |
 
 ### Full proposed diffs (not applied)
 
@@ -130,9 +130,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -76 +79 @@
+@@ -76 +79,4 @@
 -            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++            assert (
++                conn.scalar(text("SELECT version_num FROM alembic_version"))
++                == IDENTITY_MIGRATION_REVISION
++            )
 ~~~
 
 #### apps/backend/tests/nutrition_root_postgres_fixtures.py
@@ -146,9 +149,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -123 +126 @@
+@@ -123 +126,4 @@
 -            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+            assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++            assert (
++                db.scalar(text("SELECT version_num FROM alembic_version"))
++                == IDENTITY_MIGRATION_REVISION
++            )
 ~~~
 
 #### apps/backend/tests/test_basis_applicability.py
@@ -250,12 +256,18 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -229 +232 @@
+@@ -229 +232,4 @@
 -        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
-@@ -264 +267 @@
++        assert (
++            connection.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
+@@ -264 +270,4 @@
 -        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            connection.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_hierarchical_affinity_compatibility.py
@@ -345,13 +357,15 @@ Reason: Only aggregate export metadata; historical body/hash/identity assertions
 @@ -643 +648 @@
 -    assert len(additions) == 13 and len(defs) == 537
 +    assert len(additions) == 13 and len(defs) == 556
-@@ -645 +650 @@
+@@ -645 +650,3 @@
 -    assert set(defs) - set(proof["definitions"]) == additions | set(explicit_intent)
-+    assert set(defs) - set(proof["definitions"]) == additions | set(explicit_intent) | set(IDENTITY_EXPORT_NAMES)
-@@ -657 +662 @@
++    assert set(defs) - set(proof["definitions"]) == (
++        additions | set(explicit_intent) | set(IDENTITY_EXPORT_NAMES)
++    )
+@@ -657 +664 @@
 -    assert not list((ROOT / "apps/backend/migrations/versions").glob("0018*"))
 +    assert_identity_migration_delta(ROOT)
-@@ -771 +776,3 @@
+@@ -771 +778,3 @@
 -    body = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
 +    body = restore_identity_metadata(
 +        path, (ROOT / path).read_bytes().replace(b"\r\n", b"\n").decode()
@@ -369,9 +383,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -307 +310 @@
+@@ -307 +310,4 @@
 -        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            db.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_candidate_feature_projection.py
@@ -385,9 +402,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -508 +511 @@
+@@ -508 +511,4 @@
 -        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            conn.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_candidate_member_tastefit.py
@@ -401,9 +421,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -746 +749 @@
+@@ -746 +749,4 @@
 -        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            conn.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_exposure.py
@@ -417,9 +440,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -102 +105 @@
+@@ -102 +105,4 @@
 -        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            conn.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_feature_exposure.py
@@ -433,9 +459,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -116 +119 @@
+@@ -116 +119,4 @@
 -        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            conn.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_feature_repeat.py
@@ -449,9 +478,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -164 +167 @@
+@@ -164 +167,4 @@
 -        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            db.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_hierarchy_lifecycle.py
@@ -465,9 +497,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -304 +307 @@
+@@ -304 +307,4 @@
 -        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            conn.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_nutrition_resolution.py
@@ -481,9 +516,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +)
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
-@@ -488 +491 @@
+@@ -488 +491,4 @@
 -        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            db.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_nutrition_root_source.py
@@ -497,12 +535,18 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -51 +54 @@
+@@ -51 +54,4 @@
 -        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
-@@ -981 +984 @@
++        assert (
++            db.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
+@@ -981 +987,4 @@
 -        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            db.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_nutrition_synthesis_authority.py
@@ -516,12 +560,18 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -107 +110 @@
+@@ -107 +110,4 @@
 -            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+            assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
-@@ -538 +541 @@
++            assert (
++                db.scalar(text("SELECT version_num FROM alembic_version"))
++                == IDENTITY_MIGRATION_REVISION
++            )
+@@ -538 +544,4 @@
 -            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+            assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++            assert (
++                db.scalar(text("SELECT version_num FROM alembic_version"))
++                == IDENTITY_MIGRATION_REVISION
++            )
 ~~~
 
 #### apps/backend/tests/test_postgres_plans.py
@@ -535,9 +585,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -540 +543 @@
+@@ -540 +543,4 @@
 -        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert session.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            session.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_policy_v2.py
@@ -551,9 +604,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -542 +545 @@
+@@ -542 +545,4 @@
 -        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            db.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_reference_prior_authority_extra.py
@@ -567,9 +623,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +)
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
-@@ -156 +159 @@
+@@ -156 +159,4 @@
 -        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            conn.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_reference_priors.py
@@ -583,9 +642,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -88 +91 @@
+@@ -88 +91,4 @@
 -            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++            assert (
++                conn.scalar(text("SELECT version_num FROM alembic_version"))
++                == IDENTITY_MIGRATION_REVISION
++            )
 ~~~
 
 #### apps/backend/tests/test_postgres_retail.py
@@ -599,9 +661,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -540 +543 @@
+@@ -540 +543,4 @@
 -        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            connection.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_shared_target_tastefit.py
@@ -615,9 +680,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -633 +636 @@
+@@ -633 +636,4 @@
 -        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert db.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            db.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_postgres_target_affinity.py
@@ -631,9 +699,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -386 +389 @@
+@@ -386 +389,4 @@
 -            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++            assert (
++                conn.scalar(text("SELECT version_num FROM alembic_version"))
++                == IDENTITY_MIGRATION_REVISION
++            )
 ~~~
 
 #### apps/backend/tests/test_postgres_validation.py
@@ -647,9 +718,12 @@ Reason: Run retained test at actual approved future head; keep exact0017 prefix 
 +from identity_compatibility_metadata import (
 +    IDENTITY_MIGRATION_REVISION,
 +)
-@@ -226 +229 @@
+@@ -226 +229,4 @@
 -        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
-+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == IDENTITY_MIGRATION_REVISION
++        assert (
++            conn.scalar(text("SELECT version_num FROM alembic_version"))
++            == IDENTITY_MIGRATION_REVISION
++        )
 ~~~
 
 #### apps/backend/tests/test_shared_target_tastefit_architecture.py
@@ -703,40 +777,48 @@ Reason: Exact new module/symbol list; no global ALLOWED/PUBLIC_SURFACES changes.
 ~~~diff
 --- a/tools/check_import_boundaries.py
 +++ b/tools/check_import_boundaries.py
-@@ -367,0 +368,41 @@
+@@ -367,0 +368,49 @@
 +# Identity exact additive symbol seams; no context-wide permission.
-+IDENTITY_SYMBOL_SEAMS = {'app.modules.planning.identity_source_inspection': ['app.modules.identity.source_capture.capture_identity_request_source_v1',
-+                                                     'app.modules.identity.source_contracts.IdentityCaptureFailureV1',
-+                                                     'app.modules.identity.source_contracts.IdentityEffectiveRequestV1',
-+                                                     'app.modules.identity.source_contracts.IdentityRequestBindingV1',
-+                                                     'app.modules.identity.source_contracts.IdentitySourceSnapshotV1',
-+                                                     'app.modules.policy.authenticated_intent_contracts.AuthenticatedPlanIntentInspectionV1',
-+                                                     'app.modules.policy.explicit_intent_public.resolve_explicit_plan_intent_v1',
-+                                                     'app.modules.validation.explicit_plan_intent.check_explicit_plan_intent_v1',
-+                                                     'app.modules.validation.identity_source.check_identity_source_v1'],
-+ 'app.modules.policy.authenticated_intent_contracts': ['app.modules.identity.source_contracts.IdentityCaptureFailureV1',
-+                                                       'app.modules.identity.source_contracts.IdentitySourceCheckV1',
-+                                                       'app.modules.identity.source_contracts.IdentitySourceSnapshotV1',
-+                                                       'app.modules.policy.explicit_intent_contracts.PlanIntentCheckV1',
-+                                                       'app.modules.policy.explicit_intent_contracts.PlanIntentResolutionV1'],
-+ 'app.modules.validation.identity_source': ['app.modules.identity.source_contracts.IdentityBindingCommandV1',
-+                                            'app.modules.identity.source_contracts.IdentityCaptureFailureV1',
-+                                            'app.modules.identity.source_contracts.IdentityCaptureFrameV1',
-+                                            'app.modules.identity.source_contracts.IdentityCommandReceiptV1',
-+                                            'app.modules.identity.source_contracts.IdentityEffectiveRequestV1',
-+                                            'app.modules.identity.source_contracts.IdentityIssuerCommandV1',
-+                                            'app.modules.identity.source_contracts.IdentityMembershipWitnessV1',
-+                                            'app.modules.identity.source_contracts.IdentityOperationGrantCommandV1',
-+                                            'app.modules.identity.source_contracts.IdentityPrivilegeObjectFactV1',
-+                                            'app.modules.identity.source_contracts.IdentityRecordedFactV1',
-+                                            'app.modules.identity.source_contracts.IdentityRequestBindingV1',
-+                                            'app.modules.identity.source_contracts.IdentityRoleEdgeV1',
-+                                            'app.modules.identity.source_contracts.IdentityRoleFactV1',
-+                                            'app.modules.identity.source_contracts.IdentityRootCommandV1',
-+                                            'app.modules.identity.source_contracts.IdentitySessionFactV1',
-+                                            'app.modules.identity.source_contracts.IdentitySourceCheckV1',
-+                                            'app.modules.identity.source_contracts.IdentitySourceFrontierV1',
-+                                            'app.modules.identity.source_contracts.IdentitySourceSnapshotV1']}
++IDENTITY_SYMBOL_SEAMS = {
++    "app.modules.planning.identity_source_inspection": [
++        "app.modules.identity.source_capture.capture_identity_request_source_v1",
++        "app.modules.identity.source_contracts.IdentityCaptureFailureV1",
++        "app.modules.identity.source_contracts.IdentityEffectiveRequestV1",
++        "app.modules.identity.source_contracts.IdentityRequestBindingV1",
++        "app.modules.identity.source_contracts.IdentitySourceSnapshotV1",
++        "app.modules.policy.authenticated_intent_contracts.AuthenticatedPlanIntentInspectionV1",
++        "app.modules.policy.explicit_intent_public.resolve_explicit_plan_intent_v1",
++        "app.modules.validation.explicit_plan_intent.check_explicit_plan_intent_v1",
++        "app.modules.validation.identity_source.check_identity_source_v1"
++    ],
++    "app.modules.policy.authenticated_intent_contracts": [
++        "app.modules.identity.source_contracts.IdentityCaptureFailureV1",
++        "app.modules.identity.source_contracts.IdentitySourceCheckV1",
++        "app.modules.identity.source_contracts.IdentitySourceSnapshotV1",
++        "app.modules.policy.explicit_intent_contracts.PlanIntentCheckV1",
++        "app.modules.policy.explicit_intent_contracts.PlanIntentResolutionV1"
++    ],
++    "app.modules.validation.identity_source": [
++        "app.modules.identity.source_contracts.IdentityBindingCommandV1",
++        "app.modules.identity.source_contracts.IdentityCaptureFailureV1",
++        "app.modules.identity.source_contracts.IdentityCaptureFrameV1",
++        "app.modules.identity.source_contracts.IdentityCommandReceiptV1",
++        "app.modules.identity.source_contracts.IdentityEffectiveRequestV1",
++        "app.modules.identity.source_contracts.IdentityIssuerCommandV1",
++        "app.modules.identity.source_contracts.IdentityMembershipWitnessV1",
++        "app.modules.identity.source_contracts.IdentityOperationGrantCommandV1",
++        "app.modules.identity.source_contracts.IdentityPrivilegeObjectFactV1",
++        "app.modules.identity.source_contracts.IdentityRecordedFactV1",
++        "app.modules.identity.source_contracts.IdentityRequestBindingV1",
++        "app.modules.identity.source_contracts.IdentityRoleEdgeV1",
++        "app.modules.identity.source_contracts.IdentityRoleFactV1",
++        "app.modules.identity.source_contracts.IdentityRootCommandV1",
++        "app.modules.identity.source_contracts.IdentitySessionFactV1",
++        "app.modules.identity.source_contracts.IdentitySourceCheckV1",
++        "app.modules.identity.source_contracts.IdentitySourceFrontierV1",
++        "app.modules.identity.source_contracts.IdentitySourceSnapshotV1"
++    ]
++}
 +IDENTITY_PURE_MODULES = {
 +    "app.modules.identity.source_contracts", "app.modules.identity.source_primitives",
 +    "app.modules.identity.source_limits", "app.modules.identity.source_replay",
@@ -745,7 +827,7 @@ Reason: Exact new module/symbol list; no global ALLOWED/PUBLIC_SURFACES changes.
 +}
 +
 +
-@@ -382,0 +424,10 @@
+@@ -382,0 +432,10 @@
 +        if module in IDENTITY_SYMBOL_SEAMS and target.startswith("app.modules."):
 +            if target in IDENTITY_SYMBOL_SEAMS[module]:
 +                return
@@ -756,13 +838,13 @@ Reason: Exact new module/symbol list; no global ALLOWED/PUBLIC_SURFACES changes.
 +            "requests", "httpx", "urllib", "subprocess", "importlib",
 +        }:
 +            errors.append(f"{line}: IDENTITY_PURE_IMPORT: {target}")
-@@ -674,0 +726,5 @@
+@@ -674,0 +734,5 @@
 +            if module in IDENTITY_PURE_MODULES and node.func.id in {
 +                "open", "input", "eval", "exec", "__import__", "compile"
 +            }:
 +                errors.append(f"{node.lineno}: IDENTITY_PURE_CALL")
 +
-@@ -693,0 +750,5 @@
+@@ -693,0 +758,5 @@
 +            if module in IDENTITY_PURE_MODULES and node.func.attr in {
 +                "now", "utcnow", "today", "time", "getenv", "monotonic", "connect"
 +            }:

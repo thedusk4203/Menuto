@@ -139,9 +139,10 @@ No historical guard block has been applied.
   hash inventories;53 MBA and59 PIV frozen files match their existing byte hashes.
 - The19 independent names match approved contracts. Current exports remain537, not proposed556.
 - All35 full proposed unified diffs were parsed and reconstructed **in memory only**; baseline and
-  proposed postimage hashes match, and all virtual Python postimages parse.
+  proposed postimage hashes match, and all virtual Python postimages parse and pass the repository Ruff rules via stdin only.
 - All96 ITR groups and the48/32/16 split are preserved;143 proposed parameterized executions are
   explicitly future obligations, not executed results.
+- The original126 PIV baseline test preimages and EPI8-file/17-block inverse/postimage hashes were independently replayed from literal retained metadata and PASS. No historical package was edited.
 - Relative links in the four package documents resolve. Four new Markdown files are the only
   package changes. No source, test, fixture, SQL, tooling, migration or privilege change.
 - Original local worktree HEAD/status and all19 SHA-256 entries below were verified unchanged.
