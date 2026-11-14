@@ -39,7 +39,7 @@ Fault injection belongs to controlled disposable test setup, never ordinary runt
 | ITR015 | Role recreation | Drop and recreate same login name, new OID: old binding and all grants fail; no name-only fallback. |
 | ITR016 | Role rename | Rename original role and reuse old name with another OID: both fail original binding until separately authorized fresh enrollment. |
 | ITR017 | Database/root identity | Clone/restore with wrong actual database OID/name or wrong pinned root/endpoint fails; copied root UUID/hash not enough. |
-| ITR018 | Privilege graph closure | Unsafe direct/inherited CREATEROLE/CREATEDB/BYPASSRLS/replication/ownership/owner-SET reachability denied, not hidden by benign immediate role. |
+| ITR018 | Privilege graph closure | Unsafe direct/inherited CREATEROLE/CREATEDB/BYPASSRLS/replication/ownership/owner-SET reachability denied, not hidden by benign immediate role. Extend within this same PG obligation with contract section2.1 catalog cases: actual ownerless parameter rows/default absence, direct/PUBLIC/INHERIT TRUE SET and ALTER SYSTEM grants plus grant options, INHERIT FALSE control, grant/revoke mutation and explicit-login has_parameter_privilege parity; compare producer capture and independent reconstruction, including benign no-extra-rights positive capture. No synthetic parameter owner/OID or inferred zero total SET authority. |
 | ITR019 | No direct source access | Ordinary issuer/requester/PUBLIC cannot SELECT/DML history/frontier/receipt/sequence or invoke private helpers; only exact protected entry functions execute. |
 | ITR020 | Shadowing resistance | Malicious temp/public objects and overloads cannot change protected lookup or escalate source owner; fixed search_path/qualified base reads hold. |
 | ITR021 | Scope issuance authority | Issuer must be active at DB recorded_at and cover complete delegated interval; overlong or retrospective grants and inappropriate operation/wildcards rejected atomically. |
@@ -61,9 +61,9 @@ Fault injection belongs to controlled disposable test setup, never ordinary runt
 | ITR037 | Atomic failure | Constraint/forced test transaction error rolls back event, frontier and receipt together; no hidden commit and no partially usable history. |
 | ITR038 | Read-only transaction shape | Capture requires actual clean RR/SERIALIZABLE read-only transaction; READ COMMITTED, writable, begun/dirty mutation transaction rejected. |
 | ITR039 | No cache or split capture | Actual facade rejects dirty ORM/autoflush, cached-source injection and split-engine/session capture; cannot claim common MVCC from matching hashes. |
-| ITR040 | Coherent cut | Concurrent membership/source mutation during RR capture produces one faithful cut or whole-cut failure; no mixed favorable rows. |
+| ITR040 | Coherent cut | Concurrent membership/source mutation during RR capture produces one faithful cut or whole-cut failure; no mixed favorable rows. Include concurrent parameter GRANT/REVOKE and unchanged-catalog control: retain complete cluster-wide enumeration at both boundaries, reject an observed ACL/OID/role-closure change and require fresh post-commit capture to reflect changed privileges; an earlier retained cut never authorizes new work. |
 | ITR041 | Fresh versus retained revoke | Revoke committed before first fresh snapshot denies it; earlier RR cut replays only historical authority and cannot be submitted for new live inspection/admission. |
-| ITR042 | Complete source and absences | Return contiguous own histories plus complete issuer directory, selected frontiers and protected zero absences; omission/overflow never positive prefix. |
+| ITR042 | Complete source and absences | Return contiguous own histories plus complete issuer directory, selected frontiers and protected zero absences; omission/overflow never positive prefix. Parameter catalog enumeration includes all rows, even PUBLIC/other-grantee and unloaded-custom names; missing pg_parameter_acl row is a complete-enumeration default case, not a synthesized owner/OID or dropped unfavorable row. |
 | ITR043 | Privacy | Other requester bindings/households/member histories, display names, passwords/verifiers never returned; denied target fields redacted including existence. |
 | ITR044 | Server limits | Real byte/row/history/role-closure bounds cause whole error, zero partial snapshot and no caller-raised limits. |
 | ITR045 | Timeout and cancellation | Real lock/statement timeout and client cancellation do not leave committed writes or usable partial capture; caller rollback/config restoration and no unsafe reuse verified. |
@@ -75,13 +75,13 @@ Fault injection belongs to controlled disposable test setup, never ordinary runt
 
 | ID | Boundary | Required proof |
 |---|---|---|
-| ITR049 | Strict parsing | Booleans-as-int, float, extra/missing keys, invalid UUID/OID/time/UTF-8, duplicate keys and unsupported versions fail deterministically before semantic use. |
+| ITR049 | Strict parsing | Booleans-as-int, float, extra/missing keys, invalid UUID/OID/time/UTF-8, duplicate keys and unsupported versions fail deterministically before semantic use. PARAMETER requires owner_oid=null; all genuinely owned kinds require non-null real OID. Reject owner0, fabricated parameter owner, non-PARAMETER null owner/ACL and PARAMETER privilege outside SET/ALTER SYSTEM. |
 | ITR050 | Raw versus semantic identity | Whitespace/key-order changes alter raw preimage identity; frozen EPI semantic hashes remain their own protocol, no equality-based source shortcut. |
-| ITR051 | Golden vectors | Exact Unicode/escaping/time/ordered-array fingerprint vectors match independently authored PostgreSQL/Python expectations; full-source not visible-row hash. |
+| ITR051 | Golden vectors | Exact Unicode/escaping/time/ordered-array fingerprint vectors match independently authored PostgreSQL/Python expectations; full-source not visible-row hash. Include ownerless parameter ACL explicit/empty/NULL and absent-row vectors; raw ACL grantor/PUBLIC/bit/grant-option distinctions must remain bound, not normalized into an imaginary owner or identical preimage. |
 | ITR052 | Replay determinism | Same complete retained source plus binding yields same report without DB/network/filesystem/clock/environment/producer callbacks. |
 | ITR053 | Historical author interval | Expired issuer at recorded_at or failure to cover entire delegated interval rejected, including fully rehashed later renewal history. |
 | ITR054 | Terminal lifecycle | Future renewal, gap, ancestor expiry and terminal revoke independently reconstructed; no prior-state resurrection or latest-row-only logic. |
-| ITR055 | Role graph reconstruction | Forged omitted privilege edge/default ACL/owner privilege detected from retained complete primitives; unsupported catalog shape fails closed. |
+| ITR055 | Role graph reconstruction | Forged omitted privilege edge/default ACL/owner privilege detected from retained complete primitives; unsupported catalog shape fails closed. Independently replay ownerless parameter NULL/default/explicit cases and PUBLIC/inherited SET/ALTER SYSTEM plus grant options against ITR018 actual-catalog vectors. Fully rehashed fabricated owner, removed grant, forged absent row relative to retained boundary facts or omitted inherited edge cannot yield a safe positive; preserve fully coherent replacement/non-origin limitation. |
 | ITR056 | Principal substitution | Rehashed role OID/name/database/User/issuer alias substitutions relative to primitive observations produce INCONSISTENT, not positive witness. |
 | ITR057 | Complete directory | Missing issuer/stream row, conflicting head/count, duplicate revision, broken predecessor or omission of revoked issuer fails completeness. |
 | ITR058 | Absence witness | Zero frontier distinct from empty favorable subset, missing head or truncated source; no authority from caller-declared absence. |
@@ -92,7 +92,7 @@ Fault injection belongs to controlled disposable test setup, never ordinary runt
 | ITR063 | Request subject | Actor/household/member/request ID/revision/horizon tampering or cross-member copy relative to retained source rejected after rehash. |
 | ITR064 | Context versus axis ownership | Identity binds structural context only; invalid precision/cost/effort/budget remains EPI semantic failure and cannot be hidden by valid authentication. |
 | ITR065 | Authority time | Caller declared_at/request_revision cannot set recorded time/frontier/CAS or extend source validity; retained cut not current-time authorization. |
-| ITR066 | Catalog changes | Start/end login/database/privilege descriptor differences fail incoherent cut; no partial success or retained catalog-origin overclaim. |
+| ITR066 | Catalog changes | Start/end login/database/privilege descriptor differences fail incoherent cut; no partial success or retained catalog-origin overclaim. Include parameter-row creation/deletion, ACL mutation, NULL/empty changes and inherited permission changes, even when only another database in the cluster issued the parameter GRANT/REVOKE. |
 | ITR067 | Mutable Membership limits | Observed role/link/ID mismatch denied; unchanged observed row does not prove no intervening change, explicit Identity revocation remains terminal. |
 | ITR068 | No role-name heuristic | Name prefix, UUID convention, fixture label or matching root hash without authoritative primitive history insufficient. |
 | ITR069 | Operation bounds | Wildcard/cross-household/goal/physiology operation and altered grant Membership pins rejected independently. |
@@ -128,6 +128,26 @@ Fault injection belongs to controlled disposable test setup, never ordinary runt
 | ITR094 | Compatibility approval | Before implementation guard edits, exact affected file/block/preimage inventory and separate owner authorization; no inherited historical exception. |
 | ITR095 | Original worktree preservation | HEAD/status/file SHA-256 inventory of original19 files unchanged before/after isolated work; no reset/discard/accidental staging. |
 | ITR096 | Full execution evidence | One final exact-head full CI pass, zero skips, actual real-PG item mapping, SCRAM/TLS16,benchmark22,client10,all architecture/import/export/web guards; report measured totals. |
+
+## ITR018 parameter-catalog expansion (same obligation, future execution)
+
+These are mandatory subcases within existing ITR018, with ITR040/ITR042 integration and ITR055
+pure mutation coverage; they do not add acceptance IDs or change the48 real-PG obligation count.
+Future evidence must report each executed node/parameter and actual expansion count separately.
+
+| Subcase | Actual catalog/operation setup in disposable PostgreSQL | Required proof |
+|---|---|---|
+| P1 default positive | Fresh ordinary safe login; confirm no pg_parameter_acl row for work_mem and no extra parameter ACL privilege | Capture may succeed with no invented owner/row/OID. Explicit-role has_parameter_privilege SET/ALTER SYSTEM false, while native session SET work_mem may succeed; neither is Identity authority. |
+| P2 real row | Test administrator grants SET on a controlled parameter; inspect actual oid/parname/paracl and information_schema.columns for pg_parameter_acl | Only the three actual catalog columns exist; fact owner=null, real row OID, all ACL entries retained. Owned TABLE/FUNCTION controls still require their real owners. |
+| P3 direct grants | Separate SET and ALTER SYSTEM grants to the actual ordinary login; test each WITH GRANT OPTION variant | Effective ACL bit/option agrees with explicit-login PostgreSQL oracle; ordinary safe-role gate denies, no positive source/inspection. Do not execute ALTER SYSTEM against shared configuration. |
+| P4 PUBLIC/inheritance | Grant to PUBLIC and to a role reached through INHERIT TRUE; compare an otherwise equivalent INHERIT FALSE path | PUBLIC and inheritable paths deny safe capture, non-inherited path alone adds no current ACL right; SET-role/admin reachability still checked separately. PUBLIC grant-option fabrication rejected. |
+| P5 revoke/mutation | Retain complete before/after catalog cuts across GRANT, REVOKE and inherited-edge changes, including mutation from a second database | Fresh capture tracks effective rights; observed within-capture descriptor changes fail whole-cut; faithful old cuts stay historical-only. Rehashed deleted grant/owner forgery rejected against retained primitives. |
+| P6 default shape controls | Exercise absent-row and existing empty ACL observations through real supported catalog operations; require present-NULL default parity via a rollback-only trusted fixture if normal commands do not yield NULL | Keep no-row, raw NULL and empty ACL distinct. No privileged fault-injection capability in runtime; no manufactured owner or all-user grant. Superuser bypass is recognized independently and forbidden for ordinary actors. |
+| P7 completeness/negative | Real grant on an unloaded custom parameter and other-grantee rows; exhaust the existing bounded catalog capacity in disposable fixtures | Enumeration cannot be restricted to pg_settings, actor-favorable rows or known built-ins. Overflow/unsupported shape produces whole error, no truncated successful source. |
+
+P6 trusted setup is a future isolated test fixture, not permission to modify a live catalog here.
+The normative absence/default rules are grounded in PostgreSQL18.4 source and require these future
+actual-catalog checks; the current docs-only CI executes the existing4611 tests, not new ITR cases.
 
 ## Earlier A01–A16 research proposal coverage
 

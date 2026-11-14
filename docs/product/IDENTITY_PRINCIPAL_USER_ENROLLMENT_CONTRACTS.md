@@ -43,13 +43,19 @@ add a public definition. These conventions fix the exact 19-name export boundary
    Retain complete reachable closure, including unsafe edges; do not filter before verification.
 4. **IdentityPrivilegeObjectFactV1** — Identity-owned catalog primitive. Fields: version=1;
    kind=DATABASE|SCHEMA|TABLE|COLUMN|SEQUENCE|FUNCTION|PARAMETER; object_oid: Oid;
-   sub_id: Count; schema_name: text|null; object_name: text; owner_oid: Oid;
-   acl: ordered tuple of fixed (grantee_oid, grantor_oid, privilege, grantable) entries;
-   definition_fingerprint: Sha256|null. Grantee0 explicitly means PUBLIC. Privilege is a finite
-   PostgreSQL privilege literal applicable to the kind, including SET/ALTER SYSTEM for parameters;
-   an impossible kind/privilege combination fails. Definition fingerprints are required for protected
-   functions, binding exact signature/body/search_path/security mode; null for non-functions.
-   ACL default expansion and owner privileges are reconstructed, not accepted as absence of rights.
+   sub_id: Count; schema_name: text|null; object_name: text; owner_oid: Oid|null;
+   acl: ordered tuple of fixed (grantee_oid, grantor_oid, privilege, grantable) entries|null;
+   definition_fingerprint: Sha256|null. **owner_oid is null iff kind=PARAMETER**. Every other kind
+   requires its actual catalog owner OID (COLUMN uses its owning relation's real owner); no invented
+   owner, owner0 or nullable-owner fallback for DATABASE/SCHEMA/TABLE/COLUMN/SEQUENCE/FUNCTION.
+   PARAMETER facts represent actual pg_parameter_acl rows only: object_oid=row.oid,
+   object_name=row.parname, sub_id=0, schema_name=null, definition_fingerprint=null. For these facts,
+   acl=null means observed paracl IS NULL; otherwise retain all expanded raw ACL entries, including
+   an explicitly empty tuple. Non-PARAMETER keeps the required non-null ACL tuple and existing
+   real-owner/default reconstruction. Grantee0 explicitly means PUBLIC, never owner0. Privilege
+   literals must match kind; PARAMETER permits only SET/ALTER SYSTEM plus the separate grantable
+   boolean. Protected function fingerprints still bind exact signature/body/search_path/security
+   mode. Parameter defaults, complete enumeration and effective permissions follow section2.1.
 5. **IdentitySessionFactV1** — Identity-owned. Fields: version=1; database_oid, database_owner_oid,
    login_role_oid, execution_owner_oid: Oid; database_name, endpoint_id, client_address: text;
    server_address: text; server_port, backend_pid: positive Count; session_user: RoleName;
@@ -185,6 +191,66 @@ add a public definition. These conventions fix the exact 19-name export boundary
 The frozen PlanIntentResolutionV1 and PlanIntentCheckV1 types in item19 are the actual existing
 registered classes; reference those identities without rename, replacement or duplicate re-export.
 The additive manifest consists solely of the19 names in bold above.
+
+## 2.1. Ownerless parameter ACL capture and reconstruction (ITR-D146-01)
+
+This corrects contract4 only; it adds no contract name, SQL entry or authority. PostgreSQL's
+[pg_parameter_acl catalog](https://www.postgresql.org/docs/18/catalog-pg-parameter-acl.html)
+is cluster-wide and contains row OID, parameter name and ACL, without an owner. It omits parameters
+using default privileges. An absent row therefore produces **no synthetic object fact or OID**.
+Absence is meaningful only within the protected complete enumeration, never from an arbitrary
+empty caller list. An actual ACL grantor OID, database owner or source owner is not a parameter owner.
+
+**Enumeration.** At capture start and end retain the complete ordered pg_parameter_acl relation,
+without filtering by actor, grantee, privilege or pg_settings visibility. Include rows for unloaded/
+custom parameters as well. Order by canonical parname then row OID; expand each non-null paracl
+with PostgreSQL's aclexplode into all (grantee,grantor,privilege,grantable) entries, ordered by those
+four fields. Keep raw NULL distinct from an empty ACL and from no row. Names are PostgreSQL's
+canonical stored names; no Python Unicode case folding or caller-selected alias determines identity.
+The objects arrays include all these facts, and both boundary enumerations must match. Use the
+existing catalog4096-object, source-byte/node/work/time bounds before accepting/expanding a complete
+result; overflow, duplicate identities, unsupported ACL bits or inconsistent enumeration fails the
+whole capture. Do not truncate, filter irrelevant-looking rows or load extensions to make rows vanish.
+
+**Defaults, not ownership.** Pin reconstruction to the supported PostgreSQL18 semantics. In the
+[18.4 parameter ACL evaluator](https://github.com/postgres/postgres/blob/REL_18_4/src/backend/catalog/aclchk.c#L3224),
+no row gives ordinary roles no additional parameter ACL rights; superuser bypass is a separate role
+attribute. A present row with paracl=NULL uses the built-in parameter default ACL; a present explicit
+ACL uses its entries. The bootstrap-superuser identity used internally for this evaluation is **not**
+an observed owner and must never populate owner_oid. Its default entry grants no PUBLIC parameter
+ACL rights; inspect default generation independently in
+[18.4 acldefault](https://github.com/postgres/postgres/blob/REL_18_4/src/backend/utils/adt/acl.c#L822).
+No pg_default_acl/table-owner/creator-default fallback is applied to PARAMETER. The existing unsafe
+superuser/bootstrap-role reachability checks still reject ordinary actors that could obtain those
+intrinsic privileges; absence does not exempt them.
+
+**Effective grants.** Reconstruct each SET and ALTER SYSTEM bit and its grant option separately from
+the actual login role, PUBLIC (grantee0) and the complete inheritance-enabled role closure. A path
+with INHERIT FALSE does not provide the current actor that ACL privilege. Separately retain/check
+SET-role/admin escalation paths under the existing safe-role rules. PUBLIC WITH GRANT OPTION is
+invalid, not synthesized. Preserve grantor OIDs and revocation effects; no owner-grant options are
+invented for a parameter. PostgreSQL's
+[GRANT rules](https://www.postgresql.org/docs/18/sql-grant.html) distinguish inherited permissions,
+PUBLIC and grant options. V1 ordinary Identity actors must have no extra parameter ACL SET or
+ALTER SYSTEM capability, directly, through PUBLIC or inheritance, including grant options. A real
+new grant makes fresh capture fail the safe-role gate; revoking it removes that ACL capability but
+does not renew any Identity enrollment. No grants are installed by this design correction.
+
+**ACL rights are not all SET behavior.** User-context settings such as work_mem may be set by an
+ordinary session without a parameter ACL grant. Backend/context and restart restrictions also
+matter; ALTER SYSTEM permission alone is not proof that every value/change is operationally allowed.
+[pg_settings context semantics](https://www.postgresql.org/docs/18/view-pg-settings.html) remain
+separate from the ACL check. Default session-setting behavior is not a manufactured ACL entry,
+Identity operation grant or source-authority proof, and the protected path still enforces its own
+session/timeout/search-path requirements. This slice does not promise arbitrary configuration control.
+
+**Independent proof.** Validation reconstructs ownerlessness, NULL/default/explicit ACL treatment
+and effective role closure from retained primitives, not producer booleans or matching fingerprints.
+Real-PG ITR018 compares replay to has_parameter_privilege(actual_login_oid, parname, privilege),
+including WITH GRANT OPTION variants; never use the implicit current_user overload in SECURITY
+DEFINER, where it would check the source owner. That SQL function is an independent test oracle,
+not a substitute for the pure checker. Capture cannot prove origin after serialization: coordinated
+replacement of a complete catalog and all hashes retains the existing UNVERIFIED_TRANSPORT limit.
 
 ## 3. Source selection, verification and invariants
 
