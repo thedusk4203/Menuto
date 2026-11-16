@@ -169,7 +169,13 @@ actual login/PUBLIC/inheritable roles, separately check SET-role escalation; den
 parameter ACL capability. Use has_parameter_privilege with explicit actor OID as test oracle, not
 current_user inside SECURITY DEFINER. Validate from retained primitives, not owner booleans/report
 hashes. Bounded full capture or error; fully coherent offline forgery remains unverified transport.
-ITR018 P1–P7/ITR055 are future actual-catalog and mutation proofs, not current executed tests.
+ITR018 P1–P7/ITR055 remain implementation obligations, not completed by this correction.
+Catalog enumeration is complete as of one initial read-only RR/SERIALIZABLE cut. Actually observed
+start/end safety mismatch fails whole capture; equal MVCC reads do not prove absence of a concurrent
+GRANT/REVOKE, including a write from another database in the cluster. Current-at-return attestation,
+extra observation sessions, catalog locks and an epoch/writer-coordination authority are separate
+unapproved alternatives; this clarification installs none. Retained evidence remains non-admitting.
+See the [catalog-cut correction and diagnostic evidence](IDENTITY_CATALOG_CUT_SEMANTICS_CORRECTION.md).
 
 ## Installation, source capture and downgrade
 
