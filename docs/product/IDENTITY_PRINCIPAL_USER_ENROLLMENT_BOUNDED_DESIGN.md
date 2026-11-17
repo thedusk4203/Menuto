@@ -1,5 +1,7 @@
 # Identity-owned principal-to-User enrollment — bounded detailed design
 
+> Catalog-cut semantics corrigendum proposed under [owner authorization6918157643](https://github.com/thedusk4203/Menuto/pull/147#issuecomment-6918157643): [catalog-cut correction and diagnostic evidence](IDENTITY_CATALOG_CUT_SEMANTICS_CORRECTION.md). Implementation remains paused; historical stage records and all19 shapes/96 IDs/48 PG groups are retained. New diagnostic observations are not completed ITR acceptance.
+
 **STRUCTURAL / TEST_ONLY — DESIGN READY FOR INDEPENDENT IDENTITY/SECURITY REVIEW**
 
 **IMPLEMENTATION NOT AUTHORIZED. PRODUCTION NUTRITION/CLINICAL GATE CLOSED.**
@@ -209,13 +211,37 @@ no PIV purpose/lease is reused or expanded.
 
 ### Snapshot versus current authority
 
-Authority/Membership rows are observed at the retained MVCC cut. A revoke committed before a fresh
-transaction's first snapshot must deny it. A transaction already holding an earlier repeatable cut
-may faithfully see earlier authority; its report never certifies permission after that cut or over
-the planning horizon. New privileged work cannot use that report; it needs fresh source capture.
-Catalog safety is checked at capture start/end; changed DB/login/OID/privilege descriptors fail as
-SOURCE_CUT_INCOHERENT. Superuser/catalog tampering is outside the TCB threat model, not hidden by
-claims that PostgreSQL catalog state and application history provide an eternally current authorization.
+The owner-selected V1 clarification is proposed in the [catalog-cut correction and diagnostic evidence](IDENTITY_CATALOG_CUT_SEMANTICS_CORRECTION.md).
+One actual clean read-only RR/SERIALIZABLE transaction retains source and MVCC-visible catalog
+truth as of its initial snapshot. `snapshot_id` identifies that retained cut; `observed_at` and
+`finished_at` do not make it a current-at-return attestation.
+
+Distinguish four cases:
+
+- **Snapshot consistency:** complete source histories, Membership and applicable catalog evidence
+  must reconstruct coherently at the same retained cut; no favorable mixed-cut or partial source.
+- **Observed catalog mismatch:** actually unequal start/end safety descriptors (DB/login/OID/ACL/
+  role closure) fail the whole capture as SOURCE_CUT_INCOHERENT, with no partial source. Native
+  catalog/cache primitives need not all have identical MVCC visibility; any observed disagreement
+  remains a failure, not permission to choose the favorable observation.
+- **Unobserved concurrent mutation:** GRANT/REVOKE committed after the snapshot was established
+  need not appear in either MVCC catalog enumeration. Equal reads or hashes do not prove no
+  intervening mutation. SERIALIZABLE alone does not turn this into wall-clock freshness.
+- **Current authorization:** AVAILABLE_AT_RETAINED_CUT / CONSISTENT describe retained historical
+  evidence only, always TEST_ONLY / UNVERIFIED_TRANSPORT / NOT_ADMITTED. A new trusted operation
+  requires a new actual authenticated transaction and fresh checks. A retained source/report,
+  matching digest or rewritten timestamp cannot authorize it, and no consumer admission is added.
+
+A revoke committed before a new transaction's initial snapshot must deny fresh authority use; an
+unsafe extra parameter grant visible to that new cut must reject the ordinary principal (42501),
+not return a positive source. A previously established cut may faithfully retain earlier authority;
+its result proves neither present permission nor permission over the planning horizon. If a revoke
+removes a previously unsafe SQL privilege, the earlier unsafe observation must still deny capture;
+removing it later does not retroactively make that old cut safe.
+
+Stronger guarantees that every concurrent catalog commit must invalidate a capture require a
+separately approved freshness/fencing mechanism; none is introduced here. Superuser/catalog tampering
+remains outside the TCB threat model, not hidden by claims of eternally current authorization.
 
 Membership is mutable and has no history/version column. Grant pins detect observed changed role,
 link or Membership ID; deletion/recreation fails the pin. If an unchanged row is changed and restored

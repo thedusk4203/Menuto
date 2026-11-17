@@ -1,5 +1,7 @@
 # Identity principal enrollment — proposed immutable contracts
 
+> Catalog-cut semantics corrigendum proposed under [owner authorization6918157643](https://github.com/thedusk4203/Menuto/pull/147#issuecomment-6918157643): [catalog-cut correction and diagnostic evidence](IDENTITY_CATALOG_CUT_SEMANTICS_CORRECTION.md). Implementation remains paused; historical stage records and all19 shapes/96 IDs/48 PG groups are retained. New diagnostic observations are not completed ITR acceptance.
+
 This appendix is normative within the [bounded design](IDENTITY_PRINCIPAL_USER_ENROLLMENT_BOUNDED_DESIGN.md).
 **PROPOSED ONLY / STRUCTURAL / TEST_ONLY / IMPLEMENTATION NOT AUTHORIZED.**
 No contract described here exists in the current 537-definition export. The independently authored
@@ -143,8 +145,11 @@ add a public definition. These conventions fix the exact 19-name export boundary
     snapshot_id: text; session_start, session_end: IdentitySessionFactV1;
     frontiers: tuple[IdentitySourceFrontierV1]; total_fact_count: Count;
     environment=TEST_ONLY; transport=UNVERIFIED_TRANSPORT. Snapshot ID is actual retained MVCC
-    descriptor, not a claim that replay has a live transaction. Start/end safety descriptors must
-    agree; changes fail the whole capture. No password/token or unrelated source rows.
+    descriptor of the initial coherent read-only RR/SERIALIZABLE cut, not a live transaction or
+    current-at-return attestation. Actually observed start/end safety descriptors must agree;
+    mismatch fails the whole capture, with no partial source. Equal observations do not prove no
+    post-snapshot commit: an MVCC-invisible concurrent mutation may be absent from both. No new
+    fields, liveness token or freshness authority is added. No password/token or unrelated rows.
 16. **IdentitySourceSnapshotV1** — Identity-owned. Fields: version=1;
     binding: IdentityRequestBindingV1; frame: IdentityCaptureFrameV1;
     root_history, issuer_history, binding_history, grant_history: tuple[IdentityRecordedFactV1];
@@ -157,7 +162,10 @@ add a public definition. These conventions fix the exact 19-name export boundary
     witness; unavailable has no positive access witness or policy payload. Known original binding
     permits inspection of own history after revocation; unsafe/unbound/recreated principals get no
     snapshot. All histories include every selected stream row at the retained cut, including scheduled
-    and revoked rows; issuer_history includes the complete issuer directory. No payload-owned limits.
+    and revoked rows; issuer_history includes the complete issuer directory. Availability is only
+    as of the retained cut: no current privilege, freshness, canonical-origin or consumer-admission
+    claim. Replaying a complete earlier cut after a later commit does not authorize a new operation;
+    new trusted work requires a new authenticated transaction and fresh capture/checks. No payload-owned limits.
 17. **IdentityCaptureFailureV1** — Identity-owned. Fields: version=1; request_id: UUID|null;
     outcome=INVALID_INPUT|UNSUPPORTED|CAPTURE_REJECTED|SOURCE_CUT_INCOHERENT|RESOURCE_EXCEEDED;
     reason=INVALID_STRUCTURE|UNSUPPORTED_VERSION|UNSUPPORTED_DEPLOYMENT|AUTHENTICATION_FAILED|
@@ -207,8 +215,12 @@ custom parameters as well. Order by canonical parname then row OID; expand each 
 with PostgreSQL's aclexplode into all (grantee,grantor,privilege,grantable) entries, ordered by those
 four fields. Keep raw NULL distinct from an empty ACL and from no row. Names are PostgreSQL's
 canonical stored names; no Python Unicode case folding or caller-selected alias determines identity.
-The objects arrays include all these facts, and both boundary enumerations must match. Use the
-existing catalog4096-object, source-byte/node/work/time bounds before accepting/expanding a complete
+The objects arrays include all these facts visible at the retained cut, and both actually observed
+boundary enumerations must match. A matching pair is not proof that the cluster had no concurrent
+mutation; new parameter rows/ACL changes committed after the cut may be invisible in both RR or
+SERIALIZABLE enumerations, including writes from another database. Do not synthesize a missing row
+or drop an observed unfavorable row to force equality. Use the existing catalog4096-object,
+source-byte/node/work/time bounds before accepting/expanding a complete
 result; overflow, duplicate identities, unsupported ACL bits or inconsistent enumeration fails the
 whole capture. Do not truncate, filter irrelevant-looking rows or load extensions to make rows vanish.
 
@@ -233,8 +245,10 @@ invented for a parameter. PostgreSQL's
 [GRANT rules](https://www.postgresql.org/docs/18/sql-grant.html) distinguish inherited permissions,
 PUBLIC and grant options. V1 ordinary Identity actors must have no extra parameter ACL SET or
 ALTER SYSTEM capability, directly, through PUBLIC or inheritance, including grant options. A real
-new grant makes fresh capture fail the safe-role gate; revoking it removes that ACL capability but
-does not renew any Identity enrollment. No grants are installed by this design correction.
+new grant committed before a new capture's initial cut makes the ordinary safe-role gate fail
+(42501). Revoking it removes that extra ACL capability in subsequent cuts, but does not renew any
+Identity enrollment or retroactively change an earlier unsafe observation. A mid-capture mutation
+invisible to the retained cut need not be detected. No grants are installed by this design correction.
 
 **ACL rights are not all SET behavior.** User-context settings such as work_mem may be set by an
 ordinary session without a parameter ACL grant. Backend/context and restart restrictions also
@@ -251,6 +265,10 @@ including WITH GRANT OPTION variants; never use the implicit current_user overlo
 DEFINER, where it would check the source owner. That SQL function is an independent test oracle,
 not a substitute for the pure checker. Capture cannot prove origin after serialization: coordinated
 replacement of a complete catalog and all hashes retains the existing UNVERIFIED_TRANSPORT limit.
+An omitted/substituted fact or forged favorable classification that contradicts other retained
+primitives, pinned routine identity, role closure or boundary completeness must be rejected. A fully
+coherent replacement with no retained contradiction cannot be proved authentic by this offline
+checker; CONSISTENT never supplies origin, present authorization or numerical use. See the [catalog-cut correction and diagnostic evidence](IDENTITY_CATALOG_CUT_SEMANTICS_CORRECTION.md).
 
 ## 3. Source selection, verification and invariants
 
