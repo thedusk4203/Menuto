@@ -19,6 +19,9 @@ from app.modules.policy import explicit_intent_contracts as c
 from app.modules.policy.explicit_intent_public import resolve_explicit_plan_intent_v1 as resolve
 from app.modules.validation import explicit_plan_intent as checker
 from explicit_plan_intent_fixtures import money, rehash, source, wire
+from identity_compatibility_metadata import (
+    assert_identity_migration_delta,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -618,7 +621,7 @@ def test_epi060_frozen_files_no_new_migration_or_persistence():
         proof = json.loads((FIXTURES / f"{name}.json").read_text())
         for file, digest in proof["frozen_files"].items():
             assert hashlib.sha256((ROOT / file).read_bytes()).hexdigest() == digest, file
-    assert not list((ROOT / "apps/backend/migrations/versions").glob("0018*"))
+    assert_identity_migration_delta(ROOT)
 
 
 def test_epi061_all_retained_identities_and_metadata_integrity():

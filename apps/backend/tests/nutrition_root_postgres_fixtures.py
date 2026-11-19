@@ -24,6 +24,9 @@ from app.modules.nutrition.root_sources import (
     capture_nutrition_root_sources,
 )
 from app.persistence.database import create_database_engine
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from nutrition_root_fixtures import (
     amount,
     authority_interval,
@@ -120,7 +123,10 @@ def nrc_server():
         with engines["root"].connect() as db:
             config.attributes["connection"] = db
             command.upgrade(config, "head")
-            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+            assert (
+                db.scalar(text("SELECT version_num FROM alembic_version"))
+                == IDENTITY_MIGRATION_REVISION
+            )
             assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 108
             empty = {
                 t.name: db.scalar(text('SELECT count(*) FROM "' + t.name + '"'))

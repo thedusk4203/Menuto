@@ -17,6 +17,9 @@ from app.modules.preferences.hierarchy_sources import (
 from hierarchy_postgres_fixtures import capture, publication, publish
 from hierarchy_postgres_fixtures import hierarchy_server as hierarchy_server
 from hierarchy_postgres_fixtures import hierarchy_source as hierarchy_source
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from sqlalchemy import event, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import DBAPIError
@@ -301,7 +304,10 @@ def test_s02_populated_source_downgrade_refuses_history_loss(hierarchy_source):
         with pytest.raises(DBAPIError, match="Refusing destructive"):
             alembic_command.downgrade(config, "0014")
         conn.rollback()
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         assert (
             conn.scalar(
                 text("SELECT count(*) FROM hierarchy_source_revisions WHERE provider_id=:p"),

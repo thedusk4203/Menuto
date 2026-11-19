@@ -17,6 +17,9 @@ from app.modules.planning.nutrition_resolution_capture import capture_nutrition_
 from app.modules.validation.nutrition_resolution import (
     check_nutrition_resolution_independently as check,
 )
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from nutrition_resolution_fixtures import rehash, row_count
 from nutrition_resolution_postgres_fixtures import (  # noqa: F401
     capture_nre,
@@ -485,7 +488,10 @@ def test_nre020_fresh_install_0017_108_all_content_rows_zero(postgres_engine):  
     from app.shared.db import Base
 
     with postgres_engine.connect() as db:
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            db.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         assert len(Base.metadata.tables) == 108
         counts = {
             name: db.scalar(text('SELECT count(*) FROM public."' + name + '"'))

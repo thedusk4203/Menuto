@@ -20,6 +20,9 @@ from app.modules.planning import contracts as c
 from app.modules.planning import models as m
 from app.modules.planning.public import PlanStore
 from app.modules.shopping.public import observed_acquisition_coverage
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from inventory_fixtures import acquire
 from inventory_fixtures import command as inventory_command
 from plan_fixtures import NOW, graph_data, propose_command, publish_command
@@ -537,7 +540,10 @@ def test_migration_roundtrip_lossless_foundation_and_populated_guard(legacy_data
         migrate(engine, config, "0007", down=True)
     with Session(engine) as session:
         assert PlanStore(session).proposal(g.household_id, g.plan_id, p.id) == p
-        assert session.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            session.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
 
 
 def fully_populated(db):

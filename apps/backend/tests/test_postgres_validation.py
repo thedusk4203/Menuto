@@ -11,6 +11,9 @@ from app.modules.inventory.public import InventoryService
 from app.modules.nutrition.models import MemberSafetyConstraint
 from app.modules.planning import contracts as plans
 from app.modules.validation.public import validate_subject
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from inventory_fixtures import acquire
 from plan_fixtures import NOW, publish_command
 from sqlalchemy import event, inspect, text
@@ -223,5 +226,8 @@ def test_source_capture_cannot_cross_household_and_schema_is_unchanged(postgres_
     with pytest.raises(NoResultFound):
         capture(postgres_engine, keys | {"household_id": uuid4()})
     with postgres_engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         assert len(set(inspect(conn).get_table_names()) - {"alembic_version"}) == 108

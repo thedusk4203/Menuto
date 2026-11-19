@@ -365,6 +365,55 @@ EXPLICIT_INTENT_CONTRACT_NAMES = {
 }
 
 
+# Identity exact additive symbol seams; no context-wide permission.
+IDENTITY_SYMBOL_SEAMS = {
+    "app.modules.planning.identity_source_inspection": [
+        "app.modules.identity.source_capture.capture_identity_request_source_v1",
+        "app.modules.identity.source_contracts.IdentityCaptureFailureV1",
+        "app.modules.identity.source_contracts.IdentityEffectiveRequestV1",
+        "app.modules.identity.source_contracts.IdentityRequestBindingV1",
+        "app.modules.identity.source_contracts.IdentitySourceSnapshotV1",
+        "app.modules.policy.authenticated_intent_contracts.AuthenticatedPlanIntentInspectionV1",
+        "app.modules.policy.explicit_intent_public.resolve_explicit_plan_intent_v1",
+        "app.modules.validation.explicit_plan_intent.check_explicit_plan_intent_v1",
+        "app.modules.validation.identity_source.check_identity_source_v1"
+    ],
+    "app.modules.policy.authenticated_intent_contracts": [
+        "app.modules.identity.source_contracts.IdentityCaptureFailureV1",
+        "app.modules.identity.source_contracts.IdentitySourceCheckV1",
+        "app.modules.identity.source_contracts.IdentitySourceSnapshotV1",
+        "app.modules.policy.explicit_intent_contracts.PlanIntentCheckV1",
+        "app.modules.policy.explicit_intent_contracts.PlanIntentResolutionV1"
+    ],
+    "app.modules.validation.identity_source": [
+        "app.modules.identity.source_contracts.IdentityBindingCommandV1",
+        "app.modules.identity.source_contracts.IdentityCaptureFailureV1",
+        "app.modules.identity.source_contracts.IdentityCaptureFrameV1",
+        "app.modules.identity.source_contracts.IdentityCommandReceiptV1",
+        "app.modules.identity.source_contracts.IdentityEffectiveRequestV1",
+        "app.modules.identity.source_contracts.IdentityIssuerCommandV1",
+        "app.modules.identity.source_contracts.IdentityMembershipWitnessV1",
+        "app.modules.identity.source_contracts.IdentityOperationGrantCommandV1",
+        "app.modules.identity.source_contracts.IdentityPrivilegeObjectFactV1",
+        "app.modules.identity.source_contracts.IdentityRecordedFactV1",
+        "app.modules.identity.source_contracts.IdentityRequestBindingV1",
+        "app.modules.identity.source_contracts.IdentityRoleEdgeV1",
+        "app.modules.identity.source_contracts.IdentityRoleFactV1",
+        "app.modules.identity.source_contracts.IdentityRootCommandV1",
+        "app.modules.identity.source_contracts.IdentitySessionFactV1",
+        "app.modules.identity.source_contracts.IdentitySourceCheckV1",
+        "app.modules.identity.source_contracts.IdentitySourceFrontierV1",
+        "app.modules.identity.source_contracts.IdentitySourceSnapshotV1"
+    ]
+}
+IDENTITY_PURE_MODULES = {
+    "app.modules.identity.source_contracts", "app.modules.identity.source_primitives",
+    "app.modules.identity.source_limits", "app.modules.identity.source_replay",
+    "app.modules.policy.authenticated_intent_contracts",
+    "app.modules.validation.identity_source",
+}
+
+
 def check_source(source: str, module: str, *, is_package: bool = False) -> list[str]:
     tree = ast.parse(source)
     parts = module.split(".")
@@ -380,6 +429,16 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
     }
 
     def audit(target, line):
+        if module in IDENTITY_SYMBOL_SEAMS and target.startswith("app.modules."):
+            if target in IDENTITY_SYMBOL_SEAMS[module]:
+                return
+            errors.append(f"{line}: IDENTITY_EXACT_SYMBOL_BOUNDARY: {target}")
+            return
+        if module in IDENTITY_PURE_MODULES and target.split(".")[0] in {
+            "sqlalchemy", "psycopg", "socket", "os", "pathlib", "time",
+            "requests", "httpx", "urllib", "subprocess", "importlib",
+        }:
+            errors.append(f"{line}: IDENTITY_PURE_IMPORT: {target}")
         explicit_intent_contract = (
             module == "app.modules.validation.explicit_plan_intent"
             and target in {
@@ -672,6 +731,11 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
                 if item.name == "*" and context:
                     errors.append(f"{node.lineno}: WILDCARD_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            if module in IDENTITY_PURE_MODULES and node.func.id in {
+                "open", "input", "eval", "exec", "__import__", "compile"
+            }:
+                errors.append(f"{node.lineno}: IDENTITY_PURE_CALL")
+
             if module in POLICY_V2_IMPORTS and node.func.id in {
                 "open", "input", "eval", "exec", "__import__"
             }:
@@ -691,6 +755,11 @@ def check_source(source: str, module: str, *, is_package: bool = False) -> list[
             if context and node.func.id in {"__import__", "eval", "exec"}:
                 errors.append(f"{node.lineno}: DYNAMIC_IMPORT_REQUIRES_REVIEW")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            if module in IDENTITY_PURE_MODULES and node.func.attr in {
+                "now", "utcnow", "today", "time", "getenv", "monotonic", "connect"
+            }:
+                errors.append(f"{node.lineno}: IDENTITY_PURE_CALL")
+
             if (module in POLICY_V2_IMPORTS
                 and module != "app.modules.planning.policy_v2_capture"
                 and node.func.attr in {"now", "utcnow", "today", "time", "getenv", "monotonic"}):

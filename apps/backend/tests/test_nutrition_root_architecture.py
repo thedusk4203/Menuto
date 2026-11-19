@@ -13,6 +13,10 @@ from pathlib import Path
 
 import pytest
 from app.modules.nutrition import root_contracts as c
+from identity_compatibility_metadata import (
+    IDENTITY_EXPORT_NAMES,
+    IDENTITY_MIGRATION_REVISION,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -136,7 +140,7 @@ def test_nrc77_old_inventory_recipe_validation_and_migration_bytes_unchanged():
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
     )
-    assert files == [f"{i:04d}" for i in range(1, 18)]
+    assert files == [f"{i:04d}" for i in range(1, 18)] + [IDENTITY_MIGRATION_REVISION]
 
 
 def test_nrc78_all403_definition_hashes_retained_exact_additive_exports():
@@ -150,13 +154,14 @@ def test_nrc78_all403_definition_hashes_retained_exact_additive_exports():
     explicit_intent = json.loads(
         (FIXTURES / "explicit_plan_intent_export_names.json").read_text()
     )
-    assert len(schema) == 537  # 528 retained +9 additive explicit intent definitions.
+    assert len(schema) == 556  # 537 +19 Identity =556.
+    # Historical EPI stage: 528 retained +9 additive explicit intent definitions.
     assert len(pins["new_definitions"]) == 44
     assert set(schema) - set(pins["definitions"]) == set(pins["new_definitions"]) | set(
         synthesis["new_definitions"]
     ) | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2) | set(
         explicit_intent
-    )
+    ) | set(IDENTITY_EXPORT_NAMES)
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(schema[name], sort_keys=True).encode()).hexdigest() == digest

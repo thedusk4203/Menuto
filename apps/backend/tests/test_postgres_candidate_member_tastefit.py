@@ -9,6 +9,9 @@ from app.modules.identity.models import User
 from app.modules.planning.tastefit_public import capture_candidate_member_tastefit_sources
 from app.modules.planning.tastefit_public import derive_candidate_member_tastefit as derive
 from app.modules.planning.tastefit_public import validate_candidate_member_tastefit as validate
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from sqlalchemy import event, inspect, text
 from sqlalchemy.orm import Session
 from tastefit_fixtures import request
@@ -743,5 +746,8 @@ def test_tf129_tf132_read_only_no_rows_frontiers_schema_or_production_defaults(t
     assert all(sql.lstrip().split()[0].upper() in {"SHOW", "SELECT"} for sql in statements)
     assert not any("tastefit" in t.lower() for t in before)
     with engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
     assert validate(derive(source)).sources == source

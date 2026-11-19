@@ -31,6 +31,9 @@ from app.modules.validation.nutrition_resolution import (
 from app.modules.validation.nutrition_resolution import (
     check_nutrition_resolution_independently as check,
 )
+from identity_compatibility_metadata import (
+    IDENTITY_EXPORT_NAMES,
+)
 from nutrition_resolution_fixtures import rehash, sources
 from nutrition_synthesis_pure_fixtures import derive, reauthor_rule, retained, weekly_sources
 
@@ -938,7 +941,7 @@ def test_nre094_480_export_hashes_and_frozen_files_remain_identical():
     )
     assert set(schema) == (set(proof["baseline_definitions"]) | set(proof["new_definitions"])
                            | set(basis["new_definitions"]) | set(policy_v2)
-                           | set(explicit_intent))
+                           | set(explicit_intent) | set(IDENTITY_EXPORT_NAMES))
     for path, expected in proof["frozen_files"].items():
         assert hashlib.sha256((ROOT / path).read_text().encode()).hexdigest() == expected, path
 

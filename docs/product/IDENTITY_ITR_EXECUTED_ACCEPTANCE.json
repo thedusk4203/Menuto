@@ -1,0 +1,1481 @@
+{
+  "baseline": "68fcb688231460f1973077eb20140b8c5db440a2",
+  "execution_kind": "FINAL_COMPLETE_FULL_REGRESSION_IDENTITY_CASES",
+  "tests": 254,
+  "real_postgres_executions": 150,
+  "required_pg_groups": 48,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "obligations": {
+    "ITR001": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr001_fresh_install_and_downgrade",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr001_native_downgrade_ledger[menuto_prior]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr001_native_downgrade_ledger[public]",
+        "real_postgres": true
+      }
+    ],
+    "ITR002": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr002_bootstrap_root",
+        "real_postgres": true
+      }
+    ],
+    "ITR003": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr003_administrator_issuer_separation",
+        "real_postgres": true
+      }
+    ],
+    "ITR004": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr004_privileged_requester_rejection",
+        "real_postgres": true
+      }
+    ],
+    "ITR005": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr005_issuer_enrollment_and_exact_user",
+        "real_postgres": true
+      }
+    ],
+    "ITR006": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr006_alias_and_role_reservation",
+        "real_postgres": true
+      }
+    ],
+    "ITR007": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr007_positive_scoped_capture",
+        "real_postgres": true
+      }
+    ],
+    "ITR008": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr008_actual_wrong_password",
+        "real_postgres": true
+      }
+    ],
+    "ITR009": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr009_actual_trust_rejection",
+        "real_postgres": true
+      }
+    ],
+    "ITR010": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr010_actual_non_scram_rejection",
+        "real_postgres": true
+      }
+    ],
+    "ITR011": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr011_actual_tls_requirement",
+        "real_postgres": true
+      }
+    ],
+    "ITR012": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr012_verified_endpoint",
+        "real_postgres": true
+      }
+    ],
+    "ITR013": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr013_set_role_spoofing",
+        "real_postgres": true
+      }
+    ],
+    "ITR014": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr014_set_session_authorization_spoofing",
+        "real_postgres": true
+      }
+    ],
+    "ITR015": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr015_role_recreation",
+        "real_postgres": true
+      }
+    ],
+    "ITR016": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr016_role_rename",
+        "real_postgres": true
+      }
+    ],
+    "ITR017": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr017_database_root_identity",
+        "real_postgres": true
+      }
+    ],
+    "ITR018": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_legacy_trigger_context",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p1_default]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p2_real_row]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p3_set]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p3_set_grant_option]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p3_alter_system]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p3_alter_system_grant_option]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p4_public_set]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p4_public_alter_system]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p4_inherit_true_set]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p4_inherit_true_alter_system]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p4_inherit_false_set]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p4_inherit_false_alter_system]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p5_grant_set]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p5_grant_alter_system]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p5_revoke_set]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p5_revoke_alter_system]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p5_cross_database_set]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p5_cross_database_alter_system]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p6_absent]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p6_null]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p6_empty]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p7_custom]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p7_other_grantee]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr018_privilege_graph_closure[p7_overflow]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr018_native_layout_catalog[menuto_prior]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr018_native_layout_catalog[public]",
+        "real_postgres": true
+      }
+    ],
+    "ITR019": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr019_no_direct_source_access",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr019_native_isolation[menuto_prior]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr019_native_isolation[public]",
+        "real_postgres": true
+      }
+    ],
+    "ITR020": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[public_definer]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[dynamic_sql]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[invoker_to_definer]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[body]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[owner]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[signature]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[search_path]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[acl]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[dependency]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[omission]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_shadowing_resistance[protected_public]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr020_attacker_temp_view_cannot_bridge_owner",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-extra_public]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-eleventh_member]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-overload]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-shadow]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-lost_member]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-binary]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-symbol]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-definer]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-owner]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-acl]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-schema_create]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-role_escalation]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-replacement]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-moved_function]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-tls_symbol]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[menuto_prior-tls_definer]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[menuto_prior-namespace]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[menuto_prior-fake_member]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[menuto_prior-unsafe_create]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[menuto_prior-extra_member]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-extra_public]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-eleventh_member]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-overload]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-shadow]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-lost_member]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-binary]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-symbol]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-definer]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-owner]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-acl]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-schema_create]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-role_escalation]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-replacement]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-moved_function]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-tls_symbol]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_mutations[public-tls_definer]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[public-namespace]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[public-fake_member]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[public-unsafe_create]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr020_native_install_preconditions[public-extra_member]",
+        "real_postgres": true
+      }
+    ],
+    "ITR021": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr021_scope_issuance_authority",
+        "real_postgres": true
+      }
+    ],
+    "ITR022": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr022_foreign_scope",
+        "real_postgres": true
+      }
+    ],
+    "ITR023": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr023_membership_eligibility",
+        "real_postgres": true
+      }
+    ],
+    "ITR024": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr024_membership_pin_change",
+        "real_postgres": true
+      }
+    ],
+    "ITR025": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr025_operation_isolation",
+        "real_postgres": true
+      }
+    ],
+    "ITR026": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr026_root_revocation",
+        "real_postgres": true
+      }
+    ],
+    "ITR027": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr027_issuer_revocation",
+        "real_postgres": true
+      }
+    ],
+    "ITR028": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr028_binding_revocation",
+        "real_postgres": true
+      }
+    ],
+    "ITR029": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr029_grant_revocation",
+        "real_postgres": true
+      }
+    ],
+    "ITR030": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr030_expiry_without_revoke[root]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr030_expiry_without_revoke[issuer]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr030_expiry_without_revoke[binding]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr030_expiry_without_revoke[grant]",
+        "real_postgres": true
+      }
+    ],
+    "ITR031": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr031_credential_expiry_and_reset",
+        "real_postgres": true
+      }
+    ],
+    "ITR032": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr032_renewal_cannot_repair_past",
+        "real_postgres": true
+      }
+    ],
+    "ITR033": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr033_future_effective_renewal",
+        "real_postgres": true
+      }
+    ],
+    "ITR034": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr034_concurrent_cas",
+        "real_postgres": true
+      }
+    ],
+    "ITR035": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr035_idempotency",
+        "real_postgres": true
+      }
+    ],
+    "ITR036": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr036_revoked_issuer_retry",
+        "real_postgres": true
+      }
+    ],
+    "ITR037": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr037_atomic_failure",
+        "real_postgres": true
+      }
+    ],
+    "ITR038": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr038_read_only_transaction_shape",
+        "real_postgres": true
+      }
+    ],
+    "ITR039": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr039_no_cache_or_split_capture",
+        "real_postgres": true
+      }
+    ],
+    "ITR040": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr040_coherent_cut[unchanged]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr040_coherent_cut[mutation_before_cut]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr040_coherent_cut[mutation_after_cut]",
+        "real_postgres": true
+      }
+    ],
+    "ITR041": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr041_fresh_versus_retained_revoke",
+        "real_postgres": true
+      }
+    ],
+    "ITR042": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr042_complete_source_and_absences",
+        "real_postgres": true
+      }
+    ],
+    "ITR043": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr043_privacy",
+        "real_postgres": true
+      }
+    ],
+    "ITR044": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr044_server_limits",
+        "real_postgres": true
+      }
+    ],
+    "ITR045": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr045_timeout_and_cancellation",
+        "real_postgres": true
+      }
+    ],
+    "ITR046": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr046_complete_request_preimage",
+        "real_postgres": true
+      }
+    ],
+    "ITR047": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr047_authenticated_invalid_intent",
+        "real_postgres": true
+      }
+    ],
+    "ITR048": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_source.py",
+        "case": "test_itr048_unrelated_authority_rejected",
+        "real_postgres": true
+      }
+    ],
+    "ITR049": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[bool_int]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[float]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[extra_key]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[missing_key]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[invalid_uuid]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[invalid_oid]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[invalid_time]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[invalid_utf8]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[duplicate_key]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr049_strict_parsing[unsupported_version]",
+        "real_postgres": false
+      }
+    ],
+    "ITR050": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr050_raw_versus_semantic_identity",
+        "real_postgres": false
+      }
+    ],
+    "ITR051": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr051_golden_vectors[absent_parameter]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr051_golden_vectors[null_parameter]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr051_golden_vectors[empty_parameter]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr051_golden_vectors[explicit_parameter]",
+        "real_postgres": false
+      }
+    ],
+    "ITR052": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr052_replay_determinism",
+        "real_postgres": false
+      }
+    ],
+    "ITR053": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr053_historical_author_interval",
+        "real_postgres": false
+      }
+    ],
+    "ITR054": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr054_terminal_lifecycle",
+        "real_postgres": false
+      }
+    ],
+    "ITR055": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[menuto_prior-omission]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[menuto_prior-fingerprint]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[menuto_prior-owner]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[menuto_prior-acl]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[menuto_prior-new_function]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[menuto_prior-oid_contradiction]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[menuto_prior-unrelated_schema_create]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[public-omission]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[public-fingerprint]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[public-owner]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[public-acl]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[public-new_function]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[public-oid_contradiction]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr055_native_offline_forgeries[public-unrelated_schema_create]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[fabricated_owner]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[removed_grant]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[omitted_inherited_edge]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[public_grant_option]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[alter_system_bit]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[forged_absence]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[unsupported_catalog]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_role_graph_reconstruction[benign_default_control]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_predefined_capability_is_denied_without_granting_it[pg_read_all_data]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_predefined_capability_is_denied_without_granting_it[pg_write_all_data]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_predefined_capability_is_denied_without_granting_it[pg_read_all_stats]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr055_duplicate_native_edge_is_not_a_catalog_fact",
+        "real_postgres": false
+      }
+    ],
+    "ITR056": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr056_principal_substitution",
+        "real_postgres": false
+      }
+    ],
+    "ITR057": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr057_complete_directory",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr057_cross_kind_stream_collision_is_rejected",
+        "real_postgres": false
+      }
+    ],
+    "ITR058": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr058_absence_witness",
+        "real_postgres": false
+      }
+    ],
+    "ITR059": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr059_faithful_negatives",
+        "real_postgres": false
+      }
+    ],
+    "ITR060": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr060_forged_positives",
+        "real_postgres": false
+      }
+    ],
+    "ITR061": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr061_coherent_total_forgery",
+        "real_postgres": false
+      }
+    ],
+    "ITR062": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr062_bare_reports",
+        "real_postgres": false
+      }
+    ],
+    "ITR063": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr063_request_subject",
+        "real_postgres": false
+      }
+    ],
+    "ITR064": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr064_context_versus_axis_ownership",
+        "real_postgres": false
+      }
+    ],
+    "ITR065": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr065_authority_time",
+        "real_postgres": false
+      }
+    ],
+    "ITR066": [
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr066_native_coherent_transport_limit[menuto_prior]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_postgres_identity_native.py",
+        "case": "test_itr066_native_coherent_transport_limit[public]",
+        "real_postgres": true
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr066_catalog_changes",
+        "real_postgres": false
+      }
+    ],
+    "ITR067": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr067_mutable_membership_limits",
+        "real_postgres": false
+      }
+    ],
+    "ITR068": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr068_no_role_name_heuristic",
+        "real_postgres": false
+      }
+    ],
+    "ITR069": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr069_operation_bounds",
+        "real_postgres": false
+      }
+    ],
+    "ITR070": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr070_non_success_ordering",
+        "real_postgres": false
+      }
+    ],
+    "ITR071": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr071_bounds_before_work",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr071_semantic_work_exhaustion_is_local_and_non_authorizing",
+        "real_postgres": false
+      }
+    ],
+    "ITR072": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr072_cancellation_replay_boundary",
+        "real_postgres": false
+      }
+    ],
+    "ITR073": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr073_strict_test_only",
+        "real_postgres": false
+      }
+    ],
+    "ITR074": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr074_no_epi_upgrade",
+        "real_postgres": false
+      }
+    ],
+    "ITR075": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr075_money_independence",
+        "real_postgres": false
+      }
+    ],
+    "ITR076": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr076_no_bearer_lifecycle",
+        "real_postgres": false
+      }
+    ],
+    "ITR077": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr077_independent_checker",
+        "real_postgres": false
+      }
+    ],
+    "ITR078": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr078_immutable_complete_contracts",
+        "real_postgres": false
+      }
+    ],
+    "ITR079": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr079_source_privacy_shaping",
+        "real_postgres": false
+      }
+    ],
+    "ITR080": [
+      {
+        "file": "apps/backend/tests/test_identity_source.py",
+        "case": "test_itr080_historical_versus_current_claim",
+        "real_postgres": false
+      }
+    ],
+    "ITR081": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr081_537_body_baseline",
+        "real_postgres": false
+      }
+    ],
+    "ITR082": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr082_exact19_name_manifest",
+        "real_postgres": false
+      }
+    ],
+    "ITR083": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr083_historical_pins",
+        "real_postgres": false
+      }
+    ],
+    "ITR084": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr084_baseline_test_identities",
+        "real_postgres": false
+      }
+    ],
+    "ITR085": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr085_identity_ownership",
+        "real_postgres": false
+      }
+    ],
+    "ITR086": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr086_validation_independence",
+        "real_postgres": false
+      }
+    ],
+    "ITR087": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr087_planning_integration",
+        "real_postgres": false
+      }
+    ],
+    "ITR088": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr088_sql_inventory",
+        "real_postgres": false
+      }
+    ],
+    "ITR089": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr089_migration_safety",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0001_household_member_safety_and_measured_.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0002_correct_foundation_boundaries.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0003_retail_procurement_foundation.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0004_correct_retail_semantics.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0005_recipe_preparation_foundation.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0006_culinary_binding_count_policy.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0007_inventory_physical_ledger.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0008_plan_revision_foundation.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0009_plan_revision_semantic_corrections.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0010_planned_culinary_bindings.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0011_explicit_member_preferences.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0012_preference_authorship_semantics.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0013_culinary_feature_assignments.py]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_migration_filename_mutation_rejected_by_both_guards[delete_old]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_migration_filename_mutation_rejected_by_both_guards[rename_old]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_migration_filename_mutation_rejected_by_both_guards[extra0019]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_migration_filename_mutation_rejected_by_both_guards[extra_unknown]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity0018_exact_manifest_rejects_drift[name]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity0018_exact_manifest_rejects_drift[revision]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity0018_exact_manifest_rejects_drift[down_revision]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity0018_exact_manifest_rejects_drift[body]",
+        "real_postgres": false
+      }
+    ],
+    "ITR090": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr090_production_isolation",
+        "real_postgres": false
+      }
+    ],
+    "ITR091": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr091_no_source_secrets",
+        "real_postgres": false
+      }
+    ],
+    "ITR092": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr092_public_surface",
+        "real_postgres": false
+      }
+    ],
+    "ITR093": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr093_readiness_gates",
+        "real_postgres": false
+      }
+    ],
+    "ITR094": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr094_compatibility_approval",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_exact_inverse_and_unchanged35_ledger",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_rejects_nonexact_source[baseline_not_postimage]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_rejects_nonexact_source[extra_source]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_rejects_nonexact_source[duplicate_insertion]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_rejects_nonexact_source[altered_literal]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_rejects_nonexact_source[altered_preimage]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_rejects_nonexact_source[changed_surrounding]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_patch36_rejects_nonexact_source[crlf_postimage]",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_original040b_assertions_execute_unchanged",
+        "real_postgres": false
+      },
+      {
+        "file": "apps/backend/tests/test_identity_migration_compatibility.py",
+        "case": "test_identity_original_receipt_mutation_rejected",
+        "real_postgres": false
+      }
+    ],
+    "ITR095": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr095_original_worktree_preservation",
+        "real_postgres": false
+      }
+    ],
+    "ITR096": [
+      {
+        "file": "apps/backend/tests/test_identity_source_architecture.py",
+        "case": "test_itr096_full_execution_evidence",
+        "real_postgres": false
+      }
+    ]
+  },
+  "historical_focused_execution": {
+    "execution_kind": "FOCUSED_COMPLETE_IDENTITY_NOT_FULL_REGRESSION",
+    "tests": 223,
+    "real_postgres_executions": 150
+  },
+  "full_regression_passed": 4865,
+  "full_regression_skips": 0
+}

@@ -1,0 +1,459 @@
+{
+  "deployment_binary_attestation": false,
+  "extension": "sslinfo",
+  "fingerprints": {
+    "menuto_prior": {
+      "ssl_cipher": "3f1b37250401d42100544750ecc2bf4de2920514ccb89876e73657cbd31b05d3",
+      "ssl_client_cert_present": "453648844d7cb028767b08e15fbc34fe729e088fb3973baba879c4da19d1bd69",
+      "ssl_client_dn": "07a832c055b1b13d996ecd8dc9aac8edbe8530e827c2eb2cb9d41545b15e510c",
+      "ssl_client_dn_field": "08a818a754d9f559ed9985ac8bebf23abf59db4b0f75815435f14eed9c80f9fb",
+      "ssl_client_serial": "b24dbd3d1b6cacefcd7b8eaa10417de162847da435a1c18d9f339aab765dcabc",
+      "ssl_extension_info": "8cad35d0ed1b3ff25b8c12f8127f7a7ad79a03f06143da94a665d5e03ca113b2",
+      "ssl_is_used": "a4b1867a7b3f38f2ebb5cc6d0d0a47b26956171c2b1496d82adbc4ca272fd472",
+      "ssl_issuer_dn": "933c3bc61d6d91e14dd71b9830151701a456fefd68f10e4cacb93cdd050cdde8",
+      "ssl_issuer_field": "5e58c0630b470f50e897be40d090310cf7b7beb4397ab95c9f2e3f62d2ff5f11",
+      "ssl_version": "2365cc58f0a9c4818905b3fb1fa3ab824512ab42f9e6b6768202d344068c4602"
+    },
+    "public": {
+      "ssl_cipher": "7c9682b427b75a9191d90ad46a82bde72c75344ad6a263f86a3318ee296816ab",
+      "ssl_client_cert_present": "8b2e38efc3604fe6bd53341600b6f5ceb6c71b9242be673d94902e76b6e85f35",
+      "ssl_client_dn": "00143dd70742f20eaf8adcb911d3a6c6aa1a4f8e70d3de5dc7c2bb36cfe7a002",
+      "ssl_client_dn_field": "d89638c21de107ad256a57d68ed99bae3ee16f709841082ef005b7015c2bfab4",
+      "ssl_client_serial": "2df2133592e5a46f7a45b4709a4526d4de34af0497be3c827f00392494e895c0",
+      "ssl_extension_info": "a35809e18bdca93ddc19e751f7998fdf587da76023de889b2ef57436b82f29a3",
+      "ssl_is_used": "8c7763a975055b471d4d74f2fbe7e62fd0ca17e9232b4867e842482413241e8e",
+      "ssl_issuer_dn": "e1b6d8c69120388b0e99a66729dea7110203de08c0ac130ca548a5d040ea48f7",
+      "ssl_issuer_field": "d5ded701ca043d42068f52c1005592744fe3ce0ee10e35ec44d12b2c8f242d5f",
+      "ssl_version": "32551d67326da6db5d0e02dc8c9d0781c147de9f9ac428277f333dd45e2f20fe"
+    }
+  },
+  "postgres": "18.4",
+  "preimages": {
+    "menuto_prior": {
+      "ssl_cipher": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_cipher()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_cipher$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_client_cert_present": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_client_cert_present()\n RETURNS boolean\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_cert_present$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_client_dn": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_client_dn()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_dn$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_client_dn_field": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_client_dn_field(text)\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_dn_field$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_client_serial": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_client_serial()\n RETURNS numeric\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_serial$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_extension_info": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_extension_info(OUT name text, OUT value text, OUT critical boolean)\n RETURNS SETOF record\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_extension_info$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_is_used": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_is_used()\n RETURNS boolean\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_is_used$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_issuer_dn": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_issuer_dn()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_issuer_dn$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_issuer_field": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_issuer_field(text)\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_issuer_field$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      },
+      "ssl_version": {
+        "definition": "CREATE OR REPLACE FUNCTION menuto_prior.ssl_version()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_version$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema menuto_prior"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "menuto_prior"
+      }
+    },
+    "public": {
+      "ssl_cipher": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_cipher()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_cipher$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_client_cert_present": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_client_cert_present()\n RETURNS boolean\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_cert_present$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_client_dn": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_client_dn()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_dn$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_client_dn_field": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_client_dn_field(text)\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_dn_field$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_client_serial": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_client_serial()\n RETURNS numeric\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_client_serial$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_extension_info": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_extension_info(OUT name text, OUT value text, OUT critical boolean)\n RETURNS SETOF record\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_extension_info$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_is_used": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_is_used()\n RETURNS boolean\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_is_used$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "EXPLICIT",
+        "schema": "public"
+      },
+      "ssl_issuer_dn": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_issuer_dn()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_issuer_dn$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_issuer_field": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_issuer_field(text)\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_issuer_field$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      },
+      "ssl_version": {
+        "definition": "CREATE OR REPLACE FUNCTION public.ssl_version()\n RETURNS text\n LANGUAGE c\n PARALLEL RESTRICTED STRICT\nAS '$libdir/sslinfo', $function$ssl_version$function$\n",
+        "dependencies": [
+          [
+            "pg_extension",
+            0,
+            "e",
+            "extension sslinfo"
+          ],
+          [
+            "pg_namespace",
+            0,
+            "n",
+            "schema public"
+          ]
+        ],
+        "extension": "sslinfo",
+        "extension_version": "1.2",
+        "raw_acl_state": "NULL",
+        "schema": "public"
+      }
+    }
+  },
+  "source": "https://github.com/postgres/postgres/blob/REL_18_4/contrib/sslinfo/sslinfo--1.2.sql",
+  "version": "1.2"
+}

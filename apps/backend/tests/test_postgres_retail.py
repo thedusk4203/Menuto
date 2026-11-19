@@ -10,6 +10,9 @@ from app.modules.catalog.models import Ingredient
 from app.modules.retail import contracts as c
 from app.modules.retail.public import derive_price_quote
 from app.modules.retail.repository import RetailEvidenceRepository
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from retail_fixtures import chain, provenance
 from sqlalchemy import inspect, text
 from sqlalchemy.exc import IntegrityError, StatementError
@@ -537,7 +540,10 @@ def test_m11_downgrade_fails_closed_and_preserves_data(legacy_database, full_cha
     with pytest.raises(IntegrityError, match="0004 downgrade cannot preserve"):
         migrate(engine, config, "0002", down=True)
     with engine.connect() as connection:
-        assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            connection.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         assert connection.scalar(text("SELECT count(*) FROM retailers")) == 1
         if full_chain:
             assert connection.scalar(text("SELECT count(*) FROM ingredient_product_maps")) == 1

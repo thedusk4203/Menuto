@@ -13,6 +13,10 @@ from pathlib import Path
 
 import pytest
 from app.modules.planning.shared_target_tastefit_contracts import SharedMemberTargetTasteFitPolicy
+from identity_compatibility_metadata import (
+    IDENTITY_EXPORT_NAMES,
+    IDENTITY_MIGRATION_REVISION,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -33,7 +37,7 @@ def test_smtf120_all384_definitions_unchanged_exact_new_exports():
     )
     later = (set(nutrition["new_definitions"]) | set(synthesis["new_definitions"])
              | set(resolution["new_definitions"]) | set(basis["new_definitions"]) | set(policy_v2)
-             | set(explicit_intent))
+             | set(explicit_intent) | set(IDENTITY_EXPORT_NAMES))
     defs = {name: body for name, body in defs.items() if name not in later}
     assert len(pins["definitions"]) == 384
     assert len(defs) == 384 + len(pins["new_definitions"]) == 403
@@ -50,7 +54,7 @@ def test_smtf120_all_frozen_runtime_and_migrations_byte_exact():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{i:04}" for i in range(1, 18)]
+    ) == [f"{i:04}" for i in range(1, 18)] + [IDENTITY_MIGRATION_REVISION]
 
 
 def test_smtf120_all3396_baseline_test_identities_retained():

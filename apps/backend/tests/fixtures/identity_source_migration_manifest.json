@@ -1,0 +1,35 @@
+{
+  "down_revision": "0017",
+  "filename": "0018_identity_principal_user_sources.py",
+  "installed_domain_tables": 114,
+  "old_migrations": {
+    "0001_household_member_safety_and_measured_.py": "7608a9ee137ad475b129660d4cb80d6e3c41584ebe072472373b3c130fa8723a",
+    "0002_correct_foundation_boundaries.py": "d7220e3d91168322f1b887d4847a4675784abb59016a090cfcbe07cd7e9e9f01",
+    "0003_retail_procurement_foundation.py": "68ff8eb8e9b391eea8a53e4c5c2d687dae05969293d7d70b26eb2558d5efb535",
+    "0004_correct_retail_semantics.py": "d6fcbcfdb7d00f31085ec491ff12c87e86d4dae6781a5a6b0cdb7f92d766211b",
+    "0005_recipe_preparation_foundation.py": "116b95e973198e573faa13f619d74d85fc5a0f07e77355fe4e04d3d830763275",
+    "0006_culinary_binding_count_policy.py": "36990424652be8a019c3db4f0604ff0f2f8e6f91b6397e3b690cc7b5215b6890",
+    "0007_inventory_physical_ledger.py": "f97fee30650a77cd58e54087676b8394d67b75832794845a688d1019ffacb13c",
+    "0008_plan_revision_foundation.py": "57bc370ea7761262319dcb55202a5663a1ed233e30e930e9093dd3ea515296a0",
+    "0009_plan_revision_semantic_corrections.py": "f614fe119434b0d5d3870d9e75cc57a84a7c81674984291fe799ed58d9376e1f",
+    "0010_planned_culinary_bindings.py": "b35793d7608529ef78a41e79b3df8d71a1786b5d81cc9e24c6289cc75d0e13ec",
+    "0011_explicit_member_preferences.py": "e02a04643b3558dd34d17e4fb9d19c1a67db2a1a43bca445447e4463d8b0c135",
+    "0012_preference_authorship_semantics.py": "1f3d73888cb174ad8b654b0f73e2b9c791711787ec733f6109f20e3ff5e36759",
+    "0013_culinary_feature_assignments.py": "c70ad70109c51e509294a1649a00a042e53768b84b7bd177f097cc3f7aaba8b5",
+    "0014_reviewed_reference_prior_source.py": "6d5a4c855397878d96e5db87d8ea36284dc7232c5cda6f7034173b127f05be8a",
+    "0015_reviewed_hierarchy_source.py": "0a9fb5685d6a27591fc566f86fb9adfc73803d7d684fb889f0ec73b862e18ad6",
+    "0016_nutrition_root_sources.py": "3fcbfdbeb9e34f583f8d52348269fb07c3fd9e0a188629d2c2fe89a622732ce3",
+    "0017_nutrition_synthesis_sources.py": "2197b87e31f3076a87d44bcdc0b308185a03b4cd2bae2093d96c0f2a69849da9"
+  },
+  "private_schema": "menuto_identity_source",
+  "private_tables": [
+    "command_receipts",
+    "frontiers",
+    "issuers",
+    "operation_grants",
+    "principal_bindings",
+    "roots"
+  ],
+  "public_tables": 108,
+  "revision": "0018"
+}

@@ -27,6 +27,9 @@ from app.modules.validation.basis_applicability import (
     check_basis_handoff_independently as handoff_check,
 )
 from basis_fixtures import reauthor_meaning, rehash_artifact, rehash_sources, retained
+from identity_compatibility_metadata import (
+    assert_identity_migration_delta,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -733,7 +736,7 @@ def test_mba079_no_new_persistence_or_source_permissions():
     from app.persistence.models import Base
 
     assert len(Base.metadata.tables) == 108
-    assert not list((ROOT / "apps/backend/migrations/versions").glob("0018*"))
+    assert_identity_migration_delta(ROOT)
     assert not any("basis" in t for t in Base.metadata.tables)
 
 

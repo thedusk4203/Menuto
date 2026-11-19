@@ -5,6 +5,10 @@ import hashlib
 import json
 from pathlib import Path
 
+from identity_compatibility_metadata import (
+    restore_identity_metadata,
+)
+
 ROOT = Path(__file__).resolve().parents[3]
 FIXTURES = Path(__file__).parent / "fixtures"
 _PURE = (
@@ -102,7 +106,7 @@ def verify_metadata_patch():
     assert sum(len(data["edits"]) for data in package["files"].values()) == 17
     assert set(package["files"]) == set(proof["guard_preimages"])
     for path in package["files"]:
-        body = (ROOT / path).read_text()
+        body = restore_identity_metadata(path, (ROOT / path).read_text())
         original = restore_metadata(path, body, package)
         assert hashlib.sha256(original.encode()).hexdigest() == proof["guard_preimages"][path]
         assert hashlib.sha256(body.encode()).hexdigest() == package["files"][path]["after_sha256"]

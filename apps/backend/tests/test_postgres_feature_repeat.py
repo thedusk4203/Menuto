@@ -29,6 +29,9 @@ from app.modules.recipes.public import (
 )
 from feature_fixtures import review_command
 from feature_repeat_fixtures import HOUR, query_for, stages
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from preference_fixtures import term
 from sqlalchemy import event, inspect, text
 from sqlalchemy.engine import Engine
@@ -161,7 +164,10 @@ def test_cases03_36_41_real_capture_zero_io_and_no_occurrence_inflation(
         event.remove(Engine, "before_cursor_execute", forbidden)
     assert counts() == before
     with postgres_engine.connect() as db:
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            db.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         assert len(set(inspect(db).get_table_names()) - {"alembic_version"}) == 108
 
 

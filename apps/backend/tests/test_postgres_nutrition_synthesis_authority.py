@@ -12,6 +12,9 @@ from app.modules.nutrition import synthesis_contracts as c
 from app.modules.nutrition.synthesis_admin import enroll_nutrition_synthesis_principal
 from app.modules.nutrition.synthesis_journal import digest, replay_synthesis_sources
 from app.modules.nutrition.synthesis_sources import capture_nutrition_synthesis_sources
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from nutrition_root_fixtures import evidence
 from nutrition_root_postgres_fixtures import nrc_server, reader  # noqa: F401
 from nutrition_synthesis_postgres_fixtures import (
@@ -104,7 +107,10 @@ def test_real_synthesis_authority_obligation(case, nrc_server):  # noqa: F811
             )
             assert len(tables) == 10
             assert all(db.scalar(text("SELECT count(*) FROM public." + t)) == 0 for t in tables)
-            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+            assert (
+                db.scalar(text("SELECT version_num FROM alembic_version"))
+                == IDENTITY_MIGRATION_REVISION
+            )
         return
     s = setup_synthesis(nrc_server)
     b = s["rule"]
@@ -535,7 +541,10 @@ def test_real_synthesis_authority_obligation(case, nrc_server):  # noqa: F811
             with pytest.raises(DBAPIError, match="Refusing destructive downgrade"):
                 alembic.downgrade(config, "0016")
             db.rollback()
-            assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+            assert (
+                db.scalar(text("SELECT version_num FROM alembic_version"))
+                == IDENTITY_MIGRATION_REVISION
+            )
         assert row_counts(s) == before
     else:
         raise AssertionError("Unimplemented PG obligation " + case)

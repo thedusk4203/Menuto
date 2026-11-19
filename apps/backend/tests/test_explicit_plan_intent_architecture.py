@@ -12,6 +12,9 @@ from explicit_plan_intent_architecture_checks import (
     verify_metadata_patch,
     verify_purity,
 )
+from identity_compatibility_metadata import (
+    restore_identity_metadata,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -115,6 +118,6 @@ def test_piv_d31_rejects_integrity_mutations(monkeypatch, mutation):
 def test_new_metadata_inverse_rejects_unexpected_assertion():
     path = "apps/backend/tests/test_candidate_feature_projection.py"
     package = json.loads((FIXTURES / "explicit_plan_intent_authorized_metadata.json").read_text())
-    body = (ROOT / path).read_text()
+    body = restore_identity_metadata(path, (ROOT / path).read_text())
     with pytest.raises(AssertionError):
         restore_metadata(path, body.replace("+9 additive", "+10 additive"), package)

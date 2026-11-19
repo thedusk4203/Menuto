@@ -237,6 +237,139 @@
       "title": "AssetType",
       "type": "string"
     },
+    "AuthenticatedPlanIntentInspectionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "inspection_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Inspection Fingerprint",
+          "type": "string"
+        },
+        "intent_check": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PlanIntentCheckV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "intent_result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PlanIntentResolutionV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numerical_use": {
+          "const": "NOT_ADMITTED",
+          "title": "Numerical Use",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "SOURCE_AND_INTENT_CONSISTENT",
+            "UNAVAILABLE",
+            "REJECTED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "reason": {
+          "enum": [
+            "INSPECTION_COMPLETE",
+            "SOURCE_NON_SUCCESS",
+            "INTENT_NON_SUCCESS",
+            "INDEPENDENT_INCONSISTENCY"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "resolved_plan_policy_ready": {
+          "const": false,
+          "title": "Resolved Plan Policy Ready",
+          "type": "boolean"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentitySourceSnapshotV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_check": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentitySourceCheckV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_failure": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityCaptureFailureV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transport": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Transport",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "source",
+        "source_failure",
+        "source_check",
+        "intent_result",
+        "intent_check",
+        "outcome",
+        "reason",
+        "inspection_fingerprint",
+        "environment",
+        "transport",
+        "numerical_use",
+        "resolved_plan_policy_ready",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "AuthenticatedPlanIntentInspectionV1",
+      "type": "object"
+    },
     "Availability": {
       "enum": [
         "CONFIRMED",
@@ -10171,6 +10304,2045 @@
         "member_id"
       ],
       "title": "HouseholdMemberIdentity",
+      "type": "object"
+    },
+    "IdentityBindingCommandV1": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "ENROLL",
+            "RENEW",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "binding_id": {
+          "format": "uuid",
+          "title": "Binding Id",
+          "type": "string"
+        },
+        "effective": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityEffectiveRequestV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "evidence_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "evidence_preimage": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Evidence Preimage",
+          "type": "string"
+        },
+        "evidence_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "format": "uuid",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "issuer_id": {
+          "format": "uuid",
+          "title": "Issuer Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "BINDING",
+          "title": "Kind",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "title": "Role Name",
+          "type": "string"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "root_id",
+        "idempotency_key",
+        "expected_revision",
+        "predecessor_id",
+        "evidence_id",
+        "evidence_version",
+        "evidence_preimage",
+        "environment",
+        "kind",
+        "binding_id",
+        "issuer_id",
+        "user_id",
+        "role_name",
+        "action",
+        "effective"
+      ],
+      "title": "IdentityBindingCommandV1",
+      "type": "object"
+    },
+    "IdentityCaptureFailureV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "numerical_use": {
+          "const": "NOT_ADMITTED",
+          "title": "Numerical Use",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "INVALID_INPUT",
+            "UNSUPPORTED",
+            "CAPTURE_REJECTED",
+            "SOURCE_CUT_INCOHERENT",
+            "RESOURCE_EXCEEDED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "payload": {
+          "title": "Payload",
+          "type": "null"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "reason": {
+          "enum": [
+            "INVALID_STRUCTURE",
+            "UNSUPPORTED_VERSION",
+            "UNSUPPORTED_DEPLOYMENT",
+            "AUTHENTICATION_FAILED",
+            "AUTHORIZATION_DENIED",
+            "WRONG_ROOT",
+            "INVALID_TRANSACTION",
+            "INCOMPLETE_SOURCE",
+            "CATALOG_CHANGED",
+            "LIMIT_EXCEEDED",
+            "CANCELLED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "request_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Request Id"
+        },
+        "transport": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Transport",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "request_id",
+        "outcome",
+        "reason",
+        "payload",
+        "environment",
+        "transport",
+        "numerical_use",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "IdentityCaptureFailureV1",
+      "type": "object"
+    },
+    "IdentityCaptureFrameV1": {
+      "additionalProperties": false,
+      "properties": {
+        "deployment_context_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Deployment Context Id",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "finished_at": {
+          "format": "date-time",
+          "title": "Finished At",
+          "type": "string"
+        },
+        "frontiers": {
+          "items": {
+            "$ref": "#/$defs/IdentitySourceFrontierV1"
+          },
+          "title": "Frontiers",
+          "type": "array"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "session_end": {
+          "$ref": "#/$defs/IdentitySessionFactV1"
+        },
+        "session_start": {
+          "$ref": "#/$defs/IdentitySessionFactV1"
+        },
+        "snapshot_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "total_fact_count": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Total Fact Count",
+          "type": "integer"
+        },
+        "transaction_started_at": {
+          "format": "date-time",
+          "title": "Transaction Started At",
+          "type": "string"
+        },
+        "transport": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Transport",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "root_id",
+        "deployment_context_id",
+        "started_at",
+        "finished_at",
+        "transaction_started_at",
+        "snapshot_id",
+        "session_start",
+        "session_end",
+        "frontiers",
+        "total_fact_count",
+        "environment",
+        "transport"
+      ],
+      "title": "IdentityCaptureFrameV1",
+      "type": "object"
+    },
+    "IdentityCommandReceiptV1": {
+      "additionalProperties": false,
+      "properties": {
+        "author_role_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Author Role Oid",
+          "type": "integer"
+        },
+        "command_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Fingerprint",
+          "type": "string"
+        },
+        "fact_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Fingerprint",
+          "type": "string"
+        },
+        "fact_id": {
+          "format": "uuid",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "format": "uuid",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "result": {
+          "const": "APPENDED",
+          "title": "Result",
+          "type": "string"
+        },
+        "revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "root_id",
+        "fact_id",
+        "stream_id",
+        "idempotency_key",
+        "author_role_oid",
+        "revision",
+        "command_fingerprint",
+        "fact_fingerprint",
+        "recorded_at",
+        "result"
+      ],
+      "title": "IdentityCommandReceiptV1",
+      "type": "object"
+    },
+    "IdentityEffectiveRequestV1": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "IMMEDIATE",
+            "SCHEDULED"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "mode",
+        "start",
+        "end"
+      ],
+      "title": "IdentityEffectiveRequestV1",
+      "type": "object"
+    },
+    "IdentityIssuerCommandV1": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "ENROLL",
+            "RENEW",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "capability": {
+          "const": "BINDINGS_AND_SCOPE_GRANTS",
+          "title": "Capability",
+          "type": "string"
+        },
+        "effective": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityEffectiveRequestV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "evidence_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "evidence_preimage": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Evidence Preimage",
+          "type": "string"
+        },
+        "evidence_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "format": "uuid",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "issuer_id": {
+          "format": "uuid",
+          "title": "Issuer Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "ISSUER",
+          "title": "Kind",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "title": "Role Name",
+          "type": "string"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "root_id",
+        "idempotency_key",
+        "expected_revision",
+        "predecessor_id",
+        "evidence_id",
+        "evidence_version",
+        "evidence_preimage",
+        "environment",
+        "kind",
+        "issuer_id",
+        "role_name",
+        "user_id",
+        "capability",
+        "action",
+        "effective"
+      ],
+      "title": "IdentityIssuerCommandV1",
+      "type": "object"
+    },
+    "IdentityMembershipWitnessV1": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_member_household_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actor Member Household Id"
+        },
+        "actor_member_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actor Member Id"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "membership_household_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Membership Household Id"
+        },
+        "membership_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Membership Id"
+        },
+        "membership_user_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Membership User Id"
+        },
+        "role": {
+          "anyOf": [
+            {
+              "enum": [
+                "OWNER",
+                "EDITOR",
+                "VIEWER"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Role"
+        },
+        "target_member_exists": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Target Member Exists"
+        },
+        "target_member_household_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Target Member Household Id"
+        },
+        "target_member_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Target Member Id"
+        },
+        "user_exists": {
+          "title": "User Exists",
+          "type": "boolean"
+        },
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "user_id",
+        "household_id",
+        "user_exists",
+        "membership_id",
+        "membership_user_id",
+        "membership_household_id",
+        "actor_member_id",
+        "role",
+        "actor_member_household_id",
+        "target_member_id",
+        "target_member_household_id",
+        "target_member_exists"
+      ],
+      "title": "IdentityMembershipWitnessV1",
+      "type": "object"
+    },
+    "IdentityOperationGrantCommandV1": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "GRANT",
+            "RENEW",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "binding_id": {
+          "format": "uuid",
+          "title": "Binding Id",
+          "type": "string"
+        },
+        "effective": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityEffectiveRequestV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "evidence_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "evidence_preimage": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Evidence Preimage",
+          "type": "string"
+        },
+        "evidence_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "grant_id": {
+          "format": "uuid",
+          "title": "Grant Id",
+          "type": "string"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "idempotency_key": {
+          "format": "uuid",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "issuer_id": {
+          "format": "uuid",
+          "title": "Issuer Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "OPERATION_GRANT",
+          "title": "Kind",
+          "type": "string"
+        },
+        "operation": {
+          "const": "CAPTURE_EXPLICIT_PLAN_INTENT",
+          "title": "Operation",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "tracked_member_id": {
+          "format": "uuid",
+          "title": "Tracked Member Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "root_id",
+        "idempotency_key",
+        "expected_revision",
+        "predecessor_id",
+        "evidence_id",
+        "evidence_version",
+        "evidence_preimage",
+        "environment",
+        "kind",
+        "grant_id",
+        "binding_id",
+        "issuer_id",
+        "household_id",
+        "tracked_member_id",
+        "operation",
+        "action",
+        "effective"
+      ],
+      "title": "IdentityOperationGrantCommandV1",
+      "type": "object"
+    },
+    "IdentityPrivilegeObjectFactV1": {
+      "additionalProperties": false,
+      "properties": {
+        "acl": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 4,
+                "minItems": 4,
+                "prefixItems": [
+                  {
+                    "maximum": 4294967295,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "maximum": 4294967295,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  {
+                    "enum": [
+                      "CONNECT",
+                      "CREATE",
+                      "TEMPORARY",
+                      "USAGE",
+                      "EXECUTE",
+                      "SELECT",
+                      "INSERT",
+                      "UPDATE",
+                      "DELETE",
+                      "TRUNCATE",
+                      "REFERENCES",
+                      "TRIGGER",
+                      "MAINTAIN",
+                      "SET",
+                      "ALTER SYSTEM"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ],
+                "type": "array"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Acl"
+        },
+        "definition_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Definition Fingerprint"
+        },
+        "kind": {
+          "enum": [
+            "DATABASE",
+            "SCHEMA",
+            "TABLE",
+            "COLUMN",
+            "SEQUENCE",
+            "FUNCTION",
+            "PARAMETER"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "object_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Object Name",
+          "type": "string"
+        },
+        "object_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Object Oid",
+          "type": "integer"
+        },
+        "owner_oid": {
+          "anyOf": [
+            {
+              "maximum": 4294967295,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Owner Oid"
+        },
+        "schema_name": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Schema Name"
+        },
+        "sub_id": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Sub Id",
+          "type": "integer"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "kind",
+        "object_oid",
+        "sub_id",
+        "schema_name",
+        "object_name",
+        "owner_oid",
+        "acl",
+        "definition_fingerprint"
+      ],
+      "title": "IdentityPrivilegeObjectFactV1",
+      "type": "object"
+    },
+    "IdentityRecordedFactV1": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/IdentitySessionFactV1"
+        },
+        "author_issuer_fact_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Author Issuer Fact Id"
+        },
+        "command": {
+          "discriminator": {
+            "mapping": {
+              "BINDING": "#/$defs/IdentityBindingCommandV1",
+              "ISSUER": "#/$defs/IdentityIssuerCommandV1",
+              "OPERATION_GRANT": "#/$defs/IdentityOperationGrantCommandV1",
+              "ROOT": "#/$defs/IdentityRootCommandV1"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/IdentityRootCommandV1"
+            },
+            {
+              "$ref": "#/$defs/IdentityIssuerCommandV1"
+            },
+            {
+              "$ref": "#/$defs/IdentityBindingCommandV1"
+            },
+            {
+              "$ref": "#/$defs/IdentityOperationGrantCommandV1"
+            }
+          ],
+          "title": "Command"
+        },
+        "command_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Command Fingerprint",
+          "type": "string"
+        },
+        "effective_end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Effective End"
+        },
+        "effective_start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Effective Start"
+        },
+        "fact_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fact Fingerprint",
+          "type": "string"
+        },
+        "fact_id": {
+          "format": "uuid",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "membership_at_issue": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityMembershipWitnessV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "previous_fact_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Fact Fingerprint"
+        },
+        "previous_fact_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Previous Fact Id"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "recorded_order": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "title": "Recorded Order",
+          "type": "integer"
+        },
+        "revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        },
+        "stream_kind": {
+          "enum": [
+            "ROOT",
+            "ISSUER",
+            "BINDING",
+            "OPERATION_GRANT"
+          ],
+          "title": "Stream Kind",
+          "type": "string"
+        },
+        "target_role": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityRoleFactV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "fact_id",
+        "root_id",
+        "stream_id",
+        "stream_kind",
+        "revision",
+        "recorded_order",
+        "recorded_at",
+        "previous_fact_id",
+        "previous_fact_fingerprint",
+        "command",
+        "command_fingerprint",
+        "effective_start",
+        "effective_end",
+        "author",
+        "author_issuer_fact_id",
+        "target_role",
+        "membership_at_issue",
+        "fact_fingerprint"
+      ],
+      "title": "IdentityRecordedFactV1",
+      "type": "object"
+    },
+    "IdentityRequestBindingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "title": "Actor User Id",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "horizon": {
+          "$ref": "#/$defs/Horizon"
+        },
+        "household_id": {
+          "format": "uuid",
+          "title": "Household Id",
+          "type": "string"
+        },
+        "operation": {
+          "const": "CAPTURE_EXPLICIT_PLAN_INTENT",
+          "title": "Operation",
+          "type": "string"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        },
+        "request_preimage_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Request Preimage Fingerprint",
+          "type": "string"
+        },
+        "request_revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Request Revision",
+          "type": "integer"
+        },
+        "request_utf8": {
+          "maxLength": 49152,
+          "minLength": 1,
+          "title": "Request Utf8",
+          "type": "string"
+        },
+        "tracked_member_id": {
+          "format": "uuid",
+          "title": "Tracked Member Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "operation",
+        "actor_user_id",
+        "household_id",
+        "tracked_member_id",
+        "request_id",
+        "request_revision",
+        "horizon",
+        "request_utf8",
+        "request_preimage_fingerprint",
+        "environment"
+      ],
+      "title": "IdentityRequestBindingV1",
+      "type": "object"
+    },
+    "IdentityRoleEdgeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "admin_option": {
+          "title": "Admin Option",
+          "type": "boolean"
+        },
+        "grantor_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Grantor Oid",
+          "type": "integer"
+        },
+        "inherit_option": {
+          "title": "Inherit Option",
+          "type": "boolean"
+        },
+        "member_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Member Oid",
+          "type": "integer"
+        },
+        "role_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Role Oid",
+          "type": "integer"
+        },
+        "set_option": {
+          "title": "Set Option",
+          "type": "boolean"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "role_oid",
+        "member_oid",
+        "grantor_oid",
+        "inherit_option",
+        "set_option",
+        "admin_option"
+      ],
+      "title": "IdentityRoleEdgeV1",
+      "type": "object"
+    },
+    "IdentityRoleFactV1": {
+      "additionalProperties": false,
+      "properties": {
+        "bypass_rls": {
+          "title": "Bypass Rls",
+          "type": "boolean"
+        },
+        "can_login": {
+          "title": "Can Login",
+          "type": "boolean"
+        },
+        "create_db": {
+          "title": "Create Db",
+          "type": "boolean"
+        },
+        "create_role": {
+          "title": "Create Role",
+          "type": "boolean"
+        },
+        "inherit": {
+          "title": "Inherit",
+          "type": "boolean"
+        },
+        "replication": {
+          "title": "Replication",
+          "type": "boolean"
+        },
+        "role_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "title": "Role Name",
+          "type": "string"
+        },
+        "role_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Role Oid",
+          "type": "integer"
+        },
+        "superuser": {
+          "title": "Superuser",
+          "type": "boolean"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Valid Until"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "role_oid",
+        "role_name",
+        "can_login",
+        "superuser",
+        "create_role",
+        "create_db",
+        "replication",
+        "bypass_rls",
+        "inherit",
+        "valid_until"
+      ],
+      "title": "IdentityRoleFactV1",
+      "type": "object"
+    },
+    "IdentityRootCommandV1": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "INITIALIZE",
+            "RENEW",
+            "REVOKE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "effective": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityEffectiveRequestV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "evidence_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "evidence_preimage": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Evidence Preimage",
+          "type": "string"
+        },
+        "evidence_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[!-~]+$",
+          "title": "Evidence Version",
+          "type": "string"
+        },
+        "expected_revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "format": "uuid",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "kind": {
+          "const": "ROOT",
+          "title": "Kind",
+          "type": "string"
+        },
+        "predecessor_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Predecessor Id"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "root_id",
+        "idempotency_key",
+        "expected_revision",
+        "predecessor_id",
+        "evidence_id",
+        "evidence_version",
+        "evidence_preimage",
+        "environment",
+        "kind",
+        "action",
+        "effective"
+      ],
+      "title": "IdentityRootCommandV1",
+      "type": "object"
+    },
+    "IdentitySessionFactV1": {
+      "additionalProperties": false,
+      "properties": {
+        "authentication_method": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Authentication Method",
+          "type": "string"
+        },
+        "backend_pid": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "title": "Backend Pid",
+          "type": "integer"
+        },
+        "client_address": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Client Address",
+          "type": "string"
+        },
+        "database_name": {
+          "maxLength": 63,
+          "minLength": 1,
+          "title": "Database Name",
+          "type": "string"
+        },
+        "database_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Database Oid",
+          "type": "integer"
+        },
+        "database_owner_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Database Owner Oid",
+          "type": "integer"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/IdentityRoleEdgeV1"
+          },
+          "maxItems": 128,
+          "title": "Edges",
+          "type": "array"
+        },
+        "endpoint_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Endpoint Id",
+          "type": "string"
+        },
+        "execution_owner_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Execution Owner Oid",
+          "type": "integer"
+        },
+        "isolation": {
+          "enum": [
+            "READ_COMMITTED",
+            "REPEATABLE_READ",
+            "SERIALIZABLE"
+          ],
+          "title": "Isolation",
+          "type": "string"
+        },
+        "login_role_oid": {
+          "maximum": 4294967295,
+          "minimum": 1,
+          "title": "Login Role Oid",
+          "type": "integer"
+        },
+        "objects": {
+          "items": {
+            "$ref": "#/$defs/IdentityPrivilegeObjectFactV1"
+          },
+          "maxItems": 4096,
+          "title": "Objects",
+          "type": "array"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "read_only": {
+          "title": "Read Only",
+          "type": "boolean"
+        },
+        "requested_role": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Requested Role",
+          "type": "string"
+        },
+        "roles": {
+          "items": {
+            "$ref": "#/$defs/IdentityRoleFactV1"
+          },
+          "maxItems": 64,
+          "minItems": 1,
+          "title": "Roles",
+          "type": "array"
+        },
+        "server_address": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Server Address",
+          "type": "string"
+        },
+        "server_port": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "title": "Server Port",
+          "type": "integer"
+        },
+        "session_user": {
+          "maxLength": 63,
+          "minLength": 1,
+          "title": "Session User",
+          "type": "string"
+        },
+        "system_user": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "System User",
+          "type": "string"
+        },
+        "tls": {
+          "title": "Tls",
+          "type": "boolean"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "database_oid",
+        "database_owner_oid",
+        "login_role_oid",
+        "execution_owner_oid",
+        "database_name",
+        "endpoint_id",
+        "client_address",
+        "server_address",
+        "server_port",
+        "backend_pid",
+        "session_user",
+        "system_user",
+        "requested_role",
+        "authentication_method",
+        "tls",
+        "isolation",
+        "read_only",
+        "observed_at",
+        "roles",
+        "edges",
+        "objects"
+      ],
+      "title": "IdentitySessionFactV1",
+      "type": "object"
+    },
+    "IdentitySourceCheckV1": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_ready": {
+          "const": false,
+          "title": "Activation Ready",
+          "type": "boolean"
+        },
+        "check_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Check Fingerprint",
+          "type": "string"
+        },
+        "checked_request_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Checked Request Fingerprint"
+        },
+        "checked_source_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Checked Source Fingerprint"
+        },
+        "decision": {
+          "enum": [
+            "CONSISTENT",
+            "INCONSISTENT",
+            "NOT_CHECKABLE"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "environment": {
+          "const": "TEST_ONLY",
+          "title": "Environment",
+          "type": "string"
+        },
+        "numerical_use": {
+          "const": "NOT_ADMITTED",
+          "title": "Numerical Use",
+          "type": "string"
+        },
+        "planner_ready": {
+          "const": false,
+          "title": "Planner Ready",
+          "type": "boolean"
+        },
+        "reason": {
+          "enum": [
+            "SOURCE_AVAILABLE",
+            "FAITHFUL_NEGATIVE",
+            "INVALID_AUTHORITY_HISTORY",
+            "INVALID_AUTHENTICATION",
+            "SUBJECT_MISMATCH",
+            "INCOMPLETE_SOURCE",
+            "FINGERPRINT_MISMATCH",
+            "INVALID_CLAIM",
+            "NO_SOURCE"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "reconstructed_outcome": {
+          "anyOf": [
+            {
+              "enum": [
+                "AVAILABLE_AT_RETAINED_CUT",
+                "UNAVAILABLE"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reconstructed Outcome"
+        },
+        "transport": {
+          "const": "UNVERIFIED_TRANSPORT",
+          "title": "Transport",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "decision",
+        "reconstructed_outcome",
+        "reason",
+        "checked_source_fingerprint",
+        "checked_request_fingerprint",
+        "check_fingerprint",
+        "environment",
+        "transport",
+        "numerical_use",
+        "planner_ready",
+        "activation_ready"
+      ],
+      "title": "IdentitySourceCheckV1",
+      "type": "object"
+    },
+    "IdentitySourceFrontierV1": {
+      "additionalProperties": false,
+      "properties": {
+        "directory_entries": {
+          "items": {
+            "maxItems": 5,
+            "minItems": 5,
+            "prefixItems": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "maximum": 9223372036854775807,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "maximum": 9223372036854775807,
+                "minimum": 0,
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Directory Entries",
+          "type": "array"
+        },
+        "directory_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Directory Fingerprint"
+        },
+        "fact_count": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Fact Count",
+          "type": "integer"
+        },
+        "head_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Head Fingerprint"
+        },
+        "head_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Head Id"
+        },
+        "kind": {
+          "enum": [
+            "ROOT",
+            "ISSUER_DIRECTORY",
+            "BINDING",
+            "OPERATION_GRANT"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "revision": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "root_id": {
+          "format": "uuid",
+          "title": "Root Id",
+          "type": "string"
+        },
+        "stream_id": {
+          "format": "uuid",
+          "title": "Stream Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "root_id",
+        "stream_id",
+        "kind",
+        "revision",
+        "head_id",
+        "head_fingerprint",
+        "fact_count",
+        "directory_fingerprint",
+        "directory_entries"
+      ],
+      "title": "IdentitySourceFrontierV1",
+      "type": "object"
+    },
+    "IdentitySourceSnapshotV1": {
+      "additionalProperties": false,
+      "properties": {
+        "absences": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "ROOT",
+                      "ISSUER",
+                      "BINDING",
+                      "OPERATION_GRANT"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "const": "MEMBERSHIP",
+                    "type": "string"
+                  }
+                ]
+              },
+              {
+                "format": "uuid",
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Absences",
+          "type": "array"
+        },
+        "binding": {
+          "$ref": "#/$defs/IdentityRequestBindingV1"
+        },
+        "binding_history": {
+          "items": {
+            "$ref": "#/$defs/IdentityRecordedFactV1"
+          },
+          "maxItems": 256,
+          "title": "Binding History",
+          "type": "array"
+        },
+        "frame": {
+          "$ref": "#/$defs/IdentityCaptureFrameV1"
+        },
+        "grant_history": {
+          "items": {
+            "$ref": "#/$defs/IdentityRecordedFactV1"
+          },
+          "maxItems": 2048,
+          "title": "Grant History",
+          "type": "array"
+        },
+        "issuer_history": {
+          "items": {
+            "$ref": "#/$defs/IdentityRecordedFactV1"
+          },
+          "maxItems": 2048,
+          "title": "Issuer History",
+          "type": "array"
+        },
+        "membership": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/IdentityMembershipWitnessV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "AVAILABLE_AT_RETAINED_CUT",
+            "UNAVAILABLE"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "SOURCE_AVAILABLE",
+            "ROOT_EXPIRED",
+            "ROOT_REVOKED",
+            "ISSUER_EXPIRED",
+            "ISSUER_REVOKED",
+            "BINDING_EXPIRED",
+            "BINDING_REVOKED",
+            "GRANT_ABSENT",
+            "GRANT_EXPIRED",
+            "GRANT_REVOKED",
+            "AUTHORIZATION_DENIED"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "root_history": {
+          "items": {
+            "$ref": "#/$defs/IdentityRecordedFactV1"
+          },
+          "maxItems": 256,
+          "title": "Root History",
+          "type": "array"
+        },
+        "source_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Fingerprint",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "binding",
+        "frame",
+        "root_history",
+        "issuer_history",
+        "binding_history",
+        "grant_history",
+        "membership",
+        "absences",
+        "outcome",
+        "reason",
+        "source_fingerprint"
+      ],
+      "title": "IdentitySourceSnapshotV1",
       "type": "object"
     },
     "IngredientCreate": {

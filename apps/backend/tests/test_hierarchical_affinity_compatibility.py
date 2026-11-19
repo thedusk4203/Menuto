@@ -10,6 +10,10 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
+
 ROOT = Path(__file__).resolve().parents[3]
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -18,7 +22,8 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
     pins = json.loads((FIXTURES / "hierarchical_affinity_compatibility.json").read_text())
     assert pins["base"] == "b591464e3ca495909851217141f96a55faaa35cc"
     schema = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
-    assert len(pins["definitions"]) == 349 and len(schema) == 537  # 528 retained +9 intent.
+    assert len(pins["definitions"]) == 349 and len(schema) == 556  # 537 +19 Identity =556.
+    # Historical EPI stage: 528 retained +9 intent.
     assert len(pins["frozen_files"]) == 123
     for name, digest in pins["definitions"].items():
         assert (
@@ -50,7 +55,7 @@ def test_hc78_hc79_all349_definitions_and_123_frozen_runtime_files_retained():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{n:04}" for n in range(1, 18)]
+    ) == [f"{n:04}" for n in range(1, 18)] + [IDENTITY_MIGRATION_REVISION]
 
 
 def test_hc79_retained_all2807_test_identities():
