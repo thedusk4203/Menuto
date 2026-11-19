@@ -12,6 +12,9 @@ from app.modules.learning.public import preview_feature_exposure
 from app.modules.planning import contracts as p
 from app.modules.planning.public import PlanStore, capture_feature_exposure_preview
 from app.modules.recipes.public import CulinaryFeatureService, culinary_feature_frontier
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from preference_fixtures import provenance
 from sqlalchemy import event, text
 from sqlalchemy.engine import Engine
@@ -113,7 +116,10 @@ def test_capture_has_no_physical_preference_plan_or_schema_side_effects(postgres
     preview_feature_exposure(capture(postgres_engine, actor, q))
     assert before == counts()
     with postgres_engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
 
 
 @pytest.mark.parametrize("mutation", ["actor", "member", "household", "proposal", "hash", "plan"])

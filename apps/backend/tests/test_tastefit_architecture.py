@@ -11,6 +11,10 @@ from collections import Counter
 from pathlib import Path
 
 import pytest
+from identity_compatibility_metadata import (
+    IDENTITY_EXPORT_NAMES,
+    IDENTITY_MIGRATION_REVISION,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -33,7 +37,7 @@ def test_tf130_frozen_owner_runtime_and_migrations_byte_exact():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{n:04}" for n in range(1, 18)]
+    ) == [f"{n:04}" for n in range(1, 18)] + [IDENTITY_MIGRATION_REVISION]
 
 
 def test_tf131_all3104_baseline_test_identities_retained():
@@ -73,7 +77,8 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
     explicit_intent = json.loads(
         (FIXTURES / "explicit_plan_intent_export_names.json").read_text()
     )
-    assert len(defs) == 537  # 528 retained +9 additive explicit intent definitions.
+    assert len(defs) == 556  # 537 +19 Identity =556.
+    # Historical EPI stage: 528 retained +9 additive explicit intent definitions.
     assert len(defs) == (
         384
         + len(shared["new_definitions"])
@@ -83,6 +88,7 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
         + len(basis["new_definitions"])
         + len(policy_v2)
         + len(explicit_intent)
+        + len(IDENTITY_EXPORT_NAMES)
     )
     assert sorted(set(defs) - set(pins["definitions"])) == sorted(
         pins["new_definitions"]
@@ -93,6 +99,7 @@ def test_tf132_all362_old_definitions_unchanged_exact_additive_export_set():
         + basis["new_definitions"]
         + policy_v2
         + explicit_intent
+        + list(IDENTITY_EXPORT_NAMES)
     )
     for name, digest in pins["definitions"].items():
         assert (

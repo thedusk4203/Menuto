@@ -7,6 +7,9 @@ from pathlib import Path
 
 import pytest
 from app.modules.policy import explicit_intent_contracts as c
+from identity_compatibility_metadata import (
+    IDENTITY_EXPORT_NAMES,
+)
 from pydantic import ValidationError
 from pydantic.json_schema import models_json_schema
 
@@ -30,13 +33,13 @@ def test_preflight_exact_nine_names_and_virtual_delta_without_export_changes():
     assert len(manifest) == 9 and set(manifest) == set(NAMES)
     actual = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     baseline = json.loads((FIXTURES / "explicit_plan_intent_compatibility.json").read_text())
-    assert len(baseline["definitions"]) == 528 and len(actual) == 537
+    assert len(baseline["definitions"]) == 528 and len(actual) == 556
     old = {name: actual[name] for name in baseline["definitions"]}
     registered = runpy.run_path(str(ROOT / "tools/export_domain_contracts.py"))["CONTRACTS"]
     _, proposed = models_json_schema([(model, "validation") for model in registered])
     new = proposed["$defs"]
-    assert len(new) == 537
-    assert set(new) - set(old) == set(NAMES)
+    assert len(new) == 556
+    assert set(new) - set(old) == set(NAMES) | set(IDENTITY_EXPORT_NAMES)
     assert set(old) <= set(new)
     for name, body in old.items():
         assert new[name] == body, name

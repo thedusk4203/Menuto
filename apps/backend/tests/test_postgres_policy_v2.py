@@ -4,6 +4,9 @@ import pytest
 from app.modules.nutrition import policy_v2_contracts as v
 from app.modules.planning import policy_v2_capture as host
 from basis_postgres_fixtures import mba_case, nre_case  # noqa: F401
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from nutrition_root_postgres_fixtures import nrc_server, reader  # noqa: F401
 from policy_v2_postgres_fixtures import piv_case  # noqa: F401
 from test_postgres_foundation import postgres_engine  # noqa: F401
@@ -539,7 +542,10 @@ def test_piv_pg10_fresh_install_empty_content_and_existing_protected_objects(pos
     with postgres_engine.connect() as db:
         assert len(Base.metadata.tables) == 108
         assert set(inspect(db).get_table_names()) == set(Base.metadata.tables) | {"alembic_version"}
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            db.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         nutrition = sorted(n for n in Base.metadata.tables if n.startswith("nutrition_"))
         assert nutrition
         for table in nutrition:

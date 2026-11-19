@@ -9,6 +9,9 @@ from app.modules.learning import contracts as c
 from app.modules.learning.public import preview_recent_exposure
 from app.modules.planning.contracts import BoundPlanIntentGraph
 from app.modules.planning.public import capture_exposure_preview
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from preference_fixtures import provenance
 from sqlalchemy import event, inspect, text
 from sqlalchemy.engine import Engine
@@ -99,7 +102,10 @@ def test_canonical_source_roundtrip_and_no_side_effects(postgres_engine):
         assert {t: conn.scalar(text(f"SELECT count(*) FROM {t}")) for t in before} == before
         # 108 domain tables + Alembic; synthesis adds 10 source-authority tables.
         assert len(inspect(conn).get_table_names()) == 109
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
 
 
 def test_replay_has_zero_live_queries(postgres_engine):

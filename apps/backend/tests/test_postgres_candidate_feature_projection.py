@@ -30,6 +30,9 @@ from app.modules.recipes.public import (
     generate_variants,
 )
 from feature_fixtures import review_command
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from preference_fixtures import term
 from sqlalchemy import event, inspect, select, text
 from sqlalchemy.exc import DBAPIError
@@ -505,4 +508,7 @@ def test_cfp60_capture_preserves_schema_owner_rows_and_migration_head(postgres_e
     )
     assert all(s.lstrip().split()[0].upper() in {"SHOW", "SELECT"} for s in statements)
     with postgres_engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )

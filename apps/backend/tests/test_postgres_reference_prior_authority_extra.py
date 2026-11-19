@@ -11,6 +11,9 @@ from app.modules.preferences.reference_priors import (
     publish_reference_prior,
     register_reference_prior_provider,
 )
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from psycopg import sql
 from sqlalchemy import select, text
 from sqlalchemy.exc import DBAPIError
@@ -153,4 +156,7 @@ def test_m01_populated_downgrade_refuses_registry_and_audit_loss(source_server):
             command.downgrade(config, "0013")
         conn.rollback()
         assert conn.scalar(text("SELECT count(*) FROM reference_prior_principals")) == before
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )

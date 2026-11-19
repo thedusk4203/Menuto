@@ -16,6 +16,9 @@ from app.modules.preferences.public import (
 )
 from app.modules.recipes.contracts import RecipeFact
 from app.modules.recipes.repository import RecipeRepository
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from preference_fixtures import command, provenance, term
 from sqlalchemy import event, inspect, text, update
 from sqlalchemy.engine import Engine
@@ -383,7 +386,10 @@ def test_capture_and_derivation_only_read_without_schema_or_row_changes(postgres
         with postgres_engine.connect() as conn:
             tables = inspect(conn).get_table_names()
             assert len(tables) == 109 and "alembic_version" in tables
-            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+            assert (
+                conn.scalar(text("SELECT version_num FROM alembic_version"))
+                == IDENTITY_MIGRATION_REVISION
+            )
             return {
                 t: conn.execute(text(f'SELECT to_jsonb(t)::text FROM "{t}" t ORDER BY 1')).all()
                 for t in tables

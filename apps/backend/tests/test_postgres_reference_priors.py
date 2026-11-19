@@ -32,6 +32,9 @@ from app.modules.preferences.reference_priors import (
     register_reference_prior_provider,
 )
 from app.persistence.database import create_database_engine
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from sqlalchemy import inspect, text
 from sqlalchemy.engine import make_url
 from sqlalchemy.exc import DBAPIError, OperationalError
@@ -85,7 +88,10 @@ def source_server():
         with engine.connect() as conn:
             config.attributes["connection"] = conn
             command.upgrade(config, "head")
-            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+            assert (
+                conn.scalar(text("SELECT version_num FROM alembic_version"))
+                == IDENTITY_MIGRATION_REVISION
+            )
             assert len(inspect(conn).get_table_names()) == 109
             for table in (
                 "providers",

@@ -1,0 +1,21 @@
+[
+  "IdentityEffectiveRequestV1",
+  "IdentityRoleFactV1",
+  "IdentityRoleEdgeV1",
+  "IdentityPrivilegeObjectFactV1",
+  "IdentitySessionFactV1",
+  "IdentityRootCommandV1",
+  "IdentityIssuerCommandV1",
+  "IdentityBindingCommandV1",
+  "IdentityOperationGrantCommandV1",
+  "IdentityRecordedFactV1",
+  "IdentityCommandReceiptV1",
+  "IdentityRequestBindingV1",
+  "IdentityMembershipWitnessV1",
+  "IdentitySourceFrontierV1",
+  "IdentityCaptureFrameV1",
+  "IdentitySourceSnapshotV1",
+  "IdentityCaptureFailureV1",
+  "IdentitySourceCheckV1",
+  "AuthenticatedPlanIntentInspectionV1"
+]

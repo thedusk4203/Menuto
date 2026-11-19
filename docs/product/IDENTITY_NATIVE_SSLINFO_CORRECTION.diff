@@ -1,0 +1,651 @@
+--- uncommitted-pre-correction/apps/backend/migrations/versions/0018_identity_principal_user_sources.py
++++ current-draft/apps/backend/migrations/versions/0018_identity_principal_user_sources.py
+@@ -574,8 +574,39 @@
+ CREATE INDEX receipts_issuer_lookup ON menuto_identity_source.command_receipts (issuer_fact_id);
+ CREATE INDEX receipts_root_lookup ON menuto_identity_source.command_receipts (root_fact_id);
+ """
+ 
++NATIVE_DEFINITION_SQL = "menuto_identity_source._canonical_hash_v1('identity.source.v1',jsonb_build_object(\n    'extension',(SELECT e.extname FROM pg_extension e JOIN pg_depend d ON d.refobjid=e.oid\n      WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid AND d.refclassid='pg_extension'::regclass AND d.deptype='e'),\n    'extension_version',(SELECT e.extversion FROM pg_extension e JOIN pg_depend d ON d.refobjid=e.oid\n      WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid AND d.refclassid='pg_extension'::regclass AND d.deptype='e'),\n    'schema',n.nspname,'definition',pg_get_functiondef(p.oid),\n    'raw_acl_state',CASE WHEN p.proacl IS NULL THEN 'NULL' ELSE 'EXPLICIT' END,\n    'dependencies',coalesce((SELECT jsonb_agg(jsonb_build_array(d.refclassid::regclass::text,d.refobjsubid,d.deptype,\n      pg_describe_object(d.refclassid,d.refobjid,d.refobjsubid)) ORDER BY d.refclassid::regclass::text,d.refobjsubid,d.deptype,\n      pg_describe_object(d.refclassid,d.refobjid,d.refobjsubid)) FROM pg_depend d WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid),'[]'::jsonb)))"
++
++NATIVE_CATALOG_SQL = "SELECT e.oid::bigint extension_oid,e.extnamespace::bigint namespace_oid,n.nspname namespace,\n e.extowner::bigint owner_oid,e.extversion,p.oid::bigint function_oid,p.proname name,\n p.proname||'('||pg_get_function_identity_arguments(p.oid)||')' signature,\n pg_get_function_result(p.oid) result,pg_get_functiondef(p.oid) definition,\n p.proacl::text raw_acl,\n coalesce((SELECT jsonb_agg(jsonb_build_array(a.grantee::bigint,a.grantor::bigint,a.privilege_type,a.is_grantable)\n ORDER BY a.grantee,a.grantor,a.privilege_type,a.is_grantable) FROM aclexplode(coalesce(p.proacl,acldefault('f',p.proowner))) a),'[]'::jsonb) acl,\n e.extname='sslinfo' AND e.extversion='1.2' AND e.extrelocatable AND e.extconfig IS NULL AND e.extcondition IS NULL AND (SELECT count(*) FROM pg_depend z WHERE z.refclassid='pg_extension'::regclass AND z.refobjid=e.oid AND z.deptype='e')=10 AND n.nspname IN ('public','menuto_prior')\n AND p.pronamespace=n.oid AND p.proowner=e.extowner\n AND e.extowner=(SELECT datdba FROM pg_database WHERE datname=current_database())\n AND EXISTS(SELECT FROM pg_roles WHERE oid=e.extowner AND rolsuper)\n AND p.prokind='f' AND NOT p.prosecdef AND p.prolang=(SELECT oid FROM pg_language WHERE lanname='c')\n AND p.prosrc=p.proname AND p.probin='$libdir/sslinfo' AND p.proconfig IS NULL\n AND EXISTS(SELECT FROM pg_depend d WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid AND\n d.refclassid='pg_extension'::regclass AND d.refobjid=e.oid AND d.deptype='e') valid\n FROM pg_extension e JOIN pg_namespace n ON n.oid=e.extnamespace\n JOIN pg_proc p ON p.proname IN ('ssl_is_used','ssl_version','ssl_cipher','ssl_client_cert_present','ssl_client_serial','ssl_client_dn','ssl_issuer_dn','ssl_client_dn_field','ssl_issuer_field','ssl_extension_info') OR EXISTS(SELECT FROM pg_depend d\n WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid AND d.refclassid='pg_extension'::regclass AND d.refobjid=e.oid AND d.deptype='e')\n WHERE e.extname='sslinfo' ORDER BY p.oid"
++
++NATIVE_SSLINFO_PINS = {
++    "menuto_prior": {
++        "ssl_is_used": "a4b1867a7b3f38f2ebb5cc6d0d0a47b26956171c2b1496d82adbc4ca272fd472",
++        "ssl_version": "2365cc58f0a9c4818905b3fb1fa3ab824512ab42f9e6b6768202d344068c4602",
++        "ssl_cipher": "3f1b37250401d42100544750ecc2bf4de2920514ccb89876e73657cbd31b05d3",
++        "ssl_client_cert_present": "453648844d7cb028767b08e15fbc34fe729e088fb3973baba879c4da19d1bd69",
++        "ssl_client_serial": "b24dbd3d1b6cacefcd7b8eaa10417de162847da435a1c18d9f339aab765dcabc",
++        "ssl_client_dn": "07a832c055b1b13d996ecd8dc9aac8edbe8530e827c2eb2cb9d41545b15e510c",
++        "ssl_issuer_dn": "933c3bc61d6d91e14dd71b9830151701a456fefd68f10e4cacb93cdd050cdde8",
++        "ssl_client_dn_field": "08a818a754d9f559ed9985ac8bebf23abf59db4b0f75815435f14eed9c80f9fb",
++        "ssl_issuer_field": "5e58c0630b470f50e897be40d090310cf7b7beb4397ab95c9f2e3f62d2ff5f11",
++        "ssl_extension_info": "8cad35d0ed1b3ff25b8c12f8127f7a7ad79a03f06143da94a665d5e03ca113b2",
++    },
++    "public": {
++        "ssl_is_used": "8c7763a975055b471d4d74f2fbe7e62fd0ca17e9232b4867e842482413241e8e",
++        "ssl_version": "32551d67326da6db5d0e02dc8c9d0781c147de9f9ac428277f333dd45e2f20fe",
++        "ssl_cipher": "7c9682b427b75a9191d90ad46a82bde72c75344ad6a263f86a3318ee296816ab",
++        "ssl_client_cert_present": "8b2e38efc3604fe6bd53341600b6f5ceb6c71b9242be673d94902e76b6e85f35",
++        "ssl_client_serial": "2df2133592e5a46f7a45b4709a4526d4de34af0497be3c827f00392494e895c0",
++        "ssl_client_dn": "00143dd70742f20eaf8adcb911d3a6c6aa1a4f8e70d3de5dc7c2bb36cfe7a002",
++        "ssl_issuer_dn": "e1b6d8c69120388b0e99a66729dea7110203de08c0ac130ca548a5d040ea48f7",
++        "ssl_client_dn_field": "d89638c21de107ad256a57d68ed99bae3ee16f709841082ef005b7015c2bfab4",
++        "ssl_issuer_field": "d5ded701ca043d42068f52c1005592744fe3ce0ee10e35ec44d12b2c8f242d5f",
++        "ssl_extension_info": "a35809e18bdca93ddc19e751f7998fdf587da76023de889b2ef57436b82f29a3",
++    },
++}
++
+ FUNCTION_SQL = r"""
+ 
+ CREATE FUNCTION menuto_identity_source._canonical_hash_v1(tag text, typed_preimage jsonb)
+ RETURNS text LANGUAGE plpgsql IMMUTABLE
+@@ -636,22 +667,29 @@
+    AND e.extname='sslinfo' AND e.extnamespace=__TLS_NAMESPACE_OID__
+    AND p.proowner=__TLS_OWNER_OID__ AND p.proowner=e.extowner
+    AND l.lanname='c' AND p.prosrc='ssl_is_used' AND p.probin='$libdir/sslinfo'
+    AND p.prorettype='pg_catalog.bool'::regtype AND p.pronargs=0 AND p.prokind='f'
++   AND e.extversion='1.2' AND NOT p.prosecdef AND p.proconfig IS NULL AND p.proisstrict
++   AND p.provolatile='v' AND p.proparallel='r' AND NOT p.proleakproof AND NOT p.proretset
++   AND p.prosupport=0 AND p.pronargdefaults=0 AND p.procost=1 AND p.prorows=0
+    AND EXISTS(SELECT FROM pg_catalog.pg_depend d WHERE d.classid='pg_catalog.pg_proc'::regclass
+     AND d.objid=p.oid AND d.refclassid='pg_catalog.pg_extension'::regclass
+     AND d.refobjid=e.oid AND d.deptype='e')
+- ) THEN menuto_prior.ssl_is_used() ELSE NULL END);
++ ) THEN __TLS_NAMESPACE__.ssl_is_used() ELSE NULL END);
+ END;
+ 
+ CREATE FUNCTION menuto_identity_source._safe_role_v1(actor_oid oid, mode text)
+ RETURNS jsonb LANGUAGE plpgsql STABLE
+ SET search_path=pg_catalog,menuto_identity_source,pg_temp AS $f$
+-DECLARE role_rows jsonb; edge_rows jsonb; object_rows jsonb; role_ids oid[]; inherit_ids oid[];
++DECLARE native_rows jsonb; native_row jsonb; native_pins jsonb:=$native$__NATIVE_PINS__$native$::jsonb;
++ native_oids jsonb:=$native$__NATIVE_OIDS__$native$::jsonb; native_acls jsonb:=$native$__NATIVE_RAW_ACLS__$native$::jsonb;
++ role_rows jsonb; edge_rows jsonb; object_rows jsonb; role_ids oid[]; inherit_ids oid[];
+  legacy_pins jsonb:=$itr_manifest$__LEGACY_PINS__$itr_manifest$::jsonb;
+  legacy_oids jsonb:=$itr_oids$__LEGACY_OIDS__$itr_oids$::jsonb;
+  reachable oid[]; catalog_ids oid[]; ids oid[]; next_ids oid[]; pass integer; dangerous boolean; owner_oid oid;
+ BEGIN
++ IF current_setting('server_version_num')<>'180004' THEN
++  RAISE EXCEPTION 'Identity native deployment version' USING ERRCODE='42501'; END IF;
+  IF mode NOT IN ('BOOTSTRAP','ISSUER','REQUESTER','TARGET_ISSUER','TARGET_REQUESTER') THEN
+   RAISE EXCEPTION 'Identity role mode' USING ERRCODE='42501';
+  END IF;
+  SELECT oid INTO STRICT owner_oid FROM pg_roles WHERE rolname='menuto_identity_source_owner';
+@@ -725,9 +763,19 @@
+     AND n.nspname !~ '^pg_' AND n.nspname<>'information_schema'
+   UNION ALL
+   SELECT 'FUNCTION',p.oid,0,n.nspname::text,p.proname::text,p.proowner,
+    coalesce(p.proacl,acldefault('f',p.proowner)),
+-   CASE WHEN n.nspname='public' THEN
++   CASE WHEN p.proname IN ('ssl_is_used','ssl_version','ssl_cipher','ssl_client_cert_present','ssl_client_serial','ssl_client_dn','ssl_issuer_dn','ssl_client_dn_field','ssl_issuer_field','ssl_extension_info') THEN menuto_identity_source._canonical_hash_v1('identity.source.v1',jsonb_build_object(
++    'extension',(SELECT e.extname FROM pg_extension e JOIN pg_depend d ON d.refobjid=e.oid
++      WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid AND d.refclassid='pg_extension'::regclass AND d.deptype='e'),
++    'extension_version',(SELECT e.extversion FROM pg_extension e JOIN pg_depend d ON d.refobjid=e.oid
++      WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid AND d.refclassid='pg_extension'::regclass AND d.deptype='e'),
++    'schema',n.nspname,'definition',pg_get_functiondef(p.oid),
++    'raw_acl_state',CASE WHEN p.proacl IS NULL THEN 'NULL' ELSE 'EXPLICIT' END,
++    'dependencies',coalesce((SELECT jsonb_agg(jsonb_build_array(d.refclassid::regclass::text,d.refobjsubid,d.deptype,
++      pg_describe_object(d.refclassid,d.refobjid,d.refobjsubid)) ORDER BY d.refclassid::regclass::text,d.refobjsubid,d.deptype,
++      pg_describe_object(d.refclassid,d.refobjid,d.refobjsubid)) FROM pg_depend d WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid),'[]'::jsonb)))
++   WHEN n.nspname='public' THEN
+     menuto_identity_source._canonical_hash_v1('identity.source.v1',jsonb_build_object(
+      'schema',n.nspname,'signature',p.proname||'('||coalesce((SELECT string_agg(format_type(t,NULL),',' ORDER BY ord) FROM unnest(p.proargtypes::oid[]) WITH ORDINALITY args(t,ord)),'')||')',
+      'arguments',pg_get_function_identity_arguments(p.oid),'result',pg_get_function_result(p.oid),
+      'language',(SELECT lanname FROM pg_language WHERE oid=p.prolang),'kind',p.prokind,
+@@ -757,13 +805,34 @@
+    ORDER BY kind,o.oid,sub_id),'[]'::jsonb) INTO object_rows FROM (SELECT * FROM objects LIMIT 4097) o;
+  object_rows:=object_rows||menuto_identity_source._parameter_acl_facts_v1(actor_oid);
+  IF jsonb_array_length(object_rows)>4096 THEN
+   RAISE EXCEPTION 'Identity catalog limit' USING ERRCODE='54000'; END IF;
++ -- Exact native extension member class, independent of the 68 historical pins.
++ SELECT jsonb_agg(to_jsonb(n)) INTO native_rows FROM (__NATIVE_CATALOG_SQL__) n;
++ IF jsonb_array_length(native_rows) IS DISTINCT FROM 10 THEN
++  RAISE EXCEPTION 'Identity native extension member set' USING ERRCODE='42501'; END IF;
++ FOR native_row IN SELECT * FROM jsonb_array_elements(native_rows) LOOP
++  IF NOT coalesce((native_row->>'valid')::boolean,false)
++    OR native_row->>'namespace'<>'__TLS_NAMESPACE__'
++    OR (native_row->>'extension_oid')::bigint<>__TLS_EXTENSION_OID__
++    OR NOT native_oids ? (native_row->>'name')
++    OR native_row->'function_oid' IS DISTINCT FROM native_oids->(native_row->>'name')
++    OR native_row->'raw_acl' IS DISTINCT FROM native_acls->(native_row->>'name')
++    OR NOT EXISTS(SELECT FROM jsonb_array_elements(object_rows) o WHERE o->>'kind'='FUNCTION'
++      AND o->'object_oid'=native_row->'function_oid' AND o->>'schema_name'='__TLS_NAMESPACE__'
++      AND o->>'definition_fingerprint'=native_pins->>(native_row->>'name')) THEN
++   RAISE EXCEPTION 'Identity native extension catalog mismatch' USING ERRCODE='42501'; END IF;
++ END LOOP;
++ -- Target schema cannot acquire an unapproved CREATE route, even when ordinary reads are pinned.
++ IF EXISTS(SELECT FROM pg_namespace n,LATERAL aclexplode(coalesce(n.nspacl,acldefault('n',n.nspowner))) a
++   WHERE n.oid=__TLS_NAMESPACE_OID__ AND a.privilege_type='CREATE'
++    AND a.grantee NOT IN (n.nspowner,__TLS_OWNER_OID__)) THEN
++  RAISE EXCEPTION 'Identity native schema CREATE' USING ERRCODE='42501'; END IF;
+  -- Every historical public routine and installed OID must be present, exact and safe.
+  IF (SELECT count(*) FROM jsonb_array_elements(object_rows) o WHERE
+-       o->>'kind'='FUNCTION' AND o->>'schema_name'='public')<>(SELECT count(*) FROM jsonb_object_keys(legacy_pins))
++       o->>'kind'='FUNCTION' AND o->>'schema_name'='public' AND NOT native_pins ? (o->>'object_name'))<>(SELECT count(*) FROM jsonb_object_keys(legacy_pins))
+   OR EXISTS(SELECT FROM jsonb_array_elements(object_rows) o WHERE
+-      o->>'kind'='FUNCTION' AND o->>'schema_name'='public' AND (
++      o->>'kind'='FUNCTION' AND o->>'schema_name'='public' AND NOT native_pins ? (o->>'object_name') AND (
+        NOT legacy_pins ? (o->>'object_name') OR
+        o->>'definition_fingerprint' IS DISTINCT FROM legacy_pins->(o->>'object_name')->>'fingerprint' OR
+        (o->>'object_oid')::bigint IS DISTINCT FROM (legacy_oids->>(o->>'object_name'))::bigint OR
+        (o->>'owner_oid')::oid IS DISTINCT FROM (SELECT datdba FROM pg_database WHERE datname=current_database())
+@@ -804,8 +873,9 @@
+        OR o->>'kind' IN ('TABLE','COLUMN','SEQUENCE')
+        OR (o->>'kind'='FUNCTION' AND (
+         (a->>0)::oid<>0 OR has_schema_privilege(actor_oid,o->>'schema_name','USAGE'))
+          AND NOT (o->>'schema_name'='public' AND legacy_pins ? (o->>'object_name'))
++         AND NOT (o->>'schema_name'='__TLS_NAMESPACE__' AND native_pins ? (o->>'object_name'))
+          AND NOT (o->>'schema_name'='menuto_identity_source' AND
+           CASE WHEN mode IN ('ISSUER','TARGET_ISSUER')
+              THEN o->>'object_name' IN ('change_binding','change_operation_grant')
+              ELSE o->>'object_name'='capture_request_source' END))
+@@ -1648,27 +1718,67 @@
+ 
+ 
+ def upgrade():
+     db = op.get_bind()
+-    if db.execute(text("SHOW server_version_num")).scalar_one() < "180000":
+-        raise RuntimeError("Identity requires PostgreSQL 18")
+-    native = (
++    if db.execute(text("SHOW server_version_num")).scalar_one() != "180004":
++        raise RuntimeError("Identity native manifest requires PostgreSQL 18.4")
++    native = db.execute(text(NATIVE_CATALOG_SQL)).mappings().all()
++    if (
++        len(native) != 10
++        or {row["name"] for row in native} != set(NATIVE_SSLINFO_PINS["public"])
++        or any(not row["valid"] for row in native)
++    ):
++        raise RuntimeError("Identity sslinfo catalog trust root mismatch")
++    namespace = native[0]["namespace"]
++    if any(row["namespace"] != namespace for row in native):
++        raise RuntimeError("Identity sslinfo namespace mismatch")
++    tls_native = next(row for row in native if row["name"] == "ssl_is_used")
++    # Explicit raw/direct ACL ledger: PUBLIC effective entitlement is not an Identity grant.
++    tls_before = {}
++    for kind, statement in (
++        (
++            "usage",
++            "SELECT EXISTS(SELECT FROM pg_namespace n, LATERAL aclexplode(n.nspacl) a WHERE n.nspname=:ns AND a.grantee=(SELECT oid FROM pg_roles WHERE rolname='menuto_identity_source_owner') AND a.privilege_type='USAGE')",
++        ),
++        (
++            "execute",
++            "SELECT EXISTS(SELECT FROM pg_proc p, LATERAL aclexplode(p.proacl) a WHERE p.oid=:oid AND a.grantee=(SELECT oid FROM pg_roles WHERE rolname='menuto_identity_source_owner') AND a.privilege_type='EXECUTE')",
++        ),
++    ):
++        tls_before[kind] = db.execute(
++            text(statement), {"ns": namespace, "oid": tls_native["function_oid"]}
++        ).scalar_one()
++    if db.execute(
++        text("""SELECT EXISTS(SELECT FROM pg_namespace n,LATERAL aclexplode(coalesce(n.nspacl,acldefault('n',n.nspowner))) a
++       WHERE n.oid=:ns AND a.privilege_type='CREATE' AND a.grantee NOT IN(n.nspowner,:owner))"""),
++        {"ns": tls_native["namespace_oid"], "owner": tls_native["owner_oid"]},
++    ).scalar_one():
++        raise RuntimeError("Identity native schema CREATE privilege")
++    historical_native_readers = (
+         db.execute(
+-            text("""SELECT e.oid extension_oid,p.oid function_oid,n.oid namespace_oid,p.proowner owner_oid
+-      FROM pg_extension e JOIN pg_namespace n ON n.oid=e.extnamespace
+-      JOIN pg_proc p ON p.pronamespace=n.oid AND p.proname='ssl_is_used' AND p.pronargs=0
+-      JOIN pg_language l ON l.oid=p.prolang JOIN pg_roles r ON r.oid=p.proowner
+-      WHERE e.extname='sslinfo' AND n.nspname='menuto_prior' AND l.lanname='c'
+-       AND p.prosrc='ssl_is_used' AND p.probin='$libdir/sslinfo' AND p.proowner=e.extowner
+-       AND r.rolsuper AND p.prorettype='bool'::regtype AND p.prokind='f'
+-       AND EXISTS(SELECT FROM pg_depend d WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid
+-        AND d.refclassid='pg_extension'::regclass AND d.refobjid=e.oid AND d.deptype='e')""")
++            text(
++                "SELECT oid::bigint FROM pg_roles WHERE rolname IN ('menuto_prior_owner','menuto_hierarchy_owner','menuto_nutrition_owner','menuto_nutrition_synthesis_owner')"
++            )
+         )
+-        .mappings()
++        .scalars()
+         .all()
+     )
+-    if len(native) != 1:
+-        raise RuntimeError("Identity sslinfo catalog trust root mismatch")
++    if len(historical_native_readers) != 4:
++        raise RuntimeError("Identity native reader role inventory")
++    existing_identity_owner = db.execute(
++        text("SELECT oid::bigint FROM pg_roles WHERE rolname='menuto_identity_source_owner'")
++    ).scalar_one_or_none()
++    for row in native:
++        owner = row["owner_oid"]
++        expected = [[owner, owner, "EXECUTE", False]]
++        if namespace == "public":
++            expected.append([0, owner, "EXECUTE", False])
++        if row["name"] == "ssl_is_used":
++            expected += [[oid, owner, "EXECUTE", False] for oid in historical_native_readers]
++            if tls_before["execute"]:
++                expected.append([existing_identity_owner, owner, "EXECUTE", False])
++        if row["acl"] != sorted(expected):
++            raise RuntimeError("Identity native ACL not reviewed baseline")
+     created = []
+     for role in ROLES:
+         row = (
+             db.execute(
+@@ -1710,9 +1820,17 @@
+     op.execute("CREATE SCHEMA menuto_identity_source AUTHORIZATION menuto_identity_source_owner")
+     op.execute("REVOKE ALL ON SCHEMA menuto_identity_source FROM PUBLIC")
+     op.execute(
+         "COMMENT ON SCHEMA menuto_identity_source IS '"
+-        + json.dumps({"migration": "0018", "created_roles": created}, sort_keys=True)
++        + json.dumps(
++            {
++                "migration": "0018",
++                "created_roles": created,
++                "tls_namespace": namespace,
++                "tls_before": tls_before,
++            },
++            sort_keys=True,
++        )
+         + "'"
+     )
+     op.execute(TABLE_SQL)
+     for table in TABLES:
+@@ -1730,23 +1848,64 @@
+     )
+     op.execute(
+         "GRANT SELECT ON public.users,public.households,public.household_members,public.memberships TO menuto_identity_source_owner"
+     )
+-    # Owner-authorized native sslinfo exception: EXACTLY these two grants.
+-    op.execute("GRANT USAGE ON SCHEMA menuto_prior TO menuto_identity_source_owner")
++    # Exactly one catalog-proved namespace, two previously authorized TLS grants.
++    op.execute(f"GRANT USAGE ON SCHEMA {namespace} TO menuto_identity_source_owner")
+     op.execute(
+-        "GRANT EXECUTE ON FUNCTION menuto_prior.ssl_is_used() TO menuto_identity_source_owner"
+-    )
+-    body = FUNCTION_SQL
+-    for key, value in native[0].items():
+-        body = body.replace("__TLS_" + key.upper() + "__", str(value))
++        f"GRANT EXECUTE ON FUNCTION {namespace}.ssl_is_used() TO menuto_identity_source_owner"
++    )
++    native_after = db.execute(text(NATIVE_CATALOG_SQL)).mappings().all()
++    if [
++        (
++            x["name"],
++            x["function_oid"],
++            x["namespace_oid"],
++            x["extension_oid"],
++            x["owner_oid"],
++            x["definition"],
++            x["valid"],
++        )
++        for x in native_after
++    ] != [
++        (
++            x["name"],
++            x["function_oid"],
++            x["namespace_oid"],
++            x["extension_oid"],
++            x["owner_oid"],
++            x["definition"],
++            x["valid"],
++        )
++        for x in native
++    ]:
++        raise RuntimeError("Identity sslinfo installation catalog drift")
++    body = FUNCTION_SQL.replace("__NATIVE_CATALOG_SQL__", NATIVE_CATALOG_SQL)
++    body = body.replace("__TLS_NAMESPACE__", namespace)
++    for key in ("extension_oid", "function_oid", "namespace_oid", "owner_oid"):
++        body = body.replace("__TLS_" + key.upper() + "__", str(tls_native[key]))
++    body = body.replace(
++        "__NATIVE_PINS__", json.dumps(NATIVE_SSLINFO_PINS[namespace], sort_keys=True)
++    )
++    body = body.replace(
++        "__NATIVE_OIDS__",
++        json.dumps({x["name"]: x["function_oid"] for x in native_after}, sort_keys=True),
++    )
++    body = body.replace(
++        "__NATIVE_RAW_ACLS__",
++        json.dumps({x["name"]: x["raw_acl"] for x in native_after}, sort_keys=True),
++    )
+     installed = (
+         db.execute(
+-            text("""SELECT p.proname,p.oid::bigint AS oid,
++            text(
++                """SELECT p.proname,p.oid::bigint AS oid,
+         p.proname||'('||coalesce((SELECT string_agg(format_type(t,NULL),',' ORDER BY ord)
+           FROM unnest(p.proargtypes::oid[]) WITH ORDINALITY args(t,ord)),'')||')' AS signature,
+         p.proowner=(SELECT datdba FROM pg_database WHERE datname=current_database()) AS owned
+-        FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public'""")
++        FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND NOT EXISTS(SELECT FROM pg_depend d WHERE d.classid='pg_proc'::regclass AND d.objid=p.oid AND d.refclassid='pg_extension'::regclass AND d.refobjid=__INSTALL_EXTENSION__ AND d.deptype='e')""".replace(
++                    "__INSTALL_EXTENSION__", str(tls_native["extension_oid"])
++                )
++            )
+         )
+         .mappings()
+         .all()
+     )
+@@ -1768,8 +1927,24 @@
+             {r["proname"]: r["oid"] for r in installed}, sort_keys=True, separators=(",", ": ")
+         ),
+     )
+     op.execute(body.replace(":null", ": null"))
++    measured = (
++        db.execute(
++            text(
++                "SELECT p.proname name,"
++                + NATIVE_DEFINITION_SQL
++                + " fingerprint FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE p.oid=ANY(CAST(:oids AS oid[]))"
++            ),
++            {"oids": [row["function_oid"] for row in native_after]},
++        )
++        .mappings()
++        .all()
++    )
++    if len(measured) != 10 or any(
++        row["fingerprint"] != NATIVE_SSLINFO_PINS[namespace].get(row["name"]) for row in measured
++    ):
++        raise RuntimeError("Identity native semantic fingerprint mismatch")
+     signatures = (
+         db.execute(
+             text("""SELECT p.oid::regprocedure::text FROM pg_proc p
+       JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='menuto_identity_source' ORDER BY p.oid""")
+@@ -1791,8 +1966,15 @@
+     )
+     op.execute(
+         "ALTER DEFAULT PRIVILEGES FOR ROLE menuto_identity_source_owner IN SCHEMA menuto_identity_source REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC"
+     )
++    if not db.execute(
++        text("""SELECT EXISTS(SELECT FROM pg_depend d JOIN pg_proc p ON p.oid=d.objid JOIN pg_namespace n ON n.oid=p.pronamespace
++       WHERE n.nspname='menuto_identity_source' AND p.proname='_tls_fact_v1' AND p.prosqlbody IS NOT NULL
++        AND d.classid='pg_proc'::regclass AND d.refclassid='pg_proc'::regclass AND d.refobjid=:oid AND d.deptype='n')"""),
++        {"oid": tls_native["function_oid"]},
++    ).scalar_one():
++        raise RuntimeError("Identity native TLS parsed dependency mismatch")
+     for table in TABLES:
+         op.execute(
+             f"CREATE TRIGGER identity_write_guard BEFORE INSERT OR UPDATE OR DELETE ON menuto_identity_source.{table} FOR EACH ROW EXECUTE FUNCTION menuto_identity_source._reject_history_mutation_v1()"
+         )
+@@ -1847,12 +2029,17 @@
+         "roots",
+     ):
+         op.execute(f"DROP TABLE menuto_identity_source.{table}")
+     op.execute("DROP SEQUENCE menuto_identity_source.recorded_order")
+-    op.execute(
+-        "REVOKE EXECUTE ON FUNCTION menuto_prior.ssl_is_used() FROM menuto_identity_source_owner"
+-    )
+-    op.execute("REVOKE USAGE ON SCHEMA menuto_prior FROM menuto_identity_source_owner")
++    namespace = metadata["tls_namespace"]
++    if namespace not in {"public", "menuto_prior"}:
++        raise RuntimeError("Identity downgrade TLS namespace ledger mismatch")
++    if not metadata["tls_before"]["execute"]:
++        op.execute(
++            f"REVOKE EXECUTE ON FUNCTION {namespace}.ssl_is_used() FROM menuto_identity_source_owner"
++        )
++    if not metadata["tls_before"]["usage"]:
++        op.execute(f"REVOKE USAGE ON SCHEMA {namespace} FROM menuto_identity_source_owner")
+     op.execute(
+         "REVOKE SELECT ON public.users,public.households,public.household_members,public.memberships FROM menuto_identity_source_owner"
+     )
+     op.execute(
+--- uncommitted-pre-correction/apps/backend/app/modules/identity/source_replay.py
++++ current-draft/apps/backend/app/modules/identity/source_replay.py
+@@ -3,8 +3,9 @@
+ from collections import defaultdict
+ 
+ from app.modules.identity import source_contracts as c
+ from app.modules.identity import source_limits as caps
++from app.modules.identity.source_native_manifest import NATIVE_SSLINFO_PINS
+ from app.modules.identity.source_primitives import (
+     IdentityResourceError,
+     canonical,
+     fingerprint,
+@@ -35,8 +36,66 @@
+ 
+ def _require(condition, reason):
+     if not condition:
+         raise IdentityReplayError(reason)
++
++
++def _native_members(session):
++    names = set(NATIVE_SSLINFO_PINS["public"])
++    known_digests = {d for values in NATIVE_SSLINFO_PINS.values() for d in values.values()}
++    _require(
++        all(
++            o.definition_fingerprint not in known_digests
++            or o.kind == "FUNCTION"
++            and o.schema_name in NATIVE_SSLINFO_PINS
++            and NATIVE_SSLINFO_PINS[o.schema_name].get(o.object_name) == o.definition_fingerprint
++            for o in session.objects
++        ),
++        "Substituted native descriptor",
++    )
++    members = [o for o in session.objects if o.kind == "FUNCTION" and o.object_name in names]
++    _require(
++        len(members) == 10 and {o.object_name for o in members} == names,
++        "Incomplete native catalog",
++    )
++    namespaces = {o.schema_name for o in members}
++    _require(
++        len(namespaces) == 1 and next(iter(namespaces)) in NATIVE_SSLINFO_PINS, "Native namespace"
++    )
++    namespace = next(iter(namespaces))
++    schemas = {o.object_name: o.owner_oid for o in session.objects if o.kind == "SCHEMA"}
++    expected_readers = {
++        "menuto_prior",
++        "menuto_hierarchy",
++        "menuto_nutrition",
++        "menuto_nutrition_synthesis",
++    }
++    _require(expected_readers <= set(schemas), "Missing native ACL source owners")
++    schema_rows = [o for o in session.objects if o.kind == "SCHEMA"]
++    _require(len(schema_rows) == len(schemas), "Duplicate schema identity")
++    native_schema = next(o for o in schema_rows if o.object_name == namespace)
++    _require(
++        all(
++            a[2] != "CREATE" or a[0] in {native_schema.owner_oid, session.database_owner_oid}
++            for a in native_schema.acl or ()
++        ),
++        "Unreviewed native schema CREATE",
++    )
++    owner = session.database_owner_oid
++    for obj in members:
++        acl = [(owner, owner, "EXECUTE", False)]
++        if namespace == "public":
++            acl.append((0, owner, "EXECUTE", False))
++        if obj.object_name == "ssl_is_used":
++            acl.extend((schemas[n], owner, "EXECUTE", False) for n in expected_readers)
++            acl.append((session.execution_owner_oid, owner, "EXECUTE", False))
++        _require(
++            obj.owner_oid == owner
++            and obj.definition_fingerprint == NATIVE_SSLINFO_PINS[namespace][obj.object_name]
++            and obj.acl == tuple(sorted(acl)),
++            "UNDETERMINED native semantics/ACL",
++        )
++    return {o.object_oid for o in members}
+ 
+ 
+ def _session(session, mode, *, budget):
+     """Reconstruct actual-login safety from retained catalog primitives."""
+@@ -121,9 +180,14 @@
+         )
+         and s.execution_owner_oid != s.database_owner_oid,
+         "Unsafe infrastructure",
+     )
+-    legacy = [o for o in s.objects if o.kind == "FUNCTION" and o.schema_name == "public"]
++    native_ids = _native_members(s)
++    legacy = [
++        o
++        for o in s.objects
++        if o.kind == "FUNCTION" and o.schema_name == "public" and o.object_oid not in native_ids
++    ]
+     expected_routines = {name: digest for name, _, digest in LEGACY_ROUTINE_PINS}
+     _require(
+         len(legacy) == len(expected_routines)
+         and {o.object_name for o in legacy} == set(expected_routines),
+@@ -221,8 +285,9 @@
+                 obj.schema_name == "menuto_identity_source"
+                 and obj.object_name in allowed
+                 or obj.schema_name == "public"
+                 and obj.object_name in expected_routines
++                or obj.object_oid in native_ids
+             )
+             _require(valid or not usable and not private_grant, "Unrelated function privilege")
+ 
+ 
+@@ -633,9 +698,13 @@
+     def protected(session):
+         return sorted(
+             (o.object_oid, o.object_name, o.definition_fingerprint)
+             for o in session.objects
+-            if o.kind == "FUNCTION" and o.schema_name in {"menuto_identity_source", "public"}
++            if o.kind == "FUNCTION"
++            and (
++                o.schema_name in {"menuto_identity_source", "public"}
++                or o.object_name in NATIVE_SSLINFO_PINS["public"]
++            )
+         )
+ 
+     baseline_functions = protected(root_session)
+     _require(
+--- uncommitted-pre-correction/apps/backend/app/modules/validation/identity_source.py
++++ current-draft/apps/backend/app/modules/validation/identity_source.py
+@@ -394,8 +394,40 @@
+         "menuto_retail_reject_mutation()",
+         "b40db147f5568f72bf25e6c3850d87e4095afcaeb56bb83b9c221faeca0ccb64",
+     ),
+ )
++
++
++NATIVE_SSLINFO_PINS = {
++    "menuto_prior": {
++        "ssl_is_used": "a4b1867a7b3f38f2ebb5cc6d0d0a47b26956171c2b1496d82adbc4ca272fd472",
++        "ssl_version": "2365cc58f0a9c4818905b3fb1fa3ab824512ab42f9e6b6768202d344068c4602",
++        "ssl_cipher": "3f1b37250401d42100544750ecc2bf4de2920514ccb89876e73657cbd31b05d3",
++        ("ssl_client_cert_present"): (
++            "453648844d7cb028767b08e15fbc34fe729e088fb3973baba879c4da19d1bd69"
++        ),
++        "ssl_client_serial": "b24dbd3d1b6cacefcd7b8eaa10417de162847da435a1c18d9f339aab765dcabc",
++        "ssl_client_dn": "07a832c055b1b13d996ecd8dc9aac8edbe8530e827c2eb2cb9d41545b15e510c",
++        "ssl_issuer_dn": "933c3bc61d6d91e14dd71b9830151701a456fefd68f10e4cacb93cdd050cdde8",
++        "ssl_client_dn_field": "08a818a754d9f559ed9985ac8bebf23abf59db4b0f75815435f14eed9c80f9fb",
++        "ssl_issuer_field": "5e58c0630b470f50e897be40d090310cf7b7beb4397ab95c9f2e3f62d2ff5f11",
++        "ssl_extension_info": "8cad35d0ed1b3ff25b8c12f8127f7a7ad79a03f06143da94a665d5e03ca113b2",
++    },
++    "public": {
++        "ssl_is_used": "8c7763a975055b471d4d74f2fbe7e62fd0ca17e9232b4867e842482413241e8e",
++        "ssl_version": "32551d67326da6db5d0e02dc8c9d0781c147de9f9ac428277f333dd45e2f20fe",
++        "ssl_cipher": "7c9682b427b75a9191d90ad46a82bde72c75344ad6a263f86a3318ee296816ab",
++        ("ssl_client_cert_present"): (
++            "8b2e38efc3604fe6bd53341600b6f5ceb6c71b9242be673d94902e76b6e85f35"
++        ),
++        "ssl_client_serial": "2df2133592e5a46f7a45b4709a4526d4de34af0497be3c827f00392494e895c0",
++        "ssl_client_dn": "00143dd70742f20eaf8adcb911d3a6c6aa1a4f8e70d3de5dc7c2bb36cfe7a002",
++        "ssl_issuer_dn": "e1b6d8c69120388b0e99a66729dea7110203de08c0ac130ca548a5d040ea48f7",
++        "ssl_client_dn_field": "d89638c21de107ad256a57d68ed99bae3ee16f709841082ef005b7015c2bfab4",
++        "ssl_issuer_field": "d5ded701ca043d42068f52c1005592744fe3ce0ee10e35ec44d12b2c8f242d5f",
++        "ssl_extension_info": "a35809e18bdca93ddc19e751f7998fdf587da76023de889b2ef57436b82f29a3",
++    },
++}
+ 
+ 
+ class _Invalid(ValueError):
+     def __init__(self, reason):
+@@ -514,8 +546,65 @@
+     _need(len(raw) <= bound, "INVALID_CLAIM")
+     return model.model_validate_json(raw)
+ 
+ 
++def _native_catalog(session):
++    known = NATIVE_SSLINFO_PINS["public"]
++    digests = {d for group in NATIVE_SSLINFO_PINS.values() for d in group.values()}
++    _need(
++        all(
++            x["definition_fingerprint"] not in digests
++            or x["kind"] == "FUNCTION"
++            and x["schema_name"] in NATIVE_SSLINFO_PINS
++            and NATIVE_SSLINFO_PINS[x["schema_name"]].get(x["object_name"])
++            == x["definition_fingerprint"]
++            for x in session["objects"]
++        ),
++        "INVALID_AUTHENTICATION",
++    )
++    rows = [x for x in session["objects"] if x["kind"] == "FUNCTION" and x["object_name"] in known]
++    _need(len(rows) == 10 and {x["object_name"] for x in rows} == set(known), "INCOMPLETE_SOURCE")
++    namespace = rows[0]["schema_name"]
++    _need(
++        namespace in NATIVE_SSLINFO_PINS and all(x["schema_name"] == namespace for x in rows),
++        "INVALID_AUTHENTICATION",
++    )
++    owners = {x["object_name"]: x["owner_oid"] for x in session["objects"] if x["kind"] == "SCHEMA"}
++    required = (
++        "menuto_prior",
++        "menuto_hierarchy",
++        "menuto_nutrition",
++        "menuto_nutrition_synthesis",
++    )
++    _need(all(n in owners for n in required), "INCOMPLETE_SOURCE")
++    schema_rows = [x for x in session["objects"] if x["kind"] == "SCHEMA"]
++    _need(len(schema_rows) == len(owners), "INVALID_AUTHENTICATION")
++    chosen = next((x for x in schema_rows if x["object_name"] == namespace), None)
++    _need(chosen is not None, "INCOMPLETE_SOURCE")
++    _need(
++        all(
++            a[2] != "CREATE" or a[0] in {chosen["owner_oid"], session["database_owner_oid"]}
++            for a in chosen["acl"] or ()
++        ),
++        "INVALID_AUTHENTICATION",
++    )
++    grantor = session["database_owner_oid"]
++    for row in rows:
++        expected = [[grantor, grantor, "EXECUTE", False]]
++        if namespace == "public":
++            expected.insert(0, [0, grantor, "EXECUTE", False])
++        if row["object_name"] == "ssl_is_used":
++            expected += [[owners[n], grantor, "EXECUTE", False] for n in required]
++            expected.append([session["execution_owner_oid"], grantor, "EXECUTE", False])
++        _need(
++            row["owner_oid"] == grantor
++            and row["definition_fingerprint"] == NATIVE_SSLINFO_PINS[namespace][row["object_name"]]
++            and row["acl"] == sorted(expected),
++            "INVALID_AUTHENTICATION",
++        )
++    return {x["object_oid"] for x in rows}
++
++
+ def _catalog(session, mode, *, budget):
+     budget.take(
+         1
+         + len(session["roles"])
+@@ -609,12 +698,15 @@
+         )
+         and session["execution_owner_oid"] != session["database_owner_oid"],
+         "INVALID_AUTHENTICATION",
+     )
++    native_oids = _native_catalog(session)
+     public_routines = [
+         item
+         for item in session["objects"]
+-        if item["kind"] == "FUNCTION" and item["schema_name"] == "public"
++        if item["kind"] == "FUNCTION"
++        and item["schema_name"] == "public"
++        and item["object_oid"] not in native_oids
+     ]
+     pinned = {row[0]: row[2] for row in LEGACY_ROUTINE_PINS}
+     _need(
+         len(public_routines) == len(pinned)
+@@ -697,8 +789,9 @@
+                 item["schema_name"] == "menuto_identity_source"
+                 and item["object_name"] in entries
+                 or item["schema_name"] == "public"
+                 and item["object_name"] in pinned
++                or item["object_oid"] in native_oids
+             )
+             _need(
+                 legal
+                 or (
+@@ -1118,9 +1211,12 @@
+         return sorted(
+             (item["object_oid"], item["object_name"], item["definition_fingerprint"])
+             for item in session["objects"]
+             if item["kind"] == "FUNCTION"
+-            and item["schema_name"] in {"menuto_identity_source", "public"}
++            and (
++                item["schema_name"] in {"menuto_identity_source", "public"}
++                or item["object_name"] in NATIVE_SSLINFO_PINS["public"]
++            )
+         )
+ 
+     original_functions = functions(admin)
+     _need(

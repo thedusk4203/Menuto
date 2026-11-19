@@ -1,0 +1,1061 @@
+{
+  "baseline": "68fcb688231460f1973077eb20140b8c5db440a2",
+  "authorization": "https://github.com/thedusk4203/Menuto/pull/148#issuecomment-6969179602",
+  "old_migration_singleton_head": [
+    "0017"
+  ],
+  "authorized_additional_patch": {
+    "baseline": "68fcb688231460f1973077eb20140b8c5db440a2",
+    "authorization": "https://github.com/thedusk4203/Menuto/pull/148#issuecomment-6969179602",
+    "path": "apps/backend/tests/test_target_affinity.py",
+    "before": "        \"apps/backend/migrations/versions/0017_nutrition_synthesis_sources.py\",\n    }",
+    "after": "        \"apps/backend/migrations/versions/0017_nutrition_synthesis_sources.py\",\n        \"apps/backend/migrations/versions/0018_identity_principal_user_sources.py\",\n    }",
+    "before_sha256": "4196726aa225684fb294dbe4f7e1cd917f51180c44368c0f943a67be55e47f13",
+    "after_sha256": "13fb1dee71b83ff6f3789133fe8481e3738458e9a87a9f05a718b9041f65746f",
+    "receipt_path": "apps/backend/tests/target_affinity_compatibility.json",
+    "receipt_sha256": "61ccf6b0bb0c10bfc3979e062b7a3dc9563f6f694620bd8c706dab16ac9636b5",
+    "migration_path": "apps/backend/migrations/versions/0018_identity_principal_user_sources.py",
+    "migration_sha256": "27282e130042a202da2fee1c4e1d05dc97c2512c3dea9f380d4af8696659d7de"
+  },
+  "focused_executions": 48,
+  "focused_cases": [
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_exact_inverse_and_unchanged35_ledger",
+      "time": "0.024"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[baseline_not_postimage]",
+      "time": "0.006"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[extra_source]",
+      "time": "0.006"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[duplicate_insertion]",
+      "time": "0.006"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[altered_literal]",
+      "time": "0.006"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[altered_preimage]",
+      "time": "0.006"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[changed_surrounding]",
+      "time": "0.006"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[crlf_postimage]",
+      "time": "0.006"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_original040b_assertions_execute_unchanged",
+      "time": "0.362"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0001_household_member_safety_and_measured_.py]",
+      "time": "0.158"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0002_correct_foundation_boundaries.py]",
+      "time": "0.165"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0003_retail_procurement_foundation.py]",
+      "time": "0.176"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0004_correct_retail_semantics.py]",
+      "time": "0.195"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0005_recipe_preparation_foundation.py]",
+      "time": "0.191"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0006_culinary_binding_count_policy.py]",
+      "time": "0.197"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0007_inventory_physical_ledger.py]",
+      "time": "0.198"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0008_plan_revision_foundation.py]",
+      "time": "0.221"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0009_plan_revision_semantic_corrections.py]",
+      "time": "0.232"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0010_planned_culinary_bindings.py]",
+      "time": "0.253"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0011_explicit_member_preferences.py]",
+      "time": "0.247"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0012_preference_authorship_semantics.py]",
+      "time": "0.253"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0013_culinary_feature_assignments.py]",
+      "time": "0.311"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[delete_old]",
+      "time": "0.182"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[rename_old]",
+      "time": "0.173"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[extra0019]",
+      "time": "0.253"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[extra_unknown]",
+      "time": "0.270"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[name]",
+      "time": "0.051"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[revision]",
+      "time": "0.220"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[down_revision]",
+      "time": "0.212"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[body]",
+      "time": "0.220"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_original_receipt_mutation_rejected",
+      "time": "0.058"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr081_537_body_baseline",
+      "time": "0.024"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr082_exact19_name_manifest",
+      "time": "0.025"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr083_historical_pins",
+      "time": "0.056"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr084_baseline_test_identities",
+      "time": "3.549"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr085_identity_ownership",
+      "time": "0.272"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr086_validation_independence",
+      "time": "0.025"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr087_planning_integration",
+      "time": "0.124"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr088_sql_inventory",
+      "time": "0.085"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr089_migration_safety",
+      "time": "0.014"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr090_production_isolation",
+      "time": "0.007"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr091_no_source_secrets",
+      "time": "0.013"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr092_public_surface",
+      "time": "0.012"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr093_readiness_gates",
+      "time": "0.054"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr094_compatibility_approval",
+      "time": "0.470"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr095_original_worktree_preservation",
+      "time": "0.007"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_source_architecture",
+      "name": "test_itr096_full_execution_evidence",
+      "time": "0.027"
+    },
+    {
+      "classname": "apps.backend.tests.test_target_affinity",
+      "name": "test_all_frozen_040a_041abcde_046a_definitions_and_migrations_retained",
+      "time": "0.058"
+    }
+  ],
+  "full_regression": {
+    "owned_fixture_hba_portability_fix": {
+      "file": "apps/backend/tests/identity_postgres_fixtures.py",
+      "before_sha256": "958392436df828bbf50e84602a01dd48c185db0824ec6aa8a0609d898d81ba22",
+      "after_sha256": "b4cb95eaf67a6c3f3ced7b79ec5cd42076ba9c2c82ff3d2f4b55f21fd4badde4",
+      "scope": "NEW_IDENTITY_TEST_FIXTURE_ONLY",
+      "before": "        body = (\n            f\"host {scenario.name} {scenario.roles['requester']} 127.0.0.1/32 {method}\\n\" + original\n        )",
+      "after": "        actual_address = admin.execute(\"SELECT host(inet_client_addr())\").fetchone()[0]\n        assert actual_address is not None\n        address = ip_address(actual_address)\n        addresses = {\"127.0.0.1/32\", \"::1/128\", f\"{address}/{address.max_prefixlen}\"}\n        body = \"\".join(\n            f\"host {scenario.name} {scenario.roles['requester']} {cidr} {method}\\n\"\n            for cidr in sorted(addresses)\n        ) + original",
+      "old_historical_helper_unchanged": "apps/backend/tests/hierarchy_postgres_fixtures.py",
+      "runtime_migration_privileges_changed": false,
+      "partial_full4": "INTERRUPTED_NOT_PASS"
+    },
+    "owned_fixture_portability_fix": {
+      "status": "OWNED_TEST_PORTABILITY_FIX",
+      "proof": {
+        "apps/backend/tests/identity_postgres_fixtures.py": {
+          "before_sha256": "2c2f16d0f5cdf78538207d6e475576f7600fc2253cd23d57cf24617db8252996",
+          "after_sha256": "958392436df828bbf50e84602a01dd48c185db0824ec6aa8a0609d898d81ba22",
+          "semantic_change": "NEW TEST FIXTURE ONLY: exactPG18.4 numeric pin, no version range relaxation"
+        },
+        "apps/backend/tests/test_postgres_identity_native.py": {
+          "before_sha256": "0417e0a67309af6bfb024a4901955bba92669b3bdafa3f5b7e2bf34d005b5d0b",
+          "after_sha256": "839c6553e180eb7987b8de20d6520597fee6592853866c159393857e9fa67c94",
+          "semantic_change": "NEW TEST FIXTURE ONLY: exactPG18.4 numeric pin, no version range relaxation"
+        }
+      },
+      "source_runtime_changed": false,
+      "historical_files_changed": false,
+      "current_full3": "INTERRUPTED_NOT_A_FULL_PASS",
+      "documentation": "https://www.postgresql.org/docs/18/runtime-config-preset.html#GUC-SERVER-VERSION-NUM"
+    },
+    "historical_transport_diagnostic": {
+      "status": "NOT_PASS_SETUP_TRANSPORT_ERROR",
+      "executed": 2630,
+      "passed": 2629,
+      "failures": 0,
+      "errors": 1,
+      "skips": 0,
+      "unexecuted": 2235,
+      "case": "test_postgres_identity_native.py::test_itr055_native_offline_forgeries[menuto_prior-acl]",
+      "observed_error": "server closed the connection unexpectedly during bootstrap SQLAlchemy setup connection",
+      "SQLSTATE": null,
+      "postmaster_crash_evidence": false,
+      "connection_slot_exhaustion_evidence": false,
+      "root_cause": "UNPROVEN",
+      "fresh_adjacent_controls": {
+        "passed": 3,
+        "skips": 0,
+        "xml_sha256": "c9c1c837f225945eb46f5aaa2ddd2505b89ee4cb257698451e7caa8148cfc435"
+      },
+      "xml_sha256": "6982816f3fc03dc365e233661d70ea5693a80989e6cec8379978af33853a35d8",
+      "source_tests_privileges_changed": false
+    },
+    "historical_clock_diagnostic": {
+      "status": "NOT_PASS_CLOCK_DISCONTINUITY_DIAGNOSTIC",
+      "executed": 3063,
+      "passed": 3062,
+      "failures": 1,
+      "errors": 0,
+      "skips": 0,
+      "unexecuted": 1802,
+      "failing_case": "test_postgres_plans.py::test_authorization_context_and_frontiers_fail_closed[valid_until]",
+      "sqlstate": "23514",
+      "constraint": "ck_plan_validation_authorizations_deadline",
+      "actual_created_at_UTC": "2026-11-19T09:09:04.129956+00:00",
+      "actual_valid_until_UTC": "2026-11-18T03:44:15.083407+00:00",
+      "module_NOW_evidence": "valid_until equals imported NOW minus1hour; created_at uses live store.clock minus2hours",
+      "source_unchanged": true,
+      "historical_test_not_changed": true,
+      "next": "fresh targeted case then full restart frombeginning; no historical/runtime fix",
+      "xml_sha256": "361a6006ea4ba05cb27abc038776bc40dd334fc023b859fa5c7e1c2cc89449e5"
+    },
+    "fresh_clock_control_xml_sha256": "a665b7e9641c12838b1137dbea5acfc40ac316a40565fdbe9f526db91fb0221f",
+    "status": "COMPLETE_LOCAL_PASS_NOT_INDEPENDENT_APPROVAL",
+    "baseline": "68fcb688231460f1973077eb20140b8c5db440a2",
+    "junit_sha256": "3c5fb3df13996bcc042fccd7e59e183b5cdbbd97602b4254337da18c42034eb3",
+    "collected_and_executed": 4865,
+    "passed": 4865,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "retained_baseline": 4611,
+    "additive": 254,
+    "identity_executions": 254,
+    "identity_real_postgresql_executions": 150,
+    "ITR_ID_count": 96,
+    "mandatory_pg_groups": 48,
+    "P1_P7": true,
+    "supplemental_patch36_executions": 31,
+    "classes": {
+      "apps.backend.tests.test_architecture": 48,
+      "apps.backend.tests.test_baseline": 3,
+      "apps.backend.tests.test_basis_applicability": 110,
+      "apps.backend.tests.test_candidate_feature_projection": 95,
+      "apps.backend.tests.test_candidate_grounding": 57,
+      "apps.backend.tests.test_candidate_member_tastefit": 188,
+      "apps.backend.tests.test_culinary_binding_corrections": 13,
+      "apps.backend.tests.test_culinary_features": 49,
+      "apps.backend.tests.test_culinary_grounding": 42,
+      "apps.backend.tests.test_culinary_legacy_compatibility": 5,
+      "apps.backend.tests.test_domain_contracts": 42,
+      "apps.backend.tests.test_explicit_plan_intent": 208,
+      "apps.backend.tests.test_explicit_plan_intent_architecture": 23,
+      "apps.backend.tests.test_explicit_plan_intent_preflight": 11,
+      "apps.backend.tests.test_explicit_preferences": 43,
+      "apps.backend.tests.test_feature_exposure": 75,
+      "apps.backend.tests.test_feature_repeat": 209,
+      "apps.backend.tests.test_foundation_migration": 8,
+      "apps.backend.tests.test_health": 3,
+      "apps.backend.tests.test_hierarchical_affinity": 125,
+      "apps.backend.tests.test_hierarchical_affinity_compatibility": 3,
+      "apps.backend.tests.test_hierarchical_affinity_source_replay": 43,
+      "apps.backend.tests.test_hierarchy_compatibility": 2,
+      "apps.backend.tests.test_hierarchy_policy": 56,
+      "apps.backend.tests.test_identity_migration_compatibility": 31,
+      "apps.backend.tests.test_identity_source": 57,
+      "apps.backend.tests.test_identity_source_architecture": 16,
+      "apps.backend.tests.test_inventory_contracts": 49,
+      "apps.backend.tests.test_nutrition_policy_reference_boundary": 10,
+      "apps.backend.tests.test_nutrition_resolution": 99,
+      "apps.backend.tests.test_nutrition_root_architecture": 22,
+      "apps.backend.tests.test_nutrition_root_independent_validation": 25,
+      "apps.backend.tests.test_nutrition_root_replay": 31,
+      "apps.backend.tests.test_nutrition_synthesis_acceptance": 88,
+      "apps.backend.tests.test_pareto_shortlist": 48,
+      "apps.backend.tests.test_plan_contracts": 31,
+      "apps.backend.tests.test_plan_semantic_contracts": 18,
+      "apps.backend.tests.test_policy_v2": 86,
+      "apps.backend.tests.test_policy_v2_adversarial": 55,
+      "apps.backend.tests.test_postgres_basis_applicability": 26,
+      "apps.backend.tests.test_postgres_candidate_feature_projection": 31,
+      "apps.backend.tests.test_postgres_candidate_grounding": 12,
+      "apps.backend.tests.test_postgres_candidate_member_tastefit": 42,
+      "apps.backend.tests.test_postgres_culinary_bindings": 43,
+      "apps.backend.tests.test_postgres_culinary_corrections": 13,
+      "apps.backend.tests.test_postgres_culinary_features": 83,
+      "apps.backend.tests.test_postgres_exposure": 15,
+      "apps.backend.tests.test_postgres_feature_exposure": 27,
+      "apps.backend.tests.test_postgres_feature_repeat": 13,
+      "apps.backend.tests.test_postgres_foundation": 24,
+      "apps.backend.tests.test_postgres_hierarchy_authentication": 8,
+      "apps.backend.tests.test_postgres_hierarchy_authority": 64,
+      "apps.backend.tests.test_postgres_hierarchy_classification": 17,
+      "apps.backend.tests.test_postgres_hierarchy_lifecycle": 32,
+      "apps.backend.tests.test_postgres_hierarchy_policy_parity": 16,
+      "apps.backend.tests.test_postgres_hierarchy_replay_guards": 11,
+      "apps.backend.tests.test_postgres_hierarchy_source": 4,
+      "apps.backend.tests.test_postgres_identity_native": 62,
+      "apps.backend.tests.test_postgres_identity_source": 88,
+      "apps.backend.tests.test_postgres_inventory": 54,
+      "apps.backend.tests.test_postgres_nutrition_resolution": 36,
+      "apps.backend.tests.test_postgres_nutrition_root_source": 66,
+      "apps.backend.tests.test_postgres_nutrition_synthesis": 1,
+      "apps.backend.tests.test_postgres_nutrition_synthesis_authority": 31,
+      "apps.backend.tests.test_postgres_pareto_shortlist": 11,
+      "apps.backend.tests.test_postgres_plan_semantics": 51,
+      "apps.backend.tests.test_postgres_plans": 78,
+      "apps.backend.tests.test_postgres_policy_v2": 45,
+      "apps.backend.tests.test_postgres_preference_authorship": 26,
+      "apps.backend.tests.test_postgres_preference_integrity": 59,
+      "apps.backend.tests.test_postgres_preferences": 5,
+      "apps.backend.tests.test_postgres_recipe_cooldown": 5,
+      "apps.backend.tests.test_postgres_recipe_decay": 5,
+      "apps.backend.tests.test_postgres_recipe_repeat_penalty": 5,
+      "apps.backend.tests.test_postgres_recipes": 89,
+      "apps.backend.tests.test_postgres_reference_prior_authority_extra": 8,
+      "apps.backend.tests.test_postgres_reference_priors": 112,
+      "apps.backend.tests.test_postgres_retail": 109,
+      "apps.backend.tests.test_postgres_retail_corrections": 16,
+      "apps.backend.tests.test_postgres_shared_target_tastefit": 44,
+      "apps.backend.tests.test_postgres_target_affinity": 30,
+      "apps.backend.tests.test_postgres_validation": 9,
+      "apps.backend.tests.test_postgres_validation_dependency_review": 1,
+      "apps.backend.tests.test_postgres_variant_generation": 7,
+      "apps.backend.tests.test_precision_corrections": 8,
+      "apps.backend.tests.test_prior_shrinkage": 220,
+      "apps.backend.tests.test_recent_exposure": 38,
+      "apps.backend.tests.test_recipe_contracts": 62,
+      "apps.backend.tests.test_recipe_cooldown": 45,
+      "apps.backend.tests.test_recipe_decay": 82,
+      "apps.backend.tests.test_recipe_repeat_penalty": 81,
+      "apps.backend.tests.test_reference_priors": 20,
+      "apps.backend.tests.test_retail_contracts": 68,
+      "apps.backend.tests.test_retail_semantic_corrections": 11,
+      "apps.backend.tests.test_shared_target_tastefit": 160,
+      "apps.backend.tests.test_shared_target_tastefit_architecture": 38,
+      "apps.backend.tests.test_target_affinity": 125,
+      "apps.backend.tests.test_tastefit_architecture": 62,
+      "apps.backend.tests.test_validation_canonical_review": 9,
+      "apps.backend.tests.test_validation_foundation": 59,
+      "apps.backend.tests.test_variant_generation": 48,
+      "benchmark.tests.test_foundation_regressions": 38,
+      "benchmark.tests.test_harness": 30
+    },
+    "actual_executed_case_ids": [
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_exact_inverse_and_unchanged35_ledger",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_rejects_nonexact_source[baseline_not_postimage]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_rejects_nonexact_source[extra_source]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_rejects_nonexact_source[duplicate_insertion]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_rejects_nonexact_source[altered_literal]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_rejects_nonexact_source[altered_preimage]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_rejects_nonexact_source[changed_surrounding]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_patch36_rejects_nonexact_source[crlf_postimage]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_original040b_assertions_execute_unchanged",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0001_household_member_safety_and_measured_.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0002_correct_foundation_boundaries.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0003_retail_procurement_foundation.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0004_correct_retail_semantics.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0005_recipe_preparation_foundation.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0006_culinary_binding_count_policy.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0007_inventory_physical_ledger.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0008_plan_revision_foundation.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0009_plan_revision_semantic_corrections.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0010_planned_culinary_bindings.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0011_explicit_member_preferences.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0012_preference_authorship_semantics.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0013_culinary_feature_assignments.py]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_migration_filename_mutation_rejected_by_both_guards[delete_old]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_migration_filename_mutation_rejected_by_both_guards[rename_old]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_migration_filename_mutation_rejected_by_both_guards[extra0019]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_migration_filename_mutation_rejected_by_both_guards[extra_unknown]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity0018_exact_manifest_rejects_drift[name]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity0018_exact_manifest_rejects_drift[revision]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity0018_exact_manifest_rejects_drift[down_revision]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity0018_exact_manifest_rejects_drift[body]",
+      "apps.backend.tests.test_identity_migration_compatibility::test_identity_original_receipt_mutation_rejected",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[bool_int]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[float]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[extra_key]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[missing_key]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[invalid_uuid]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[invalid_oid]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[invalid_time]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[invalid_utf8]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[duplicate_key]",
+      "apps.backend.tests.test_identity_source::test_itr049_strict_parsing[unsupported_version]",
+      "apps.backend.tests.test_identity_source::test_itr050_raw_versus_semantic_identity",
+      "apps.backend.tests.test_identity_source::test_itr051_golden_vectors[absent_parameter]",
+      "apps.backend.tests.test_identity_source::test_itr051_golden_vectors[null_parameter]",
+      "apps.backend.tests.test_identity_source::test_itr051_golden_vectors[empty_parameter]",
+      "apps.backend.tests.test_identity_source::test_itr051_golden_vectors[explicit_parameter]",
+      "apps.backend.tests.test_identity_source::test_itr052_replay_determinism",
+      "apps.backend.tests.test_identity_source::test_itr053_historical_author_interval",
+      "apps.backend.tests.test_identity_source::test_itr054_terminal_lifecycle",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[fabricated_owner]",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[removed_grant]",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[omitted_inherited_edge]",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[public_grant_option]",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[alter_system_bit]",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[forged_absence]",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[unsupported_catalog]",
+      "apps.backend.tests.test_identity_source::test_itr055_role_graph_reconstruction[benign_default_control]",
+      "apps.backend.tests.test_identity_source::test_itr056_principal_substitution",
+      "apps.backend.tests.test_identity_source::test_itr057_complete_directory",
+      "apps.backend.tests.test_identity_source::test_itr058_absence_witness",
+      "apps.backend.tests.test_identity_source::test_itr059_faithful_negatives",
+      "apps.backend.tests.test_identity_source::test_itr060_forged_positives",
+      "apps.backend.tests.test_identity_source::test_itr061_coherent_total_forgery",
+      "apps.backend.tests.test_identity_source::test_itr062_bare_reports",
+      "apps.backend.tests.test_identity_source::test_itr063_request_subject",
+      "apps.backend.tests.test_identity_source::test_itr064_context_versus_axis_ownership",
+      "apps.backend.tests.test_identity_source::test_itr065_authority_time",
+      "apps.backend.tests.test_identity_source::test_itr066_catalog_changes",
+      "apps.backend.tests.test_identity_source::test_itr067_mutable_membership_limits",
+      "apps.backend.tests.test_identity_source::test_itr068_no_role_name_heuristic",
+      "apps.backend.tests.test_identity_source::test_itr069_operation_bounds",
+      "apps.backend.tests.test_identity_source::test_itr070_non_success_ordering",
+      "apps.backend.tests.test_identity_source::test_itr071_bounds_before_work",
+      "apps.backend.tests.test_identity_source::test_itr072_cancellation_replay_boundary",
+      "apps.backend.tests.test_identity_source::test_itr073_strict_test_only",
+      "apps.backend.tests.test_identity_source::test_itr074_no_epi_upgrade",
+      "apps.backend.tests.test_identity_source::test_itr075_money_independence",
+      "apps.backend.tests.test_identity_source::test_itr076_no_bearer_lifecycle",
+      "apps.backend.tests.test_identity_source::test_itr077_independent_checker",
+      "apps.backend.tests.test_identity_source::test_itr078_immutable_complete_contracts",
+      "apps.backend.tests.test_identity_source::test_itr079_source_privacy_shaping",
+      "apps.backend.tests.test_identity_source::test_itr080_historical_versus_current_claim",
+      "apps.backend.tests.test_identity_source::test_itr055_predefined_capability_is_denied_without_granting_it[pg_read_all_data]",
+      "apps.backend.tests.test_identity_source::test_itr055_predefined_capability_is_denied_without_granting_it[pg_write_all_data]",
+      "apps.backend.tests.test_identity_source::test_itr055_predefined_capability_is_denied_without_granting_it[pg_read_all_stats]",
+      "apps.backend.tests.test_identity_source::test_itr071_semantic_work_exhaustion_is_local_and_non_authorizing",
+      "apps.backend.tests.test_identity_source::test_itr055_duplicate_native_edge_is_not_a_catalog_fact",
+      "apps.backend.tests.test_identity_source::test_itr057_cross_kind_stream_collision_is_rejected",
+      "apps.backend.tests.test_identity_source_architecture::test_itr081_537_body_baseline",
+      "apps.backend.tests.test_identity_source_architecture::test_itr082_exact19_name_manifest",
+      "apps.backend.tests.test_identity_source_architecture::test_itr083_historical_pins",
+      "apps.backend.tests.test_identity_source_architecture::test_itr084_baseline_test_identities",
+      "apps.backend.tests.test_identity_source_architecture::test_itr085_identity_ownership",
+      "apps.backend.tests.test_identity_source_architecture::test_itr086_validation_independence",
+      "apps.backend.tests.test_identity_source_architecture::test_itr087_planning_integration",
+      "apps.backend.tests.test_identity_source_architecture::test_itr088_sql_inventory",
+      "apps.backend.tests.test_identity_source_architecture::test_itr089_migration_safety",
+      "apps.backend.tests.test_identity_source_architecture::test_itr090_production_isolation",
+      "apps.backend.tests.test_identity_source_architecture::test_itr091_no_source_secrets",
+      "apps.backend.tests.test_identity_source_architecture::test_itr092_public_surface",
+      "apps.backend.tests.test_identity_source_architecture::test_itr093_readiness_gates",
+      "apps.backend.tests.test_identity_source_architecture::test_itr094_compatibility_approval",
+      "apps.backend.tests.test_identity_source_architecture::test_itr095_original_worktree_preservation",
+      "apps.backend.tests.test_identity_source_architecture::test_itr096_full_execution_evidence",
+      "apps.backend.tests.test_postgres_identity_native::test_itr018_native_layout_catalog[menuto_prior]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr019_native_isolation[menuto_prior]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-extra_public]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-eleventh_member]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-overload]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-shadow]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-lost_member]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-binary]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-symbol]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-definer]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-owner]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-acl]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-schema_create]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-role_escalation]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-replacement]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-moved_function]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-tls_symbol]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[menuto_prior-tls_definer]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[menuto_prior-omission]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[menuto_prior-fingerprint]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[menuto_prior-owner]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[menuto_prior-acl]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[menuto_prior-new_function]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[menuto_prior-oid_contradiction]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[menuto_prior-unrelated_schema_create]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr066_native_coherent_transport_limit[menuto_prior]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr001_native_downgrade_ledger[menuto_prior]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[menuto_prior-namespace]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[menuto_prior-fake_member]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[menuto_prior-unsafe_create]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[menuto_prior-extra_member]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr018_native_layout_catalog[public]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr019_native_isolation[public]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-extra_public]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-eleventh_member]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-overload]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-shadow]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-lost_member]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-binary]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-symbol]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-definer]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-owner]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-acl]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-schema_create]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-role_escalation]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-replacement]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-moved_function]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-tls_symbol]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_mutations[public-tls_definer]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[public-omission]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[public-fingerprint]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[public-owner]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[public-acl]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[public-new_function]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[public-oid_contradiction]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr055_native_offline_forgeries[public-unrelated_schema_create]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr066_native_coherent_transport_limit[public]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr001_native_downgrade_ledger[public]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[public-namespace]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[public-fake_member]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[public-unsafe_create]",
+      "apps.backend.tests.test_postgres_identity_native::test_itr020_native_install_preconditions[public-extra_member]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr007_positive_scoped_capture",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_legacy_trigger_context",
+      "apps.backend.tests.test_postgres_identity_source::test_itr019_no_direct_source_access",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[public_definer]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[dynamic_sql]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[invoker_to_definer]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[body]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[owner]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[signature]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[search_path]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[acl]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[dependency]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[omission]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_shadowing_resistance[protected_public]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr040_coherent_cut[unchanged]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr040_coherent_cut[mutation_before_cut]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr040_coherent_cut[mutation_after_cut]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr020_attacker_temp_view_cannot_bridge_owner",
+      "apps.backend.tests.test_postgres_identity_source::test_itr001_fresh_install_and_downgrade",
+      "apps.backend.tests.test_postgres_identity_source::test_itr002_bootstrap_root",
+      "apps.backend.tests.test_postgres_identity_source::test_itr003_administrator_issuer_separation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr004_privileged_requester_rejection",
+      "apps.backend.tests.test_postgres_identity_source::test_itr005_issuer_enrollment_and_exact_user",
+      "apps.backend.tests.test_postgres_identity_source::test_itr006_alias_and_role_reservation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr008_actual_wrong_password",
+      "apps.backend.tests.test_postgres_identity_source::test_itr009_actual_trust_rejection",
+      "apps.backend.tests.test_postgres_identity_source::test_itr010_actual_non_scram_rejection",
+      "apps.backend.tests.test_postgres_identity_source::test_itr011_actual_tls_requirement",
+      "apps.backend.tests.test_postgres_identity_source::test_itr012_verified_endpoint",
+      "apps.backend.tests.test_postgres_identity_source::test_itr013_set_role_spoofing",
+      "apps.backend.tests.test_postgres_identity_source::test_itr014_set_session_authorization_spoofing",
+      "apps.backend.tests.test_postgres_identity_source::test_itr015_role_recreation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr016_role_rename",
+      "apps.backend.tests.test_postgres_identity_source::test_itr017_database_root_identity",
+      "apps.backend.tests.test_postgres_identity_source::test_itr021_scope_issuance_authority",
+      "apps.backend.tests.test_postgres_identity_source::test_itr022_foreign_scope",
+      "apps.backend.tests.test_postgres_identity_source::test_itr023_membership_eligibility",
+      "apps.backend.tests.test_postgres_identity_source::test_itr024_membership_pin_change",
+      "apps.backend.tests.test_postgres_identity_source::test_itr025_operation_isolation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr026_root_revocation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr027_issuer_revocation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr028_binding_revocation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr029_grant_revocation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr031_credential_expiry_and_reset",
+      "apps.backend.tests.test_postgres_identity_source::test_itr033_future_effective_renewal",
+      "apps.backend.tests.test_postgres_identity_source::test_itr034_concurrent_cas",
+      "apps.backend.tests.test_postgres_identity_source::test_itr035_idempotency",
+      "apps.backend.tests.test_postgres_identity_source::test_itr036_revoked_issuer_retry",
+      "apps.backend.tests.test_postgres_identity_source::test_itr037_atomic_failure",
+      "apps.backend.tests.test_postgres_identity_source::test_itr038_read_only_transaction_shape",
+      "apps.backend.tests.test_postgres_identity_source::test_itr039_no_cache_or_split_capture",
+      "apps.backend.tests.test_postgres_identity_source::test_itr041_fresh_versus_retained_revoke",
+      "apps.backend.tests.test_postgres_identity_source::test_itr042_complete_source_and_absences",
+      "apps.backend.tests.test_postgres_identity_source::test_itr043_privacy",
+      "apps.backend.tests.test_postgres_identity_source::test_itr045_timeout_and_cancellation",
+      "apps.backend.tests.test_postgres_identity_source::test_itr046_complete_request_preimage",
+      "apps.backend.tests.test_postgres_identity_source::test_itr047_authenticated_invalid_intent",
+      "apps.backend.tests.test_postgres_identity_source::test_itr048_unrelated_authority_rejected",
+      "apps.backend.tests.test_postgres_identity_source::test_itr030_expiry_without_revoke[root]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr030_expiry_without_revoke[issuer]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr030_expiry_without_revoke[binding]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr030_expiry_without_revoke[grant]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr032_renewal_cannot_repair_past",
+      "apps.backend.tests.test_postgres_identity_source::test_itr044_server_limits",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p1_default]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p2_real_row]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p3_set]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p3_set_grant_option]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p3_alter_system]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p3_alter_system_grant_option]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p4_public_set]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p4_public_alter_system]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p4_inherit_true_set]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p4_inherit_true_alter_system]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p4_inherit_false_set]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p4_inherit_false_alter_system]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p5_grant_set]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p5_grant_alter_system]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p5_revoke_set]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p5_revoke_alter_system]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p5_cross_database_set]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p5_cross_database_alter_system]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p6_absent]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p6_null]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p6_empty]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p7_custom]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p7_other_grantee]",
+      "apps.backend.tests.test_postgres_identity_source::test_itr018_privilege_graph_closure[p7_overflow]"
+    ],
+    "properties": [
+      {
+        "case": "apps.backend.tests.test_postgres_identity_native::test_itr018_native_layout_catalog[menuto_prior]",
+        "values": [
+          {
+            "name": "native_catalog",
+            "value": "{\"namespace\": \"menuto_prior\", \"rows\": [[232816, 232815, \"1.2\", \"menuto_prior\", \"ssl_client_serial\", \"\", \"numeric\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_serial\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232816, \"pg_extension\", 232815, \"e\"], [232817, 232815, \"1.2\", \"menuto_prior\", \"ssl_is_used\", \"\", \"boolean\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_is_used\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin,menuto_prior_owner=X/itr_test_admin,menuto_hierarchy_owner=X/itr_test_admin,menuto_nutrition_owner=X/itr_test_admin,menuto_nutrition_synthesis_owner=X/itr_test_admin,menuto_identity_source_owner=X/itr_test_admin}\", \"pg_proc\", 232817, \"pg_extension\", 232815, \"e\"], [232818, 232815, \"1.2\", \"menuto_prior\", \"ssl_version\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_version\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232818, \"pg_extension\", 232815, \"e\"], [232819, 232815, \"1.2\", \"menuto_prior\", \"ssl_cipher\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_cipher\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232819, \"pg_extension\", 232815, \"e\"], [232820, 232815, \"1.2\", \"menuto_prior\", \"ssl_client_cert_present\", \"\", \"boolean\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_cert_present\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232820, \"pg_extension\", 232815, \"e\"], [232821, 232815, \"1.2\", \"menuto_prior\", \"ssl_client_dn_field\", \"text\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_dn_field\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232821, \"pg_extension\", 232815, \"e\"], [232822, 232815, \"1.2\", \"menuto_prior\", \"ssl_issuer_field\", \"text\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_issuer_field\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232822, \"pg_extension\", 232815, \"e\"], [232823, 232815, \"1.2\", \"menuto_prior\", \"ssl_client_dn\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_dn\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232823, \"pg_extension\", 232815, \"e\"], [232824, 232815, \"1.2\", \"menuto_prior\", \"ssl_issuer_dn\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_issuer_dn\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232824, \"pg_extension\", 232815, \"e\"], [232825, 232815, \"1.2\", \"menuto_prior\", \"ssl_extension_info\", \"OUT name text, OUT value text, OUT critical boolean\", \"SETOF record\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_extension_info\", \"$libdir/sslinfo\", \"{itr_test_admin=X/itr_test_admin}\", \"pg_proc\", 232825, \"pg_extension\", 232815, \"e\"]], \"public_count\": 68, \"parsed_tls_dependency\": [[true, \"menuto_identity_source_owner\", true, [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], 232817]]}"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_native::test_itr019_native_isolation[menuto_prior]",
+        "values": [
+          {
+            "name": "native_negative_function_matrix",
+            "value": "[[\"menuto_nutrition\", \"source_key\", false], [\"menuto_prior\", \"hash\", false], [\"menuto_prior\", \"keys\", false], [\"menuto_prior\", \"integer\", false], [\"menuto_prior\", \"identifier\", false], [\"menuto_prior\", \"uuid\", false], [\"menuto_prior\", \"nonblank\", false], [\"menuto_prior\", \"coordinate\", false], [\"menuto_prior\", \"utc\", false], [\"menuto_prior\", \"canonical\", false], [\"menuto_prior\", \"immutable\", false], [\"menuto_prior\", \"backend_tls\", false], [\"menuto_prior\", \"reason\", false], [\"menuto_prior\", \"safe_role\", false], [\"menuto_prior\", \"session_fact\", false], [\"menuto_prior\", \"audit\", false], [\"menuto_prior\", \"actor\", false], [\"menuto_prior\", \"target\", false], [\"menuto_prior\", \"check_target\", false], [\"menuto_prior\", \"provider_fact\", false], [\"menuto_prior\", \"principal_fact\", false], [\"menuto_prior\", \"authority_fact\", false], [\"menuto_prior\", \"revision_fact\", false], [\"menuto_prior\", \"mutation_fact\", false], [\"menuto_prior\", \"append_mutation\", false], [\"menuto_prior\", \"principal\", false], [\"menuto_prior\", \"permission\", false], [\"menuto_prior\", \"check_uri\", false], [\"menuto_prior\", \"receipt\", false], [\"menuto_prior\", \"coherent\", false], [\"menuto_prior\", \"register_provider\", false], [\"menuto_prior\", \"enroll_principal\", false], [\"menuto_prior\", \"change_authority\", false], [\"menuto_prior\", \"publish\", false], [\"menuto_prior\", \"capture\", false], [\"menuto_prior\", \"capture_complete\", false], [\"menuto_hierarchy\", \"identifier\", false], [\"menuto_hierarchy\", \"uuid\", false], [\"menuto_hierarchy\", \"nonblank\", false], [\"menuto_hierarchy\", \"backend_tls\", false], [\"menuto_hierarchy\", \"utc\", false], [\"menuto_hierarchy\", \"canonical\", false], [\"menuto_hierarchy\", \"hash\", false], [\"menuto_hierarchy\", \"keys\", false], [\"menuto_hierarchy\", \"integer\", false], [\"menuto_hierarchy\", \"reason\", false], [\"menuto_hierarchy\", \"safe_role\", false], [\"menuto_hierarchy\", \"session_fact\", false], [\"menuto_hierarchy\", \"audit\", false], [\"menuto_hierarchy\", \"actor\", false], [\"menuto_hierarchy\", \"provider_fact\", false], [\"menuto_hierarchy\", \"principal_fact\", false], [\"menuto_hierarchy\", \"authority_fact\", false], [\"menuto_hierarchy\", \"mutation_fact\", false], [\"menuto_hierarchy\", \"immutable\", false], [\"menuto_hierarchy\", \"append_mutation\", false], [\"menuto_hierarchy\", \"principal\", false], [\"menuto_hierarchy\", \"permission\", false], [\"menuto_hierarchy\", \"revision_fact\", false], [\"menuto_hierarchy\", \"check_uri\", false], [\"menuto_hierarchy\", \"command_schema\", false], [\"menuto_hierarchy\", \"check_provider_binding\", false], [\"menuto_hierarchy\", \"validate_json\", false], [\"menuto_hierarchy\", \"receipt\", false], [\"menuto_hierarchy\", \"path_matches\", false], [\"menuto_hierarchy\", \"check_binding\", false], [\"menuto_hierarchy\", \"check_relation\", false], [\"menuto_hierarchy\", \"rational\", false], [\"menuto_hierarchy\", \"raw_hash\", false], [\"menuto_hierarchy\", \"less\", false], [\"menuto_hierarchy\", \"check_policy\", false], [\"menuto_hierarchy\", \"recipe_snapshot\", false], [\"menuto_hierarchy\", \"owner_source\", false], [\"menuto_hierarchy\", \"owner_pins\", false], [\"menuto_hierarchy\", \"owner_at\", false], [\"menuto_hierarchy\", \"publish\", false], [\"menuto_hierarchy\", \"coherent\", false], [\"menuto_hierarchy\", \"provenance\", false], [\"menuto_hierarchy\", \"recipe_leaf\", false], [\"menuto_hierarchy\", \"catalog_term\", false], [\"menuto_hierarchy\", \"decimal_text\", false], [\"menuto_hierarchy\", \"catalog_read\", false], [\"menuto_hierarchy\", \"recipes_read\", false], [\"menuto_hierarchy\", \"register_provider\", false], [\"menuto_hierarchy\", \"enroll_principal\", false], [\"menuto_hierarchy\", \"change_authority\", false], [\"menuto_hierarchy\", \"capture\", false], [\"menuto_nutrition\", \"evidence\", false], [\"menuto_nutrition\", \"strict_sets\", false], [\"menuto_nutrition\", \"authority_group\", false], [\"menuto_nutrition\", \"authority_key\", false], [\"menuto_nutrition\", \"interval_ok\", false], [\"menuto_nutrition\", \"covers\", false], [\"menuto_nutrition\", \"amount\", false], [\"menuto_nutrition\", \"backend_tls\", false], [\"menuto_nutrition\", \"utc\", false], [\"menuto_nutrition\", \"canonical\", false], [\"menuto_nutrition\", \"hash\", false], [\"menuto_nutrition\", \"uuid\", false], [\"menuto_nutrition\", \"bounds\", false], [\"menuto_nutrition\", \"deadline\", false], [\"menuto_nutrition\", \"safe_role\", false], [\"menuto_nutrition\", \"session_fact\", false], [\"menuto_nutrition\", \"subject\", false], [\"menuto_nutrition\", \"legacy_anchor\", false], [\"menuto_nutrition\", \"subject_witness\", false], [\"menuto_nutrition\", \"ensure_stream\", false], [\"menuto_nutrition\", \"lock_sources\", false], [\"menuto_nutrition\", \"principal\", false], [\"menuto_nutrition\", \"provider\", false], [\"menuto_nutrition\", \"permission\", false], [\"menuto_nutrition_synthesis\", \"hash\", false], [\"menuto_nutrition\", \"validate_json\", false], [\"menuto_nutrition\", \"command_schema\", false], [\"menuto_nutrition\", \"check_command\", false], [\"menuto_nutrition\", \"provider_fact\", false], [\"menuto_nutrition\", \"principal_fact\", false], [\"menuto_nutrition\", \"timeline\", false], [\"menuto_nutrition\", \"record_body\", false], [\"menuto_nutrition\", \"record_fact\", false], [\"menuto_nutrition\", \"receipt\", false], [\"menuto_nutrition\", \"check_evidence_tree\", false], [\"menuto_nutrition\", \"covering_revision\", false], [\"menuto_nutrition\", \"check_assessment\", false], [\"menuto_nutrition\", \"check_authority\", false], [\"menuto_nutrition\", \"retain_evidence\", false], [\"menuto_nutrition\", \"apply_timeline\", false], [\"menuto_nutrition\", \"check_bundle\", false], [\"menuto_nutrition\", \"check_source_command\", false], [\"menuto_nutrition\", \"apply_publication\", false], [\"menuto_nutrition\", \"publication_timeline\", false], [\"menuto_nutrition\", \"published_revision\", false], [\"menuto_nutrition\", \"check_review\", false], [\"menuto_nutrition\", \"write_guard\", false], [\"menuto_nutrition\", \"check_publication\", false], [\"menuto_nutrition\", \"touch_sources\", false], [\"menuto_nutrition\", \"check_assessor_qualification\", false], [\"menuto_nutrition\", \"member_auth\", false], [\"menuto_nutrition\", \"check_observation\", false], [\"menuto_nutrition\", \"source_in_request\", false], [\"menuto_nutrition\", \"immutable\", false], [\"menuto_nutrition\", \"coherent\", false], [\"menuto_nutrition\", \"register_provider\", false], [\"menuto_nutrition\", \"enroll_principal\", false], [\"menuto_nutrition\", \"change_authority\", false], [\"menuto_nutrition\", \"append\", false], [\"menuto_nutrition\", \"capture\", false], [\"menuto_nutrition_synthesis\", \"uuid\", false], [\"menuto_nutrition_synthesis\", \"interval_ok\", false], [\"menuto_nutrition_synthesis\", \"backend_tls\", false], [\"menuto_nutrition_synthesis\", \"utc\", false], [\"menuto_nutrition_synthesis\", \"canonical\", false], [\"menuto_nutrition_synthesis\", \"bounds\", false], [\"menuto_nutrition_synthesis\", \"deadline\", false], [\"menuto_nutrition_synthesis\", \"covers\", false], [\"menuto_nutrition_synthesis\", \"evidence\", false], [\"menuto_nutrition_synthesis\", \"principal\", false], [\"menuto_nutrition_synthesis\", \"validate_json\", false], [\"menuto_nutrition_synthesis\", \"safe_role\", false], [\"menuto_nutrition_synthesis\", \"session_fact\", false], [\"menuto_nutrition_synthesis\", \"check_command\", false], [\"menuto_nutrition_synthesis\", \"check_tree\", false], [\"menuto_nutrition_synthesis\", \"write_guard\", false], [\"menuto_nutrition_synthesis\", \"fact\", false], [\"menuto_nutrition_synthesis\", \"touch_principals\", false], [\"menuto_nutrition_synthesis\", \"lock_provider\", false], [\"menuto_nutrition_synthesis\", \"permission\", false], [\"menuto_nutrition_synthesis\", \"immutable\", false], [\"menuto_nutrition_synthesis\", \"check_rule\", false], [\"menuto_nutrition_synthesis\", \"retain_evidence\", false], [\"menuto_nutrition_synthesis\", \"record_fact\", false], [\"menuto_nutrition_synthesis\", \"apply_publication\", false], [\"menuto_nutrition_synthesis\", \"publication_timeline\", false], [\"menuto_nutrition_synthesis\", \"coherent\", false], [\"menuto_nutrition_synthesis\", \"register_provider\", false], [\"menuto_nutrition_synthesis\", \"append\", false], [\"menuto_nutrition_synthesis\", \"capture\", false], [\"menuto_nutrition_synthesis\", \"enroll_principal\", false], [\"menuto_nutrition_synthesis\", \"change_authority\", false]]"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_native::test_itr001_native_downgrade_ledger[menuto_prior]",
+        "values": [
+          {
+            "name": "shared_acl_downgrade",
+            "value": "{\"namespace\": \"menuto_prior\", \"before\": [\"{menuto_prior_owner=UC/menuto_prior_owner,menuto_prior_admin=U/menuto_prior_owner,menuto_prior_client=U/menuto_prior_owner,menuto_hierarchy_owner=U/menuto_prior_owner,menuto_nutrition_owner=U/menuto_prior_owner,menuto_nutrition_synthesis_owner=U/menuto_prior_owner,menuto_identity_source_owner=U/menuto_prior_owner}\", [[237920, \"{itr_test_admin=X/itr_test_admin}\"], [237921, \"{itr_test_admin=X/itr_test_admin,menuto_prior_owner=X/itr_test_admin,menuto_hierarchy_owner=X/itr_test_admin,menuto_nutrition_owner=X/itr_test_admin,menuto_nutrition_synthesis_owner=X/itr_test_admin,menuto_identity_source_owner=X/itr_test_admin}\"], [237922, \"{itr_test_admin=X/itr_test_admin}\"], [237923, \"{itr_test_admin=X/itr_test_admin}\"], [237924, \"{itr_test_admin=X/itr_test_admin}\"], [237925, \"{itr_test_admin=X/itr_test_admin}\"], [237926, \"{itr_test_admin=X/itr_test_admin}\"], [237927, \"{itr_test_admin=X/itr_test_admin}\"], [237928, \"{itr_test_admin=X/itr_test_admin}\"], [237929, \"{itr_test_admin=X/itr_test_admin}\"], [237930, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237931, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237932, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237933, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237934, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237935, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237936, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237937, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237938, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237939, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237940, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237941, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237942, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237943, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237944, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237945, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237946, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237947, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237948, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237949, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237950, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237951, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237952, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237953, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237954, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237955, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_admin=X/menuto_prior_owner}\"], [237956, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_admin=X/menuto_prior_owner}\"], [237957, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_admin=X/menuto_prior_owner}\"], [237958, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237959, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237960, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_client=X/menuto_prior_owner}\"], [237962, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_client=X/menuto_prior_owner}\"], [237963, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_client=X/menuto_prior_owner}\"], [237964, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237977, \"{menuto_prior_owner=X/menuto_prior_owner}\"]]], \"after\": [\"{menuto_prior_owner=UC/menuto_prior_owner,menuto_prior_admin=U/menuto_prior_owner,menuto_prior_client=U/menuto_prior_owner,menuto_hierarchy_owner=U/menuto_prior_owner,menuto_nutrition_owner=U/menuto_prior_owner,menuto_nutrition_synthesis_owner=U/menuto_prior_owner,menuto_identity_source_owner=U/menuto_prior_owner}\", [[237920, \"{itr_test_admin=X/itr_test_admin}\"], [237921, \"{itr_test_admin=X/itr_test_admin,menuto_prior_owner=X/itr_test_admin,menuto_hierarchy_owner=X/itr_test_admin,menuto_nutrition_owner=X/itr_test_admin,menuto_nutrition_synthesis_owner=X/itr_test_admin,menuto_identity_source_owner=X/itr_test_admin}\"], [237922, \"{itr_test_admin=X/itr_test_admin}\"], [237923, \"{itr_test_admin=X/itr_test_admin}\"], [237924, \"{itr_test_admin=X/itr_test_admin}\"], [237925, \"{itr_test_admin=X/itr_test_admin}\"], [237926, \"{itr_test_admin=X/itr_test_admin}\"], [237927, \"{itr_test_admin=X/itr_test_admin}\"], [237928, \"{itr_test_admin=X/itr_test_admin}\"], [237929, \"{itr_test_admin=X/itr_test_admin}\"], [237930, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237931, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237932, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237933, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237934, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237935, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237936, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237937, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237938, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237939, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237940, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237941, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237942, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237943, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237944, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237945, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237946, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237947, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237948, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237949, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237950, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237951, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237952, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237953, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237954, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237955, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_admin=X/menuto_prior_owner}\"], [237956, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_admin=X/menuto_prior_owner}\"], [237957, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_admin=X/menuto_prior_owner}\"], [237958, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237959, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237960, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_client=X/menuto_prior_owner}\"], [237962, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_client=X/menuto_prior_owner}\"], [237963, \"{menuto_prior_owner=X/menuto_prior_owner,menuto_prior_client=X/menuto_prior_owner}\"], [237964, \"{menuto_prior_owner=X/menuto_prior_owner}\"], [237977, \"{menuto_prior_owner=X/menuto_prior_owner}\"]]]}"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_native::test_itr018_native_layout_catalog[public]",
+        "values": [
+          {
+            "name": "native_catalog",
+            "value": "{\"namespace\": \"public\", \"rows\": [[257566, 257565, \"1.2\", \"public\", \"ssl_client_serial\", \"\", \"numeric\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_serial\", \"$libdir/sslinfo\", null, \"pg_proc\", 257566, \"pg_extension\", 257565, \"e\"], [257567, 257565, \"1.2\", \"public\", \"ssl_is_used\", \"\", \"boolean\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_is_used\", \"$libdir/sslinfo\", \"{=X/itr_test_admin,itr_test_admin=X/itr_test_admin,menuto_prior_owner=X/itr_test_admin,menuto_hierarchy_owner=X/itr_test_admin,menuto_nutrition_owner=X/itr_test_admin,menuto_nutrition_synthesis_owner=X/itr_test_admin,menuto_identity_source_owner=X/itr_test_admin}\", \"pg_proc\", 257567, \"pg_extension\", 257565, \"e\"], [257568, 257565, \"1.2\", \"public\", \"ssl_version\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_version\", \"$libdir/sslinfo\", null, \"pg_proc\", 257568, \"pg_extension\", 257565, \"e\"], [257569, 257565, \"1.2\", \"public\", \"ssl_cipher\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_cipher\", \"$libdir/sslinfo\", null, \"pg_proc\", 257569, \"pg_extension\", 257565, \"e\"], [257570, 257565, \"1.2\", \"public\", \"ssl_client_cert_present\", \"\", \"boolean\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_cert_present\", \"$libdir/sslinfo\", null, \"pg_proc\", 257570, \"pg_extension\", 257565, \"e\"], [257571, 257565, \"1.2\", \"public\", \"ssl_client_dn_field\", \"text\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_dn_field\", \"$libdir/sslinfo\", null, \"pg_proc\", 257571, \"pg_extension\", 257565, \"e\"], [257572, 257565, \"1.2\", \"public\", \"ssl_issuer_field\", \"text\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_issuer_field\", \"$libdir/sslinfo\", null, \"pg_proc\", 257572, \"pg_extension\", 257565, \"e\"], [257573, 257565, \"1.2\", \"public\", \"ssl_client_dn\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_client_dn\", \"$libdir/sslinfo\", null, \"pg_proc\", 257573, \"pg_extension\", 257565, \"e\"], [257574, 257565, \"1.2\", \"public\", \"ssl_issuer_dn\", \"\", \"text\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_issuer_dn\", \"$libdir/sslinfo\", null, \"pg_proc\", 257574, \"pg_extension\", 257565, \"e\"], [257575, 257565, \"1.2\", \"public\", \"ssl_extension_info\", \"OUT name text, OUT value text, OUT critical boolean\", \"SETOF record\", 10, \"itr_test_admin\", true, \"c\", false, \"ssl_extension_info\", \"$libdir/sslinfo\", null, \"pg_proc\", 257575, \"pg_extension\", 257565, \"e\"]], \"public_count\": 78, \"parsed_tls_dependency\": [[true, \"menuto_identity_source_owner\", true, [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], 257567]]}"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_native::test_itr019_native_isolation[public]",
+        "values": [
+          {
+            "name": "native_negative_function_matrix",
+            "value": "[[\"menuto_prior\", \"reason\", false], [\"menuto_prior\", \"immutable\", false], [\"menuto_prior\", \"hash\", false], [\"menuto_prior\", \"canonical\", false], [\"menuto_prior\", \"keys\", false], [\"menuto_prior\", \"integer\", false], [\"menuto_prior\", \"identifier\", false], [\"menuto_prior\", \"uuid\", false], [\"menuto_prior\", \"nonblank\", false], [\"menuto_prior\", \"backend_tls\", false], [\"menuto_prior\", \"coordinate\", false], [\"menuto_prior\", \"utc\", false], [\"menuto_prior\", \"safe_role\", false], [\"menuto_prior\", \"check_target\", false], [\"menuto_prior\", \"session_fact\", false], [\"menuto_prior\", \"audit\", false], [\"menuto_prior\", \"actor\", false], [\"menuto_prior\", \"target\", false], [\"menuto_prior\", \"provider_fact\", false], [\"menuto_prior\", \"principal_fact\", false], [\"menuto_prior\", \"authority_fact\", false], [\"menuto_prior\", \"revision_fact\", false], [\"menuto_hierarchy\", \"identifier\", false], [\"menuto_prior\", \"mutation_fact\", false], [\"menuto_prior\", \"append_mutation\", false], [\"menuto_prior\", \"principal\", false], [\"menuto_prior\", \"permission\", false], [\"menuto_prior\", \"receipt\", false], [\"menuto_prior\", \"publish\", false], [\"menuto_prior\", \"check_uri\", false], [\"menuto_prior\", \"coherent\", false], [\"menuto_prior\", \"capture_complete\", false], [\"menuto_prior\", \"register_provider\", false], [\"menuto_prior\", \"enroll_principal\", false], [\"menuto_prior\", \"change_authority\", false], [\"menuto_prior\", \"capture\", false], [\"menuto_hierarchy\", \"raw_hash\", false], [\"menuto_hierarchy\", \"less\", false], [\"menuto_hierarchy\", \"check_policy\", false], [\"menuto_hierarchy\", \"backend_tls\", false], [\"menuto_hierarchy\", \"canonical\", false], [\"menuto_hierarchy\", \"hash\", false], [\"menuto_hierarchy\", \"keys\", false], [\"menuto_hierarchy\", \"integer\", false], [\"menuto_hierarchy\", \"uuid\", false], [\"menuto_hierarchy\", \"nonblank\", false], [\"menuto_hierarchy\", \"reason\", false], [\"menuto_hierarchy\", \"safe_role\", false], [\"menuto_hierarchy\", \"session_fact\", false], [\"menuto_hierarchy\", \"audit\", false], [\"menuto_hierarchy\", \"actor\", false], [\"menuto_hierarchy\", \"provider_fact\", false], [\"menuto_hierarchy\", \"principal_fact\", false], [\"menuto_hierarchy\", \"authority_fact\", false], [\"menuto_hierarchy\", \"mutation_fact\", false], [\"menuto_hierarchy\", \"append_mutation\", false], [\"menuto_hierarchy\", \"principal\", false], [\"menuto_hierarchy\", \"permission\", false], [\"menuto_hierarchy\", \"provenance\", false], [\"menuto_hierarchy\", \"check_uri\", false], [\"menuto_hierarchy\", \"command_schema\", false], [\"menuto_hierarchy\", \"check_provider_binding\", false], [\"menuto_hierarchy\", \"validate_json\", false], [\"menuto_hierarchy\", \"revision_fact\", false], [\"menuto_hierarchy\", \"receipt\", false], [\"menuto_hierarchy\", \"rational\", false], [\"menuto_hierarchy\", \"path_matches\", false], [\"menuto_hierarchy\", \"check_binding\", false], [\"menuto_hierarchy\", \"check_relation\", false], [\"menuto_hierarchy\", \"immutable\", false], [\"menuto_hierarchy\", \"recipe_snapshot\", false], [\"menuto_hierarchy\", \"owner_source\", false], [\"menuto_hierarchy\", \"owner_pins\", false], [\"menuto_hierarchy\", \"owner_at\", false], [\"menuto_hierarchy\", \"coherent\", false], [\"menuto_hierarchy\", \"utc\", false], [\"menuto_hierarchy\", \"recipe_leaf\", false], [\"menuto_hierarchy\", \"catalog_term\", false], [\"menuto_hierarchy\", \"decimal_text\", false], [\"menuto_hierarchy\", \"catalog_read\", false], [\"menuto_hierarchy\", \"recipes_read\", false], [\"menuto_hierarchy\", \"register_provider\", false], [\"menuto_hierarchy\", \"enroll_principal\", false], [\"menuto_hierarchy\", \"change_authority\", false], [\"menuto_hierarchy\", \"publish\", false], [\"menuto_hierarchy\", \"capture\", false], [\"menuto_nutrition\", \"interval_ok\", false], [\"menuto_nutrition\", \"covers\", false], [\"menuto_nutrition\", \"backend_tls\", false], [\"menuto_nutrition\", \"utc\", false], [\"menuto_nutrition\", \"canonical\", false], [\"menuto_nutrition\", \"hash\", false], [\"menuto_nutrition\", \"uuid\", false], [\"menuto_nutrition\", \"bounds\", false], [\"menuto_nutrition\", \"deadline\", false], [\"menuto_nutrition\", \"safe_role\", false], [\"menuto_nutrition\", \"session_fact\", false], [\"menuto_nutrition\", \"amount\", false], [\"menuto_nutrition\", \"evidence\", false], [\"menuto_nutrition\", \"strict_sets\", false], [\"menuto_nutrition\", \"authority_group\", false], [\"menuto_nutrition\", \"authority_key\", false], [\"menuto_nutrition\", \"source_key\", false], [\"menuto_nutrition\", \"subject\", false], [\"menuto_nutrition\", \"legacy_anchor\", false], [\"menuto_nutrition\", \"provider_fact\", false], [\"menuto_nutrition\", \"subject_witness\", false], [\"menuto_nutrition\", \"ensure_stream\", false], [\"menuto_nutrition\", \"lock_sources\", false], [\"menuto_nutrition\", \"principal\", false], [\"menuto_nutrition\", \"provider\", false], [\"menuto_nutrition\", \"permission\", false], [\"menuto_nutrition\", \"validate_json\", false], [\"menuto_nutrition\", \"command_schema\", false], [\"menuto_nutrition\", \"check_command\", false], [\"menuto_nutrition\", \"principal_fact\", false], [\"menuto_nutrition\", \"record_body\", false], [\"menuto_nutrition\", \"record_fact\", false], [\"menuto_nutrition\", \"receipt\", false], [\"menuto_nutrition\", \"write_guard\", false], [\"menuto_nutrition\", \"check_evidence_tree\", false], [\"menuto_nutrition\", \"check_authority\", false], [\"menuto_nutrition\", \"retain_evidence\", false], [\"menuto_nutrition\", \"publication_timeline\", false], [\"menuto_nutrition\", \"check_bundle\", false], [\"menuto_nutrition\", \"check_source_command\", false], [\"menuto_nutrition\", \"immutable\", false], [\"menuto_nutrition\", \"apply_timeline\", false], [\"menuto_nutrition\", \"timeline\", false], [\"menuto_nutrition\", \"covering_revision\", false], [\"menuto_nutrition\", \"apply_publication\", false], [\"menuto_nutrition\", \"check_assessment\", false], [\"menuto_nutrition\", \"published_revision\", false], [\"menuto_nutrition\", \"check_review\", false], [\"menuto_nutrition\", \"check_publication\", false], [\"menuto_nutrition\", \"touch_sources\", false], [\"menuto_nutrition\", \"check_assessor_qualification\", false], [\"menuto_nutrition\", \"member_auth\", false], [\"menuto_nutrition\", \"check_observation\", false], [\"menuto_nutrition\", \"source_in_request\", false], [\"menuto_nutrition\", \"capture\", false], [\"menuto_nutrition\", \"coherent\", false], [\"menuto_nutrition\", \"register_provider\", false], [\"menuto_nutrition\", \"enroll_principal\", false], [\"menuto_nutrition\", \"change_authority\", false], [\"menuto_nutrition\", \"append\", false], [\"menuto_nutrition_synthesis\", \"write_guard\", false], [\"menuto_nutrition_synthesis\", \"immutable\", false], [\"menuto_nutrition_synthesis\", \"backend_tls\", false], [\"menuto_nutrition_synthesis\", \"utc\", false], [\"menuto_nutrition_synthesis\", \"uuid\", false], [\"menuto_nutrition_synthesis\", \"canonical\", false], [\"menuto_nutrition_synthesis\", \"hash\", false], [\"menuto_nutrition_synthesis\", \"check_command\", false], [\"menuto_nutrition_synthesis\", \"bounds\", false], [\"menuto_nutrition_synthesis\", \"deadline\", false], [\"menuto_nutrition_synthesis\", \"interval_ok\", false], [\"menuto_nutrition_synthesis\", \"covers\", false], [\"menuto_nutrition_synthesis\", \"evidence\", false], [\"menuto_nutrition_synthesis\", \"validate_json\", false], [\"menuto_nutrition_synthesis\", \"safe_role\", false], [\"menuto_nutrition_synthesis\", \"session_fact\", false], [\"menuto_nutrition_synthesis\", \"check_tree\", false], [\"menuto_nutrition_synthesis\", \"record_fact\", false], [\"menuto_nutrition_synthesis\", \"fact\", false], [\"menuto_nutrition_synthesis\", \"principal\", false], [\"menuto_nutrition_synthesis\", \"touch_principals\", false], [\"menuto_nutrition_synthesis\", \"lock_provider\", false], [\"menuto_nutrition_synthesis\", \"permission\", false], [\"menuto_nutrition_synthesis\", \"check_rule\", false], [\"menuto_nutrition_synthesis\", \"retain_evidence\", false], [\"menuto_nutrition_synthesis\", \"apply_publication\", false], [\"menuto_nutrition_synthesis\", \"publication_timeline\", false], [\"menuto_nutrition_synthesis\", \"coherent\", false], [\"menuto_nutrition_synthesis\", \"append\", false], [\"menuto_nutrition_synthesis\", \"register_provider\", false], [\"menuto_nutrition_synthesis\", \"enroll_principal\", false], [\"menuto_nutrition_synthesis\", \"change_authority\", false], [\"menuto_nutrition_synthesis\", \"capture\", false]]"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_native::test_itr001_native_downgrade_ledger[public]",
+        "values": [
+          {
+            "name": "shared_acl_downgrade",
+            "value": "{\"namespace\": \"public\", \"before\": [\"{pg_database_owner=UC/pg_database_owner,=U/pg_database_owner,menuto_prior_owner=U/pg_database_owner,menuto_hierarchy_owner=U/pg_database_owner,menuto_hierarchy_catalog_owner=U/pg_database_owner,menuto_hierarchy_recipes_owner=U/pg_database_owner,menuto_nutrition_owner=U/pg_database_owner,menuto_nutrition_synthesis_owner=U/pg_database_owner,menuto_identity_source_owner=U/pg_database_owner}\", [[262669, null], [262670, \"{=X/itr_test_admin,itr_test_admin=X/itr_test_admin,menuto_prior_owner=X/itr_test_admin,menuto_hierarchy_owner=X/itr_test_admin,menuto_nutrition_owner=X/itr_test_admin,menuto_nutrition_synthesis_owner=X/itr_test_admin,menuto_identity_source_owner=X/itr_test_admin}\"], [262671, null], [262672, null], [262673, null], [262674, null], [262675, null], [262676, null], [262677, null], [262678, null], [262893, null], [263489, null], [263490, null], [263491, null], [263492, null], [263493, null], [263942, null], [263943, null], [263944, null], [263945, null], [263975, null], [264207, null], [264208, null], [264209, null], [264210, null], [264211, null], [264212, null], [264683, null], [264684, null], [264685, null], [264686, null], [264687, null], [264688, null], [264689, null], [264690, null], [264691, null], [264692, null], [264693, null], [264694, null], [264696, null], [264697, null], [264698, null], [264699, null], [264700, null], [264701, null], [264785, null], [264786, null], [264787, null], [264788, null], [264789, null], [264790, null], [264791, null], [264891, null], [264892, null], [264893, null], [264894, null], [264895, null], [264897, null], [265067, null], [265068, null], [265069, null], [265070, null], [265071, null], [265072, null], [265073, null], [265464, null], [265465, null], [265466, null], [265467, null], [265468, null], [265469, null], [265470, null], [265471, null], [265472, null], [265473, null], [265474, null], [265475, null], [265476, null]]], \"after\": [\"{pg_database_owner=UC/pg_database_owner,=U/pg_database_owner,menuto_prior_owner=U/pg_database_owner,menuto_hierarchy_owner=U/pg_database_owner,menuto_hierarchy_catalog_owner=U/pg_database_owner,menuto_hierarchy_recipes_owner=U/pg_database_owner,menuto_nutrition_owner=U/pg_database_owner,menuto_nutrition_synthesis_owner=U/pg_database_owner,menuto_identity_source_owner=U/pg_database_owner}\", [[262669, null], [262670, \"{=X/itr_test_admin,itr_test_admin=X/itr_test_admin,menuto_prior_owner=X/itr_test_admin,menuto_hierarchy_owner=X/itr_test_admin,menuto_nutrition_owner=X/itr_test_admin,menuto_nutrition_synthesis_owner=X/itr_test_admin,menuto_identity_source_owner=X/itr_test_admin}\"], [262671, null], [262672, null], [262673, null], [262674, null], [262675, null], [262676, null], [262677, null], [262678, null], [262893, null], [263489, null], [263490, null], [263491, null], [263492, null], [263493, null], [263942, null], [263943, null], [263944, null], [263945, null], [263975, null], [264207, null], [264208, null], [264209, null], [264210, null], [264211, null], [264212, null], [264683, null], [264684, null], [264685, null], [264686, null], [264687, null], [264688, null], [264689, null], [264690, null], [264691, null], [264692, null], [264693, null], [264694, null], [264696, null], [264697, null], [264698, null], [264699, null], [264700, null], [264701, null], [264785, null], [264786, null], [264787, null], [264788, null], [264789, null], [264790, null], [264791, null], [264891, null], [264892, null], [264893, null], [264894, null], [264895, null], [264897, null], [265067, null], [265068, null], [265069, null], [265070, null], [265071, null], [265072, null], [265073, null], [265464, null], [265465, null], [265466, null], [265467, null], [265468, null], [265469, null], [265470, null], [265471, null], [265472, null], [265473, null], [265474, null], [265475, null], [265476, null]]]}"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_source::test_itr040_coherent_cut[unchanged]",
+        "values": [
+          {
+            "name": "ITR040_native_proof",
+            "value": "[{\"control\": \"unchanged\", \"isolation\": \"REPEATABLE READ\", \"outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"snapshot\": \"5778:5778:\"}, {\"control\": \"unchanged\", \"isolation\": \"SERIALIZABLE\", \"outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"snapshot\": \"5781:5781:\"}, {\"case\": \"actually_observed_login_descriptor_change\", \"commit_confirmed_at\": \"2026-11-19 20:17:05.465393+07:00\", \"isolation\": \"REPEATABLE READ\", \"protected_entry\": \"capture_request_source\", \"sqlstate\": \"40001\", \"whole_capture_rejected\": true, \"writer_database\": \"same\", \"writer_xid\": \"5782\"}, {\"case\": \"observed_descriptor_change_at_public_capture_boundary\", \"commit_confirmed_at\": \"2026-11-19 20:17:05.911632+07:00\", \"isolation\": \"REPEATABLE READ\", \"outcome\": \"SOURCE_CUT_INCOHERENT\", \"payload\": null, \"protected_entry\": \"capture_request_source\", \"reason\": \"CATALOG_CHANGED\", \"sqlstate\": null, \"writer_database\": \"same\", \"writer_xid\": \"5785\"}]"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_source::test_itr040_coherent_cut[mutation_before_cut]",
+        "values": [
+          {
+            "name": "ITR040_native_proof",
+            "value": "[{\"case\": \"unsafe_grant_before_fresh_cut\", \"isolation\": \"REPEATABLE READ\", \"sqlstate\": \"42501\", \"writer_database\": \"same\"}, {\"case\": \"unsafe_grant_before_fresh_cut\", \"isolation\": \"SERIALIZABLE\", \"sqlstate\": \"42501\", \"writer_database\": \"same\"}, {\"case\": \"unsafe_grant_before_fresh_cut\", \"isolation\": \"REPEATABLE READ\", \"sqlstate\": \"42501\", \"writer_database\": \"other\"}, {\"case\": \"unsafe_grant_before_fresh_cut\", \"isolation\": \"SERIALIZABLE\", \"sqlstate\": \"42501\", \"writer_database\": \"other\"}]"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_source::test_itr040_coherent_cut[mutation_after_cut]",
+        "values": [
+          {
+            "name": "ITR040_native_proof",
+            "value": "[{\"case\": \"invisible_grant\", \"commit_confirmed_at\": \"2026-11-19 20:17:18.032973+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"REPEATABLE READ\", \"next_fresh_capture_sqlstate\": \"42501\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5818:5818:\", \"sqlstate\": null, \"writer_database\": \"same\", \"writer_xid\": \"5819\"}, {\"case\": \"invisible_revoke\", \"commit_confirmed_at\": \"2026-11-19 20:17:19.624284+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"REPEATABLE READ\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5824:5824:\", \"sqlstate\": null, \"writer_database\": \"same\", \"writer_xid\": \"5825\"}, {\"case\": \"invisible_grant\", \"commit_confirmed_at\": \"2026-11-19 20:17:23.588417+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"REPEATABLE READ\", \"next_fresh_capture_sqlstate\": \"42501\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5826:5826:\", \"sqlstate\": null, \"writer_database\": \"other\", \"writer_xid\": \"5827\"}, {\"case\": \"invisible_revoke\", \"commit_confirmed_at\": \"2026-11-19 20:17:26.353837+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"REPEATABLE READ\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5830:5830:\", \"sqlstate\": null, \"writer_database\": \"other\", \"writer_xid\": \"5831\"}, {\"case\": \"invisible_grant\", \"commit_confirmed_at\": \"2026-11-19 20:17:29.070481+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"SERIALIZABLE\", \"next_fresh_capture_sqlstate\": \"42501\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5832:5832:\", \"sqlstate\": null, \"writer_database\": \"same\", \"writer_xid\": \"5833\"}, {\"case\": \"invisible_revoke\", \"commit_confirmed_at\": \"2026-11-19 20:17:30.500558+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"SERIALIZABLE\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5836:5836:\", \"sqlstate\": null, \"writer_database\": \"same\", \"writer_xid\": \"5837\"}, {\"case\": \"invisible_grant\", \"commit_confirmed_at\": \"2026-11-19 20:17:32.722714+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"SERIALIZABLE\", \"next_fresh_capture_sqlstate\": \"42501\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5838:5838:\", \"sqlstate\": null, \"writer_database\": \"other\", \"writer_xid\": \"5839\"}, {\"case\": \"invisible_revoke\", \"commit_confirmed_at\": \"2026-11-19 20:17:34.853373+07:00\", \"equal_retained_catalog\": true, \"historical_outcome\": \"AVAILABLE_AT_RETAINED_CUT\", \"isolation\": \"SERIALIZABLE\", \"numerical_use\": \"NOT_ADMITTED\", \"protected_entry\": \"capture_request_source\", \"snapshot\": \"5842:5842:\", \"sqlstate\": null, \"writer_database\": \"other\", \"writer_xid\": \"5843\"}, {\"case\": \"unsafe_old_cut_not_repaired_by_revoke\", \"snapshot\": \"5845:5845:\", \"sqlstate\": \"42501\"}]"
+          }
+        ]
+      },
+      {
+        "case": "apps.backend.tests.test_postgres_identity_source::test_itr001_fresh_install_and_downgrade",
+        "values": [
+          {
+            "name": "ITR001_fresh_install",
+            "value": "{\"functions\": [{\"arguments\": \"kind text, fact jsonb, command jsonb\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"cb59ce3e0f35afa60ee43a034165b43512e02b5e770effc453003b6265ed7b00\", \"language\": \"plpgsql\", \"name\": \"_append_receipt_v1\", \"oid\": 295324, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"previous_fact jsonb, next_fact jsonb\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"a11a70b7c497924ffe5774e83517d7f3ff634f183a54504044ca1781edc9fff0\", \"language\": \"plpgsql\", \"name\": \"_assert_lifecycle_v1\", \"oid\": 295322, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"root_id uuid, stream_id uuid, recorded_at timestamp with time zone, effective_start timestamp with time zone, effective_end timestamp with time zone\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"5275f51cd467fbdc8788c607c0eddebc3afcbfd38bbe7e24092613b18fa9715d\", \"language\": \"plpgsql\", \"name\": \"_authority_at_v1\", \"oid\": 295321, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"tag text, typed_preimage jsonb\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"e4ba37471d91124b91cad984d69c25749c09d1578011b523dd04f329b75a490f\", \"language\": \"plpgsql\", \"name\": \"_canonical_hash_v1\", \"oid\": 295311, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"request_binding jsonb, observed_session jsonb\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"53f4287180254f3e8153ee9c9cb10a3b6d018d43cc24af6d97a4d290f80b07d8\", \"language\": \"plpgsql\", \"name\": \"_capture_sources_v1\", \"oid\": 295326, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"root_id uuid, binding_id uuid, grant_id uuid\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"6ac83d397540736b5dc45ba86b08fcd0026662d635dc8ac52c3df9ae4e4dc3df\", \"language\": \"plpgsql\", \"name\": \"_lock_frontiers_v1\", \"oid\": 295320, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"actor_oid oid\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"c2647fcfe163d2575dac8072332deb00998634b8a7d9b134ad1cfe898e82b532\", \"language\": \"plpgsql\", \"name\": \"_parameter_acl_facts_v1\", \"oid\": 295312, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"raw_text text, kind text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"802007bb5744c3be5e58c3b927df66026ee4865a7bc904a320f427cfc776615e\", \"language\": \"plpgsql\", \"name\": \"_parse_command_v1\", \"oid\": 295318, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"e74bdcbd4ad07f5473a5f5de3b5aa24568dd2ee22d2a4ea42f00d7747068a433\", \"language\": \"plpgsql\", \"name\": \"_reject_history_mutation_v1\", \"oid\": 295323, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"actor_oid oid, mode text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"fd8b3f62ba5d22a2e5639ea4415ed72663836153b1dfc039790eeb8cef0d9971\", \"language\": \"plpgsql\", \"name\": \"_safe_role_v1\", \"oid\": 295315, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"mode text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"32250daf30b7d94e925b190de6f5539a6a5f489edd6b37b9ad7fb5db6d3dd6f4\", \"language\": \"plpgsql\", \"name\": \"_session_fact_v1\", \"oid\": 295317, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": false}, {\"arguments\": \"\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\"], \"definition_sha256\": \"16081058a41c6ab5d4eb0c97c4e007542c784b3e5267e6c30dcf2364f85b9d11\", \"language\": \"sql\", \"name\": \"_tls_fact_v1\", \"oid\": 295313, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": true}, {\"arguments\": \"command_text text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\", \"lock_timeout=1s\"], \"definition_sha256\": \"c76fdfc4658c3c3a1dd3306335a93f739c67b9c8e929225c423766936e7377c2\", \"language\": \"plpgsql\", \"name\": \"bootstrap_root\", \"oid\": 295328, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": true}, {\"arguments\": \"request_binding_text text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\", \"lock_timeout=1s\"], \"definition_sha256\": \"2616649bdebda96cb7160b553cb81c4fc7118edcdda12a03c61601d32b22d2fa\", \"language\": \"plpgsql\", \"name\": \"capture_request_source\", \"oid\": 295332, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": true}, {\"arguments\": \"command_text text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\", \"lock_timeout=1s\"], \"definition_sha256\": \"f4448c22a63317f210db1c87e547ea63e20b3d5e5143361c3dbf514cccbb51d2\", \"language\": \"plpgsql\", \"name\": \"change_binding\", \"oid\": 295330, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": true}, {\"arguments\": \"command_text text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\", \"lock_timeout=1s\"], \"definition_sha256\": \"c937a3981d0c2881ef179d011e13c5b2333d5cb1638b6e3ab3a5d8ccc79c1ae2\", \"language\": \"plpgsql\", \"name\": \"change_issuer\", \"oid\": 295329, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": true}, {\"arguments\": \"command_text text\", \"configuration\": [\"search_path=pg_catalog, menuto_identity_source, pg_temp\", \"lock_timeout=1s\"], \"definition_sha256\": \"475eaf714490e0d4cd3d553ff6a0a626cc5d42e5714e5be7cfee9d7b6d0a1c83\", \"language\": \"plpgsql\", \"name\": \"change_operation_grant\", \"oid\": 295331, \"owner\": \"menuto_identity_source_owner\", \"public_execute\": false, \"security_definer\": true}], \"production_nutrition_content\": 0, \"revision\": \"0018\", \"roles\": [[\"menuto_identity_bootstrap\", 25583, false, false, false, false, false, false], [\"menuto_identity_issuer\", 25584, false, false, false, false, false, false], [\"menuto_identity_requester\", 25585, false, false, false, false, false, false], [\"menuto_identity_source_owner\", 25582, false, false, false, false, false, false]], \"row_counts\": {\"menuto_identity_source.command_receipts\": 0, \"menuto_identity_source.frontiers\": 0, \"menuto_identity_source.issuers\": 0, \"menuto_identity_source.operation_grants\": 0, \"menuto_identity_source.principal_bindings\": 0, \"menuto_identity_source.roots\": 0, \"public.affinity_feature_terms\": 0, \"public.culinary_feature_applicabilities\": 0, \"public.culinary_feature_applicability_slots\": 0, \"public.culinary_feature_applicability_tiers\": 0, \"public.culinary_feature_assignments\": 0, \"public.culinary_feature_frontier\": 1, \"public.culinary_feature_main_protein_support\": 0, \"public.culinary_feature_review_terms\": 0, \"public.culinary_feature_reviews\": 0, \"public.culinary_requirement_bindings\": 0, \"public.hierarchy_source_authority\": 0, \"public.hierarchy_source_frontiers\": 0, \"public.hierarchy_source_mutations\": 0, \"public.hierarchy_source_principals\": 0, \"public.hierarchy_source_providers\": 0, \"public.hierarchy_source_revisions\": 0, \"public.hierarchy_source_streams\": 0, \"public.household_members\": 0, \"public.households\": 0, \"public.ingredient_product_maps\": 0, \"public.ingredient_protein_assignments\": 0, \"public.ingredient_protein_frontier\": 1, \"public.ingredient_protein_review_terms\": 0, \"public.ingredient_protein_reviews\": 0, \"public.ingredient_protein_streams\": 0, \"public.ingredients\": 0, \"public.inventory_lot_balances\": 0, \"public.inventory_lots\": 0, \"public.inventory_movements\": 0, \"public.inventory_reservation_releases\": 0, \"public.inventory_reservations\": 0, \"public.member_nutrition_profiles\": 0, \"public.member_preference_declarations\": 0, \"public.member_preference_frontiers\": 0, \"public.member_preference_streams\": 0, \"public.member_safety_constraints\": 0, \"public.memberships\": 0, \"public.nutrition_eligibility_revisions\": 0, \"public.nutrition_facts\": 0, \"public.nutrition_goal_revisions\": 0, \"public.nutrition_guideline_drafts\": 0, \"public.nutrition_guideline_publications\": 0, \"public.nutrition_guideline_reviews\": 0, \"public.nutrition_member_delegations\": 0, \"public.nutrition_physiology_revisions\": 0, \"public.nutrition_source_authority\": 0, \"public.nutrition_source_evidence_artifacts\": 0, \"public.nutrition_source_principals\": 0, \"public.nutrition_source_providers\": 0, \"public.nutrition_source_receipts\": 0, \"public.nutrition_source_streams\": 0, \"public.nutrition_synthesis_drafts\": 0, \"public.nutrition_synthesis_evidence\": 0, \"public.nutrition_synthesis_grants\": 0, \"public.nutrition_synthesis_principal_frontiers\": 0, \"public.nutrition_synthesis_principals\": 0, \"public.nutrition_synthesis_providers\": 0, \"public.nutrition_synthesis_publications\": 0, \"public.nutrition_synthesis_receipts\": 0, \"public.nutrition_synthesis_reviews\": 0, \"public.nutrition_synthesis_streams\": 0, \"public.plan_materialization_links\": 0, \"public.plan_meal_intents\": 0, \"public.plan_meal_participants\": 0, \"public.plan_proposal_seals\": 0, \"public.plan_proposals\": 0, \"public.plan_reservation_intents\": 0, \"public.plan_revision_reservations\": 0, \"public.plan_revisions\": 0, \"public.plan_validation_authorizations\": 0, \"public.plan_workspaces\": 0, \"public.planned_batch_allocations\": 0, \"public.planned_cooking_batches\": 0, \"public.planned_culinary_bindings\": 0, \"public.planning_price_quotes\": 0, \"public.planning_procurement_options\": 0, \"public.preparation_transformations\": 0, \"public.price_observations\": 0, \"public.procurement_class_members\": 0, \"public.procurement_classes\": 0, \"public.recipe_combination_members\": 0, \"public.recipe_ingredients\": 0, \"public.recipe_portion_tiers\": 0, \"public.recipe_rule_combinations\": 0, \"public.recipe_tier_quantities\": 0, \"public.recipe_variant_rules\": 0, \"public.recipe_version_seals\": 0, \"public.recipe_versions\": 0, \"public.recipes\": 0, \"public.reference_price_books\": 0, \"public.reference_price_entries\": 0, \"public.reference_prior_authority\": 0, \"public.reference_prior_frontiers\": 0, \"public.reference_prior_mutations\": 0, \"public.reference_prior_principals\": 0, \"public.reference_prior_providers\": 0, \"public.reference_prior_revisions\": 0, \"public.reference_prior_streams\": 0, \"public.retail_legacy_option_assessments\": 0, \"public.retail_packages\": 0, \"public.retail_price_calibrations\": 0, \"public.retail_products\": 0, \"public.retailer_status_facts\": 0, \"public.retailers\": 0, \"public.shopping_demand_contributions\": 0, \"public.shopping_requirement_intents\": 0, \"public.store_regions\": 0, \"public.users\": 0}, \"table_count\": 114}"
+          }
+        ]
+      }
+    ],
+    "external_guards_log_sha256": "d9835c56b1463c424336f76a0b6e1fb9bf02569b07171a8085a1f822e38b76a9",
+    "benchmark": "22/22",
+    "client": "10/10",
+    "SCRAM_TLS": "16/16",
+    "exports": {
+      "retained": 537,
+      "additive": 19,
+      "total": 556
+    },
+    "schema": {
+      "previous_revision": "0017",
+      "revision": "0018",
+      "previous_domain_tables": 108,
+      "domain_tables": 114
+    },
+    "original19_preserved": true,
+    "production_gate": "CLOSED",
+    "implementation_pr_ci": "PENDING_NOT_CLAIMED"
+  },
+  "original35_immutable": true,
+  "original19_preserved": true,
+  "mutation_executions_in_full_suite": [
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_exact_inverse_and_unchanged35_ledger",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "29",
+      "time": "0.021"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[baseline_not_postimage]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "56",
+      "time": "0.008"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[extra_source]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "56",
+      "time": "0.008"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[duplicate_insertion]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "56",
+      "time": "0.008"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[altered_literal]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "56",
+      "time": "0.008"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[altered_preimage]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "56",
+      "time": "0.009"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[changed_surrounding]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "56",
+      "time": "0.009"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_patch36_rejects_nonexact_source[crlf_postimage]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "56",
+      "time": "0.010"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_original040b_assertions_execute_unchanged",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "112",
+      "time": "0.440"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0001_household_member_safety_and_measured_.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.227"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0002_correct_foundation_boundaries.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.268"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0003_retail_procurement_foundation.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.240"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0004_correct_retail_semantics.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.244"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0005_recipe_preparation_foundation.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.240"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0006_culinary_binding_count_policy.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.260"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0007_inventory_physical_ledger.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.282"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0008_plan_revision_foundation.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.286"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0009_plan_revision_semantic_corrections.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.295"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0010_planned_culinary_bindings.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.328"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0011_explicit_member_preferences.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.321"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0012_preference_authorship_semantics.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.296"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_old_migration_body_mutation_rejected_by_both_guards[apps/backend/migrations/versions/0013_culinary_feature_assignments.py]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "119",
+      "time": "0.315"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[delete_old]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "130",
+      "time": "0.178"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[rename_old]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "130",
+      "time": "0.175"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[extra0019]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "130",
+      "time": "0.303"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_migration_filename_mutation_rejected_by_both_guards[extra_unknown]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "130",
+      "time": "0.334"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[name]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "147",
+      "time": "0.060"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[revision]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "147",
+      "time": "0.291"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[down_revision]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "147",
+      "time": "0.280"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity0018_exact_manifest_rejects_drift[body]",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "147",
+      "time": "0.273"
+    },
+    {
+      "classname": "apps.backend.tests.test_identity_migration_compatibility",
+      "name": "test_identity_original_receipt_mutation_rejected",
+      "file": "apps\\backend\\tests\\test_identity_migration_compatibility.py",
+      "line": "168",
+      "time": "0.068"
+    }
+  ],
+  "canonical_git_migration_integrity": {
+    "file": "apps/backend/migrations/versions/0018_identity_principal_user_sources.py",
+    "working_CRLF_sha256": "f4042d22ddcbecb1cd116fce59de9c027bd7f569e8c5a4922a5f0cdb4d0b6e0e",
+    "canonical_committed_LF_sha256": "27282e130042a202da2fee1c4e1d05dc97c2512c3dea9f380d4af8696659d7de",
+    "exact_CRLF_to_LF_only": true,
+    "AST_including_literal_SQL_values_equal": true,
+    "source_behavior_or_privileges_changed": false,
+    "target_affinity_postimage_unchanged": true,
+    "guard_remains_raw_exact_sha256": true
+  },
+  "canonical_focused_verification": {
+    "passed": 48,
+    "skips": 0,
+    "failures": 0,
+    "errors": 0
+  }
+}

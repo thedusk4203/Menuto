@@ -19,6 +19,11 @@ from app.modules.nutrition.resolution_limits import ingest, structure
 from app.modules.planning import policy_v2_capture as host
 from app.modules.validation.nutrition_policy_v2 import check_policy_handoff_v2, check_policy_v2
 from basis_fixtures import reauthor_meaning, rehash_artifact, rehash_sources, retained
+from identity_compatibility_metadata import (
+    IDENTITY_EXPORT_NAMES,
+    assert_identity_migration_delta,
+    restore_identity_metadata,
+)
 from nutrition_synthesis_fixtures import instruction
 from policy_v2_fixtures import (
     author_root,
@@ -640,9 +645,11 @@ def test_piv_d31_all_frozen_definition_bodies_files_and_schema():
         'PlanIntentResolutionV1',
         'PlanIntentCheckV1',
     }
-    assert len(additions) == 13 and len(defs) == 537
+    assert len(additions) == 13 and len(defs) == 556
     assert set(proof["definitions"]) <= set(defs)
-    assert set(defs) - set(proof["definitions"]) == additions | set(explicit_intent)
+    assert set(defs) - set(proof["definitions"]) == (
+        additions | set(explicit_intent) | set(IDENTITY_EXPORT_NAMES)
+    )
     for name, expected in proof["definitions"].items():
         assert (
             hashlib.sha256(
@@ -654,7 +661,7 @@ def test_piv_d31_all_frozen_definition_bodies_files_and_schema():
         assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == expected, path
     for path, expected in proof["baseline_test_files"].items():
         assert hashlib.sha256(historical_test_preimage(path)).hexdigest() == expected, path
-    assert not list((ROOT / "apps/backend/migrations/versions").glob("0018*"))
+    assert_identity_migration_delta(ROOT)
 
 
 def historical_test_preimage(path):
@@ -768,7 +775,9 @@ def historical_test_preimage(path):
             ),
         ],
     }
-    body = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
+    body = restore_identity_metadata(
+        path, (ROOT / path).read_bytes().replace(b"\r\n", b"\n").decode()
+    ).encode()
     # Exact EPI metadata preimages precede the unchanged seven PIV exceptions.
     epi_exceptions = {
         'apps/backend/tests/test_candidate_feature_projection.py': [

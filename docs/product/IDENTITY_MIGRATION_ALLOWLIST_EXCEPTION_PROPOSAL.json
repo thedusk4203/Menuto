@@ -1,0 +1,23 @@
+{
+  "disposition": "PROPOSED_ONLY_NOT_AUTHORIZED_NOT_APPLIED",
+  "baseline": "68fcb688231460f1973077eb20140b8c5db440a2",
+  "file": "apps/backend/tests/test_target_affinity.py",
+  "test": "test_all_frozen_040a_041abcde_046a_definitions_and_migrations_retained",
+  "line": 515,
+  "before_sha256": "4196726aa225684fb294dbe4f7e1cd917f51180c44368c0f943a67be55e47f13",
+  "proposed_after_sha256": "13fb1dee71b83ff6f3789133fe8481e3738458e9a87a9f05a718b9041f65746f",
+  "unified_diff": "--- a/apps/backend/tests/test_target_affinity.py\n+++ b/apps/backend/tests/test_target_affinity.py\n@@ -516,8 +516,9 @@\n         \"apps/backend/migrations/versions/0014_reviewed_reference_prior_source.py\",\n         \"apps/backend/migrations/versions/0015_reviewed_hierarchy_source.py\",\n         \"apps/backend/migrations/versions/0016_nutrition_root_sources.py\",\n         \"apps/backend/migrations/versions/0017_nutrition_synthesis_sources.py\",\n+        \"apps/backend/migrations/versions/0018_identity_principal_user_sources.py\",\n     }\n \n \n @pytest.mark.parametrize(\n",
+  "approved35_package_sha256": "f82f527841e4cc2e2c9097bf6fa36226c19e3d9397531d75c8a30e8d305095d3",
+  "historical_guard_unchanged": true,
+  "full_result": {
+    "executed": 4573,
+    "passed": 4572,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "unexecuted_from4834_collection": 261
+  },
+  "identity_executed_in_same_full_run": 223,
+  "identity_real_pg_executions_in_same_full_run": 150,
+  "compatibility_followup_proposal": "Retain original approved35 package/hash unchanged. If owner authorizes this one-file/one-block exception, add a separately pinned exact before/after/inverse proof to new Identity compatibility helper/tests; preserve all baseline fixtures,174preimages,537bodies and migration hashes."
+}

@@ -39,6 +39,9 @@ from candidate_feature_fixtures import (
     seal_source,
 )
 from grounding_fixtures import empty_inventory
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 CORE = "app.modules.planning.candidate_feature_projection"
@@ -724,7 +727,8 @@ def test_cfp60_retained_baseline_contracts_files_and_no_new_persistence():
     )
     definitions = json.loads((ROOT / "packages/contracts/domain.schema.json").read_text())["$defs"]
     assert len(pins["definitions"]) == 358
-    assert len(definitions) == 537  # 528 retained +9 additive explicit plan intent.
+    assert len(definitions) == 556  # 537 +19 Identity =556.
+    # Historical EPI stage: 528 retained +9 additive explicit plan intent.
     for name, digest in pins["definitions"].items():
         assert (
             hashlib.sha256(json.dumps(definitions[name], sort_keys=True).encode()).hexdigest()
@@ -741,7 +745,7 @@ def test_cfp60_retained_baseline_contracts_files_and_no_new_persistence():
         p.name[:4]
         for p in (ROOT / "apps/backend/migrations/versions").glob("*.py")
         if p.name[:4].isdigit()
-    ) == [f"{n:04}" for n in range(1, 18)]
+    ) == [f"{n:04}" for n in range(1, 18)] + [IDENTITY_MIGRATION_REVISION]
     tree = ast.parse(
         (ROOT / "apps/backend/app/modules/planning/candidate_feature_projection.py").read_text()
     )

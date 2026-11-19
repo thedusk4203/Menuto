@@ -21,6 +21,9 @@ from app.modules.preferences.hierarchy_sources import (
 )
 from app.persistence.database import create_database_engine
 from hierarchy_fixtures import policy as authored_policy
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from preference_fixtures import provenance
 from sqlalchemy import inspect, text
 from sqlalchemy.engine import make_url
@@ -73,7 +76,10 @@ def hierarchy_server():
         with engine.connect() as conn:
             config.attributes["connection"] = conn
             command.upgrade(config, "head")
-            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+            assert (
+                conn.scalar(text("SELECT version_num FROM alembic_version"))
+                == IDENTITY_MIGRATION_REVISION
+            )
             assert len(inspect(conn).get_table_names()) == 109
             for table in (
                 "providers",

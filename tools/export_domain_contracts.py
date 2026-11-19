@@ -43,6 +43,26 @@ from app.modules.households.contracts import (
     HouseholdMemberIdentity,
     MealParticipants,
 )
+from app.modules.identity.source_contracts import (
+    IdentityBindingCommandV1,
+    IdentityCaptureFailureV1,
+    IdentityCaptureFrameV1,
+    IdentityCommandReceiptV1,
+    IdentityEffectiveRequestV1,
+    IdentityIssuerCommandV1,
+    IdentityMembershipWitnessV1,
+    IdentityOperationGrantCommandV1,
+    IdentityPrivilegeObjectFactV1,
+    IdentityRecordedFactV1,
+    IdentityRequestBindingV1,
+    IdentityRoleEdgeV1,
+    IdentityRoleFactV1,
+    IdentityRootCommandV1,
+    IdentitySessionFactV1,
+    IdentitySourceCheckV1,
+    IdentitySourceFrontierV1,
+    IdentitySourceSnapshotV1,
+)
 from app.modules.inventory.contracts import (
     AcquireInventoryCommand,
     BatchFlowLinkDraft,
@@ -234,6 +254,7 @@ from app.modules.planning.tastefit_contracts import (
     ScopedTargetTasteFit,
     TasteFitInterpretationPolicy,
 )
+from app.modules.policy.authenticated_intent_contracts import AuthenticatedPlanIntentInspectionV1
 from app.modules.policy.contracts import ValidationCoveragePolicySnapshot
 from app.modules.policy.explicit_intent_contracts import (
     ExplicitPlanIntentBudgetV1,
@@ -510,8 +531,6 @@ CONTRACTS = (
     HierarchyTransferPolicy,
     HierarchyWriteReceipt,
     ReviewedHierarchySourceDraft,
-
-
     AvailableExactTargetProfileAffinity,
     EvidenceStrengthShrinkageRule,
     ExactTargetPriorBackedAffinityDraft,
@@ -554,7 +573,6 @@ CONTRACTS = (
     ReferencePriorWriteReceipt,
     ReviewedReferencePriorDraft,
     UnavailableReviewedReferencePrior,
-
     AvailableProposalLocalFeaturePenalty,
     FeatureCooldownAssessmentDraft,
     FeatureCooldownInput,
@@ -797,29 +815,49 @@ CONTRACTS = (
 
 
 CONTRACTS += (
-    NutritionAuthorityCommand, NutritionAuthorityFact, NutritionPrincipalEnrollment,
-    NutritionPrincipalFact, NutritionProviderEnrollment, NutritionProviderFact,
-    NutritionRecordedSource, NutritionRootContract, NutritionRootRequest,
-    NutritionRootSourceSnapshot, NutritionRootValidationInput, NutritionRootValidationReport,
+    NutritionAuthorityCommand,
+    NutritionAuthorityFact,
+    NutritionPrincipalEnrollment,
+    NutritionPrincipalFact,
+    NutritionProviderEnrollment,
+    NutritionProviderFact,
+    NutritionRecordedSource,
+    NutritionRootContract,
+    NutritionRootRequest,
+    NutritionRootSourceSnapshot,
+    NutritionRootValidationInput,
+    NutritionRootValidationReport,
     NutritionSourceCommand,
 )
 
 CONTRACTS += (
-    NutritionPolicy, NutritionPolicyReference, NutritionPolicyValidationInput,
-    NutritionPolicyValidationReport, NutritionSynthesisCaptureCommand,
-    NutritionSynthesisCommand, NutritionSynthesisGrant, NutritionSynthesisPrincipalEnrollment,
-    NutritionSynthesisProviderEnrollment, NutritionSynthesisRecorded,
+    NutritionPolicy,
+    NutritionPolicyReference,
+    NutritionPolicyValidationInput,
+    NutritionPolicyValidationReport,
+    NutritionSynthesisCaptureCommand,
+    NutritionSynthesisCommand,
+    NutritionSynthesisGrant,
+    NutritionSynthesisPrincipalEnrollment,
+    NutritionSynthesisProviderEnrollment,
+    NutritionSynthesisRecorded,
 )
 
 CONTRACTS += (
-    NutritionResolutionCheckV1, NutritionResolutionEstimateV1,
-    NutritionResolutionHandoffV2, NutritionResolutionScopeRequestV1,
-    NutritionResolutionScopeV1, NutritionResolutionSourcesV1,
+    NutritionResolutionCheckV1,
+    NutritionResolutionEstimateV1,
+    NutritionResolutionHandoffV2,
+    NutritionResolutionScopeRequestV1,
+    NutritionResolutionScopeV1,
+    NutritionResolutionSourcesV1,
 )
 
 CONTRACTS += (
-    BasisApplicabilityCheckV1, BasisApplicabilityHandoffV1, BasisApplicabilityResultV1,
-    BasisApplicabilitySourcesV1, BasisSelectorsV1,
+    BasisApplicabilityCheckV1,
+    BasisApplicabilityHandoffV1,
+    BasisApplicabilityResultV1,
+    BasisApplicabilitySourcesV1,
+    BasisSelectorsV1,
 )
 
 CONTRACTS += (
@@ -840,9 +878,37 @@ CONTRACTS += (
 
 
 CONTRACTS += (
-    ExplicitPlanIntentContextV1, ExplicitPlanIntentBudgetV1, ExplicitPlanIntentRequestV1,
-    ExplicitPlanIntentValuesV1, PlanIntentAxisEvidenceV1, ResolvedExplicitPlanIntentV1,
-    PlanIntentDiagnosticV1, PlanIntentResolutionV1, PlanIntentCheckV1,
+    ExplicitPlanIntentContextV1,
+    ExplicitPlanIntentBudgetV1,
+    ExplicitPlanIntentRequestV1,
+    ExplicitPlanIntentValuesV1,
+    PlanIntentAxisEvidenceV1,
+    ResolvedExplicitPlanIntentV1,
+    PlanIntentDiagnosticV1,
+    PlanIntentResolutionV1,
+    PlanIntentCheckV1,
+)
+
+CONTRACTS += (
+    IdentityEffectiveRequestV1,
+    IdentityRoleFactV1,
+    IdentityRoleEdgeV1,
+    IdentityPrivilegeObjectFactV1,
+    IdentitySessionFactV1,
+    IdentityRootCommandV1,
+    IdentityIssuerCommandV1,
+    IdentityBindingCommandV1,
+    IdentityOperationGrantCommandV1,
+    IdentityRecordedFactV1,
+    IdentityCommandReceiptV1,
+    IdentityRequestBindingV1,
+    IdentityMembershipWitnessV1,
+    IdentitySourceFrontierV1,
+    IdentityCaptureFrameV1,
+    IdentitySourceSnapshotV1,
+    IdentityCaptureFailureV1,
+    IdentitySourceCheckV1,
+    AuthenticatedPlanIntentInspectionV1,
 )
 
 

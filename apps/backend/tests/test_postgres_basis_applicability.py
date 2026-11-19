@@ -9,6 +9,9 @@ from app.modules.nutrition.basis_applicability import basis_handoff, resolve_bas
 from app.modules.planning import basis_capture as capture_module
 from app.modules.validation.basis_applicability import check_basis_handoff_independently
 from basis_postgres_fixtures import capture_basis, mba_case, nre_case  # noqa: F401
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from nutrition_root_postgres_fixtures import nrc_server, reader  # noqa: F401
 from test_postgres_foundation import postgres_engine  # noqa: F401
 
@@ -304,7 +307,10 @@ def test_mba011_fresh_install_no_basis_objects_or_content(postgres_engine):  # n
     from sqlalchemy.orm import Session
 
     with Session(postgres_engine) as db:
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            db.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         tables = inspect(db.connection()).get_table_names()
         assert len(tables) == 109 and not any("basis" in t for t in tables)
         for name in tables:

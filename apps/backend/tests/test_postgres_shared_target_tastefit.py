@@ -19,6 +19,9 @@ from app.modules.planning.shared_target_tastefit_public import (
     validate_shared_member_target_tastefit as validate,
 )
 from app.modules.planning.tastefit_contracts import TasteFitInterpretationPolicy
+from identity_compatibility_metadata import (
+    IDENTITY_MIGRATION_REVISION,
+)
 from shared_target_tastefit_fixtures import pack
 from shared_target_tastefit_postgres_fixtures import (
     author_for_members,
@@ -630,7 +633,10 @@ def test_smtf34_real_schema_0015_85_zero_persistence(tastefit_server):
     s = prepared_group(tastefit_server)
     before = inventory(s)
     with s["engines"]["root"].connect() as db:
-        assert db.scalar(text("SELECT version_num FROM alembic_version")) == "0017"
+        assert (
+            db.scalar(text("SELECT version_num FROM alembic_version"))
+            == IDENTITY_MIGRATION_REVISION
+        )
         names = inspect(db).get_table_names()
         assert len(set(names) - {"alembic_version"}) == 108
         assert not any("shared_target_tastefit" in name for name in names)
